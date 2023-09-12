@@ -1,1 +1,13 @@
-<p>referance works!</p>
+<div>
+    <h1>Todo List</h1>
+    <input [(ngModel)]="newTodoTitle" placeholder="New Todo">
+    <button (click)="addTodo()">Add</button>
+    <ul>
+        <li *ngFor="let todo of todos">
+            <input type="checkbox" [(ngModel)]="todo.completed">
+            {{ todo.title }}
+            <button (click)="deleteTodo(todo.id)">Delete</button>
+            <button (click)="updateTodo(todo)">Update</button>
+        </li>
+    </ul>
+</div>
