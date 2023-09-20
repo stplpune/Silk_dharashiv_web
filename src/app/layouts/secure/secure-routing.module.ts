@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SecureComponent } from './secure.component';
 
-const routes: Routes = [{ path: '', component: SecureComponent }];
+const routes: Routes = [
+  { path: 'dashboard', loadComponent: () => import('../../components/dashboard/dashboard.component').then(m => m.DashboardComponent) }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

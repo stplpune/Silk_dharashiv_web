@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PublicComponent } from './public.component';
 
-const routes: Routes = [{ path: '', component: PublicComponent }];
+
+const routes: Routes = [
+  { path: 'login', loadComponent: () => import('../../components/login/login.component').then(m => m.LoginComponent) }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
