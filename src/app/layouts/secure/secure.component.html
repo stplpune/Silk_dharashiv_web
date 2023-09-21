@@ -1,4 +1,14 @@
-<app-header></app-header>
-<app-side-bar></app-side-bar>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<div class="wrapper">
+    <div class="sidebar-wrapper bg-main" [ngClass]="{'open' : getSideBarState()}">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="content-wrapper">
+        <app-header></app-header>
+        <div class="data-container scrollbar">
+            <div class="container-fluid">
+                <router-outlet></router-outlet>
+            </div>
+            <!-- <app-footer></app-footer> -->
+        </div>
+    </div>
+</div>

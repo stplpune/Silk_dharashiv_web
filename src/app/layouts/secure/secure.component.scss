@@ -1,0 +1,54 @@
+.wrapper {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+.wrapper .sidebar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 260px;
+    background: #FFFFFF;
+    z-index: 100;
+    transition: cubic-bezier(0.4, 0, 0.2, 1) all 0.5s;
+}
+
+.wrapper .content-wrapper {
+    margin-left: 260px;
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper .sidebar-wrapper:hover {
+    width: 260px;
+    max-width: 260px;
+    height: 100%;
+    transition: cubic-bezier(0.4, 0, 0.2, 1) all 0.5s;
+}
+
+.data-container {
+    height: calc(100% - 61px);
+    overflow-y: auto;
+    padding: 10px 0;
+}
+
+@media only screen and (max-width: 420px) {
+    .wrapper .content-wrapper {
+        margin: 0;
+    }
+
+    .wrapper .sidebar-wrapper {
+        transition: cubic-bezier(0.4, 0, 0.2, 1) all 0.5s;
+        margin-left: -260px;
+    }
+
+    .wrapper .sidebar-wrapper.open {
+        display: table;
+        width: 260px;
+        max-width: 260px;
+        transition: cubic-bezier(0.4, 0, 0.2, 1) all 0.5s;
+        margin-left: 0;
+    }
+}
