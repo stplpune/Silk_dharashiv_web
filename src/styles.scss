@@ -1,4 +1,225 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@include mat.core();
+
+@include mat.all-component-densities(-3);
+@include mat.form-field-density(-5);
+@import url('assets/scss/MaterialStyleSheet.scss');
+
+body {
+    font-family: 'Inter', sans-serif !important;
+    background-color: #eee;
+}
+
+:root {
+    --main-color: #077947; //#2065ae
+    --main-dark-color: #056038;
+    --main-light-color: #e6f1ec;
+}
+
+.bg-main {
+    background-color: var(--main-color) !important;
+    color: #fff;
+}
+
+.bg-main-light {
+    background-color: var(--main-light-color) !important;
+}
+
+.bg-main-dark {
+    background-color: var(--main-dark-color) !important;
+    color: #fff;
+}
+
+.text-main,
+a.text-main {
+    color: var(--main-color) !important;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+a.text-main:hover {
+    color: var(--main-dark-color);
+    text-decoration: underline;
+}
+
+.text-main-dark {
+    color: var(--main-dark-color);
+}
+
+.text-main-light {
+    color: var(--main-light-color);
+}
+
+.btn-main,
+.btn-main-light,
+.btn-main-dark {
+    font-family: 'Inter', sans-serif !important;
+    letter-spacing: 0px !important;
+}
+
+.btn-main {
+    background-color: var(--main-color) !important;
+    color: #fff !important;
+    height: 36px !important;
+}
+
+.btn-main:hover {
+    background-color: var(--main-dark-color) !important;
+    color: #fff;
+}
+
+.btn-main-light {
+    background-color: var(--main-light-color) !important;
+    color: var(--main-color) !important;
+    height: 36px !important;
+}
+
+.btn-main-light:hover {
+    background-color: var(--main-color) !important;
+    color: #fff !important;
+}
+
+.btn-main-dark:hover,
+.btn-main-dark {
+    background-color: var(--main-dark-color);
+    color: #fff;
+    height: 36px !important;
+}
+
+.btn-icon {
+    width: 36px !important;
+    min-width: 36px !important;
+    line-height: 0 !important;
+    height: 36px !important;
+}
+
+.btn-icon:hover {
+    width: 36px !important;
+    min-width: 36px !important;
+}
+
+.btn-icon .material-symbols-rounded {
+    font-size: 18px !important;
+    line-height: 1 !important;
+    overflow: unset;
+    margin: 0 !important;
+}
+
+.page-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.page-heading .page-name {
+    font-weight: 500;
+}
+
+.page-heading .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+}
+
+.plain-card {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.plain-card .card-header {
+    padding: 10px 15px !important;
+    font-weight: 500;
+    border-bottom: solid 1px #e0e0e0;
+}
+
+.plain-card .card-header-control .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+}
+
+.plain-card .card-body {
+    padding: 15px !important;
+}
+
+.dashboard-table {
+    @include mat.all-component-densities(-1);
+    font-family: 'Inter', sans-serif !important;
+    box-shadow: none;
+}
+
+.dashboard-table thead th {
+    background-color: var(--main-light-color) !important;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.85rem;
+    vertical-align: middle;
+}
+
+.dashboard-table .profile-photo {
+    width: 36px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.scrollbar {
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    overscroll-behavior: auto;
+    scrollbar-color: var(--main-color) transparent;
+    // scrollbar-gutter: stable;
+    scrollbar-width: thin;
+}
+
+.scrollbar:hover::-webkit-scrollbar,
+.scrollbar:hover::-webkit-scrollbar-thumb,
+.scrollbar:hover:focus::-webkit-scrollbar,
+.scrollbar:hover:focus::-webkit-scrollbar-thumb {
+    visibility: visible;
+}
+
+.scrollbar::-webkit-scrollbar {
+    -webkit-appearance: none;
+    background-color: transparent;
+    height: 0.375rem;
+    visibility: hidden;
+    width: 0.375rem;
+}
+
+.scrollbar::-webkit-scrollbar-button,
+.scrollbar::-webkit-scrollbar-corner {
+    display: none;
+}
+
+.scrollbar::-webkit-scrollbar-button,
+.scrollbar::-webkit-scrollbar-corner {
+    display: none;
+}
+
+.scrollbar:hover::-webkit-scrollbar,
+.scrollbar:hover::-webkit-scrollbar-thumb,
+.scrollbar:hover:focus::-webkit-scrollbar,
+.scrollbar:hover:focus::-webkit-scrollbar-thumb {
+    visibility: visible;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--main-color);
+    border-radius: 3px;
+    visibility: hidden;
+}
