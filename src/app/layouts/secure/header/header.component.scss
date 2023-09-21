@@ -1,0 +1,59 @@
+.btn-sidebar-close {
+    display: none;
+}
+
+@media only screen and (max-width: 420px) {
+    .btn-sidebar-close {
+        display: flex;
+    }
+}
+
+.profile {
+    border: none;
+    outline: none;
+}
+
+.profile:hover {
+    background-color: #eee;
+}
+
+.profile:hover p {
+    color: var(--main-color);
+}
+
+.profile img {
+    border-radius: 50%;
+    width: 40px;
+}
+
+.profile p {
+    color: #1d2127;
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.profile small {
+    font-size: 0.75rem;
+    color: #555;
+}
+
+.dropdown-menu {
+    font-size: 0.85rem;
+}
+
+.dropdown-menu .dropdown-item {
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-menu .dropdown-item .material-symbols-rounded {
+    font-size: 1.1rem;
+    margin-right: 7px;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: var(--main-light-color);
+    color: var(--main-color);
+}

@@ -1,1 +1,57 @@
-<p>header works!</p>
+<nav class="navbar bg-white py-1 border-bottom shadow-sm">
+    <div class="container-fluid justify-content-lg-end justify-content-end gap-1">
+        <div class="d-flex justify-content-end align-items-center">
+            <button mat-flat-button class="btn-icon btn-sidebar-close" (click)="onClickSidebar()">
+                <span class="material-symbols-rounded">
+                    menu
+                </span>
+            </button>
+            <button mat-flat-button class="btn-icon">
+                <span class="material-symbols-rounded">
+                    notifications_active
+                </span>
+            </button>
+            <div class="dropdown">
+                <button class="btn profile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="assets/images/user.png">
+                        <div class="d-flex flex-column align-items-start">
+                            <p>Ramesh Kambale</p>
+                            <small>Headmaster</small>
+                        </div>
+                    </div>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><span class="dropdown-header text-main">Government Primary School,<br>Belwadi</span>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#">
+                            <span class="material-symbols-rounded">
+                                account_circle
+                            </span>
+                            My Profile
+                        </a>
+                    </li>
+                    <li><a class="dropdown-item" href="#">
+                            <span class="material-symbols-rounded">
+                                lock
+                            </span>
+                            Change Password
+                        </a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">
+                            <span class="material-symbols-rounded">
+                                logout
+                            </span>
+                            Logout
+                        </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
