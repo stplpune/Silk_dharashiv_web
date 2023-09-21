@@ -1,0 +1,53 @@
+/* default font and font size set */
+.mdc-form-field,
+.mdc-tab__content,
+.mat-button-toggle-button,
+.mdc-floating-label,
+.mat-mdc-input-element,
+.mdc-list-item__primary-text,
+.mat-mdc-menu-item-text,
+.mat-mdc-select-value,
+.mat-select-search-input {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.85rem !important;
+    letter-spacing: normal !important;
+    color: #000;
+}
+
+/* mat controls label color set */
+.mdc-floating-label mat-label {
+    color: #000;
+}
+
+/* label in form controls position changed */
+.mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+    top: 16px !important;
+}
+
+/* background & border color for checkbox set to default color */
+.mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
+    border-color: var(--main-color) !important;
+    background-color: var(--main-color) !important;
+}
+
+/* background color for radiobutton set to default color */
+.mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__background::before {
+    background-color: var(--main-color) !important;
+}
+
+/* border color for radiobutton set to default color */
+.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle,
+.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+    border-color: var(--main-color) !important;
+}
+
+/* border radius set to mat button toggle */
+.mat-button-toggle-group {
+    border-radius: 30px !important;
+}
+
+/* mat button toggle checked bgcolor set */
+.mat-button-toggle-group .mat-button-toggle-checked {
+    background-color: var(--main-color) !important;
+    color: #fff !important;
+}
