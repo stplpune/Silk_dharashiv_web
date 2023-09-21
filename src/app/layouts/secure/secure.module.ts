@@ -5,7 +5,7 @@ import { SecureRoutingModule } from './secure-routing.module';
 import { SecureComponent } from './secure.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { SideBarComponent } from './side-bar/side-bar.component';
+import { SideBarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
