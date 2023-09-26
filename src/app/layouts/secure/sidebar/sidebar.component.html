@@ -9,34 +9,255 @@
         </button>
     </div>
     <div class="sidebar-body">
-        <div class="avatar">
-            <div class="d-flex align-items-center gap-2 p-2">
-                <img src="assets/images/user.png">
-                <div class="d-flex flex-column align-items-start">
-                    <p>Ramesh Kambale</p>
-                    <small>Headmaster</small>
+        <ul class="menu">
+            <li>
+                <a routerLink="dashboard" routerLinkActive="active">
+                    <div class="menu-item">
+                        <img src="assets/images/sidebar-icons/dashboard.svg">
+                        Dashboard
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a data-bs-toggle="collapse" href="#collapseMaster" role="button" aria-expanded="false"
+                    aria-controls="collapseMaster">
+                    <div class="menu-item">
+                        <img src="assets/images/sidebar-icons/master.svg">
+                        Master
+                    </div>
+                    <span class="dropdown-toggle"></span>
+                </a>
+                <div class="collapse" id="collapseMaster">
+                    <div class="submenu">
+                        <a routerLink="designation-master" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Designation Master
+                        </a>
+                        <a routerLink="school-registration" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            School Registration
+                        </a>
+                        <a routerLink="teacher-registration" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Teacher Registration
+                        </a>
+                        <a routerLink="student-registration" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Student Registration
+                        </a>
+                        <a routerLink="office-user-registration" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Office User Registration
+                        </a>
+                        <a routerLink="other-registration" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Other Registration
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="list-group list-group-flush avatar-menu">
-                <a class="list-group-item list-group-item-action d-flex align-items-center" href="#">
-                    <span class="material-symbols-rounded">
-                        account_circle
-                    </span>
-                    My Profile
+            </li>
+            <li>
+                <a data-bs-toggle="collapse" href="#collapseReport" role="button" aria-expanded="false"
+                    aria-controls="collapseReport">
+                    <div class="menu-item">
+                        <img src="assets/images/sidebar-icons/reports.svg">
+                        Report
+                    </div>
+                    <span class="dropdown-toggle"></span>
                 </a>
-                <a class="list-group-item list-group-item-action d-flex align-items-center" href="#">
-                    <span class="material-symbols-rounded">
-                        lock
-                    </span>
-                    Change Password
+                <div class="collapse" id="collapseReport">
+                    <div class="submenu">
+                        <a routerLink="student-report" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Student Report
+                        </a>
+                        <a routerLink="officer-report" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Officer Report
+                        </a>
+                        <a routerLink="school-report" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            School Report
+                        </a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a data-bs-toggle="collapse" href="#collapseSettings" role="button" aria-expanded="false"
+                    aria-controls="collapseSettings">
+                    <div class="menu-item">
+                        <img src="assets/images/sidebar-icons/settings.svg">
+                        Settings
+                    </div>
+                    <span class="dropdown-toggle"></span>
                 </a>
-                <a class="list-group-item list-group-item-action d-flex align-items-center" href="#">
-                    <span class="material-symbols-rounded">
-                        logout
-                    </span>
-                    Logout
+                <div class="collapse" id="collapseSettings">
+                    <div class="submenu">
+                        <a routerLink="teacher-transfer" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Teacher Transfer
+                        </a>
+                        <a routerLink="student-transfer" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Student Transfer
+                        </a>
+                        <a routerLink="assessment-crateria" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Assessment Crateria
+                        </a>
+                        <a routerLink="page-right-access" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Page Right Access
+                        </a>
+                        <a routerLink="help-access" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Help
+                        </a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a data-bs-toggle="collapse" href="#collapseAssetMgmt" role="button" aria-expanded="false"
+                    aria-controls="collapseAssetMgmt">
+                    <div class="menu-item">
+                        <img src="assets/images/sidebar-icons/assets.svg">
+                        Asset Management
+                    </div>
+                    <span class="dropdown-toggle"></span>
                 </a>
-            </div>
-        </div>
+                <div class="collapse" id="collapseAssetMgmt">
+                    <div class="submenu">
+                        <a routerLink="category" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Category
+                        </a>
+                        <a routerLink="sub-category" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Sub Category
+                        </a>
+                        <a routerLink="item" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Item
+                        </a>
+                        <a routerLink="inward-item" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Inward Item
+                        </a>
+                        <a routerLink="outward-item" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Outward Item
+                        </a>
+                        <a routerLink="store-stock-report" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Store Stock Report
+                        </a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a data-bs-toggle="collapse" href="#collapseAttendance" role="button" aria-expanded="false"
+                    aria-controls="collapseAttendance">
+                    <div class="menu-item">
+                        <img src="assets/images/sidebar-icons/attendance.svg">
+                        Attendance
+                    </div>
+                    <span class="dropdown-toggle"></span>
+                </a>
+                <div class="collapse" id="collapseAttendance">
+                    <div class="submenu">
+                        <a routerLink="tasksheet" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Tasksheet
+                        </a>
+                        <a routerLink="holiday-master" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Holiday Master
+                        </a>
+                        <a routerLink="attendance-report" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Attendance Report
+                        </a>
+                        <a routerLink="attendance-approval" routerLinkActive="active">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            Attendance Approval
+                        </a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a data-bs-toggle="collapse" href="#collapseCCTV" role="button" aria-expanded="false"
+                    aria-controls="collapseCCTV">
+                    <div class="menu-item">
+                        <img src="assets/images/sidebar-icons/cctv.svg">
+                        CCTV Registration
+                    </div>
+                    <span class="dropdown-toggle"></span>
+                </a>
+                <div class="collapse" id="collapseCCTV">
+                    <div class="submenu">
+                        <a href="#">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            CCTV Location Registration
+                        </a>
+                        <a href="#">
+                            <span class="material-symbols-rounded">
+                                east
+                            </span>
+                            CCTV
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
