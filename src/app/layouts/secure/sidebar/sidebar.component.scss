@@ -75,33 +75,30 @@
     width: 36px;
     padding: 10px;
     border-radius: 5px;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
-.list-group a.list-group-item {
-    font-size: 0.75rem !important;
-    border: none;
-    transition: none;
-    padding: 5px 0;
-    justify-content: start !important;
-    color: #dfdfdf !important;
-    font-weight: 300;
+#sidebar .sidebar-body ul.menu li .submenu {
+    padding: 15px;
+    background-color: var(--main-light-color);
+    border-radius: 5px;
 }
 
-.list-group a.list-group-item.active,
-.list-group a.list-group-item:active,
-.list-group a.list-group-item:hover {
-    color: #fff !important;
+#sidebar .sidebar-body ul.menu li .submenu a {
+    justify-content: start;
+    padding-block: 5px;
+    font-size: 0.8rem;
 }
+
+#sidebar .sidebar-body ul.menu li .submenu a .material-symbols-rounded {
+    font-size: 1rem;
+    margin-right: 5px;
+}
+
 
 .list-group a.list-group-item:hover .material-symbols-rounded {
     -webkit-animation: bounceright 0.3s alternate ease infinite;
     animation: bounceright 0.3s alternate ease infinite;
-}
-
-.list-group a.list-group-item .material-symbols-rounded {
-    font-size: 0.9rem !important;
-    margin-right: 10px;
 }
 
 @keyframes bounceright {
