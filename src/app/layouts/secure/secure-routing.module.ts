@@ -8,6 +8,12 @@ const routes: Routes = [
   { path: 'designations', loadChildren: () => import('../../components/masters/office-master/designations/designations.module').then(m => m.DesignationsModule) },
   { path: 'block-circle', loadChildren: () => import('../../components/masters/office-master/block-circle/block-circle.module').then(m => m.BlockCircleModule) },
   { path: 'officer-registration', loadChildren: () => import('../../components/masters/office-master/officer-registration/officer-registration.module').then(m => m.OfficerRegistrationModule) },
+
+  // masters -> Rule master routing
+  { path: 'schemes', loadChildren: () => import('../../components/masters/rule-master/schemes/schemes.module').then(m => m.SchemesModule) },
+  { path: 'actions', loadChildren: () => import('../../components/masters/rule-master/actions/actions.module').then(m => m.ActionsModule) },
+  { path: 'set-rule', loadChildren: () => import('../../components/masters/rule-master/set-rule/set-rule.module').then(m => m.SetRuleModule) },
+
 ];
 
 @NgModule({
