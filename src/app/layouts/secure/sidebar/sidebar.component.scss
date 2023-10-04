@@ -14,7 +14,9 @@
 
 #sidebar .sidebar-header {
     padding: 5px 10px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #sidebar .sidebar-header img {
@@ -26,79 +28,111 @@
     margin-top: 15px;
 }
 
-#sidebar .sidebar-body ul.menu {
+ul.menu {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    width: 100%;
 }
 
-#sidebar .sidebar-body ul.menu li {
-    margin-bottom: 5px;
+ul.menu li.menu-item {
+    margin-bottom: 3px;
 }
 
-#sidebar .sidebar-body ul.menu li a {
+ul.menu a.menu-link {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 0.85rem;
     text-decoration: none;
     color: #151515;
-    font-size: 0.85rem;
-    border-radius: 5px;
-    padding-right: 10px;
-    margin-bottom: 2px;
-    transition: all 0.4s ease;
+    margin-bottom: 3px;
 }
 
-#sidebar .sidebar-body ul.menu li a[aria-expanded="false"] .dropdown-toggle {
+ul.menu li a[aria-expanded="false"] .dropdown-toggle {
     transform: rotate(270deg);
     transition: all 0.4s ease;
 }
 
-#sidebar .sidebar-body ul.menu li a[aria-expanded="true"] .dropdown-toggle {
+ul.menu li a[aria-expanded="true"] .dropdown-toggle {
     transform: rotate(359deg);
     transition: all 0.4s ease;
 }
 
-#sidebar .sidebar-body ul.menu li a:active,
-#sidebar .sidebar-body ul.menu li a.active,
-#sidebar .sidebar-body ul.menu li a:hover {
-    background-position: left bottom;
+ul.menu a.menu-link:active,
+ul.menu a.menu-link.active,
+ul.menu a.menu-link:hover {
+    background-color: #eee;
+    color: #000;
+}
+
+ul.menu .menu-icon {
+    width: 18px;
+    margin-right: 10px;
+}
+
+ul.menu ul.sub-menu {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    background-color: #eee;
     border-radius: 5px;
-}
-
-#sidebar .sidebar-body ul.menu li a .menu-item {
-    flex-shrink: 0;
-}
-
-#sidebar .sidebar-body ul.menu li a img {
-    width: 36px;
-    padding: 10px;
-    border-radius: 5px;
-    margin-right: 5px;
-}
-
-#sidebar .sidebar-body ul.menu li .submenu {
-    padding: 15px;
-    background-color: var(--main-light-color);
-    border-radius: 5px;
-}
-
-#sidebar .sidebar-body ul.menu li .submenu a {
-    justify-content: start;
+    padding-right: 15px;
+    padding-left: 30px;
     padding-block: 5px;
+}
+
+ul.menu ul.sub-menu a.submenu-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: #353535;
+    padding-block: 6px;
+}
+
+ul.menu ul.sub-menu a.submenu-link:active,
+ul.menu ul.sub-menu a.submenu-link.active,
+ul.menu ul.sub-menu a.submenu-link:hover {
+    color: #000;
+}
+
+ul.menu ul.sub-menu a.submenu-link img {
+    width: 14px;
+    margin-right: 10px;
+}
+
+ul.menu ul.sub-menu ul.sub-submenu {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    padding-left: 6px;
+}
+
+ul.menu ul.sub-menu ul.sub-submenu a {
+    display: block;
     font-size: 0.8rem;
+    padding-block: 3px;
+    text-decoration: none;
+    color: #858585;
 }
 
-#sidebar .sidebar-body ul.menu li .submenu a .material-symbols-rounded {
-    font-size: 1rem;
-    margin-right: 5px;
+ul.menu ul.sub-menu ul.sub-submenu a:hover {
+    color: #000;
 }
 
+ul.menu ul.sub-menu ul.sub-submenu a img {
+    width: 16px;
+    margin-right: 8px;
+    filter: invert(55%) sepia(0%) saturate(680%) hue-rotate(245deg) brightness(95%) contrast(81%);
+}
 
-.list-group a.list-group-item:hover .material-symbols-rounded {
+ul.menu ul.sub-menu ul.sub-submenu a:hover img {
     -webkit-animation: bounceright 0.3s alternate ease infinite;
     animation: bounceright 0.3s alternate ease infinite;
+    filter: invert(0%) sepia(5%) saturate(20%) hue-rotate(326deg) brightness(102%) contrast(100%);
 }
 
 @keyframes bounceright {
