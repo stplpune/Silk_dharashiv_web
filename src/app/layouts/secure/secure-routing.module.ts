@@ -14,6 +14,12 @@ const routes: Routes = [
   { path: 'actions', loadChildren: () => import('../../components/masters/rule-master/actions/actions.module').then(m => m.ActionsModule) },
   { path: 'set-rule', loadChildren: () => import('../../components/masters/rule-master/set-rule/set-rule.module').then(m => m.SetRuleModule) },
 
+  // CMS section files routing
+  { path: 'markets', loadChildren: () => import('../../components/cms/markets/markets.module').then(m => m.MarketsModule) },
+  { path: 'market-rate', loadChildren: () => import('../../components/cms/market-rate/market-rate.module').then(m => m.MarketRateModule) },
+  { path: 'blogs', loadChildren: () => import('../../components/cms/blogs/blogs.module').then(m => m.BlogsModule) },
+  { path: 'faq', loadChildren: () => import('../../components/cms/faq/faq.module').then(m => m.FaqModule) },
+
 ];
 
 @NgModule({
