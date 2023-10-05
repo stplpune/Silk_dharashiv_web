@@ -23,7 +23,9 @@ export class HeaderComponent {
   }
 
   openChangePasswordDialog() {
-    this.dialog.open(ChangePasswordComponent);
+    this.dialog.open(ChangePasswordComponent, {
+      width: '50%'
+    });
   }
 
 }
