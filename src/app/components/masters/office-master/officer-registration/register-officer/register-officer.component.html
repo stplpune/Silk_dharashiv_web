@@ -1,0 +1,204 @@
+<div mat-dialog-title class="modal-header">
+  <div class="d-flex align-items-center justify-content-between">
+    <div class="text-main fw-bold">Register Officer</div>
+    <mat-icon class="material-symbols-rounded" mat-dialog-close="true">
+      close
+    </mat-icon>
+  </div>
+</div>
+<mat-dialog-content class="modal-body">
+  <div class="row gx-2">
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>All Department</mat-label>
+        <mat-select>
+          <mat-option>Option 1</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Level</mat-label>
+        <mat-select>
+          <mat-option>Option 1</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>State</mat-label>
+        <mat-select>
+          <mat-option>Option 1</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>District</mat-label>
+        <mat-select>
+          <mat-option>Option 1</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Designation</mat-label>
+        <mat-select>
+          <mat-option>Option 1</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Name</mat-label>
+        <input matInput placeholder="Enter Name">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Mobile No.</mat-label>
+        <input matInput placeholder="Enter Name">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Email ID</mat-label>
+        <input matInput placeholder="Enter Name">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Address</mat-label>
+        <textarea matInput placeholder=""></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="d-flex align-items-center justify-content-end gap-2">
+    <button mat-flat-button class="btn-main-light">Cancel</button>
+    <button mat-flat-button class="btn-main">Add</button>
+  </div>
+</mat-dialog-content>
+
+
+
+
+
+<div mat-dialog-title class="modal-header">
+  <div class="d-flex align-items-center justify-content-between">
+    <div class="text-main fw-bold">View Officer</div>
+    <mat-icon class="material-symbols-rounded" mat-dialog-close="true">
+      close
+    </mat-icon>
+  </div>
+</div>
+<mat-dialog-content class="modal-body form-container">
+  <h2 class="page-heading mb-0 fw-bold my-2">Officer Details</h2>
+  <div class="d-flex align-items-center justify-content-center">
+    <div class="profile-pic position-relative">
+      <img src="assets/images/user.png" class="">
+      <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" #uploadDocument />
+      <div class="profile-btn text-center">
+        <input type="file" class="profile-upload d-none">
+        <button type="button" mat-icon-button class="btn text-primary add-btn">
+          <mat-icon class="material-symbols-outlined">add</mat-icon>
+        </button>
+        <!-- <button type="button" mat-icon-button class="btn text-danger">
+          <mat-icon class="material-symbols-outlined">delete</mat-icon>
+        </button> -->
+      </div>
+    </div>
+  </div>
+
+  <ol class="list-group list-group-numbered">
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class=" form-label">Officer Name</div>
+      </div>
+      <span class="form-data">Aarti Wakure</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="form-label">Designation</div>
+      </div>
+      <span class="form-data">Skill Development Officer</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="form-label">Mobile No</div>
+      </div>
+      <span class="form-data">8669264767</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="form-label">Email Id</div>
+      </div>
+      <span class="form-data">shaurya@gmail.com</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="form-label">Department</div>
+      </div>
+      <span class=" form-data">Sericulture</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="form-label">Department Level</div>
+      </div>
+      <span class="form-data">District</span>
+    </li>
+    <li class="list-group-item d-flex  justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="form-label">Address</div>
+      </div>
+      <span class="form-data">7th Floor, Cybernex, 399, Shankar Sheth Rd, Swargate</span>
+    </li>
+  </ol>
+
+  <div class="page-heading mb-0 fw-bold my-2">Work Area</div>
+  <ol class="list-group list-group-numbered">
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="form-label">State</div>
+      </div>
+      <span class="form-data">Maharashtra</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="form-label">District</div>
+      </div>
+      <span class="form-data">Dharashiv</span>
+    </li>
+  </ol>
+
+
+  <div class="page-heading mb-0 fw-bold my-2">Account Info</div>
+  <ol class="list-group list-group-numbered">
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="form-label">Username</div>
+      </div>
+      <span class="form-data">8669264767</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="form-label">Password</div>
+      </div>
+      <span class="form-data">Password@12345</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start text-success fw-bold">
+      <div class="ms-2 me-auto">
+        <div class="form-label">Status</div>
+      </div>
+      <span class="form-data fw-bold">Active</span>
+    </li>
+  </ol>
+
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <div class="d-flex align-items-center justify-content-end gap-2">
+    <button mat-flat-button class="btn-main-light">Cancel</button>
+    <button mat-flat-button class="btn-main">Add</button>
+  </div>
+</mat-dialog-actions>
