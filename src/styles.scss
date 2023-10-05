@@ -2,7 +2,7 @@
 
 @include mat.core();
 
-@include mat.all-component-densities(-1);
+@include mat.all-component-densities(-3);
 @include mat.form-field-density(-5);
 @import url('assets/scss/MaterialStyleSheet.scss');
 
@@ -12,9 +12,9 @@ body {
 }
 
 :root {
-    --main-color: #e67b1b; //#2065ae
-    --main-dark-color: #b86215;
-    --main-light-color: #fcf1e8;
+    --main-color: #4758B8; //#2065ae
+    --main-dark-color: #384693;
+    --main-light-color: #eceef7;
 }
 
 .bg-main {
