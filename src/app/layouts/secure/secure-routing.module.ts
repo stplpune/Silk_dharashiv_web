@@ -20,6 +20,9 @@ const routes: Routes = [
   { path: 'blogs', loadChildren: () => import('../../components/cms/blogs/blogs.module').then(m => m.BlogsModule) },
   { path: 'faq', loadChildren: () => import('../../components/cms/faq/faq.module').then(m => m.FaqModule) },
 
+  // My Profile
+  { path: 'my-profile', loadChildren: () => import('../../components/profile/my-profile/my-profile.module').then(m => m.MyProfileModule) },
+
 ];
 
 @NgModule({

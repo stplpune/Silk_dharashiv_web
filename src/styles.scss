@@ -12,9 +12,9 @@ body {
 }
 
 :root {
-    --main-color: #e67b1b; //#2065ae
-    --main-dark-color: #b86215;
-    --main-light-color: #fcf1e8;
+    --main-color: #4758B8; //#2065ae
+    --main-dark-color: #384693;
+    --main-light-color: #eceef7;
 }
 
 .bg-main {
@@ -162,6 +162,33 @@ a.text-main:hover {
     width: 36px;
 }
 
+.form-container .form-label {
+    font-family: 'Public Sans', sans-serif !important;
+    font-size: 0.8rem;
+    margin-bottom: 3px;
+}
+
+.form-container .form-data {
+    font-family: 'Public Sans', sans-serif !important;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.modal-header {
+    font-family: 'Public Sans', sans-serif !important;
+    font-size: 0.85rem;
+    background-color: var(--main-light-color);
+    padding: 5px 15px !important;
+}
+
+.mdc-dialog__title::before {
+    height: 0 !important;
+    display: none !important;
+}
+
+.modal-body {
+    padding: 10px 15px !important;
+}
 
 
 

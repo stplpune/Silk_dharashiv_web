@@ -1,1 +1,63 @@
-<p>login works!</p>
+<div class="login-wrapper">
+
+</div>
+<div class="login-box">
+    <div class="row">
+        <div class="col-sm-6">
+            <img src="assets/images/login.jpg" class="login-img">
+        </div>
+        <div class="col-sm-6">
+            <div class="login form-container">
+                <div class="mb-4 text-center">
+                    <img src="assets/images/logo-text.svg" class="w-75">
+                </div>
+                <h4 class="fw-bold text-center mb-4">LOGIN</h4>
+                <div class="mb-0">
+                    <label class="form-label">Username</label>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <input matInput placeholder="Username">
+                    </mat-form-field>
+                </div>
+                <div class="mb-0">
+                    <label class="form-label">Password</label>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <input matInput [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon class="material-symbols-rounded">
+                                {{hide ? 'visibility_off' : 'visibility'}}
+                            </mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <div class=" row align-items-start g-2">
+                    <div class="col-sm">
+                        Captcha
+                    </div>
+                    <div class="col-sm-auto">
+                        <button mat-flat-button class="btn-icon btn-main">
+                            <span class="material-symbols-rounded">
+                                autorenew
+                            </span>
+                        </button>
+                    </div>
+                    <div class="col-sm-5">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <input matInput placeholder="Captcha">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <button mat-flat-button class="btn-main w-100">
+                            LOGIN
+                        </button>
+                    </div>
+                    <div class="col-sm-6 text-end">
+                        <a class="text-main" href="#">Forgot Password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
