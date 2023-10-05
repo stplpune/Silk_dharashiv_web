@@ -10,11 +10,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { RegisterOfficerComponent } from './register-officer/register-officer.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
   declarations: [
-    OfficerRegistrationComponent
+    OfficerRegistrationComponent,
+    RegisterOfficerComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +27,7 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatTableModule,
     MatSelectModule,
+    MatDialogModule,
     MatRadioModule,
     MatButtonModule
   ]

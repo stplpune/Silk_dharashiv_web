@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { RegisterOfficerComponent } from './register-officer/register-officer.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-officer-registration',
@@ -6,9 +8,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./officer-registration.component.scss']
 })
 export class OfficerRegistrationComponent {
+  constructor(public dialog: MatDialog) {}
 
   displayedColumns: string[] = ['srno', 'officername','mobileno', 'emailid','designation','department','level','status','action'];
   dataSource = ELEMENT_DATA;
+
+
+
+  registerofficer(){
+    this.dialog.open(RegisterOfficerComponent,{
+      width:'50%'
+    });
+  }
+
 }
 
 export interface PeriodicElement {
