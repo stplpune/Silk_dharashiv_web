@@ -10,6 +10,7 @@ import { GlobalDialogComponent } from './shared/global-dialog/global-dialog.comp
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DatePipe } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DatePipe } from '@angular/common';
     BrowserAnimationsModule,
     NgxSpinnerModule,
     MatDialogModule, 
-    MatSnackBarModule 
+    MatSnackBarModule,
+    HttpClientModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
