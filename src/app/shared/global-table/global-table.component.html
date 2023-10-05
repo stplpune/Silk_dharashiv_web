@@ -1,1 +1,74 @@
-<p>global-table works!</p>
+<!-- <p>global-table works!</p> -->
+<div class="table-responsive table-content scrollbar">
+    <table mat-table [dataSource]="tableRecords" class="dashboard-table" matSort>
+        <ng-container *ngFor="let columns of displayedColumns; let j=index" matColumnDef="{{columns}}">
+            <ng-container *ngIf="columns !='action'">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="('srNo' == columns || tableHeaders[j] == '') ? true : false">
+                    {{ tableHeaders[j]}}
+                </th>
+                <td mat-cell *matCellDef="let element let i=index">    
+                    <ng-container *ngIf="'srNo'==columns">{{(((pageNumber + 1) * 10 + i + 1)-20)}}</ng-container>
+                    
+                    <ng-container *ngIf="'srNo' != columns">
+                        {{element[columns] ? element[columns] : '-' }}
+                    </ng-container>
+
+            </td>
+            </ng-container>
+            <ng-container *ngIf="columns =='action'">
+                <th mat-header-cell *matHeaderCellDef >
+                    <div class="d-flex justify-content-between  align-items-center">
+                        {{tableHeaders[j] | titlecase}}
+                    </div>
+              </th>
+                <td mat-cell *matCellDef="let element let i=index">
+                    <div class="d-flex align-items-center gap-2">
+                        <ng-container *ngIf="tableInfo?.view == true">
+                            <button matTooltip="View"  matTooltipPosition="above" mat-icon-button (click)="$event.stopPropagation();action(element, 'View', i)" class="btn-view">
+                                <mat-icon class="material-symbols-outlined">
+                                    visibility
+                                </mat-icon>
+                            </button> 
+                        </ng-container>
+                        <ng-container *ngIf="tableInfo?.edit == true">
+                            <button matTooltip="Edit" matTooltipPosition="above" mat-icon-button  (click)="$event.stopPropagation();action(element, 'Edit', i)" class=" btn-edit">
+                                <mat-icon class="material-symbols-outlined"> 
+                                    edit
+                                </mat-icon>
+                            </button>
+                        </ng-container>
+                        <ng-container *ngIf="tableInfo?.reset == true">
+                            <button matTooltip="Reset" matTooltipPosition="above" mat-icon-button  (click)="$event.stopPropagation();action(element, 'Reset', i)" class=" btn-reset">
+                                <mat-icon class="material-symbols-outlined"> 
+                                    lock_reset
+                                </mat-icon>
+                            </button>
+                        </ng-container>
+                        <ng-container *ngIf="tableInfo?.delete == true">
+                            <button matTooltip="Delete" matTooltipPosition="above" mat-icon-button (click)="$event.stopPropagation();action(element, 'Delete', i)" class=" btn-delete">
+                                <mat-icon class="material-symbols-outlined">
+                                    delete
+                                </mat-icon>
+                            </button>
+                        </ng-container>
+                    </div>
+                </td>
+            </ng-container>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns; let i=index"
+            [ngClass]="{'highlightedrow ':highlightedRow == i && tableInfo?.highlightedrow==true}"
+            (click)="$event.stopPropagation()">
+        </tr>
+    </table>
+</div>
+
+<mat-paginator *ngIf="tableInfo?.tableData?.length!=0 && tableInfo?.pagination" showFirstLastButtons
+    [length]="tableSize" (page)="action($event, 'Pagination')" [pageSizeOptions]="[10]" aria-label="Select page">
+</mat-paginator>
+
+<div *ngIf="tableInfo?.tableData?.length ==0">
+    <div class="alert alert-danger text-center mt-1 py-2 mb-0">
+        Data not available
+    </div>
+</div>

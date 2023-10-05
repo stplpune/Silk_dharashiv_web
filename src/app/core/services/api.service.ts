@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from './config.service';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-
+  tableData = new Subject<any>(); //all table set and set data using BehaviorSubject
+  
   private httpObj: any = {
     type: '',
     url: '',
