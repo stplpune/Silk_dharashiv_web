@@ -5,7 +5,7 @@ import { DatePipe } from '@angular/common';
   providedIn: 'root'
 })
 export class CommonMethodsService {
-
+  codecareerPage: any;
   constructor(private _SnackBar: MatSnackBar,private datePipe: DatePipe) { }
 
   snackBar(data: string, status: number) {
@@ -29,6 +29,8 @@ export class CommonMethodsService {
     return value;
   }
 
+ 
+
  // date format in toISOstring 
   setDate(date: any) {
     if (date) {
@@ -45,6 +47,37 @@ export class CommonMethodsService {
   // date format dd/mm/yyyy 
   dateFormat(date: any) {
     return this.datePipe.transform(date, 'dd-MM-yyyy');
+  }
+
+  // captcha
+  createCaptchaCarrerPage() {
+    let id: any = document.getElementById('captcha');
+    id.innerHTML = "";
+    // "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!#$%^&*";
+    var charsArray = "0123456789";
+    var lengthOtp = 4;
+    var captcha = [];
+    for (var i = 0; i < lengthOtp; i++) {
+      var index = Math.floor(Math.random() * charsArray.length + 0);
+      if (captcha.indexOf(charsArray[index]) == -1)
+        captcha.push(charsArray[index]);
+      else i--;
+    }
+    var canv = document.createElement("canvas");
+    canv.id = "captcha1";
+    canv.width = 120;
+    canv.height = 28;
+    var ctx: any = canv.getContext("2d");
+    ctx.font = "26px Arial";
+    ctx.fillText(captcha.join(""), 40, 28);
+    this.codecareerPage = captcha.join("");
+    let appendChild: any = document.getElementById("captcha");
+    appendChild.appendChild(canv); 
+
+  }
+
+  checkvalidateCaptcha() {
+    return this.codecareerPage;
   }
 
 }

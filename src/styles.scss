@@ -131,6 +131,7 @@ a.text-main:hover {
     padding: 10px 15px !important;
     font-weight: 500;
     border-bottom: solid 1px #e0e0e0;
+    background-color: transparent !important;
 }
 
 .plain-card .card-header-control .mat-mdc-form-field-subscript-wrapper {
@@ -142,7 +143,7 @@ a.text-main:hover {
 }
 
 .dashboard-table {
-    @include mat.all-component-densities(-1);
+    @include mat.all-component-densities(-3);
     font-family: 'Public Sans', sans-serif !important;
     box-shadow: none;
 }
@@ -156,6 +157,15 @@ a.text-main:hover {
     font-family: 'Public Sans', sans-serif !important;
     font-size: 0.85rem;
     vertical-align: middle;
+}
+
+.dashboard-table td button {
+    @include mat.all-component-densities(-3);
+}
+
+.dashboard-table td button .material-symbols-rounded {
+    font-size: 1.3rem;
+    height: 18px;
 }
 
 .dashboard-table .profile-photo {
@@ -188,6 +198,23 @@ a.text-main:hover {
 
 .modal-body {
     padding: 10px 15px !important;
+}
+
+.modal-footer {
+    font-family: 'Public Sans', sans-serif !important;
+    font-size: 0.85rem;
+    padding: 10px 15px !important;
+}
+
+button.btn-modal-close {
+    @include mat.all-component-densities(-3);
+    padding: 2px !important;
+}
+
+.btn-modal-close .material-symbols-rounded {
+    font-size: 1.3rem !important;
+    height: 18px !important;
+    width: 19px !important;
 }
 
 

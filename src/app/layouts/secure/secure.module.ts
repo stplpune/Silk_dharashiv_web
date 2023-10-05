@@ -12,12 +12,12 @@ import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [
     SecureComponent,
-    HeaderComponent,
     FooterComponent,
     SideBarComponent
   ],
   imports: [
     CommonModule,
+    HeaderComponent,
     SecureRoutingModule,
     MatIconModule,
     MatButtonModule
