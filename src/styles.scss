@@ -99,6 +99,7 @@ a.text-main:hover {
     min-width: 36px !important;
 }
 
+button .material-symbols-rounded,
 .btn-icon .material-symbols-rounded {
     font-size: 18px !important;
     line-height: 1 !important;
@@ -188,6 +189,23 @@ a.text-main:hover {
 
 .modal-body {
     padding: 10px 15px !important;
+}
+
+.modal-footer {
+    font-family: 'Public Sans', sans-serif !important;
+    font-size: 0.85rem;
+    padding: 10px 15px !important;
+}
+
+button.btn-modal-close {
+    @include mat.all-component-densities(-3);
+    padding: 2px !important;
+}
+
+.btn-modal-close .material-symbols-rounded {
+    font-size: 1.3rem !important;
+    height: 18px !important;
+    width: 19px !important;
 }
 
 
