@@ -5,31 +5,37 @@
   <mat-card-content class="card-body">
     <div class="row">
       <div class="col-sm-8">
-        <div class="row gx-2">
-          <div class="col-sm-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Search</mat-label>
-              <input matInput placeholder="">
-            </mat-form-field>
-          </div>
-          <div class="col-sm-auto">
-            <div class="d-flex align-items-center gap-2">
-              <button mat-icon-button class="btn bg-success bg-opacity-10 text-success rounded " matTooltip="edit">
-                <mat-icon class="material-symbols-rounded">
-                  <!-- edit_square -->
-                  search
-                </mat-icon>
-              </button>
-              <button mat-icon-button class="btn bg-danger bg-opacity-10 text-danger rounded " matTooltip="edit">
-                <mat-icon class="material-symbols-rounded">
-                  <!-- edit_square -->
-                  close
-                </mat-icon>
-              </button>
+        <form [formGroup]="filterFrm">
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Search</mat-label>
+                <input matInput formControlName="TextSearch" placeholder=""
+                (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-sm-auto">
+              <div class="d-flex align-items-center gap-2">
+                <button mat-icon-button class="btn bg-success bg-opacity-10 text-success rounded" matTooltip="edit"
+                type="submit" >
+                  <mat-icon class="material-symbols-rounded">
+                    <!-- edit_square -->
+                    search
+                  </mat-icon>
+                </button>
+                <button mat-icon-button class="btn bg-danger bg-opacity-10 text-danger rounded " matTooltip="edit"
+                 type="button" (click)="clearSearchFilter()">
+                  <mat-icon class="material-symbols-rounded">
+                    <!-- edit_square -->
+                    close
+                  </mat-icon>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
         <div class="table-responsive scrollbar">
+            <!-- <app-global-table (recObjToChild)="childTableCompInfo($event)"></app-global-table> -->
           <table mat-table [dataSource]="dataSource" class="dashboard-table">
 
             <ng-container matColumnDef="srno">
@@ -51,13 +57,13 @@
                   <button mat-icon-button class="btn bg-dark bg-opacity-10 text-dark rounded edit" matTooltip="edit">
                     <mat-icon class="material-symbols-rounded">
                       edit
-                      </mat-icon>
+                    </mat-icon>
                   </button>
                   <button mat-icon-button class="btn bg-danger bg-opacity-10 text-danger rounded delete"
                     matTooltip="delete">
                     <mat-icon class="material-symbols-rounded">
                       delete
-                      </mat-icon>
+                    </mat-icon>
                   </button>
                 </div>
               </td>
@@ -68,24 +74,27 @@
         </div>
       </div>
       <div class="col-sm-4">
-        <div class="card p-0">
-          <div class="card-header p-0 text-main">
-            Add Department
-          </div>
-          <div class="card-body">
-            <!-- <div class="d-flex gap-2">
+        <form [formGroup]="departmentFrm" #formDirective="ngForm">
+          <div class="card p-0">
+            <div class="card-header p-0 text-main">
+              Add Department
+            </div>
+            <div class="card-body">
+              <!-- <div class="d-flex gap-2">
               <div class="form-label">Department </div> -->
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Department</mat-label>
-              <input matInput placeholder="">
-            </mat-form-field>
-            <!-- </div> -->
-            <div class="d-flex align-items-center justify-content-end gap-2">
-              <button mat-flat-button class="btn-main-light">Clear</button>
-              <button mat-flat-button class="btn-main">Add</button>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Department</mat-label>
+                <input matInput formControlName="departmentName" placeholder=""minlength="2" maxlength="20" 
+                (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
+              </mat-form-field>
+              <!-- </div> -->
+              <div class="d-flex align-items-center justify-content-end gap-2">
+                <button type="button" mat-flat-button class="btn-main-light" (click)="clearFormData()">Clear</button>
+                <button mat-flat-button class="btn-main" type="submit">{{!editFlag ? 'Add' : 'Update'}}</button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </mat-card-content>
