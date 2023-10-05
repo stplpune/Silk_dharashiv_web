@@ -217,6 +217,38 @@ button.btn-modal-close {
     width: 19px !important;
 }
 
+.file-upload {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.file-upload .btn {
+    background-color: var(--main-light-color) !important;
+    letter-spacing: normal;
+    font-family: 'Public Sans', sans-serif !important;
+    font-size: 0.8rem;
+    height: 26px !important;
+    color: var(--main-color) !important;
+    font-weight: 500;
+}
+
+.file-upload .btn-action {
+    height: 26px !important;
+    width: 26px !important;
+    padding: 0;
+    min-width: 26px !important;
+}
+
+.file-upload input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
 
 
 
