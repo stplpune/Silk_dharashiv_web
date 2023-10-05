@@ -21,6 +21,7 @@ export class ApiService {
   getBaseurl(url: string) {
     switch (url) {
       case 'masterUrl': return this._configService.baseUrl; break;
+      case 'baseUrl': return 'https://demosilkapi.mahamining.com/'; break;
       default: return ''; break;
     }
   }
