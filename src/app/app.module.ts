@@ -25,7 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
     NgxSpinnerModule,
     MatDialogModule, 
     MatSnackBarModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
