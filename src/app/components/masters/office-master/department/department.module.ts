@@ -9,21 +9,23 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
+import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
 
 
 @NgModule({
-  declarations: [
-    DepartmentComponent
-  ],
-  imports: [
-    CommonModule,
-    DepartmentRoutingModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatTableModule,
-    MatButtonModule
-  ]
+    declarations: [
+        DepartmentComponent
+    ],
+    imports: [
+        CommonModule,
+        DepartmentRoutingModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatTableModule,
+        MatButtonModule,
+        GlobalTableComponent
+    ]
 })
 export class DepartmentModule { }
