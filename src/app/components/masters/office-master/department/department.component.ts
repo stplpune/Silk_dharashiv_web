@@ -50,7 +50,7 @@ export class DepartmentComponent {
 
   filterDefaultFrm() {
     this.filterFrm = this.fb.group({
-      TextSearch: [''],
+      textSearch: [''],
     })
   }
 
@@ -60,7 +60,7 @@ export class DepartmentComponent {
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     let searchValue = this.filterFrm?.value || '';
     status == 'filter' ? this.clearFormData() : '';
-    this.apiService.setHttp('GET', 'sericulture/api/Department/get-All-Department?'+str+'&TextSearch=' + (searchValue.TextSearch || ''), false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Department/get-All-Department?'+str+'&TextSearch=' + (searchValue.textSearch || ''), false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
