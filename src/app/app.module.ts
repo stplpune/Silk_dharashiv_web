@@ -7,20 +7,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { GlobalTableComponent } from './shared/global-table/global-table.component';
 import { GlobalDialogComponent } from './shared/global-dialog/global-dialog.component';
-import { ChangePasswordComponent } from './components/profile/change-password/change-password.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
     GlobalTableComponent,
     GlobalDialogComponent,
-    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
