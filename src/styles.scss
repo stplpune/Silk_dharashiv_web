@@ -99,7 +99,6 @@ a.text-main:hover {
     min-width: 36px !important;
 }
 
-button .material-symbols-rounded,
 .btn-icon .material-symbols-rounded {
     font-size: 18px !important;
     line-height: 1 !important;
@@ -132,6 +131,7 @@ button .material-symbols-rounded,
     padding: 10px 15px !important;
     font-weight: 500;
     border-bottom: solid 1px #e0e0e0;
+    background-color: transparent !important;
 }
 
 .plain-card .card-header-control .mat-mdc-form-field-subscript-wrapper {
@@ -143,7 +143,7 @@ button .material-symbols-rounded,
 }
 
 .dashboard-table {
-    @include mat.all-component-densities(-1);
+    @include mat.all-component-densities(-3);
     font-family: 'Public Sans', sans-serif !important;
     box-shadow: none;
 }
@@ -157,6 +157,15 @@ button .material-symbols-rounded,
     font-family: 'Public Sans', sans-serif !important;
     font-size: 0.85rem;
     vertical-align: middle;
+}
+
+.dashboard-table td button {
+    @include mat.all-component-densities(-3);
+}
+
+.dashboard-table td button .material-symbols-rounded {
+    font-size: 1.3rem;
+    height: 18px;
 }
 
 .dashboard-table .profile-photo {
