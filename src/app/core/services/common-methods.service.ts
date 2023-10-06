@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, } from '@angular/material/snack-bar';
 import { DatePipe } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class CommonMethodsService {
   codecareerPage: any;
-  constructor(private _SnackBar: MatSnackBar,private datePipe: DatePipe) { }
+  constructor(private _SnackBar: MatSnackBar,private datePipe: DatePipe,
+    private router:Router,
+    private activatedRoute:ActivatedRoute,) { }
 
   snackBar(data: string, status: number) {
     let snackClassArr: any = ['snack-success', 'snack-danger', 'snack-warning'];
@@ -78,6 +81,10 @@ export class CommonMethodsService {
 
   checkvalidateCaptcha() {
     return this.codecareerPage;
+  }
+
+  routerLinkRedirect(path: any) {
+    this.router.navigate([path], { relativeTo: this.activatedRoute })
   }
 
 }
