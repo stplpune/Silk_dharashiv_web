@@ -22,6 +22,7 @@ export class DepartmentComponent {
   tableDatasize!: number;
   totalPages!: number;
   pageNumber: number = 1;
+  editData: any;
   highLightRowFlag: boolean = false;
   displayedColumns: string[] = ['srno', 'departmentname', 'action'];
   @ViewChild('formDirective') private formDirective!: NgForm;
@@ -44,8 +45,9 @@ export class DepartmentComponent {
   }
 
   defaultFrm(data?: any) { 
+    // this.editData = data;
     this.departmentFrm = this.fb.group({
-      id: [data ? data.id : 0],
+      id : [data ? data.id : 0],
       departmentName: [data ? data.departmentName : '', Validators.required],
       m_DepartmentName: [data ? data.m_DepartmentName : ''],
     })
@@ -69,9 +71,9 @@ export class DepartmentComponent {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData;
-          this.tableDatasize = res.responseData1?.totalCount;
           this.totalPages = res.responseData1?.totalPages;
-        } else {
+          this.tableDatasize = res.responseData1?.totalCount;
+     } else {
           this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
           this.spinner.hide();
           this.tableDataArray = [];
@@ -97,10 +99,10 @@ export class DepartmentComponent {
       blink: '',
       badge: '',
       isBlock: '',
-      pagination: this.totalPages > 10 ? true : false,
+      pagination: this.totalPages> 10 ? true : false,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
-      tableSize: this.tableDatasize,
+      tableSize: this.totalPages,
       tableHeaders: displayedheaders,
       edit: true,
       delete: true,
@@ -129,17 +131,21 @@ export class DepartmentComponent {
 
   onSubmitData() {
     let formvalue = this.departmentFrm.value;
+    console.log("formvalue",formvalue);
     if(this.departmentFrm.invalid){
       return
     }else{
       this.spinner.show();
+    console.log("formvalue",formvalue);
       this.apiService.setHttp('POST','sericulture/api/Department/Insert-Update-Department', false, formvalue, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res:any) => {
           if(res.statusCode == '200'){
             this.common.snackBar(res.statusMessage,0);
             this.getTableData();    
-            this.clearFormData();    
+            this.clearFormData(); 
+            this.defaultFrm();
+            this.editFlag = false;   
           }else{
             this.spinner.hide();
             this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage,1);
