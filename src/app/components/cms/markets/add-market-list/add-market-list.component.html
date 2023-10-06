@@ -1,0 +1,112 @@
+<div mat-dialog-title class="modal-header">
+  <div class="d-flex align-items-center justify-content-between">
+    <div class="text-main">Add Market List</div>
+    <button mat-icon-button class="btn-modal-close">
+      <span class="material-symbols-rounded">close</span>
+    </button>
+  </div>
+</div>
+<div mat-dialog-content class="modal-body">
+  <div class="row gx-2">
+    <div class="col-sm-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Market Name</mat-label>
+        <input matInput placeholder="Market name ">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Contact No 1 </mat-label>
+        <input matInput placeholder="Market name ">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Contact No 1</mat-label>
+        <input matInput placeholder="Market name ">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Email ID</mat-label>
+        <input matInput placeholder="Enter mail id ">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Toppings</mat-label>
+        <mat-select multiple>
+          <mat-select-trigger>
+            {{toppings.value?.[0] || ''}}
+            <span *ngIf="(toppings.value?.length || 0) > 1" class="example-additional-selection">
+              (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>State</mat-label>
+        <input matInput placeholder="Enter State  ">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>District</mat-label>
+        <input matInput placeholder="Enter State  ">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Taluka</mat-label>
+        <input matInput placeholder="Enter State  ">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Address</mat-label>
+        <textarea matInput placeholder="Enter your Address"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Pin Code</mat-label>
+        <input matInput placeholder="Enter State  ">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Est. Date</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Latitude</mat-label>
+        <input matInput placeholder="Enter State  ">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Longitude</mat-label>
+        <input matInput placeholder="Enter State  ">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Administrator</mat-label>
+        <input matInput placeholder="Enter State  ">
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<mat-dialog-actions class="modal-footer">
+  <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+    <button mat-button class="btn-main-light">Cancel</button>
+    <button mat-button class="btn-main">Install</button>
+  </div>
+</mat-dialog-actions>
