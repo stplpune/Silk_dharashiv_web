@@ -1,6 +1,11 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
-    <div class="text-main">Officer Registration</div>
+    <div class="d-flex align-items-center justify-content-between w-100">
+      <div class="text-main">Officer Registration</div>
+      <div class="col-sm-auto">
+        <button mat-flat-button class="btn-main" (click)="registerofficer()">Registered Officer</button>
+      </div>
+    </div>
   </mat-card-header>
   <mat-card-content class="card-body">
     <div class="row gx-2">
@@ -61,14 +66,27 @@
         </mat-form-field>
       </div>
       <div class="col-sm">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Search by Mobile No/Email Id</mat-label>
-          <input matInput placeholder="Search by Mobile No/Email Id">
-        </mat-form-field>
+        <div class="d-flex gap-2">
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Search by Mobile No/Email Id</mat-label>
+            <input matInput placeholder="Search by Mobile No/Email Id">
+          </mat-form-field>
+          <div class="d-flex align-items-center gap-2 mb-4">
+            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit">
+              <mat-icon class="material-symbols-rounded">
+                search
+              </mat-icon>
+            </button>
+            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit">
+              <mat-icon class="material-symbols-rounded" >
+                close
+              </mat-icon>
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="col-sm-auto">
-        <button mat-flat-button class="btn-main" (click)="registerofficer()">Registered Officer</button>
-      </div>
+
       <!-- <div class="col-sm-1">
             <div class="d-flex align-items-center gap-2">
               <button mat-icon-button class="btn bg-success bg-opacity-10 text-success rounded " matTooltip="edit">
