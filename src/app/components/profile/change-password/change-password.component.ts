@@ -26,10 +26,10 @@ export class ChangePasswordComponent {
     private fb: FormBuilder,
     public validation: ValidationService,
     private commonMethods: CommonMethodsService,
-    private apiService:ApiService,
-    private error:ErrorHandlingService,
-    private webStorage:WebStorageService,
-    ) { }
+    private apiService: ApiService,
+    private error: ErrorHandlingService,
+    private webStorage: WebStorageService,
+  ) { }
 
   ngOnInit() {
     this.defaultForm();
@@ -48,6 +48,7 @@ export class ChangePasswordComponent {
   }
 
   onSubmit() {
+    console.log(this.webStorage.checkUserIsLoggedIn());
     let formData = this.changePassForm.value;
     if (this.changePassForm.invalid) {
       return;
@@ -56,33 +57,31 @@ export class ChangePasswordComponent {
       return;
     } else if (formData.currentPass == formData.newPass) {
       this.commonMethods.snackBar("The Entered Old Password is the Same as the New Password", 1);
-    }else{
-      let obj={
+    } else {
+      let obj = {
         "userId": this.webStorage.getUserId(),
         "newPassword": formData.newPass,
         "currentPassword": formData.currentPass
-    }
-   
-    this.apiService.setHttp('post', 'sericulture/api/Login/change-password', false, obj, false, 'baseUrl');
-    this.apiService.getHttp().subscribe((res: any) => {
-      if (res.statusCode == "200") {
-        this.commonMethods.snackBar(res.statusMessage, 0);
-        this.dialogRef.close('Yes');
       }
-      else {
-     
-        this.commonMethods.snackBar(res.statusMessage, 1)
-      }
-    }, (error: any) => {
-     
-      this.error.handelError(error.status);
-    })
+
+      this.apiService.setHttp('post', 'sericulture/api/Login/change-password', false, obj, false, 'baseUrl');
+      this.apiService.getHttp().subscribe((res: any) => {
+        if (res.statusCode == "200") {
+          this.commonMethods.snackBar(res.statusMessage, 0);
+          this.formDirective?.resetForm();
+          this.dialogRef.close('Yes');
+        }
+        else {
+          this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
+        }
+      }, (error: any) => {
+        this.error.handelError(error.status);
+      })
     }
-    console.log(this.changePassForm.value);
 
   }
 
- 
+
   clearFormData() { // for clear Form field
     this.formDirective?.resetForm();
     this.defaultForm();
