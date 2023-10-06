@@ -12,6 +12,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { Router } from '@angular/router';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 // import * as CryptoJS from 'crypto-js';
 
 
@@ -28,13 +29,15 @@ export class LoginComponent {
   loginForm!: FormGroup;
   loginFlag: boolean = true;
   encryptInfo: any;
+  loginData: any;
   constructor(private fb: FormBuilder,
     public validation: ValidationService,
     private commonMethods: CommonMethodsService,
     private error: ErrorHandlingService,
     private spinner: NgxSpinnerService,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private AESEncryptDecryptService:AesencryptDecryptService
   ) {
 
   }
@@ -81,10 +84,10 @@ export class LoginComponent {
     }
     else {
       this.spinner.hide();
-      let loginData = this.loginForm.value;
+      let formData = this.loginForm.value;
       let obj = {
-        "userName": loginData.userName,
-        "password": loginData.password
+        "userName": formData.userName,
+        "password": formData.password
       }
       this.apiService.setHttp('post', 'sericulture/api/Login/CheckLogin', false, obj, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
@@ -94,11 +97,11 @@ export class LoginComponent {
           this.spinner.hide();
           this.commonMethods.snackBar(res.statusMessage, 0);
           sessionStorage.setItem('loggedIn', 'true');
-          this.encryptInfo = encodeURIComponent((JSON.stringify(JSON.stringify(res)), 'secret key 123').toString());
-          localStorage.setItem('loggedInData', this.encryptInfo);
+          // this.encryptInfo = encodeURIComponent((JSON.stringify(JSON.stringify(res)), 'secret key 123').toString());
+          this.loginData = this.AESEncryptDecryptService.encrypt(JSON.stringify(res?.responseData));
+          localStorage.setItem('loggedInData', this.loginData);
           this.router.navigate(['/dashboard']);
           this.loginFlag = true;
-
         }
         else {
           this.spinner.hide();
