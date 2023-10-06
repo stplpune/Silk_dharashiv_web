@@ -16,4 +16,10 @@ export class WebStorageService {
   setSidebarState(state: boolean) {
     this.toggled = state;
   }
+
+  checkUserIsLoggedIn() {
+    if (localStorage.getItem('loggedInData'))
+      return true
+    else return false
+  }
 }

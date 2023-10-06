@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+// import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 
 @Component({
@@ -32,7 +33,9 @@ export class DepartmentComponent {
       private apiService: ApiService,
       private errorService: ErrorHandlingService,
       private common: CommonMethodsService,
-      public dialog: MatDialog,) { }
+      public dialog: MatDialog,
+      // private webService: WebStorageService,
+      ) { }
 
   ngOnInit() {
     this.defaultFrm();
@@ -65,7 +68,6 @@ export class DepartmentComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          console.log(res);
           this.tableDataArray = res.responseData;
           this.tableDatasize = res.responseData1?.totalCount;
           this.totalPages = res.responseData1?.totalPages;
@@ -95,7 +97,7 @@ export class DepartmentComponent {
       blink: '',
       badge: '',
       isBlock: '',
-      pagination: true,
+      pagination: this.totalPages > 10 ? true : false,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
@@ -125,6 +127,30 @@ export class DepartmentComponent {
     }
   }
 
+  onSubmitData() {
+    let formvalue = this.departmentFrm.value;
+    if(this.departmentFrm.invalid){
+      return
+    }else{
+      this.spinner.show();
+      this.apiService.setHttp('POST','sericulture/api/Department/Insert-Update-Department', false, formvalue, false, 'masterUrl');
+      this.apiService.getHttp().subscribe({
+        next: ((res:any) => {
+          if(res.statusCode == '200'){
+            this.common.snackBar(res.statusMessage,0);
+            this.getTableData();    
+            this.clearFormData();    
+          }else{
+            this.spinner.hide();
+            this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage,1);
+          }
+        }),
+        error :((error: any) => { this.spinner.hide()
+          this.errorService.handelError(error.status) })
+      })
+    }
+  }
+
   globalDialogOpen(delDataObj?: any) {
     let dialogObj = {
       title: 'Do You Want To Delete Department?',
@@ -144,12 +170,11 @@ export class DepartmentComponent {
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
-              this.common.snackBar(res.responseMessage, 0);
+              this.common.snackBar(res.statusMessage, 0);
               this.getTableData();
               this.clearFormData();
-              this.editFlag = false;
             } else {
-              this.common.snackBar(res.responseMessage, 1);
+              this.common.snackBar(res.statusMessage, 1);
             }
           },
           error: (error: any) => {
