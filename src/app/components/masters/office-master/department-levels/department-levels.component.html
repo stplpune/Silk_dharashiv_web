@@ -9,28 +9,30 @@
           <div class="col-sm-4">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Department</mat-label>
-              <mat-select>
-                <mat-option>Option 1</mat-option>
+              <mat-select [formControl]="filterDepartment">
+                <!-- <mat-option>Option 1</mat-option> -->
+                <mat-option *ngFor="let dept of filterDeptArray" [value]="dept.id">{{dept.departmentName}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-sm-4">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Department Levels</mat-label>
-              <mat-select>
-                <mat-option>Option 1</mat-option>
+              <mat-select [formControl]="filterDeptLevel">
+                <!-- <mat-option>Option 1</mat-option> --> 
+                <mat-option *ngFor="let deptLevel of filterDeptLevelArray" [value]="deptLevel.id">{{deptLevel.departmentLevel}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-sm-auto">
             <div class="d-flex align-items-center gap-2">
-              <button mat-icon-button class="btn bg-success bg-opacity-10 text-success rounded " matTooltip="edit">
+              <button mat-icon-button class="btn bg-success bg-opacity-10 text-success rounded " matTooltip="edit" (click)="getTableData('filter')">
                 <mat-icon class="material-symbols-rounded">
                   <!-- edit_square -->
                   search
                 </mat-icon>
               </button>
-              <button mat-icon-button class="btn bg-danger bg-opacity-10 text-danger rounded " matTooltip="edit">
+              <button mat-icon-button class="btn bg-danger bg-opacity-10 text-danger rounded " matTooltip="edit" (click)="clearFilter()" >
                 <mat-icon class="material-symbols-rounded">
                   <!-- edit_square -->
                   close
@@ -39,52 +41,15 @@
             </div>
           </div>
         </div>
-        <div class="table-responsive scrollbar">
-          <table mat-table [dataSource]="dataSource" class="dashboard-table">
-
-            <ng-container matColumnDef="srno">
-              <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
-              <td mat-cell *matCellDef="let element"> {{element.srno}} </td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="departmentname">
-              <th mat-header-cell *matHeaderCellDef> Department Name </th>
-              <td mat-cell *matCellDef="let element"> {{element.departmentname}} </td>
-            </ng-container>
-            <ng-container matColumnDef="level">
-              <th mat-header-cell *matHeaderCellDef> Level </th>
-              <td mat-cell *matCellDef="let element"> {{element.level}} </td>
-            </ng-container>
-
-            <!-- Weight Column -->
-            <ng-container matColumnDef="action">
-              <th mat-header-cell *matHeaderCellDef> Action </th>
-              <td mat-cell *matCellDef="let element">
-                <div class="d-flex gap-2 my-2">
-                  <button mat-icon-button class="btn bg-dark bg-opacity-10 text-dark rounded edit" matTooltip="edit">
-                    <mat-icon class="material-symbols-rounded">
-                      edit
-                    </mat-icon>
-                  </button>
-                  <button mat-icon-button class="btn bg-danger bg-opacity-10 text-danger rounded delete"
-                    matTooltip="delete">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
-                </div>
-              </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
+        <div class="table-responsive scrollbar">        
+              <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>   
         </div>
       </div>
       <div class="col-sm-4">
+        <form [formGroup]="departmentLevelForm" #FormGroupDirective="ngForm">
         <div class="card p-0">
           <div class="card-header p-0 text-main">
-            Add Department Level
+            {{editFlag ? 'Update Department Level':'Add Department Level'}}
           </div>
           <div class="card-body">
             <!-- <div class="d-flex gap-2">
@@ -92,26 +57,30 @@
               <div class="mb-2">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Department</mat-label>
-                  <mat-select>
-                    <mat-option>Option 1</mat-option>
+                  <mat-select formControlName="departmentId">
+                    <mat-option *ngFor="let dept of departmentArray" [value]="dept.id">{{dept.departmentName}}</mat-option>
                   </mat-select>
+                  <mat-error *ngIf="f['departmentId'].hasError('required') ">Please Select Department</mat-error>
                 </mat-form-field>
               </div>
               <div class="mb-2">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label> Levels</mat-label>
-                  <mat-select>
-                    <mat-option>Option 1</mat-option>
+                  <mat-select formControlName="departmentLevelId">
+                    <!-- <mat-option>Option 1</mat-option> -->
+                    <mat-option *ngFor="let deptLevel of departmentLevelArray" [value]="deptLevel.id">{{deptLevel.departmentLevel}}</mat-option>
                   </mat-select>
+                  <mat-error *ngIf="f['departmentLevelId'].hasError('required') ">Please Select Levels</mat-error>
                 </mat-form-field>
               </div>
             <!-- </div> -->
             <div class="d-flex align-items-center justify-content-end gap-2">
-              <button mat-flat-button class="btn-main-light">Clear</button>
-              <button mat-flat-button class="btn-main">Add</button>
+              <button mat-flat-button class="btn-main-light" type="button" (click)="clearForm()">Clear</button>
+              <button mat-flat-button class="btn-main" type="submit" (click)="onSubmit()">{{editFlag ? 'Update':'Add'}}</button>
             </div>
           </div>
         </div>
+      </form>
       </div>
     </div>
   </mat-card-content>
