@@ -74,7 +74,7 @@
     </mat-card>
   </div>
   <div class="col-sm-4">
-    <form [formGroup]="departmentFrm" #formDirective="ngForm">
+    <form [formGroup]="departmentFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
       <div class="card plain-card">
         <div class="card-header text-main">
           Add Department
