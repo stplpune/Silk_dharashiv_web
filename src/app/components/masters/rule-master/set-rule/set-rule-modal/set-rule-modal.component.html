@@ -1,0 +1,91 @@
+<div mat-dialog-title class="modal-header">
+  <div class="d-flex align-items-center justify-content-between w-100">
+    <div class="text-main">Add Action</div>
+    <button mat-icon-button class="btn-modal-close">
+      <span class="material-symbols-rounded">close</span>
+    </button>
+  </div>
+</div>
+<mat-dialog-content class="modal-body form-container">
+  <div class="row gx-2">
+    <div class="col-sm">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Select Scheme</mat-label>
+        <mat-select>
+          <mat-option>Manarega</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Process Department</mat-label>
+        <mat-select>
+          <mat-option>Manarega</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-auto text-end">
+      <button mat-icon-button class="btn-main rounded">
+        <span class="material-symbols-rounded">add</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="row gx-2 align-items-center">
+    <div class="col-sm">
+      <div class="row gx-2">
+        <div class="col-sm-6">
+          <div class="form-data">Action</div>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Application Review</mat-label>
+            <mat-select>
+              <mat-option>Manarega</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-data">Level</div>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Department Level</mat-label>
+            <mat-select>
+              <mat-option>Manarega</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="row gx-2">
+        <div class="col-sm">
+          <div class="form-data">Designation</div>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Application Review</mat-label>
+            <mat-select>
+              <mat-option>Manarega</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-data">Order</div>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label></mat-label>
+            <mat-select>
+              <mat-option>1</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-auto">
+      <button mat-icon-button class="btn-modal-close">
+        <span class="material-symbols-rounded">close</span>
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="modal-footer">
+  <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+    <button mat-flat-button class="btn-main-light">Cancel</button>
+    <button mat-flat-button class="btn-main">Set</button>
+  </div>
+</mat-dialog-actions>
