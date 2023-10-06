@@ -10,11 +10,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import {MatRadioModule} from '@angular/material/radio';
+// import { AddcircleComponent } from './addcircle/addcircle.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
   declarations: [
-    BlockCircleComponent
+    BlockCircleComponent,
+    // AddcircleComponent
   ],
   imports: [
     CommonModule,
@@ -22,6 +25,7 @@ import {MatRadioModule} from '@angular/material/radio';
     MatCardModule,
     MatInputModule,
     MatIconModule,
+    MatDialogModule,
     MatTableModule,
     MatSelectModule,
     MatRadioModule,

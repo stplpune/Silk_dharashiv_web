@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AddcircleComponent } from './addcircle/addcircle.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-block-circle',
@@ -6,10 +8,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./block-circle.component.scss']
 })
 export class BlockCircleComponent {
-
+  constructor(public dialog: MatDialog) {}
 
   displayedColumns: string[] = ['srno', 'type','blockcirclename', 'action'];
   dataSource = ELEMENT_DATA;
+
+
+  addcircle(){
+    this.dialog.open(AddcircleComponent,{
+      width:'50%'
+    })
+  }
+
 }
 
 export interface PeriodicElement {
