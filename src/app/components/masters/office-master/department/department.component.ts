@@ -43,7 +43,7 @@ export class DepartmentComponent {
   defaultFrm(data?: any) { 
     this.departmentFrm = this.fb.group({
       id : [data ? data.id : 0],
-      departmentName: [data ? data.departmentName : '', Validators.required],
+      departmentName: [data ? data.departmentName : '', [Validators.required, Validators.pattern(this.validator.fullName)]],
       m_DepartmentName: [data ? data.m_DepartmentName : ''],
       createdBy: [0]
     })
@@ -60,7 +60,7 @@ export class DepartmentComponent {
     status == 'filter' ? (this.pageNumber = 1) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     let searchValue = this.filterFrm?.value || '';
-    // status == 'filter' ? this.clearFormData() : '';
+    status == 'filter' ? this.clearFormData() : '';
     this.apiService.setHttp('GET', 'sericulture/api/Department/get-All-Department?'+str+'&TextSearch=' + (searchValue.textSearch || ''), false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -140,7 +140,6 @@ export class DepartmentComponent {
             this.clearFormData(); 
             this.defaultFrm();
             this.filterFrm.controls['textSearch'].setValue('');
-            console.log('fghfg', this.filterFrm.value.textSearch);
             this.getTableData(); 
             this.editFlag = false;   
           }else{
