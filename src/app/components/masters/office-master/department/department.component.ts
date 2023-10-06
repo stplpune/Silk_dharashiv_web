@@ -57,10 +57,10 @@ export class DepartmentComponent {
 
   getTableData(status?: any) {
     this.spinner.show();
-    status == 'filter' ? (this.pageNumber = 1) : '';
+    status == 'filter' ? ((this.pageNumber = 1), this.clearFormData()) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     let searchValue = this.filterFrm?.value || '';
-    status == 'filter' ? this.clearFormData() : '';
+    // status == 'filter' ? this.clearFormData() : '';
     this.apiService.setHttp('GET', 'sericulture/api/Department/get-All-Department?'+str+'&TextSearch=' + (searchValue.textSearch || ''), false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
