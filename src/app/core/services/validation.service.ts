@@ -11,7 +11,7 @@ export class ValidationService {
   aadhar_card = ('^[2-9][0-9]{11}$');
   password =('^(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{8,20}$');
   panNumber = '[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}';
- 
+  marathi=('^[\u0900-\u0965 ]+$');
 
   alphabetsWithSpaces(event: any) {
     const maskSeperator = new RegExp('^([a-zA-Z ])', 'g');
