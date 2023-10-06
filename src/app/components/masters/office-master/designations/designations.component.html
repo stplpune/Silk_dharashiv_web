@@ -101,8 +101,8 @@
               </div>
             
             <div class="d-flex align-items-center justify-content-end gap-2">
-              <button mat-flat-button class="btn-main-light"  (click)="clearMainForm()">Clear</button>
-              <button mat-flat-button class="btn-main" (click)="onSubmit()">{{this.editFlag ? 'Update' : 'Add'}}</button>
+              <button mat-flat-button class="btn-main-light" type="button"  (click)="clearMainForm()">Clear</button>
+              <button mat-flat-button class="btn-main"  type="submit" (click)="onSubmit()">{{this.editFlag ? 'Update' : 'Add'}}</button>
             </div>
           </div>
           </form>

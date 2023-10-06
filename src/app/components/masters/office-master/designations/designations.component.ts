@@ -28,8 +28,7 @@ export class DesignationsComponent {
   editFlag: boolean = false;
   editObj: any;
   searchDataFlag: boolean = false;//used for filter
-  @ViewChild('formDirective')
-  private formDirective!: NgForm;
+  @ViewChild('formDirective') private formDirective!: NgForm;
 
   constructor(private fb: FormBuilder,
     private apiService: ApiService,
