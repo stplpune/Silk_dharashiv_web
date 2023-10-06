@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center justify-content-between w-100 ">
       <div class="text-main">Set Rules</div>
       <button mat-flat-button class="btn-main" (click)="setrules()">
-
+        <!-- <span class="material-symbols-rounded">add</span> -->
         Set Rules
       </button>
     </div>
@@ -18,7 +18,7 @@
 
         <!-- Name Column -->
         <ng-container matColumnDef="scheme">
-          <th mat-header-cell *matHeaderCellDef>Scheme  </th>
+          <th mat-header-cell *matHeaderCellDef>Scheme </th>
           <td mat-cell *matCellDef="let element"> {{element.scheme}} </td>
         </ng-container>
 
