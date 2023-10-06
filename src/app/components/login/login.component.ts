@@ -71,6 +71,7 @@ export class LoginComponent {
       return
     } else if (this.loginForm.value.captcha !=  this.commonMethods.checkvalidateCaptcha()) {
       this.spinner.hide();
+      this.refreshCaptcha()
       this.commonMethods.snackBar("Please Enter Valid Capcha", 1)
       return;
     }
@@ -98,6 +99,8 @@ export class LoginComponent {
         }
         else {
           this.spinner.hide();
+          this.loginFlag=true;
+          this.refreshCaptcha();
           this.commonMethods.snackBar(res.statusMessage, 1)
         }
       }, (error: any) => {
