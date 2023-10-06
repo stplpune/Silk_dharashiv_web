@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
-
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,9 @@ import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.c
     MatTableModule,
     MatSelectModule,
     MatButtonModule,
-    GlobalTableComponent
+    GlobalTableComponent,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class DesignationsModule { }

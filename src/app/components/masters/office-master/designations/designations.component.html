@@ -5,21 +5,20 @@
   <mat-card-content class="card-body">
     <div class="row">
       <div class="col-sm-8">
+        <form [formGroup]="filterFrm">
         <div class="row gx-2">
           <div class="col-sm-auto">
            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Department</mat-label>
-              <mat-select formControlName="departmentId">
+              <mat-select formControlName="deptId">
                   <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{department.departmentName}}</mat-option>
               </mat-select>
-              <!-- <mat-error *ngIf="f['departmentId'].hasError('required')">Dept Is
-                  Required</mat-error> -->
-          </mat-form-field>
+            </mat-form-field>
           </div>
           <div class="col-sm-auto">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Department Level</mat-label>
-              <mat-select formControlName="departmentLevelId">
+              <mat-select formControlName="deptLevelId">
                   <mat-option *ngFor="let deptLevel of departmentLevelArray" [value]="deptLevel.id">{{deptLevel.departmentLevel}}</mat-option>
               </mat-select>
            </mat-form-field>
@@ -27,20 +26,21 @@
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Designation</mat-label>
-              <mat-select>
-                <mat-option>Option 1</mat-option>
-              </mat-select>
+              <input matInput formControlName="textSearch"
+                (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
             </mat-form-field>
           </div>
           <div class="col-sm-1">
             <div class="d-flex align-items-center gap-2">
-              <button mat-icon-button class="btn bg-success bg-opacity-10 text-success rounded " matTooltip="edit">
+              <button mat-icon-button class="btn bg-success bg-opacity-10 text-success rounded " matTooltip="edit"
+              (click)="bindTable('filter')">
                 <mat-icon class="material-symbols-rounded">
                   <!-- edit_square -->
                   search
                 </mat-icon>
               </button>
-              <button mat-icon-button class="btn bg-danger bg-opacity-10 text-danger rounded " matTooltip="edit">
+              <button mat-icon-button class="btn bg-danger bg-opacity-10 text-danger rounded " matTooltip="edit"
+              (click)="clearForm()">
                 <mat-icon class="material-symbols-rounded">
                   <!-- edit_square -->
                   close
@@ -49,6 +49,7 @@
             </div>
           </div>
         </div>
+        </form>
         <div class="table-responsive scrollbar">
           <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
         </div>
@@ -56,41 +57,47 @@
       <div class="col-sm-4">
         <div class="card p-0">
           <div class="card-header p-0 text-main">
-            Add Department Level
+            {{this.editFlag ? "Update Designation" : "Add Designation" }}
           </div>
+          <form [formGroup]="designationFrm"  #formDirective="ngForm">
+              
           <div class="card-body">
             <!-- <div class="d-flex gap-2">
               <div class="form-label">Department </div> -->
               <div class="mb-0">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Department</mat-label>
-                  <mat-select>
-                    <mat-option>Option 1</mat-option>
+                  <mat-select formControlName="departmentId">
+                      <mat-option *ngFor="let department of departmentArrayAdd" [value]="department.id">{{department.departmentName}}</mat-option>
                   </mat-select>
-                </mat-form-field>
+                  <!-- <mat-error *ngIf="a['departmentId'].hasError('required')">Department Is
+                      Required</mat-error> -->
+              </mat-form-field>
               </div>
               <div class="mb-0">
                 <mat-form-field appearance="outline" class="w-100">
-                  <mat-label> Levels</mat-label>
-                  <mat-select>
-                    <mat-option>Option 1</mat-option>
+                  <mat-label>Levels</mat-label>
+                  <mat-select formControlName="departmentLevelId">
+                      <mat-option *ngFor="let deptLevel of departmentLevelAddArray" [value]="deptLevel.id">{{deptLevel.departmentLevel}}</mat-option>
                   </mat-select>
-                </mat-form-field>
+               </mat-form-field>
               </div>
               <div class="mb-0">
                 <mat-form-field appearance="outline" class="w-100">
-                  <mat-label> Designation</mat-label>
-                  <mat-select>
-                    <mat-option>Option 1</mat-option>
-                  </mat-select>
+                  <mat-label>Designation</mat-label>
+                  <input matInput formControlName="m_DesignationName" maxlength="50"
+                      (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumericWithSpaces($event)">
+                  <!-- <mat-error *ngIf="a['m_DesignationName'].hasError('pattern')">Please Enter Valid Designation
+                      Name</mat-error>  -->
                 </mat-form-field>
               </div>
-            <!-- </div> -->
+            
             <div class="d-flex align-items-center justify-content-end gap-2">
-              <button mat-flat-button class="btn-main-light">Clear</button>
-              <button mat-flat-button class="btn-main">Add</button>
+              <button mat-flat-button class="btn-main-light"  (click)="clearMainForm()">Clear</button>
+              <button mat-flat-button class="btn-main" (click)="onSubmit()">{{this.editFlag ? 'Update' : 'Add'}}</button>
             </div>
           </div>
+          </form>
         </div>
       </div>
     </div>
