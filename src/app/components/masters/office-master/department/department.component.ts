@@ -6,7 +6,6 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
-// import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 
 @Component({
@@ -24,9 +23,8 @@ export class DepartmentComponent {
   pageNumber: number = 1;
   editData: any;
   highLightRowFlag: boolean = false;
-  displayedColumns: string[] = ['srno', 'departmentname', 'action'];
   @ViewChild('formDirective') private formDirective!: NgForm;
-  dataSource = ELEMENT_DATA;
+  get f() { return this.departmentFrm.controls };
 
   constructor(private fb: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -35,7 +33,6 @@ export class DepartmentComponent {
       private errorService: ErrorHandlingService,
       private common: CommonMethodsService,
       public dialog: MatDialog,
-      // private webService: WebStorageService,
       ) { }
 
   ngOnInit() {
@@ -45,11 +42,11 @@ export class DepartmentComponent {
   }
 
   defaultFrm(data?: any) { 
-    // this.editData = data;
     this.departmentFrm = this.fb.group({
       id : [data ? data.id : 0],
-      departmentName: [data ? data.departmentName : '', Validators.required],
+      departmentName: [data ? data.departmentName : '', [Validators.required, Validators.pattern(this.validator.fullName)]],
       m_DepartmentName: [data ? data.m_DepartmentName : ''],
+      createdBy: [0]
     })
   }
 
@@ -61,10 +58,10 @@ export class DepartmentComponent {
 
   getTableData(status?: any) {
     this.spinner.show();
-    status == 'filter' ? (this.pageNumber = 1) : '';
+    status == 'filter' ? ((this.pageNumber = 1), this.clearFormData()) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     let searchValue = this.filterFrm?.value || '';
-    status == 'filter' ? this.clearFormData() : '';
+    // status == 'filter' ? this.clearFormData() : '';
     this.apiService.setHttp('GET', 'sericulture/api/Department/get-All-Department?'+str+'&TextSearch=' + (searchValue.textSearch || ''), false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -99,7 +96,7 @@ export class DepartmentComponent {
       blink: '',
       badge: '',
       isBlock: '',
-      pagination: this.totalPages> 10 ? true : false,
+      pagination: this.totalPages > 10 ? true : false,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.totalPages,
@@ -117,6 +114,7 @@ export class DepartmentComponent {
         this.pageNumber = obj.pageNumber;
         this.editFlag = false;
         this.clearFormData();
+        this.filterDefaultFrm();
         this.getTableData();
         break;
       case 'Edit':
@@ -131,20 +129,19 @@ export class DepartmentComponent {
 
   onSubmitData() {
     let formvalue = this.departmentFrm.value;
-    console.log("formvalue",formvalue);
     if(this.departmentFrm.invalid){
       return
     }else{
       this.spinner.show();
-    console.log("formvalue",formvalue);
       this.apiService.setHttp('POST','sericulture/api/Department/Insert-Update-Department', false, formvalue, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res:any) => {
           if(res.statusCode == '200'){
             this.common.snackBar(res.statusMessage,0);
-            this.getTableData();    
             this.clearFormData(); 
             this.defaultFrm();
+            this.filterFrm.controls['textSearch'].setValue('');
+            this.getTableData(); 
             this.editFlag = false;   
           }else{
             this.spinner.hide();
@@ -206,16 +203,8 @@ export class DepartmentComponent {
   }
 
   clearFormData() { // for clear Form field
+    this.editFlag = false;
     this.formDirective?.resetForm();
+    this.defaultFrm();
   }
 }
-
-export interface PeriodicElement {
-  srno: number;
-  departmentname: string;
-  action: any;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { srno: 1, departmentname: 'Hydrogen', action: ' ' }
-];
