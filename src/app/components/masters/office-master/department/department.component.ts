@@ -6,7 +6,6 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
-// import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 
 @Component({
@@ -22,6 +21,7 @@ export class DepartmentComponent {
   tableDatasize!: number;
   totalPages!: number;
   pageNumber: number = 1;
+  editData: any;
   highLightRowFlag: boolean = false;
   displayedColumns: string[] = ['srno', 'departmentname', 'action'];
   @ViewChild('formDirective') private formDirective!: NgForm;
@@ -34,7 +34,6 @@ export class DepartmentComponent {
       private errorService: ErrorHandlingService,
       private common: CommonMethodsService,
       public dialog: MatDialog,
-      // private webService: WebStorageService,
       ) { }
 
   ngOnInit() {
@@ -45,9 +44,10 @@ export class DepartmentComponent {
 
   defaultFrm(data?: any) { 
     this.departmentFrm = this.fb.group({
-      id: [data ? data.id : 0],
+      id : [data ? data.id : 0],
       departmentName: [data ? data.departmentName : '', Validators.required],
       m_DepartmentName: [data ? data.m_DepartmentName : ''],
+      createdBy: [0]
     })
   }
 
@@ -69,9 +69,9 @@ export class DepartmentComponent {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData;
-          this.tableDatasize = res.responseData1?.totalCount;
           this.totalPages = res.responseData1?.totalPages;
-        } else {
+          this.tableDatasize = res.responseData1?.totalCount;
+     } else {
           this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
           this.spinner.hide();
           this.tableDataArray = [];
@@ -97,10 +97,10 @@ export class DepartmentComponent {
       blink: '',
       badge: '',
       isBlock: '',
-      pagination: this.totalPages > 10 ? true : false,
+      pagination: this.totalPages> 10 ? true : false,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
-      tableSize: this.tableDatasize,
+      tableSize: this.totalPages,
       tableHeaders: displayedheaders,
       edit: true,
       delete: true,
@@ -139,7 +139,9 @@ export class DepartmentComponent {
           if(res.statusCode == '200'){
             this.common.snackBar(res.statusMessage,0);
             this.getTableData();    
-            this.clearFormData();    
+            this.clearFormData(); 
+            this.defaultFrm();
+            this.editFlag = false;   
           }else{
             this.spinner.hide();
             this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage,1);
@@ -173,6 +175,7 @@ export class DepartmentComponent {
               this.common.snackBar(res.statusMessage, 0);
               this.getTableData();
               this.clearFormData();
+              this.editFlag = false;
             } else {
               this.common.snackBar(res.statusMessage, 1);
             }
@@ -200,6 +203,7 @@ export class DepartmentComponent {
 
   clearFormData() { // for clear Form field
     this.formDirective?.resetForm();
+    this.defaultFrm();
   }
 }
 
