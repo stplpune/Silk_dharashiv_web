@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AesencryptDecryptService } from './aesencrypt-decrypt.service';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class WebStorageService {
   toggled: boolean = false;
 
-  constructor() { }
+  constructor(private AESEncryptDecryptService:AesencryptDecryptService) { }
 
 
   getSidebarState() {
@@ -21,5 +22,19 @@ export class WebStorageService {
     if (localStorage.getItem('loggedInData'))
       return true
     else return false
+  }
+
+  getLoggedInLocalstorageData() {
+    if (this.checkUserIsLoggedIn() == true) {
+      var decryptData = JSON.parse(this.AESEncryptDecryptService.decrypt(localStorage['loggedInData']));
+      let data = decryptData;
+      return data;
+    }
+  }
+
+  getUserId(){
+    let data = this.getLoggedInLocalstorageData();
+    return data.id ? data.id : 0;
+      
   }
 }
