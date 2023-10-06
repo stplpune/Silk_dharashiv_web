@@ -60,16 +60,16 @@ export class DesignationsComponent {
   addDefaultFrm(data?: any) {
     this.designationFrm = this.fb.group({
       "id": [data ? data.id : 0],
-      // "designationName": [data ? data.designationName : ''],
-      "m_DesignationName": [data ? data.m_DesignationName : '',],
-      "departmentId": [data ? data.departmentId : 0,[Validators.required]],
-      "departmentLevelId": [data ? data.departmentLevelId : 0,[Validators.required]],
+      "designationName": [data ? data.designationName : '',[Validators.required, Validators.pattern(this.validation.alphabetWithSpace)]],
+      "m_DesignationName": [data ? data.m_DesignationName : '',[Validators.required, Validators.pattern(this.validation.marathi)]],
+      "departmentId": [data ? data.departmentId : '',[Validators.required]],
+      "departmentLevelId": [data ? data.departmentLevelId : '',[Validators.required]],
       "createdBy": 0
     })
     this.getDepartmentLevelForAdd();
   }
 
-  get a() { return this.filterFrm.controls }
+  get a() { return this.designationFrm.controls }
 
   get f() { return this.filterFrm.controls }
 
@@ -181,8 +181,8 @@ export class DesignationsComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = ['srNo', 'departmentName', 'departmentLevel', 'm_DesignationName', 'action'];
-    let displayedheaders = ['Sr. No.', 'Department Name', 'Department Level Name', 'Designation Name', 'Action'];
+    let displayedColumns = ['srNo', 'departmentName', 'departmentLevel','designationName', 'm_DesignationName', 'action'];
+    let displayedheaders = ['Sr. No.', 'Department Name', 'Department Level Name', 'Designation Name','Designation Name In Marathi', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
@@ -204,7 +204,7 @@ export class DesignationsComponent {
         this.searchDataFlag ? (this.f['deptId'].setValue(this.filterFrm.value?.deptId), this.f['deptLevelId'].setValue(this.filterFrm.value?.deptLevelId), this.f['textSearch'].setValue(this.filterFrm.value?.textSearch)) : (this.f['deptId'].setValue(''), this.f['deptLevelId'].setValue(''), this.f['textSearch'].setValue(''));
         this.pageNumber = obj.pageNumber;
         this.clearMainForm();//when we click on edit button & click on pagination that time clear form 
-        this.bindTable();
+       this.bindTable();
         break;
         break;
       case 'Edit':
