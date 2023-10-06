@@ -6,7 +6,6 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
-// import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 
 @Component({
@@ -35,7 +34,6 @@ export class DepartmentComponent {
       private errorService: ErrorHandlingService,
       private common: CommonMethodsService,
       public dialog: MatDialog,
-      // private webService: WebStorageService,
       ) { }
 
   ngOnInit() {
@@ -45,11 +43,11 @@ export class DepartmentComponent {
   }
 
   defaultFrm(data?: any) { 
-    // this.editData = data;
     this.departmentFrm = this.fb.group({
       id : [data ? data.id : 0],
       departmentName: [data ? data.departmentName : '', Validators.required],
       m_DepartmentName: [data ? data.m_DepartmentName : ''],
+      createdBy: [0]
     })
   }
 
@@ -131,12 +129,10 @@ export class DepartmentComponent {
 
   onSubmitData() {
     let formvalue = this.departmentFrm.value;
-    console.log("formvalue",formvalue);
     if(this.departmentFrm.invalid){
       return
     }else{
       this.spinner.show();
-    console.log("formvalue",formvalue);
       this.apiService.setHttp('POST','sericulture/api/Department/Insert-Update-Department', false, formvalue, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res:any) => {
@@ -207,6 +203,7 @@ export class DepartmentComponent {
 
   clearFormData() { // for clear Form field
     this.formDirective?.resetForm();
+    this.defaultFrm();
   }
 }
 
