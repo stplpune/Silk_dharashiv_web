@@ -38,6 +38,8 @@ export class DepartmentComponent {
   ngOnInit() {
     this.defaultFrm();
     this.filterDefaultFrm();
+    
+    console.log('oninit')
     this.getTableData();
   }
 
@@ -45,7 +47,7 @@ export class DepartmentComponent {
     this.departmentFrm = this.fb.group({
       id : [data ? data.id : 0],
       departmentName: [data ? data.departmentName : '', [Validators.required, Validators.pattern(this.validator.fullName)]],
-      m_DepartmentName: [data ? data.m_DepartmentName : ''],
+      m_DepartmentName: [data ? data.m_DepartmentName : '',[Validators.required, Validators.pattern(this.validator.marathi)]],
       createdBy: [0]
     })
   }
@@ -58,7 +60,7 @@ export class DepartmentComponent {
 
   getTableData(status?: any) {
     this.spinner.show();
-    status == 'filter' ? ((this.pageNumber = 1), this.clearFormData()) : '';
+    status == 'filter' ? ((this.pageNumber = 1), this.defaultFrm()) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     let searchValue = this.filterFrm?.value || '';
     // status == 'filter' ? this.clearFormData() : '';
@@ -87,8 +89,8 @@ export class DepartmentComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = ['srNo', 'departmentName', 'action'];
-    let displayedheaders = ['Sr. No.', 'Department Name','ACTION'];
+    let displayedColumns = ['srNo', 'departmentName','m_DepartmentName', 'action'];
+    let displayedheaders = ['Sr. No.', 'Department Name','विभागाचे नाव','ACTION'];
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
@@ -96,10 +98,10 @@ export class DepartmentComponent {
       blink: '',
       badge: '',
       isBlock: '',
-      pagination: this.totalPages > 10 ? true : false,
+      pagination: this.tableDatasize > 10 ? true : false,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
-      tableSize: this.totalPages,
+      tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
       edit: true,
       delete: true,
@@ -112,9 +114,10 @@ export class DepartmentComponent {
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
-        this.editFlag = false;
-        this.clearFormData();
-        this.filterDefaultFrm();
+        //this.editFlag = false;
+        // this.clearFormData();
+        // this.filterDefaultFrm();
+        console.log('pagination')
         this.getTableData();
         break;
       case 'Edit':
@@ -198,6 +201,8 @@ export class DepartmentComponent {
   clearSearchFilter() {  // for clear search field
     this.filterFrm.reset();
     this.filterDefaultFrm();
+    
+    console.log('clear')
     this.getTableData();
     this.pageNumber=1;
   }
