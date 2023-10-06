@@ -24,6 +24,7 @@ export class DepartmentComponent {
   editData: any;
   highLightRowFlag: boolean = false;
   @ViewChild('formDirective') private formDirective!: NgForm;
+  get f() { return this.departmentFrm.controls };
 
   constructor(private fb: FormBuilder,
     private spinner: NgxSpinnerService,

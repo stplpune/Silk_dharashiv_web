@@ -51,6 +51,12 @@
             <mat-label>Department</mat-label>
             <input matInput formControlName="departmentName"  minlength="2" maxlength="20"
               (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
+              <mat-error *ngIf="f['departmentName']?.errors">
+                <span class="text-danger"
+                    *ngIf="f['departmentName']?.hasError('minlength') || f['departmentName']?.hasError('pattern')">
+                    {{f['departmentName'].hasError('minlength') ? 'Please Enter Minimum 2 Characters' : 'Please Enter Valid Department Name'}}
+                </span>
+            </mat-error>
           </mat-form-field>
           <div class="d-flex align-items-center justify-content-end gap-2">
             <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">Clear</button>
