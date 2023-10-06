@@ -90,5 +90,46 @@ export class MasterService {
     })
   }
 
+  GetAllBlock(stateId:number, distId:number){
+    return new Observable((obj)=>{
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-AllBlock?StateId='+stateId + '&DistId='+distId, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  GetAllTaluka(stateId:number, distId:number, blockId:number){
+    return new Observable((obj)=>{
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-AllTaluka?StateId='+stateId + '&DistId='+distId+'&BlockId='+blockId, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  GetAllCircle(stateId:number, distId:number, talukaId:number){
+    return new Observable((obj)=>{
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-AllCircle?StateId='+stateId + '&DistId='+distId+'&TalukaId='+talukaId, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  GetAllVillages(stateId:number, distId:number, talukaId:number,circleId:number){
+    return new Observable((obj)=>{
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-AllVillages?StateId='+stateId + '&DistId='+distId+'&TalukaId='+talukaId +'&CircleId='+circleId, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+
 }
 
