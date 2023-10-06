@@ -23,9 +23,7 @@ export class DepartmentComponent {
   pageNumber: number = 1;
   editData: any;
   highLightRowFlag: boolean = false;
-  displayedColumns: string[] = ['srno', 'departmentname', 'action'];
   @ViewChild('formDirective') private formDirective!: NgForm;
-  dataSource = ELEMENT_DATA;
 
   constructor(private fb: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -62,7 +60,7 @@ export class DepartmentComponent {
     status == 'filter' ? (this.pageNumber = 1) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     let searchValue = this.filterFrm?.value || '';
-    status == 'filter' ? this.clearFormData() : '';
+    // status == 'filter' ? this.clearFormData() : '';
     this.apiService.setHttp('GET', 'sericulture/api/Department/get-All-Department?'+str+'&TextSearch=' + (searchValue.textSearch || ''), false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -97,7 +95,7 @@ export class DepartmentComponent {
       blink: '',
       badge: '',
       isBlock: '',
-      pagination: this.totalPages> 10 ? true : false,
+      pagination: this.totalPages > 10 ? true : false,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.totalPages,
@@ -115,6 +113,7 @@ export class DepartmentComponent {
         this.pageNumber = obj.pageNumber;
         this.editFlag = false;
         this.clearFormData();
+        this.filterDefaultFrm();
         this.getTableData();
         break;
       case 'Edit':
@@ -138,9 +137,11 @@ export class DepartmentComponent {
         next: ((res:any) => {
           if(res.statusCode == '200'){
             this.common.snackBar(res.statusMessage,0);
-            this.getTableData();    
             this.clearFormData(); 
             this.defaultFrm();
+            this.filterFrm.controls['textSearch'].setValue('');
+            console.log('fghfg', this.filterFrm.value.textSearch);
+            this.getTableData(); 
             this.editFlag = false;   
           }else{
             this.spinner.hide();
@@ -202,17 +203,8 @@ export class DepartmentComponent {
   }
 
   clearFormData() { // for clear Form field
+    this.editFlag = false;
     this.formDirective?.resetForm();
     this.defaultFrm();
   }
 }
-
-export interface PeriodicElement {
-  srno: number;
-  departmentname: string;
-  action: any;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { srno: 1, departmentname: 'Hydrogen', action: ' ' }
-];
