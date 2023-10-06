@@ -179,6 +179,7 @@ export class DepartmentComponent {
               this.common.snackBar(res.statusMessage, 0);
               this.getTableData();
               this.clearFormData();
+              this.editFlag = false;
             } else {
               this.common.snackBar(res.statusMessage, 1);
             }
