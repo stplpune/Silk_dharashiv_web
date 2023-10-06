@@ -10,13 +10,14 @@
             <div class="col-sm-6">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Search</mat-label>
-                <input matInput formControlName="TextSearch" placeholder=""
+                <input matInput formControlName="textSearch" placeholder=""
                 (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
               </mat-form-field>
             </div>
             <div class="col-sm-auto">
               <div class="d-flex align-items-center gap-2">
-                <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit">
+                <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit"
+                (click)="getTableData('filter')">
                   <mat-icon class="material-symbols-rounded">
                     search
                   </mat-icon>
@@ -35,21 +36,19 @@
       <mat-card-content class="card-body">
 
         <div class="table-responsive scrollbar">
-          <!-- <app-global-table (recObjToChild)="childTableCompInfo($event)"></app-global-table> -->
-          <table mat-table [dataSource]="dataSource" class="dashboard-table">
+          <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
+          <!-- <table mat-table [dataSource]="dataSource" class="dashboard-table">
 
             <ng-container matColumnDef="srno">
               <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
               <td mat-cell *matCellDef="let element"> {{element.srno}} </td>
             </ng-container>
 
-            <!-- Name Column -->
             <ng-container matColumnDef="departmentname">
               <th mat-header-cell *matHeaderCellDef> Department Name </th>
               <td mat-cell *matCellDef="let element"> {{element.departmentname}} </td>
             </ng-container>
 
-            <!-- Weight Column -->
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef> Action </th>
               <td mat-cell *matCellDef="let element">
@@ -69,7 +68,7 @@
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
+          </table> -->
         </div>
       </mat-card-content>
     </mat-card>

@@ -41,7 +41,7 @@ export class MasterService {
 
   GetDeptLevelbyDeptId(deptId:number){
     return new Observable((obj)=>{
-      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-DeptLevelbyDeptId='+deptId, false, false, false, 'masterUrl')
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-DeptLevelbyDeptId?DeptId='+deptId, false, false, false, 'masterUrl')
       this.apiService.getHttp().subscribe({
         next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
         error: (e: any) => { obj.error(e) }
@@ -52,6 +52,16 @@ export class MasterService {
   GetActionDropDown(){
     return new Observable((obj)=>{
       this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-ActionDropDown', false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  GetDesignationDropDown(){
+    return new Observable((obj)=>{
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-DesignationDropDown', false, false, false, 'masterUrl')
       this.apiService.getHttp().subscribe({
         next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
         error: (e: any) => { obj.error(e) }
