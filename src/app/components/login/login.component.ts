@@ -11,6 +11,7 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
+import { Router } from '@angular/router';
 // import * as CryptoJS from 'crypto-js';
 
 
@@ -26,13 +27,14 @@ export class LoginComponent {
   hide = true;
   loginForm!: FormGroup;
   loginFlag: boolean = true;
-  encryptInfo:any;
+  encryptInfo: any;
   constructor(private fb: FormBuilder,
     public validation: ValidationService,
     private commonMethods: CommonMethodsService,
     private error: ErrorHandlingService,
     private spinner: NgxSpinnerService,
     private apiService: ApiService,
+    private router: Router
   ) {
 
   }
@@ -67,18 +69,19 @@ export class LoginComponent {
     this.loginFlag = false;
     this.spinner.show();
     if (this.loginForm.invalid) {
+      this.loginFlag = true;
       this.spinner.hide();
       return
-    } else if (this.loginForm.value.captcha !=  this.commonMethods.checkvalidateCaptcha()) {
+    } else if (this.loginForm.value.captcha != this.commonMethods.checkvalidateCaptcha()) {
       this.spinner.hide();
       this.refreshCaptcha()
+      this.loginFlag = true;
       this.commonMethods.snackBar("Please Enter Valid Capcha", 1)
       return;
     }
-    else if (this.loginForm.valid) {
+    else {
       this.spinner.hide();
       let loginData = this.loginForm.value;
-      delete loginData.captcha;
       let obj = {
         "userName": loginData.userName,
         "password": loginData.password
@@ -93,18 +96,19 @@ export class LoginComponent {
           sessionStorage.setItem('loggedIn', 'true');
           this.encryptInfo = encodeURIComponent((JSON.stringify(JSON.stringify(res)), 'secret key 123').toString());
           localStorage.setItem('loggedInData', this.encryptInfo);
-          this.commonMethods.snackBar(res.statusMessage,0);
-          this.commonMethods.routerLinkRedirect('/dashboard');
-          this.loginFlag=true;
+          this.router.navigate(['/dashboard']);
+          this.loginFlag = true;
+
         }
         else {
           this.spinner.hide();
-          this.loginFlag=true;
+          this.loginFlag = true;
           this.refreshCaptcha();
           this.commonMethods.snackBar(res.statusMessage, 1)
         }
       }, (error: any) => {
         this.spinner.hide();
+        this.loginFlag = true;
         this.error.handelError(error.status);
       })
     }
