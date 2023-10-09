@@ -21,14 +21,16 @@
                             <mat-error *ngIf="f['userName'].errors">
                                 <span class="text-danger" *ngIf="f['userName'].hasError('required')">Username is
                                     Required</span>
+                                <span class="text-danger" *ngIf="f['userName'].hasError('pattern')">Please Enter Valid
+                                    Username</span>
                             </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="mb-0">
                         <label class="form-label">Password</label>
                         <mat-form-field appearance="outline" class="w-100">
-                            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" placeholder="Password"
-                                maxlength="20" (keypress)="validation.noSpaceAllow($event)">
+                            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password"
+                                placeholder="Password" maxlength="20" (keypress)="validation.noSpaceAllow($event)">
                             <mat-error *ngIf="f['password'].errors">
                                 <span class="text-danger" *ngIf="f['password'].hasError('required')">Password is
                                     Required</span>
@@ -56,7 +58,8 @@
                         </div>
                         <div class="col-sm-5">
                             <mat-form-field appearance="outline" class="w-100">
-                                <input matInput placeholder="Captcha" formControlName="captcha" maxlength="4">
+                                <input matInput placeholder="Captcha" formControlName="captcha" maxlength="4"
+                                (keypress)="validation.noSpaceAllow($event)">
                                 <mat-error *ngIf="f['captcha'].errors">
                                     <span class="text-danger" *ngIf="f['captcha'].hasError('required')">Captcha is
                                         Required</span>

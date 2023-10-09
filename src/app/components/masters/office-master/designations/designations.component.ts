@@ -8,6 +8,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 @Component({
   selector: 'app-designations',
   templateUrl: './designations.component.html',
@@ -26,7 +27,6 @@ export class DesignationsComponent {
   departmentLevelArray = new Array();
   departmentLevelAddArray = new Array();
   editFlag: boolean = false;
-  editObj: any;
   searchDataFlag: boolean = false;//used for filter
   @ViewChild('formDirective') private formDirective!: NgForm;
 
@@ -38,10 +38,12 @@ export class DesignationsComponent {
     private errorHandler: ErrorHandlingService,
     private commonMethod: CommonMethodsService,
     public dialog: MatDialog,
+    private WebStorageService:WebStorageService
   ) { }
 
   ngOnInit() {
     this.getDepartment();
+    this.getDepartmentLevel();
     this.filterDefaultFrm();
     this.addDefaultFrm();
     this.bindTable();
@@ -53,7 +55,6 @@ export class DesignationsComponent {
       deptLevelId: [0],
       textSearch: ['']
     })
-    this.getDepartmentLevel();
   }
 
   addDefaultFrm(data?: any) {
@@ -63,10 +64,9 @@ export class DesignationsComponent {
       "m_DesignationName": [data ? data.m_DesignationName : '',[Validators.required, Validators.pattern(this.validation.marathi)]],
       "departmentId": [data ? data.departmentId : '',[Validators.required]],
       "departmentLevelId": [data ? data.departmentLevelId : '',[Validators.required]],
-      "createdBy": 0
+      "createdBy":this.WebStorageService.getUserId()
     })
-    this.getDepartmentLevelForAdd();
-  }
+   }
 
   get a() { return this.designationFrm.controls }
 
@@ -74,6 +74,7 @@ export class DesignationsComponent {
 
   //#region ----------dropdown code start here-------------------------
   getDepartment() {
+    this.departmentArray = []; this.departmentArrayAdd = [];
     this.masterService.GetDepartmentDropdown().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
@@ -89,37 +90,38 @@ export class DesignationsComponent {
   }
 
   getDepartmentLevel() {
+    this.departmentLevelArray = []; this.departmentLevelAddArray = [];
     this.masterService.GetDeptLevelDropDown().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentLevelArray = res.responseData;
+          this.departmentLevelAddArray = res.responseData;
         }
         else {
-          this.departmentLevelArray = [];
+          this.departmentLevelArray = []; this.departmentLevelAddArray = [];
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
       })
     })
   }
 
-  getDepartmentLevelForAdd() {
-    this.masterService.GetDeptLevelDropDown().subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.departmentLevelAddArray = res.responseData;
-        }
-        else {
-          this.departmentLevelAddArray = [];
-          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      })
-    })
-  }
+  // getDepartmentLevelForAdd() {
+  //   this.masterService.GetDeptLevelDropDown().subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == "200" && res.responseData?.length) {
+  //         this.departmentLevelAddArray = res.responseData;
+  //       }
+  //       else {
+  //         this.departmentLevelAddArray = [];
+  //         this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+  //       }
+  //     })
+  //   })
+  // }
   //#endregion-----------dropdown code end here-----------------
 
   onEditData(obj: any) {
     this.editFlag = true;
-    this.editObj = obj;
     this.addDefaultFrm(obj);
   }
 
@@ -136,7 +138,7 @@ export class DesignationsComponent {
         next: ((res: any) => {
           this.spinner.hide();
           if (res.statusCode == "200") {
-            this.commonMethod.snackBar(res.statusMessage, 0);
+            this.commonMethod.snackBar(res.statusMessage,0);
             this.bindTable();
             this.clearMainForm();
           } else {
@@ -153,9 +155,9 @@ export class DesignationsComponent {
 
   bindTable(flag?: any) {
     this.spinner.show();
-    flag == 'filter' ? (this.searchDataFlag = true, (this.pageNumber = 1)) : '';
+    flag == 'filter' ? (this.searchDataFlag = true,this.clearMainForm(), (this.pageNumber = 1)) : '';
     let formData = this.filterFrm?.getRawValue();
-    flag == 'filter' ? this.clearMainForm() : ''; //when we click on edit button and search record that time clear form 
+    // flag == 'filter' ? this.clearMainForm() : ''; //when we click on edit button and search record that time clear form 
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
     this.apiService.setHttp('GET', `sericulture/api/Designation/get-All-Designation?DeptId=${formData?.deptId || 0}&Deptlevel=${formData?.deptLevelId || 0}&TextSearch=${formData?.textSearch || ''}` + str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
@@ -198,15 +200,15 @@ export class DesignationsComponent {
 
 
   childCompInfo(obj: any) {
+   
     switch (obj.label) {
       case 'Pagination':
         this.searchDataFlag ? (this.f['deptId'].setValue(this.filterFrm.value?.deptId), this.f['deptLevelId'].setValue(this.filterFrm.value?.deptLevelId), this.f['textSearch'].setValue(this.filterFrm.value?.textSearch)) : (this.f['deptId'].setValue(''), this.f['deptLevelId'].setValue(''), this.f['textSearch'].setValue(''));
         this.pageNumber = obj.pageNumber;
         this.clearMainForm();//when we click on edit button & click on pagination that time clear form 
-       this.bindTable();
+        this.bindTable();
         break;
-        break;
-      case 'Edit':
+       case 'Edit':
         this.onEditData(obj);
         break;
       case 'Delete':
@@ -261,7 +263,7 @@ export class DesignationsComponent {
         });
       }
       this.highLightRowFlag = false;
-      this.setTableData();
+      //this.setTableData();
     });
   }
 

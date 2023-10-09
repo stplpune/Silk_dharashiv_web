@@ -86,7 +86,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Designation</mat-label>
                   <input matInput formControlName="designationName" maxlength="50"
-                      (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumericWithSpaces($event)">
+                      (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
                   <mat-error *ngIf="a['designationName'].hasError('pattern')">Please Enter Valid Designation
                       Name</mat-error> 
                 </mat-form-field>
