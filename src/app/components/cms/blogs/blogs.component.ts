@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AddBlogsComponent } from './add-blogs/add-blogs.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-blogs',
@@ -6,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./blogs.component.scss']
 })
 export class BlogsComponent {
+
+  constructor(public dialog: MatDialog) {}
+
+  addblogs(){
+    this.dialog.open(AddBlogsComponent,{
+      width:'60%'
+    })
+  }
 
 }
