@@ -140,7 +140,6 @@ export class ActionsComponent {
         if (res.statusCode == '200') {
           this.schemeArray = res.responseData;
           this.schemeFilterArr.unshift({value: 0, textEnglish: "All Scheme"},...res.responseData);
-          console.log('this.schemeArray', this.schemeFilterArr);
         } else {
           this.schemeFilterArr = [];
           this.schemeArray = [];
