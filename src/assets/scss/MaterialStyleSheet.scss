@@ -51,3 +51,13 @@
     background-color: var(--main-color) !important;
     color: #fff !important;
 }
+
+/* error message css */
+.error,
+.mat-mdc-form-field-error {
+    color: rgb(220, 53, 69);
+    font-size: 0.7rem;
+    font-family: 'Public Sans', sans-serif !important;
+    letter-spacing: normal;
+    margin-top: -5px;
+}
