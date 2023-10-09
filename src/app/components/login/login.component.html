@@ -59,12 +59,12 @@
                         <div class="col-sm-5">
                             <mat-form-field appearance="outline" class="w-100">
                                 <input matInput placeholder="Captcha" formControlName="captcha" maxlength="4"
-                                    (keypress)="validation.noSpaceAllow($event)">
+                                    (keypress)="validation.noSpaceAllow($event);validation.alphaNumeric($event)" >
                                 <mat-error *ngIf="f['captcha'].errors">
                                     <span class="text-danger" *ngIf="f['captcha'].hasError('required')">Captcha is
                                         Required</span>
-                                    <span class="text-danger" *ngIf="f['captcha'].hasError('pattern')">Please Enter
-                                        Valid Captcha</span>
+                                    <!-- <span class="text-danger" *ngIf="f['captcha'].hasError('pattern')">Please Enter
+                                        Valid Captcha</span> -->
                                 </mat-error>
                             </mat-form-field>
                         </div>
