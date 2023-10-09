@@ -5,12 +5,12 @@
         <div class="text-main">Department</div>
       </mat-card-header>
       <mat-card-header class="card-header-control">
-        <form [formGroup]="filterFrm">
+        <form [formGroup]="filterFrm" class="w-100">
           <div class="row g-2 w-100">
             <div class="col-sm-6">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Search Department</mat-label>
-                <input matInput formControlName="textSearch" 
+                <input matInput formControlName="textSearch"
                   (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
               </mat-form-field>
             </div>
