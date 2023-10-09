@@ -188,7 +188,7 @@ export class ActionsComponent {
 
   globalDialogOpen(delDataObj?: any) {
     let dialogObj = {
-      title: 'Do You Want To Action?',
+      title: 'Do You Want To Delete Action?',
       header: 'Delete',
       okButton: 'Delete',
       cancelButton: 'Cancel',
