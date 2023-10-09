@@ -1,10 +1,10 @@
-<mat-card class="plain-card">
-  <mat-card-header class="card-header">
-    <div class="text-main">Department Levels</div>
-  </mat-card-header>
-  <mat-card-content class="card-body">
-    <div class="row">
-      <div class="col-sm-8">
+<div class="row gx-2">
+  <div class="col-sm-8">
+    <mat-card class="plain-card">
+      <mat-card-header class="card-header">
+        <div class="text-main">Department Levels</div>
+      </mat-card-header>
+      <mat-card-content class="card-body">
         <div class="row gx-2">
           <div class="col-sm-4">
             <mat-form-field appearance="outline" class="w-100">
@@ -20,7 +20,8 @@
               <mat-label>Department Levels</mat-label>
               <mat-select [formControl]="filterDeptLevel">
                 <!-- <mat-option>Option 1</mat-option> -->
-                <mat-option *ngFor="let deptLevel of filterDeptLevelArray" [value]="deptLevel.id">{{deptLevel.departmentLevel}}</mat-option>
+                <mat-option *ngFor="let deptLevel of filterDeptLevelArray"
+                  [value]="deptLevel.id">{{deptLevel.departmentLevel}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -32,7 +33,7 @@
                   search
                 </mat-icon>
               </button>
-              <button mat-flat-button class="btn-main-light btn-icon " matTooltip="edit" (click)="clearFilter()" >
+              <button mat-flat-button class="btn-main-light btn-icon " matTooltip="edit" (click)="clearFilter()">
                 <mat-icon class="material-symbols-rounded">
                   <!-- edit_square -->
                   close
@@ -42,45 +43,64 @@
           </div>
         </div>
         <div class="table-responsive scrollbar">
-              <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
+          <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
         </div>
-      </div>
-      <div class="col-sm-4">
-        <form [formGroup]="departmentLevelForm" #FormGroupDirective="ngForm">
-        <div class="card p-0">
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-sm-4">
+    <form [formGroup]="departmentLevelForm" #FormGroupDirective="ngForm">
+      <mat-card class="plain-card">
+        <mat-card-header class="card-header">
           <div class="card-header p-0 text-main">
             {{editFlag ? 'Update Department Level':'Add Department Level'}}
           </div>
-          <div class="card-body">
-            <!-- <div class="d-flex gap-2">
-              <div class="form-label">Department </div> -->
-              <div class="mb-2">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Department</mat-label>
-                  <mat-select formControlName="departmentId">
-                    <mat-option *ngFor="let dept of departmentArray" [value]="dept.id">{{dept.departmentName}}</mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="f['departmentId'].hasError('required') ">Please Select Department</mat-error>
-                </mat-form-field>
-              </div>
-              <div class="mb-2">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label> Levels</mat-label>
-                  <mat-select formControlName="departmentLevelId">
-                    <!-- <mat-option>Option 1</mat-option> -->
-                    <mat-option *ngFor="let deptLevel of departmentLevelArray" [value]="deptLevel.id">{{deptLevel.departmentLevel}}</mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="f['departmentLevelId'].hasError('required') ">Please Select Levels</mat-error>
-                </mat-form-field>
-              </div>
-            <!-- </div> -->
-            <div class="d-flex align-items-center justify-content-end gap-2">
-              <button mat-flat-button class="btn-main-light" type="button" (click)="clearForm()">Clear</button>
-              <button mat-flat-button class="btn-main" type="submit" (click)="onSubmit()">{{editFlag ? 'Update':'Add'}}</button>
-            </div>
+        </mat-card-header>
+        <mat-card-content class="card-body">
+          <div class="mb-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Department</mat-label>
+              <mat-select formControlName="departmentId">
+                <mat-option *ngFor="let dept of departmentArray" [value]="dept.id">{{dept.departmentName}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="f['departmentId'].hasError('required') ">Please Select Department</mat-error>
+            </mat-form-field>
           </div>
-        </div>
-      </form>
+          <div class="mb-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label> Levels</mat-label>
+              <mat-select formControlName="departmentLevelId">
+                <!-- <mat-option>Option 1</mat-option> -->
+                <mat-option *ngFor="let deptLevel of departmentLevelArray"
+                  [value]="deptLevel.id">{{deptLevel.departmentLevel}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="f['departmentLevelId'].hasError('required') ">Please Select Levels</mat-error>
+            </mat-form-field>
+          </div>
+          <!-- </div> -->
+          <div class="d-flex align-items-center justify-content-end gap-2">
+            <button mat-flat-button class="btn-main-light" type="button" (click)="clearForm()">Clear</button>
+            <button mat-flat-button class="btn-main" type="submit" (click)="onSubmit()">{{editFlag ?
+              'Update':'Add'}}</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
+
+  </div>
+</div>
+
+<mat-card class="plain-card">
+  <mat-card-header class="card-header">
+
+  </mat-card-header>
+  <mat-card-content class="card-body">
+    <div class="row">
+      <div class="col-sm-8">
+
+      </div>
+      <div class="col-sm-4">
+
       </div>
     </div>
   </mat-card-content>
