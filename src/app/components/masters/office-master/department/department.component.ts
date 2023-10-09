@@ -38,8 +38,6 @@ export class DepartmentComponent {
   ngOnInit() {
     this.defaultFrm();
     this.filterDefaultFrm();
-    
-    console.log('oninit')
     this.getTableData();
   }
 
@@ -90,7 +88,7 @@ export class DepartmentComponent {
   setTableData() {
     this.highLightRowFlag = true;
     let displayedColumns = ['srNo', 'departmentName','m_DepartmentName', 'action'];
-    let displayedheaders = ['Sr. No.', 'Department Name','विभागाचे नाव','ACTION'];
+    let displayedheaders = ['Sr. No.', 'Department(English)','Department(Marathi)','ACTION'];
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
@@ -114,10 +112,9 @@ export class DepartmentComponent {
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
-        //this.editFlag = false;
-        // this.clearFormData();
-        // this.filterDefaultFrm();
-        console.log('pagination')
+        this.editFlag = false;
+        this.clearFormData();
+        this.filterDefaultFrm();
         this.getTableData();
         break;
       case 'Edit':
@@ -201,8 +198,6 @@ export class DepartmentComponent {
   clearSearchFilter() {  // for clear search field
     this.filterFrm.reset();
     this.filterDefaultFrm();
-    
-    console.log('clear')
     this.getTableData();
     this.pageNumber=1;
   }

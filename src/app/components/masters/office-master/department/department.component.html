@@ -9,7 +9,7 @@
           <div class="row g-2 w-100">
             <div class="col-sm-6">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Search Department</mat-label>
+                <mat-label>Department Name</mat-label>
                 <input matInput formControlName="textSearch" 
                   (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
               </mat-form-field>
@@ -48,7 +48,7 @@
         </div>
         <div class="card-body">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Department</mat-label>
+            <mat-label>Department Name(English)</mat-label>
             <input matInput formControlName="departmentName"  minlength="2" maxlength="20"
               (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
               <mat-error *ngIf="f['departmentName']?.errors">
@@ -59,7 +59,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>विभाग</mat-label>
+            <mat-label>Department Name(Marathi)</mat-label>
             <input matInput formControlName="m_DepartmentName"  minlength="2" maxlength="20"
               (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
               <mat-error *ngIf="f['m_DepartmentName']?.errors">
@@ -71,7 +71,7 @@
           </mat-form-field>
           <div class="d-flex align-items-center justify-content-end gap-2">
             <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">Clear</button>
-            <button mat-flat-button class="btn-main" type="submit">{{!editFlag ? 'Add' : 'Update'}}</button>
+            <button mat-flat-button class="btn-main" type="submit">{{!editFlag ? 'Save' : 'Update'}}</button>
           </div>
         </div>
       </div>
