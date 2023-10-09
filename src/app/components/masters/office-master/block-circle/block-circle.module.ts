@@ -12,6 +12,8 @@ import { MatTableModule } from '@angular/material/table';
 import {MatRadioModule} from '@angular/material/radio';
 // import { AddcircleComponent } from './addcircle/addcircle.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
+
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTableModule,
     MatSelectModule,
     MatRadioModule,
-    MatButtonModule
+    MatButtonModule,
+    GlobalTableComponent
   ]
 })
 export class BlockCircleModule { }
