@@ -1,1 +1,61 @@
-<p>faq works!</p>
+<div class="row">
+  <div class="col-sm-8">
+    <mat-card class="plain-card">
+      <mat-card-header class="card-header">
+        <div class="text-main">FAQ's</div>
+      </mat-card-header>
+      <mat-card-content class="card-body">
+        <div class="row gx-2">
+          <div class="col-sm-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Search </mat-label>
+              <input matInput formControlName="textSearch" >
+            </mat-form-field>
+          </div>
+          <div class="col-sm-auto">
+            <div class="d-flex align-items-center gap-2">
+              <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
+                <mat-icon class="material-symbols-rounded">
+                  search
+                </mat-icon>
+              </button>
+              <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+                <mat-icon class="material-symbols-rounded">
+                  close
+                </mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive scrollbar">
+          Table
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-sm-4">
+    <mat-card class="plain-card">
+      <mat-card-header class="card-header">
+        <div class="text-main">Add FAQ's</div>
+      </mat-card-header>
+      <mat-card-content class="card-body">
+        <div class="mb-0">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Question</mat-label>
+            <input matInput placeholder="market name ">
+          </mat-form-field>
+        </div>
+        <div class="mb-0">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Answers</mat-label>
+            <input matInput placeholder="market name ">
+          </mat-form-field>
+        </div>
+        <div class="d-flex align-items-center justify-content-end">
+          <button mat-flat-button class="btn-main-light">Clear</button>
+          <button mat-flat-button class="btn-main">Publish</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
