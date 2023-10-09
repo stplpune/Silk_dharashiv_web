@@ -104,21 +104,7 @@ export class DesignationsComponent {
       })
     })
   }
-
-  // getDepartmentLevelForAdd() {
-  //   this.masterService.GetDeptLevelDropDown().subscribe({
-  //     next: ((res: any) => {
-  //       if (res.statusCode == "200" && res.responseData?.length) {
-  //         this.departmentLevelAddArray = res.responseData;
-  //       }
-  //       else {
-  //         this.departmentLevelAddArray = [];
-  //         this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-  //       }
-  //     })
-  //   })
-  // }
-  //#endregion-----------dropdown code end here-----------------
+//#endregion-----------dropdown code end here-----------------
 
   onEditData(obj: any) {
     this.editFlag = true;
@@ -265,8 +251,70 @@ export class DesignationsComponent {
       //this.setTableData();
     });
   }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // getDepartmentLevelForAdd() {
+  //   this.masterService.GetDeptLevelDropDown().subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == "200" && res.responseData?.length) {
+  //         this.departmentLevelAddArray = res.responseData;
+  //       }
+  //       else {
+  //         this.departmentLevelAddArray = [];
+  //         this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+  //       }
+  //     })
+  //   })
+  // }
 
 
 
