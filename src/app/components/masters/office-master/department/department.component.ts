@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 
 @Component({
@@ -21,7 +22,6 @@ export class DepartmentComponent {
   tableDatasize!: number;
   totalPages!: number;
   pageNumber: number = 1;
-  editData: any;
   highLightRowFlag: boolean = false;
   @ViewChild('formDirective') private formDirective!: NgForm;
   get f() { return this.departmentFrm.controls };
@@ -33,6 +33,7 @@ export class DepartmentComponent {
       private errorService: ErrorHandlingService,
       private common: CommonMethodsService,
       public dialog: MatDialog,
+      public webStorage: WebStorageService
       ) { }
 
   ngOnInit() {
