@@ -1,5 +1,6 @@
 /* default font and font size set */
 .mdc-form-field,
+.mat-mdc-snack-bar-label,
 .mdc-tab__content,
 .mat-button-toggle-button,
 .mdc-floating-label,
@@ -60,4 +61,18 @@
     font-family: 'Public Sans', sans-serif !important;
     letter-spacing: normal;
     margin-top: -5px;
+}
+
+/* prefix icon in textbox CSS */
+.mat-mdc-form-field-icon-prefix>.mat-icon {
+    padding: 0 0 0 10px !important;
+    font-size: 1.2rem;
+    height: 20px;
+    color: var(--main-color);
+}
+
+/* suffix icon in textbox CSS */
+.mat-mdc-form-field-icon-suffix .mat-icon {
+    font-size: 1.2rem;
+    height: 19px;
 }
