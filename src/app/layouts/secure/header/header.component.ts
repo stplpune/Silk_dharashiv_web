@@ -16,7 +16,7 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 })
 export class HeaderComponent {
   constructor(private webStorage: WebStorageService, public dialog: MatDialog,
-   private commonMethods:CommonMethodsService) {
+    private commonMethods: CommonMethodsService) {
 
   }
 
@@ -26,20 +26,32 @@ export class HeaderComponent {
   }
 
   openChangePasswordDialog() {
-    this.dialog.open(ChangePasswordComponent, {
-      width: '50%'
+    let dialoObj = {
+      header: 'Change Password',
+      title: 'Do You Really Want To Change Password?',
+      cancelButton: 'Cancel',
+      okButton: 'Change Password'
+    }
+    const dialogRef = this.dialog.open(ChangePasswordComponent, {
+      width: '50%',
+      data: dialoObj,
+      disableClose: false,
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      if (res == 'Yes') {
+        this.clearLocalStorage();
+      }
     });
   }
 
 
-  clearLocalStorage(){
+  clearLocalStorage() {
     localStorage.clear();
     sessionStorage.removeItem('loggedIn');
     this.commonMethods.routerLinkRedirect('/login');
-}
+  }
 
-  openLogOutDialog(){    //open logout dialog
-
+  openLogOutDialog() {    //open logout dialog
     let dialoObj = {
       header: 'Logout',
       title: 'Do You Want To Logout ?',
@@ -53,7 +65,7 @@ export class HeaderComponent {
     });
 
     dialogRef.afterClosed().subscribe(res => {
-      if(res=='Yes'){
+      if (res == 'Yes') {
         this.clearLocalStorage();
       }
     });
