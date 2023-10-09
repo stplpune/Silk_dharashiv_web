@@ -1,6 +1,14 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
-    <div class="text-main">Designation</div>
+    <div class="d-flex align-items-center justify-content-between w-100">
+      <div class="text-main">Block Circle</div>
+      <button mat-flat-button class="btn-main" (click)="addcircle()">
+        <!-- <span class="material-symbols-rounded">
+          add
+        </span> -->
+        <span>Add Circle</span>
+      </button>
+    </div>
   </mat-card-header>
   <mat-card-content class="card-body">
 
@@ -32,13 +40,13 @@
       </div>
       <div class="col-sm-1">
         <div class="d-flex align-items-center gap-2">
-          <button mat-icon-button class="btn bg-success bg-opacity-10 text-success rounded " matTooltip="edit">
+          <button mat-flat-button class="btn-main btn-icon " matTooltip="edit">
             <mat-icon class="material-symbols-rounded">
               <!-- edit_square -->
               search
             </mat-icon>
           </button>
-          <button mat-icon-button class="btn bg-danger bg-opacity-10 text-danger rounded " matTooltip="edit">
+          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit">
             <mat-icon class="material-symbols-rounded">
               <!-- edit_square -->
               close
@@ -46,13 +54,8 @@
           </button>
         </div>
       </div>
-      <div class="col-sm text-end" (click)="addcircle()">
-        <button mat-flat-button class="btn-main">
-          <!-- <span class="material-symbols-rounded">
-            add
-          </span> -->
-          <span>Add Circle</span>
-        </button>
+      <div class="col-sm text-end">
+
       </div>
     </div>
     <div class="table-responsive scrollbar">

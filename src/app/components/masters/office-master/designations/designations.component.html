@@ -32,14 +32,14 @@
           </div>
           <div class="col-sm-1">
             <div class="d-flex align-items-center gap-2">
-              <button mat-icon-button class="btn bg-success bg-opacity-10 text-success rounded " matTooltip="edit"
+              <button mat-flat-button class="btn-main btn-icon " matTooltip="edit"
               (click)="bindTable('filter')">
                 <mat-icon class="material-symbols-rounded">
                   <!-- edit_square -->
                   search
                 </mat-icon>
               </button>
-              <button mat-icon-button class="btn bg-danger bg-opacity-10 text-danger rounded " matTooltip="edit"
+              <button mat-flat-button class="btn-main-light btn-icon " matTooltip="edit"
               (click)="clearForm()">
                 <mat-icon class="material-symbols-rounded">
                   <!-- edit_square -->
@@ -60,7 +60,7 @@
             {{this.editFlag ? "Update Designation" : "Add Designation" }}
           </div>
           <form [formGroup]="designationFrm"  #formDirective="ngForm">
-              
+
           <div class="card-body">
             <!-- <div class="d-flex gap-2">
               <div class="form-label">Department </div> -->
@@ -86,9 +86,9 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Designation</mat-label>
                   <input matInput formControlName="designationName" maxlength="50"
-                      (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumericWithSpaces($event)">
+                      (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
                   <mat-error *ngIf="a['designationName'].hasError('pattern')">Please Enter Valid Designation
-                      Name</mat-error> 
+                      Name</mat-error>
                 </mat-form-field>
               </div>
               <div class="mb-0">
@@ -96,10 +96,10 @@
                   <mat-label>पदनाम</mat-label>
                   <input matInput formControlName="m_DesignationName" maxlength="50"
                       (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
-                  <mat-error *ngIf="a['m_DesignationName'].hasError('pattern')">कृपया वैध पदनाम प्रविष्ट करा</mat-error> 
+                  <mat-error *ngIf="a['m_DesignationName'].hasError('pattern')">कृपया वैध पदनाम प्रविष्ट करा</mat-error>
                 </mat-form-field>
               </div>
-            
+
             <div class="d-flex align-items-center justify-content-end gap-2">
               <button mat-flat-button class="btn-main-light" type="button"  (click)="clearMainForm()">Clear</button>
               <button mat-flat-button class="btn-main"  type="submit" (click)="onSubmit()">{{this.editFlag ? 'Update' : 'Add'}}</button>
