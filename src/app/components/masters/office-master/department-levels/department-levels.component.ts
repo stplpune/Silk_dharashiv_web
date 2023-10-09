@@ -57,7 +57,7 @@ export class DepartmentLevelsComponent {
 
   getTableData(flag?: any) {
     this.spinner.show();
-    flag == 'filter' ? (this.pageNumber = 1) : '';   
+    flag == 'filter' ? (this.pageNumber = 1) : '';
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
     // https://demosilkapi.mahamining.com/sericulture/api/DepartmentLevel/get-All-DepartmentLevel?DeptId=0&DeptlevelId=0&PageNo=1&PageSize=10
     this.apiService.setHttp('GET', `sericulture/api/DepartmentLevel/get-All-DepartmentLevel?DeptId=${this.filterDepartment.value || 0}&DeptlevelId=${this.filterDeptLevel.value || 0}` + str, false, false, false, 'masterUrl');
@@ -68,7 +68,7 @@ export class DepartmentLevelsComponent {
           this.tableDataArray = res.responseData;
           this.tableDatasize = res.responseData1?.totalCount;
           this.totalPages = res.responseData1?.totalPages;
-          
+
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
           this.tableDataArray = []; this.tableDatasize = 0;
@@ -147,7 +147,7 @@ export class DepartmentLevelsComponent {
             this.spinner.hide();
             this.commonMethod.snackBar(res.statusMessage, 0);
             !this.editFlag ? this.pageNumber = 1 : this.pageNumber = this.pageNumber
-           this.clearForm()
+            this.clearForm()
             this.getTableData();
           } else {
             this.spinner.hide();
@@ -161,8 +161,8 @@ export class DepartmentLevelsComponent {
 
   globalDialogOpen(delDataObj?: any) {
     let dialogObj = {
-      title: 'Do You Want To Delete Department Level?',
-      header: 'Delete',
+      title: 'Are you sure you want to delete Department Level?',
+      header: 'Delete Department Level',
       okButton: 'Delete',
       cancelButton: 'Cancel',
     };
@@ -178,7 +178,7 @@ export class DepartmentLevelsComponent {
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
-              this.commonMethod.snackBar(res.statusMessage, 0);          
+              this.commonMethod.snackBar(res.statusMessage, 0);
               this.getTableData();
               this.clearForm();
               this.editFlag = false;
@@ -200,7 +200,7 @@ export class DepartmentLevelsComponent {
     this.editFlag = false;
   }
   clearFilter() {
-    this.filterDepartment.value || this.filterDeptLevel.value ?(this.filterDepartment.setValue(0),this.filterDeptLevel.setValue(0),this.getTableData()):'';
+    this.filterDepartment.value || this.filterDeptLevel.value ? (this.filterDepartment.setValue(0), this.filterDeptLevel.setValue(0), this.getTableData()) : '';
   }
 }
 
