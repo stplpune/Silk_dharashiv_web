@@ -57,7 +57,7 @@ export class CommonMethodsService {
     let id: any = document.getElementById('captcha');
     id.innerHTML = "";
     // "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!#$%^&*";
-    var charsArray = "0123456789";
+    var charsArray = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     var lengthOtp = 4;
     var captcha = [];
     for (var i = 0; i < lengthOtp; i++) {
