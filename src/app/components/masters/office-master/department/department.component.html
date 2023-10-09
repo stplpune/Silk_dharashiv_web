@@ -48,7 +48,7 @@
         </div>
         <div class="card-body">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Department</mat-label>
+            <mat-label>Department Name(English)</mat-label>
             <input matInput formControlName="departmentName"  minlength="2" maxlength="20"
               (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
               <mat-error *ngIf="f['departmentName']?.errors">
@@ -58,9 +58,20 @@
                 </span>
             </mat-error>
           </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Department Name(Marathi)</mat-label>
+            <input matInput formControlName="m_DepartmentName"  minlength="2" maxlength="20"
+              (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
+              <mat-error *ngIf="f['m_DepartmentName']?.errors">
+                <span class="text-danger"
+                    *ngIf="f['m_DepartmentName']?.hasError('minlength') || f['m_DepartmentName']?.hasError('pattern')">
+                    {{f['m_DepartmentName'].hasError('minlength') ? 'कृपया किमान 2 वर्ण प्रविष्ट करा' : 'कृपया वैध विभागाचे नाव प्रविष्ट करा'}}
+                </span>
+            </mat-error>
+          </mat-form-field>
           <div class="d-flex align-items-center justify-content-end gap-2">
             <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">Clear</button>
-            <button mat-flat-button class="btn-main" type="submit">{{!editFlag ? 'Add' : 'Update'}}</button>
+            <button mat-flat-button class="btn-main" type="submit">{{!editFlag ? 'Save' : 'Update'}}</button>
           </div>
         </div>
       </div>
