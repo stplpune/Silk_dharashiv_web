@@ -18,6 +18,7 @@ import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decry
 
 
 @Component({
+  moduleId: module.id,
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, ReactiveFormsModule],
