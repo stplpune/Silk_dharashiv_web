@@ -27,9 +27,6 @@ export class ActionsComponent {
   highLightRowFlag: boolean = false;
   @ViewChild('formDirective') private formDirective!: NgForm;
 
-  displayedColumns: string[] = ['srno', 'schemename', 'actionname', 'description', 'status', 'action'];
-  dataSource = ELEMENT_DATA;
-
   constructor(private fb: FormBuilder,
     private master: MasterService,
     private spinner: NgxSpinnerService,
@@ -152,8 +149,6 @@ export class ActionsComponent {
     });
   }
 
-  
-
   onSubmitData() {
     let formvalue = this.actionFrm.value;
     if(this.actionFrm.invalid){
@@ -234,17 +229,4 @@ export class ActionsComponent {
     this.formDirective?.resetForm();
     this.defaultFrm();
   }
-
 }
-export interface PeriodicElement {
-  srno: number;
-  schemename: string;
-  actionname: string;
-  description: string;
-  status: string;
-  action: any;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { srno: 1, schemename: 'Hydrogen', actionname: 'Maharashtra', description: 'H', status: 'Active', action: '' }
-];
