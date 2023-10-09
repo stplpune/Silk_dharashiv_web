@@ -19,20 +19,20 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Department Levels</mat-label>
               <mat-select [formControl]="filterDeptLevel">
-                <!-- <mat-option>Option 1</mat-option> --> 
+                <!-- <mat-option>Option 1</mat-option> -->
                 <mat-option *ngFor="let deptLevel of filterDeptLevelArray" [value]="deptLevel.id">{{deptLevel.departmentLevel}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-sm-auto">
             <div class="d-flex align-items-center gap-2">
-              <button mat-icon-button class="btn bg-success bg-opacity-10 text-success rounded " matTooltip="edit" (click)="getTableData('filter')">
+              <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" (click)="getTableData('filter')">
                 <mat-icon class="material-symbols-rounded">
                   <!-- edit_square -->
                   search
                 </mat-icon>
               </button>
-              <button mat-icon-button class="btn bg-danger bg-opacity-10 text-danger rounded " matTooltip="edit" (click)="clearFilter()" >
+              <button mat-flat-button class="btn-main-light btn-icon " matTooltip="edit" (click)="clearFilter()" >
                 <mat-icon class="material-symbols-rounded">
                   <!-- edit_square -->
                   close
@@ -41,8 +41,8 @@
             </div>
           </div>
         </div>
-        <div class="table-responsive scrollbar">        
-              <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>   
+        <div class="table-responsive scrollbar">
+              <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
         </div>
       </div>
       <div class="col-sm-4">

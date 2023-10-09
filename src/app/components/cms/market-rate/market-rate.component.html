@@ -2,14 +2,11 @@
   <div class="col-sm-8">
     <mat-card class="plain-card">
       <mat-card-header class="card-header">
-        <div class="d-flex align-items-center justify-content-between w-100" >
-          <div class="text-main">Market List</div>
-          <button mat-flat-button class="btn-main">Add MArket List</button>
-        </div>
+        <div class="text-main">Market List</div>
       </mat-card-header>
       <mat-card-header class="card-header-control">
         <div class="row g-2 w-100">
-          <div class="col-sm">
+          <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label> All Market</mat-label>
               <mat-select>
@@ -17,7 +14,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-sm">
+          <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label> All Farm Goods</mat-label>
               <mat-select>
@@ -25,26 +22,26 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-sm-2">
-            <mat-form-field  appearance="outline" class="w-100">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>From date</mat-label>
-              <input matInput [matDatepicker]="picker">
-              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <input matInput [matDatepicker]="frompicker">
+              <mat-datepicker-toggle matIconSuffix [for]="frompicker"></mat-datepicker-toggle>
+              <mat-datepicker #frompicker></mat-datepicker>
             </mat-form-field>
           </div>
-          <div class="col-sm-2">
-            <mat-form-field  appearance="outline" class="w-100">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>To date</mat-label>
               <input matInput [matDatepicker]="picker">
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Market Name</mat-label>
-              <input matInput placeholder="Income ">
+              <input matInput placeholder="market name ">
             </mat-form-field>
           </div>
           <div class="col-sm-1">
@@ -76,9 +73,9 @@
         <div class="text-main">Add Market List</div>
       </mat-card-header>
       <mat-card-content class="card-body">
-        <div class="row">
+        <div class="row gx-2">
           <div class="col-sm-12">
-            <mat-form-field  appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select Market</mat-label>
               <input matInput [matDatepicker]="picker">
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -87,14 +84,14 @@
           </div>
           <div class="col-sm-12">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label> Farm Goods</mat-label>
+              <mat-label> Farm Goods/ बाजार समिति निवडा</mat-label>
               <mat-select>
                 <mat-option>Option 1</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-sm-6">
-            <mat-form-field  appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select date</mat-label>
               <input matInput [matDatepicker]="picker">
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -129,12 +126,12 @@
           </div>
           <div class="col-sm-6">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Income</mat-label>
+              <mat-label>Income / आवक</mat-label>
               <input matInput placeholder="Income ">
             </mat-form-field>
           </div>
         </div>
-        <div class="d-flex align-items-center justify-content-end w-100">
+        <div class="d-flex align-items-center justify-content-end w-100 gap-2">
           <button mat-flat-button class="btn-main-light">Clear</button>
           <button mat-flat-button class="btn-main">Add</button>
         </div>
