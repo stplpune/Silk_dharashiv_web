@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +13,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 @Component({
   selector: 'app-change-password',
   standalone: true,
-  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule,CommonModule],
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss']
 })
