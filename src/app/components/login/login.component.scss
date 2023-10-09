@@ -32,3 +32,9 @@
 .login {
     padding: 30px;
 }
+
+#captcha {
+    background-image: url('../../../assets/images/captcha_bg.jpg');
+    border-radius: 0.375rem;
+    height: 36px;
+}
