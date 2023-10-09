@@ -17,6 +17,10 @@ body {
     --main-light-color: #eceef7;
 }
 
+.fs-main {
+    font-size: 0.85rem;
+}
+
 .bg-main {
     background-color: var(--main-color) !important;
     color: #fff;
@@ -250,6 +254,9 @@ button.btn-modal-close {
     opacity: 0;
 }
 
+.no-subscript-wrapper .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+}
 
 
 
