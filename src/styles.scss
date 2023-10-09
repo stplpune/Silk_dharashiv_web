@@ -258,6 +258,25 @@ button.btn-modal-close {
     display: none !important;
 }
 
+.snack-success .mdc-snackbar__surface {
+    background-color: #198754 !important;
+    color: #fff !important;
+}
+
+.snack-danger .mdc-snackbar__surface {
+    background-color: #DC3545 !important;
+    color: #fff !important;
+}
+
+.snack-warning .mdc-snackbar__surface {
+    background-color: #FFC107 !important;
+}
+
+.snack-warning .mat-mdc-snack-bar-container,
+.snack-warning .mdc-snackbar__label {
+    color: #000 !important;
+}
+
 
 
 
