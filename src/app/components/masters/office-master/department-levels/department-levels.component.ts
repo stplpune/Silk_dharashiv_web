@@ -104,6 +104,7 @@ export class DepartmentLevelsComponent {
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
+        this.clearFilter();
         this.clearForm();
         this.getTableData();
         break;
@@ -147,7 +148,8 @@ export class DepartmentLevelsComponent {
             this.spinner.hide();
             this.commonMethod.snackBar(res.statusMessage, 0);
             !this.editFlag ? this.pageNumber = 1 : this.pageNumber = this.pageNumber
-            this.clearForm()
+           this.clearForm()
+           this.clearFilter();
             this.getTableData();
           } else {
             this.spinner.hide();
@@ -180,7 +182,7 @@ export class DepartmentLevelsComponent {
             if (res.statusCode == '200') {
               this.commonMethod.snackBar(res.statusMessage, 0);
               this.getTableData();
-              this.clearForm();
+              this.clearForm();             
               this.editFlag = false;
             } else {
               this.commonMethod.snackBar(res.statusMessage, 1);
