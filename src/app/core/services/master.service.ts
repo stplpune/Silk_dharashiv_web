@@ -90,5 +90,45 @@ export class MasterService {
     })
   }
 
+  GetAllBlocks(stateId:number,districtId:number){
+    return new Observable((obj)=>{
+      this.apiService.setHttp('GET', `sericulture/api/DropdownService/get-AllBlock?StateId=${stateId}&DistId=${districtId}`, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  GetAllTaluka(stateId:number,districtId:number,blockId:number){    
+    return new Observable((obj)=>{
+      this.apiService.setHttp('GET', `sericulture/api/DropdownService/get-AllTaluka?StateId=${stateId}&DistId=${districtId}&BlockId=${blockId}`, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  GetAllCircle(stateId:number,districtId:number,talukaId:number){   
+    return new Observable((obj)=>{
+      this.apiService.setHttp('GET', `sericulture/api/DropdownService/get-AllCircle?StateId=${stateId}&DistId=${districtId}&TalukaId=${talukaId}`, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  GetAllVillage(stateId:number,districtId:number,talukaId:number,circleId:number){  
+    return new Observable((obj)=>{
+      this.apiService.setHttp('GET', `sericulture/api/DropdownService/get-AllVillages?StateId=${stateId}&DistId=${districtId}&TalukaId=${talukaId}&CircleId=${circleId} `, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
 }
 
