@@ -21,7 +21,7 @@ export class DesignationsComponent {
   totalPages!: number;
   tableDataArray: any;
   tableDatasize!: number;
-  highLightRowFlag: boolean = false;
+  highLightedFlag:boolean = true;
   departmentArray = new Array();
   departmentArrayAdd = new Array();
   departmentLevelArray = new Array();
@@ -181,7 +181,7 @@ export class DesignationsComponent {
   }
 
   setTableData() {
-    this.highLightRowFlag = true;
+    this.highLightedFlag = true;
     let displayedColumns = ['srNo', 'departmentName', 'departmentLevel','designationName', 'm_DesignationName', 'action'];
     let displayedheaders = ['Sr. No.', 'Department Name', 'Department Level Name', 'Designation Name','Designation Name In Marathi', 'Action'];
     let tableData = {
@@ -194,14 +194,13 @@ export class DesignationsComponent {
       tableHeaders: displayedheaders,
       delete: true, view: false, edit: true,
     };
-    this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
-    this.apiService.tableData.next(tableData);
+    this.highLightedFlag? tableData.highlightedrow=true :tableData.highlightedrow=false;
+   this.apiService.tableData.next(tableData);
   }
 
 
   childCompInfo(obj: any) {
-   
-    switch (obj.label) {
+   switch (obj.label) {
       case 'Pagination':
         this.searchDataFlag ? (this.f['deptId'].setValue(this.filterFrm.value?.deptId), this.f['deptLevelId'].setValue(this.filterFrm.value?.deptLevelId), this.f['textSearch'].setValue(this.filterFrm.value?.textSearch)) : (this.f['deptId'].setValue(''), this.f['deptLevelId'].setValue(''), this.f['textSearch'].setValue(''));
         this.pageNumber = obj.pageNumber;
@@ -262,7 +261,7 @@ export class DesignationsComponent {
           },
         });
       }
-      this.highLightRowFlag = false;
+      this.highLightedFlag = false;
       //this.setTableData();
     });
   }
