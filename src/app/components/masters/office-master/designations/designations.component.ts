@@ -64,8 +64,7 @@ export class DesignationsComponent {
       "m_DesignationName": [data ? data.m_DesignationName : '',[Validators.required, Validators.pattern(this.validation.marathi)]],
       "departmentId": [data ? data.departmentId : '',[Validators.required]],
       "departmentLevelId": [data ? data.departmentLevelId : '',[Validators.required]],
-      "createdBy":this.WebStorageService.getUserId()
-    })
+       })
    }
 
   get a() { return this.designationFrm.controls }
@@ -119,7 +118,8 @@ export class DesignationsComponent {
       this.spinner.show();
       let data = this.designationFrm.getRawValue();
       data.id = Number(data.id)
-      this.apiService.setHttp('post', 'sericulture/api/Designation/Insert-Update-Designation', false, data, false, 'masterUrl');
+      let mainData = {...data,"createdBy":this.WebStorageService.getUserId()};
+      this.apiService.setHttp('post', 'sericulture/api/Designation/Insert-Update-Designation', false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
