@@ -48,7 +48,7 @@ export class DesignationsComponent {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-      // this.setTableData();
+       this.setTableData();
     })
     this.getDepartment();
     this.getDepartmentLevel();
@@ -68,8 +68,8 @@ export class DesignationsComponent {
   addDefaultFrm(data?: any) {
     this.designationFrm = this.fb.group({
       "id": [data ? data.id : 0],
-      "designationName": [data ? data.designationName : '',[Validators.required, Validators.pattern(this.validation.alphabetWithSpace)]],
-      "m_DesignationName": [data ? data.m_DesignationName : '',[Validators.required, Validators.pattern(this.validation.marathi)]],
+      "designationName": [data ? data.designationName : '',[Validators.required, Validators.maxLength(50), Validators.pattern(this.validation.alphabetWithSpace)]],
+      "m_DesignationName": [data ? data.m_DesignationName : '',[Validators.required,Validators.maxLength(50), Validators.pattern(this.validation.marathi)]],
       "departmentId": [data ? data.departmentId : '',[Validators.required]],
       "departmentLevelId": [data ? data.departmentLevelId : '',[Validators.required]],
        })
@@ -127,7 +127,7 @@ export class DesignationsComponent {
       let data = this.designationFrm.getRawValue();
       data.id = Number(data.id)
       let mainData = {...data,"createdBy":this.WebStorageService.getUserId()};
-      this.apiService.setHttp('post', 'sericulture/api/Designation/Insert-Update-Designation', false, mainData, false, 'masterUrl');
+      this.apiService.setHttp('post', 'sericulture/api/Designation/Insert-Update-Designation?lan='+ this.lang, false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -153,7 +153,7 @@ export class DesignationsComponent {
     let formData = this.filterFrm?.getRawValue();
     // flag == 'filter' ? this.clearMainForm() : ''; //when we click on edit button and search record that time clear form 
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', `sericulture/api/Designation/get-All-Designation?DeptId=${formData?.deptId || 0}&Deptlevel=${formData?.deptLevelId || 0}&TextSearch=${formData?.textSearch || ''}` + str, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', `sericulture/api/Designation/get-All-Designation?DeptId=${formData?.deptId || 0}&Deptlevel=${formData?.deptLevelId || 0}&lan=${this.lang}&TextSearch=${formData?.textSearch || ''}` + str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -176,8 +176,10 @@ export class DesignationsComponent {
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = ['srNo', 'departmentName', 'departmentLevel','designationName', 'm_DesignationName', 'action'];
-    let displayedheaders = ['Sr. No.', 'Department Name', 'Department Level Name', 'Designation Name','Designation Name In Marathi', 'Action'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_DepartmentName', 'm_DepartmentLevel','designationName', 'm_DesignationName', 'action'] : ['srNo', 'departmentName', 'departmentLevel','designationName', 'm_DesignationName', 'action']
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'विभाग', 'पदनाम स्तर', 'पदनाम(इंग्रजी)', 'पदनाम(मराठी)', 'कृती'] : ['Sr. No.', 'Department', 'Department Level', 'Designation(English)','Designation(Marathi)', 'Action'];
+  //  let displayedColumns = ['srNo', 'departmentName', 'departmentLevel','designationName', 'm_DesignationName', 'action'];
+   // let displayedheaders = ['Sr. No.', 'Department Name', 'Department Level Name', 'Designation Name','Designation Name In Marathi', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
@@ -223,13 +225,14 @@ export class DesignationsComponent {
     this.bindTable();
   }
 
-  //delete functionality here
+  
+//delete functionality here
   deleteDialogOpen(delObj?: any) {
     let dialogObj = {
-      title: 'Do You Want To Delete Selected Designation ?',
-      header: 'Delete',
-      okButton: 'Delete',
-      cancelButton: 'Cancel',
+      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले पदनाम रेकॉर्ड हटवू इच्छिता?' : 'Do You Want To Delete Selected Designation ?',
+      header: this.lang == 'mr-IN' ? 'डिलीट करा' : 'Delete',
+      okButton:  this.lang == 'mr-IN' ? 'डिलीट' : 'Delete',
+      cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '30%',
@@ -239,7 +242,7 @@ export class DesignationsComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('delete', 'sericulture/api/Designation/DeleteDesignation?Id=' + delObj.id, false, false, false, 'masterUrl');
+        this.apiService.setHttp('delete', 'sericulture/api/Designation/DeleteDesignation?Id=' + delObj.id +'&lan='+this.lang, false, false, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {

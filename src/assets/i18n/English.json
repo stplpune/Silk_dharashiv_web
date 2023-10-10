@@ -1,9 +1,59 @@
 {
-    "common": {
-      "pdf": "पीडीएफ",
-      "excel": "एक्सेल",
-      "district": "जिल्हा",
-      "taluka": "तालुका",
-      "taluka1":"fddfdsgdg gdgdgg"
+    "department": {
+        "department":"Department",
+        "searchDepartment":"Search Department",
+        "departmentName_en":"Department Name(English)",
+        "departmentName_mr":"Department Name(Marathi)",
+        "add": "Add",
+        "update": "Update",
+        "clear": "Clear",
+        "update_department": "Update Department",
+        "add_designation": "Add Department",
+        "department_required" : "Please Enter Department Name",
+        "department_maxLength": "Maximun 30 character allowed"
+    },
+
+    "action": {
+        "action" : "Actions",
+        "add": "Add",
+        "update": "Update",
+        "clear": "Clear",
+        "scheme": "Scheme",
+        "select_scheme": "Select Scheme",
+        "action_en":"Action Name(English)",
+        "action_mr":"Action Name(Marathi)",
+        "description":"Description",
+        "action_required" : "Please Enter Action Name",
+        "action_maxLength": "Maximum limit is 50",
+        "description_maxLength": "Maximum limit is 500",
+        "searchAction":"Search Action Name",
+        "update_action": "Update Action",
+        "add_action": "Add Action",
+        "scheme_required":"Please select scheme"
+
+
+    
+    },
+    "designation": {
+        "designation": "Designation",
+        "depertment": "Select Department",
+        "designation_level": "Select Designation Level",
+        "designation_en": "Designation(English)",
+        "designation_mr": "Designation(Marathi)",
+        "add": "Add",
+        "update": "Update",
+        "clear": "Clear",
+        "Please_select_department": "Please Select Department",
+        "Please_select_designation_level": "Please Select Designation Level",
+        "Please_enter_designation": "Please Enter Valid Designation(English)",
+        "Please_enter_designation_mr": "Please Enter Valid Designation(Marathi)",
+        "maximum 50 character_allowed": "Maximun 50 character allowed",
+        "department_required": "Department Is Required",
+        "designation_level_required": "Designation Level Is Required",
+        "designation_en_required": "Designation(English) Is Required",
+        "designation_mr_required": "Designation(Marathi) Is Required",
+        "search_by_designation": "Search by Designation",
+        "update_designation": "Update Designation",
+        "add_designation": "Add Designation"
     }
 }

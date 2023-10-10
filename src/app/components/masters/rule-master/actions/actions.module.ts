@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.c
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    GlobalTableComponent
+    GlobalTableComponent,
+    TranslateModule
   ]
 })
 export class ActionsModule { }

@@ -7,12 +7,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ApiService } from 'src/app/core/services/api.service';
 @Component({
   selector: 'app-global-table',
   templateUrl: './global-table.component.html',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule,FormsModule,ReactiveFormsModule, MatButtonModule, MatIconModule,MatTooltipModule],
+  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule,MatSlideToggleModule,FormsModule,ReactiveFormsModule, MatButtonModule, MatIconModule,MatTooltipModule],
   styleUrls: ['./global-table.component.scss']
 })
 export class GlobalTableComponent {
@@ -35,9 +36,7 @@ export class GlobalTableComponent {
   ngOnInit() {
     this.tableInfo = [];
     this.apiservice.tableData.subscribe((res:any)=>{
-      console.log('ressss',res);
-      
-      this.tableInfo = res;
+    this.tableInfo = res;
       if (this.tableInfo) {
         this.highlightedRow = this.tableInfo.highlightedRow;
         this.displayedColumns = this.tableInfo.displayedColumns;

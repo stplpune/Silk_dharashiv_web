@@ -2,14 +2,14 @@
   <div class="col-sm-8">
     <mat-card class="plain-card">
       <mat-card-header class="card-header">
-        <div class="text-main">Actions</div>
+        <div class="text-main">{{'action.action' | translate}}</div>
       </mat-card-header>
       <mat-card-header class="card-header-control">
         <form [formGroup]="filterFrm">
           <div class="row g-2 w-100">
             <div class="col-sm">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Scheme</mat-label>
+                <mat-label>{{'action.scheme' | translate}}</mat-label>
                 <mat-select formControlName="schemeTypeId">
                   <mat-option *ngFor=" let scheme of schemeFilterArr"
                     [value]="scheme.value">{{scheme.textEnglish}}</mat-option>
@@ -18,7 +18,7 @@
             </div>
             <div class="col-sm">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Search Action Name</mat-label>
+                <mat-label>{{'action.searchAction' | translate}}</mat-label>
                 <input matInput formControlName="textSearch"  placeholder="Search Name" 
                 (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
               </mat-form-field>
@@ -53,44 +53,50 @@
     <form [formGroup]="actionFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
       <div class="card plain-card">
         <div class="card-header text-main">
-           {{editFlag ? "Update Actions" : "Add Actions"}}
+           {{editFlag ? ('action.update_action'|translate) : ('action.add_action'|translate)}}
         </div>
         <div class="card-body">
           <div class="row gx-2">
             <div class="col-sm-12">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Select Scheme</mat-label>
+                <mat-label>{{'action.select_scheme' | translate}}</mat-label>
                 <mat-select formControlName="schemeTypeId">
                   <mat-option *ngFor=" let scheme of schemeArray"
                     [value]="scheme.value">{{scheme.textEnglish}}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="f['schemeTypeId']?.hasError('required')">{{('action.scheme_required'|translate)}} </mat-error>
               </mat-form-field>
             </div>
             <div class="col-sm-12">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Action Name (English)</mat-label>
+                <mat-label>{{'action.action_en' | translate}}</mat-label>
                 <input matInput formControlName="actionName"  maxlength="50"
                   (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecChars($event)">
+                <mat-error *ngIf="f['actionName']?.hasError('required')">{{'action.action_required'|translate}} </mat-error>
+                <mat-error *ngIf="f['actionName']?.hasError('maxLength')">{{'action.action_maxLength'|translate}} </mat-error>
               </mat-form-field>
             </div>
             <div class="col-sm-12">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Action Name (Marathi)</mat-label>
+                <mat-label>{{'action.action_mr' | translate}}</mat-label>
                 <input matInput formControlName="m_ActionName"  maxlength="50"
                   (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
+                <mat-error *ngIf="f['m_ActionName']?.hasError('required')">{{'action.action_required'|translate}} </mat-error>
+                <mat-error *ngIf="f['m_ActionName']?.hasError('maxLength')">{{'action.action_maxLength'|translate}} </mat-error>
               </mat-form-field>
             </div>
             <div class="col-sm-12">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Description</mat-label>
+                <mat-label>{{'action.description' | translate}}</mat-label>
                 <textarea matInput formControlName="description"  maxlength="500" 
                 (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecChars($event)"></textarea>
+                <mat-error *ngIf="f['description']?.hasError('maxLength')">{{'action.description_maxLength' | translate}} </mat-error>
               </mat-form-field>
             </div>
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 my-2">
-            <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">Cancel</button>
-            <button mat-flat-button class="btn-main" type="submit">{{!editFlag ? 'Save' : 'Update'}}</button>
+            <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">{{'action.clear'|translate}}</button>
+            <button mat-flat-button class="btn-main" type="submit">{{!editFlag ? ('action.add'|translate) : ('action.update'|translate)}}</button>
           </div>
         </div>
       </div>

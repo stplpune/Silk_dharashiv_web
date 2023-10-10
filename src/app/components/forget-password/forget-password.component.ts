@@ -74,6 +74,10 @@ export class ForgetPasswordComponent {
     return this.sendOTPForm.controls;
   }
 
+  get g() {
+    return this.changePasswordfrm.controls;
+  }
+
 
   sendOTP() {
     if (this.sendOTPForm.invalid) {
@@ -95,6 +99,7 @@ export class ForgetPasswordComponent {
           this.sendOTPContainer = false;
           this.verifyOTPContainer = true;
           this.setOtpTimer();
+          this.verifyOTPForm.reset();
         }
         else {
           this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
@@ -139,7 +144,7 @@ export class ForgetPasswordComponent {
       this.error.handelError(error.status);
     })
   }
- 
+
 
   setOtpTimer() {
     this.otpTimerFlag = false;
@@ -149,6 +154,7 @@ export class ForgetPasswordComponent {
         this.otpTimerFlag = true;
         clearInterval(this.otpTimerCount);
         this.otpTimer = 60;
+        this.verifyOTPForm.reset();
       }
     }, 1000)
   }
@@ -184,9 +190,9 @@ export class ForgetPasswordComponent {
     })
   }
 
-getlogin(){
-  this.router.navigate(['/login']);
-}
+  getlogin() {
+    this.router.navigate(['/login']);
+  }
 
 }
 

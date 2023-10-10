@@ -23,8 +23,10 @@ export class DepartmentComponent {
   totalPages!: number;
   pageNumber: number = 1;
   highLightRowFlag: boolean = false;
+  searchDataFlag: boolean = false
   @ViewChild('formDirective') private formDirective!: NgForm;
   get f() { return this.departmentFrm.controls };
+  get fl() { return this.filterFrm.controls };
 
   constructor(private fb: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -59,7 +61,7 @@ export class DepartmentComponent {
 
   getTableData(status?: any) {
     this.spinner.show();
-    status == 'filter' ? ((this.pageNumber = 1), this.defaultFrm()) : '';
+    status == 'filter' ? ((this.pageNumber = 1), this.defaultFrm(),this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     let searchValue = this.filterFrm?.value || '';
     this.apiService.setHttp('GET', 'sericulture/api/Department/get-All-Department?'+str+'&TextSearch=' + (searchValue.textSearch || ''), false, false, false, 'masterUrl');
@@ -114,7 +116,7 @@ export class DepartmentComponent {
         this.pageNumber = obj.pageNumber;
         this.editFlag = false;
         this.clearFormData();
-        this.filterDefaultFrm();
+        this.searchDataFlag ? (this.fl['textSearch'].setValue(this.filterFrm.value.textSearch)) : (this.fl['textSearch'].setValue(''));
         this.getTableData();
         break;
       case 'Edit':
@@ -200,15 +202,13 @@ export class DepartmentComponent {
     this.filterDefaultFrm();
     this.getTableData();
     this.pageNumber=1;
+    this.searchDataFlag = false;
   }
 
-  clearFormData() { // for clear Form field
+  clearFormData() { // for clear Form field    
     this.editFlag = false;
     this.formDirective?.resetForm();
     this.defaultFrm();
   }
 
-  // clearFilter() {
-  //   this.filterDepartment.value || this.filterDeptLevel.value ? (this.filterDepartment.setValue(0), this.filterDeptLevel.setValue(0), this.getTableData()) : '';
-  // }
 }
