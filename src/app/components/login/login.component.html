@@ -19,10 +19,10 @@
                             <input id="usernameId" matInput placeholder="Username" formControlName="userName"
                                 maxlength="30" (keypress)="validation.noSpaceAllow($event)">
                             <mat-error *ngIf="f['userName'].errors">
-                                <span class="text-danger" *ngIf="f['userName'].hasError('required')">Username is
-                                    Required</span>
-                                <span class="text-danger" *ngIf="f['userName'].hasError('pattern')">Please Enter Valid
-                                    Username</span>
+                                <span class="text-danger" *ngIf="f['userName'].hasError('required')">Please enter username
+                                    </span>
+                                <!-- <span class="text-danger" *ngIf="f['userName'].hasError('pattern')">Invalid username
+                                    </span> -->
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -32,10 +32,10 @@
                             <input matInput [type]="hide ? 'password' : 'text'" formControlName="password"
                                 placeholder="Password" maxlength="42" (keypress)="validation.noSpaceAllow($event)">
                             <mat-error *ngIf="f['password'].errors">
-                                <span class="text-danger" *ngIf="f['password'].hasError('required')">Password is
-                                    Required</span>
-                                <span class="text-danger" *ngIf="f['password'].hasError('pattern')">Please Enter Valid
-                                    Password</span>
+                                <span class="text-danger" *ngIf="f['password'].hasError('required')">Please enter 
+                                    password</span>
+                                <span class="text-danger" *ngIf="f['password'].hasError('pattern')">Invalid password
+                                    </span>
                             </mat-error>
                             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                                 [attr.aria-pressed]="hide">
@@ -61,10 +61,10 @@
                                 <input matInput placeholder="Captcha" formControlName="captcha" maxlength="4"
                                     (keypress)="validation.noSpaceAllow($event);validation.alphaNumeric($event)" >
                                 <mat-error *ngIf="f['captcha'].errors">
-                                    <span class="text-danger" *ngIf="f['captcha'].hasError('required')">Captcha is
-                                        Required</span>
-                                    <!-- <span class="text-danger" *ngIf="f['captcha'].hasError('pattern')">Please Enter
-                                        Valid Captcha</span> -->
+                                    <span class="text-danger" *ngIf="f['captcha'].hasError('required')">Please enter captcha
+                                        </span>
+                                    <!-- <span class="text-danger" *ngIf="f['captcha'].hasError('pattern')">Invalid Captcha
+                                       </span> -->
                                 </mat-error>
                             </mat-form-field>
                         </div>

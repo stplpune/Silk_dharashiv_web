@@ -9,6 +9,7 @@ import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialo
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-designations',
   templateUrl: './designations.component.html',
@@ -28,6 +29,8 @@ export class DesignationsComponent {
   departmentLevelAddArray = new Array();
   editFlag: boolean = false;
   searchDataFlag: boolean = false;//used for filter
+  subscription!: Subscription;//used  for lang conv
+  lang: string = 'English';
   @ViewChild('formDirective') private formDirective!: NgForm;
 
   constructor(private fb: FormBuilder,
@@ -42,6 +45,11 @@ export class DesignationsComponent {
   ) { }
 
   ngOnInit() {
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+      // this.setTableData();
+    })
     this.getDepartment();
     this.getDepartmentLevel();
     this.filterDefaultFrm();

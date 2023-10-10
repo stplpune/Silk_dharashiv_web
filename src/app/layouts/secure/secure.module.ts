@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { SideBarComponent } from './sidebar/sidebar.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MatButtonModule } from '@angular/material/button';
     HeaderComponent,
     SecureRoutingModule,
     MatIconModule,
-    MatButtonModule
-  ]
-})
+    MatButtonModule,
+    TranslateModule
+  ],
+  })
 export class SecureModule { }
