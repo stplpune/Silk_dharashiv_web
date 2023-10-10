@@ -5,19 +5,32 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
-
-
+import { TranslateService } from '@ngx-translate/core'
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule],
+  imports: [MatDialogModule, MatButtonModule,CommonModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  constructor(private webStorage: WebStorageService, public dialog: MatDialog,
-    private commonMethods: CommonMethodsService) {
+  language: string = 'English'
+  lag = ['English', 'Marathi']
+  selLang!: string;
 
+  constructor(private webStorage: WebStorageService, public dialog: MatDialog,
+    private commonMethods: CommonMethodsService,
+    private translate: TranslateService) {
+  }
+
+  ngOnInit(){
+    let language: any = sessionStorage.getItem('language');
+    this.webStorage.setLanguage.next(language);
+    this.translate.use(language);
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      this.selLang = res;
+    })
   }
 
 
@@ -70,5 +83,14 @@ export class HeaderComponent {
       }
     });
   }
+
+
+  changeLanguage(lang: any) {
+    this.language = lang
+    this.translate.use(lang)
+    this.webStorage.setLanguage.next(lang)
+    sessionStorage.setItem('language', lang)
+  }
+
 
 }
