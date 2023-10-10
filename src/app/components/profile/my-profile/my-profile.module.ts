@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { MyProfileRoutingModule } from './my-profile-routing.module';
 import { MyProfileComponent } from './my-profile.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -11,7 +14,10 @@ import { MyProfileComponent } from './my-profile.component';
   ],
   imports: [
     CommonModule,
-    MyProfileRoutingModule
+    MyProfileRoutingModule,
+    MatDialogModule,
+    MatIconModule,
+    MatButtonModule
   ]
 })
 export class MyProfileModule { }

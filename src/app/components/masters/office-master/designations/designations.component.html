@@ -55,8 +55,7 @@
         </div>
       </mat-card-content>
     </mat-card>
-
-  </div>
+ </div>
   <div class="col-sm-4">
     <mat-card class="plain-card p-0">
       <mat-card-header class="card-header p-0 text-main">
@@ -98,7 +97,7 @@
               <mat-label>पदनाम</mat-label>
               <input matInput formControlName="m_DesignationName" maxlength="50"
                 (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
-              <mat-error *ngIf="a['m_DesignationName'].hasError('pattern')">कृपया वैध पदनाम प्रविष्ट करा</mat-error>
+              <mat-error *ngIf="a['m_DesignationName'].hasError('pattern')">{{'common.taluka1'|translate}}</mat-error>
             </mat-form-field>
           </div>
 
