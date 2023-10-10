@@ -1,12 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
 import { MasterService } from 'src/app/core/services/master.service';
+import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 
@@ -31,6 +33,9 @@ export class SchemesComponent {
   data:any;
   editFlag:boolean=false;
   @ViewChild('formDirective') private formDirective!: NgForm;
+  filtarFlag:boolean=false;
+  subscription!: Subscription;
+  lang: string = 'English';
 
   constructor
   (
@@ -43,60 +48,55 @@ export class SchemesComponent {
     private fileUpl:FileUploadService,
     private WebStorageService:WebStorageService,
     public dialog: MatDialog,
+    public validator: ValidationService,
   ) {}
 
   ngOnInit(){
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+       this.setTableData();
+    })
    this.data ? this.onEditData() : this.getFormData();
     this.getState(); 
     this.getTableData();
 
   }
-  // {
-  //    "id": 11,
-      // "schemeName": "ddsf",
-      // "m_SchemeName": "शेती",
-      // "stateId": 1,
-      // "stateName": "Maharashtra",
-      // "m_StateName": "महाराष्ट्र",
-      // "districtId": 1,
-      // "districtName": "Osmanabad",
-      // "m_DistrictName": "उस्मानाबाद",
-      // "schemeInfo": "sfsdf",
-      // "status": "Active",
-      // "createdBy": 1
-  // }
-
+ 
   getFormData(data?:any){
     console.log('data123',data);
     this.schemeForm=this.fb.group({
-      schemeType:['',data ? this.data.schemeName : ''],
-      stateId:['',data ? this.data.stateId : ''],
-      districtId:['',data ? this.data.districtId : ''],
-      logoPath:['',data ? this.data.logoPath : ''],
-      schemeInfo:['',data ? this.data.schemeInfo : ''],
-      m_SchemeType:['',data ? this.data.m_SchemeName : '']
+      schemeType:[data ?data.schemeName : '',[Validators.required,Validators.pattern(this.validator.alphaNumericWithSpace)]],
+      stateId:[data ? data.stateId : 1],
+      districtId:[data ? data.districtId : 1],
+      logoPath:[data ? data.logoPath : ''],
+      schemeInfo:[data ?data.schemeInfo : '',[Validators.required]],
+      m_SchemeType:[data ?data.m_SchemeName : '',[Validators.required,Validators.pattern(this.validator.marathi)]]
     })
+    this.imageResponse = this.data ? this.data.logoPath : '';
   }
+
+  get f() { return this.schemeForm.controls };
 
   getState() {
     this.master.GetAllState().subscribe({
       next: ((res: any) => {
         this.stateArray = res.responseData;
-        this.editFlag && this.data ? (this.schemeForm.controls['stateId'].setValue(this.data?.stateId),this.getDisrict()) : '';
+         this.data ? (this.schemeForm.controls['stateId'].setValue(this.data?.stateId),this.getDisrict()) : this.getDisrict();
       }), error: (() => {
-        this.stateArray = []
+        this.stateArray = [];
       })
     })
   }	
 
   getDisrict() {
-    let distId=this.schemeForm.value.stateId
-    this.master.GetAllDistrict(distId || 0).subscribe({
+    // let distId=1
+    this.master.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
         this.districtArray = res.responseData;
-        this.editFlag && this.data ? this.schemeForm.controls['districtId'].setValue(this.data?.districtId) : '';
+        this.data ? this.schemeForm.controls['districtId'].setValue(this.data?.districtId) : '';
       }), error: (() => {
-        this.districtArray = []
+        this.districtArray = [];
       })
     })
   }	
@@ -108,7 +108,6 @@ export class SchemesComponent {
         if (res.statusCode == '200') {
           this.spinner.hide();
           this.imageResponse=res.responseData;
-          console.log('this.imageResponse',this.imageResponse);
         }
         else {
           this.imageResponse = "";
@@ -150,7 +149,10 @@ export class SchemesComponent {
             this.commonMethodService.snackBar(res.statusMessage, 0)
             this.getTableData();
             this.formDirective.resetForm();
-            this.editFlag=false;
+            this.clearlogo.nativeElement = "";
+            this.imageResponse="";
+            this.data=null;
+            this.filterForm.reset();
           } else {
             this.spinner.hide();
             this.commonMethodService.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethodService.snackBar(res.statusMessage, 1);
@@ -164,16 +166,17 @@ export class SchemesComponent {
   }
 
 
-  getTableData(){
-    let searchValue=this.filterForm.value 
+  getTableData(flag?:any){
+    let searchValue=this.filterForm.value || ''
     this.spinner.show();
-    this.apiService.setHttp('GET','sericulture/api/Scheme/get-All-Scheme?PageNo=1&PageSize=10&TextSearch='+searchValue, false, false, false, 'baseUrl');
+    flag == 'filter' ? (this.pageNumber = 1,this.schemeForm.reset(),this.clearlogo.nativeElement="") : '';
+    this.apiService.setHttp('GET','sericulture/api/Scheme/get-All-Scheme?PageNo='+this.pageNumber+'&PageSize=10&TextSearch='+searchValue, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next:((res:any)=>{
         if(res.statusCode == '200'){
           this.spinner.hide();
           this.tableDataArray = res.responseData;
-          this.totalCount = res.responseData1.totalCount;
+          this.totalCount = res.responseData1.totalPages;
         }else{
           this.spinner.hide();
           this.tableDataArray = [];
@@ -190,18 +193,19 @@ export class SchemesComponent {
       }
     })
   }
-
-
+ 
   setTableData(){
     this.highLightedFlag = true;
+    let displayedColumns = this.lang == 'en' ? ['srNo', 'schemeName','stateName','districtName','status','action'] : ['srNo', 'm_SchemeName','m_StateName','m_DistrictName','status','action']
+    let tableHeaders = this.lang == 'en' ? ['Sr. No.','Scheme Name','State Name','District Name','Status','Action'] : ['अनुक्रमांक','योजनेचे नाव','राज्यांचे नाव','जिल्ह्याचे नाव','स्थिती','क्रिया']
     this.tableObj = {
       pageNumber: this.pageNumber,
       isBlock: '',
       status: '',
-      displayedColumns:['srNo', 'schemeName','stateName','districtName','status','action'],
       tableData: this.tableDataArray,
       tableSize: this.totalCount,
-      tableHeaders:['Sr. No.','Scheme Name','State Name','District Name','Status','Action'],
+      tableHeaders: tableHeaders,
+      displayedColumns:displayedColumns,
       pagination: this.totalCount > 10 ? true : false,
       view:true,
       edit: true,
@@ -216,6 +220,7 @@ export class SchemesComponent {
     switch (obj.label) {
        case 'Pagination':
         this.pageNumber = obj.pageNumber;
+        !this.filtarFlag ? this.filterForm.reset() : ''
         this.getTableData();
          break;
         case 'Edit':
@@ -266,6 +271,21 @@ export class SchemesComponent {
       this.highLightedFlag = false;
       //this.setTableData();
     });
+  }
+
+  clearForm(){
+    this.formDirective.resetForm({
+      stateId:1,
+      districtId:1
+    });
+    this.clearlogo.nativeElement="";
+    this.imageResponse="";
+    this.data=null;
+  }
+
+  clearFilter(){
+    this.filterForm.reset();
+    this.getTableData();
   }
 
 }
