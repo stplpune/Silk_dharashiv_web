@@ -74,6 +74,10 @@ export class ForgetPasswordComponent {
     return this.sendOTPForm.controls;
   }
 
+  get g() {
+    return this.changePasswordfrm.controls;
+  }
+
 
   sendOTP() {
     if (this.sendOTPForm.invalid) {
@@ -139,7 +143,7 @@ export class ForgetPasswordComponent {
       this.error.handelError(error.status);
     })
   }
- 
+
 
   setOtpTimer() {
     this.otpTimerFlag = false;
@@ -184,9 +188,9 @@ export class ForgetPasswordComponent {
     })
   }
 
-getlogin(){
-  this.router.navigate(['/login']);
-}
+  getlogin() {
+    this.router.navigate(['/login']);
+  }
 
 }
 

@@ -214,4 +214,8 @@ export class DepartmentComponent {
     this.formDirective?.resetForm();
     this.defaultFrm();
   }
+
+  // clearFilter() {
+  //   this.filterDepartment.value || this.filterDeptLevel.value ? (this.filterDepartment.setValue(0), this.filterDeptLevel.setValue(0), this.getTableData()) : '';
+  // }
 }

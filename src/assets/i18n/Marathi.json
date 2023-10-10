@@ -1,9 +1,24 @@
 {
-    "common": {
-      "pdf": "पीडीएफ",
-      "excel": "एक्सेल",
-      "district": "जिल्हा",
-      "taluka": "तालुका",
-      "taluka1":"कृपया वैध मोबाईल क्रमांक प्रविष्ट करा"
-    }
+  "designation": {
+    "designation": "पदनाम",
+      "depertment": "विभाग निवडा",
+      "designation_level": "पदनाम स्तर निवडा",
+      "designation_en": "पदनाम (इंग्रजी)",
+      "designation_mr": "पदनाम (मराठी)",
+      "add": "जतन करा",
+      "update": "अपडेट",
+      "clear": "रद्द करा",
+      "Please_select_department": "कृपया विभाग निवडा",
+      "Please_select_designation_level": "कृपया पदनाम स्तर निवडा",
+      "Please_enter_designation": "कृपया पदनाम(इंग्रजी) प्रविष्ट करा",
+      "Please_enter_designation_mr": "कृपया पदनाम(मराठी) प्रविष्ट करा",
+      "maximum 50 character_allowed": "कमाल 50 वर्णांना अनुमती आहे",
+      "department_required": "विभाग आवश्यक आहे",
+      "designation_level_required":  "पदनाम स्तर आवश्यक आहे",
+      "designation_en_required": "पदनाम (इंग्रजी) आवश्यक आहे",
+      "designation_mr_required":  "पदनाम (मराठी) आवश्यक आहे",
+      "search_by_designation": "पदनामनुसार शोधा",
+      "update_designation": "पदनाम अपडेट करा",
+      "add_designation": "पदनाम जोडा"
+  }
 }

@@ -28,6 +28,7 @@ export class DepartmentLevelsComponent {
   tableDatasize!: number;
   totalPages!: number;
   highLightRowFlag: boolean = false;
+  searchDataFlag: boolean = false
 
   get f() { return this.departmentLevelForm.controls }
   @ViewChild('FormGroupDirective') private FormGroupDirective!: NgForm;
@@ -57,7 +58,7 @@ export class DepartmentLevelsComponent {
 
   getTableData(flag?: any) {
     this.spinner.show();
-    flag == 'filter' ? (this.pageNumber = 1) : '';
+    flag == 'filter' ? (this.searchDataFlag = true,this.clearForm(), (this.pageNumber = 1)) : '';
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
     // https://demosilkapi.mahamining.com/sericulture/api/DepartmentLevel/get-All-DepartmentLevel?DeptId=0&DeptlevelId=0&PageNo=1&PageSize=10
     this.apiService.setHttp('GET', `sericulture/api/DepartmentLevel/get-All-DepartmentLevel?DeptId=${this.filterDepartment.value || 0}&DeptlevelId=${this.filterDeptLevel.value || 0}` + str, false, false, false, 'masterUrl');
@@ -103,8 +104,9 @@ export class DepartmentLevelsComponent {
   childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':
-        this.pageNumber = obj.pageNumber;
-        this.clearFilter();
+        this.pageNumber = obj.pageNumber;  
+        this.searchDataFlag ? (this.filterDepartment.setValue(this.filterDepartment.value), this.filterDeptLevel.setValue(this.filterDeptLevel.value)) : (this.filterDepartment.setValue(0),this.filterDeptLevel.setValue(0));
+        // this.clearFilter();
         this.clearForm();
         this.getTableData();
         break;
@@ -202,7 +204,8 @@ export class DepartmentLevelsComponent {
     this.editFlag = false;
   }
   clearFilter() {
-    this.filterDepartment.value || this.filterDeptLevel.value ? (this.filterDepartment.setValue(0), this.filterDeptLevel.setValue(0), this.getTableData()) : '';
+    this.filterDepartment.value || this.filterDeptLevel.value ? (this.filterDepartment.setValue(0), this.filterDeptLevel.setValue(0), this.getTableData(),this.searchDataFlag =false) : '';
+   
   }
 }
 
