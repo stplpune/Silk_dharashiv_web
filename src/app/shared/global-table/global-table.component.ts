@@ -36,8 +36,7 @@ export class GlobalTableComponent {
   ngOnInit() {
     this.tableInfo = [];
     this.apiservice.tableData.subscribe((res:any)=>{
-      console.log("res",res)
-      this.tableInfo = res;
+    this.tableInfo = res;
       if (this.tableInfo) {
         this.highlightedRow = this.tableInfo.highlightedRow;
         this.displayedColumns = this.tableInfo.displayedColumns;
