@@ -57,5 +57,25 @@
     "search_by_designation": "पदनामनुसार शोधा",
     "update_designation": "पदनाम अपडेट करा",
     "add_designation": "पदनाम जोडा"
+  },"scheme":{
+    "scheme":"योजना",
+    "search_by_scheme_name":"योजनेच्या नावाने शोधा",
+    "add_scheme":"योजना जोडा",
+    "update_scheme":"अपडेट योजना",
+    "scheme_description":"योजनेची माहिती ",
+    "scheme_name":"योजनेचे नाव",
+    "select_district":"जिल्हा निवडा",
+    "select_state":"राज्य निवडा",
+    "save":"जतन करा",
+    "clear":"रद्द करा ",
+    "update":"अपडेट",
+    "scheme_namee":"योजनेचे नाव (इंग्रजी)",
+    "scheme_namemr":"योजनेचे नाव (मराठी)",
+    "please_enter_scheme_name":"कृपया योजनेचे नाव (इंग्रजी) प्रविष्ट करा",
+    "please_enter_scheme_name_mr":"कृपया योजनेचे नाव (इंग्रजी) प्रविष्ट करा",
+    "please_enter_scheme_description":"कृपया योजनेचे वर्णन प्रविष्ट करा",
+    "please_enter_minimum_5_character_scheme_name":"कृपया किमान 5 वर्ण योजनेचे नाव प्रविष्ट करा",
+    "please_enter_valid_scheme_name":"कृपया वैध योजनेचे नाव प्रविष्ट करा",
+    "scheme_logo":"योजना लोगो"
   }
 }

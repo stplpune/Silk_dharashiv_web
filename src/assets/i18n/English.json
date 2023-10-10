@@ -55,5 +55,25 @@
         "search_by_designation": "Search by Designation",
         "update_designation": "Update Designation",
         "add_designation": "Add Designation"
-    }
+    },"scheme":{
+        "scheme":"Scheme",
+        "search_by_scheme_name":"Search By Scheme Name",
+        "add_scheme":"Add Scheme",
+        "update_scheme":"Update Scheme",
+        "scheme_description":"Scheme Description",
+        "scheme_name":"Scheme Name",
+        "select_district":"Select District",
+        "select_state":"Select State",
+        "save":"save",
+        "clear":"Cancle",
+        "update":"Update",
+        "scheme_namee":"Scheme Name(English)",
+        "scheme_namemr":"Scheme Name(Marathi)",
+        "please_enter_scheme_name":"Please Enter Scheme Name(English)",
+        "please_enter_scheme_name_mr":"Please Enter Scheme Name(Marathi)",
+        "please_enter_scheme_description":"Please Enter Scheme Description",
+        "please_enter_minimum_5_character_scheme_name":"Please Enter Minimum_5_Character_Scheme_Name",
+        "please_enter_valid_scheme_name":"Please Enter Valid Scheme Name",
+        "scheme_logo":"Scheme Logo"
+      }
 }
