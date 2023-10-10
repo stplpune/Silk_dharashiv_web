@@ -202,11 +202,11 @@ export class ActionsComponent {
       autoFocus: false
     })
     deleteDialogRef.afterClosed().subscribe((result: any) => {
-      result == 'Yes' ? this.blockOffice(obj) : this.getTableData();
+      result == 'Yes' ? this.blockAction(obj) : this.getTableData();
     })
   }
 
-  blockOffice(obj: any) {
+  blockAction(obj: any) {
     let status = !obj.status
     this.apiService.setHttp('PUT', 'sericulture/api/Action/ActionStatus?Id=' + obj.id + '&Status=' + status, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
