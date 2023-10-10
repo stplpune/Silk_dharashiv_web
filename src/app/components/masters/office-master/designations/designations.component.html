@@ -11,8 +11,10 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>{{'designation.depertment'|translate}}</mat-label>
                 <mat-select formControlName="deptId">
-                  <mat-option *ngFor="let department of departmentArray"
-                    [value]="department.id">{{department.departmentName}}</mat-option>
+                  <!-- <mat-option *ngFor="let department of departmentArray"
+                    [value]="department.id">{{department.departmentName}}</mat-option> -->
+                    <mat-option *ngFor="let department of departmentArray"
+                    [value]="department.id">{{lang == 'en' ? department.departmentName : department.m_DepartmentName}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -21,7 +23,7 @@
                 <mat-label>{{'designation.designation_level'|translate}}</mat-label>
                 <mat-select formControlName="deptLevelId">
                   <mat-option *ngFor="let deptLevel of departmentLevelArray"
-                    [value]="deptLevel.id">{{deptLevel.departmentLevel}}</mat-option>
+                    [value]="deptLevel.id">{{lang == 'en' ? deptLevel.departmentLevel : deptLevel.m_DepartmentLevel}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -68,7 +70,7 @@
               <mat-label>{{'designation.depertment'|translate}}</mat-label>
               <mat-select formControlName="departmentId">
                 <mat-option *ngFor="let department of departmentArrayAdd"
-                  [value]="department.id">{{department.departmentName}}</mat-option>
+                  [value]="department.id">{{lang == 'en' ? department.departmentName : department.m_DepartmentName}}</mat-option>
               </mat-select>
               <mat-error *ngIf="a['departmentId'].hasError('required')">{{'designation.department_required'|translate}}</mat-error>
             </mat-form-field>
@@ -78,7 +80,7 @@
               <mat-label>{{'designation.designation_level'|translate}}</mat-label>
               <mat-select formControlName="departmentLevelId">
                 <mat-option *ngFor="let deptLevel of departmentLevelAddArray"
-                  [value]="deptLevel.id">{{deptLevel.departmentLevel}}</mat-option>
+                  [value]="deptLevel.id">{{lang == 'en' ? deptLevel.departmentLevel : deptLevel.m_DepartmentLevel}}</mat-option>
               </mat-select>
               <mat-error *ngIf="a['departmentLevelId'].hasError('required')">{{'designation.designation_level_required'|translate}}</mat-error>
             </mat-form-field>
