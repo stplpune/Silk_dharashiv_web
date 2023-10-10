@@ -99,6 +99,7 @@ export class ForgetPasswordComponent {
           this.sendOTPContainer = false;
           this.verifyOTPContainer = true;
           this.setOtpTimer();
+          this.verifyOTPForm.reset();
         }
         else {
           this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
@@ -153,6 +154,7 @@ export class ForgetPasswordComponent {
         this.otpTimerFlag = true;
         clearInterval(this.otpTimerCount);
         this.otpTimer = 60;
+        this.verifyOTPForm.reset();
       }
     }, 1000)
   }

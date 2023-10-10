@@ -37,7 +37,7 @@
                                 <span class="text-danger" *ngIf="f['password'].hasError('pattern')">Invalid password
                                     </span>
                             </mat-error>
-                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                                 [attr.aria-pressed]="hide">
                                 <mat-icon class="material-symbols-rounded">
                                     {{hide ? 'visibility_off' : 'visibility'}}
