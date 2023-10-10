@@ -206,7 +206,7 @@ export class DepartmentComponent {
     this.filterDefaultFrm();
     this.getTableData();
     this.pageNumber=1;
-    this.searchDataFlag = false
+    this.searchDataFlag = false;
   }
 
   clearFormData() { // for clear Form field    
