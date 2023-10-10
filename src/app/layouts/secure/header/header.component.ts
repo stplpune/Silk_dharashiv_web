@@ -5,6 +5,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
+import { MyProfileComponent } from 'src/app/components/profile/my-profile/my-profile.component';
 
 
 @Component({
@@ -20,6 +21,11 @@ export class HeaderComponent {
 
   }
 
+  myprofile(){
+    this.dialog.open(MyProfileComponent,{
+      width:'50%'
+    })
+  }
 
   onClickSidebar() {
     this.webStorage.setSidebarState(!this.webStorage.getSidebarState());

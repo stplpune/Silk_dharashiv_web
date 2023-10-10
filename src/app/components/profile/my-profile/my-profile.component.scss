@@ -1,0 +1,14 @@
+.profile-pic img{
+  width: 100px;
+}
+.add-btn{
+  position: absolute;
+  top: -10px;
+  left: 60px;
+}
+.add-btn:active{
+  background-color: transparent !important;
+}
+// .mat-mdc-icon-button {
+//   --mat-mdc-button-persistent-ripple-color: transparent !important;
+// }
