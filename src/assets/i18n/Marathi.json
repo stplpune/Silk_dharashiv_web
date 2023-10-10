@@ -1,4 +1,16 @@
 {
+  "action": {
+
+
+
+
+  },
+  "department": {
+
+
+
+    
+  },
   "designation": {
     "designation": "पदनाम",
       "depertment": "विभाग निवडा",
@@ -21,4 +33,5 @@
       "update_designation": "पदनाम अपडेट करा",
       "add_designation": "पदनाम जोडा"
   }
+ 
 }

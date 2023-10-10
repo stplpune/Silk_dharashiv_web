@@ -62,9 +62,6 @@ export class DepartmentComponent {
   getTableData(status?: any) {
     this.spinner.show();
     status == 'filter' ? ((this.pageNumber = 1), this.defaultFrm(),this.searchDataFlag = true) : '';
-    // this.pageNumber = status == 'filter' ? 1 : this.pageNumber;
-    console.log(this.pageNumber, status);
-
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     let searchValue = this.filterFrm?.value || '';
     this.apiService.setHttp('GET', 'sericulture/api/Department/get-All-Department?'+str+'&TextSearch=' + (searchValue.textSearch || ''), false, false, false, 'masterUrl');
@@ -119,8 +116,7 @@ export class DepartmentComponent {
         this.pageNumber = obj.pageNumber;
         this.editFlag = false;
         this.clearFormData();
-        this.searchDataFlag ? (this.filterFrm.setValue(this.filterFrm.value.textSearch)) : (this.fl['textSearch'].setValue(''));
-        // this.filterDefaultFrm();
+        this.searchDataFlag ? (this.fl['textSearch'].setValue(this.filterFrm.value.textSearch)) : (this.fl['textSearch'].setValue(''));
         this.getTableData();
         break;
       case 'Edit':
@@ -215,7 +211,4 @@ export class DepartmentComponent {
     this.defaultFrm();
   }
 
-  // clearFilter() {
-  //   this.filterDepartment.value || this.filterDeptLevel.value ? (this.filterDepartment.setValue(0), this.filterDeptLevel.setValue(0), this.getTableData()) : '';
-  // }
 }
