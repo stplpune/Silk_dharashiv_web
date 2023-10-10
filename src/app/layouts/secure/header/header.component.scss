@@ -36,11 +36,20 @@ nav.navbar {
     font-size: 0.85rem;
 }
 
+.dropdown button img {
+    width: 20px;
+}
+
 .dropdown-menu .dropdown-item {
     padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
     cursor: pointer;
+}
+
+.dropdown-menu .dropdown-item img {
+    height: 14px;
+    margin-right: 10px;
 }
 
 .dropdown-menu .dropdown-item .material-symbols-rounded {

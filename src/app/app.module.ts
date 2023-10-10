@@ -10,8 +10,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
  import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+//import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+//import { HttpClientModule } from '@angular/common/http';
 
 export function httpTranslateLoaderFactory(http: HttpClient) {
  // export HttpLoaderFactory function that allows NGX-Translate to dynamically load translation files from a server or 
@@ -21,14 +22,17 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    ForgetPasswordComponent,
+   // ForgetPasswordComponent,
 ],
+    //GlobalTableComponent,
+    //  GlobalDialogComponent,
+ 
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
-    MatDialogModule, 
+    MatDialogModule,
     MatSnackBarModule,
     HttpClientModule,
     TranslateModule.forRoot({

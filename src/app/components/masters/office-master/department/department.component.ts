@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 
 @Component({
@@ -21,7 +22,6 @@ export class DepartmentComponent {
   tableDatasize!: number;
   totalPages!: number;
   pageNumber: number = 1;
-  editData: any;
   highLightRowFlag: boolean = false;
   @ViewChild('formDirective') private formDirective!: NgForm;
   get f() { return this.departmentFrm.controls };
@@ -33,6 +33,7 @@ export class DepartmentComponent {
       private errorService: ErrorHandlingService,
       private common: CommonMethodsService,
       public dialog: MatDialog,
+      public webStorage: WebStorageService
       ) { }
 
   ngOnInit() {
@@ -44,8 +45,8 @@ export class DepartmentComponent {
   defaultFrm(data?: any) { 
     this.departmentFrm = this.fb.group({
       id : [data ? data.id : 0],
-      departmentName: [data ? data.departmentName : '', [Validators.required, Validators.pattern(this.validator.fullName)]],
-      m_DepartmentName: [data ? data.m_DepartmentName : ''],
+      departmentName: [data ? data.departmentName : '', [Validators.required, Validators.pattern(this.validator.fullName),Validators.maxLength(30)]],
+      m_DepartmentName: [data ? data.m_DepartmentName : '',[Validators.required, Validators.pattern(this.validator.marathi),Validators.maxLength(30)]],
       createdBy: [0]
     })
   }
@@ -58,10 +59,9 @@ export class DepartmentComponent {
 
   getTableData(status?: any) {
     this.spinner.show();
-    status == 'filter' ? ((this.pageNumber = 1), this.clearFormData()) : '';
+    status == 'filter' ? ((this.pageNumber = 1), this.defaultFrm()) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     let searchValue = this.filterFrm?.value || '';
-    // status == 'filter' ? this.clearFormData() : '';
     this.apiService.setHttp('GET', 'sericulture/api/Department/get-All-Department?'+str+'&TextSearch=' + (searchValue.textSearch || ''), false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -87,8 +87,8 @@ export class DepartmentComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = ['srNo', 'departmentName', 'action'];
-    let displayedheaders = ['Sr. No.', 'Department Name','ACTION'];
+    let displayedColumns = ['srNo', 'departmentName','m_DepartmentName', 'action'];
+    let displayedheaders = ['Sr. No.', 'Department(English)','Department(Marathi)','ACTION'];
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
@@ -96,10 +96,10 @@ export class DepartmentComponent {
       blink: '',
       badge: '',
       isBlock: '',
-      pagination: this.totalPages > 10 ? true : false,
+      pagination: this.tableDatasize > 10 ? true : false,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
-      tableSize: this.totalPages,
+      tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
       edit: true,
       delete: true,
