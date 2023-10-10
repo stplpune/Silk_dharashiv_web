@@ -50,10 +50,10 @@ export class ActionsComponent {
   defaultFrm(data?: any) {
     this.actionFrm = this.fb.group({
       id: [data ? data.id : 0],
-      actionName: [data ? data.actionName : '', [Validators.required, Validators.pattern(this.validator.fullName),Validators.maxLength(50)]],
-      m_ActionName: [data ? data.m_ActionName : '', [Validators.required, Validators.pattern(this.validator.marathi),Validators.maxLength(50)]],
+      actionName: [data ? data.actionName : '', [Validators.required, Validators.pattern(this.validator.fullName), Validators.maxLength(50)]],
+      m_ActionName: [data ? data.m_ActionName : '', [Validators.required, Validators.pattern(this.validator.marathi), Validators.maxLength(50)]],
       schemeTypeId: [data ? data.schemeTypeId : '', Validators.required],
-      description: [data ? data.description : '',Validators.maxLength(500)],
+      description: [data ? data.description : '', Validators.maxLength(500)],
       createdBy: [0],
       flag: [this.editFlag ? "u" : "i"]
     })
@@ -69,7 +69,7 @@ export class ActionsComponent {
   getTableData(status?: any) {
     this.spinner.show();
     let formData = this.filterFrm.getRawValue();
-    status == 'filter' ? ((this.pageNumber = 1), this.defaultFrm(),this.searchDataFlag = true) : '';
+    status == 'filter' ? ((this.pageNumber = 1), this.defaultFrm(), this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     this.apiService.setHttp('GET', 'sericulture/api/Action/get-All-Action?SchemeTypeId=' + (formData?.schemeTypeId || 0) + str + '&TextSearch=' + (formData.textSearch.trim() || ''), false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
@@ -123,7 +123,7 @@ export class ActionsComponent {
         this.pageNumber = obj.pageNumber;
         this.editFlag = false;
         this.clearFormData();
-        this.searchDataFlag ? (this.filterFrm.setValue(this.filterFrm.value.textSearch)) : (this.fl['textSearch'].setValue(''));
+        this.searchDataFlag ? (this.fl['textSearch'].setValue(this.filterFrm.value.textSearch)) : (this.fl['textSearch'].setValue(''));
         this.getTableData();
         break;
       case 'Edit':
@@ -207,8 +207,8 @@ export class ActionsComponent {
   }
 
   blockOffice(obj: any) {
-    let status = !obj.status 
-    this.apiService.setHttp('PUT', 'sericulture/api/Action/ActionStatus?Id='+obj.id+'&Status='+status, false, false, false, 'masterUrl');
+    let status = !obj.status
+    this.apiService.setHttp('PUT', 'sericulture/api/Action/ActionStatus?Id=' + obj.id + '&Status=' + status, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         res.statusCode == "200" ? (this.common.snackBar(res.statusMessage, 0), this.getTableData()) : this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
