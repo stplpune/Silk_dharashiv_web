@@ -2,14 +2,14 @@
   <div class="col-sm-8">
     <mat-card class="plain-card">
       <mat-card-header class="card-header">
-        <div class="text-main">Designation</div>
+        <div class="text-main">{{'designation.designation'|translate}}</div>
       </mat-card-header>
       <mat-card-content class="card-body">
         <form [formGroup]="filterFrm">
           <div class="row gx-2">
             <div class="col-sm-auto">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Department</mat-label>
+                <mat-label>{{'designation.depertment'|translate}}</mat-label>
                 <mat-select formControlName="deptId">
                   <mat-option *ngFor="let department of departmentArray"
                     [value]="department.id">{{department.departmentName}}</mat-option>
@@ -18,7 +18,7 @@
             </div>
             <div class="col-sm-auto">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Department Level</mat-label>
+                <mat-label>{{'designation.designation_level'|translate}}</mat-label>
                 <mat-select formControlName="deptLevelId">
                   <mat-option *ngFor="let deptLevel of departmentLevelArray"
                     [value]="deptLevel.id">{{deptLevel.departmentLevel}}</mat-option>
@@ -27,7 +27,7 @@
             </div>
             <div class="col-sm-3">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Designation</mat-label>
+                <mat-label>{{'designation.search_by_designation'|translate}}</mat-label>
                 <input matInput formControlName="textSearch"
                   (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
               </mat-form-field>
@@ -59,52 +59,55 @@
   <div class="col-sm-4">
     <mat-card class="plain-card p-0">
       <mat-card-header class="card-header p-0 text-main">
-        {{this.editFlag ? "Update Designation" : "Add Designation" }}
+        {{this.editFlag ? ('designation.update_designation'|translate) : ('designation.add_designation'|translate)}}
       </mat-card-header>
       <mat-card-content class="card-body">
         <form [formGroup]="designationFrm" #formDirective="ngForm">
           <div class="mb-0">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Department</mat-label>
+              <mat-label>{{'designation.depertment'|translate}}</mat-label>
               <mat-select formControlName="departmentId">
                 <mat-option *ngFor="let department of departmentArrayAdd"
                   [value]="department.id">{{department.departmentName}}</mat-option>
               </mat-select>
-              <mat-error *ngIf="a['departmentId'].hasError('required')"></mat-error>
+              <mat-error *ngIf="a['departmentId'].hasError('required')">{{'designation.department_required'|translate}}</mat-error>
             </mat-form-field>
           </div>
           <div class="mb-0">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Levels</mat-label>
+              <mat-label>{{'designation.designation_level'|translate}}</mat-label>
               <mat-select formControlName="departmentLevelId">
                 <mat-option *ngFor="let deptLevel of departmentLevelAddArray"
                   [value]="deptLevel.id">{{deptLevel.departmentLevel}}</mat-option>
               </mat-select>
-              <mat-error *ngIf="a['departmentLevelId'].hasError('required')"></mat-error>
+              <mat-error *ngIf="a['departmentLevelId'].hasError('required')">{{'designation.designation_level_required'|translate}}</mat-error>
             </mat-form-field>
           </div>
           <div class="mb-0">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Designation</mat-label>
+              <mat-label>{{'designation.designation_en'|translate}}</mat-label>
               <input matInput formControlName="designationName" maxlength="50"
                 (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
-              <mat-error *ngIf="a['designationName'].hasError('pattern')">Please Enter Valid Designation
-                Name</mat-error>
+              <mat-error *ngIf="a['designationName'].hasError('pattern')">{{'designation.Please_enter_designation'|translate}}</mat-error>
+              <mat-error *ngIf="a['designationName'].hasError('maxlength')">{{'designation.maximum 50 character_allowed'|translate}}</mat-error>
+              <mat-error *ngIf="a['designationName'].hasError('required')">{{'designation.designation_en_required'|translate}}</mat-error>
             </mat-form-field>
           </div>
           <div class="mb-0">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>पदनाम</mat-label>
+              <mat-label>{{'designation.designation_mr'|translate}}</mat-label>
               <input matInput formControlName="m_DesignationName" maxlength="50"
                 (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
-              <mat-error *ngIf="a['m_DesignationName'].hasError('pattern')">{{'common.taluka1'|translate}}</mat-error>
-            </mat-form-field>
+                <mat-error *ngIf="a['designationName'].hasError('pattern')">{{'designation.Please_enter_designation_mr'|translate}}</mat-error>
+                <mat-error *ngIf="a['designationName'].hasError('maxlength')">{{'designation.maximum 50 character_allowed'|translate}}</mat-error>
+                <mat-error *ngIf="a['designationName'].hasError('required')">{{'designation.designation_mr_required'|translate}}</mat-error>
+              </mat-form-field>
           </div>
 
           <div class="d-flex align-items-center justify-content-end gap-2">
-            <button mat-flat-button class="btn-main-light" type="button" (click)="clearMainForm()">Clear</button>
-            <button mat-flat-button class="btn-main" type="submit" (click)="onSubmit()">{{this.editFlag ? 'Update' :
-              'Add'}}</button>
+            <button mat-flat-button class="btn-main-light" type="button" (click)="clearMainForm()">{{'designation.clear'|translate}}</button>
+            <button mat-flat-button class="btn-main" type="submit" (click)="onSubmit()">{{this.editFlag ? ('designation.update'|translate) :
+              ('designation.add'|translate)}}</button>
           </div>
         </form>
       </mat-card-content>

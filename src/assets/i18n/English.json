@@ -1,9 +1,24 @@
 {
-    "common": {
-      "pdf": "पीडीएफ",
-      "excel": "एक्सेल",
-      "district": "जिल्हा",
-      "taluka": "तालुका",
-      "taluka1":"fddfdsgdg gdgdgg"
+    "designation": {
+        "designation": "Designation",
+        "depertment": "Select Department",
+        "designation_level": "Select Designation Level",
+        "designation_en": "Designation(English)",
+        "designation_mr": "Designation(Marathi)",
+        "add": "Add",
+        "update": "Update",
+        "clear": "Clear",
+        "Please_select_department": "Please Select Department",
+        "Please_select_designation_level": "Please Select Designation Level",
+        "Please_enter_designation": "Please Enter Valid Designation(English)",
+        "Please_enter_designation_mr": "Please Enter Valid Designation(Marathi)",
+        "maximum 50 character_allowed": "Maximun 50 character allowed",
+        "department_required": "Department Is Required",
+        "designation_level_required": "Designation Level Is Required",
+        "designation_en_required": "Designation(English) Is Required",
+        "designation_mr_required": "Designation(Marathi) Is Required",
+        "search_by_designation": "Search by Designation",
+        "update_designation": "Update Designation",
+        "add_designation": "Add Designation"
     }
 }
