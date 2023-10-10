@@ -16,7 +16,7 @@ export class FileUploadService {
     private commonMethodService : CommonMethodsService) { }
 
   uploadDocuments(event?: any, folderName?: any, allowedDocTypes?: any, _minsize?: any, _maxsize?: any) {
-    return new Observable(obj => {
+        return new Observable(obj => {
       const selResult = event.target.value.split('.');
       const docExt = selResult.pop();
       docExt.toLowerCase();
@@ -34,11 +34,11 @@ export class FileUploadService {
               formData.append('FolderName', folderName);
               formData.append('DocumentType', docExt);
               formData.append('UploadDocPath', file);
-              this.apiService.setHttp('POST', 'sericulture/api/DocumentService/UplodFile', false, formData, false, 'masterUrl');
+              this.apiService.setHttp('POST', 'sericulture/api/Document/UplodFile', false, formData, false, 'masterUrl');
               this.apiService.getHttp().subscribe({
-                next: (res: any) => {
+                next: (res: any) => {                  
                   this.spinner.hide();
-                  if (res.statusCode === "200") {
+                  if (res.statusCode == "200") {
                     obj.next(res);
                   }
                   else {
