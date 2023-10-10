@@ -28,9 +28,10 @@ export class ForgetPasswordComponent {
   verifyOTPForm!: FormGroup;
   sendOTPForm!: FormGroup;
   changePasswordfrm!: FormGroup;
-  timeLeft: number = 30;
   interval: any;
-  public timerFlag: boolean = true;
+  otpTimerFlag: boolean = false;
+  otpTimerCount: number | any;
+  otpTimer: number = 60;
 
   constructor(private fb: FormBuilder, public validation: ValidationService,
     private commonMethods: CommonMethodsService,
@@ -38,7 +39,7 @@ export class ForgetPasswordComponent {
     private error: ErrorHandlingService,
     private commomMethod: CommonMethodsService,
     private router: Router
-   ) { }
+  ) { }
 
   ngOnInit() {
     this.defaultSendOTPFrom();
@@ -69,10 +70,14 @@ export class ForgetPasswordComponent {
     })
   }
 
+  get f() {
+    return this.sendOTPForm.controls;
+  }
+
 
   sendOTP() {
     if (this.sendOTPForm.invalid) {
-      this.commonMethods.snackBar("Please Enter Valid Mobile Number", 1);
+      // this.commonMethods.snackBar("Please Enter Valid Mobile Number", 1);
       return
     } else {
       let formData = this.sendOTPForm.getRawValue();
@@ -82,16 +87,14 @@ export class ForgetPasswordComponent {
         "pageName": "forgotpassword",
         "createdBy": 0
       }
-      console.log(this.sendOTPForm.value);
+
       this.apiService.setHttp('post', 'sericulture/api/Login/GenerateOTPtoforgotpassword', false, obj, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
-        console.log(res);
-
         if (res.statusCode == "200") {
           this.commonMethods.snackBar(res.statusMessage, 0);
           this.sendOTPContainer = false;
           this.verifyOTPContainer = true;
-          this.startTimer();
+          this.setOtpTimer();
         }
         else {
           this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
@@ -107,13 +110,13 @@ export class ForgetPasswordComponent {
     let formData = this.sendOTPForm.getRawValue();
     let otp = this.verifyOTPForm.value.otpA + this.verifyOTPForm.value.otpB + this.verifyOTPForm.value.otpC +
       this.verifyOTPForm.value.otpD + this.verifyOTPForm.value.otpE
-   
-      if (this.verifyOTPForm.invalid) {
-        return;
-      }
-      console.log(this.verifyOTPForm.value);
-      
-      let obj = {
+
+    if (this.verifyOTPForm.invalid) {
+      this.commonMethods.snackBar("Please Enter Valid OTP", 1);
+      return;
+    }
+
+    let obj = {
       "MobileNo": formData.mobileno,
       "OTP": otp,
       "PageName": "forgotpassword",
@@ -122,8 +125,6 @@ export class ForgetPasswordComponent {
 
     this.apiService.setHttp('get', 'sericulture/api/OtpTran/VerifyOTP?MobileNo=' + obj.MobileNo + '&OTP=' + obj.OTP + '&PageName=forgotpassword', false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
-      console.log(res);
-
       if (res.statusCode == "200") {
         this.commonMethods.snackBar(res.statusMessage, 0);
         this.verifyOTPForm.reset();
@@ -131,44 +132,45 @@ export class ForgetPasswordComponent {
         this.changePassContainer = true
       }
       else {
+        this.verifyOTPForm.reset();
         this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
       }
     }, (error: any) => {
       this.error.handelError(error.status);
     })
   }
+ 
 
-  startTimer() {
-    this.timeLeft = 30;
-    this.interval = setInterval(() => {
-      if (this.timeLeft > 0) {
-        this.timeLeft--;
-        this.timerFlag = false;
-      } else {
-        this.timerFlag = true;
-        clearInterval(this.interval);
+  setOtpTimer() {
+    this.otpTimerFlag = false;
+    this.otpTimerCount = setInterval(() => {
+      --this.otpTimer;
+      if (this.otpTimer == 0) {
+        this.otpTimerFlag = true;
+        clearInterval(this.otpTimerCount);
+        this.otpTimer = 60;
       }
     }, 1000)
   }
 
+
   ChangePassword() {
-    debugger
     let formData = this.changePasswordfrm.value
-    let mobiledata=this.sendOTPForm.value;
+    let mobiledata = this.sendOTPForm.value;
     if (this.changePasswordfrm.invalid) {
       return;
     } else if (formData.newpassword != formData.confirmPassword) {
       this.commomMethod.snackBar('New password and confirm password does not match', 1);
       return;
     }
-    console.log(this.changePasswordfrm.value);
-    let obj={
+
+    let obj = {
       "NewPassword": formData.newpassword,
       "MobileNo": mobiledata.mobileno,
-     
+
     }
-    
-    this.apiService.setHttp('put', 'sericulture/api/Login/ForgotPassword?NewPassword='+obj.NewPassword+'&MobileNo='+obj.MobileNo, false, false, false, 'baseUrl');
+
+    this.apiService.setHttp('put', 'sericulture/api/Login/ForgotPassword?NewPassword=' + obj.NewPassword + '&MobileNo=' + obj.MobileNo, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.commonMethods.snackBar(res.statusMessage, 0);
@@ -181,10 +183,12 @@ export class ForgetPasswordComponent {
       this.error.handelError(error.status);
     })
   }
-    
 
+getlogin(){
+  this.router.navigate(['/login']);
+}
 
-  }
+}
 
 
 
