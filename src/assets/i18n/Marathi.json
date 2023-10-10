@@ -1,37 +1,61 @@
 {
-  "action": {
-
-
-
-
-  },
   "department": {
-
-
-
+    "department": "विभाग",
+    "searchDepartment": "विभागानुसार शोधा",
+    "departmentName_en": "विभागाचे नाव (इंग्रजी)",
+    "departmentName_mr": "विभागाचे नाव (मराठी)",
+    "add": "जतन करा",
+    "update": "अपडेट",
+    "clear": "रद्द करा",
+    "update_department": "विभाग अपडेट करा",
+    "add_designation": "विभाग जोडा",
+    "department_required" : "कृपया विभागाचे नाव प्रविष्ट करा",
+    "department_maxLength": "कमाल 30 वर्णांना अनुमती आहे"
     
+
   },
+
+  "action": {
+    "action" : "कृती",
+    "add": "जतन करा",
+    "update": "अपडेट",
+    "clear": "रद्द करा",
+    "scheme": "योजना",
+    "select_scheme": "योजना निवडा",
+    "action_en":"कृतीचे नाव (इंग्रजी)",
+    "action_mr":"कृतीचे नाव (मराठी)",
+    "description":"वर्णन",
+    "action_required" : "कृपया कृतीचे नाव प्रविष्ट करा ",
+    "action_maxLength": "कमाल 50 वर्णांना अनुमती आहे",
+    "description_maxLength": "कमाल मर्यादा ५०० आहे",
+    "searchAction":"कृतीचे नाव शोधा",
+    "update_action": "कृती अपडेट करा",
+    "add_action": "कृती जोडा",
+    "scheme_required":"कृपया योजना निवडा"
+
+  },
+
+
   "designation": {
     "designation": "पदनाम",
-      "depertment": "विभाग निवडा",
-      "designation_level": "पदनाम स्तर निवडा",
-      "designation_en": "पदनाम (इंग्रजी)",
-      "designation_mr": "पदनाम (मराठी)",
-      "add": "जतन करा",
-      "update": "अपडेट",
-      "clear": "रद्द करा",
-      "Please_select_department": "कृपया विभाग निवडा",
-      "Please_select_designation_level": "कृपया पदनाम स्तर निवडा",
-      "Please_enter_designation": "कृपया पदनाम(इंग्रजी) प्रविष्ट करा",
-      "Please_enter_designation_mr": "कृपया पदनाम(मराठी) प्रविष्ट करा",
-      "maximum 50 character_allowed": "कमाल 50 वर्णांना अनुमती आहे",
-      "department_required": "विभाग आवश्यक आहे",
-      "designation_level_required":  "पदनाम स्तर आवश्यक आहे",
-      "designation_en_required": "पदनाम (इंग्रजी) आवश्यक आहे",
-      "designation_mr_required":  "पदनाम (मराठी) आवश्यक आहे",
-      "search_by_designation": "पदनामनुसार शोधा",
-      "update_designation": "पदनाम अपडेट करा",
-      "add_designation": "पदनाम जोडा"
+    "depertment": "विभाग निवडा",
+    "designation_level": "पदनाम स्तर निवडा",
+    "designation_en": "पदनाम (इंग्रजी)",
+    "designation_mr": "पदनाम (मराठी)",
+    "add": "जतन करा",
+    "update": "अपडेट",
+    "clear": "रद्द करा",
+    "Please_select_department": "कृपया विभाग निवडा",
+    "Please_select_designation_level": "कृपया पदनाम स्तर निवडा",
+    "Please_enter_designation": "कृपया पदनाम(इंग्रजी) प्रविष्ट करा",
+    "Please_enter_designation_mr": "कृपया पदनाम(मराठी) प्रविष्ट करा",
+    "maximum 50 character_allowed": "कमाल 50 वर्णांना अनुमती आहे",
+    "department_required": "विभाग आवश्यक आहे",
+    "designation_level_required": "पदनाम स्तर आवश्यक आहे",
+    "designation_en_required": "पदनाम (इंग्रजी) आवश्यक आहे",
+    "designation_mr_required": "पदनाम (मराठी) आवश्यक आहे",
+    "search_by_designation": "पदनामनुसार शोधा",
+    "update_designation": "पदनाम अपडेट करा",
+    "add_designation": "पदनाम जोडा"
   }
- 
 }
