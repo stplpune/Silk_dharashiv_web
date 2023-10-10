@@ -11,7 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
-
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   declarations: [
     DesignationsComponent
@@ -27,7 +27,8 @@ import { ReactiveFormsModule,FormsModule } from '@angular/forms';
     MatButtonModule,
     GlobalTableComponent,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ]
 })
 export class DesignationsModule { }

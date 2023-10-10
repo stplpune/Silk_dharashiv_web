@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AesencryptDecryptService } from './aesencrypt-decrypt.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,9 @@ export class WebStorageService {
   getUserId(){
     let data = this.getLoggedInLocalstorageData();
     return data.id ? data.id : 0;
-      
   }
+
+  // change language
+  setLanguage = new BehaviorSubject('')
+
 }

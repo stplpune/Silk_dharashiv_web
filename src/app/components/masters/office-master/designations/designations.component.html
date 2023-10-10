@@ -56,6 +56,50 @@
       </mat-card-content>
     </mat-card>
 
+          <div class="card-body">
+            <!-- <div class="d-flex gap-2">
+              <div class="form-label">Department </div> -->
+              <div class="mb-0">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Department</mat-label>
+                 <mat-select formControlName="departmentId">
+                      <mat-option *ngFor="let department of departmentArrayAdd" [value]="department.id">{{department.departmentName}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="a['departmentId'].hasError('required')"></mat-error>
+              </mat-form-field>
+              </div>
+              <div class="mb-0">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Levels</mat-label>
+                  <mat-select formControlName="departmentLevelId">
+                      <mat-option *ngFor="let deptLevel of departmentLevelAddArray" [value]="deptLevel.id">{{deptLevel.departmentLevel}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="a['departmentLevelId'].hasError('required')"></mat-error>
+                 </mat-form-field>
+              </div>
+              <div class="mb-0">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Designation</mat-label>
+                  <input matInput formControlName="designationName" maxlength="50"
+                      (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
+                  <mat-error *ngIf="a['designationName'].hasError('pattern')">Please Enter Valid Designation
+                      Name</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="mb-0">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>पदनाम</mat-label>
+                  <input matInput formControlName="m_DesignationName" maxlength="50"
+                      (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
+                  <mat-error *ngIf="a['m_DesignationName'].hasError('pattern')">{{'common.taluka1'|translate}}</mat-error>
+                 
+                </mat-form-field>
+              </div>
+
+            <div class="d-flex align-items-center justify-content-end gap-2">
+              <button mat-flat-button class="btn-main-light" type="button"  (click)="clearMainForm()">Clear</button>
+              <button mat-flat-button class="btn-main"  type="submit" (click)="onSubmit()">{{this.editFlag ? 'Update' : 'Add'}}</button>
+            </div>
   </div>
   <div class="col-sm-4">
     <mat-card class="plain-card p-0">
