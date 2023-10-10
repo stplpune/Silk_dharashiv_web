@@ -11,6 +11,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.c
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    GlobalTableComponent
+    GlobalTableComponent,
+    TranslateModule
   ]
 })
 export class DepartmentModule { }
