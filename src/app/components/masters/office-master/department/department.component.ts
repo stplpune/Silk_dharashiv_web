@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -24,6 +25,8 @@ export class DepartmentComponent {
   pageNumber: number = 1;
   highLightRowFlag: boolean = false;
   searchDataFlag: boolean = false
+  subscription!: Subscription;//used  for lang conv
+  lang: string = 'English';
   @ViewChild('formDirective') private formDirective!: NgForm;
   get f() { return this.departmentFrm.controls };
   get fl() { return this.filterFrm.controls };
@@ -39,6 +42,11 @@ export class DepartmentComponent {
       ) { }
 
   ngOnInit() {
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+       this.setTableData();
+    })
     this.defaultFrm();
     this.filterDefaultFrm();
     this.getTableData();
@@ -89,8 +97,8 @@ export class DepartmentComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = ['srNo', 'departmentName','m_DepartmentName', 'action'];
-    let displayedheaders = ['Sr. No.', 'Department(English)','Department(Marathi)','ACTION'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'departmentName', 'm_DepartmentName', 'action'] : ['srNo', 'departmentName','m_DepartmentName', 'action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'विभाग(इंग्रजी)', 'विभाग(मराठी)','कृती'] : ['Sr. No.', 'Department(English)','Department(Marathi)','ACTION'];
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
