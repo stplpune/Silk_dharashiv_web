@@ -7,6 +7,9 @@ import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialo
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { TranslateService } from '@ngx-translate/core'
 import { CommonModule } from '@angular/common';
+import { MyProfileComponent } from 'src/app/components/profile/my-profile/my-profile.component';
+
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -33,6 +36,11 @@ export class HeaderComponent {
     })
   }
 
+  myprofile(){
+    this.dialog.open(MyProfileComponent,{
+      width:'50%'
+    })
+  }
 
   onClickSidebar() {
     this.webStorage.setSidebarState(!this.webStorage.getSidebarState());

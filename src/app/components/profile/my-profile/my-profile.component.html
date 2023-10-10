@@ -1,1 +1,65 @@
-<p>my-profile works!</p>
+<div mat-dialog-title class="modal-header">
+  <div class="d-flex align-items-center justify-content-between w-100">
+    <h3 class="text-main">Profile</h3>
+    <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
+      <mat-icon class="material-symbols-outlined">
+          close
+      </mat-icon>
+  </button>
+  </div>
+</div>
+<mat-dialog-content class="modal-body form-container">
+  <div class="row align-items-center">
+    <div class="col-sm-4">
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="profile-pic position-relative">
+          <img src="assets/images/user.png" class="">
+          <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" #uploadDocument />
+          <div class="profile-btn text-center">
+            <input type="file" class="profile-upload d-none">
+            <!-- <button type="button" mat-icon-button class="btn text-primary add-btn">
+              <mat-icon class="material-symbols-outlined">add</mat-icon>
+            </button> -->
+            <!-- <button type="button" mat-icon-button class="btn text-danger">
+              <mat-icon class="material-symbols-outlined">delete</mat-icon>
+            </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="row gx-2">
+        <div class="col-sm-3">
+          <div class="form-label">Name</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="form-data">: Arti Wakure</div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-label">Designation</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="form-data">: Admin</div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-label">Department</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="form-data">: Sericulture</div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-label">Mobile No.</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="form-data">: +91-8669264767</div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-label">Email ID</div>
+        </div>
+        <div class="col-sm-8">
+          <div class="form-data">: artiwakure@gmail.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
