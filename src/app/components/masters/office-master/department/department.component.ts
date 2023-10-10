@@ -102,10 +102,6 @@ export class DepartmentComponent {
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
-      img: '',
-      blink: '',
-      badge: '',
-      isBlock: '',
       pagination: this.tableDatasize > 10 ? true : false,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
