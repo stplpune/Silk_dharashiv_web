@@ -88,4 +88,8 @@ export class ChangePasswordComponent {
     this.formDirective?.resetForm();
     this.defaultForm();
   }
+
+  closeDialogue(){
+    this.dialogRef.close();
+  }
 }
