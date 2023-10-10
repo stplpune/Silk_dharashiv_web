@@ -58,7 +58,7 @@ export class AddcircleComponent {
     this.addBlockForm = this.fb.group({
       "id": [this.data?.id || 0],
       "blockName": [this.data?.blockName || '',[Validators.required]],
-      "m_BlockName": [this.data?.m_BlockName || ''],
+      "m_BlockName": [this.data?.m_BlockName || '',[Validators.required]],
       "stateId": [0],
       "districtId": [0],
       "talukas": ['',[Validators.required]],

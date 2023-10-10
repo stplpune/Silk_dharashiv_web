@@ -68,6 +68,13 @@
         <mat-error *ngIf="f['blockName'].hasError('required') ">Please Enter Block Name</mat-error>
       </mat-form-field>
     </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Enter Block Name(Marathi)</mat-label>
+        <input matInput  formControlName="m_BlockName" (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)" maxlength="30">
+        <mat-error *ngIf="f['m_BlockName'].hasError('required') ">Please Enter Block Name in Marathi</mat-error>
+      </mat-form-field>
+    </div>
     <!-- <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Select Village</mat-label>

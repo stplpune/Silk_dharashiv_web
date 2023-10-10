@@ -13,6 +13,7 @@ import {MatRadioModule} from '@angular/material/radio';
 // import { AddcircleComponent } from './addcircle/addcircle.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -32,7 +33,8 @@ import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.c
     MatSelectModule,
     MatRadioModule,
     MatButtonModule,
-    GlobalTableComponent
+    GlobalTableComponent,
+    ReactiveFormsModule
   ]
 })
 export class BlockCircleModule { }

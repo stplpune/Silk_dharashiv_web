@@ -14,11 +14,6 @@ import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialo
   styleUrls: ['./block-circle.component.scss']
 })
 export class BlockCircleComponent {
-
-
-  displayedColumns: string[] = ['srno', 'type','blockcirclename', 'action'];
-  dataSource = ELEMENT_DATA;
-
   pageNumber: number = 1;
   tableDatasize!: number;
   totalPages!: number;
@@ -27,7 +22,6 @@ export class BlockCircleComponent {
   textsearch = new FormControl('');
 
   constructor(
-
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
     private commonMethod: CommonMethodsService,
@@ -39,23 +33,18 @@ export class BlockCircleComponent {
 
   ngOnInit() {  
     this.getTableData();
-  
-    
   }
  
 
   getTableData(flag?: any) {
     this.spinner.show();
-    flag == 'filter' ? (this.pageNumber = 1) : '';   
-    // let str = `&PageNo=${this.pageNumber}&PageSize=10`;        &TextSearch=test
-    this.apiService.setHttp('GET', `sericulture/api/TalukaBlocks/GetAllTalukaBlocks?pageno=${this.pageNumber}&pagesize=10`, false, false, false, 'masterUrl');
+    flag == 'filter' ? (this.pageNumber = 1) : '';         
+    this.apiService.setHttp('GET', `sericulture/api/TalukaBlocks/GetAllTalukaBlocks?pageno=${this.pageNumber}&pagesize=10&TextSearch=${this.textsearch.value || ''}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData;
-          console.log("tableDataArray",this.tableDataArray);
-          
           this.tableDatasize = res.responseData1?.totalCount;
           this.totalPages = res.responseData1?.totalPages;
           
@@ -156,20 +145,10 @@ export class BlockCircleComponent {
     });
   }
 
+  clearFilter(){
+    this.textsearch.setValue('');
+    this.getTableData();
+  }
+
 }
 
-
-
-
-
-export interface PeriodicElement {
-  srno: number;
-  type: string;
-  blockcirclename: string;
-  action: any;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {srno: 1, type: 'Hydrogen', blockcirclename:'District Level', action: ' '},
-  {srno: 2, type: 'Hydrogen', blockcirclename:'Taluka Level', action: ' '}
-];
