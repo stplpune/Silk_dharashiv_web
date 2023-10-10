@@ -25,7 +25,10 @@ export class ActionsComponent {
   totalPages!: number;
   pageNumber: number = 1;
   highLightRowFlag: boolean = false;
+  searchDataFlag: boolean = false;
   @ViewChild('formDirective') private formDirective!: NgForm;
+  get f() { return this.actionFrm.controls };
+  get fl() { return this.filterFrm.controls };
 
   constructor(private fb: FormBuilder,
     private master: MasterService,
@@ -47,10 +50,10 @@ export class ActionsComponent {
   defaultFrm(data?: any) {
     this.actionFrm = this.fb.group({
       id: [data ? data.id : 0],
-      actionName: [data ? data.actionName : '', [Validators.required, Validators.pattern(this.validator.fullName)]],
-      m_ActionName: [data ? data.m_ActionName : '',[Validators.required, Validators.pattern(this.validator.marathi)]],
+      actionName: [data ? data.actionName : '', [Validators.required, Validators.pattern(this.validator.fullName),Validators.maxLength(50)]],
+      m_ActionName: [data ? data.m_ActionName : '', [Validators.required, Validators.pattern(this.validator.marathi),Validators.maxLength(50)]],
       schemeTypeId: [data ? data.schemeTypeId : '', Validators.required],
-      description: [data ? data.description : ''],
+      description: [data ? data.description : '',Validators.maxLength(500)],
       createdBy: [0],
       flag: [this.editFlag ? "u" : "i"]
     })
@@ -58,17 +61,17 @@ export class ActionsComponent {
 
   filterDefaultFrm() {
     this.filterFrm = this.fb.group({
-      schemeTypeId:[0],
-      textSearch:['']
+      schemeTypeId: [0],
+      textSearch: ['']
     })
   }
 
   getTableData(status?: any) {
     this.spinner.show();
     let formData = this.filterFrm.getRawValue();
-    status == 'filter' ? ((this.pageNumber = 1), this.defaultFrm()) : '';
+    status == 'filter' ? ((this.pageNumber = 1), this.defaultFrm(),this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/Action/get-All-Action?SchemeTypeId='+(formData?.schemeTypeId || 0)+str+'&TextSearch='+(formData.textSearch.trim() || ''), false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Action/get-All-Action?SchemeTypeId=' + (formData?.schemeTypeId || 0) + str + '&TextSearch=' + (formData.textSearch.trim() || ''), false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -76,7 +79,7 @@ export class ActionsComponent {
           this.tableDataArray = res.responseData;
           this.totalPages = res.responseData1?.totalPages;
           this.tableDatasize = res.responseData1?.totalCount;
-     } else {
+        } else {
           this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
           this.spinner.hide();
           this.tableDataArray = [];
@@ -93,15 +96,15 @@ export class ActionsComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = ['srNo', 'schemeType','actionName','description','status', 'action'];
-    let displayedheaders = ['Sr. No.', 'Scheme Name','Action Name','Description','Status','ACTION'];
+    let displayedColumns = ['srNo', 'schemeType', 'actionName', 'description', 'status', 'action'];
+    let displayedheaders = ['Sr. No.', 'Scheme Name', 'Action Name', 'Description', 'Status', 'ACTION'];
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
       img: '',
       blink: '',
-      badge: 'status',
-      isBlock: '',
+      badge: '',
+      isBlock: 'status',
       pagination: this.totalPages > 10 ? true : false,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
@@ -120,7 +123,7 @@ export class ActionsComponent {
         this.pageNumber = obj.pageNumber;
         this.editFlag = false;
         this.clearFormData();
-        this.filterDefaultFrm();
+        this.searchDataFlag ? (this.filterFrm.setValue(this.filterFrm.value.textSearch)) : (this.fl['textSearch'].setValue(''));
         this.getTableData();
         break;
       case 'Edit':
@@ -130,6 +133,8 @@ export class ActionsComponent {
       case 'Delete':
         this.globalDialogOpen(obj);
         break;
+      case 'Block':
+        this.openBlockDialog(obj);
     }
   }
 
@@ -139,7 +144,7 @@ export class ActionsComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.schemeArray = res.responseData;
-          this.schemeFilterArr.unshift({value: 0, textEnglish: "All Scheme"},...res.responseData);
+          this.schemeFilterArr.unshift({ value: 0, textEnglish: "All Scheme" }, ...res.responseData);
         } else {
           this.schemeFilterArr = [];
           this.schemeArray = [];
@@ -150,27 +155,29 @@ export class ActionsComponent {
 
   onSubmitData() {
     let formvalue = this.actionFrm.value;
-    if(this.actionFrm.invalid){
+    if (this.actionFrm.invalid) {
       return
-    }else{
+    } else {
       this.spinner.show();
-      this.apiService.setHttp('POST','sericulture/api/Action/Insert-Update-Action', false, formvalue, false, 'masterUrl');
+      this.apiService.setHttp('POST', 'sericulture/api/Action/Insert-Update-Action', false, formvalue, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
-        next: ((res:any) => {
-          if(res.statusCode == '200'){
-            this.common.snackBar(res.statusMessage,0);
-            this.clearFormData(); 
+        next: ((res: any) => {
+          if (res.statusCode == '200') {
+            this.common.snackBar(res.statusMessage, 0);
+            this.clearFormData();
             this.defaultFrm();
             this.filterFrm.controls['textSearch'].setValue('');
-            this.getTableData(); 
-            this.editFlag = false;   
-          }else{
+            this.getTableData();
+            this.editFlag = false;
+          } else {
             this.spinner.hide();
-            this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage,1);
+            this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
           }
         }),
-        error :((error: any) => { this.spinner.hide()
-          this.errorService.handelError(error.status) })
+        error: ((error: any) => {
+          this.spinner.hide()
+          this.errorService.handelError(error.status)
+        })
       })
     }
   }
@@ -178,6 +185,39 @@ export class ActionsComponent {
   onEditData(receiveObj: any) {
     this.editFlag = true;
     this.defaultFrm(receiveObj);
+  }
+
+  openBlockDialog(obj?: any) {
+    let userEng = obj.status == false ? 'Block' : 'Unblock';
+    let dialoObj = {
+      header: userEng + ' Action',
+      title: 'Do You Want To ' + userEng + ' The Selected Action?',
+      cancelButton: 'Cancel',
+      okButton: 'Ok'
+    }
+    const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
+      width: '320px',
+      data: dialoObj,
+      disableClose: true,
+      autoFocus: false
+    })
+    deleteDialogRef.afterClosed().subscribe((result: any) => {
+      result == 'Yes' ? this.blockOffice(obj) : this.getTableData();
+    })
+  }
+
+  blockOffice(obj: any) {
+    let status = !obj.status 
+    this.apiService.setHttp('PUT', 'sericulture/api/Action/ActionStatus?Id='+obj.id+'&Status='+status, false, false, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        res.statusCode == "200" ? (this.common.snackBar(res.statusMessage, 0), this.getTableData()) : this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
+      },
+      error: (error: any) => {
+        this.errorService.handelError(error.status);
+        this.common.checkDataType(error.status) == false ? this.errorService.handelError(error.status) : this.common.snackBar(error.status, 1);
+      }
+    })
   }
 
   globalDialogOpen(delDataObj?: any) {
@@ -215,12 +255,13 @@ export class ActionsComponent {
       this.highLightRowFlag = false;
     });
   }
-  
+
   clearSearchFilter() {  // for clear search field
     this.filterFrm.reset();
     this.filterDefaultFrm();
     this.getTableData();
-    this.pageNumber=1;
+    this.pageNumber = 1;
+    this.searchDataFlag = false;
   }
 
   clearFormData() { // for clear Form field

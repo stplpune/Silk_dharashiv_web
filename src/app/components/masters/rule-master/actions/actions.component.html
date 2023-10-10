@@ -64,6 +64,7 @@
                   <mat-option *ngFor=" let scheme of schemeArray"
                     [value]="scheme.value">{{scheme.textEnglish}}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="f['schemeTypeId']?.hasError('required')">{{"Please Select Scheme"}} </mat-error>
               </mat-form-field>
             </div>
             <div class="col-sm-12">
@@ -71,6 +72,8 @@
                 <mat-label>Action Name (English)</mat-label>
                 <input matInput formControlName="actionName"  maxlength="50"
                   (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecChars($event)">
+                <mat-error *ngIf="f['actionName']?.hasError('required')">{{"Please Enter Action Name"}} </mat-error>
+                <mat-error *ngIf="f['actionName']?.hasError('maxLength')">{{"Maximum limit is 50"}} </mat-error>
               </mat-form-field>
             </div>
             <div class="col-sm-12">
@@ -78,6 +81,8 @@
                 <mat-label>Action Name (Marathi)</mat-label>
                 <input matInput formControlName="m_ActionName"  maxlength="50"
                   (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
+                <mat-error *ngIf="f['m_ActionName']?.hasError('required')">{{"कृपया कृतीचे नाव प्रविष्ट करा "}} </mat-error>
+                <mat-error *ngIf="f['m_ActionName']?.hasError('maxLength')">{{"कमाल 50 वर्णांना अनुमती आहे"}} </mat-error>
               </mat-form-field>
             </div>
             <div class="col-sm-12">
@@ -85,6 +90,7 @@
                 <mat-label>Description</mat-label>
                 <textarea matInput formControlName="description"  maxlength="500" 
                 (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecChars($event)"></textarea>
+                <mat-error *ngIf="f['description']?.hasError('maxLength')">{{"Maximum limit is 500"}} </mat-error>
               </mat-form-field>
             </div>
           </div>
