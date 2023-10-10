@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -15,7 +15,7 @@ import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialo
   templateUrl: './department.component.html',
   styleUrls: ['./department.component.scss']
 })
-export class DepartmentComponent {
+export class DepartmentComponent implements OnDestroy{
   departmentFrm!: FormGroup;
   filterFrm!: FormGroup;
   editFlag: boolean = false;
@@ -213,6 +213,10 @@ export class DepartmentComponent {
     this.editFlag = false;
     this.formDirective?.resetForm();
     this.defaultFrm();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
