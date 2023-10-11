@@ -162,10 +162,10 @@ export class DepartmentComponent implements OnDestroy{
 
   globalDialogOpen(delDataObj?: any) {
     let dialogObj = {
-      title: 'Do You Want To Delete Department?',
-      header: 'Delete',
-      okButton: 'Delete',
-      cancelButton: 'Cancel',
+      title: this.lang == 'mr-IN' ? 'तुम्हाला विभाग हटवायचा आहे का ?' : 'Do You Want To Delete Department ?',
+      header: this.lang == 'mr-IN' ? 'डिलीट करा' : 'Delete',
+      okButton:  this.lang == 'mr-IN' ? 'डिलीट' : 'Delete',
+      cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
