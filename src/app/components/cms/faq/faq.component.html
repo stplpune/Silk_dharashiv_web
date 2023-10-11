@@ -60,7 +60,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'faq.question_mr' | translate}}</mat-label>
               <input matInput formControlName="m_Question" maxlength="200"
-              (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecChars($event)">
+              (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
                <mat-error *ngIf="f['m_Question']?.hasError('required')">{{'faq.question_required' | translate}} </mat-error>
                 <mat-error *ngIf="f['m_Question']?.hasError('maxLength')">{{'faq.question_maxLength' | translate}} </mat-error>
             </mat-form-field>
@@ -78,7 +78,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'faq.answer_mr' | translate}}</mat-label>
               <textarea matInput formControlName="m_Answer" maxlength="1000"
-                (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecChars($event)"></textarea>
+                (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)"></textarea>
               <mat-error *ngIf="f['m_Answer']?.hasError('required')">{{'faq.Answer_required' | translate}} </mat-error>
                <mat-error *ngIf="f['m_Answer']?.hasError('maxLength')">{{'faq.answer_maxLength' | translate}} </mat-error>
             </mat-form-field>
