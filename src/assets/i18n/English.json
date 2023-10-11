@@ -75,5 +75,25 @@
         "please_enter_minimum_5_character_scheme_name":"Please Enter Minimum_5_Character_Scheme_Name",
         "please_enter_valid_scheme_name":"Please Enter Valid Scheme Name",
         "scheme_logo":"Scheme Logo"
+      },
+
+      "faq":{
+        "faq":"FAQ's",
+        "searchfaq":"Search Question",
+        "question_en":"Question(English)",
+        "question_mr":"Question(Marathi)",
+        "answer_en":"Answer(English)",
+        "answer_mr":"Answer(Marathi)",
+        "add": "Publish",
+        "update": "Update",
+        "clear": "Clear",
+        "update_faq": "Update FAQ's",
+        "add_faq": "Add FAQ's",
+        "question_required" : "Please Enter A Question",
+        "Answer_required" : "Please Enter Answer",
+        "question_maxLength": "Maximum limit is 200",
+        "answer_maxLength": "Maximum limit is 1000"
       }
+
+
 }

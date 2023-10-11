@@ -199,7 +199,7 @@ export class ActionsComponent implements OnDestroy{
   }
 
   openBlockDialog(obj?: any) {
-      let userEng = obj.isBlock == false ?'Block' : 'Unblock';
+      let userEng = obj.status == false ?'Block' : 'Unblock';
       let userMara = obj.status == false ?'ब्लॉक' : 'अनब्लॉक';
       let dialoObj = {
         header: this.lang == 'mr-IN' ? 'कृती ' +userMara+ ' करा'  : userEng+' Action',
