@@ -77,5 +77,23 @@
     "please_enter_minimum_5_character_scheme_name":"कृपया किमान 5 वर्ण योजनेचे नाव प्रविष्ट करा",
     "please_enter_valid_scheme_name":"कृपया वैध योजनेचे नाव प्रविष्ट करा",
     "scheme_logo":"योजना लोगो"
+  },
+
+  "faq":{
+    "faq":"एफएक्यू",
+    "searchfaq":"प्रश्न शोधा ",
+    "question_en":"प्रश्न(इंग्रजी)",
+    "question_mr":"प्रश्न(मराठी)",
+    "answer_en":"उत्तर(इंग्रजी)",
+    "answer_mr":"उत्तर(मराठी)",
+    "add": "प्रकाशित करा",
+    "update": "अपडेट",
+    "clear": "रद्द करा",
+    "update_faq": "एफएक्यू अपडेट करा",
+    "add_faq": "एफएक्यू जोडा",
+    "question_required" : "कृपया प्रश्न प्रविष्ट करा ",
+    "Answer_required" : "कृपया उत्तर प्रविष्ट करा ",
+    "question_maxLength": "कमाल 200 वर्णांना अनुमती आहे",
+    "answer_maxLength": "कमाल 1000 वर्णांना अनुमती आहे"
   }
 }
