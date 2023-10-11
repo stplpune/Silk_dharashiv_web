@@ -64,7 +64,6 @@ export class ActionsComponent implements OnDestroy{
       m_ActionName: [data ? data.m_ActionName : '', [Validators.required, Validators.pattern(this.validator.marathi), Validators.maxLength(50)]],
       schemeTypeId: [data ? data.schemeTypeId : '', Validators.required],
       description: [data ? data.description : '', Validators.maxLength(500)],
-      createdBy: [0],
       flag: [this.editFlag ? "u" : "i"]
     })
   }
@@ -154,7 +153,7 @@ export class ActionsComponent implements OnDestroy{
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.schemeArray = res.responseData;
-          this.schemeFilterArr.unshift({ value: 0, textEnglish: "All Scheme", textMarathi: "सर्व योजना" }, ...res.responseData);
+          this.schemeFilterArr.unshift({ id: 0, textEnglish: "All Scheme", textMarathi: "सर्व योजना" }, ...res.responseData);
         } else {
           this.schemeFilterArr = [];
           this.schemeArray = [];
@@ -169,7 +168,9 @@ export class ActionsComponent implements OnDestroy{
       return
     } else {
       this.spinner.show();
-      this.apiService.setHttp('POST', 'sericulture/api/Action/Insert-Update-Action', false, formvalue, false, 'masterUrl');
+      formvalue.id = Number(formvalue.id)
+      let mainData = {...formvalue,"createdBy":this.webStorage.getUserId()};
+      this.apiService.setHttp('POST', 'sericulture/api/Action/Insert-Update-Action', false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
