@@ -57,7 +57,6 @@ export class DepartmentComponent implements OnDestroy{
       id : [data ? data.id : 0],
       departmentName: [data ? data.departmentName : '', [Validators.required, Validators.pattern(this.validator.fullName),Validators.maxLength(30)]],
       m_DepartmentName: [data ? data.m_DepartmentName : '',[Validators.required, Validators.pattern(this.validator.marathi),Validators.maxLength(30)]],
-      createdBy: [0]
     })
   }
 
@@ -139,7 +138,9 @@ export class DepartmentComponent implements OnDestroy{
       return
     }else{
       this.spinner.show();
-      this.apiService.setHttp('POST','sericulture/api/Department/Insert-Update-Department', false, formvalue, false, 'masterUrl');
+      formvalue.id = Number(formvalue.id)
+      let mainData = {...formvalue,"createdBy":this.webStorage.getUserId()};
+      this.apiService.setHttp('POST','sericulture/api/Department/Insert-Update-Department', false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res:any) => {
           if(res.statusCode == '200'){
