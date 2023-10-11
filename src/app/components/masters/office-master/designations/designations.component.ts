@@ -50,6 +50,10 @@ export class DesignationsComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
        this.setTableData();
     })
+
+    //let mmm =this.WebStorageService.setLanguageCallback();//testing code lang for common
+    //console.log("nhvnbvbnvbnvbvbv",mmm)
+
     this.getDepartment();
     this.getDepartmentLevel();
     this.filterDefaultFrm();
@@ -149,7 +153,7 @@ export class DesignationsComponent {
 
   bindTable(flag?: any) {
     this.spinner.show();
-    flag == 'filter' ? (this.searchDataFlag = true,this.clearMainForm(), (this.pageNumber = 1)) : '';
+    flag == 'filter' ? (this.searchDataFlag = true,this.clearMainForm(), (this.pageNumber = 1)) : this.searchDataFlag=false;
     let formData = this.filterFrm?.getRawValue();
     // flag == 'filter' ? this.clearMainForm() : ''; //when we click on edit button and search record that time clear form 
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
@@ -248,7 +252,7 @@ export class DesignationsComponent {
             if (res.statusCode == '200') {
               this.commonMethod.snackBar(res.statusMessage, 0);
               this.bindTable();
-              this.editFlag ? this.clearMainForm() : ''; //when we click on edit button and delete record that time clear form code 
+             this.clearMainForm(); //when we click on edit and add button and delete record that time clear form code 
             } else {
               this.commonMethod.snackBar(res.statusMessage, 1);
             }
@@ -262,6 +266,11 @@ export class DesignationsComponent {
       //this.setTableData();
     });
   }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
+  
 }
 
 

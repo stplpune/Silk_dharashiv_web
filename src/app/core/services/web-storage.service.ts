@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class WebStorageService {
   toggled: boolean = false;
+  lang: string = 'English';
 
   constructor(private AESEncryptDecryptService:AesencryptDecryptService) { }
 
@@ -39,6 +40,20 @@ export class WebStorageService {
   }
 
   // change language
-  setLanguage = new BehaviorSubject('')
+  setLanguage = new BehaviorSubject('');
+
+  
+  //testing code lang for common
+  language = new BehaviorSubject('');
+  setLanguageSubject  = this.language.asObservable();
+
+setLanguageCallback() {
+  this.setLanguageSubject.subscribe(() => {
+    this.lang = sessionStorage.getItem('language') || 'English';
+    this.lang = this.lang === 'English' ? 'en' : 'mr-IN';
+  });
+  return this.lang
+}
+
 
 }
