@@ -13,6 +13,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GlobalTableComponent } from "../../../../shared/global-table/global-table.component";
 import { TranslateModule } from '@ngx-translate/core';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { TranslateModule } from '@ngx-translate/core';
         MatSelectModule,
         ReactiveFormsModule,
         GlobalTableComponent,
-        TranslateModule
+        TranslateModule,
+        AngularEditorModule
     ]
 })
 export class SchemesModule { }

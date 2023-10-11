@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar, } from '@angular/material/snack-bar';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 @Injectable({
   providedIn: 'root'
 })
@@ -86,5 +87,29 @@ export class CommonMethodsService {
   routerLinkRedirect(path: any) {
     this.router.navigate([path], { relativeTo: this.activatedRoute })
   }
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '10rem',
+    minHeight: '5rem',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    toolbarHiddenButtons: [
+      ['fontName', 'heading', 'fontSize', 'subscript', 'superscript', 'justifyLeft',
+        'justifyCenter',
+        'justifyRight',
+        'justifyFull',
+        'indent',
+        'outdent', 'heading',
+        'fontName', 'customClasses',
+        'insertImage',
+        'insertVideo',
+        'insertHorizontalRule', 'textColor',
+        'backgroundColor',
+        'removeFormat',
+        'toggleEditorMode']
+    ],
+  };
 
 }

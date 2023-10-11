@@ -23,9 +23,9 @@ export class FileUploadService {
       if (allowedDocTypes.match(docExt)) {
         if (event.target.files && event.target.files[0]) {
           const file = event.target.files[0];
-          if (file.size > 10485760) {
-            obj.error("Required file size should be less than " + 10 + " MB.");
-            this.commonMethodService.snackBar("Required file size should be less than " + 10 + " MB.", 1)
+          if (file.size > 5242880) {
+            obj.error("Required file size should be less than " + 5 + " MB.");
+            this.commonMethodService.snackBar("Required file size should be less than " + 5 + " MB.", 1)
           }
           else {
             const reader: any = new FileReader();

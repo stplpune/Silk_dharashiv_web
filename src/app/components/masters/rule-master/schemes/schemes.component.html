@@ -85,14 +85,20 @@
               </mat-form-field>
             </div>
           </div>
-          <div class="mb-0">
+          <!-- <div class="mb-0">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'scheme.scheme_description' | translate }}</mat-label>
-              <input matInput placeholder="" formControlName="schemeInfo" maxlength="5000">
+              <input matInput placeholder="" formControlName="schemeInfo" maxlength="5000" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
               <mat-error *ngIf="f['schemeInfo']?.hasError('required')">{{'scheme.please_enter_scheme_description'|translate}} </mat-error>
               
             </mat-form-field>
-          </div>
+          </div> -->
+          <div class="mb-3">
+
+                <div class="form-label">{{'scheme.scheme_description' | translate }}</div>
+                <angular-editor formControlName="schemeInfo" [config]="editorConfig" placeholder="Enter Description">
+                </angular-editor>
+        </div>
           <div class="mb-0">
             <div class="file-upload border rounded-2 p-1">
               <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip" (click)="uplodLogo.click()"
