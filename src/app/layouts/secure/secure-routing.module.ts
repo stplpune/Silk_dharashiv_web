@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'designations', loadChildren: () => import('../../components/masters/office-master/designations/designations.module').then(m => m.DesignationsModule) },
   { path: 'block-circle', loadChildren: () => import('../../components/masters/office-master/block-circle/block-circle.module').then(m => m.BlockCircleModule) },
   { path: 'officer-registration', loadChildren: () => import('../../components/masters/office-master/officer-registration/officer-registration.module').then(m => m.OfficerRegistrationModule) },
+  { path: 'village-circle', loadChildren: () => import('../../components/masters/office-master/village-circle/village-circle.module').then(m => m.VillageCircleModule) },
 
   // masters -> Rule master routing
   { path: 'schemes', loadChildren: () => import('../../components/masters/rule-master/schemes/schemes.module').then(m => m.SchemesModule) },
