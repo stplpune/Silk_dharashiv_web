@@ -12,7 +12,7 @@
                 <mat-label>{{'action.scheme' | translate}}</mat-label>
                 <mat-select formControlName="schemeTypeId">
                   <mat-option *ngFor=" let scheme of schemeFilterArr"
-                    [value]="scheme.value">{{scheme.textEnglish}}</mat-option>
+                    [value]="scheme.id">{{lang == 'en' ? scheme.textEnglish : scheme.textMarathi}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -62,7 +62,7 @@
                 <mat-label>{{'action.select_scheme' | translate}}</mat-label>
                 <mat-select formControlName="schemeTypeId">
                   <mat-option *ngFor=" let scheme of schemeArray"
-                    [value]="scheme.value">{{scheme.textEnglish}}</mat-option>
+                    [value]="scheme.id">{{lang == 'en' ? scheme.textEnglish : scheme.textMarathi}}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="f['schemeTypeId']?.hasError('required')">{{('action.scheme_required'|translate)}} </mat-error>
               </mat-form-field>

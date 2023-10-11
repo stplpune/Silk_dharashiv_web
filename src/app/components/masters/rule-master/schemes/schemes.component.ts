@@ -29,13 +29,13 @@ export class SchemesComponent {
   stateArray = new Array();
   districtArray = new Array();
   imageResponse:  string = '';
-  @ViewChild('uplodLogo')clearlogo!: any;
   data:any;
-  editFlag:boolean=false;
+  @ViewChild('uplodLogo')clearlogo!: any;
   @ViewChild('formDirective') private formDirective!: NgForm;
   filtarFlag:boolean=false;
   subscription!: Subscription;
   lang: string = 'English';
+  editorConfig = this.commonMethodService.editorConfig;
 
   constructor
   (
@@ -60,7 +60,6 @@ export class SchemesComponent {
    this.data ? this.onEditData() : this.getFormData();
     this.getState(); 
     this.getTableData();
-
   }
  
   getFormData(data?:any){
@@ -90,7 +89,6 @@ export class SchemesComponent {
   }	
 
   getDisrict() {
-    // let distId=1
     this.master.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
         this.districtArray = res.responseData;
@@ -108,8 +106,10 @@ export class SchemesComponent {
         if (res.statusCode == '200') {
           this.spinner.hide();
           this.imageResponse=res.responseData;
+          this.clearlogo.nativeElement ="";
         }
         else {
+          this.clearlogo.nativeElement ="";
           this.imageResponse = "";
         }
       }),
@@ -127,6 +127,7 @@ export class SchemesComponent {
   deleteImage(){
     this.imageResponse="";
     this.clearlogo.nativeElement="";
+    this.schemeForm.controls['logoPath'].setValue('');
   }
 
   onSubmitData(){
@@ -258,7 +259,6 @@ export class SchemesComponent {
             if (res.statusCode == '200') {
               this.commonMethodService.snackBar(res.statusMessage, 0);
               this.getTableData();
-              // this.editFlag ? this.clearMainForm() : ''; //when we click on edit button and delete record that time clear form code 
             } else {
               this.commonMethodService.snackBar(res.statusMessage, 1);
             }
@@ -269,7 +269,6 @@ export class SchemesComponent {
         });
       }
       this.highLightedFlag = false;
-      //this.setTableData();
     });
   }
 

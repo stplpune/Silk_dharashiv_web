@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MasterService } from 'src/app/core/services/master.service';
@@ -8,13 +8,15 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
+import { Subscription } from 'rxjs';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 @Component({
   selector: 'app-actions',
   templateUrl: './actions.component.html',
   styleUrls: ['./actions.component.scss']
 })
-export class ActionsComponent {
+export class ActionsComponent implements OnDestroy{
   actionFrm!: FormGroup;
   filterFrm!: FormGroup;
   schemeArray = new Array();
@@ -26,6 +28,8 @@ export class ActionsComponent {
   pageNumber: number = 1;
   highLightRowFlag: boolean = false;
   searchDataFlag: boolean = false;
+  subscription!: Subscription;//used  for lang conv
+  lang: string = 'English';
   @ViewChild('formDirective') private formDirective!: NgForm;
   get f() { return this.actionFrm.controls };
   get fl() { return this.filterFrm.controls };
@@ -38,9 +42,15 @@ export class ActionsComponent {
     private errorService: ErrorHandlingService,
     private common: CommonMethodsService,
     public dialog: MatDialog,
+    public webStorage: WebStorageService
   ) { }
 
   ngOnInit() {
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+       this.setTableData();
+    })
     this.defaultFrm();
     this.filterDefaultFrm();
     this.getAllScheme();
@@ -54,7 +64,6 @@ export class ActionsComponent {
       m_ActionName: [data ? data.m_ActionName : '', [Validators.required, Validators.pattern(this.validator.marathi), Validators.maxLength(50)]],
       schemeTypeId: [data ? data.schemeTypeId : '', Validators.required],
       description: [data ? data.description : '', Validators.maxLength(500)],
-      createdBy: [0],
       flag: [this.editFlag ? "u" : "i"]
     })
   }
@@ -96,8 +105,8 @@ export class ActionsComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = ['srNo', 'schemeType', 'actionName', 'description', 'status', 'action'];
-    let displayedheaders = ['Sr. No.', 'Scheme Name', 'Action Name', 'Description', 'Status', 'ACTION'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_SchemeType', 'm_ActionName', 'description','status','action'] : ['srNo', 'schemeType', 'actionName', 'description', 'status', 'action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'योजनेचे नाव', 'कृतीचे नाव','वर्णन','स्थिती','कृती'] : ['Sr. No.', 'Scheme Name', 'Action Name', 'Description', 'Status', 'ACTION'];
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
@@ -144,7 +153,7 @@ export class ActionsComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.schemeArray = res.responseData;
-          this.schemeFilterArr.unshift({ value: 0, textEnglish: "All Scheme" }, ...res.responseData);
+          this.schemeFilterArr.unshift({ id: 0, textEnglish: "All Scheme", textMarathi: "सर्व योजना" }, ...res.responseData);
         } else {
           this.schemeFilterArr = [];
           this.schemeArray = [];
@@ -159,7 +168,9 @@ export class ActionsComponent {
       return
     } else {
       this.spinner.show();
-      this.apiService.setHttp('POST', 'sericulture/api/Action/Insert-Update-Action', false, formvalue, false, 'masterUrl');
+      formvalue.id = Number(formvalue.id)
+      let mainData = {...formvalue,"createdBy":this.webStorage.getUserId()};
+      this.apiService.setHttp('POST', 'sericulture/api/Action/Insert-Update-Action', false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
@@ -188,12 +199,13 @@ export class ActionsComponent {
   }
 
   openBlockDialog(obj?: any) {
-    let userEng = obj.status == false ? 'Block' : 'Unblock';
-    let dialoObj = {
-      header: userEng + ' Action',
-      title: 'Do You Want To ' + userEng + ' The Selected Action?',
-      cancelButton: 'Cancel',
-      okButton: 'Ok'
+      let userEng = obj.isBlock == false ?'Block' : 'Unblock';
+      let userMara = obj.status == false ?'ब्लॉक' : 'अनब्लॉक';
+      let dialoObj = {
+        header: this.lang == 'mr-IN' ? 'कृती ' +userMara+ ' करा'  : userEng+' Action',
+        title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेली कृती '+userMara+' करू इच्छिता' : 'Do You Want To ' + userEng + ' The Selected Action?',
+        cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
+        okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
     }
     const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -222,10 +234,10 @@ export class ActionsComponent {
 
   globalDialogOpen(delDataObj?: any) {
     let dialogObj = {
-      title: 'Do You Want To Delete Action?',
-      header: 'Delete',
-      okButton: 'Delete',
-      cancelButton: 'Cancel',
+      title: this.lang == 'mr-IN' ? 'तुम्हाला क्रिया हटवायची आहे का ?' : 'Do You Want To Delete Action ?',
+      header: this.lang == 'mr-IN' ? 'डिलीट करा' : 'Delete',
+      okButton:  this.lang == 'mr-IN' ? 'डिलीट' : 'Delete',
+      cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -269,4 +281,9 @@ export class ActionsComponent {
     this.formDirective?.resetForm();
     this.defaultFrm();
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
 }
