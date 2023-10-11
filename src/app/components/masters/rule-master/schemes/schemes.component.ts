@@ -209,7 +209,7 @@ export class SchemesComponent {
       tableHeaders: tableHeaders,
       displayedColumns:displayedColumns,
       pagination: this.totalCount > 10 ? true : false,
-      view:true,
+      view:false,
       edit: true,
       delete:true,
       reset:false
