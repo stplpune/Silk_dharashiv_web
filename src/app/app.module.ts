@@ -35,6 +35,7 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatSnackBarModule,
     HttpClientModule,
+    MatDialogModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
