@@ -63,12 +63,11 @@ export class SchemesComponent {
   }
  
   getFormData(data?:any){
-    console.log('data123',data);
     this.schemeForm=this.fb.group({
       schemeType:[data ?data.schemeName : '',[Validators.required,Validators.pattern(this.validator.alphaNumericWithSpace)]],
       stateId:[data ? data.stateId : 1],
       districtId:[data ? data.districtId : 1],
-      logoPath:[data ? data.logoPath : ''],
+      logoPath:[''],
       schemeInfo:[data ?data.schemeInfo : '',[Validators.required]],
       m_SchemeType:[data ?data.m_SchemeName : '',[Validators.required,Validators.pattern(this.validator.marathi)]]
     })
@@ -99,21 +98,24 @@ export class SchemesComponent {
     })
   }	
 
-  imageUplod(event:any){
-    this.spinner.show();
+  imageUplod(event:any){    
+    this.spinner.show();    
     this.fileUpl.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc').subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.spinner.hide();
           this.imageResponse=res.responseData;
-          this.clearlogo.nativeElement ="";
+          this.f['logoPath'].setValue(this.imageResponse);
         }
         else {
-          this.clearlogo.nativeElement ="";
+          this.clearlogo.nativeElement.value ="";
+          this.f['logoPath'].setValue('');
           this.imageResponse = "";
         }
       }),
       error: (error: any) => {
+        this.clearlogo.nativeElement.value ="";
+        this.f['logoPath'].setValue('');
         this.spinner.hide();
         this.commonMethodService.checkDataType(error.status) == false ? this.errorService.handelError(error.statusCode) : this.commonMethodService.snackBar(error.statusText, 1);
       }
@@ -126,13 +128,12 @@ export class SchemesComponent {
 
   deleteImage(){
     this.imageResponse="";
-    this.clearlogo.nativeElement="";
-    this.schemeForm.controls['logoPath'].setValue('');
+    this.clearlogo.nativeElement.value="";
+    this.f['logoPath'].setValue('');
   }
 
   onSubmitData(){
     let formData=this.schemeForm.value;
-    console.log('this.imggg',this.imageResponse);
     this.spinner.show();
     if(this.schemeForm.invalid){
       this.spinner.hide();
@@ -141,7 +142,6 @@ export class SchemesComponent {
       formData.id=this.data ? this.data.id : 0;
       formData.logoPath=this.imageResponse;
       let mainData = {...formData,"createdBy":this.WebStorageService.getUserId()};
-      console.log('mainData',mainData);
       this.apiService.setHttp('post', 'sericulture/api/Scheme/Insert-Update-Scheme', false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
@@ -150,7 +150,8 @@ export class SchemesComponent {
             this.commonMethodService.snackBar(res.statusMessage, 0)
             this.getTableData();
             this.formDirective.resetForm();
-            this.clearlogo.nativeElement = "";
+            this.clearlogo.nativeElement.value = "";
+            this.f['logoPath'].setValue('');
             this.imageResponse="";
             this.data=null;
             this.filterForm.reset();
@@ -170,7 +171,7 @@ export class SchemesComponent {
   getTableData(flag?:any){
     let searchValue=this.filterForm.value || ''
     this.spinner.show();
-    flag == 'filter' ? (this.pageNumber = 1,this.schemeForm.reset(),this.clearlogo.nativeElement="") : '';
+    flag == 'filter' ? (this.pageNumber = 1,this.schemeForm.reset()) : '';
     this.apiService.setHttp('GET','sericulture/api/Scheme/get-All-Scheme?PageNo='+this.pageNumber+'&PageSize=10&TextSearch='+searchValue, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next:((res:any)=>{
@@ -277,7 +278,8 @@ export class SchemesComponent {
       stateId:1,
       districtId:1
     });
-    this.clearlogo.nativeElement="";
+    this.clearlogo.nativeElement.value = "";
+    this.f['logoPath'].setValue('');
     this.imageResponse="";
     this.data=null;
   }
