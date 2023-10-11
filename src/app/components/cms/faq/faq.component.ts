@@ -104,6 +104,7 @@ export class FaqComponent implements OnDestroy {
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
+      isBlock: 'status',
       pagination: this.tableDatasize > 10 ? true : false,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
@@ -132,6 +133,8 @@ export class FaqComponent implements OnDestroy {
       case 'Delete':
         this.globalDialogOpen(obj);
         break;
+        case 'Block':
+        this.openBlockDialog(obj);
     }
   }
 
@@ -165,6 +168,40 @@ export class FaqComponent implements OnDestroy {
       })
     }
   }
+
+  openBlockDialog(obj?: any) {
+    let userEng = obj.status == false ?'Publish' : 'UnPublish';
+    let userMara = obj.status == false ?'प्रकाशित' : 'अप्रकाशित';
+    let dialoObj = {
+      header: this.lang == 'mr-IN' ? 'एफएक्यू ' +userMara+ ' करा'  : userEng+' FAQ',
+      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेली एफएक्यू '+userMara+' करू इच्छिता' : 'Do You Want To ' + userEng + ' The Selected FAQ?',
+      cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
+      okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
+  }
+  const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
+    width: '320px',
+    data: dialoObj,
+    disableClose: true,
+    autoFocus: false
+  })
+  deleteDialogRef.afterClosed().subscribe((result: any) => {
+    result == 'Yes' ? this.blockAction(obj) : this.getTableData();
+  })
+}
+
+blockAction(obj: any) {
+  let status = !obj.status
+  this.apiService.setHttp('PUT', 'sericulture/api/FAQ/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status, false, false, false, 'masterUrl');
+  this.apiService.getHttp().subscribe({
+    next: (res: any) => {
+      res.statusCode == "200" ? (this.common.snackBar(res.statusMessage, 0), this.getTableData()) : this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
+    },
+    error: (error: any) => {
+      this.errorService.handelError(error.status);
+      this.common.checkDataType(error.status) == false ? this.errorService.handelError(error.status) : this.common.snackBar(error.status, 1);
+    }
+  })
+}
 
   globalDialogOpen(delDataObj?: any) {
     let dialogObj = {
