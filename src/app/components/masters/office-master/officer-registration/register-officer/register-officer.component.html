@@ -12,66 +12,109 @@
   <div class="row gx-2">
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>All Department</mat-label>
-        <mat-select>
-          <mat-option>Option 1</mat-option>
+        <mat-label>Department</mat-label>
+        <mat-select formControlName="departmentId">
+          <mat-option *ngFor="let department of departmentArray"
+            [value]="department.id">{{department.textEnglish}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Level</mat-label>
-        <mat-select>
-          <mat-option>Option 1</mat-option>
+        <mat-select formControlName="departmentLevelId">
+          <mat-option *ngFor="let level of departmentLevelArray"
+            [value]="level.id">{{level.textEnglish}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>State</mat-label>
-        <mat-select>
-          <mat-option>Option 1</mat-option>
+        <!-- [disabled]="officerFrm.value.stateId == 1" -->
+        <mat-select formControlName="stateId">
+          <mat-option *ngFor="let state of stateArray"
+            [value]="state.id">{{state.textEnglish}}</mat-option>
         </mat-select>
+        <!-- <mat-error *ngIf="a['departmentLevelId'].hasError('required')">{{'designation.designation_level_required'|translate}}</mat-error> -->
       </mat-form-field>
     </div>
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>District</mat-label>
-        <mat-select>
-          <mat-option>Option 1</mat-option>
+        <mat-select formControlName="districtId">
+          <mat-option *ngFor="let district of districtArray"
+            [value]="district.id">{{district.textEnglish}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Block</mat-label>
+        <mat-select formControlName="blockId">
+          <mat-option *ngFor="let block of blockArray"
+            [value]="block.id">{{block.textEnglish}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Taluka</mat-label>
+        <mat-select formControlName="talukaId" (selectionChange)="getCircle();getVillage()">
+          <mat-option *ngFor="let taluka of talukaArray"
+            [value]="taluka.id">{{taluka.textEnglish}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Circle</mat-label>
+        <mat-select formControlName="circleId">
+          <mat-option *ngFor="let circle of circleArray"
+            [value]="circle.id">{{circle.textEnglish}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Village</mat-label>
+        <mat-select formControlName="villageId">
+          <mat-option *ngFor="let village of villageArray"
+            [value]="village.id">{{village.textEnglish}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Designation</mat-label>
-        <mat-select>
-          <mat-option>Option 1</mat-option>
+        <mat-select formControlName="designationId">
+          <mat-option *ngFor="let  designation of designationArray"
+            [value]="designation.id">{{designation.textEnglish}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label> Name</mat-label>
-        <input matInput placeholder="Enter Name">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
       </mat-form-field>
     </div>
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label> Mobile No.</mat-label>
-        <input matInput placeholder="Enter Name">
+        <mat-label>Mobile No.</mat-label>
+        <input matInput formControlName="mobNo1">
       </mat-form-field>
     </div>
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label> Email ID</mat-label>
-        <input matInput placeholder="Enter Name">
+        <mat-label>Email ID</mat-label>
+        <input matInput formControlName="emailId">
       </mat-form-field>
     </div>
     <div class="col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Address</mat-label>
-        <textarea matInput placeholder=""></textarea>
+        <textarea matInput formControlName="address"></textarea>
       </mat-form-field>
     </div>
   </div>
