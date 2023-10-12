@@ -56,9 +56,10 @@ export class FaqComponent implements OnDestroy {
     this.faqFrm = this.fb.group({
       id: [data ? data.id : 0],
       question: [data ? data.question : '', [Validators.required, Validators.maxLength(200)]],
-      m_Question: [data ? data.m_Question : '', [Validators.required, Validators.maxLength(200)]],
+      m_Question: [data ? data.m_Question : '', [Validators.required,Validators.pattern(this.validator.marathi), Validators.maxLength(200)]],
       answer: [data ? data.answer : '', [Validators.required, Validators.maxLength(1000)]],
-      m_Answer: [data ? data.m_Answer : '', [Validators.required, Validators.maxLength(1000)]],
+      m_Answer: [data ? data.m_Answer : '', [Validators.required,Validators.pattern(this.validator.marathi), Validators.maxLength(1000)]],
+      status: [data ? data.status : true],
       flag: [this.editFlag ? "u" : "i"]
     })
   }
@@ -80,8 +81,8 @@ export class FaqComponent implements OnDestroy {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData.responseData1;
-          this.totalPages = res.responseData.responseData1?.totalPages;
-          this.tableDatasize = res.responseData.responseData1?.totalCount;
+          this.totalPages = res.responseData.responseData2?.totalPages;
+          this.tableDatasize = res.responseData.responseData2?.totalCount;
         } else {
           this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
           this.spinner.hide();
