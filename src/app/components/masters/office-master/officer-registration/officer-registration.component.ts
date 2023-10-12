@@ -34,17 +34,12 @@ export class OfficerRegistrationComponent {
     this.bindTable();
    }
 
-  // displayedColumns: string[] = ['srno', 'officername','mobileno', 'emailid','designation','department','level','status','action'];
-  // dataSource = ELEMENT_DATA;
+ 
 
   bindTable(flag?: any) {
-    console.log("flag",flag)
+   console.log("flag",flag)
     this.spinner.show();
-    //flag == 'filter' ? (this.searchDataFlag = true,this.clearMainForm(), (this.pageNumber = 1)) : this.searchDataFlag=false;
-   // let formData = this.filterFrm?.getRawValue();
-    // flag == 'filter' ? this.clearMainForm() : ''; //when we click on edit button and search record that time clear form 
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    //this.apiService.setHttp('GET', `sericulture/api/Designation/get-All-Designation?DeptId=${formData?.deptId || 0}&Deptlevel=${formData?.deptLevelId || 0}&lan=${this.lang}&TextSearch=${formData?.textSearch || ''}` + str, false, false, false, 'masterUrl');
     this.apiService.setHttp('GET', 'sericulture/api/UserRegistration/get-user-details?' + str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -68,9 +63,7 @@ export class OfficerRegistrationComponent {
 
   setTableData() {
     this.highLightedFlag = true;
-   // let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_DepartmentName', 'm_DepartmentLevel','designationName', 'm_DesignationName', 'action'] : ['srNo', 'departmentName', 'departmentLevel','designationName', 'm_DesignationName', 'action']
-   // let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'विभाग', 'पदनाम स्तर', 'पदनाम(इंग्रजी)', 'पदनाम(मराठी)', 'कृती'] : ['Sr. No.', 'Department', 'Department Level', 'Designation(English)','Designation(Marathi)', 'Action'];
-    let displayedColumns = ['srNo', 'departmentName', 'departmentLevel','designationName', 'taluka','village','blockName','circleName','mobNo1','emailId','action'];
+     let displayedColumns = ['srNo', 'departmentName', 'departmentLevel','designationName', 'taluka','village','blockName','circleName','mobNo1','emailId','action'];
      let displayedheaders = ['Sr. No.', 'Department','Department Level','Designation','Taluka','Village','Block','Circle','Mobile No.','Email','Action'];
     let tableData = {
       pageNumber: this.pageNumber,
@@ -96,7 +89,7 @@ export class OfficerRegistrationComponent {
         this.bindTable();
         break;
        case 'Edit':
-        // this.onEditData(obj);
+         this.registerofficer(obj);
         break;
       case 'Delete':
         // this.deleteDialogOpen(obj);
@@ -104,29 +97,23 @@ export class OfficerRegistrationComponent {
     }
   }
 
+ 
 
 
 
-  registerofficer(){
-    this.dialog.open(RegisterOfficerComponent,{
-      width:'50%'
+  registerofficer(obj?:any){
+    let dialogRef = this.dialog.open(RegisterOfficerComponent, {
+      width: '700px',
+      data: obj,
+      disableClose: true,
+      autoFocus: true,
     });
-  }
+    dialogRef.afterClosed().subscribe((result: any) => {
+      result == 'Yes' ? this.bindTable() : '';
+      this.highLightedFlag= false;
+      this.setTableData();
+    });
+   }
 
 }
 
-// export interface PeriodicElement {
-//   srno: number;
-//   officername: string;
-//   mobileno: string;
-//   emailid: string;
-//   designation: string;
-//   department: string;
-//   level: string;
-//   status:string;
-//   action:any;
-// }
-
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   {srno: 1, officername: 'Hydrogen', mobileno:'District Level', emailid: 'abs@gmail..com', designation:'Sericulture',department:'Silk Develpment Officer', level:'District Level',status:'Active', action:''   },
-// ];

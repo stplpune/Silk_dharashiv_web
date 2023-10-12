@@ -73,8 +73,11 @@
         "please_enter_scheme_name_mr":"Please Enter Scheme Name(Marathi)",
         "please_enter_scheme_description":"Please Enter Scheme Description",
         "please_enter_minimum_5_character_scheme_name":"Please Enter Minimum_5_Character_Scheme_Name",
-        "please_enter_valid_scheme_name":"Please Enter Valid Scheme Name",
-        "scheme_logo":"Scheme Logo"
+        "please_enter_valid_scheme_name":"Please Enter Valid Scheme Name(English)",
+        "please_enter_valid_scheme_name_mr":"Please Enter Valid Scheme Name(Marathi)",
+        "scheme_logo":"Scheme Logo",
+        "maximum_limit_100_characters":"Maximum limit 100 characters",
+        "maximum_limit_5000_characters":"Maximum limit 5000 characters"
       },
 
       "faq":{

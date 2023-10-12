@@ -13,6 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { RegisterOfficerComponent } from './register-officer/register-officer.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { GlobalTableComponent } from "../../../../shared/global-table/global-table.component";
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { GlobalTableComponent } from "../../../../shared/global-table/global-tab
         MatDialogModule,
         MatRadioModule,
         MatButtonModule,
-        GlobalTableComponent
+        GlobalTableComponent,
+        ReactiveFormsModule,FormsModule
     ]
 })
 export class OfficerRegistrationModule { }
