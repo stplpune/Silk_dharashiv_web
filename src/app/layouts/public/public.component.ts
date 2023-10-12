@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-public',
@@ -12,7 +12,7 @@ export class PublicComponent {
 
   constructor(private router: Router) {
     this.router.events.subscribe((event: any) => {
-      if (event instanceof NavigationEnd) {
+      if (event instanceof (NavigationEnd || NavigationStart)) {
         if (event.url == '/login' || event.url == '/forgot-password') {
           this.hideHeaderFooter = false;
         } else {

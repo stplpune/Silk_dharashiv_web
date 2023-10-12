@@ -15,6 +15,7 @@ export class ValidationService {
   marathi=('^[\u0900-\u0965 ]+$');
   alphabetWithSpace = '^[a-zA-Z][a-zA-Z ]*$';
   alphaNumericWithSpace = '^[a-zA-Z0-9 -][a-zA-Z0-9 -]*$'
+  
   maxLengthValidator(maxLength: number) {
     return (control: AbstractControl): ValidationErrors | null => {
       if (control.value && control.value.length > maxLength) {
