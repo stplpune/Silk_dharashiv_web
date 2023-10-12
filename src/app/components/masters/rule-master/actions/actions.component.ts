@@ -60,10 +60,10 @@ export class ActionsComponent implements OnDestroy{
   defaultFrm(data?: any) {
     this.actionFrm = this.fb.group({
       id: [data ? data.id : 0],
-      actionName: [data ? data.actionName : '', [Validators.required, Validators.pattern(this.validator.fullName), Validators.maxLength(50)]],
-      m_ActionName: [data ? data.m_ActionName : '', [Validators.required, Validators.pattern(this.validator.marathi), Validators.maxLength(50)]],
+      actionName: [data ? data.actionName : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(50)]],
+      m_ActionName: [data ? data.m_ActionName : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(50)]],
       schemeTypeId: [data ? data.schemeTypeId : '', Validators.required],
-      description: [data ? data.description : '', Validators.maxLength(500)],
+      description: [data ? data.description : '',this.validator.maxLengthValidator(500)],
       flag: [this.editFlag ? "u" : "i"]
     })
   }
