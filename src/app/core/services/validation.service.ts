@@ -7,12 +7,14 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
 export class ValidationService {
   name = ('^[a-zA-Z]+$');
   fullName = ('^[a-zA-Z][a-zA-Z ]*$');
+  fullNamequetion = ('^[a-zA-Z?][a-zA-Z? ]*$');
   email = ('^[a-zA-Z0-9][a-zA-Z0-9._-]+[a-zA-Z0-9]+@([a-z.]+[.])+[a-z]{2,5}$');
   mobile_No = ('[6-9]\\d{9}');
   aadhar_card = ('^[2-9][0-9]{11}$');
   password =('^(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{8,20}$');
   panNumber = '[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}';
   marathi=('^[\u0900-\u0965 ]+$');
+  marathiquestion=('^[\u0900-\u0965? ]+$');
   alphabetWithSpace = '^[a-zA-Z][a-zA-Z ]*$';
   alphaNumericWithSpace = '^[a-zA-Z0-9 -][a-zA-Z0-9 -]*$'
   
@@ -26,10 +28,15 @@ export class ValidationService {
   }
 
   alphaNumericWithSpacesAndSpecCharss(event: any) {
+    const maskSeperator = new RegExp('^([a-zA-Z0-9 -])', 'g');
+    return maskSeperator.test(event.key);
+  }
+
+  alphaNumericWithQuetion(event: any) {
     if (!this.noSpacesAtStart(event)) {
       return false
     }
-    const maskSeperator = new RegExp('^([a-zA-Z0-9 -])', 'g');
+    const maskSeperator = new RegExp('^([a-zA-Z0-9 ?])', 'g');
     return maskSeperator.test(event.key);
   }
 
@@ -79,6 +86,11 @@ export class ValidationService {
 
   unicodeMarathiValidation(event: any) {
     const maskSeperator = new RegExp('[^\u0900-\u0965 ]+', 'm');
+    return !maskSeperator.test(event.key);
+  }
+
+  unicodeMarathiQuetionValidation(event: any) {
+    const maskSeperator = new RegExp('[^\u0900-\u0965? ]+', 'm');
     return !maskSeperator.test(event.key);
   }
   emailRegex(event: any) { //Email Validation

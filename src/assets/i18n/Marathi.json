@@ -97,6 +97,9 @@
     "question_required" : "कृपया प्रश्न प्रविष्ट करा ",
     "Answer_required" : "कृपया उत्तर प्रविष्ट करा ",
     "question_maxLength": "कमाल 200 वर्णांना अनुमती आहे",
-    "answer_maxLength": "कमाल 1000 वर्णांना अनुमती आहे"
+    "answer_maxLength": "कमाल 1000 वर्णांना अनुमती आहे",
+    "question_pattern" : "वैध प्रश्न प्रविष्ट करा",
+     "Answer_pattern" : "वैध उत्तर प्रविष्ट करा"
+
   }
 }

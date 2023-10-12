@@ -95,7 +95,9 @@
         "question_required" : "Please Enter A Question",
         "Answer_required" : "Please Enter Answer",
         "question_maxLength": "Maximum limit is 200",
-        "answer_maxLength": "Maximum limit is 1000"
+        "answer_maxLength": "Maximum limit is 1000",
+        "question_pattern" : "Enter a valid Question",
+        "Answer_pattern" : "Enter a valid Answer"
       }
 
 
