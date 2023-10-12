@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,23 @@ export class ValidationService {
   panNumber = '[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}';
   marathi=('^[\u0900-\u0965 ]+$');
   alphabetWithSpace = '^[a-zA-Z][a-zA-Z ]*$';
-  alphaNumericWithSpace = '^[a-zA-Z0-9 ][a-zA-Z0-9 ]*$'
+  alphaNumericWithSpace = '^[a-zA-Z0-9 -][a-zA-Z0-9 -]*$'
+  maxLengthValidator(maxLength: number) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (control.value && control.value.length > maxLength) {
+        return { maxLengthExceeded: true };
+      }
+      return null;
+    };
+  }
+
+  alphaNumericWithSpacesAndSpecCharss(event: any) {
+    if (!this.noSpacesAtStart(event)) {
+      return false
+    }
+    const maskSeperator = new RegExp('^([a-zA-Z0-9 -])', 'g');
+    return maskSeperator.test(event.key);
+  }
 
   alphabetsWithSpaces(event: any) {
     const maskSeperator = new RegExp('^([a-zA-Z ])', 'g');
