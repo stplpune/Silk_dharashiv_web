@@ -57,19 +57,19 @@ export class SchemesComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
        this.setTableData();
     })
-   this.data ? this.onEditData() : this.getFormData();
+    this.getFormData();
     this.getState(); 
     this.getTableData();
   }
  
   getFormData(data?:any){
     this.schemeForm=this.fb.group({
-      schemeType:[data ?data.schemeName : '',[Validators.required,Validators.pattern(this.validator.alphaNumericWithSpace)]],
+      schemeType:[data ?data.schemeName : '',[Validators.required,Validators.pattern(this.validator.alphaNumericWithSpace),this.validator.maxLengthValidator(100)]],
       stateId:[data ? data.stateId : 1],
       districtId:[data ? data.districtId : 1],
       logoPath:[''],
-      schemeInfo:[data ?data.schemeInfo : '',[Validators.required]],
-      m_SchemeType:[data ?data.m_SchemeName : '',[Validators.required,Validators.pattern(this.validator.marathi)]]
+      schemeInfo:[data ?data.schemeInfo : '',[Validators.required,this.validator.maxLengthValidator(5000)]],
+      m_SchemeType:[data ?data.m_SchemeName : '',[Validators.required,Validators.pattern(this.validator.marathi),this.validator.maxLengthValidator(100)]]
     })
     this.imageResponse = this.data ? this.data.logoPath : '';
   }
@@ -105,17 +105,14 @@ export class SchemesComponent {
         if (res.statusCode == '200') {
           this.spinner.hide();
           this.imageResponse=res.responseData;
-          this.f['logoPath'].setValue(this.imageResponse);
         }
         else {
           this.clearlogo.nativeElement.value ="";
-          this.f['logoPath'].setValue('');
           this.imageResponse = "";
         }
       }),
       error: (error: any) => {
         this.clearlogo.nativeElement.value ="";
-        this.f['logoPath'].setValue('');
         this.spinner.hide();
         this.commonMethodService.checkDataType(error.status) == false ? this.errorService.handelError(error.statusCode) : this.commonMethodService.snackBar(error.statusText, 1);
       }
@@ -129,7 +126,6 @@ export class SchemesComponent {
   deleteImage(){
     this.imageResponse="";
     this.clearlogo.nativeElement.value="";
-    this.f['logoPath'].setValue('');
   }
 
   onSubmitData(){
@@ -149,11 +145,12 @@ export class SchemesComponent {
             this.spinner.hide();
             this.commonMethodService.snackBar(res.statusMessage, 0)
             this.getTableData();
-            this.formDirective.resetForm();
-            this.clearlogo.nativeElement.value = "";
-            this.f['logoPath'].setValue('');
-            this.imageResponse="";
-            this.data=null;
+            // this.formDirective.resetForm();
+            // this.clearlogo.nativeElement.value = "";
+            // this.f['logoPath'].setValue('');
+            // this.imageResponse="";
+            // this.data=null;
+            this.clearForm();
             this.filterForm.reset();
           } else {
             this.spinner.hide();
@@ -170,11 +167,11 @@ export class SchemesComponent {
 
   getTableData(flag?:any){
     let searchValue=this.filterForm.value || ''
-    this.spinner.show();
     flag == 'filter' ? (this.pageNumber = 1,this.schemeForm.reset()) : '';
     this.apiService.setHttp('GET','sericulture/api/Scheme/get-All-Scheme?PageNo='+this.pageNumber+'&PageSize=10&TextSearch='+searchValue, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next:((res:any)=>{
+          this.spinner.show();
         if(res.statusCode == '200'){
           this.spinner.hide();
           this.tableDataArray = res.responseData;
@@ -183,7 +180,7 @@ export class SchemesComponent {
           this.spinner.hide();
           this.tableDataArray = [];
           this.totalCount = 0;
-          this.commonMethodService.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethodService.snackBar(res.statusMessage, 1);
+          // this.commonMethodService.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethodService.snackBar(res.statusMessage, 1);
         }
         this.setTableData();
       }),
@@ -226,7 +223,8 @@ export class SchemesComponent {
         this.getTableData();
          break;
         case 'Edit':
-         this.onEditData(obj);
+          this.data=obj;
+          this.getFormData(obj);
          break;
        case 'Delete':
          this.deleteDialogOpen(obj);
@@ -234,10 +232,10 @@ export class SchemesComponent {
      }
    }
 
-  onEditData(editData?:any){
-    this.data = editData;
-    this.getFormData(editData);
-  }
+  // onEditData(editData?:any){
+  //   this.data = editData;
+  //   this.getFormData(editData);
+  // }
 
   deleteDialogOpen(delObj?: any) {
     let dialogObj = {
@@ -259,6 +257,7 @@ export class SchemesComponent {
           next: (res: any) => {
             if (res.statusCode == '200') {
               this.commonMethodService.snackBar(res.statusMessage, 0);
+              this.data ? this.clearForm() : ''
               this.getTableData();
             } else {
               this.commonMethodService.snackBar(res.statusMessage, 1);
@@ -279,7 +278,6 @@ export class SchemesComponent {
       districtId:1
     });
     this.clearlogo.nativeElement.value = "";
-    this.f['logoPath'].setValue('');
     this.imageResponse="";
     this.data=null;
   }

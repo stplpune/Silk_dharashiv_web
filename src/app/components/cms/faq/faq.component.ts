@@ -55,10 +55,10 @@ export class FaqComponent implements OnDestroy {
   defaultFrm(data?: any) {
     this.faqFrm = this.fb.group({
       id: [data ? data.id : 0],
-      question: [data ? data.question : '', [Validators.required, Validators.maxLength(200)]],
-      m_Question: [data ? data.m_Question : '', [Validators.required,Validators.pattern(this.validator.marathi), Validators.maxLength(200)]],
-      answer: [data ? data.answer : '', [Validators.required, Validators.maxLength(1000)]],
-      m_Answer: [data ? data.m_Answer : '', [Validators.required,Validators.pattern(this.validator.marathi), Validators.maxLength(1000)]],
+      question: [data ? data.question : '', [Validators.required, this.validator.maxLengthValidator(200)]],
+      m_Question: [data ? data.m_Question : '', [Validators.required,Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(200)]],
+      answer: [data ? data.answer : '', [Validators.required, this.validator.maxLengthValidator(1000)]],
+      m_Answer: [data ? data.m_Answer : '', [Validators.required,Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(1000)]],
       status: [data ? data.status : true],
       flag: [this.editFlag ? "u" : "i"]
     })

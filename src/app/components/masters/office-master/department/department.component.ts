@@ -55,8 +55,8 @@ export class DepartmentComponent implements OnDestroy{
   defaultFrm(data?: any) { 
     this.departmentFrm = this.fb.group({
       id : [data ? data.id : 0],
-      departmentName: [data ? data.departmentName : '', [Validators.required, Validators.pattern(this.validator.fullName),Validators.maxLength(30)]],
-      m_DepartmentName: [data ? data.m_DepartmentName : '',[Validators.required, Validators.pattern(this.validator.marathi),Validators.maxLength(30)]],
+      departmentName: [data ? data.departmentName : '', [Validators.required, Validators.pattern(this.validator.fullName),this.validator.maxLengthValidator(30)]],
+      m_DepartmentName: [data ? data.m_DepartmentName : '',[Validators.required, Validators.pattern(this.validator.marathi),this.validator.maxLengthValidator(30)]],
     })
   }
 
