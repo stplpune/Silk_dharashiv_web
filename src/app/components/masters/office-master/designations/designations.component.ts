@@ -30,7 +30,7 @@ export class DesignationsComponent {
   editFlag: boolean = false;
   searchDataFlag: boolean = false;//used for filter
   subscription!: Subscription;//used  for lang conv
-  lang: string = 'English';
+  lang:any;
   @ViewChild('formDirective') private formDirective!: NgForm;
 
   constructor(private fb: FormBuilder,
@@ -50,15 +50,13 @@ export class DesignationsComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
        this.setTableData();
     })
-
-    // this.lang = this.WebStorageService.setLanguageCallback();//testing code lang for common
-    // this.setTableData();
-
     this.getDepartment();
     this.getDepartmentLevel();
     this.filterDefaultFrm();
     this.addDefaultFrm();
     this.bindTable();
+    // this.lang = this.WebStorageService.setLanguageCallback();//testing code lang for common
+    // this.setTableData();
   }
 
   filterDefaultFrm() {
@@ -94,7 +92,6 @@ export class DesignationsComponent {
         }
         else {
           this.departmentArray = []; this.departmentArrayAdd = [];
-          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
       })
     })
@@ -110,8 +107,7 @@ export class DesignationsComponent {
         }
         else {
           this.departmentLevelArray = []; this.departmentLevelAddArray = [];
-          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
+         }
       })
     })
   }
@@ -155,7 +151,6 @@ export class DesignationsComponent {
     this.spinner.show();
     flag == 'filter' ? (this.searchDataFlag = true, this.clearMainForm(), (this.pageNumber = 1)) : this.searchDataFlag = false;
     let formData = this.filterFrm?.getRawValue();
-    // flag == 'filter' ? this.clearMainForm() : ''; //when we click on edit button and search record that time clear form 
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
     this.apiService.setHttp('GET', `sericulture/api/Designation/get-All-Designation?DeptId=${formData?.deptId || 0}&Deptlevel=${formData?.deptLevelId || 0}&lan=${this.lang}&TextSearch=${formData?.textSearch || ''}` + str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
@@ -166,8 +161,7 @@ export class DesignationsComponent {
           this.tableDatasize = res.responseData1?.totalCount;
           this.totalPages = res.responseData1?.totalPages;
         } else {
-          // this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
-          this.tableDataArray = []; this.tableDatasize = 0;
+           this.tableDataArray = []; this.tableDatasize = 0;
         }
         this.setTableData();
       },
@@ -182,8 +176,6 @@ export class DesignationsComponent {
     this.highLightedFlag = true;
     let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_DepartmentName', 'm_DepartmentLevel','m_DesignationName', 'action'] : ['srNo', 'departmentName', 'departmentLevel','designationName','action']
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'विभाग', 'पदनाम स्तर', 'पदनाम', 'कृती'] : ['Sr. No.', 'Department', 'Department Level', 'Designation','Action'];
-  //  let displayedColumns = ['srNo', 'departmentName', 'departmentLevel','designationName', 'm_DesignationName', 'action'];
-   // let displayedheaders = ['Sr. No.', 'Department Name', 'Department Level Name', 'Designation Name','Designation Name In Marathi', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
