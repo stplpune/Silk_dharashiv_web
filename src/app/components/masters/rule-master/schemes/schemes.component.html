@@ -9,7 +9,7 @@
           <div class="col-sm-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'scheme.search_by_scheme_name' | translate }}</mat-label>
-              <input matInput [formControl]="filterForm" placeholder="Search Name"
+              <input matInput [formControl]="filterForm"
                 (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
             </mat-form-field>
           </div>
@@ -48,11 +48,13 @@
           <div class="mb-0">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'scheme.scheme_namee' | translate }}</mat-label>
-              <input matInput placeholder="" formControlName="schemeType" minlength="5" maxlength="100">
+              <input matInput placeholder="" formControlName="schemeType" 
+              (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecCharss($event)">
               <mat-error *ngIf="f['schemeType']?.hasError('required')">{{'scheme.please_enter_scheme_name'|translate}}
               </mat-error>
               <mat-error *ngIf="f['schemeType']?.hasError('pattern')">
                 {{'scheme.please_enter_valid_scheme_name'|translate}} </mat-error>
+                <mat-error *ngIf="f['schemeType']?.hasError('maxLengthExceeded')">{{'scheme.maximum_limit_100_characters'|translate}} </mat-error>
 
               <!-- <mat-error *ngIf="f['schemeType']?.errors">
                 <span class="text-danger" *ngIf="f['schemeType']?.hasError('required')">
@@ -91,22 +93,28 @@
                   (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
                 <mat-error *ngIf="f['m_SchemeType']?.hasError('required')">
                   {{'scheme.please_enter_scheme_name_mr'|translate}} </mat-error>
+                  <mat-error *ngIf="f['m_SchemeType']?.hasError('pattern')">
+                    {{'scheme.please_enter_valid_scheme_name_mr'|translate}} </mat-error>
+                    <mat-error *ngIf="f['m_SchemeType']?.hasError('maxLengthExceeded')">{{'scheme.maximum_limit_100_characters'|translate}} </mat-error>
               </mat-form-field>
             </div>
           </div>
           <!-- <div class="mb-0">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'scheme.scheme_description' | translate }}</mat-label>
-              <input matInput placeholder="" formControlName="schemeInfo" maxlength="5000" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
+              <input matInput placeholder="" formControlName="schemeInfo" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
               <mat-error *ngIf="f['schemeInfo']?.hasError('required')">{{'scheme.please_enter_scheme_description'|translate}} </mat-error>
               
             </mat-form-field>
           </div> -->
+          <!-- (keypress)="validator.noSpacesAtStart($event)" -->
           <div class="mb-3">
             <div class="form-label">{{'scheme.scheme_description' | translate }}</div>
-            <angular-editor formControlName="schemeInfo" [config]="editorConfig" placeholder="{{'scheme.scheme_description' | translate }}">
+            <angular-editor formControlName="schemeInfo" [config]="editorConfig" placeholder="{{'scheme.scheme_description' | translate }}"
+            >
               <mat-error *ngIf="f['schemeInfo']?.hasError('required')">
                 {{'scheme.please_enter_scheme_description'|translate}} </mat-error>
+                <mat-error *ngIf="f['schemeInfo']?.hasError('maxLengthExceeded')">{{'scheme.maximum_limit_5000_characters'|translate}} </mat-error>
             </angular-editor>
           </div>
           <div class="mb-0">
@@ -117,14 +125,14 @@
               </button>
               <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" (change)="imageUplod($event)"/>
 
-              <div class="d-flex gap-2">
-                <button type="button" *ngIf="imageResponse" mat-flat-button
+              <div class="d-flex gap-2" *ngIf="imageResponse">
+                <button type="button"  mat-flat-button
                   class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view" (click)="viewimage()">
                   <mat-icon class="material-symbols-rounded">
                     preview
                   </mat-icon>
                 </button>
-                <button type="button" *ngIf="imageResponse" (click)="deleteImage()" mat-flat-button
+                <button type="button" (click)="deleteImage()" mat-flat-button
                   class="bg-danger-subtle text-danger btn-icon btn-action" matTooltip="delete">
                   <mat-icon class="material-symbols-rounded">
                     delete
