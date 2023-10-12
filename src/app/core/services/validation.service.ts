@@ -27,9 +27,6 @@ export class ValidationService {
   }
 
   alphaNumericWithSpacesAndSpecCharss(event: any) {
-    if (!this.noSpacesAtStart(event)) {
-      return false
-    }
     const maskSeperator = new RegExp('^([a-zA-Z0-9 -])', 'g');
     return maskSeperator.test(event.key);
   }
