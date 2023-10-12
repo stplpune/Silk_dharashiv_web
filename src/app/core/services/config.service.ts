@@ -38,8 +38,4 @@ export class ConfigService {
   };
 
   //------------------------------------------ Maps Settings  starte heare -------------------------------------------//
-
-  constructor() {
-    console.log(this.baseUrl);
-  }
 }

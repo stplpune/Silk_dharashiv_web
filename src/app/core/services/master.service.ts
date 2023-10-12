@@ -9,7 +9,7 @@ export class MasterService {
 
   constructor(private apiService:ApiService ) { }
 
-    GetAllSchemeType(){
+  GetAllSchemeType(){
     return new Observable((obj)=>{
       this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetAllSchemeType', false, false, false, 'masterUrl')
       this.apiService.getHttp().subscribe({

@@ -89,7 +89,7 @@ export class ActionsComponent implements OnDestroy{
           this.totalPages = res.responseData1?.totalPages;
           this.tableDatasize = res.responseData1?.totalCount;
         } else {
-          this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
+          // this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
           this.spinner.hide();
           this.tableDataArray = [];
           this.tableDatasize = 0;

@@ -75,8 +75,11 @@
     "please_enter_scheme_name_mr":"कृपया योजनेचे नाव (इंग्रजी) प्रविष्ट करा",
     "please_enter_scheme_description":"कृपया योजनेचे वर्णन प्रविष्ट करा",
     "please_enter_minimum_5_character_scheme_name":"कृपया किमान 5 वर्ण योजनेचे नाव प्रविष्ट करा",
-    "please_enter_valid_scheme_name":"कृपया वैध योजनेचे नाव प्रविष्ट करा",
-    "scheme_logo":"योजना लोगो"
+    "please_enter_valid_scheme_name":"कृपया वैध योजनेचे नाव (इंग्रजी) प्रविष्ट करा",
+    "please_enter_valid_scheme_name_mr":"कृपया वैध योजनेचे नाव (मराठी) प्रविष्ट करा",
+    "scheme_logo":"योजना लोगो",
+    "maximum_limit_100_characters":"कमाल 100 वर्णांना अनुमती आहे",
+    "maximum_limit_5000_characters":"कमाल 5000 वर्णांना अनुमती आहे"
   },
 
   "faq":{

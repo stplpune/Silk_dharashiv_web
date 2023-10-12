@@ -9,7 +9,7 @@ export class WebStorageService {
   toggled: boolean = false;
   lang: string = 'English';
 
-  constructor(private AESEncryptDecryptService:AesencryptDecryptService) { }
+  constructor(private AESEncryptDecryptService: AesencryptDecryptService) { }
 
 
   getSidebarState() {
@@ -34,7 +34,7 @@ export class WebStorageService {
     }
   }
 
-  getUserId(){
+  getUserId() {
     let data = this.getLoggedInLocalstorageData();
     return data.id ? data.id : 0;
   }
@@ -42,18 +42,18 @@ export class WebStorageService {
   // change language
   setLanguage = new BehaviorSubject('');
 
-  
+
   //testing code lang for common
   language = new BehaviorSubject('');
-  setLanguageSubject  = this.language.asObservable();
+  setLanguageSubject = this.language.asObservable();
 
-setLanguageCallback() {
-  this.setLanguageSubject.subscribe(() => {
-    this.lang = sessionStorage.getItem('language') || 'English';
-    this.lang = this.lang === 'English' ? 'en' : 'mr-IN';
-  });
-  return this.lang
-}
+  setLanguageCallback() {
+    this.setLanguageSubject.subscribe(() => {
+      this.lang = sessionStorage.getItem('language') || 'English';
+      this.lang = this.lang === 'English' ? 'en' : 'mr-IN';
+    });
+    return this.lang
+  }
 
 
 }

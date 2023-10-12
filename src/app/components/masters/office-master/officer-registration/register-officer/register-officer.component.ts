@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-//import { NgxSpinnerService } from 'ngx-spinner';
-//import { ApiService } from 'src/app/core/services/api.service';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ApiService } from 'src/app/core/services/api.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { MasterService } from 'src/app/core/services/master.service';
@@ -15,7 +16,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 })
 export class RegisterOfficerComponent {
   officerFrm !: FormGroup;
-  departmentArray = new Array();
+ departmentArray = new Array();
   departmentLevelArray = new Array();
  stateArray = new Array();
  districtArray = new Array();
@@ -25,32 +26,39 @@ export class RegisterOfficerComponent {
  blockArray = new Array();
  circleArray = new Array();
  editFlag : boolean = false;
+ @ViewChild('formDirective')
+  private formDirective!: NgForm;
 
 constructor(
   private fb : FormBuilder,
-  //private apiService: ApiService,
+  private apiService: ApiService,
   public validation: ValidationService,
-  //private spinner: NgxSpinnerService,
+  private spinner: NgxSpinnerService,
   private masterService: MasterService,
   private errorHandler: ErrorHandlingService,
+  private WebStorageService:WebStorageService,
   private commonMethod: CommonMethodsService,
-  public dialog: MatDialog
+  public dialog: MatDialog,
+  private dialogRef: MatDialogRef<RegisterOfficerComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
  ){}
 ngOnInit(){
-  this.formData();
+  this.formData(this.data);
+  // this.formData();
   this.getDepartment();
   this.getDepartmentLevel();
    this.getState();
    this.getDistrict();
-   this.getBlock();
    this.getTaluka();
+   this.getBlock();
    this.getDesignation();
 }
 
 get f(){
   return this.officerFrm.controls;
 }
-formData(){
+formData(data?:any){
+  console.log(data)
 this.officerFrm = this.fb.group({
   "id": [0],
   "departmentId": [0],
@@ -71,25 +79,60 @@ this.officerFrm = this.fb.group({
   "userName":[''],
   "password": [''],
   // "createdBy": 0,
- //"flag": "i & u",
-
-//   "crcRegNo": "string",
-//   "aadharNumber": "string",
-//   "gender": true,
-//   "dob": "2023-10-11T10:01:58.359Z",
-//   "mobNo2": "string",
-//  "pinCode": "string",
-//   "officeAddressId": 0,
-//   "totalAreaForCRC": 0,
-//   "areaUnderCRC": 0,
-//   "chalkyCapacity": 0,
-//   "officerAssignArea": "string",
-//   "chalkyApprovedQty": 0,
-//   "doj": "2023-10-11T10:01:58.359Z",
-//  
-//   "crcName": "string",
-//   "m_CRCName": "string",
+ "flag": ["i"]
+//  "i & u",
 })
+}
+// this.dialogRef.close('Yes')
+
+//submit & update function
+onClickSubmit() {
+  this.spinner.show();
+  if (!this.officerFrm.valid) {
+    this.spinner.hide();
+    return;
+  } else {
+    let data = this.officerFrm.getRawValue();
+    let obj ={
+        "crcRegNo": "string",
+       "aadharNumber": "string",
+       "gender": true,
+       "dob": "string",
+       "mobNo2": "string",
+     "pinCode": "string",
+     "officeAddressId": 0,
+     "totalAreaForCRC": 0,
+     "areaUnderCRC": 0,
+      "chalkyCapacity": 0,
+     "officerAssignArea": "string",
+     "chalkyApprovedQty": 0,
+     "doj":"string",
+     "crcName": "string",
+     "m_CRCName": "string",
+    }
+    let mainData = { ...data,...obj,"createdBy":this.WebStorageService.getUserId() };
+    this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details', false, mainData, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == "200") {
+          this.commonMethod.snackBar(res.statusMessage, 0);
+          this.dialogRef.close('Yes');
+          this.formDirective.resetForm();
+          this.editFlag = false;
+        }
+        else {
+          this.commonMethod.checkDataType(res.statusMessage) == false
+            ? this.errorHandler.handelError(res.statusCode)
+            : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.spinner.hide();
+        this.errorHandler.handelError(error.status);
+      }
+    })
+  }
 }
 
 
@@ -129,8 +172,6 @@ getState() {
     next: ((res: any) => {
       if (res.statusCode == "200" && res.responseData?.length) {
         this.stateArray = res.responseData;
-        this.officerFrm.controls['stateId'].setValue(1);
-        console.log("jhgjghbnhbnhb",this.officerFrm.controls['stateId'].value);
         // this.editFlag == false ? this.officerFrm.controls['stateId'].patchValue(this.stateArray[0].textEnglish) : '';
         }
       else {
@@ -148,7 +189,7 @@ getDistrict() {
     next: ((res: any) => {
       if (res.statusCode == "200" && res.responseData?.length) {
         this.districtArray = res.responseData;
-        this.officerFrm.controls['districtId'].setValue(1);
+     //   this.officerFrm.controls['districtId'].setValue(1);
         }
       else {
         this.districtArray = [];
@@ -194,8 +235,8 @@ getTaluka() {
 getCircle() {
   this.circleArray = [];
   let talukaId = this.officerFrm.value?.talukaId;
-  alert("jhghjgjg")
-  if(talukaId){
+  // alert("jhghjgjg")
+   if(talukaId != 0){
   this.masterService.GetAllCircle(1, 1, talukaId).subscribe({
     next: ((res: any) => {
       if (res.statusCode == "200" && res.responseData?.length) {
@@ -207,16 +248,16 @@ getCircle() {
       }
     })
   })
-}
+ }
 }
 
 
 getVillage() {
   this.villageArray = [];
   let talukaId =this.officerFrm.value?.talukaId;
-  let circleId =this.officerFrm.value?.circleId;
+  console.log("in village talId",talukaId)
   if(talukaId != 0){
-  this.masterService.GetAllVillages(1, 1 , talukaId,circleId).subscribe({
+  this.masterService.GetAllVillages(1, 1 , talukaId,0).subscribe({
     next: ((res: any) => {
       if (res.statusCode == "200" && res.responseData?.length) {
         this.villageArray = res.responseData;
