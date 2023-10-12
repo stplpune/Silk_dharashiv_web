@@ -37,7 +37,7 @@ export class OfficerRegistrationComponent {
  
 
   bindTable(flag?: any) {
-   // console.log("flag",flag)
+   console.log("flag",flag)
     this.spinner.show();
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
     this.apiService.setHttp('GET', 'sericulture/api/UserRegistration/get-user-details?' + str, false, false, false, 'masterUrl');
