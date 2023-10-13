@@ -3,13 +3,16 @@ export interface PeriodicElement {
   srno: any;
   PageName: any;
   PageURL: any;
-  Select: any;
+  Read:any;
+  Write:any;
+  Delete:any;
+  All:any;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {srno: 1,PageName: 'Designation Registration', PageURL: 'designation-registration', Select: ''},
-  {srno: 2, PageName: 'School Registration', PageURL: 'school-registration', Select: ''},
-  {srno: 3, PageName: 'Page Right Access', PageURL: 'page-right-access', Select: '',},
+  {srno: 1,PageName: 'Designation Registration', PageURL: 'designation-registration',Read:'',Write:'',Delete:'',All:''},
+  {srno: 2, PageName: 'School Registration', PageURL: 'school-registration',Read:'',  Write:'',Delete:'',All:''},
+  {srno: 3, PageName: 'Page Right Access', PageURL: 'page-right-access',Read:'',  Write:'',Delete:'',All:''},
 ];
 @Component({
   selector: 'app-page-right-access',
@@ -17,6 +20,6 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./page-right-access.component.scss']
 })
 export class PageRightAccessComponent {
-  displayedColumns: string[] = ['srno', 'PageName', 'PageURL', 'Select'];
+  displayedColumns: string[] = ['srno', 'PageName', 'PageURL','Read','Write','Delete','All'];
   dataSource = ELEMENT_DATA;
 }
