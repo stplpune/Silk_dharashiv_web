@@ -43,8 +43,8 @@ export class RegisterOfficerComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
   ngOnInit() {
-    this.formData(this.data);
-    // this.formData();
+    this.data ? this.onEdit() : this.formData();
+   
     this.getDepartment();
     this.getDepartmentLevel();
     this.getState();
@@ -58,30 +58,35 @@ export class RegisterOfficerComponent {
     return this.officerFrm.controls;
   }
   formData(data?: any) {
-    console.log(data)
+    console.log("eeeeeeeeee",this.editFlag)
     this.officerFrm = this.fb.group({
-      "id": [0],
-      "departmentId": [0],
-      "departmentLevelId": [0],
-      "stateId": [1],
-      "districtId": [1],
-      "talukaId": [0],
-      "villageId": [0],
-      "blockId": [0],
-      "circleId": [0],
-      "designationId": [0],
-      "name": [''],
-      "m_Name": [''],
-      "mobNo1": [''],
-      "emailId": [''],
-      "address": [''],
-      "m_Address": [''],
-      "userName": [''],
-      "password": [''],
+      "id": [data ? data?.id : 0],
+      "departmentId": [data ? data?.departmentId : 0],
+      "departmentLevelId": [data ? data?.departmentLevelId : 0],
+      "stateId": [{ value: 1, disabled: true }],
+      "districtId": [{ value: 1, disabled: true }],
+      "talukaId": [data ? data?.talukaId : 0],
+      "villageId": [data ? data?.villageId : 0],
+      "blockId": [data ? data?.blockId : 0],
+      "circleId": [data ? data?.circleId : 0],
+      "designationId":[data ? data?.designationId : 0],
+      "name": [data ? data?.name :''],
+      "m_Name": [data ? data?.m_Name :''],
+      "mobNo1": [data ? data?.mobNo1 :''],
+      "emailId": [data ? data?.emailId :''],
+      "address": [data ? data?.address :''],
+      "m_Address":[data ? data?.m_Address :''],
+      "userName": [data ? data?.userName :''],
+      "password": [data ? data?.password :'0'],
       "flag":[this.editFlag ? "u" : "i"]
       })
   }
-  // this.dialogRef.close('Yes')
+  
+  //edit function
+  onEdit() {
+    this.editFlag = true;
+    this.formData(this.data);
+  }
 
   //submit & update function
   onClickSubmit() {
@@ -140,6 +145,7 @@ export class RegisterOfficerComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentArray = res.responseData;
+          this.editFlag ? this.officerFrm.controls['departmentId'].setValue(this.data?.departmentId) : '';
         }
         else {
           this.departmentArray = [];
@@ -155,6 +161,8 @@ export class RegisterOfficerComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentLevelArray = res.responseData;
+          this.editFlag ? this.officerFrm.controls['departmentLevelId'].setValue(this.data?.departmentLevelId) : '';
+  
         }
         else {
           this.departmentLevelArray = [];
@@ -170,7 +178,7 @@ export class RegisterOfficerComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.stateArray = res.responseData;
-          // this.editFlag == false ? this.officerFrm.controls['stateId'].patchValue(this.stateArray[0].textEnglish) : '';
+           this.editFlag == false ? this.officerFrm.controls['stateId'].patchValue(this.data?.stateId) : '';
         }
         else {
           this.stateArray = [];
@@ -187,8 +195,8 @@ export class RegisterOfficerComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.districtArray = res.responseData;
-          //   this.officerFrm.controls['districtId'].setValue(1);
-        }
+          this.editFlag == false ? this.officerFrm.controls['districtId'].patchValue(this.data?.districtId) : '';
+       }
         else {
           this.districtArray = [];
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -204,8 +212,7 @@ export class RegisterOfficerComponent {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.blockArray = res.responseData;
           this.editFlag ? this.officerFrm.controls['blockId'].setValue(this.data?.blockId) : '';
-    
-        }
+       }
         else {
           this.blockArray = [];
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -216,12 +223,11 @@ export class RegisterOfficerComponent {
 
   getTaluka() {
     this.talukaArray = [];
-    // let blockId = this.officerFrm.value?.blockId;
-    // if(blockId != 0){
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.talukaArray = res.responseData;
+          this.editFlag ? (this.officerFrm.controls['talukaId'].setValue(this.data?.talukaId),this.getCircle(),this.getVillage()) : (this.getCircle(),this.getVillage());
         }
         else {
           this.talukaArray = [];
@@ -229,18 +235,17 @@ export class RegisterOfficerComponent {
         }
       })
     })
-    // }
-  }
+   }
 
   getCircle() {
     this.circleArray = [];
-    let talukaId = this.officerFrm.value?.talukaId;
-    // alert("jhghjgjg")
+    let talukaId = this.officerFrm.getRawValue()?.talukaId;
     if (talukaId != 0) {
       this.masterService.GetAllCircle(1, 1, talukaId).subscribe({
         next: ((res: any) => {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.circleArray = res.responseData;
+            this.editFlag ? this.officerFrm.controls['circleId'].setValue(this.data?.circleId) : '';
           }
           else {
             this.circleArray = [];
@@ -254,13 +259,13 @@ export class RegisterOfficerComponent {
 
   getVillage() {
     this.villageArray = [];
-    let talukaId = this.officerFrm.value?.talukaId;
-    console.log("in village talId", talukaId)
+    let talukaId = this.officerFrm.getRawValue()?.talukaId;
     if (talukaId != 0) {
       this.masterService.GetAllVillages(1, 1, talukaId, 0).subscribe({
         next: ((res: any) => {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.villageArray = res.responseData;
+            this.editFlag ? this.officerFrm.controls['villageId'].setValue(this.data?.villageId) : '';
           }
           else {
             this.villageArray = [];
@@ -277,7 +282,8 @@ export class RegisterOfficerComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.designationArray = res.responseData;
-        }
+          this.editFlag ? this.officerFrm.controls['designationId'].setValue(this.data?.designationId) : '';
+         }
         else {
           this.designationArray = [];
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
