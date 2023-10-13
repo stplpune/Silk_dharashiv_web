@@ -7,7 +7,7 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
 export class ValidationService {
   name = ('^[a-zA-Z]+$');
   fullName = ('^[a-zA-Z][a-zA-Z ]*$');
-  fullNamequetion = ('^[a-zA-Z?][a-zA-Z? ]*$');
+  fullNamequetion = ('^[a-zA-Z?][a-zA-Z? !@#$%^&*0-9]*$');
   email = ('^[a-zA-Z0-9][a-zA-Z0-9._-]+[a-zA-Z0-9]+@([a-z.]+[.])+[a-z]{2,5}$');
   mobile_No = ('[6-9]\\d{9}');
   aadhar_card = ('^[2-9][0-9]{11}$');
@@ -36,7 +36,7 @@ export class ValidationService {
     if (!this.noSpacesAtStart(event)) {
       return false
     }
-    const maskSeperator = new RegExp('^([a-zA-Z0-9 ?])', 'g');
+    const maskSeperator = new RegExp('^([a-zA-Z0-9 ?!@#$%^&*0-9])', 'g');
     return maskSeperator.test(event.key);
   }
 
