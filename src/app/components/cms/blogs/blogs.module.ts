@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { AddBlogsComponent } from './add-blogs/add-blogs.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -35,7 +36,9 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MatSelectModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    AngularEditorModule
+    AngularEditorModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class BlogsModule { }
