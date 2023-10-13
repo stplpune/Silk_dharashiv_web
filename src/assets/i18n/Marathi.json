@@ -100,6 +100,23 @@
     "answer_maxLength": "कमाल 1000 वर्णांना अनुमती आहे",
     "question_pattern" : "वैध प्रश्न प्रविष्ट करा",
      "Answer_pattern" : "वैध उत्तर प्रविष्ट करा"
-
+  },"villageCircle":{
+    "village_circle":"गाव मंडळ",
+    "search_by_village_circle_name":"मंडळाच्या नावाने शोधा",
+    "add_village":"गाव जोडा",
+    "update_village":"अपडेट गाव",
+    "select_state":"राज्य निवडा",
+    "select_district":"जिल्हा निवडा",
+    "select_taluka":"तालुका निवडा",
+    "select_village":"गाव निवडा",
+    "clear": "रद्द करा",
+    "save":"जतन करा",
+    "maximum_limit_30_characters":"कमाल 30 वर्णांना अनुमती आहे",
+    "please_enter_valid_circle_name(Marathi)":"कृपया वैध मंडळाचे नाव(मराठी) टाका",
+    "please_enter_valid_circle_name(English)":"कृपया वैध मंडळाचे नाव(इंग्रजी) टाका",
+    "please_enter_circle_name(English)":"मंडळाचे नाव(इंग्रजी) प्रविष्ट करा",
+    "please_enter_circle_name(Marathi)":"मंडळाचे नाव(मराठी) प्रविष्ट करा",
+    "please_select_taluka":"कृपया तालुका निवडा",
+    "please_select_village":"कृपया गाव निवडा"
   }
 }
