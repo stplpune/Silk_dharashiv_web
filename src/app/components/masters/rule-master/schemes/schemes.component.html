@@ -55,16 +55,6 @@
               <mat-error *ngIf="f['schemeType']?.hasError('pattern')">
                 {{'scheme.please_enter_valid_scheme_name'|translate}} </mat-error>
                 <mat-error *ngIf="f['schemeType']?.hasError('maxLengthExceeded')">{{'scheme.maximum_limit_100_characters'|translate}} </mat-error>
-
-              <!-- <mat-error *ngIf="f['schemeType']?.errors">
-                <span class="text-danger" *ngIf="f['schemeType']?.hasError('required')">
-                  Please Enter Scheme Name
-                </span>
-                <span class="text-danger" *ngIf="f['schemeType']?.hasError('minlength') || f['schemeType']?.hasError('pattern')">
-                  {{f['schemeType'].hasError('minlength') ? 'Please enter minimum 5 character Scheme name' : 'Please
-                  enter valid Scheme name'}}
-                </span>
-              </mat-error> -->
             </mat-form-field>
           </div>
           <div class="row gx-2">
@@ -99,15 +89,6 @@
               </mat-form-field>
             </div>
           </div>
-          <!-- <div class="mb-0">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'scheme.scheme_description' | translate }}</mat-label>
-              <input matInput placeholder="" formControlName="schemeInfo" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
-              <mat-error *ngIf="f['schemeInfo']?.hasError('required')">{{'scheme.please_enter_scheme_description'|translate}} </mat-error>
-              
-            </mat-form-field>
-          </div> -->
-          <!-- (keypress)="validator.noSpacesAtStart($event)" -->
           <div class="mb-3">
             <div class="form-label">{{'scheme.scheme_description' | translate }}</div>
             <angular-editor formControlName="schemeInfo" [config]="editorConfig" placeholder="{{'scheme.scheme_description' | translate }}"

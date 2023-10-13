@@ -55,10 +55,10 @@ export class FaqComponent implements OnDestroy {
   defaultFrm(data?: any) {
     this.faqFrm = this.fb.group({
       id: [data ? data.id : 0],
-      question: [data ? data.question : '', [Validators.required, this.validator.maxLengthValidator(200)]],
-      m_Question: [data ? data.m_Question : '', [Validators.required,Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(200)]],
-      answer: [data ? data.answer : '', [Validators.required, this.validator.maxLengthValidator(1000)]],
-      m_Answer: [data ? data.m_Answer : '', [Validators.required,Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(1000)]],
+      question: [data ? data.question : '', [Validators.required,Validators.pattern(this.validator.fullNamequetion), this.validator.maxLengthValidator(200)]],
+      m_Question: [data ? data.m_Question : '', [Validators.required,Validators.pattern(this.validator.marathiquestion), this.validator.maxLengthValidator(200)]],
+      answer: [data ? data.answer : '', [Validators.required,Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(1000)]],
+      m_Answer: [data ? data.m_Answer : '', [Validators.required,Validators.pattern(this.validator.marathiquestion), this.validator.maxLengthValidator(1000)]],
       status: [data ? data.status : true],
       flag: [this.editFlag ? "u" : "i"]
     })
@@ -128,8 +128,8 @@ export class FaqComponent implements OnDestroy {
         this.getTableData();
         break;
       case 'Edit':
-        this.editFlag = true
-        this.onEditData(obj);
+        this.editFlag = true;
+        this.defaultFrm(obj);
         break;
       case 'Delete':
         this.globalDialogOpen(obj);
@@ -240,10 +240,6 @@ blockAction(obj: any) {
     });
   }
 
-  onEditData(receiveObj: any) {
-    this.editFlag = true;
-    this.defaultFrm(receiveObj);
-  }
 
   clearSearchFilter() {  // for clear search field
     this.filterFrm.reset();
