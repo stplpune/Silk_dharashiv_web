@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { AddBlogsComponent } from './add-blogs/add-blogs.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { AddBlogsComponent } from './add-blogs/add-blogs.component';
     MatButtonModule,
     MatSelectModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    AngularEditorModule
   ]
 })
 export class BlogsModule { }
