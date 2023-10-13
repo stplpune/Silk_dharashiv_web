@@ -267,7 +267,7 @@ export class SchemesComponent {
       autoFocus: false
     })
     deleteDialogRef.afterClosed().subscribe((result: any) => {
-      result == 'Yes' ? this.blockScheme(obj) : this.getTableData();
+      result == 'Yes' ? this.blockScheme(obj) : '';
     })
   }
 

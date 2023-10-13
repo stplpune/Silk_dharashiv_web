@@ -28,7 +28,7 @@ export class RegisterOfficerComponent {
   editFlag: boolean = false;
   @ViewChild('formDirective')
   private formDirective!: NgForm;
-
+  viewFlag:boolean=false;
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -44,7 +44,6 @@ export class RegisterOfficerComponent {
   ) { }
   ngOnInit() {
     this.data ? this.onEdit() : this.formData();
-   
     this.getDepartment();
     this.getDepartmentLevel();
     this.getState();
@@ -58,7 +57,6 @@ export class RegisterOfficerComponent {
     return this.officerFrm.controls;
   }
   formData(data?: any) {
-    console.log("eeeeeeeeee",this.editFlag)
     this.officerFrm = this.fb.group({
       "id": [data ? data?.id : 0],
       "departmentId": [data ? data?.departmentId : 0],
@@ -81,11 +79,14 @@ export class RegisterOfficerComponent {
       "flag":[this.editFlag ? "u" : "i"]
       })
   }
-  
+
   //edit function
   onEdit() {
+    this.data.label == 'View' ? this.viewFlag = true : this.viewFlag = false;
     this.editFlag = true;
     this.formData(this.data);
+    console.log('this.viewFlag = truethis.viewFlag ',this.viewFlag );
+
   }
 
   //submit & update function
@@ -162,7 +163,7 @@ export class RegisterOfficerComponent {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentLevelArray = res.responseData;
           this.editFlag ? this.officerFrm.controls['departmentLevelId'].setValue(this.data?.departmentLevelId) : '';
-  
+
         }
         else {
           this.departmentLevelArray = [];

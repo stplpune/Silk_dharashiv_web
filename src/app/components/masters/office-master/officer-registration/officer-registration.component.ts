@@ -34,7 +34,7 @@ export class OfficerRegistrationComponent {
     this.bindTable();
    }
 
- 
+
 
   bindTable(flag?: any) {
    console.log("flag",flag)
@@ -73,7 +73,7 @@ export class OfficerRegistrationComponent {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      delete: true, view: false, edit: true,
+      delete: true, view: true, edit: true,
     };
     this.highLightedFlag? tableData.highlightedrow=true :tableData.highlightedrow=false;
    this.apiService.tableData.next(tableData);
@@ -85,7 +85,7 @@ export class OfficerRegistrationComponent {
       case 'Pagination':
         //this.searchDataFlag ? (this.f['deptId'].setValue(this.filterFrm.value?.deptId), this.f['deptLevelId'].setValue(this.filterFrm.value?.deptLevelId), this.f['textSearch'].setValue(this.filterFrm.value?.textSearch)) : (this.f['deptId'].setValue(''), this.f['deptLevelId'].setValue(''), this.f['textSearch'].setValue(''));
         this.pageNumber = obj.pageNumber;
-       // this.clearMainForm();//when we click on edit button & click on pagination that time clear form 
+       // this.clearMainForm();//when we click on edit button & click on pagination that time clear form
         this.bindTable();
         break;
        case 'Edit':
@@ -94,12 +94,11 @@ export class OfficerRegistrationComponent {
       case 'Delete':
         // this.deleteDialogOpen(obj);
         break;
+        case 'View':
+          this.registerofficer(obj);
+        break;
     }
   }
-
- 
-
-
 
   registerofficer(obj?:any){
     let dialogRef = this.dialog.open(RegisterOfficerComponent, {
