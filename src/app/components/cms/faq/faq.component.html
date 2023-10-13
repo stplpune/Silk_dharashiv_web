@@ -71,7 +71,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'faq.answer_en' | translate}}</mat-label>
               <textarea matInput formControlName="answer" 
-                (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecChars($event)"></textarea>
+                (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithQuetion($event)"></textarea>
               <mat-error *ngIf="f['answer']?.hasError('required')">{{'faq.Answer_required' | translate}} </mat-error>
               <mat-error *ngIf="f['answer']?.hasError('pattern')">{{'faq.Answer_pattern' | translate}}  </mat-error>
                <mat-error *ngIf="f['answer']?.hasError('maxLengthExceeded')">{{'faq.answer_maxLength' | translate}} </mat-error>
