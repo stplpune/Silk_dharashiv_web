@@ -86,14 +86,16 @@ export class VillageCircleComponent {
 
   setTableData(){
     this.highLightedFlag = true;
+    let tableHeaders = this.lang == 'en' ?  ['Sr. No.','Circle Name','Action'] : ['अनुक्रमांक','मंडळाचे नाव','क्रिया'],
+    displayedColumns = this.lang == 'en' ? ['srNo', 'circleName','action'] : ['srNo','m_CircleName','action']
     this.tableObj = {
       pageNumber: this.pageNumber,
       isBlock: '',
       status: '',
+      tableHeaders:tableHeaders,
+      displayedColumns:displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.totalCount,
-      tableHeaders: ['Sr. No.','Circle Name','Action'],
-      displayedColumns: ['srNo', 'circleName','action'],
       pagination: this.totalCount > 10 ? true : false,
       view:false,
       edit: true,

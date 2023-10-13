@@ -99,6 +99,25 @@
         "question_pattern" : "Enter a valid Question",
         "Answer_pattern" : "Enter a valid Answer"
       }
+      ,"villageCircle":{
+        "village_circle":"Village Circle",
+        "search_by_village_circle_name":"Search By Village Name",
+        "add_village":"Add Village",
+        "update_village":"Update Village",
+        "select_state":"Select State",
+        "select_district":"Select District",
+        "select_taluka":"Select Taluka",
+        "select_village":"Select Village",
+        "clear": "Cancle",
+        "save":"Submit",
+        "maximum_limit_30_characters":"Maximum limit is 30 characters",
+        "please_enter_valid_circle_name(Marathi)":"Please Enter Valid Circle Name(Marathi)",
+        "please_enter_valid_circle_name(English)":"Please Enter Valid Circle Name(English)",
+        "please_enter_circle_name(English)":"Please Enter Circle Name(Marathi)",
+        "please_enter_circle_name(Marathi)":"Please Enter Circle Name(Marathi)",
+        "please_select_taluka":"Please Select Taluka",
+        "please_select_village":"Please Select Village"
+      }
 
 
 }

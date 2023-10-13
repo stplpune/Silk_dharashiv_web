@@ -57,7 +57,7 @@ export class FaqComponent implements OnDestroy {
       id: [data ? data.id : 0],
       question: [data ? data.question : '', [Validators.required,Validators.pattern(this.validator.fullNamequetion), this.validator.maxLengthValidator(200)]],
       m_Question: [data ? data.m_Question : '', [Validators.required,Validators.pattern(this.validator.marathiquestion), this.validator.maxLengthValidator(200)]],
-      answer: [data ? data.answer : '', [Validators.required,Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(1000)]],
+      answer: [data ? data.answer : '', [Validators.required,Validators.pattern(this.validator.fullNamequetion), this.validator.maxLengthValidator(1000)]],
       m_Answer: [data ? data.m_Answer : '', [Validators.required,Validators.pattern(this.validator.marathiquestion), this.validator.maxLengthValidator(1000)]],
       status: [data ? data.status : true],
       flag: [this.editFlag ? "u" : "i"]
@@ -186,7 +186,7 @@ export class FaqComponent implements OnDestroy {
     autoFocus: false
   })
   deleteDialogRef.afterClosed().subscribe((result: any) => {
-    result == 'Yes' ? this.blockAction(obj) : this.getTableData();
+    result == 'Yes' ? this.blockAction(obj) : this.getTableData() ;
   })
 }
 

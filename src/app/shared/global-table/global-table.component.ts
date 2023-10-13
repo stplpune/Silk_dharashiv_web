@@ -9,11 +9,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ApiService } from 'src/app/core/services/api.service';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 @Component({
   selector: 'app-global-table',
   templateUrl: './global-table.component.html',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule,MatSlideToggleModule,FormsModule,ReactiveFormsModule, MatButtonModule, MatIconModule,MatTooltipModule],
+  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule,MatSlideToggleModule,FormsModule,ReactiveFormsModule, MatButtonModule, MatIconModule,MatTooltipModule,MatCheckboxModule],
   styleUrls: ['./global-table.component.scss']
 })
 export class GlobalTableComponent {
@@ -52,7 +53,8 @@ export class GlobalTableComponent {
   }
 
 
-  action(obj: any, label: string, i?:any) {
+  action(obj: any, label: string, i?:any , chkLabel?:any) {
+    label == 'checkBox' ? (chkLabel == 'readCheck' ? obj.readRight = i.checked : (i.checked == true ? (obj.writeRight = i.checked, obj.readRight = i.checked) : obj.writeRight = i.checked)) : this.highlightedRow = i;
     obj.index = i;
     obj.label = label;
     obj.pageNumber = (label == 'Edit')? this.pageNumber : obj.pageIndex + 1;
