@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { AddVillageComponent } from './add-village/add-village.component';
 import { GlobalTableComponent } from "../../../../shared/global-table/global-table.component";
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { GlobalTableComponent } from "../../../../shared/global-table/global-tab
         MatRadioModule,
         MatIconModule,
         MatDialogModule,
-        GlobalTableComponent
+        GlobalTableComponent,
+        TranslateModule
     ]
 })
 export class VillageCircleModule { }

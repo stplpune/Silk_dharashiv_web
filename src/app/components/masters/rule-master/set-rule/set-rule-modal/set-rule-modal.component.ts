@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import {  MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -22,7 +22,7 @@ export class SetRuleModalComponent {
   actionresp = new Array();
   levelResp = new Array();
   designationResp = new Array();
-  approveLevelResp= new Array();
+  approveLevelResp = new Array();
   @ViewChild('formDirective') private formDirective!: NgForm;
   constructor(private fb: FormBuilder,
     private master: MasterService,
@@ -43,6 +43,7 @@ export class SetRuleModalComponent {
     this.getLevel();
     this.getDesignation();
     this.getLevelApprovel();
+    this.addList();
   }
 
 
@@ -56,28 +57,116 @@ export class SetRuleModalComponent {
     })
   }
 
-  get f(){
+  get f() {
     return this.setRulefrm.controls;
   }
-  get g(){
+  get g() {
     return this.setRulefrm.controls['approvalLevels'].value;
   }
   get approvallistForm() { return this.setRulefrm.get('approvalLevels') as FormArray }
 
   addList() {
-    console.log(this.approvallistForm.status);
     if (this.approvallistForm.length && this.approvallistForm.status == 'INVALID') {
       this.commonMethods.snackBar("Please Add Approval Details First", 1);
+      return;
+      
     }
     else {
       const data = this.fb.group({
         "actionId": ['', [Validators.required]],
         "departmentLevelId": ['', [Validators.required]],
         "designationId": ['', [Validators.required]],
-        "approvalLevel": ['']
+        "approvalLevel": ['', [Validators.required]]
       })
       this.approvallistForm.push(data);
-    }
+      console.log("  this.approvallistForm",  this.approvallistForm)
+      console.log(" data.value", this.approvallistForm.controls)
+
+    //  const isDuplicate = this.approvallistForm.controls.some(control => 
+      
+    // ( 
+    //  control.value.departmentLevelId === data.value.departmentLevelId &&
+    //   control.value.designationId === data.value.designationId &&
+    //   control.value.approvalLevel === data.value.approvalLevel
+    // ));
+
+    // if (isDuplicate) {
+    //   this.commonMethods.snackBar("This record already exists.",1);
+    //   return;
+    // } else {
+      // Add the new record to approvallistForm
+      this.approvallistForm.push(data);
+      //console.log(this.approvallistForm.value);
+    // }
+  }
+      
+
+
+    // let levelData = this.setRulefrm.controls['approvalLevels'].value;
+    // console.log(levelData);
+
+    // let aId = levelData.map((x: any) => {
+    //   return x.actionId;
+    // })
+
+    // let levelID = levelData.map((x: any) => {
+    //   return (x.departmentLevelId);
+    // })
+
+    // let designationID = levelData.map((x: any) => {
+    //   return (x.designationId);
+    // })
+
+
+
+
+
+
+    // let obj = {
+    //   'actionName': this.actionresp.find(cr => cr.id == aId)?.textEnglish,
+    //   'levelName': this.levelResp.find(cr => cr.id == levelID)?.textEnglish,
+    //   'designationName': this.designationResp.find(cr => cr.id == designationID)?.textEnglish,
+    // }
+    // console.log(obj);
+
+
+  // const department = this.actionresp.find(cr => cr.id == aId)?.textEnglish;
+  // const departmentLevel = this.levelResp.find(cr => cr.id == levelID)?.textEnglish;
+  // const designation = this.designationResp.find(cr => cr.id == designationID)?.textEnglish;
+
+  // if (department  && departmentLevel   && designation) {
+  //     alert("department ,level and designatopn are same plz select another");return;
+  //  }
+
+  //  console.log(  this.approvallistForm);
+   
+
+ 
+
+
+    // let duplicatAction = levelData.some((ele: any,i:any) => {
+    //   console.log(ele);
+    //   return ele.actionId === levelData[i].actionId // change
+    // });
+    // console.log(duplicatAction);
+    // else
+
+
+    
+
+    // console.log( this.setRulefrm.controls['approvalLevels'].value);
+
+
+
+    // let Action = formData.approvalLevels.map((x: any) => {
+    //   return x.actionId;
+    // })
+    // console.log(Action);
+
+
+
+
+
   }
 
 
@@ -154,7 +243,7 @@ export class SetRuleModalComponent {
     })
   }
 
-  getLevelApprovel(){
+  getLevelApprovel() {
     this.master.GetLevelApproval().subscribe({
       next: ((res: any) => {
         this.approveLevelResp = res.responseData;
@@ -166,27 +255,24 @@ export class SetRuleModalComponent {
 
 
   onSubmit() {
-
     let formData = this.setRulefrm.value;
-    console.log(formData.approvalLevels.actionId);
-   let Action= formData.approvalLevels.map((x:any)=>{
-      return x.actionId;
-    })
-    console.log(Action);
-    
-    
-    let duplicatAction = this.actionresp.some((ele: any) => {
-      console.log(ele);
-      return ele.id === Action // change
-    });
-    console.log(duplicatAction);
+    // console.log(formData.approvalLevels.actionId);
+    // let Action = formData.approvalLevels.map((x: any) => {
+    //   return x.actionId;
+    // })
+    // console.log(Action);
+
+
+    // let duplicatAction = this.actionresp.some((ele: any) => {
+    //   console.log(ele);
+    //   return ele.id === Action // change
+    // });
+    // console.log(duplicatAction);
 
 
 
     if (this.setRulefrm.invalid) {
       return;
-    }else if(duplicatAction){
-  this.commonMethods.snackBar('Please select another Action', 1);
     }
     console.log(this.setRulefrm.value);
     let obj = {
@@ -227,7 +313,7 @@ export class SetRuleModalComponent {
     this.formDirective?.resetForm();
   }
 
-  deleteApproveLevel(i:any){
+  deleteApproveLevel(i: any) {
     this.approvallistForm.removeAt(i);
   }
 }

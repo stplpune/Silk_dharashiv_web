@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {  FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
@@ -19,24 +19,25 @@ export class VillageCircleComponent {
 
   totalCount: number | any;
   tableDataArray = new Array();
-  tableObj: object|any;
-  highLightedFlag:boolean = true;
-  pageNumber: number =1;
+  tableObj: object | any;
+  highLightedFlag: boolean = true;
+  pageNumber: number = 1;
   filterForm = new FormControl('');
   subscription!: Subscription;
   lang: string = 'English';
+  filterFlag: boolean = false;
+
   constructor
-  (
-    public dialog: MatDialog,
-    private spinner:NgxSpinnerService,
-    private apiService:ApiService,
-    private errorService:ErrorHandlingService,
-    private commonMethodService:CommonMethodsService,
-    private WebStorageService: WebStorageService,
+    (
+      public dialog: MatDialog,
+      private spinner: NgxSpinnerService,
+      private apiService: ApiService,
+      private errorService: ErrorHandlingService,
+      private commonMethodService: CommonMethodsService,
+      private WebStorageService: WebStorageService,
+    ) { }
 
-  ) {}
-
-  ngOnInit(){
+  ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -45,29 +46,29 @@ export class VillageCircleComponent {
     this.getTableData();
   }
 
-  
-  AddVillage(data?:any) {
-      const dialogRef = this.dialog.open(AddVillageComponent, {
-        width: '700px',
-        data: data,
-        disableClose: true
-          });
-      dialogRef.afterClosed().subscribe((result:any) => {
-        result == 'Yes' ? this.getTableData() : '';
-      })
+  AddVillage(data?: any) {
+    const dialogRef = this.dialog.open(AddVillageComponent, {
+      width: '700px',
+      data: data,
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      result == 'Yes' ? this.getTableData() : '';
+    })
   }
 
-  getTableData(){
-    let formValue=this.filterForm.value || ''
+  getTableData(flag?: any) {
+    let formValue = this.filterForm.value || ''
     this.spinner.show();
-    this.apiService.setHttp('GET','sericulture/api/TalukaBlocks/GetAllVillageCircles?pageno='+(this.pageNumber)+'&pagesize=10&TextSearch='+formValue, false, false, false, 'baseUrl');
+    flag == 'filter' ? this.pageNumber = 1 : ''
+    this.apiService.setHttp('GET', 'sericulture/api/TalukaBlocks/GetAllVillageCircles?pageno=' + (this.pageNumber) + '&pagesize=10&TextSearch=' + formValue, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
-      next:((res:any)=>{
-        if(res.statusCode == '200'){
+      next: ((res: any) => {
+        if (res.statusCode == '200') {
           this.spinner.hide();
           this.tableDataArray = res.responseData;
-          this.totalCount = res.responseData1.totalPages;
-        }else{
+          this.totalCount = res.responseData1.totalCount;
+        } else {
           this.spinner.hide();
           this.tableDataArray = [];
           this.totalCount = 0;
@@ -75,7 +76,7 @@ export class VillageCircleComponent {
         }
         this.setTableData();
       }),
-      error: (err:any) => {
+      error: (err: any) => {
         this.spinner.hide();
         this.tableDataArray = [];
         this.totalCount = 0;
@@ -84,48 +85,51 @@ export class VillageCircleComponent {
     })
   }
 
-  setTableData(){
+  setTableData() {
     this.highLightedFlag = true;
+    let tableHeaders = this.lang == 'en' ? ['Sr. No.', 'Circle Name', 'Action'] : ['अनुक्रमांक', 'मंडळाचे नाव', 'क्रिया'],
+      displayedColumns = this.lang == 'en' ? ['srNo', 'circleName', 'action'] : ['srNo', 'm_CircleName', 'action']
     this.tableObj = {
       pageNumber: this.pageNumber,
       isBlock: '',
       status: '',
+      tableHeaders: tableHeaders,
+      displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.totalCount,
-      tableHeaders: ['Sr. No.','Circle Name','Action'],
-      displayedColumns: ['srNo', 'circleName','action'],
       pagination: this.totalCount > 10 ? true : false,
-      view:false,
+      view: false,
       edit: true,
-      delete:true,
-      reset:false
+      delete: true,
+      reset: false
     }
-    this.highLightedFlag? this.tableObj.highlightedrow=true : this.tableObj.highlightedrow=false;
+    this.highLightedFlag ? this.tableObj.highlightedrow = true : this.tableObj.highlightedrow = false;
     this.apiService.tableData.next(this.tableObj);
   }
 
 
   childCompInfo(obj: any) {
     switch (obj.label) {
-       case 'Pagination':
+      case 'Pagination':
         this.pageNumber = obj.pageNumber;
+        !this.filterFlag ? this.filterForm.reset() : '';
         this.getTableData();
-         break;
-        case 'Edit':
-         this.AddVillage(obj);
-         break;
-       case 'Delete':
-         this.deleteDialogOpen(obj);
-         break;
-     }
-   }
+        break;
+      case 'Edit':
+        this.AddVillage(obj);
+        break;
+      case 'Delete':
+        this.deleteDialogOpen(obj);
+        break;
+    }
+  }
 
-   deleteDialogOpen(delObj?: any) {
+  deleteDialogOpen(delObj?: any) {
     let dialogObj = {
-      title: this.lang == 'en' ? 'Do You Want To Delete Selected Village Circle ?' : 'तुम्हाला निवडलेले गाव मंडळ हटवायचे आहे का ?',
-      header: this.lang == 'en' ?  'Delete Village Circle' : 'गाव मंडळ हटवा',
-      okButton: this.lang == 'en' ?  'Delete' : 'हटवा',
-      cancelButton:this.lang == 'en' ?  'Cancel' : 'रद्द करा',
+      title: this.lang == 'en' ? 'Do You Want To Delete Selected Circle ?' : 'तुम्हाला निवडलेले मंडळ हटवायचे आहे का ?',
+      header: this.lang == 'en' ? 'Delete Village Circle' : 'मंडळ हटवा',
+      okButton: this.lang == 'en' ? 'Delete' : 'हटवा',
+      cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '30%',
@@ -154,11 +158,12 @@ export class VillageCircleComponent {
     });
   }
 
-  clearFilter(){
+  clearFilter() {
     this.filterForm.reset();
+    this.pageNumber = 1;
     this.getTableData();
   }
 
-    
-  }
+
+}
 

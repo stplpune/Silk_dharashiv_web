@@ -32,7 +32,6 @@
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>State</mat-label>
-        <!-- [disabled]="officerFrm.value.stateId == 1" -->
         <mat-select formControlName="stateId">
           <mat-option *ngFor="let state of stateArray"
             [value]="state.id">{{state.textEnglish}}</mat-option>
@@ -44,7 +43,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>District</mat-label>
         <mat-select formControlName="districtId">
-          <mat-option *ngFor="let district of districtArray"
+        <mat-option *ngFor="let district of districtArray"
             [value]="district.id">{{district.textEnglish}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -135,7 +134,7 @@
 
   <div class="d-flex align-items-center justify-content-end gap-2">
     <button mat-flat-button class="btn-main-light" type="button">Cancel</button>
-    <button mat-flat-button class="btn-main" type="submit" (click)="onClickSubmit()">Add</button>
+    <button mat-flat-button class="btn-main" type="submit" (click)="onClickSubmit()">{{this.editFlag ? 'Update' : 'Add'}}</button>
   </div>
 </form>
 </mat-dialog-content>
@@ -260,6 +259,6 @@
 <mat-dialog-actions align="end">
   <div class="d-flex align-items-center justify-content-end gap-2">
     <button mat-flat-button class="btn-main-light">Cancel</button>
-    <button mat-flat-button class="btn-main">Add</button>
+    <button mat-flat-button class="btn-main">{{this.editFlag ? 'Update' : 'Add'}}</button>
   </div>
 </mat-dialog-actions>
