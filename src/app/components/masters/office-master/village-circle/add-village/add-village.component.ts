@@ -8,6 +8,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
+import { ValidationService } from 'src/app/core/services/validation.service';
 
 @Component({
   selector: 'app-add-village',
@@ -33,6 +34,7 @@ export class AddVillageComponent {
       private apiService: ApiService,
       private commonMethodService: CommonMethodsService,
       private errorService: ErrorHandlingService,
+      public validator:ValidationService
   ) { }
 
   ngOnInit() {
@@ -64,8 +66,8 @@ export class AddVillageComponent {
       districtId: [this.data ? this.data?.districtId : 1,[Validators.required]],
       talukaId: [this.data ? this.data?.talukaId : '',[Validators.required]],
       villages: [this.data ? this.data?.villages : '',[Validators.required]],
-      circleName: [this.data ? this.data?.circleName : '',[Validators.required]],
-      m_CircleName: [this.data ? this.data?.m_CircleName : '',[Validators.required]],
+      circleName: [this.data ? this.data?.circleName : '',[Validators.required,Validators.pattern(this.validator.fullName)]],
+      m_CircleName: [this.data ? this.data?.m_CircleName : '',[Validators.required,Validators.pattern(this.validator.marathi)]],
       flag: [this.data ? "u" : "i"],
       createdBy: [this.WebStorageService.getUserId()]
     })

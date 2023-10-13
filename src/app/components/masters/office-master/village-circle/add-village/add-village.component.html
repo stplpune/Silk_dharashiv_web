@@ -46,20 +46,19 @@
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Circle Name(English)</mat-label>
-          <input matInput formControlName="circleName">
+          <input matInput formControlName="circleName"  (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecCharss($event)">
         </mat-form-field>
       </div>
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Circle Name(Marathi)</mat-label>
-          <input matInput formControlName="m_CircleName">
+          <input matInput formControlName="m_CircleName"   (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
         </mat-form-field>
       </div>
     </div>
     <div class="d-flex align-items-center justify-content-end gap-2">
-      <button mat-flat-button mat-dialog-close type="button" class="btn-main-light">Cancel</button>
+      <button mat-flat-button  type="button" class="btn-main-light">Cancel</button>
       <button mat-flat-button class="btn-main" type="submit">Submit</button>
     </div>
   </mat-dialog-content>
 </form>
-  
