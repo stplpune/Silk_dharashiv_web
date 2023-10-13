@@ -36,8 +36,8 @@ export class AddVillageComponent {
       private apiService: ApiService,
       private commonMethodService: CommonMethodsService,
       private errorService: ErrorHandlingService,
-      public validator:ValidationService
-  ) { }
+      public validator: ValidationService
+    ) { }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
@@ -53,10 +53,10 @@ export class AddVillageComponent {
       id: [this.data ? this.data?.id : 0],
       stateId: [this.data ? this.data?.stateId : 1],
       districtId: [this.data ? this.data?.districtId : 1],
-      talukaId: [this.data ? this.data?.talukaId : '',[Validators.required]],
-      villages: [this.data ? this.data?.villages : '',[Validators.required]],
-      circleName: [this.data ? this.data?.circleName : '',[Validators.required,Validators.pattern(this.validator.fullName),this.validator.maxLengthValidator(30)]],
-      m_CircleName: [this.data ? this.data?.m_CircleName : '',[Validators.required,Validators.pattern(this.validator.marathi),this.validator.maxLengthValidator(30)]],
+      talukaId: [this.data ? this.data?.talukaId : '', [Validators.required]],
+      villages: [this.data ? this.data?.villages : '', [Validators.required]],
+      circleName: [this.data ? this.data?.circleName : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(30)]],
+      m_CircleName: [this.data ? this.data?.m_CircleName : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(30)]],
       flag: [this.data ? "u" : "i"],
       createdBy: [this.WebStorageService.getUserId()]
     })
@@ -68,7 +68,7 @@ export class AddVillageComponent {
     this.master.GetAllState().subscribe({
       next: ((res: any) => {
         this.stateArray = res.responseData;
-        this.data ? (this.f['stateId'].setValue(this.data?.stateId), this.getDisrict()) :  this.getDisrict();
+        this.data ? (this.f['stateId'].setValue(this.data?.stateId), this.getDisrict()) : this.getDisrict();
       }), error: (() => {
         this.stateArray = [];
       })
@@ -151,9 +151,9 @@ export class AddVillageComponent {
     }
   }
 
-  clearFormData(){
+  clearFormData() {
     this.formDirective.resetForm();
-    this.data=null;
+    this.data = null;
     this.getFormData();
   }
 
