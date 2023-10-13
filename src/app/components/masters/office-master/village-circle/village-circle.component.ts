@@ -45,7 +45,7 @@ export class VillageCircleComponent {
     this.getTableData();
   }
 
-  
+
   AddVillage(data?:any) {
       const dialogRef = this.dialog.open(AddVillageComponent, {
         width: '700px',
@@ -124,8 +124,8 @@ export class VillageCircleComponent {
 
    deleteDialogOpen(delObj?: any) {
     let dialogObj = {
-      title: this.lang == 'en' ? 'Do You Want To Delete Selected Village Circle ?' : 'तुम्हाला निवडलेले गाव मंडळ हटवायचे आहे का ?',
-      header: this.lang == 'en' ?  'Delete Village Circle' : 'गाव मंडळ हटवा',
+      title: this.lang == 'en' ? 'Do You Want To Delete Selected Circle ?' : 'तुम्हाला निवडलेले मंडळ हटवायचे आहे का ?',
+      header: this.lang == 'en' ?  'Delete Village Circle' : 'मंडळ हटवा',
       okButton: this.lang == 'en' ?  'Delete' : 'हटवा',
       cancelButton:this.lang == 'en' ?  'Cancel' : 'रद्द करा',
     };
@@ -161,6 +161,6 @@ export class VillageCircleComponent {
     this.getTableData();
   }
 
-    
+
   }
 

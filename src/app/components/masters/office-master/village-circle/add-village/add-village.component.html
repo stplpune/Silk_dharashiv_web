@@ -8,7 +8,7 @@
     </button>
     </div>
   </div>
-  
+
  <form [formGroup]="villageForm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
   <mat-dialog-content class="modal-body">
     <div class="row">
@@ -31,7 +31,7 @@
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{'villageCircle.select_taluka' | translate}}</mat-label>
-          <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('village');getVillage()">
+          <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('village');getVillage()" [disabled]="true">
             <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi :taluka.textEnglish}}</mat-option>
           </mat-select>
           <mat-error *ngIf="f['talukaId']?.hasError('required')">{{'villageCircle.please_select_taluka'|translate}} </mat-error>
@@ -48,7 +48,7 @@
       </div>
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Circle Name(English)</mat-label>
+          <mat-label>{{'villageCircle.circle_name_en' | translate}}</mat-label>
           <input matInput formControlName="circleName"  (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
           <mat-error *ngIf="f['circleName']?.hasError('required')">{{'villageCircle.please_enter_circle_name(English)' | translate}}</mat-error>
           <mat-error *ngIf="f['circleName']?.hasError('pattern')">{{'villageCircle.please_enter_valid_circle_name(English)' | translate}}</mat-error>
@@ -57,7 +57,7 @@
       </div>
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Circle Name(Marathi)</mat-label>
+          <mat-label>{{'villageCircle.circle_name_mr' | translate}}</mat-label>
           <input matInput formControlName="m_CircleName"   (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
           <mat-error *ngIf="f['m_CircleName']?.hasError('required')">{{'villageCircle.please_enter_circle_name(Marathi)' | translate}}</mat-error>
           <mat-error *ngIf="f['m_CircleName']?.hasError('pattern')">{{'villageCircle.please_enter_valid_circle_name(English)' | translate}}</mat-error>

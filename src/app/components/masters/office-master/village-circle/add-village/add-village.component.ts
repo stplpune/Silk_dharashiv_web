@@ -51,8 +51,8 @@ export class AddVillageComponent {
   getFormData() {
     this.villageForm = this.fb.group({
       id: [this.data ? this.data?.id : 0],
-      stateId: [this.data ? this.data?.stateId : ''],
-      districtId: [this.data ? this.data?.districtId : ''],
+      stateId: [this.data ? this.data?.stateId : 1],
+      districtId: [this.data ? this.data?.districtId : 1],
       talukaId: [this.data ? this.data?.talukaId : '',[Validators.required]],
       villages: [this.data ? this.data?.villages : '',[Validators.required]],
       circleName: [this.data ? this.data?.circleName : '',[Validators.required,Validators.pattern(this.validator.fullName),this.validator.maxLengthValidator(30)]],
@@ -65,11 +65,10 @@ export class AddVillageComponent {
   get f() { return this.villageForm.controls };
 
   getState() {
-    let stateId = this.villageForm.value.stateId;
     this.master.GetAllState().subscribe({
       next: ((res: any) => {
         this.stateArray = res.responseData;
-        this.data ? (this.f['stateId'].setValue(stateId), this.getDisrict()) : '';
+        this.data ? (this.f['stateId'].setValue(this.data?.stateId), this.getDisrict()) :  this.getDisrict();
       }), error: (() => {
         this.stateArray = [];
       })
@@ -77,11 +76,10 @@ export class AddVillageComponent {
   }
 
   getDisrict() {
-    let distId = this.villageForm.value.districtId;
     this.master.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
         this.districtArray = res.responseData;
-        this.data ? (this.f['districtId'].setValue(distId), this.getTaluka()) : '';
+        this.data ? (this.f['districtId'].setValue(this.data?.districtId), this.getTaluka()) : this.getTaluka();
       }), error: (() => {
         this.districtArray = [];
       })
@@ -91,11 +89,10 @@ export class AddVillageComponent {
   getTaluka() {
     let stateId = this.villageForm.value.stateId;
     let distId = this.villageForm.value.districtId;
-    let talId = this.villageForm.value.talukaId;
     this.master.GetAllTaluka(stateId, distId, 0,).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
-        this.data ? (this.f['districtId'].setValue(talId), this.getVillage()) : '';
+        this.data ? (this.f['districtId'].setValue(this.data?.talukaId), this.getVillage()) : '';
       }), error: (() => {
         this.talukaArray = [];
       })
@@ -120,7 +117,7 @@ export class AddVillageComponent {
     })
   }
 
-  onSubmitData() {    
+  onSubmitData() {
     this.spinner.show();
     let formData = this.villageForm.value;
     if (this.villageForm.invalid) {

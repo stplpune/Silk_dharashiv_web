@@ -32,7 +32,7 @@
         "scheme_required":"Please select scheme"
 
 
-    
+
     },
     "designation": {
         "designation": "Designation",
@@ -116,7 +116,10 @@
         "please_enter_circle_name(English)":"Please Enter Circle Name(Marathi)",
         "please_enter_circle_name(Marathi)":"Please Enter Circle Name(Marathi)",
         "please_select_taluka":"Please Select Taluka",
-        "please_select_village":"Please Select Village"
+        "please_select_village":"Please Select Village",
+        "circle_name_en":"Circle Name(English)",
+        "circle_name_mr":"Circle Name(Marathi)"
+
       }
 
 

@@ -11,7 +11,7 @@
     "add_designation": "विभाग जोडा",
     "department_required" : "कृपया विभागाचे नाव प्रविष्ट करा",
     "department_maxLength": "कमाल 30 वर्णांना अनुमती आहे"
-    
+
 
   },
 
@@ -117,6 +117,8 @@
     "please_enter_circle_name(English)":"मंडळाचे नाव(इंग्रजी) प्रविष्ट करा",
     "please_enter_circle_name(Marathi)":"मंडळाचे नाव(मराठी) प्रविष्ट करा",
     "please_select_taluka":"कृपया तालुका निवडा",
-    "please_select_village":"कृपया गाव निवडा"
+    "please_select_village":"कृपया गाव निवडा",
+    "circle_name_en":"मंडळाचे नाव(इंग्रजी)",
+    "circle_name_mr":"मंडळाचे नाव(मराठी)"
   }
 }
