@@ -8,95 +8,57 @@
     </button>
     </div>
   </div>
+  <form [formGroup]="villageForm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
   <mat-dialog-content class="modal-body">
     <div class="row">
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>State</mat-label>
-          <mat-select>
-            <mat-option>Maharsshtra</mat-option>
+          <mat-select formControlName="stateId" (selectionChange)="getDisrict()">
+            <mat-option *ngFor="let st of stateArray" [value]="st.id">{{st.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label> District</mat-label>
-          <mat-select>
-            <mat-option>Amravati</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <!-- <div class="col-sm-12">
-        <mat-radio-group aria-label="Select an option">
-          <mat-radio-button value="1">Block (Taluka)</mat-radio-button>
-          <mat-radio-button value="2">Circle (Village)</mat-radio-button>
-        </mat-radio-group>
-      </div> -->
-      <div class="col-sm-6">
-        <!-- <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Select Taluka</mat-label>
-          <mat-select [formControl]="toppings" multiple>
-            <mat-select-trigger>
-              {{toppings.value?.[0] || ''}}
-              <span *ngIf="(toppings.value?.length || 0) > 1" class="example-additional-selection">
-                (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
-              </span>
-            </mat-select-trigger>
-            <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-          </mat-select>
-        </mat-form-field> -->
-  
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Select Taluka</mat-label>
-          <mat-select>
-            <!-- <mat-select-trigger>
-              {{talukas.value?.[0] || ''}}
-              <span *ngIf="(talukas.value?.length || 0) > 1" class="example-additional-selection">
-                (+{{(talukas.value?.length || 0) - 1}} {{talukas.value?.length === 2 ? 'other' : 'others'}})
-              </span>
-            </mat-select-trigger> -->
-            <mat-option>Amravati</mat-option>
+          <mat-select formControlName="districtId"  (selectionChange)="getTaluka()">
+            <mat-option *ngFor="let dist of districtArray" [value]="dist.id">{{dist.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Enter Block Name</mat-label>
-          <input matInput>
+          <mat-label> Taluka</mat-label>
+          <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('village');getVillage()">
+            <mat-option *ngFor="let taluka  of talukaArray" [value]="taluka.id">{{taluka.textEnglish}}</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Enter Block Name(Marathi)</mat-label>
-          <input matInput>
-        </mat-form-field>
-      </div>
-      <!-- <div class="col-sm-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Select Village</mat-label>
-          <mat-select [formControl]="toppings" multiple>
-            <mat-select-trigger>
-              {{toppings.value?.[0] || ''}}
-              <span *ngIf="(toppings.value?.length || 0) > 1" class="example-additional-selection">
-                (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
-              </span>
-            </mat-select-trigger>
-            <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+          <mat-label>Village</mat-label>
+          <mat-select formControlName="villages" multiple>
+            <mat-option  *ngFor="let vil  of talukaArray" [value]="vil.id">{{vil.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
-      </div> -->
-      <!-- <div class="col-sm-6">
+      </div>
+      <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Enter Circle Name</mat-label>
-          <input matInput placeholder="">
+          <mat-label>Circle Name(English)</mat-label>
+          <input matInput formControlName="circleName"  (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecCharss($event)">
         </mat-form-field>
-      </div> -->
+      </div>
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Circle Name(Marathi)</mat-label>
+          <input matInput formControlName="m_CircleName"   (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
+        </mat-form-field>
+      </div>
     </div>
-  
     <div class="d-flex align-items-center justify-content-end gap-2">
-      <button mat-flat-button mat-dialog-close type="button" class="btn-main-light">Cancel</button>
+      <button mat-flat-button  type="button" class="btn-main-light">Cancel</button>
       <button mat-flat-button class="btn-main" type="submit">Submit</button>
     </div>
   </mat-dialog-content>
-
-  
+</form>
