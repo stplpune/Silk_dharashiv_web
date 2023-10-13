@@ -13,34 +13,36 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { AddVillageComponent } from './add-village/add-village.component';
+import { GlobalTableComponent } from "../../../../shared/global-table/global-table.component";
 
 
 @NgModule({
-  declarations: [
-    VillageCircleComponent,
-    AddVillageComponent
-  ],
-  imports: [
-    CommonModule,
-    VillageCircleRoutingModule,
-    MatCardModule,
-    MatInputModule,
-    MatIconModule,
-    MatDialogModule,
-    MatTableModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatButtonModule, 
-    MatSelectModule, 
-    FormsModule, 
-    ReactiveFormsModule, 
-    NgIf,MatInputModule, 
-    NgFor,
-    MatRadioModule,
-    MatIconModule,
-    MatDialogModule
-  ]
+    declarations: [
+        VillageCircleComponent,
+        AddVillageComponent
+    ],
+    imports: [
+        CommonModule,
+        VillageCircleRoutingModule,
+        MatCardModule,
+        MatInputModule,
+        MatIconModule,
+        MatDialogModule,
+        MatTableModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgIf, MatInputModule,
+        NgFor,
+        MatRadioModule,
+        MatIconModule,
+        MatDialogModule,
+        GlobalTableComponent
+    ]
 })
 export class VillageCircleModule { }
