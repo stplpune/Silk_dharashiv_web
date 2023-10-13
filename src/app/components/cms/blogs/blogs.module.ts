@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { AddBlogsComponent } from './add-blogs/add-blogs.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AngularEditorModule,
     FormsModule,
     ReactiveFormsModule,
+    GlobalTableComponent
   ]
 })
 export class BlogsModule { }
