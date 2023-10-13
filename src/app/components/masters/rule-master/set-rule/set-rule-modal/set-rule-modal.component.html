@@ -1,100 +1,152 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">Add Action</div>
-    <button mat-icon-button class="btn-modal-close">
+    <div class="text-main">Add Rule</div>
+    <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
     </button>
   </div>
 </div>
-<mat-dialog-content class="modal-body form-container">
-  <div class="row gx-2">
-    <div class="col-sm">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Select Scheme</mat-label>
-        <mat-select>
-          <mat-option>Manarega</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-sm">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Process Department</mat-label>
-        <mat-select>
-          <mat-option>Manarega</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-auto text-end">
-      <button mat-icon-button class="btn-main rounded">
-        <span class="material-symbols-rounded">add</span>
-      </button>
-    </div>
-  </div>
 
-  <div class="row gx-2 align-items-center">
-    <div class="col-sm">
-      <div class="row gx-2">
-        <div class="col-sm-6">
-          <div class="form-data">Action</div>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Application Review</mat-label>
-            <mat-select>
-              <mat-option>Manarega</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-sm-6">
-          <div class="form-data">Level</div>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Department Level</mat-label>
-            <mat-select>
-              <mat-option>Manarega</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+
+<form [formGroup]="setRulefrm" (ngSubmit)="onSubmit()" #formDirective="ngForm">
+  <mat-dialog-content class="modal-body form-container">
+    <div class="row gx-2">
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Select State</mat-label>
+          <mat-select formControlName="state">
+            <mat-option *ngFor="let data of statresponse" [value]="data.id">{{data.textEnglish}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="f['state'].hasError('required')">State Is Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Select District</mat-label>
+          <mat-select formControlName="district">
+            <mat-option *ngFor="let data of districtresp" [value]="data.id">{{data.textEnglish}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="f['district'].hasError('required')">District Is Required</mat-error>
+        </mat-form-field>
       </div>
     </div>
-    <div class="col-sm">
-      <div class="row gx-2">
-        <div class="col-sm">
-          <div class="form-data">Designation</div>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Application Review</mat-label>
-            <mat-select>
-              <mat-option>Manarega</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-data">Order</div>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label></mat-label>
-            <mat-select>
-              <mat-option>1</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+    <div class="row gx-2">
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Select Scheme</mat-label>
+          <mat-select formControlName="scheme">
+            <mat-option *ngFor="let data of schemeTyperesp" [value]="data.id">{{data.textEnglish}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="f['scheme'].hasError('required')">Scheme Is Required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Select Department</mat-label>
+          <mat-select formControlName="department">
+            <mat-option *ngFor="let data of departmentresp" [value]="data.id">{{data.textEnglish}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="f['department'].hasError('required')">Department Is Required</mat-error>
+        </mat-form-field>
       </div>
     </div>
-    <div class="col-sm-auto">
-      <button mat-icon-button class="btn-main rounded">
-        <span class="material-symbols-rounded">close</span>
-      </button>
-    </div>
-    <div class="col-sm-auto text-end">
-      <button mat-icon-button class="btn-main rounded">
-        <span class="material-symbols-rounded">add</span>
-      </button>
-    </div>
-  </div>
-</mat-dialog-content>
-<mat-dialog-actions class="modal-footer">
-  <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-    <button mat-flat-button class="btn-main-light">Cancel</button>
-    <button mat-flat-button class="btn-main">Set</button>
-  </div>
-</mat-dialog-actions>
 
+    <div class="d-flex w-100 justify-content-between align-items-center mb-3">
+      <p class="mb-0 text-main fw-bold small"></p>
+      <button mat-flat-button type="button" class="btn-main" (click)="addList()">
+        <mat-icon class="material-symbols-rounded">add</mat-icon>
+        Add Level
+      </button>
+    </div>
+
+    <div class="row gx-2 align-items-center">
+      <ng-container formArrayName="approvalLevels">
+        <ng-container *ngFor="let lessonForm of approvallistForm.controls; let i = index" [formGroupName]="i">
+
+          <div class="row  gx-2">
+            <div class="col-sm-2">
+              <div class="form-data">Order</div>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Order</mat-label>
+                <!-- <input matInput formControlName="approvalLevel"> -->
+                <mat-select formControlName="approvalLevel">
+                  <mat-option *ngFor="let data of approveLevelResp" [value]="data.id">{{data.textEnglish}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-data">Action</div>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Action</mat-label>
+                <mat-select formControlName="actionId">
+                  <mat-option *ngFor="let data of actionresp" [value]="data.id">{{data.textEnglish}}</mat-option>
+                </mat-select>
+                <!-- <div *ngIf="approvallistForm.controls['actionId'].hasError('required')">
+                    Pipe Diameter is Required.
+                </div> -->
+              </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-data">Designation Level</div>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Designation Level</mat-label>
+                <mat-select formControlName="departmentLevelId">
+                  <mat-option *ngFor="let data of levelResp" [value]="data.id">{{data.textEnglish}}</mat-option>
+                </mat-select>
+                <!-- <mat-error *ngIf="g['departmentLevelId'].hasError('required')">Department Level Is Required</mat-error> -->
+              </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-data">Designation</div>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Designation</mat-label>
+                <mat-select formControlName="designationId">
+                  <mat-option *ngFor="let data of designationResp" [value]="data.id">{{data.textEnglish}}</mat-option>
+                </mat-select>
+
+              </mat-form-field>
+            </div>
+
+            <div class="col-sm-2">
+              <button  mat-flat-button type="button"
+                class="btn-icon mt-4 text-danger bg-danger bg-opacity-10" (click)="addList()">
+                <mat-icon class="material-symbols-rounded">add</mat-icon>
+              </button>
+            </div>
+            <div class="col-sm-2">
+              <button *ngIf="approvallistForm.length > 1" mat-flat-button type="button"
+                class="btn-icon mt-4 text-danger bg-danger bg-opacity-10" (click)="deleteApproveLevel(i)">
+                <mat-icon class="material-symbols-rounded">delete</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <!-- <div class="col-sm-6">
+                <div class="form-data">Order</div>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Order</mat-label>
+                  <input matInput formControlName="approvalLevel">
+                </mat-form-field>
+              </div> -->
+
+          <!-- <div class="col-sm-auto">
+          <button mat-icon-button class="btn-main rounded" type="button">
+            <span class="material-symbols-rounded">close</span>
+          </button>
+        </div> -->
+
+        </ng-container>
+      </ng-container>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="modal-footer">
+    <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+      <button mat-flat-button class="btn-main-light" type="button" (click)="clearForm()">Cancel</button>
+      <button mat-flat-button class="btn-main" type="submit">Submit</button>
+    </div>
+  </mat-dialog-actions>
+</form>
 
 
 
@@ -103,7 +155,7 @@
 
 
 <!-- *************************** -->
-<div mat-dialog-title class="modal-header">
+<!-- <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
     <div class="text-main">View Rule</div>
     <button mat-icon-button class="btn-modal-close">
@@ -125,11 +177,6 @@
         <div class="form-data">: Agriculture</div>
       </div>
     </div>
-    <!-- <div class="col-sm-auto text-end">
-      <button mat-icon-button class="btn-main rounded">
-        <span class="material-symbols-rounded">add</span>
-      </button>
-    </div> -->
   </div>
 
   <div class="table-responsive scrollbar">
@@ -171,6 +218,4 @@
     <button mat-flat-button class="btn-main-light">Cancel</button>
     <button mat-flat-button class="btn-main">Edit</button>
   </div>
-</mat-dialog-actions>
-
-
+</mat-dialog-actions> -->
