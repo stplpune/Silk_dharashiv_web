@@ -287,7 +287,7 @@ export class SchemesComponent {
 
   deleteDialogOpen(delObj?: any) {
     let dialogObj = {
-      title: this.lang == 'en' ? 'Do You Want To Delete Selected Scheme ?' : 'तुम्हाला निवडलेली योजना हटवायची आहे का?',
+      title: this.lang == 'en' ? 'Do You Want To Delete Selected Scheme ?' : 'तुम्हाला निवडलेली योजना हटवायची आहे का ?',
       header: this.lang == 'en' ?  'Delete Scheme' : 'योजना हटवा',
       okButton: this.lang == 'en' ?  'Delete' : 'हटवा',
       cancelButton:this.lang == 'en' ?  'Cancel' : 'रद्द करा',
