@@ -65,21 +65,20 @@
         <ng-container *ngFor="let lessonForm of approvallistForm.controls; let i = index" [formGroupName]="i">
 
           <div class="row  gx-2">
-            <div class="col-sm-2">
+            <div class="col-sm">
               <div class="form-data">Order</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Order</mat-label>
+                <!-- <mat-label>Order</mat-label> -->
                 <!-- <input matInput formControlName="approvalLevel"> -->
                 <mat-select formControlName="approvalLevel">
                   <mat-option *ngFor="let data of approveLevelResp" [value]="data.id">{{data.textEnglish}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm">
               <div class="form-data">Action</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Action</mat-label>
-                <mat-select formControlName="actionId">
+               <mat-select formControlName="actionId">
                   <mat-option *ngFor="let data of actionresp" [value]="data.id">{{data.textEnglish}}</mat-option>
                 </mat-select>
                 <!-- <div *ngIf="approvallistForm.controls['actionId'].hasError('required')">
@@ -87,34 +86,33 @@
                 </div> -->
               </mat-form-field>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm">
               <div class="form-data">Designation Level</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Designation Level</mat-label>
+                <!-- <mat-label>Designation Level</mat-label> -->
                 <mat-select formControlName="departmentLevelId">
                   <mat-option *ngFor="let data of levelResp" [value]="data.id">{{data.textEnglish}}</mat-option>
                 </mat-select>
                 <!-- <mat-error *ngIf="g['departmentLevelId'].hasError('required')">Department Level Is Required</mat-error> -->
               </mat-form-field>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm">
               <div class="form-data">Designation</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Designation</mat-label>
+                <!-- <mat-label>Designation</mat-label> -->
                 <mat-select formControlName="designationId">
                   <mat-option *ngFor="let data of designationResp" [value]="data.id">{{data.textEnglish}}</mat-option>
                 </mat-select>
-
-              </mat-form-field>
+               </mat-form-field>
             </div>
 
-            <div class="col-sm-2">
+            <!-- <div class="col-sm-2">
               <button  mat-flat-button type="button"
                 class="btn-icon mt-4 text-danger bg-danger bg-opacity-10" (click)="addList()">
                 <mat-icon class="material-symbols-rounded">add</mat-icon>
               </button>
-            </div>
-            <div class="col-sm-2">
+            </div> -->
+            <div class="col-sm">
               <button *ngIf="approvallistForm.length > 1" mat-flat-button type="button"
                 class="btn-icon mt-4 text-danger bg-danger bg-opacity-10" (click)="deleteApproveLevel(i)">
                 <mat-icon class="material-symbols-rounded">delete</mat-icon>
@@ -143,7 +141,7 @@
   <mat-dialog-actions class="modal-footer">
     <div class="d-flex align-items-center justify-content-end gap-2 w-100">
       <button mat-flat-button class="btn-main-light" type="button" (click)="clearForm()">Cancel</button>
-      <button mat-flat-button class="btn-main" type="submit">Submit</button>
+      <button mat-flat-button class="btn-main" type="submit">{{editFlag?'Update':'Submit'}}</button>
     </div>
   </mat-dialog-actions>
 </form>
