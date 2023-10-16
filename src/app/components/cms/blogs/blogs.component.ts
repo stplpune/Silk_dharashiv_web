@@ -135,6 +135,8 @@ export class BlogsComponent {
     const dialogRef = this.dialog.open(AddBlogsComponent,{
       width: '60%',
       data: obj,
+      disableClose: true,
+      autoFocus: false
     });
     dialogRef.afterClosed().subscribe(res => {
       res == 'Yes'? this.getTableData() : '';
