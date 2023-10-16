@@ -196,4 +196,8 @@ blockAction(obj: any) {
     this.getTableData();
     this.pageNumber = 1;
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

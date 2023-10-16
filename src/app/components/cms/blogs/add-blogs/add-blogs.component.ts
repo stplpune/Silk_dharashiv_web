@@ -123,4 +123,8 @@ export class AddBlogsComponent {
     this.data = null;
     this.defaultFrm();
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
