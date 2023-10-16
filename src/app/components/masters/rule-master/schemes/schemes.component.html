@@ -1,8 +1,16 @@
 <div class="row g-3">
-  <div class="col-sm-8">
+  <div class="col-sm-12">
     <mat-card class="plain-card">
       <mat-card-header class="card-header">
-        <div class="text-main">{{'scheme.scheme' | translate }}</div>
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <div class="text-main">{{'scheme.scheme' | translate }}</div>
+          <button mat-flat-button class="btn-main" (click)="addscheme()">
+            <mat-icon class="material-symbols-rounded">
+              add
+            </mat-icon>
+            Add Scheme
+          </button>
+        </div>
       </mat-card-header>
       <mat-card-header class="card-header-control">
         <div class="row g-2 w-100">
@@ -38,7 +46,7 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <div class="col-sm-4">
+  <!-- <div class="col-sm-4">
     <div class="card plain-card">
       <div class="card-header text-main">
         {{!data ? ('scheme.add_scheme' | translate ):('scheme.update_scheme' | translate )}}
@@ -48,7 +56,7 @@
           <div class="mb-0">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'scheme.scheme_namee' | translate }}</mat-label>
-              <input matInput placeholder="" formControlName="schemeType" 
+              <input matInput placeholder="" formControlName="schemeType"
               (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecCharss($event)">
               <mat-error *ngIf="f['schemeType']?.hasError('required')">{{'scheme.please_enter_scheme_name'|translate}}
               </mat-error>
@@ -132,5 +140,5 @@
         </div>
       </form>
     </div>
-  </div>
+  </div> -->
 </div>

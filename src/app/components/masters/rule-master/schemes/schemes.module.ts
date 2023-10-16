@@ -14,11 +14,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { GlobalTableComponent } from "../../../../shared/global-table/global-table.component";
 import { TranslateModule } from '@ngx-translate/core';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { AddSchemeComponent } from './add-scheme/add-scheme.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
     declarations: [
-        SchemesComponent
+        SchemesComponent,
+        AddSchemeComponent
     ],
     imports: [
         CommonModule,
@@ -26,6 +29,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
+        MatDialogModule,
         MatIconModule,
         MatTableModule,
         MatButtonModule,

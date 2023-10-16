@@ -11,6 +11,7 @@ import { MasterService } from 'src/app/core/services/master.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
+import { AddSchemeComponent } from './add-scheme/add-scheme.component';
 
 @Component({
   selector: 'app-schemes',
@@ -50,6 +51,13 @@ export class SchemesComponent {
       public dialog: MatDialog,
       public validator: ValidationService,
   ) { }
+
+
+  addscheme(){
+    this.dialog.open(AddSchemeComponent,{
+      width:'30%'
+    })
+  }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
