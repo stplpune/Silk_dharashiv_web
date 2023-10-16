@@ -8,7 +8,8 @@
     "update": "अपडेट",
     "clear": "रद्द करा",
     "update_department": "विभाग अपडेट करा",
-    "add_designation": "विभाग जोडा",
+    "add_department": "विभाग जोडा",
+    "view_Department":"विभाग पहा",
     "department_required" : "कृपया विभागाचे नाव प्रविष्ट करा",
     "department_maxLength": "कमाल 30 वर्णांना अनुमती आहे"
 

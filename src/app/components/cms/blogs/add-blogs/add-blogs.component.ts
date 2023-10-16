@@ -120,5 +120,7 @@ export class AddBlogsComponent {
   clearFormData() { // for clear Form field
     this.formDirective?.resetForm();
     this.imageResponse = '';
+    this.data = null;
+    this.defaultFrm();
   }
 }
