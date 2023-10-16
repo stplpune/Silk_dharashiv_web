@@ -24,6 +24,9 @@ const routes: Routes = [
   // My Profile
   { path: 'my-profile', loadChildren: () => import('../../components/profile/my-profile/my-profile.module').then(m => m.MyProfileModule),data: { breadcrumb: [{ title: 'My Profile', active: true }] }  },
 
+  //Setting
+  { path: 'page-right-access', loadChildren: () => import('../../components/setting/page-right-access/page-right-access.module').then(m => m.PageRightAccessModule), data: { breadcrumb: [{ title: 'Page Right Access', active: true }] }  },
+
 ];
 
 @NgModule({

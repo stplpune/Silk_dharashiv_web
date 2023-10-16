@@ -10,6 +10,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { AddActionComponent } from './add-action/add-action.component';
 
 @Component({
   selector: 'app-actions',
@@ -44,6 +45,13 @@ export class ActionsComponent implements OnDestroy{
     public dialog: MatDialog,
     public webStorage: WebStorageService
   ) { }
+
+
+  addactions(){
+    this.dialog.open(AddActionComponent,{
+      width:'30%'
+    })
+  }
 
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
@@ -132,7 +140,7 @@ export class ActionsComponent implements OnDestroy{
         this.pageNumber = obj.pageNumber;
         this.editFlag = false;
         this.clearFormData();
-        this.searchDataFlag ? (this.fl['textSearch'].setValue(this.filterFrm.value.textSearch)) : (this.fl['textSearch'].setValue('')); 
+        this.searchDataFlag ? (this.fl['textSearch'].setValue(this.filterFrm.value.textSearch)) : (this.fl['textSearch'].setValue(''));
         this.getTableData();
         break;
       case 'Edit':
@@ -214,7 +222,7 @@ export class ActionsComponent implements OnDestroy{
       autoFocus: false
     })
     deleteDialogRef.afterClosed().subscribe((result: any) => {
-      result == 'Yes' ? this.blockAction(obj) : this.getTableData();
+      result == 'Yes' ? this.blockAction(obj) : '';
     })
   }
 

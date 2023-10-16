@@ -102,7 +102,8 @@ export class FaqComponent implements OnDestroy {
     this.highLightRowFlag = true;
     let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_Question', 'status', 'action'] : ['srNo', 'question', 'status', 'action'];
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'प्रश्न', 'स्थिती', 'कृती'] : ['Sr. No.', 'Question', 'Status', 'ACTION'];
-    let tableData = {
+    let tableData:any;
+    tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
       isBlock: 'status',
@@ -186,7 +187,7 @@ export class FaqComponent implements OnDestroy {
     autoFocus: false
   })
   deleteDialogRef.afterClosed().subscribe((result: any) => {
-    result == 'Yes' ? this.blockAction(obj) : this.getTableData() ;
+    result == 'Yes' ? this.blockAction(obj) : '';
   })
 }
 

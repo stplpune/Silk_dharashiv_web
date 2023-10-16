@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
+import { AddDesignationComponent } from './add-designation/add-designation.component';
 @Component({
   selector: 'app-designations',
   templateUrl: './designations.component.html',
@@ -17,21 +18,17 @@ import { Subscription } from 'rxjs';
 })
 export class DesignationsComponent {
   filterFrm !: FormGroup;
-  designationFrm !: FormGroup;
+
   pageNumber: number = 1;
   totalPages!: number;
   tableDataArray: any;
   tableDatasize!: number;
   highLightedFlag: boolean = true;
   departmentArray = new Array();
-  departmentArrayAdd = new Array();
   departmentLevelArray = new Array();
-  departmentLevelAddArray = new Array();
-  editFlag: boolean = false;
-  searchDataFlag: boolean = false;//used for filter
   subscription!: Subscription;//used  for lang conv
-  lang:any;
-  @ViewChild('formDirective') private formDirective!: NgForm;
+  lang: any;
+  //@ViewChild('formDirective') private formDirective!: NgForm;
 
   constructor(private fb: FormBuilder,
     private apiService: ApiService,
@@ -48,12 +45,11 @@ export class DesignationsComponent {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-       this.setTableData();
+      this.setTableData();
     })
     this.getDepartment();
     this.getDepartmentLevel();
     this.filterDefaultFrm();
-    this.addDefaultFrm();
     this.bindTable();
     // this.lang = this.WebStorageService.setLanguageCallback();//testing code lang for common
     // this.setTableData();
@@ -67,89 +63,41 @@ export class DesignationsComponent {
     })
   }
 
-  addDefaultFrm(data?: any) {
-    this.designationFrm = this.fb.group({
-      "id": [data ? data.id : 0],
-      "designationName": [data ? data.designationName : '', [Validators.required, Validators.maxLength(50), Validators.pattern(this.validation.alphabetWithSpace)]],
-      "m_DesignationName": [data ? data.m_DesignationName : '', [Validators.required, Validators.maxLength(50), Validators.pattern(this.validation.marathi)]],
-      "departmentId": [data ? data.departmentId : '', [Validators.required]],
-      "departmentLevelId": [data ? data.departmentLevelId : '', [Validators.required]],
-    })
-  }
-
-  get a() { return this.designationFrm.controls }
 
   get f() { return this.filterFrm.controls }
 
   //#region ----------dropdown code start here-------------------------
   getDepartment() {
-    this.departmentArray = []; this.departmentArrayAdd = [];
+    this.departmentArray = [];
     this.masterService.GetDepartmentDropdown().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentArray = res.responseData;
-          this.departmentArrayAdd = res.responseData;
         }
         else {
-          this.departmentArray = []; this.departmentArrayAdd = [];
+          this.departmentArray = [];
         }
       })
     })
   }
 
   getDepartmentLevel() {
-    this.departmentLevelArray = []; this.departmentLevelAddArray = [];
+    this.departmentLevelArray = [];
     this.masterService.GetDeptLevelDropDown().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentLevelArray = res.responseData;
-          this.departmentLevelAddArray = res.responseData;
         }
         else {
-          this.departmentLevelArray = []; this.departmentLevelAddArray = [];
-         }
+          this.departmentLevelArray = [];
+        }
       })
     })
   }
   //#endregion-----------dropdown code end here-----------------
-
-  onEditData(obj: any) {
-    this.editFlag = true;
-    this.addDefaultFrm(obj);
-  }
-
-  onSubmit() {
-    if (this.designationFrm.invalid) {
-      return;
-    }
-    else {
-      this.spinner.show();
-      let data = this.designationFrm.getRawValue();
-      data.id = Number(data.id)
-      let mainData = { ...data, "createdBy": this.WebStorageService.getUserId() };
-      this.apiService.setHttp('post', 'sericulture/api/Designation/Insert-Update-Designation?lan=' + this.lang, false, mainData, false, 'masterUrl');
-      this.apiService.getHttp().subscribe({
-        next: ((res: any) => {
-          this.spinner.hide();
-          if (res.statusCode == "200") {
-            this.commonMethod.snackBar(res.statusMessage, 0);
-            this.bindTable();
-            this.clearMainForm();
-          } else {
-            this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-          }
-        }),
-        error: (error: any) => {
-          this.spinner.hide();
-          this.errorHandler.handelError(error.statusCode);
-        }
-      });
-    }
-  }
-
   bindTable(flag?: any) {
     this.spinner.show();
-    flag == 'filter' ? (this.searchDataFlag = true, this.clearMainForm(), (this.pageNumber = 1)) : this.searchDataFlag = false;
+    flag == 'filter' ? (this.pageNumber = 1) : '';
     let formData = this.filterFrm?.getRawValue();
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
     this.apiService.setHttp('GET', `sericulture/api/Designation/get-All-Designation?DeptId=${formData?.deptId || 0}&Deptlevel=${formData?.deptLevelId || 0}&lan=${this.lang}&TextSearch=${formData?.textSearch || ''}` + str, false, false, false, 'masterUrl');
@@ -161,7 +109,7 @@ export class DesignationsComponent {
           this.tableDatasize = res.responseData1?.totalCount;
           this.totalPages = res.responseData1?.totalPages;
         } else {
-           this.tableDataArray = []; this.tableDatasize = 0;
+          this.tableDataArray = []; this.tableDatasize = 0;
         }
         this.setTableData();
       },
@@ -174,8 +122,8 @@ export class DesignationsComponent {
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_DepartmentName', 'm_DepartmentLevel','m_DesignationName', 'action'] : ['srNo', 'departmentName', 'departmentLevel','designationName','action']
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'विभाग', 'पदनाम स्तर', 'पदनाम', 'कृती'] : ['Sr. No.', 'Department', 'Department Level', 'Designation','Action'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_DepartmentName', 'm_DepartmentLevel', 'm_DesignationName', 'action'] : ['srNo', 'departmentName', 'departmentLevel', 'designationName', 'action']
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'विभाग', 'पदनाम स्तर', 'पदनाम', 'कृती'] : ['Sr. No.', 'Department', 'Department Level', 'Designation', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
@@ -184,7 +132,7 @@ export class DesignationsComponent {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      delete: true, view: false, edit: true,
+      delete: true, view: true, edit: true,
     };
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
     this.apiService.tableData.next(tableData);
@@ -194,26 +142,35 @@ export class DesignationsComponent {
   childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':
-        this.searchDataFlag ? (this.f['deptId'].setValue(this.filterFrm.value?.deptId), this.f['deptLevelId'].setValue(this.filterFrm.value?.deptLevelId), this.f['textSearch'].setValue(this.filterFrm.value?.textSearch)) : (this.f['deptId'].setValue(''), this.f['deptLevelId'].setValue(''), this.f['textSearch'].setValue(''));
         this.pageNumber = obj.pageNumber;
-        this.clearMainForm();//when we click on edit button & click on pagination that time clear form 
         this.bindTable();
         break;
       case 'Edit':
-        this.onEditData(obj);
+        this.addDesignation(obj);
         break;
       case 'Delete':
         this.deleteDialogOpen(obj);
         break;
+      case 'View':
+        this.addDesignation(obj);
+        break;
     }
   }
 
-  //clear add form functionality here
-  clearMainForm() {
-    this.formDirective?.resetForm();
-    this.addDefaultFrm();
-    this.editFlag = false;
+  addDesignation(obj?: any) {
+    let dialogRef = this.dialog.open(AddDesignationComponent, {
+      width: '30%',
+      data: obj,
+      disableClose: true,
+      autoFocus: true,
+    })
+    dialogRef.afterClosed().subscribe((result: any) => {
+      result == 'Yes' ? this.bindTable() : '';
+      this.highLightedFlag = false;
+      this.setTableData();
+    });
   }
+
 
   //clear filter form functionality here
   clearForm() {
@@ -244,7 +201,6 @@ export class DesignationsComponent {
             if (res.statusCode == '200') {
               this.commonMethod.snackBar(res.statusMessage, 0);
               this.bindTable();
-              this.clearMainForm(); //when we click on edit and add button and delete record that time clear form code 
             } else {
               this.commonMethod.snackBar(res.statusMessage, 1);
             }
@@ -255,7 +211,6 @@ export class DesignationsComponent {
         });
       }
       this.highLightedFlag = false;
-      //this.setTableData();
     });
   }
 

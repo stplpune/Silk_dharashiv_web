@@ -53,8 +53,7 @@ export class GlobalTableComponent {
   }
 
 
-  action(obj: any, label: string, i?:any , chkLabel?:any) {
-    label == 'checkBox' ? (chkLabel == 'readCheck' ? obj.readRight = i.checked : (i.checked == true ? (obj.writeRight = i.checked, obj.readRight = i.checked) : obj.writeRight = i.checked)) : this.highlightedRow = i;
+  action(obj: any, label: string, i?:any) {
     obj.index = i;
     obj.label = label;
     obj.pageNumber = (label == 'Edit')? this.pageNumber : obj.pageIndex + 1;
@@ -62,5 +61,8 @@ export class GlobalTableComponent {
      this.recObjToChild.emit(obj);
   }
 
+  setPrevVal(e:any){   //  this method for toggle button where we dont get table Api call when click on cancel button
+    e.source.checked = !e.source.checked
+  }
  
 }

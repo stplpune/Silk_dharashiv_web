@@ -24,7 +24,8 @@ export class AddVillageComponent {
   villageArray = new Array();
   @ViewChild('formDirective') private formDirective!: NgForm;
   subscription!: Subscription;
-  lang: string = 'English';
+  lang: any;
+  isViewFlag: boolean = false;
   constructor
     (
       private fb: FormBuilder,
@@ -36,27 +37,31 @@ export class AddVillageComponent {
       private apiService: ApiService,
       private commonMethodService: CommonMethodsService,
       private errorService: ErrorHandlingService,
-      public validator:ValidationService
-  ) { }
+      public validator: ValidationService
+    ) { }
 
   ngOnInit() {
+    console.log("this.data", this.data)
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
+    this.isViewFlag = this.data?.label == 'View' ? true : false;
+    if (!this.isViewFlag) {
+      this.getState();
+    }
     this.getFormData();
-    this.getState();
   }
 
   getFormData() {
     this.villageForm = this.fb.group({
       id: [this.data ? this.data?.id : 0],
-      stateId: [this.data ? this.data?.stateId : ''],
-      districtId: [this.data ? this.data?.districtId : ''],
-      talukaId: [this.data ? this.data?.talukaId : '',[Validators.required]],
-      villages: [this.data ? this.data?.villages : '',[Validators.required]],
-      circleName: [this.data ? this.data?.circleName : '',[Validators.required,Validators.pattern(this.validator.fullName),this.validator.maxLengthValidator(30)]],
-      m_CircleName: [this.data ? this.data?.m_CircleName : '',[Validators.required,Validators.pattern(this.validator.marathi),this.validator.maxLengthValidator(30)]],
+      stateId: [this.data ? this.data?.stateId : 1],
+      districtId: [this.data ? this.data?.districtId : 1],
+      talukaId: [this.data ? this.data?.talukaId : '', [Validators.required]],
+      villages: [this.data ? this.data?.villages : '', [Validators.required]],
+      circleName: [this.data ? this.data?.circleName : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(30)]],
+      m_CircleName: [this.data ? this.data?.m_CircleName : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(30)]],
       flag: [this.data ? "u" : "i"],
       createdBy: [this.WebStorageService.getUserId()]
     })
@@ -65,11 +70,10 @@ export class AddVillageComponent {
   get f() { return this.villageForm.controls };
 
   getState() {
-    let stateId = this.villageForm.value.stateId;
     this.master.GetAllState().subscribe({
       next: ((res: any) => {
         this.stateArray = res.responseData;
-        this.data ? (this.f['stateId'].setValue(stateId), this.getDisrict()) : '';
+        this.data ? (this.f['stateId'].setValue(this.data?.stateId), this.getDisrict()) : this.getDisrict();
       }), error: (() => {
         this.stateArray = [];
       })
@@ -77,11 +81,10 @@ export class AddVillageComponent {
   }
 
   getDisrict() {
-    let distId = this.villageForm.value.districtId;
     this.master.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
         this.districtArray = res.responseData;
-        this.data ? (this.f['districtId'].setValue(distId), this.getTaluka()) : '';
+        this.data ? (this.f['districtId'].setValue(this.data?.districtId), this.getTaluka()) : this.getTaluka();
       }), error: (() => {
         this.districtArray = [];
       })
@@ -89,13 +92,12 @@ export class AddVillageComponent {
   }
 
   getTaluka() {
-    let stateId = this.villageForm.value.stateId;
-    let distId = this.villageForm.value.districtId;
-    let talId = this.villageForm.value.talukaId;
+    let stateId = this.villageForm.getRawValue().stateId;
+    let distId = this.villageForm.getRawValue().districtId;
     this.master.GetAllTaluka(stateId, distId, 0,).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
-        this.data ? (this.f['districtId'].setValue(talId), this.getVillage()) : '';
+        this.data ? (this.f['districtId'].setValue(this.data?.talukaId), this.getVillage()) : '';
       }), error: (() => {
         this.talukaArray = [];
       })
@@ -103,9 +105,9 @@ export class AddVillageComponent {
   }
 
   getVillage() {
-    let stateId = this.villageForm.value.stateId;
-    let distId = this.villageForm.value.districtId;
-    let talukaId = this.villageForm.value.talukaId;
+    let stateId = this.villageForm.getRawValue().stateId;
+    let distId = this.villageForm.getRawValue().districtId;
+    let talukaId = this.villageForm.getRawValue().talukaId;
     this.master.GetAllVillages(stateId, distId, talukaId, 0).subscribe({
       next: ((res: any) => {
         this.villageArray = res.responseData;
@@ -120,9 +122,9 @@ export class AddVillageComponent {
     })
   }
 
-  onSubmitData() {    
+  onSubmitData() {
     this.spinner.show();
-    let formData = this.villageForm.value;
+    let formData = this.villageForm.getRawValue();
     if (this.villageForm.invalid) {
       this.spinner.hide();
       return;
@@ -154,9 +156,9 @@ export class AddVillageComponent {
     }
   }
 
-  clearFormData(){
+  clearFormData() {
     this.formDirective.resetForm();
-    this.data=null;
+    this.data = null;
     this.getFormData();
   }
 
