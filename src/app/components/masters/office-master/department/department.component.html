@@ -1,8 +1,16 @@
 <div class="row g-3">
-  <div class="col-sm-8">
+  <div class="col-sm-12">
     <mat-card class="plain-card">
       <mat-card-header class="card-header">
-        <div class="text-main">{{"department.department" | translate}}</div>
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <div class="text-main">{{"department.department" | translate}}</div>
+          <button mat-flat-button class="btn-main" (click)="adddepartment()">
+            <mat-icon class="material-symbols-rounded">
+              add
+            </mat-icon>
+            Add Department
+          </button>
+        </div>
       </mat-card-header>
       <mat-card-header class="card-header-control">
         <form [formGroup]="filterFrm" class="w-100">
@@ -40,7 +48,7 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <div class="col-sm-4">
+  <!-- <div class="col-sm-4">
     <form [formGroup]="departmentFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
       <div class="card plain-card">
         <div class="card-header text-main">
@@ -49,14 +57,14 @@
         <div class="card-body">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{"department.departmentName_en" | translate}}</mat-label>
-            <input matInput formControlName="departmentName"  
+            <input matInput formControlName="departmentName"
               (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
             <mat-error *ngIf="f['departmentName']?.hasError('required')">{{'department.department_required'|translate}} </mat-error>
             <mat-error *ngIf="f['departmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}} </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{"department.departmentName_mr" | translate}}</mat-label>
-            <input matInput formControlName="m_DepartmentName"  
+            <input matInput formControlName="m_DepartmentName"
               (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
             <mat-error *ngIf="f['m_DepartmentName']?.hasError('required')">{{'department.department_required'|translate}} </mat-error>
             <mat-error *ngIf="f['m_DepartmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}} </mat-error>
@@ -69,5 +77,5 @@
         </div>
       </div>
     </form>
-  </div>
+  </div> -->
 </div>

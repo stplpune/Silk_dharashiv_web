@@ -9,6 +9,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
+import { AddDepartmentComponent } from './add-department/add-department.component';
 
 @Component({
   selector: 'app-department',
@@ -41,6 +42,11 @@ export class DepartmentComponent implements OnDestroy{
       public webStorage: WebStorageService
       ) { }
 
+      adddepartment(){
+        this.dialog.open(AddDepartmentComponent)
+      }
+
+
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
@@ -52,7 +58,7 @@ export class DepartmentComponent implements OnDestroy{
     this.getTableData();
   }
 
-  defaultFrm(data?: any) { 
+  defaultFrm(data?: any) {
     this.departmentFrm = this.fb.group({
       id : [data ? data.id : 0],
       departmentName: [data ? data.departmentName : '', [Validators.required, Validators.pattern(this.validator.fullName),this.validator.maxLengthValidator(30)]],
@@ -145,11 +151,11 @@ export class DepartmentComponent implements OnDestroy{
         next: ((res:any) => {
           if(res.statusCode == '200'){
             this.common.snackBar(res.statusMessage,0);
-            this.clearFormData(); 
+            this.clearFormData();
             this.defaultFrm();
             this.filterFrm.controls['textSearch'].setValue('');
-            this.getTableData(); 
-            this.editFlag = false;   
+            this.getTableData();
+            this.editFlag = false;
           }else{
             this.spinner.hide();
             this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage,1);
@@ -210,7 +216,7 @@ export class DepartmentComponent implements OnDestroy{
     this.searchDataFlag = false;
   }
 
-  clearFormData() { // for clear Form field    
+  clearFormData() { // for clear Form field
     this.editFlag = false;
     this.formDirective?.resetForm();
     this.defaultFrm();
