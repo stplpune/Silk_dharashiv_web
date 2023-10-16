@@ -19,10 +19,10 @@ export class AddDesignationComponent {
   departmentArray = new Array();
   departmentLevelArray = new Array();
   subscription!: Subscription;//used  for lang conv
-  lang:any;
+  lang: any;
   editFlag: boolean = false;
   @ViewChild('formDirective') private formDirective!: NgForm;
-  isViewFlag:boolean=false;
+  isViewFlag: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -38,21 +38,21 @@ export class AddDesignationComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-   this.isViewFlag = this.data?.label == 'View' ? true : false;
-    if(!this.isViewFlag){
+    this.isViewFlag = this.data?.label == 'View' ? true : false;
+    if (!this.isViewFlag) {
       this.getDepartment();
       this.getDepartmentLevel();
     }
-   this.data ? this.onEditData(this.data) : this.addDefaultFrm();
+    this.data ? this.onEditData(this.data) : this.addDefaultFrm();
   }
 
-  
-addDefaultFrm(data?: any) {
+
+  addDefaultFrm(data?: any) {
     this.designationFrm = this.fb.group({
       "id": [data ? data.id : 0],
       "designationName": [data ? data.designationName : '', [Validators.required, Validators.maxLength(50), Validators.pattern(this.validation.alphabetWithSpace)]],
@@ -72,7 +72,7 @@ addDefaultFrm(data?: any) {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentArray = res.responseData;
-         }
+        }
         else {
           this.departmentArray = [];
         }
@@ -81,15 +81,15 @@ addDefaultFrm(data?: any) {
   }
 
   getDepartmentLevel() {
-    this.departmentLevelArray = []; 
+    this.departmentLevelArray = [];
     this.masterService.GetDeptLevelDropDown().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentLevelArray = res.responseData;
-         }
+        }
         else {
           this.departmentLevelArray = [];
-         }
+        }
       })
     })
   }
@@ -116,7 +116,7 @@ addDefaultFrm(data?: any) {
           if (res.statusCode == "200") {
             this.commonMethod.snackBar(res.statusMessage, 0);
             this.dialogRef.close('Yes');
-           this.clearMainForm();
+            this.clearMainForm();
           } else {
             this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
           }
@@ -130,15 +130,10 @@ addDefaultFrm(data?: any) {
   }
 
 
-   //clear add form functionality here
-   clearMainForm() {
+  //clear add form functionality here
+  clearMainForm() {
     this.formDirective?.resetForm();
     this.addDefaultFrm();
     this.editFlag = false;
   }
-
-
-
-
-
 }

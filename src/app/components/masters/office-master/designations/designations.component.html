@@ -19,10 +19,8 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>{{'designation.depertment'|translate}}</mat-label>
                 <mat-select formControlName="deptId">
-                  <!-- <mat-option *ngFor="let department of departmentArray"
-                    [value]="department.id">{{department.departmentName}}</mat-option> -->
-                    <mat-option *ngFor="let department of departmentArray"
-                    [value]="department.id">{{lang == 'en' ? department.textEnglish : department.textMarathi}}</mat-option>
+                  <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang == 'en' ?
+                    department.textEnglish : department.textMarathi}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -30,8 +28,8 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>{{'designation.designation_level'|translate}}</mat-label>
                 <mat-select formControlName="deptLevelId">
-                  <mat-option *ngFor="let deptLevel of departmentLevelArray"
-                    [value]="deptLevel.id">{{lang == 'en' ? deptLevel.textEnglish : deptLevel.textMarathi}}</mat-option>
+                  <mat-option *ngFor="let deptLevel of departmentLevelArray" [value]="deptLevel.id">{{lang == 'en' ?
+                    deptLevel.textEnglish : deptLevel.textMarathi}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -46,13 +44,11 @@
               <div class="d-flex align-items-center gap-2">
                 <button mat-flat-button class="btn-main btn-icon " matTooltip="edit" (click)="bindTable('filter')">
                   <mat-icon class="material-symbols-rounded">
-                    <!-- edit_square -->
                     search
                   </mat-icon>
                 </button>
                 <button mat-flat-button class="btn-main-light btn-icon " matTooltip="edit" (click)="clearForm()">
                   <mat-icon class="material-symbols-rounded">
-                    <!-- edit_square -->
                     close
                   </mat-icon>
                 </button>
@@ -65,62 +61,6 @@
         </div>
       </mat-card-content>
     </mat-card>
- </div>
-  <!-- <div class="col-sm-4">
-    <mat-card class="plain-card p-0">
-      <mat-card-header class="card-header p-0 text-main">
-        {{this.editFlag ? ('designation.update_designation'|translate) : ('designation.add_designation'|translate)}}
-      </mat-card-header>
-      <mat-card-content class="card-body">
-        <form [formGroup]="designationFrm" #formDirective="ngForm">
-          <div class="mb-0">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'designation.depertment'|translate}}</mat-label>
-              <mat-select formControlName="departmentId">
-                <mat-option *ngFor="let department of departmentArrayAdd"
-                  [value]="department.id">{{lang == 'en' ? department.textEnglish : department.textMarathi}}</mat-option>
-              </mat-select>
-              <mat-error *ngIf="a['departmentId'].hasError('required')">{{'designation.department_required'|translate}}</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="mb-0">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'designation.designation_level'|translate}}</mat-label>
-              <mat-select formControlName="departmentLevelId">
-                <mat-option *ngFor="let deptLevel of departmentLevelAddArray"
-                  [value]="deptLevel.id">{{lang == 'en' ? deptLevel.textEnglish : deptLevel.textMarathi}}</mat-option>
-              </mat-select>
-              <mat-error *ngIf="a['departmentLevelId'].hasError('required')">{{'designation.designation_level_required'|translate}}</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="mb-0">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'designation.designation_en'|translate}}</mat-label>
-              <input matInput formControlName="designationName" maxlength="50"
-                (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
-              <mat-error *ngIf="a['designationName'].hasError('pattern')">{{'designation.Please_enter_designation'|translate}}</mat-error>
-              <mat-error *ngIf="a['designationName'].hasError('maxlength')">{{'designation.maximum 50 character_allowed'|translate}}</mat-error>
-              <mat-error *ngIf="a['designationName'].hasError('required')">{{'designation.designation_en_required'|translate}}</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="mb-0">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'designation.designation_mr'|translate}}</mat-label>
-              <input matInput formControlName="m_DesignationName" maxlength="50"
-                (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
-                <mat-error *ngIf="a['designationName'].hasError('pattern')">{{'designation.Please_enter_designation_mr'|translate}}</mat-error>
-                <mat-error *ngIf="a['designationName'].hasError('maxlength')">{{'designation.maximum 50 character_allowed'|translate}}</mat-error>
-                <mat-error *ngIf="a['designationName'].hasError('required')">{{'designation.designation_mr_required'|translate}}</mat-error>
-              </mat-form-field>
-          </div>
+  </div>
 
-          <div class="d-flex align-items-center justify-content-end gap-2">
-            <button mat-flat-button class="btn-main-light" type="button" (click)="clearMainForm()">{{'designation.clear'|translate}}</button>
-            <button mat-flat-button class="btn-main" type="submit" (click)="onSubmit()">{{this.editFlag ? ('designation.update'|translate) :
-              ('designation.add'|translate)}}</button>
-          </div>
-        </form>
-      </mat-card-content>
-    </mat-card>
-  </div> -->
 </div>

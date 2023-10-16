@@ -1,5 +1,5 @@
-import { Component} from '@angular/core';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -18,8 +18,8 @@ import { AddDesignationComponent } from './add-designation/add-designation.compo
 })
 export class DesignationsComponent {
   filterFrm !: FormGroup;
- 
-pageNumber: number = 1;
+
+  pageNumber: number = 1;
   totalPages!: number;
   tableDataArray: any;
   tableDatasize!: number;
@@ -27,7 +27,7 @@ pageNumber: number = 1;
   departmentArray = new Array();
   departmentLevelArray = new Array();
   subscription!: Subscription;//used  for lang conv
-  lang:any;
+  lang: any;
   //@ViewChild('formDirective') private formDirective!: NgForm;
 
   constructor(private fb: FormBuilder,
@@ -41,11 +41,11 @@ pageNumber: number = 1;
     private WebStorageService: WebStorageService
   ) { }
 
- ngOnInit() {
+  ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-       this.setTableData();
+      this.setTableData();
     })
     this.getDepartment();
     this.getDepartmentLevel();
@@ -87,15 +87,15 @@ pageNumber: number = 1;
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentLevelArray = res.responseData;
-         }
+        }
         else {
           this.departmentLevelArray = [];
-         }
+        }
       })
     })
   }
   //#endregion-----------dropdown code end here-----------------
-bindTable(flag?: any) {
+  bindTable(flag?: any) {
     this.spinner.show();
     flag == 'filter' ? (this.pageNumber = 1) : '';
     let formData = this.filterFrm?.getRawValue();
@@ -109,7 +109,7 @@ bindTable(flag?: any) {
           this.tableDatasize = res.responseData1?.totalCount;
           this.totalPages = res.responseData1?.totalPages;
         } else {
-           this.tableDataArray = []; this.tableDatasize = 0;
+          this.tableDataArray = []; this.tableDatasize = 0;
         }
         this.setTableData();
       },
@@ -122,8 +122,8 @@ bindTable(flag?: any) {
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_DepartmentName', 'm_DepartmentLevel','m_DesignationName', 'action'] : ['srNo', 'departmentName', 'departmentLevel','designationName','action']
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'विभाग', 'पदनाम स्तर', 'पदनाम', 'कृती'] : ['Sr. No.', 'Department', 'Department Level', 'Designation','Action'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_DepartmentName', 'm_DepartmentLevel', 'm_DesignationName', 'action'] : ['srNo', 'departmentName', 'departmentLevel', 'designationName', 'action']
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'विभाग', 'पदनाम स्तर', 'पदनाम', 'कृती'] : ['Sr. No.', 'Department', 'Department Level', 'Designation', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
@@ -142,8 +142,8 @@ bindTable(flag?: any) {
   childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':
-       this.pageNumber = obj.pageNumber;
-       this.bindTable();
+        this.pageNumber = obj.pageNumber;
+        this.bindTable();
         break;
       case 'Edit':
         this.addDesignation(obj);
@@ -151,24 +151,24 @@ bindTable(flag?: any) {
       case 'Delete':
         this.deleteDialogOpen(obj);
         break;
-        case 'View':
+      case 'View':
         this.addDesignation(obj);
         break;
     }
   }
 
-  addDesignation(obj?:any){
-    let dialogRef = this.dialog.open(AddDesignationComponent,{
-      width:'30%',
+  addDesignation(obj?: any) {
+    let dialogRef = this.dialog.open(AddDesignationComponent, {
+      width: '30%',
       data: obj,
-     disableClose: true,
-    autoFocus: true,
+      disableClose: true,
+      autoFocus: true,
     })
     dialogRef.afterClosed().subscribe((result: any) => {
-   result == 'Yes' ? this.bindTable() : '';
-    this.highLightedFlag= false;
-     this.setTableData();
-     });
+      result == 'Yes' ? this.bindTable() : '';
+      this.highLightedFlag = false;
+      this.setTableData();
+    });
   }
 
 
@@ -211,7 +211,7 @@ bindTable(flag?: any) {
         });
       }
       this.highLightedFlag = false;
-      });
+    });
   }
 
   ngOnDestroy() {
