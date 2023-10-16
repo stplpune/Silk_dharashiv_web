@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between">
-    <div class="text-main">Add Blogs / Article</div>
+    <div class="text-main">{{ this.data ?("blogs.update_Blogs_Article" | translate): ("blogs.add_Blogs_Article" | translate)}}</div>
     <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
       <mat-icon class="material-symbols-outlined">
           close
@@ -13,7 +13,7 @@
   <div class="row">
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Title</mat-label>
+        <mat-label>{{"blogs.title" | translate}}</mat-label>
         <input matInput formControlName="title" 
         (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithQuetion($event)">
         <mat-error *ngIf="f['title']?.hasError('required')">{{"Please enter blog title"}} </mat-error>
@@ -24,7 +24,7 @@
       <div class="file-upload border rounded-2 p-1">
         <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
           data-placement="right" (click)="uplodLogo.click()">
-          Featured Image
+          {{"blogs.featuredImage" | translate}}
         </button>
         <input type="file" #uplodLogo accept=".jpg,.jpeg,.png" id="real-file" hidden="hidden" (change)="imageUplod($event)"/>
 
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="col-sm-12">
-      <div class="form-label"> Editor tool</div>
+      <div class="form-label"> {{"blogs.editortool" | translate}}</div>
             <angular-editor formControlName="description" [config]="editorConfig">
               <mat-error *ngIf="f['description']?.hasError('required')">{{"Please add blog Description"}} </mat-error>
               <mat-error *ngIf="f['description']?.hasError('maxLengthExceeded')">{{"Maximum limit is 5000 characters"}} </mat-error>
@@ -55,8 +55,9 @@
 </div>
 <div mat-dialog-actions class="modal-footer">
   <div class="d-flex align-items-center justify-content-end w-100 gap-2">
-    <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">Clear</button>
-    <button mat-flat-button class="btn-main"  type="submit">{{this.data ? "Update":"Publish"}}</button>
+    <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">{{"blogs.clear" | translate}}</button>
+    <button mat-flat-button class="btn-main"  type="submit">{{this.data ? ('blogs.update'|translate) :
+      ('blogs.add'|translate)}}</button>
   </div>
 </div>
 </form>

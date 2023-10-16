@@ -67,6 +67,7 @@ export class BlogsComponent {
     let displayedheaders = ['Sr. No.', 'Thumbnail Image','Tittle','Publish Date','Status','Action'];
     let getTableData = {
       pageNumber: this.pageNumber,
+      date: 'publishDate',
       pagination: this.tableDatasize > 10 ? true : false,
       highlightedrow: true,
       displayedColumns: displayedColumns,
