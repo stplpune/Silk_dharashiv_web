@@ -43,7 +43,6 @@ export class AddDesignationComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-    console.log("this.data",this.data)
    this.isViewFlag = this.data?.label == 'View' ? true : false;
     if(!this.isViewFlag){
       this.getDepartment();
