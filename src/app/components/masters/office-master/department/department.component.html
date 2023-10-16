@@ -8,7 +8,7 @@
             <mat-icon class="material-symbols-rounded">
               add
             </mat-icon>
-            Add Department
+            {{"department.add_department" | translate}}
           </button>
         </div>
       </mat-card-header>
@@ -48,34 +48,4 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <!-- <div class="col-sm-4">
-    <form [formGroup]="departmentFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
-      <div class="card plain-card">
-        <div class="card-header text-main">
-           {{editFlag ? ('department.update_department'|translate) : ('department.add_designation'|translate)}}
-        </div>
-        <div class="card-body">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{"department.departmentName_en" | translate}}</mat-label>
-            <input matInput formControlName="departmentName"
-              (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
-            <mat-error *ngIf="f['departmentName']?.hasError('required')">{{'department.department_required'|translate}} </mat-error>
-            <mat-error *ngIf="f['departmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}} </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{"department.departmentName_mr" | translate}}</mat-label>
-            <input matInput formControlName="m_DepartmentName"
-              (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
-            <mat-error *ngIf="f['m_DepartmentName']?.hasError('required')">{{'department.department_required'|translate}} </mat-error>
-            <mat-error *ngIf="f['m_DepartmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}} </mat-error>
-          </mat-form-field>
-          <div class="d-flex align-items-center justify-content-end gap-2">
-            <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">{{'department.clear'|translate}}</button>
-            <button mat-flat-button class="btn-main" type="submit">{{!editFlag ? ('department.add'|translate) :
-              ('department.update'|translate)}}</button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div> -->
 </div>

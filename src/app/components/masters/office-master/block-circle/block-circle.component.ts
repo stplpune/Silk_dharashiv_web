@@ -42,13 +42,12 @@ export class BlockCircleComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
        this.setTableData();
     })
-    this.getTableData();
   }
- 
+
 
   getTableData(flag?: any) {
     this.spinner.show();
-    flag == 'filter' ? (this.pageNumber = 1) : '';         
+    flag == 'filter' ? (this.pageNumber = 1) : '';
     this.apiService.setHttp('GET', `sericulture/api/TalukaBlocks/GetAllTalukaBlocks?pageno=${this.pageNumber}&pagesize=10&TextSearch=${this.textsearch.value || ''}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -59,7 +58,7 @@ export class BlockCircleComponent {
           
           this.tableDatasize = res.responseData1?.totalCount;
           this.totalPages = res.responseData1?.totalPages;
-          
+
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
           this.tableDataArray = []; this.tableDatasize = 0;
@@ -103,7 +102,7 @@ export class BlockCircleComponent {
         this.getTableData();
         break;
       case 'Edit':
-        this.addcircle(obj);      
+        this.addcircle(obj);
         break;
       case 'Delete':
         this.globalDialogOpen(obj);
@@ -138,7 +137,7 @@ export class BlockCircleComponent {
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
-              this.commonMethod.snackBar(res.statusMessage, 0);          
+              this.commonMethod.snackBar(res.statusMessage, 0);
               this.getTableData();
               // this.clearForm();
               // this.editFlag = false;
@@ -157,7 +156,7 @@ export class BlockCircleComponent {
 
   addcircle(obj?:any){
     const dialogRef = this.dialog.open(AddcircleComponent,{
-      width: '50%',
+      width: '30%',
       data: obj,
       // disableClose: true
     });
