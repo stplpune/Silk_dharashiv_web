@@ -136,7 +136,9 @@
         "PleaseEnterBlogTitle":"Please Enter Blog Title",
         "add": "Publish",
         "update": "Update",
-        "clear": "Clear"
+        "clear": "Clear",
+        "blog_empty": "Please Enter Blog Title",
+        "blog_limit": "Maximum limit is 100 characters"
       },
 
       "talukaBlock":{
