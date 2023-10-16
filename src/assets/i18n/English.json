@@ -30,6 +30,7 @@
         "searchAction":"Search Action Name",
         "update_action": "Update Action",
         "add_action": "Add Action",
+        "view_Action":"View Action",
         "scheme_required":"Please select scheme"
 
 
