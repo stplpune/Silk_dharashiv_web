@@ -1,0 +1,77 @@
+<div mat-dialog-title class="modal-header">
+  <div class="d-flex align-items-center justify-content-between w-100">
+    <div class="text-main">Add Action</div>
+    <button mat-icon-button class="">
+      <mat-icon class="material-symbols-rounded">
+        close
+      </mat-icon>
+    </button>
+  </div>
+</div>
+<mat-dialog-content class="modal-body form-container">
+  <div class="row g-2 w-100">
+    <div class="col-sm">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Select Scheme</mat-label>
+        <mat-select>
+          <mat-option>Option 1</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Action Name (English)</mat-label>
+        <input matInput   placeholder="Search Name">
+      </mat-form-field>
+    </div>
+    <div class="col-sm">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Action Name (Marathi)</mat-label>
+        <input matInput   placeholder="Search Name">
+      </mat-form-field>
+    </div>
+    <div class="col-sm">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="" rows="3"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+
+ <!-- view-details section  -->
+
+ <div class="row gx-2">
+  <div class="col-sm-12">
+    <div class="row gx-2">
+      <div class="col-sm-5 form-label">Scheme</div>
+      <div class="col-sm-7 form-label">: Manaarega</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row gx-2">
+      <div class="col-sm-5 form-label">Action Name</div>
+      <div class="col-sm-7 form-label">: Pune</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row gx-2">
+      <div class="col-sm-5 form-label">Action Name (Marathi)</div>
+      <div class="col-sm-7 form-label">: Haveli</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row gx-2">
+      <div class="col-sm-5 form-label">Description</div>
+      <div class="col-sm-7 form-label">: Nagar</div>
+    </div>
+  </div>
+</div>
+</mat-dialog-content>
+<mat-dialog-actions class="modal-footer">
+  <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+    <button mat-flat-button class="btn-main-light" mat-dialog-close>Clear</button>
+    <button mat-flat-button class="btn-main" cdkFocusInitial>Add</button>
+  </div>
+</mat-dialog-actions>
+
+
