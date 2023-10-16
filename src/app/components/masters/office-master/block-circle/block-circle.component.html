@@ -1,12 +1,12 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
     <div class="d-flex align-items-center justify-content-between w-100">
-      <div class="text-main">Block Circle</div>
+      <div class="text-main">{{'talukaBlock.block'|translate}}</div>
       <button mat-flat-button class="btn-main" (click)="addcircle()">
         <mat-icon class="material-symbols-rounded">
           add
         </mat-icon>
-        <span>Add Circle</span>
+        <span>{{'talukaBlock.add_block'|translate}}</span>
       </button>
     </div>
   </mat-card-header>
@@ -41,20 +41,20 @@
 
       <div class="col-sm-auto">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Search</mat-label>
+          <mat-label>{{'talukaBlock.search_by_blockName_name'|translate}}</mat-label>
           <input matInput [formControl]="textsearch">         
         </mat-form-field>
       </div> 
       
       <div class="col-sm-1">
         <div class="d-flex align-items-center gap-2">
-          <button mat-flat-button class="btn-main btn-icon " matTooltip="edit" (click)="getTableData('filter')">
+          <button mat-flat-button class="btn-main btn-icon " matTooltip="edit" (click)=" filterFlag = true;getTableData('filter')">
             <mat-icon class="material-symbols-rounded">
               <!-- edit_square -->
               search
             </mat-icon>
           </button>
-          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" (click)="clearFilter()">
+          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" (click)="filterFlag = false;clearFilter()">
             <mat-icon class="material-symbols-rounded">
               <!-- edit_square -->
               close
