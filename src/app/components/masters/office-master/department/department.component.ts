@@ -1,5 +1,5 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
@@ -19,7 +19,6 @@ import { AddDepartmentComponent } from './add-department/add-department.componen
 export class DepartmentComponent implements OnDestroy{
   departmentFrm!: FormGroup;
   filterFrm!: FormGroup;
-  editFlag: boolean = false;
   tableDataArray = new Array();
   tableDatasize!: number;
   totalPages!: number;
@@ -28,8 +27,6 @@ export class DepartmentComponent implements OnDestroy{
   searchDataFlag: boolean = false
   subscription!: Subscription;//used  for lang conv
   lang: string = 'English';
-  @ViewChild('formDirective') private formDirective!: NgForm;
-  get f() { return this.departmentFrm.controls };
   get fl() { return this.filterFrm.controls };
 
   constructor(private fb: FormBuilder,
@@ -49,17 +46,8 @@ export class DepartmentComponent implements OnDestroy{
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
        this.setTableData();
     })
-    this.defaultFrm();
     this.filterDefaultFrm();
     this.getTableData();
-  }
-
-  defaultFrm(data?: any) {
-    this.departmentFrm = this.fb.group({
-      id : [data ? data.id : 0],
-      departmentName: [data ? data.departmentName : '', [Validators.required, Validators.pattern(this.validator.fullName),this.validator.maxLengthValidator(30)]],
-      m_DepartmentName: [data ? data.m_DepartmentName : '',[Validators.required, Validators.pattern(this.validator.marathi),this.validator.maxLengthValidator(30)]],
-    })
   }
 
   filterDefaultFrm() {
@@ -70,7 +58,7 @@ export class DepartmentComponent implements OnDestroy{
 
   getTableData(status?: any) {
     this.spinner.show();
-    status == 'filter' ? ((this.pageNumber = 1), this.defaultFrm(),this.searchDataFlag = true) : '';
+    status == 'filter' ? ((this.pageNumber = 1),this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     let searchValue = this.filterFrm?.value || '';
     this.apiService.setHttp('GET', 'sericulture/api/Department/get-All-Department?'+str+'&TextSearch=' + (searchValue.textSearch || ''), false, false, false, 'masterUrl');
@@ -110,6 +98,7 @@ export class DepartmentComponent implements OnDestroy{
       tableHeaders: displayedheaders,
       edit: true,
       delete: true,
+      view:true,
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
@@ -119,46 +108,18 @@ export class DepartmentComponent implements OnDestroy{
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
-        this.editFlag = false;
-        this.clearFormData();
         this.searchDataFlag ? (this.fl['textSearch'].setValue(this.filterFrm.value.textSearch)) : (this.fl['textSearch'].setValue(''));
         this.getTableData();
         break;
       case 'Edit':
         this.adddepartment(obj);
         break;
+      case 'View':
+        this.adddepartment(obj);
+        break;
       case 'Delete':
         this.globalDialogOpen(obj);
         break;
-    }
-  }
-
-  onSubmitData() {
-    let formvalue = this.departmentFrm.value;
-    if(this.departmentFrm.invalid){
-      return
-    }else{
-      this.spinner.show();
-      formvalue.id = Number(formvalue.id)
-      let mainData = {...formvalue,"createdBy":this.webStorage.getUserId()};
-      this.apiService.setHttp('POST','sericulture/api/Department/Insert-Update-Department', false, mainData, false, 'masterUrl');
-      this.apiService.getHttp().subscribe({
-        next: ((res:any) => {
-          if(res.statusCode == '200'){
-            this.common.snackBar(res.statusMessage,0);
-            this.clearFormData();
-            this.defaultFrm();
-            this.filterFrm.controls['textSearch'].setValue('');
-            this.getTableData();
-            this.editFlag = false;
-          }else{
-            this.spinner.hide();
-            this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage,1);
-          }
-        }),
-        error :((error: any) => { this.spinner.hide()
-          this.errorService.handelError(error.status) })
-      })
     }
   }
 
@@ -183,8 +144,6 @@ export class DepartmentComponent implements OnDestroy{
             if (res.statusCode == '200') {
               this.common.snackBar(res.statusMessage, 0);
               this.getTableData();
-              this.clearFormData();
-              this.editFlag = false;
             } else {
               this.common.snackBar(res.statusMessage, 1);
             }
@@ -212,23 +171,12 @@ export class DepartmentComponent implements OnDestroy{
     });
   }
 
-  onEditData(receiveObj: any) {
-    this.editFlag = true;
-    this.defaultFrm(receiveObj);
-  }
-
   clearSearchFilter() {  // for clear search field
     this.filterFrm.reset();
     this.filterDefaultFrm();
     this.getTableData();
     this.pageNumber=1;
     this.searchDataFlag = false;
-  }
-
-  clearFormData() { // for clear Form field
-    this.editFlag = false;
-    this.formDirective?.resetForm();
-    this.defaultFrm();
   }
 
   ngOnDestroy() {
