@@ -29,11 +29,9 @@ export class BlockCircleComponent {
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
     private commonMethod: CommonMethodsService,
-    // private masterService: MasterService,
     private errorHandler: ErrorHandlingService,
     public dialog: MatDialog,
     private WebStorageService:WebStorageService
-  
   ) { }
 
   ngOnInit() {  
@@ -42,8 +40,8 @@ export class BlockCircleComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
        this.setTableData();
     })
+    this.getTableData();
   }
-
 
   getTableData(flag?: any) {
     this.spinner.show();
@@ -53,12 +51,9 @@ export class BlockCircleComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData;
-          console.log("table data",this.tableDataArray);
-          
+          this.tableDataArray = res.responseData;          
           this.tableDatasize = res.responseData1?.totalCount;
           this.totalPages = res.responseData1?.totalPages;
-
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
           this.tableDataArray = []; this.tableDatasize = 0;
@@ -74,9 +69,6 @@ export class BlockCircleComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    // let displayedColumns = ['srNo', 'blockName','action'];
-    // let displayedheaders = ['Sr. No.', 'Block Name','Action'];
-
     let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_BlockName','action'] : ['srNo', 'blockName','action']
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'ब्लॉकचे नाव','कृती'] : ['Sr. No.', 'Block Name','Action'];
 
@@ -88,7 +80,7 @@ export class BlockCircleComponent {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      delete: true, view: false, edit: true,
+      delete: true, view: true, edit: true,
     };
     this.highLightRowFlag ? (getTableData.highlightedrow = true) : (getTableData.highlightedrow = false);
     this.apiService.tableData.next(getTableData);
@@ -107,17 +99,13 @@ export class BlockCircleComponent {
       case 'Delete':
         this.globalDialogOpen(obj);
         break;
+      case 'View':
+        this.addcircle(obj);
+        break; 
     }
   }
 
   globalDialogOpen(delDataObj?: any) {
-    // let dialogObj = {
-    //   title: 'Do You Want To Delete Block?',
-    //   header: 'Delete',
-    //   okButton: 'Delete',
-    //   cancelButton: 'Cancel',
-    // };
-
     let dialogObj = {
       title: this.lang == 'mr-IN' ? 'तुम्हाला ब्लॉक हटवायचा आहे का?' : 'Do You Want To Delete Block??',
       header: this.lang == 'mr-IN' ? 'डिलीट करा' : 'Delete',

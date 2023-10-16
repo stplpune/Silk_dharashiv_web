@@ -8,133 +8,116 @@
   </button>
   </div>
 </div>
-<form [formGroup]="addBlockForm" #FormGroupDirective="ngForm">
-<mat-dialog-content class="modal-body form-container">
-  <div class="row">
-    <div class="col-sm-12">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>State</mat-label>
-        <mat-select formControlName="stateId" (selectionChange)="getDistrict()">
-          <mat-option *ngFor="let state of stateArr" [value]="state.id">{{state.state}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-12">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label> District</mat-label>
-        <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
-          <mat-option *ngFor="let district of districtArr" [value]="district.id">{{district.district}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <!-- <div class="col-sm-12">
-      <mat-radio-group aria-label="Select an option">
-        <mat-radio-button value="1">Block (Taluka)</mat-radio-button>
-        <mat-radio-button value="2">Circle (Village)</mat-radio-button>
-      </mat-radio-group>
-    </div> -->
-    <div class="col-sm-12">
-      <!-- <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Select Taluka</mat-label>
-        <mat-select [formControl]="toppings" multiple>
-          <mat-select-trigger>
-            {{toppings.value?.[0] || ''}}
-            <span *ngIf="(toppings.value?.length || 0) > 1" class="example-additional-selection">
-              (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
-            </span>
-          </mat-select-trigger>
-          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-        </mat-select>
-      </mat-form-field> -->
-
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Select Taluka</mat-label>
-        <mat-select formControlName="talukas" multiple>
-          <!-- <mat-select-trigger>
-            {{talukas.value?.[0] || ''}}
-            <span *ngIf="(talukas.value?.length || 0) > 1" class="example-additional-selection">
-              (+{{(talukas.value?.length || 0) - 1}} {{talukas.value?.length === 2 ? 'other' : 'others'}})
-            </span>
-          </mat-select-trigger> -->
-          <mat-option *ngFor="let taluka of talukaArr" [value]="taluka.id">{{taluka.taluka}}</mat-option>
-        </mat-select>
-        <mat-error *ngIf="f['talukas'].hasError('required') ">Please Select Taluka</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-12">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Enter Block Name</mat-label>
-        <input matInput  formControlName="blockName" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)" maxlength="30">
-        <mat-error *ngIf="f['blockName'].hasError('required') ">Please Enter Block Name</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-12">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Enter Block Name(Marathi)</mat-label>
-        <input matInput  formControlName="m_BlockName" (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)" maxlength="30">
-        <mat-error *ngIf="f['m_BlockName'].hasError('required') ">Please Enter Block Name in Marathi</mat-error>
-      </mat-form-field>
-    </div>
-    <!-- <div class="col-sm-12">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Select Village</mat-label>
-        <mat-select [formControl]="toppings" multiple>
-          <mat-select-trigger>
-            {{toppings.value?.[0] || ''}}
-            <span *ngIf="(toppings.value?.length || 0) > 1" class="example-additional-selection">
-              (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
-            </span>
-          </mat-select-trigger>
-          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div> -->
-    <!-- <div class="col-sm-12">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Enter Circle Name</mat-label>
-        <input matInput placeholder="">
-      </mat-form-field>
-    </div> -->
-  </div>
-
-  <!-- view section -->
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="row gx-2 ">
-        <div class="col-sm-4 form-label">State</div>
-        <div class="col-sm-8 form-data">: Maharashtra</div>
+<ng-container *ngIf="!viewFlag">
+  <form [formGroup]="addBlockForm" #FormGroupDirective="ngForm">
+    <mat-dialog-content class="modal-body form-container">
+      <div class="row">
+        <div class="col-sm-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>State</mat-label>
+            <mat-select formControlName="stateId" (selectionChange)="getDistrict()">
+              <mat-option *ngFor="let state of stateArr" [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label> District</mat-label>
+            <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
+              <mat-option *ngFor="let district of districtArr" [value]="district.id">{{lang == 'en' ? district.textEnglish : district.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>     
+        <div class="col-sm-12">
+          <!-- <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Taluka</mat-label>
+            <mat-select [formControl]="toppings" multiple>
+              <mat-select-trigger>
+                {{toppings.value?.[0] || ''}}
+                <span *ngIf="(toppings.value?.length || 0) > 1" class="example-additional-selection">
+                  (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+            </mat-select>
+          </mat-form-field> -->
+    
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Taluka</mat-label>
+            <mat-select formControlName="talukas" multiple>
+              <!-- <mat-select-trigger>
+                {{talukas.value?.[0] || ''}}
+                <span *ngIf="(talukas.value?.length || 0) > 1" class="example-additional-selection">
+                  (+{{(talukas.value?.length || 0) - 1}} {{talukas.value?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger> -->
+              <mat-option *ngFor="let taluka of talukaArr" [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish : taluka.textMarathi}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f['talukas'].hasError('required') ">Please Select Taluka</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Enter Block Name</mat-label>
+            <input matInput  formControlName="blockName" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)" maxlength="30">
+            <mat-error *ngIf="f['blockName'].hasError('required') ">Please Enter Block Name</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Enter Block Name(Marathi)</mat-label>
+            <input matInput  formControlName="m_BlockName" (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)" maxlength="30">
+            <mat-error *ngIf="f['m_BlockName'].hasError('required') ">Please Enter Block Name in Marathi</mat-error>
+          </mat-form-field>
+        </div>        
       </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="row gx-2">
-        <div class="col-sm-4 form-label">District</div>
-        <div class="col-sm-8 form-data">: Pune</div>
+    
+      <!-- view section -->
+      
+      <div class="d-flex align-items-center justify-content-end gap-2">
+        <button mat-flat-button mat-dialog-close type="button" class="btn-main-light">Cancel</button>
+        <button mat-flat-button class="btn-main" type="submit" (click)="onSubmit()">{{data ? 'Update' : 'Submit'}}</button>
       </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="row gx-2">
-        <div class="col-sm-4 form-label">Select Taluka</div>
-        <div class="col-sm-8 form-data">: Pune</div>
-      </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="row gx-2">
-        <div class="col-sm-4 form-label">Block Name</div>
-        <div class="col-sm-8 form-data">: Pune</div>
-      </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="row gx-2">
-        <div class="col-sm-4 form-label">Block Name (Marathi)</div>
-        <div class="col-sm-8 form-data">: Pune</div>
-      </div>
-    </div>
-  </div>
+    </mat-dialog-content>
+    </form>
+</ng-container>
 
 
-  <div class="d-flex align-items-center justify-content-end gap-2">
-    <button mat-flat-button mat-dialog-close type="button" class="btn-main-light">Cancel</button>
-    <button mat-flat-button class="btn-main" type="submit" (click)="onSubmit()">{{data ? 'Update' : 'Submit'}}</button>
-  </div>
-</mat-dialog-content>
-</form>
+<ng-container *ngIf="viewFlag">
+  <mat-dialog-content class="modal-body form-container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="row gx-2 ">
+          <div class="col-sm-4 form-label">State</div>
+          <div class="col-sm-8 form-data">:{{lang == 'en' ?  data?.state : data?.m_State}}</div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row gx-2">
+          <div class="col-sm-4 form-label">District</div>
+          <div class="col-sm-8 form-data">: {{lang == 'en' ?  data?.district : data?.m_District}}</div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row gx-2">
+          <div class="col-sm-4 form-label">Select Taluka</div>
+          <div class="col-sm-8 form-data" *ngFor="let taluka of data.getTalukaModel">: {{lang == 'en' ? taluka?.taluka : taluka?.m_Taluka}}</div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row gx-2">
+          <div class="col-sm-4 form-label">Block Name</div>
+          <div class="col-sm-8 form-data">:{{lang == 'en' ?  data?.blockName : data?.m_BlockName}}</div>
+        </div>
+      </div>
+      <!-- <div class="col-sm-12">
+        <div class="row gx-2">
+          <div class="col-sm-4 form-label">Block Name (Marathi)</div>
+          <div class="col-sm-8 form-data">: Pune</div>
+        </div>
+      </div> -->
+    </div>
+  </mat-dialog-content>
+</ng-container>
+
+
