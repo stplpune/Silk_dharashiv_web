@@ -7,6 +7,8 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
+import { Subscription } from 'rxjs';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 @Component({
   selector: 'app-blogs',
@@ -21,17 +23,24 @@ export class BlogsComponent {
   highLightRowFlag: boolean = false;
   tableDataArray = new Array();
   textsearch = new FormControl('');
-
+  subscription!: Subscription;//used  for lang conv
+  lang: string = 'English';
   constructor(
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
     private commonMethod: CommonMethodsService,
     private errorHandler: ErrorHandlingService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public webStorage: WebStorageService
   
   ) { }
 
   ngOnInit() {  
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+      this.setTableData();
+    })
     this.getTableData();
   }
  
@@ -63,8 +72,8 @@ export class BlogsComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = ['srNo', 'thumbnailImage','title','publishDate','status','action'];
-    let displayedheaders = ['Sr. No.', 'Thumbnail Image','Tittle','Publish Date','Status','Action'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'thumbnailImage','title','publishDate','status','action'] : ['srNo', 'thumbnailImage','title','publishDate','status','action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'लघुप्रतिमा','शीर्षक','प्रकाशित तारीख','स्थिती','कृती'] : ['Sr. No.', 'Thumbnail Image','Tittle','Publish Date','Status','Action'];
     let getTableData = {
       pageNumber: this.pageNumber,
       date: 'publishDate',
