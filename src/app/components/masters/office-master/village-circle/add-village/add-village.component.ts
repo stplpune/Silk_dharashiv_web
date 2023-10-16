@@ -24,7 +24,8 @@ export class AddVillageComponent {
   villageArray = new Array();
   @ViewChild('formDirective') private formDirective!: NgForm;
   subscription!: Subscription;
-  lang: string = 'English';
+  lang: any;
+  isViewFlag: boolean = false;
   constructor
     (
       private fb: FormBuilder,
@@ -40,12 +41,16 @@ export class AddVillageComponent {
     ) { }
 
   ngOnInit() {
+    console.log("this.data", this.data)
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
+    this.isViewFlag = this.data?.label == 'View' ? true : false;
+    if (!this.isViewFlag) {
+      this.getState();
+    }
     this.getFormData();
-    this.getState();
   }
 
   getFormData() {

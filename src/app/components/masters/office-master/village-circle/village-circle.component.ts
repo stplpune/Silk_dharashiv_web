@@ -98,7 +98,7 @@ export class VillageCircleComponent {
       tableData: this.tableDataArray,
       tableSize: this.totalCount,
       pagination: this.totalCount > 10 ? true : false,
-      view: false,
+      view: true,
       edit: true,
       delete: true,
       reset: false
@@ -118,6 +118,9 @@ export class VillageCircleComponent {
       case 'Edit':
         this.AddVillage(obj);
         break;
+      case 'View':
+          this.AddVillage(obj);
+          break;
       case 'Delete':
         this.deleteDialogOpen(obj);
         break;

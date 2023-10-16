@@ -1,6 +1,7 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">{{!data ? 'Add Village' : 'Update Village'}}</div>
+    <div class="text-main">{{!this.data ? ('villageCircle.add_village'|translate) :isViewFlag ?
+      ("villageCircle.view_village" | translate): ('villageCircle.update_village'|translate)}}</div>
     <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
       <mat-icon class="material-symbols-outlined">
         close
@@ -8,126 +9,133 @@
     </button>
   </div>
 </div>
-<form [formGroup]="villageForm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
+<div class="" *ngIf="!isViewFlag">
+  <form [formGroup]="villageForm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
+    <mat-dialog-content class="modal-body form-container">
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'villageCircle.select_state' | translate}}</mat-label>
+            <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
+              [class]="villageForm.controls['stateId'].disable({ onlySelf: true })">
+              <mat-option *ngFor="let st of stateArray" [value]="st.id">{{lang != 'en' ? st.textMarathi
+                :st.textEnglish}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'villageCircle.select_district' | translate}}</mat-label>
+            <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
+              [class]="villageForm.controls['districtId'].disable({ onlySelf: true })">
+              <mat-option *ngFor="let dist of districtArray" [value]="dist.id">{{lang != 'en' ? dist.textMarathi
+                :dist.textEnglish}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'villageCircle.select_taluka' | translate}}</mat-label>
+            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('village');getVillage()"
+              [disabled]="true">
+              <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi
+                :taluka.textEnglish}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f['talukaId']?.hasError('required')">{{'villageCircle.please_select_taluka'|translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'villageCircle.select_village' | translate}}</mat-label>
+            <mat-select formControlName="villages" multiple>
+              <mat-option *ngFor="let vil of villageArray" [value]="vil.id">{{lang != 'en' ? vil.textMarathi
+                :vil.textEnglish}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f['villages']?.hasError('required')">{{'villageCircle.please_select_village' |
+              translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'villageCircle.circle_name_en' | translate}}</mat-label>
+            <input matInput formControlName="circleName"
+              (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
+            <mat-error *ngIf="f['circleName']?.hasError('required')">{{'villageCircle.please_enter_circle_name(English)'
+              |
+              translate}}</mat-error>
+            <mat-error
+              *ngIf="f['circleName']?.hasError('pattern')">{{'villageC``ircle.please_enter_valid_circle_name(English)' |
+              translate}}</mat-error>
+            <mat-error
+              *ngIf="f['circleName']?.hasError('maxLengthExceeded')">{{'villageCircle.maximum_limit_30_characters' |
+              translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'villageCircle.circle_name_mr' | translate}}</mat-label>
+            <input matInput formControlName="m_CircleName"
+              (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
+            <mat-error
+              *ngIf="f['m_CircleName']?.hasError('required')">{{'villageCircle.please_enter_circle_name(Marathi)'
+              | translate}}</mat-error>
+            <mat-error
+              *ngIf="f['m_CircleName']?.hasError('pattern')">{{'villageCircle.please_enter_valid_circle_name(English)' |
+              translate}}</mat-error>
+            <mat-error
+              *ngIf="f['m_CircleName']?.hasError('maxLengthExceeded')">{{'villageCircle.maximum_limit_30_characters' |
+              translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-end gap-2">
+        <button mat-flat-button type="button" class="btn-main-light" type="button"
+          (click)="clearFormData()">Cancel</button>
+        <button mat-flat-button class="btn-main" type="submit">{{!data ? 'Submit' : 'Update'}}</button>
+      </div>
+    </mat-dialog-content>
+  </form>
+</div>
+<div class="" *ngIf="isViewFlag">
   <mat-dialog-content class="modal-body form-container">
     <div class="row">
       <div class="col-sm-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>{{'villageCircle.select_state' | translate}}</mat-label>
-          <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
-          [class]="villageForm.controls['stateId'].disable({ onlySelf: true })">
-            <mat-option *ngFor="let st of stateArray" [value]="st.id">{{lang != 'en' ? st.textMarathi
-              :st.textEnglish}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>{{'villageCircle.select_district' | translate}}</mat-label>
-          <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
-          [class]="villageForm.controls['districtId'].disable({ onlySelf: true })">
-            <mat-option *ngFor="let dist of districtArray" [value]="dist.id">{{lang != 'en' ? dist.textMarathi
-              :dist.textEnglish}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>{{'villageCircle.select_taluka' | translate}}</mat-label>
-          <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('village');getVillage()"
-            [disabled]="true">
-            <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi
-              :taluka.textEnglish}}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="f['talukaId']?.hasError('required')">{{'villageCircle.please_select_taluka'|translate}}
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>{{'villageCircle.select_village' | translate}}</mat-label>
-          <mat-select formControlName="villages" multiple>
-            <mat-option *ngFor="let vil of villageArray" [value]="vil.id">{{lang != 'en' ? vil.textMarathi
-              :vil.textEnglish}}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="f['villages']?.hasError('required')">{{'villageCircle.please_select_village' |
-            translate}}</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>{{'villageCircle.circle_name_en' | translate}}</mat-label>
-          <input matInput formControlName="circleName"
-            (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
-          <mat-error *ngIf="f['circleName']?.hasError('required')">{{'villageCircle.please_enter_circle_name(English)' |
-            translate}}</mat-error>
-          <mat-error
-            *ngIf="f['circleName']?.hasError('pattern')">{{'villageC``ircle.please_enter_valid_circle_name(English)' |
-            translate}}</mat-error>
-          <mat-error
-            *ngIf="f['circleName']?.hasError('maxLengthExceeded')">{{'villageCircle.maximum_limit_30_characters' |
-            translate}}</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>{{'villageCircle.circle_name_mr' | translate}}</mat-label>
-          <input matInput formControlName="m_CircleName"
-            (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
-          <mat-error *ngIf="f['m_CircleName']?.hasError('required')">{{'villageCircle.please_enter_circle_name(Marathi)'
-            | translate}}</mat-error>
-          <mat-error
-            *ngIf="f['m_CircleName']?.hasError('pattern')">{{'villageCircle.please_enter_valid_circle_name(English)' |
-            translate}}</mat-error>
-          <mat-error
-            *ngIf="f['m_CircleName']?.hasError('maxLengthExceeded')">{{'villageCircle.maximum_limit_30_characters' |
-            translate}}</mat-error>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="d-flex align-items-center justify-content-end gap-2">
-      <button mat-flat-button type="button" class="btn-main-light" type="button"
-        (click)="clearFormData()">Cancel</button>
-      <button mat-flat-button class="btn-main" type="submit">{{!data ? 'Submit' : 'Update'}}</button>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-6 form-label">State</div>
-          <div class="col-sm-6 form-label">: Maharashtra</div>
+          <div class="col-sm-6 form-label">{{lang == 'en' ? 'State' : 'राज्य'}}</div>
+          <div class="col-sm-6 form-label">: {{lang == 'en' ? (data?.state || '-') : (data?.m_State || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-6 form-label">District</div>
-          <div class="col-sm-6 form-label">: Pune</div>
+          <div class="col-sm-6 form-label">{{lang == 'en' ? 'District' : 'जिल्हा'}}</div>
+          <div class="col-sm-6 form-label">: {{lang == 'en' ? (data?.district || '-') : (data?.m_District || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-6 form-label">Taluka</div>
-          <div class="col-sm-6 form-label">: Haveli</div>
+          <div class="col-sm-6 form-label">{{lang == 'en' ? 'Taluka' : 'तालुका'}}</div>
+          <div class="col-sm-6 form-label">: {{lang == 'en' ? (data?.taluka || '-') : (data?.m_Taluka || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-6 form-label">Village</div>
-          <div class="col-sm-6 form-label">: Nagar</div>
+          <div class="col-sm-6 form-label">{{lang == 'en' ? 'Village' : 'गाव'}}</div>
+          <div class="col-sm-6 form-label">: {{lang == 'en' ? (data?.village || '-') : (data?.m_Village || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-6 form-label">Circle Name (English)</div>
-          <div class="col-sm-6 form-label">: Nagar</div>
+          <div class="col-sm-6 form-label">{{lang == 'en' ? 'Circle Name(English)' : 'मंडळाचे नाव(इंग्रजी)'}}</div>
+          <div class="col-sm-6 form-label">: {{lang == 'en' ? (data?.circleName || '-') : (data?.circleName || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-6 form-label">Circle Name (Marathi)</div>
-          <div class="col-sm-6 form-label">: Nagar</div>
+          <div class="col-sm-6 form-label">{{lang == 'en' ? 'Circle Name(Marathi)' : 'मंडळाचे नाव(मराठी)'}}</div>
+          <div class="col-sm-6 form-label">: {{lang == 'en' ? (data?.m_CircleName || '-') : (data?.m_CircleName || '-')}}</div>
         </div>
       </div>
     </div>
   </mat-dialog-content>
-</form>
+</div>
