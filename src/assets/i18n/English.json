@@ -55,7 +55,8 @@
         "designation_mr_required": "Designation(Marathi) Is Required",
         "search_by_designation": "Search by Designation",
         "update_designation": "Update Designation",
-        "add_designation": "Add Designation"
+        "add_designation": "Add Designation",
+        "view_Designation":"View Designation"
     },"scheme":{
         "scheme":"Scheme",
         "search_by_scheme_name":"Search By Scheme Name",
@@ -105,6 +106,7 @@
         "search_by_village_circle_name":"Search By Village Name",
         "add_village":"Add Village",
         "update_village":"Update Village",
+        "view_village" :"View Village",
         "select_state":"Select State",
         "select_district":"Select District",
         "select_taluka":"Select Taluka",

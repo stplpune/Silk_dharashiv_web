@@ -57,7 +57,8 @@
     "designation_mr_required": "पदनाम (मराठी) आवश्यक आहे",
     "search_by_designation": "पदनामनुसार शोधा",
     "update_designation": "पदनाम अपडेट करा",
-    "add_designation": "पदनाम जोडा"
+    "add_designation": "पदनाम जोडा",
+    "view_Designation":"पदनाम पहा"
   },"scheme":{
     "scheme":"योजना",
     "search_by_scheme_name":"योजनेच्या नावाने शोधा",
@@ -106,6 +107,7 @@
     "search_by_village_circle_name":"मंडळाच्या नावाने शोधा",
     "add_village":"गाव जोडा",
     "update_village":"अपडेट गाव",
+    "view_village" :"गाव पहा",
     "select_state":"राज्य निवडा",
     "select_district":"जिल्हा निवडा",
     "select_taluka":"तालुका निवडा",
