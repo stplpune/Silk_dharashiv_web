@@ -103,7 +103,7 @@
       }
       ,"villageCircle":{
         "village_circle":"Village Circle",
-        "search_by_village_circle_name":"Search By Village Name",
+        "search_by_village_circle_name":"Search By Circle Name",
         "add_village":"Add Village",
         "update_village":"Update Village",
         "view_village" :"View Village",
