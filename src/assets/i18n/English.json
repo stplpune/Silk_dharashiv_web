@@ -103,7 +103,7 @@
       }
       ,"villageCircle":{
         "village_circle":"Village Circle",
-        "search_by_village_circle_name":"Search By Village Name",
+        "search_by_village_circle_name":"Search By Circle Name",
         "add_village":"Add Village",
         "update_village":"Update Village",
         "view_village" :"View Village",
@@ -146,11 +146,13 @@
         "search_by_blockName_name":"Search By Block Name",
         "add_block":"Add Block",
         "update_Block":"Update Block",
+        "view_Block" :"View Block",
         "select_state":"Select State",
         "select_district":"Select District",
         "select_taluka":"Select Taluka",        
         "clear": "Cancle",
         "save":"Submit",
+        "update": "Update",
         "maximum_limit_30_characters":"Maximum limit is 30 characters",
         "please_enter_valid_block_name(Marathi)":"Please Enter Valid Block Name(Marathi)",
         "please_enter_valid_block_name(English)":"Please Enter Valid Block Name(English)",
