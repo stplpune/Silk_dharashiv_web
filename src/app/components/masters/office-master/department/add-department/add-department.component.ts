@@ -16,8 +16,6 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 export class AddDepartmentComponent {
   departmentFrm!: FormGroup;
   isViewFlag : boolean = false;
-  // subscription!: Subscription;//used  for lang conv
-  // lang: string = 'English';
   @ViewChild('formDirective') private formDirective!: NgForm;
   get f() { return this.departmentFrm.controls };
   constructor(private fb: FormBuilder,
@@ -33,10 +31,6 @@ export class AddDepartmentComponent {
   ) { }
 
   ngOnInit() {
-    // this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
-    //   this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
-    //   this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-    // })
     this.isViewFlag = this.data?.label == 'View' ? true : false;
     this.defaultFrm();
   }

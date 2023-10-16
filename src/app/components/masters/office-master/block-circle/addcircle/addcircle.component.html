@@ -11,7 +11,7 @@
 <form [formGroup]="addBlockForm" #FormGroupDirective="ngForm">
 <mat-dialog-content class="modal-body form-container">
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>State</mat-label>
         <mat-select formControlName="stateId" (selectionChange)="getDistrict()">
@@ -19,7 +19,7 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label> District</mat-label>
         <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
@@ -33,7 +33,7 @@
         <mat-radio-button value="2">Circle (Village)</mat-radio-button>
       </mat-radio-group>
     </div> -->
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <!-- <mat-form-field appearance="outline" class="w-100">
         <mat-label>Select Taluka</mat-label>
         <mat-select [formControl]="toppings" multiple>
@@ -61,21 +61,21 @@
         <mat-error *ngIf="f['talukas'].hasError('required') ">Please Select Taluka</mat-error>
       </mat-form-field>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Enter Block Name</mat-label>
         <input matInput  formControlName="blockName" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)" maxlength="30">
         <mat-error *ngIf="f['blockName'].hasError('required') ">Please Enter Block Name</mat-error>
       </mat-form-field>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Enter Block Name(Marathi)</mat-label>
         <input matInput  formControlName="m_BlockName" (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)" maxlength="30">
         <mat-error *ngIf="f['m_BlockName'].hasError('required') ">Please Enter Block Name in Marathi</mat-error>
       </mat-form-field>
     </div>
-    <!-- <div class="col-sm-6">
+    <!-- <div class="col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Select Village</mat-label>
         <mat-select [formControl]="toppings" multiple>
@@ -89,7 +89,7 @@
         </mat-select>
       </mat-form-field>
     </div> -->
-    <!-- <div class="col-sm-6">
+    <!-- <div class="col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Enter Circle Name</mat-label>
         <input matInput placeholder="">
@@ -99,31 +99,31 @@
 
   <!-- view section -->
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <div class="row gx-2 ">
         <div class="col-sm-4 form-label">State</div>
         <div class="col-sm-8 form-data">: Maharashtra</div>
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <div class="row gx-2">
         <div class="col-sm-4 form-label">District</div>
         <div class="col-sm-8 form-data">: Pune</div>
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <div class="row gx-2">
         <div class="col-sm-4 form-label">Select Taluka</div>
         <div class="col-sm-8 form-data">: Pune</div>
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <div class="row gx-2">
         <div class="col-sm-4 form-label">Block Name</div>
         <div class="col-sm-8 form-data">: Pune</div>
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <div class="row gx-2">
         <div class="col-sm-4 form-label">Block Name (Marathi)</div>
         <div class="col-sm-8 form-data">: Pune</div>
