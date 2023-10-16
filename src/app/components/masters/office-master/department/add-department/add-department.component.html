@@ -1,23 +1,36 @@
-<div mat-dialog-title class="modal-header">
- <div class="d-flex align-items-center justify-content-between w-100">
-  <div class="text-main">Add Department</div>
-  <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
-    <span class="material-symbols-rounded">close</span>
-  </button>
- </div>
-</div>
-<mat-dialog-content class="modal-body">
-  <mat-form-field appearance="outline" class="w-100">
-    <mat-label>Department Name (English)</mat-label>
-    <input matInput formControlName="departmentName">
-  </mat-form-field>
-  <mat-form-field appearance="outline" class="w-100">
-    <mat-label>Deparmtment Name (Marathi)</mat-label>
-    <input matInput formControlName="m_DepartmentName">
-
-  </mat-form-field>
-  <div class="d-flex align-items-center justify-content-end gap-2">
-    <button mat-flat-button class="btn-main-light" type="button">Clear</button>
-    <button mat-flat-button class="btn-main" type="submit">Add</button>
+<form [formGroup]="departmentFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
+  <div mat-dialog-title class="modal-header">
+    <div class="d-flex align-items-center justify-content-between w-100">
+      <div class="text-main">{{this.data ? ('department.update_department'|translate) : ('department.add_designation'|translate)}}</div>
+      <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
+        <span class="material-symbols-rounded">close</span>
+      </button>
+    </div>
   </div>
-</mat-dialog-content>
+  <mat-dialog-content class="modal-body">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>{{"department.departmentName_en" | translate}}</mat-label>
+      <input matInput formControlName="departmentName"
+        (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
+      <mat-error
+        *ngIf="f['departmentName']?.hasError('required')">{{'department.department_required'|translate}}</mat-error>
+      <mat-error
+        *ngIf="f['departmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>{{"department.departmentName_mr" | translate}}</mat-label>
+      <input matInput formControlName="m_DepartmentName"
+        (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
+      <mat-error *ngIf="f['m_DepartmentName']?.hasError('required')">{{'department.department_required'|translate}}
+      </mat-error>
+      <mat-error
+        *ngIf="f['m_DepartmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}}
+      </mat-error>
+    </mat-form-field>
+    <div class="d-flex align-items-center justify-content-end gap-2">
+      <button mat-flat-button class="btn-main-light" type="button" (click)="clearFormData()">Clear</button>
+      <button mat-flat-button class="btn-main" type="submit">{{this.data ? ('department.update'|translate) :
+        ('department.add'|translate)}}</button>
+    </div>
+  </mat-dialog-content>
+</form>

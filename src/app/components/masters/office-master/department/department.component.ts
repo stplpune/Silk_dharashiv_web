@@ -42,10 +42,6 @@ export class DepartmentComponent implements OnDestroy{
       public webStorage: WebStorageService
       ) { }
 
-      adddepartment(){
-        this.dialog.open(AddDepartmentComponent)
-      }
-
 
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
@@ -129,8 +125,7 @@ export class DepartmentComponent implements OnDestroy{
         this.getTableData();
         break;
       case 'Edit':
-        this.editFlag = true
-        this.onEditData(obj);
+        this.adddepartment(obj);
         break;
       case 'Delete':
         this.globalDialogOpen(obj);
@@ -200,6 +195,20 @@ export class DepartmentComponent implements OnDestroy{
         });
       }
       this.highLightRowFlag = false;
+    });
+  }
+
+  adddepartment(obj?:any){
+    const dialogRef = this.dialog.open(AddDepartmentComponent,{
+      width: '60%',
+      data: obj,
+      disableClose: true,
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      res == 'Yes'? this.getTableData() : '';
+      this.highLightRowFlag = false;
+      this.setTableData();
     });
   }
 
