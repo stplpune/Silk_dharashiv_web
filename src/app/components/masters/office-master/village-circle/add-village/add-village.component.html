@@ -14,7 +14,8 @@
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{'villageCircle.select_state' | translate}}</mat-label>
-          <mat-select formControlName="stateId" (selectionChange)="getDisrict()">
+          <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
+          [class]="villageForm.controls['stateId'].disable({ onlySelf: true })">
             <mat-option *ngFor="let st of stateArray" [value]="st.id">{{lang != 'en' ? st.textMarathi
               :st.textEnglish}}</mat-option>
           </mat-select>
@@ -23,7 +24,8 @@
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{'villageCircle.select_district' | translate}}</mat-label>
-          <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
+          <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
+          [class]="villageForm.controls['districtId'].disable({ onlySelf: true })">
             <mat-option *ngFor="let dist of districtArray" [value]="dist.id">{{lang != 'en' ? dist.textMarathi
               :dist.textEnglish}}</mat-option>
           </mat-select>
@@ -60,7 +62,7 @@
           <mat-error *ngIf="f['circleName']?.hasError('required')">{{'villageCircle.please_enter_circle_name(English)' |
             translate}}</mat-error>
           <mat-error
-            *ngIf="f['circleName']?.hasError('pattern')">{{'villageCircle.please_enter_valid_circle_name(English)' |
+            *ngIf="f['circleName']?.hasError('pattern')">{{'villageC``ircle.please_enter_valid_circle_name(English)' |
             translate}}</mat-error>
           <mat-error
             *ngIf="f['circleName']?.hasError('maxLengthExceeded')">{{'villageCircle.maximum_limit_30_characters' |

@@ -87,8 +87,8 @@ export class AddVillageComponent {
   }
 
   getTaluka() {
-    let stateId = this.villageForm.value.stateId;
-    let distId = this.villageForm.value.districtId;
+    let stateId = this.villageForm.getRawValue().stateId;
+    let distId = this.villageForm.getRawValue().districtId;
     this.master.GetAllTaluka(stateId, distId, 0,).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
@@ -100,9 +100,9 @@ export class AddVillageComponent {
   }
 
   getVillage() {
-    let stateId = this.villageForm.value.stateId;
-    let distId = this.villageForm.value.districtId;
-    let talukaId = this.villageForm.value.talukaId;
+    let stateId = this.villageForm.getRawValue().stateId;
+    let distId = this.villageForm.getRawValue().districtId;
+    let talukaId = this.villageForm.getRawValue().talukaId;
     this.master.GetAllVillages(stateId, distId, talukaId, 0).subscribe({
       next: ((res: any) => {
         this.villageArray = res.responseData;
@@ -119,7 +119,7 @@ export class AddVillageComponent {
 
   onSubmitData() {
     this.spinner.show();
-    let formData = this.villageForm.value;
+    let formData = this.villageForm.getRawValue();
     if (this.villageForm.invalid) {
       this.spinner.hide();
       return;

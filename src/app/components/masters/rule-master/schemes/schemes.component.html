@@ -61,7 +61,8 @@
             <div class="col-sm-6">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>{{'scheme.select_state' | translate }}</mat-label>
-                <mat-select formControlName="stateId" (selectionChange)="getDisrict()">
+                <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
+                [class]="schemeForm.controls['stateId'].disable({ onlySelf: true })">
                   <mat-option *ngFor="let st of stateArray" [value]="st.id">{{lang != 'en' ? st.textMarathi
                     :st.textEnglish}}</mat-option>
                 </mat-select>
@@ -70,7 +71,7 @@
             <div class="col-sm-6">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>{{'scheme.select_district' | translate }}</mat-label>
-                <mat-select formControlName="districtId">
+                <mat-select formControlName="districtId"  [class]="schemeForm.controls['districtId'].disable({ onlySelf: true })">
                   <mat-option *ngFor="let dist of districtArray" [value]="dist.id">{{lang != 'en' ? dist.textMarathi
                     :dist.textEnglish}}</mat-option>
                 </mat-select>

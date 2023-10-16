@@ -1,0 +1,23 @@
+<div mat-dialog-title class="modal-header">
+ <div class="d-flex align-items-center justify-content-between w-100">
+  <div class="text-main">Add Department</div>
+  <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
+    <span class="material-symbols-rounded">close</span>
+  </button>
+ </div>
+</div>
+<mat-dialog-content class="modal-body">
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Department Name (English)</mat-label>
+    <input matInput formControlName="departmentName">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Deparmtment Name (Marathi)</mat-label>
+    <input matInput formControlName="m_DepartmentName">
+
+  </mat-form-field>
+  <div class="d-flex align-items-center justify-content-end gap-2">
+    <button mat-flat-button class="btn-main-light" type="button">Clear</button>
+    <button mat-flat-button class="btn-main" type="submit">Add</button>
+  </div>
+</mat-dialog-content>
