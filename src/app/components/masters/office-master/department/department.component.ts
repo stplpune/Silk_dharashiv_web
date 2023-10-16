@@ -200,7 +200,7 @@ export class DepartmentComponent implements OnDestroy{
 
   adddepartment(obj?:any){
     const dialogRef = this.dialog.open(AddDepartmentComponent,{
-      width: '60%',
+      width: '30%',
       data: obj,
       disableClose: true,
       autoFocus: false
