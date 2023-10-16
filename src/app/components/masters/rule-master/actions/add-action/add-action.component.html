@@ -1,77 +1,97 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">Add Action</div>
-    <button mat-icon-button class="">
-      <mat-icon class="material-symbols-rounded">
+    <div class="text-main"> {{!this.data ? ('action.add_action'|translate) :isViewFlag ? ("action.view_Action" | translate): ('action.update_action'|translate)}} </div>
+    <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
+      <mat-icon class="material-symbols-outlined">
         close
       </mat-icon>
     </button>
   </div>
 </div>
-<mat-dialog-content class="modal-body form-container">
-  <div class="row g-2 w-100">
-    <div class="col-sm">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Select Scheme</mat-label>
-        <mat-select>
-          <mat-option>Option 1</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-sm">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Action Name (English)</mat-label>
-        <input matInput   placeholder="Search Name">
-      </mat-form-field>
-    </div>
-    <div class="col-sm">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Action Name (Marathi)</mat-label>
-        <input matInput   placeholder="Search Name">
-      </mat-form-field>
-    </div>
-    <div class="col-sm">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Description</mat-label>
-        <textarea matInput placeholder="" rows="3"></textarea>
-      </mat-form-field>
-    </div>
-  </div>
 
- <!-- view-details section  -->
+<!-- view-details section  -->
 
- <div class="row gx-2">
+<div class="row gx-2" *ngIf="isViewFlag">
   <div class="col-sm-12">
     <div class="row gx-2">
-      <div class="col-sm-5 form-label">Scheme</div>
-      <div class="col-sm-7 form-label">: Manaarega</div>
+      <div class="col-sm-5 form-label">{{lang == 'en' ? 'Scheme Name': 'योजनेचे नाव'}}</div>
+      <div class="col-sm-7 form-label">: {{lang == 'en' ? this.data?.schemeType : this.data?.m_SchemeType}}</div>
     </div>
   </div>
   <div class="col-sm-12">
     <div class="row gx-2">
-      <div class="col-sm-5 form-label">Action Name</div>
-      <div class="col-sm-7 form-label">: Pune</div>
+      <div class="col-sm-5 form-label">{{'action.action_en' | translate}}</div>
+      <div class="col-sm-7 form-label">: {{this.data?.actionName}}</div>
     </div>
   </div>
   <div class="col-sm-12">
     <div class="row gx-2">
-      <div class="col-sm-5 form-label">Action Name (Marathi)</div>
-      <div class="col-sm-7 form-label">: Haveli</div>
+      <div class="col-sm-5 form-label">{{'action.action_mr' | translate}}</div>
+      <div class="col-sm-7 form-label">: {{this.data?.m_ActionName}}</div>
     </div>
   </div>
   <div class="col-sm-12">
     <div class="row gx-2">
-      <div class="col-sm-5 form-label">Description</div>
-      <div class="col-sm-7 form-label">: Nagar</div>
+      <div class="col-sm-5 form-label">{{'action.description' | translate}}</div>
+      <div class="col-sm-7 form-label">: {{this.data?.description}}</div>
     </div>
   </div>
 </div>
-</mat-dialog-content>
-<mat-dialog-actions class="modal-footer">
-  <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-    <button mat-flat-button class="btn-main-light" mat-dialog-close>Clear</button>
-    <button mat-flat-button class="btn-main" cdkFocusInitial>Add</button>
-  </div>
-</mat-dialog-actions>
 
+<!-- Add / Update Form -->
+<div class="" *ngIf="!isViewFlag">
+  <form [formGroup]="actionFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
+    <mat-dialog-content class="modal-body form-container">
+      <div class="row g-2 w-100">
+        <div class="col-sm">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'action.select_scheme' | translate}}</mat-label>
+            <mat-select formControlName="schemeTypeId">
+              <mat-option *ngFor=" let scheme of schemeArray" [value]="scheme.id">{{lang == 'en' ? scheme.textEnglish :
+                scheme.textMarathi}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f['schemeTypeId']?.hasError('required')">{{('action.scheme_required'|translate)}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'action.action_en' | translate}}</mat-label>
+            <input matInput formControlName="actionName"
+              (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecChars($event)">
+            <mat-error *ngIf="f['actionName']?.hasError('required')">{{'action.action_required'|translate}} </mat-error>
+            <mat-error *ngIf="f['actionName']?.hasError('maxLengthExceeded')">{{'action.action_maxLength'|translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'action.action_mr' | translate}}</mat-label>
+            <input matInput formControlName="m_ActionName"
+              (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
+            <mat-error *ngIf="f['m_ActionName']?.hasError('required')">{{'action.action_required'|translate}}
+            </mat-error>
+            <mat-error *ngIf="f['m_ActionName']?.hasError('maxLengthExceeded')">{{'action.action_maxLength'|translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'action.description' | translate}}</mat-label>
+            <textarea matInput formControlName="description"
+              (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecChars($event)"></textarea>
+            <mat-error *ngIf="f['description']?.hasError('maxLengthExceeded')">{{'action.description_maxLength' |
+              translate}} </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
 
+    </mat-dialog-content>
+    <mat-dialog-actions class="modal-footer">
+      <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+        <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">{{'action.clear'|translate}}</button>
+        <button mat-flat-button class="btn-main" type="submit">{{this.data ? ('action.update'|translate) : ('action.add'|translate)}}</button>
+      </div>
+    </mat-dialog-actions>
+  </form>
+</div>
