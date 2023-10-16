@@ -48,7 +48,7 @@ export class VillageCircleComponent {
 
   AddVillage(data?: any) {
     const dialogRef = this.dialog.open(AddVillageComponent, {
-      width: '700px',
+      width: '30%',
       data: data,
       disableClose: true
     });

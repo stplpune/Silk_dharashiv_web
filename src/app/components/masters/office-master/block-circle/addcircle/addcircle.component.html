@@ -1,6 +1,8 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">{{data ? 'Update Block' : 'Add Block'}}</div>
+    <div class="text-main">{{!data ? ('talukaBlock.add_block'|translate) :viewFlag ?
+      ('talukaBlock.view_Block' | translate):('talukaBlock.update_Block'|translate|translate)}}
+    </div>
     <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
       <mat-icon class="material-symbols-outlined">
           close
@@ -14,20 +16,22 @@
       <div class="row">
         <div class="col-sm-12">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>State</mat-label>
-            <mat-select formControlName="stateId" (selectionChange)="getDistrict()">
+            <mat-label>{{'talukaBlock.select_state'|translate}}</mat-label>
+            <mat-select formControlName="stateId" (selectionChange)="getDistrict()"
+            [class]="addBlockForm.controls['stateId'].disable({ onlySelf: true })">
               <mat-option *ngFor="let state of stateArr" [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="col-sm-12">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label> District</mat-label>
-            <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
+            <mat-label>{{'talukaBlock.select_district'|translate}}</mat-label>
+            <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
+            [class]="addBlockForm.controls['districtId'].disable({ onlySelf: true })">
               <mat-option *ngFor="let district of districtArr" [value]="district.id">{{lang == 'en' ? district.textEnglish : district.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
-        </div>     
+        </div>
         <div class="col-sm-12">
           <!-- <mat-form-field appearance="outline" class="w-100">
             <mat-label>Select Taluka</mat-label>
@@ -41,9 +45,9 @@
               <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
             </mat-select>
           </mat-form-field> -->
-    
+
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Select Taluka</mat-label>
+            <mat-label>{{'talukaBlock.select_taluka'|translate}}</mat-label>
             <mat-select formControlName="talukas" multiple>
               <!-- <mat-select-trigger>
                 {{talukas.value?.[0] || ''}}
@@ -53,30 +57,30 @@
               </mat-select-trigger> -->
               <mat-option *ngFor="let taluka of talukaArr" [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish : taluka.textMarathi}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="f['talukas'].hasError('required') ">Please Select Taluka</mat-error>
+            <mat-error *ngIf="f['talukas'].hasError('required') ">{{'talukaBlock.please_select_taluka'|translate}}</mat-error>
           </mat-form-field>
         </div>
         <div class="col-sm-12">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Enter Block Name</mat-label>
+            <mat-label>{{'talukaBlock.block_name_en'|translate}}</mat-label>
             <input matInput  formControlName="blockName" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)" maxlength="30">
-            <mat-error *ngIf="f['blockName'].hasError('required') ">Please Enter Block Name</mat-error>
+            <mat-error *ngIf="f['blockName'].hasError('required') ">{{'talukaBlock.please_enter_block_name(English)'|translate}}</mat-error>
           </mat-form-field>
         </div>
         <div class="col-sm-12">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Enter Block Name(Marathi)</mat-label>
+            <mat-label>{{'talukaBlock.block_name_mr'|translate}}</mat-label>
             <input matInput  formControlName="m_BlockName" (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)" maxlength="30">
-            <mat-error *ngIf="f['m_BlockName'].hasError('required') ">Please Enter Block Name in Marathi</mat-error>
+            <mat-error *ngIf="f['m_BlockName'].hasError('required') ">{{'talukaBlock.please_enter_block_name(Marathi)'|translate}}</mat-error>
           </mat-form-field>
-        </div>        
+        </div>
       </div>
-    
+
       <!-- view section -->
-      
+
       <div class="d-flex align-items-center justify-content-end gap-2">
-        <button mat-flat-button mat-dialog-close type="button" class="btn-main-light">Cancel</button>
-        <button mat-flat-button class="btn-main" type="submit" (click)="onSubmit()">{{data ? 'Update' : 'Submit'}}</button>
+        <button mat-flat-button mat-dialog-close type="button" class="btn-main-light">{{'talukaBlock.clear'|translate}}</button>
+        <button mat-flat-button class="btn-main" type="submit" (click)="onSubmit()">{{data ? ('talukaBlock.update'|translate) : ('talukaBlock.save'|translate)}}</button>
       </div>
     </mat-dialog-content>
     </form>
@@ -85,7 +89,7 @@
 
 <ng-container *ngIf="viewFlag">
   <mat-dialog-content class="modal-body form-container">
-    <div class="row">
+    <div class="row gy-2 gx-2">
       <div class="col-sm-12">
         <div class="row gx-2 ">
           <div class="col-sm-4 form-label">State</div>
@@ -101,7 +105,11 @@
       <div class="col-sm-12">
         <div class="row gx-2">
           <div class="col-sm-4 form-label">Select Taluka</div>
-          <div class="col-sm-8 form-data" *ngFor="let taluka of data.getTalukaModel">: {{lang == 'en' ? taluka?.taluka : taluka?.m_Taluka}}</div>
+          <div class="col-sm-8 form-data d-flex  " >:
+            <span *ngFor="let taluka of data.getTalukaModel">
+              {{lang == 'en' ? taluka?.taluka : taluka?.m_Taluka}},
+            </span>
+          </div>
         </div>
       </div>
       <div class="col-sm-12">

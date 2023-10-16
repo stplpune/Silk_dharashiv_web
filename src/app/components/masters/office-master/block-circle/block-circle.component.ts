@@ -24,6 +24,7 @@ export class BlockCircleComponent {
   textsearch = new FormControl('');
   subscription!: Subscription;//used  for lang conv
   lang: string = 'English';
+  filterFlag : boolean = false;
 
   constructor(
     private apiService: ApiService,
@@ -90,7 +91,7 @@ export class BlockCircleComponent {
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
-        // this.clearForm();
+        !this.filterFlag ? this.textsearch.reset() : '';
         this.getTableData();
         break;
       case 'Edit':

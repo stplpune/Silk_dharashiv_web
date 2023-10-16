@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -23,6 +23,12 @@ export class SetRuleModalComponent {
   levelResp = new Array();
   designationResp = new Array();
   approveLevelResp = new Array();
+  editFlag: boolean = false;
+  editId: any;
+  aId: any;
+  deptlevelID: any;
+  designationID: any;
+  orderId: any;
   @ViewChild('formDirective') private formDirective!: NgForm;
   constructor(private fb: FormBuilder,
     private master: MasterService,
@@ -31,9 +37,12 @@ export class SetRuleModalComponent {
     private spinner: NgxSpinnerService,
     private error: ErrorHandlingService,
     public dialogRef: MatDialogRef<SetRuleModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit() {
+    console.log(this.data);
+
     this.defaultFrom();
     this.getSchemeType();
     this.getDepartment();
@@ -43,7 +52,8 @@ export class SetRuleModalComponent {
     this.getLevel();
     this.getDesignation();
     this.getLevelApprovel();
-    this.addList();
+    // this.addList();
+    this.data?.label == 'Edit' ? this.editData() : '';
   }
 
 
@@ -69,7 +79,6 @@ export class SetRuleModalComponent {
     if (this.approvallistForm.length && this.approvallistForm.status == 'INVALID') {
       this.commonMethods.snackBar("Please Add Approval Details First", 1);
       return;
-      
     }
     else {
       const data = this.fb.group({
@@ -78,99 +87,113 @@ export class SetRuleModalComponent {
         "designationId": ['', [Validators.required]],
         "approvalLevel": ['', [Validators.required]]
       })
-      this.approvallistForm.push(data);
-      console.log("  this.approvallistForm",  this.approvallistForm)
-      console.log(" data.value", this.approvallistForm.controls)
+      let levelData = this.setRulefrm.controls['approvalLevels'].value;
 
-    //  const isDuplicate = this.approvallistForm.controls.some(control => 
-      
-    // ( 
-    //  control.value.departmentLevelId === data.value.departmentLevelId &&
-    //   control.value.designationId === data.value.designationId &&
-    //   control.value.approvalLevel === data.value.approvalLevel
-    // ));
+      levelData.map((x: any) => {
+        this.aId = x.actionId;
+      })
 
-    // if (isDuplicate) {
-    //   this.commonMethods.snackBar("This record already exists.",1);
-    //   return;
-    // } else {
-      // Add the new record to approvallistForm
-      this.approvallistForm.push(data);
-      //console.log(this.approvallistForm.value);
-    // }
-  }
-      
+      levelData.map((x: any) => {
+        this.deptlevelID = x.departmentLevelId;
+      })
 
+      levelData.map((x: any) => {
+        this.designationID = x.designationId;
+      })
 
-    // let levelData = this.setRulefrm.controls['approvalLevels'].value;
-    // console.log(levelData);
+      levelData.map((x: any) => {
+        this.orderId = x.approvalLevel;
+      })
 
-    // let aId = levelData.map((x: any) => {
-    //   return x.actionId;
-    // })
-
-    // let levelID = levelData.map((x: any) => {
-    //   return (x.departmentLevelId);
-    // })
-
-    // let designationID = levelData.map((x: any) => {
-    //   return (x.designationId);
-    // })
-
-
-
-
-
-
-    // let obj = {
-    //   'actionName': this.actionresp.find(cr => cr.id == aId)?.textEnglish,
-    //   'levelName': this.levelResp.find(cr => cr.id == levelID)?.textEnglish,
-    //   'designationName': this.designationResp.find(cr => cr.id == designationID)?.textEnglish,
-    // }
-    // console.log(obj);
+      const isDuplicate = this.approvallistForm.controls.some((control: any, i: any) => {
+        console.log(control)
+        if (this.approvallistForm.length > 1 && control.value.approvalLevel == this.orderId) {
+          this.commonMethods.snackBar("This Record Already Exists Please Select Another Value", 1);
+          control.get("approvalLevel")[i]?.setValue("");
+          return true
+        } else if (this.approvallistForm.length > 1 && control.value.actionId == this.aId && control.value.departmentLevelId == this.deptlevelID && control.value.designationId == this.designationID) {
+          this.commonMethods.snackBar("This Record already exists.", 1);
+          return true
+        }
+        // else if (this.approvallistForm.length > 1 && control.value.departmentLevelId == this.deptlevelID) {
+        //   this.commonMethods.snackBar("This dept level already exists.", 1);
+        //   return true
+        // } else if (this.approvallistForm.length > 1 && control.value.designationId == this.designationID) {
+        //   this.commonMethods.snackBar("This designation already exists.", 1);
+        //   return true;
+        // }
+        return false
+        // control.value.actionId == this.aId &&
+        //   control.value.departmentLevelId === data.value.departmentLevelId &&
+        //   control.value.designationId === data.value.designationId &&
+        //   control.value.approvalLevel === data.value.approvalLevel
+      });
 
 
-  // const department = this.actionresp.find(cr => cr.id == aId)?.textEnglish;
-  // const departmentLevel = this.levelResp.find(cr => cr.id == levelID)?.textEnglish;
-  // const designation = this.designationResp.find(cr => cr.id == designationID)?.textEnglish;
-
-  // if (department  && departmentLevel   && designation) {
-  //     alert("department ,level and designatopn are same plz select another");return;
-  //  }
-
-  //  console.log(  this.approvallistForm);
-   
-
- 
+      if (isDuplicate) {
+        // this.commonMethods.snackBar("This record already exists.", 1);
+        return;
+      }
+      else {
+        this.approvallistForm.push(data);
+        console.log("Array ......", this.approvallistForm.value);
 
 
-    // let duplicatAction = levelData.some((ele: any,i:any) => {
-    //   console.log(ele);
-    //   return ele.actionId === levelData[i].actionId // change
-    // });
-    // console.log(duplicatAction);
-    // else
-
-
-    
-
-    // console.log( this.setRulefrm.controls['approvalLevels'].value);
-
-
-
-    // let Action = formData.approvalLevels.map((x: any) => {
-    //   return x.actionId;
-    // })
-    // console.log(Action);
-
-
-
-
-
+      }
+    }
   }
 
+  editData() {
+    this.editFlag = true;
+    this.editId = this.data.id;
+    this.setRulefrm.patchValue({
+      scheme: this.data.schemeTypeId,
+      department: this.data.departmentId,
+      state: this.data.stateId,
+      district: this.data.districtId,
+      approvalLevels: this.data.id
+    })
+  }
 
+  onSubmit() {
+    let formData = this.setRulefrm.value;
+    if (this.setRulefrm.invalid) { return; }
+    let obj = {
+      "schemeTypeId": formData.scheme,
+      "departmentId": formData.department,
+      "stateId": formData.state,
+      "districtId": formData.district,
+      "createdBy": 0,
+      "flag": this.editFlag == true ? 'u' : 'i',
+      "approvalLevels": formData.approvalLevels
+    }
+    this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/AddUpdateApprovalMasterLevels', false, obj, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == "200") {
+          this.commonMethods.snackBar(res.statusMessage, 0);
+          this.formDirective?.resetForm();
+          this.dialogRef.close('Yes');
+        } else {
+          this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.spinner.hide();
+        this.error.handelError(error.statusCode);
+      }
+    });
+  }
 
+  clearForm() {
+    this.formDirective?.resetForm();
+  }
+
+  deleteApproveLevel(i: any) {
+    this.approvallistForm.removeAt(i);
+  }
+  //--------Dropdown Code Start Here---------------------
   getSchemeType() {
     this.master.GetAllSchemeType().subscribe({
       next: ((res: any) => {
@@ -252,69 +275,7 @@ export class SetRuleModalComponent {
       })
     })
   }
+  //-----------------------------Dropdown Code End Here---------------------- 
 
-
-  onSubmit() {
-    let formData = this.setRulefrm.value;
-    // console.log(formData.approvalLevels.actionId);
-    // let Action = formData.approvalLevels.map((x: any) => {
-    //   return x.actionId;
-    // })
-    // console.log(Action);
-
-
-    // let duplicatAction = this.actionresp.some((ele: any) => {
-    //   console.log(ele);
-    //   return ele.id === Action // change
-    // });
-    // console.log(duplicatAction);
-
-
-
-    if (this.setRulefrm.invalid) {
-      return;
-    }
-    console.log(this.setRulefrm.value);
-    let obj = {
-      "schemeTypeId": formData.scheme,
-      "departmentId": formData.department,
-      "stateId": formData.state,
-      "districtId": formData.district,
-      "createdBy": 0,
-      "flag": "i",
-      "approvalLevels": formData.approvalLevels
-    }
-
-
-
-
-    this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/AddUpdateApprovalMasterLevels', false, obj, false, 'masterUrl');
-    this.apiService.getHttp().subscribe({
-      next: ((res: any) => {
-        this.spinner.hide();
-        if (res.statusCode == "200") {
-          this.commonMethods.snackBar(res.statusMessage, 0);
-          this.formDirective?.resetForm();
-          this.dialogRef.close('Yes');
-
-        } else {
-          this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
-        }
-      }),
-      error: (error: any) => {
-        this.spinner.hide();
-        this.error.handelError(error.statusCode);
-      }
-    });
-
-  }
-
-  clearForm() {
-    this.formDirective?.resetForm();
-  }
-
-  deleteApproveLevel(i: any) {
-    this.approvallistForm.removeAt(i);
-  }
 }
 

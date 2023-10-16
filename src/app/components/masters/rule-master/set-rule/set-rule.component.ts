@@ -19,15 +19,14 @@ export class SetRuleComponent {
     private error:ErrorHandlingService,
     ) {}
 
-// displayedColumns: string[] = ['srno', 'scheme', 'department', 'action'];
-// dataSource = ELEMENT_DATA;
 ngOnInit(){
 this.bindTable()
 }
 
-setrules(){
+setrules(data?:any){
   this.dialog.open(SetRuleModalComponent,{
-    width:'65%'
+    width:'80%',
+    data:data,
   })
 }
 
@@ -69,7 +68,7 @@ childCompInfo(obj: any) {
       this.bindTable();
       break;
     case 'Edit':
-      // this.onEditData(obj);
+      this.setrules(obj);
       break;
     case 'Delete':
       // this.deleteDialogOpen(obj);

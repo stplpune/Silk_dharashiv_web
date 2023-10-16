@@ -14,6 +14,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -34,7 +35,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatRadioModule,
     MatButtonModule,
     GlobalTableComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ]
 })
 export class BlockCircleModule { }
