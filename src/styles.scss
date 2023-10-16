@@ -352,3 +352,12 @@ button.btn-modal-close {
     border-radius: 3px;
     visibility: hidden;
 }
+
+// toggle button css
+.mat-mdc-slide-toggle .mdc-switch.mdc-switch--unselected:enabled .mdc-switch__icon {
+  fill: transparent !important;
+}
+.mat-mdc-slide-toggle .mdc-switch.mdc-switch--selected:enabled .mdc-switch__icon {
+  fill: transparent !important;
+}
+// toggle button css end
