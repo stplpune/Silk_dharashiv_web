@@ -17,6 +17,7 @@ import { AddBlogsComponent } from './add-blogs/add-blogs.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.c
     AngularEditorModule,
     FormsModule,
     ReactiveFormsModule,
-    GlobalTableComponent
+    GlobalTableComponent,
+    TranslateModule
   ]
 })
 export class BlogsModule { }
