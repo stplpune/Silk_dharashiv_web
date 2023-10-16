@@ -78,7 +78,7 @@ export class BlogsComponent {
       pageNumber: this.pageNumber,
       date: 'publishDate',
       img: 'thumbnailImage',
-      // isBlock: 'status',
+      isBlock: 'status',
       pagination: this.tableDatasize > 10 ? true : false,
       highlightedrow: true,
       displayedColumns: displayedColumns,
@@ -104,8 +104,8 @@ export class BlogsComponent {
       case 'Delete':
         this.globalDialogOpen(obj);
         break;
-      // case 'Block':
-      //   this.openBlockDialog(obj);
+      case 'Block':
+        this.openBlockDialog(obj);
     }
   }
 
@@ -131,7 +131,7 @@ export class BlogsComponent {
 
 blockAction(obj: any) {
   let status = !obj.status
-  this.apiService.setHttp('PUT', 'sericulture/api/FAQ/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status, false, false, false, 'masterUrl');
+  this.apiService.setHttp('PUT', 'sericulture/api/Blogs/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status, false, false, false, 'masterUrl');
   this.apiService.getHttp().subscribe({
     next: (res: any) => {
       res.statusCode == "200" ? (this.commonMethod.snackBar(res.statusMessage, 0), this.getTableData()) : this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -145,10 +145,10 @@ blockAction(obj: any) {
 
   globalDialogOpen(delDataObj?: any) {
     let dialogObj = {
-      title: 'Do You Want To Delete Blog?',
-      header: 'Delete',
-      okButton: 'Delete',
-      cancelButton: 'Cancel',
+      title: this.lang == 'mr-IN' ? 'तुम्हाला ब्लॉग हटवायचा आहे का ?' : 'Do You Want To Delete Blog ?',
+      header: this.lang == 'mr-IN' ? 'डिलीट करा' : 'Delete',
+      okButton: this.lang == 'mr-IN' ? 'डिलीट' : 'Delete',
+      cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',

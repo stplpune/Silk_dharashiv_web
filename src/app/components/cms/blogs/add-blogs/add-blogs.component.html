@@ -16,8 +16,8 @@
         <mat-label>{{"blogs.title" | translate}}</mat-label>
         <input matInput formControlName="title" 
         (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithQuetion($event)">
-        <mat-error *ngIf="f['title']?.hasError('required')">{{"Please enter blog title"}} </mat-error>
-        <mat-error *ngIf="f['title']?.hasError('maxLengthExceeded')">{{"Maximum limit is 100 characters"}} </mat-error>
+        <mat-error *ngIf="f['title']?.hasError('required')">{{"blogs.blog_empty" | translate}} </mat-error>
+        <mat-error *ngIf="f['title']?.hasError('maxLengthExceeded')">{{"blogs.blog_limit" | translate}} </mat-error>
       </mat-form-field>
     </div>
     <div class="col-sm-6">
