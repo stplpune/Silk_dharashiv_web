@@ -7,6 +7,8 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
+import { Subscription } from 'rxjs';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 @Component({
   selector: 'app-blogs',
@@ -21,17 +23,24 @@ export class BlogsComponent {
   highLightRowFlag: boolean = false;
   tableDataArray = new Array();
   textsearch = new FormControl('');
-
+  subscription!: Subscription;//used  for lang conv
+  lang: string = 'English';
   constructor(
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
     private commonMethod: CommonMethodsService,
     private errorHandler: ErrorHandlingService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public webStorage: WebStorageService
   
   ) { }
 
   ngOnInit() {  
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+      this.setTableData();
+    })
     this.getTableData();
   }
  
@@ -63,12 +72,13 @@ export class BlogsComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = ['srNo', 'thumbnailImage','title','publishDate','status','action'];
-    let displayedheaders = ['Sr. No.', 'Thumbnail Image','Tittle','Publish Date','Status','Action'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'thumbnailImage','title','publishDate','status','action'] : ['srNo', 'thumbnailImage','title','publishDate','status','action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'लघुप्रतिमा','शीर्षक','प्रकाशित तारीख','स्थिती','कृती'] : ['Sr. No.', 'Thumbnail Image','Tittle','Publish Date','Status','Action'];
     let getTableData = {
       pageNumber: this.pageNumber,
       date: 'publishDate',
       img: 'thumbnailImage',
+      // isBlock: 'status',
       pagination: this.tableDatasize > 10 ? true : false,
       highlightedrow: true,
       displayedColumns: displayedColumns,
@@ -94,8 +104,44 @@ export class BlogsComponent {
       case 'Delete':
         this.globalDialogOpen(obj);
         break;
+      // case 'Block':
+      //   this.openBlockDialog(obj);
     }
   }
+
+  openBlockDialog(obj?: any) {
+    let userEng = obj.status == false ?'Publish' : 'UnPublish';
+    let userMara = obj.status == false ?'प्रकाशित' : 'अप्रकाशित';
+    let dialoObj = {
+      header: this.lang == 'mr-IN' ? 'ब्लॉग ' +userMara+ ' करा'  : userEng+' Blog',
+      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेला ब्लॉग '+userMara+' करू इच्छिता' : 'Do You Want To ' + userEng + ' The Selected Blog?',
+      cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
+      okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
+  }
+  const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
+    width: '320px',
+    data: dialoObj,
+    disableClose: true,
+    autoFocus: false
+  })
+  deleteDialogRef.afterClosed().subscribe((result: any) => {
+    result == 'Yes' ? this.blockAction(obj) : '';
+  })
+}
+
+blockAction(obj: any) {
+  let status = !obj.status
+  this.apiService.setHttp('PUT', 'sericulture/api/FAQ/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status, false, false, false, 'masterUrl');
+  this.apiService.getHttp().subscribe({
+    next: (res: any) => {
+      res.statusCode == "200" ? (this.commonMethod.snackBar(res.statusMessage, 0), this.getTableData()) : this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+    },
+    error: (error: any) => {
+      this.errorHandler.handelError(error.status);
+      this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.status) : this.commonMethod.snackBar(error.status, 1);
+    }
+  })
+}
 
   globalDialogOpen(delDataObj?: any) {
     let dialogObj = {

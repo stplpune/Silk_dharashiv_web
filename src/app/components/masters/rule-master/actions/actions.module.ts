@@ -13,11 +13,15 @@ import { MatTableModule } from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { AddActionComponent } from './add-action/add-action.component';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 
 @NgModule({
   declarations: [
-    ActionsComponent
+    ActionsComponent,
+    AddActionComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +29,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDialogModule,
     MatIconModule,
     MatTableModule,
     MatButtonModule,
