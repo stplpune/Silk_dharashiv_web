@@ -1,63 +1,60 @@
-
-
-
-
-  <div mat-dialog-title class="modal-header">
-    <div class="d-flex align-items-center justify-content-between w-100">
-      <div class="text-main">{{!this.data ? ('department.add_department'|translate) :isViewFlag ? ("department.view_Department" | translate): ('department.update_department'|translate)}}</div>
-      <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
-        <span class="material-symbols-rounded">close</span>
-      </button>
-    </div>
+<div mat-dialog-title class="modal-header">
+  <div class="d-flex align-items-center justify-content-between w-100">
+    <div class="text-main">{{!this.data ? ('department.add_department'|translate) :isViewFlag ?
+      ("department.view_Department" | translate): ('department.update_department'|translate)}}</div>
+    <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
+      <span class="material-symbols-rounded">close</span>
+    </button>
   </div>
-
-  <!-- View Form -->
-  <div *ngIf="isViewFlag">
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="row">
-          <div class="col-sm-auto form-label">{{"department.departmentName_en" | translate}}</div>
-          <div class="col-sm-auto form-data">: {{this.data?.departmentName || '-'}}</div>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row">
-          <div class="col-sm-auto form-label">{{"department.departmentName_mr" | translate}}</div>
-          <div class="col-sm-auto form-data">: {{this.data?.m_DepartmentName || '-'}}</div>
-        </div>
-      </div>
-    </div>
-    </div>
-
- <!-- Add / Update Form -->
-  <div class="" *ngIf="!isViewFlag">
-  <form [formGroup]="departmentFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()" >
-  <mat-dialog-content class="modal-body">
-    <mat-form-field appearance="outline" class="w-100">
-      <mat-label>{{"department.departmentName_en" | translate}}</mat-label>
-      <input matInput formControlName="departmentName"
-        (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
-      <mat-error
-        *ngIf="f['departmentName']?.hasError('required')">{{'department.department_required'|translate}}</mat-error>
-      <mat-error
-        *ngIf="f['departmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}}</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="w-100">
-      <mat-label>{{"department.departmentName_mr" | translate}}</mat-label>
-      <input matInput formControlName="m_DepartmentName"
-        (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
-      <mat-error *ngIf="f['m_DepartmentName']?.hasError('required')">{{'department.department_required'|translate}}
-      </mat-error>
-      <mat-error
-        *ngIf="f['m_DepartmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}}
-      </mat-error>
-    </mat-form-field>
-    <div class="d-flex align-items-center justify-content-end gap-2">
-      <button mat-flat-button class="btn-main-light" type="button" (click)="clearFormData()">Clear</button>
-      <button mat-flat-button class="btn-main" type="submit">{{this.data ? ('department.update'|translate) :
-        ('department.add'|translate)}}</button>
-    </div>
-  </mat-dialog-content>
-</form>
 </div>
 
+
+
+<!-- Add / Update Form -->
+<mat-dialog-content class="modal-body form-container">
+  <!-- View Form -->
+<div *ngIf="isViewFlag">
+  <div class="row gy-2">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-auto form-label">{{"department.departmentName_en" | translate}}</div>
+        <div class="col-sm-auto form-data">: {{this.data?.departmentName || '-'}}</div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-auto form-label">{{"department.departmentName_mr" | translate}}</div>
+        <div class="col-sm-auto form-data">: {{this.data?.m_DepartmentName || '-'}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="" *ngIf="!isViewFlag">
+        <form [formGroup]="departmentFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>{{"department.departmentName_en" | translate}}</mat-label>
+        <input matInput formControlName="departmentName"
+          (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
+        <mat-error
+          *ngIf="f['departmentName']?.hasError('required')">{{'department.department_required'|translate}}</mat-error>
+        <mat-error
+          *ngIf="f['departmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>{{"department.departmentName_mr" | translate}}</mat-label>
+        <input matInput formControlName="m_DepartmentName"
+          (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
+        <mat-error *ngIf="f['m_DepartmentName']?.hasError('required')">{{'department.department_required'|translate}}
+        </mat-error>
+        <mat-error
+          *ngIf="f['m_DepartmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}}
+        </mat-error>
+      </mat-form-field>
+      <div class="d-flex align-items-center justify-content-end gap-2">
+        <button mat-flat-button class="btn-main-light" type="button" (click)="clearFormData()">Clear</button>
+        <button mat-flat-button class="btn-main" type="submit">{{this.data ? ('department.update'|translate) :
+          ('department.add'|translate)}}</button>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
