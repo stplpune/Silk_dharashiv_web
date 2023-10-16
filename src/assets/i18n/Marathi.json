@@ -120,5 +120,18 @@
     "please_select_village":"कृपया गाव निवडा",
     "circle_name_en":"मंडळाचे नाव(इंग्रजी)",
     "circle_name_mr":"मंडळाचे नाव(मराठी)"
+  },
+
+  "blogs":{
+    "blogs":"ब्लॉग",
+    "add_Blog":"ब्लॉग जोडा", 
+    "add_Blogs_Article":"ब्लॉग/लेख जोडा",
+    "title":"शीर्षक",
+    "editortool":"संपादक साधन",
+    "featuredImage":"वैशिष्ट्यीकृत प्रतिमा",
+    "PleaseEnterBlogTitle" : "कृपया ब्लॉग शीर्षक प्रविष्ट करा",
+    "add": "प्रकाशित करा",
+    "update": "अपडेट",
+    "clear": "रद्द करा"
   }
 }

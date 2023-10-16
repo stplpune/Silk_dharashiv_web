@@ -120,6 +120,19 @@
         "circle_name_en":"Circle Name(English)",
         "circle_name_mr":"Circle Name(Marathi)"
 
+      },
+
+      "blogs":{
+        "blogs":"ब्लॉग",
+        "add_Blog":"ब्लॉग जोडा",
+        "add_Blogs_Article":"ब्लॉग/लेख जोडा",
+        "title":"Title",
+        "editortool":"Editor tool",
+        "featuredImage":"Featured Image",
+        "PleaseEnterBlogTitle":"Please Enter Blog Title",
+        "add": "Publish",
+        "update": "Update",
+        "clear": "Clear"
       }
 
 
