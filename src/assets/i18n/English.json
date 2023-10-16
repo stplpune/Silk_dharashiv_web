@@ -123,9 +123,10 @@
       },
 
       "blogs":{
-        "blogs":"ब्लॉग",
-        "add_Blog":"ब्लॉग जोडा",
-        "add_Blogs_Article":"ब्लॉग/लेख जोडा",
+        "blogs":"Blogs",
+        "add_Blog":"Add Blog",
+        "add_Blogs_Article":"Add Blogs / Article",
+        "update_Blogs_Article":"Update Blogs / Article",
         "title":"Title",
         "editortool":"Editor tool",
         "featuredImage":"Featured Image",
