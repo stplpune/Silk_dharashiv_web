@@ -68,6 +68,7 @@ export class BlogsComponent {
     let getTableData = {
       pageNumber: this.pageNumber,
       date: 'publishDate',
+      img: 'thumbnailImage',
       pagination: this.tableDatasize > 10 ? true : false,
       highlightedrow: true,
       displayedColumns: displayedColumns,
