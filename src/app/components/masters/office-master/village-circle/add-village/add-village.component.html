@@ -9,7 +9,7 @@
   </div>
 </div>
 <form [formGroup]="villageForm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
-  <mat-dialog-content class="modal-body">
+  <mat-dialog-content class="modal-body form-container">
     <div class="row">
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
@@ -89,6 +89,45 @@
       <button mat-flat-button type="button" class="btn-main-light" type="button"
         (click)="clearFormData()">Cancel</button>
       <button mat-flat-button class="btn-main" type="submit">{{!data ? 'Submit' : 'Update'}}</button>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="row gx-2">
+          <div class="col-sm-6 form-label">State</div>
+          <div class="col-sm-6 form-label">: Maharashtra</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row gx-2">
+          <div class="col-sm-6 form-label">District</div>
+          <div class="col-sm-6 form-label">: Pune</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row gx-2">
+          <div class="col-sm-6 form-label">Taluka</div>
+          <div class="col-sm-6 form-label">: Haveli</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row gx-2">
+          <div class="col-sm-6 form-label">Village</div>
+          <div class="col-sm-6 form-label">: Nagar</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row gx-2">
+          <div class="col-sm-6 form-label">Circle Name (English)</div>
+          <div class="col-sm-6 form-label">: Nagar</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row gx-2">
+          <div class="col-sm-6 form-label">Circle Name (Marathi)</div>
+          <div class="col-sm-6 form-label">: Nagar</div>
+        </div>
+      </div>
     </div>
   </mat-dialog-content>
 </form>
