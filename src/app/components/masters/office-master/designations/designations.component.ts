@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
+import { AddDesignationComponent } from './add-designation/add-designation.component';
 @Component({
   selector: 'app-designations',
   templateUrl: './designations.component.html',
@@ -43,6 +44,13 @@ export class DesignationsComponent {
     public dialog: MatDialog,
     private WebStorageService: WebStorageService
   ) { }
+
+
+  adddesignation(){
+    this.dialog.open(AddDesignationComponent,{
+      width:'30%'
+    })
+  }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
@@ -196,7 +204,7 @@ export class DesignationsComponent {
       case 'Pagination':
         this.searchDataFlag ? (this.f['deptId'].setValue(this.filterFrm.value?.deptId), this.f['deptLevelId'].setValue(this.filterFrm.value?.deptLevelId), this.f['textSearch'].setValue(this.filterFrm.value?.textSearch)) : (this.f['deptId'].setValue(''), this.f['deptLevelId'].setValue(''), this.f['textSearch'].setValue(''));
         this.pageNumber = obj.pageNumber;
-        this.clearMainForm();//when we click on edit button & click on pagination that time clear form 
+        this.clearMainForm();//when we click on edit button & click on pagination that time clear form
         this.bindTable();
         break;
       case 'Edit':
@@ -244,7 +252,7 @@ export class DesignationsComponent {
             if (res.statusCode == '200') {
               this.commonMethod.snackBar(res.statusMessage, 0);
               this.bindTable();
-              this.clearMainForm(); //when we click on edit and add button and delete record that time clear form code 
+              this.clearMainForm(); //when we click on edit and add button and delete record that time clear form code
             } else {
               this.commonMethod.snackBar(res.statusMessage, 1);
             }

@@ -12,9 +12,15 @@ import { MatTableModule } from '@angular/material/table';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { AddDesignationComponent } from './add-designation/add-designation.component';
+import {MatDialogModule} from '@angular/material/dialog';
+
+
+
 @NgModule({
   declarations: [
-    DesignationsComponent
+    DesignationsComponent,
+    AddDesignationComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatIconModule,
     MatTableModule,
     MatSelectModule,
+    MatDialogModule,
     MatButtonModule,
     GlobalTableComponent,
     ReactiveFormsModule,
