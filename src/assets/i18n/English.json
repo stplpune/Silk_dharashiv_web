@@ -8,7 +8,7 @@
         "update": "Update",
         "clear": "Clear",
         "update_department": "Update Department",
-        "add_designation": "Add Department",
+        "add_department": "Add Department",
         "view_Department":"View Department",
         "department_required" : "Please Enter Department Name",
         "department_maxLength": "Maximun 30 character allowed"
