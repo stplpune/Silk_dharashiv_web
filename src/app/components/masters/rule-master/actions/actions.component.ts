@@ -214,7 +214,7 @@ export class ActionsComponent implements OnDestroy{
       autoFocus: false
     })
     deleteDialogRef.afterClosed().subscribe((result: any) => {
-      result == 'Yes' ? this.blockAction(obj) : this.getTableData();
+      result == 'Yes' ? this.blockAction(obj) : '';
     })
   }
 

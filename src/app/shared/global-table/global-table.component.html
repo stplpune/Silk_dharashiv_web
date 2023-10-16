@@ -15,7 +15,7 @@
                     </ng-container>
                       <!-- used for toggle  -->
                     <ng-container *ngIf="tableInfo?.isBlock == columns">
-                        <mat-slide-toggle [checked]="tableInfo.tableData[i]?.status ||tableInfo.tableData[i]?.isActive" (change)="action(element, 'Block')">
+                        <mat-slide-toggle [checked]="tableInfo.tableData[i]?.status ||tableInfo.tableData[i]?.isActive" (change)="action(element, 'Block'); setPrevVal($event)">
                         </mat-slide-toggle>
                     </ng-container>
                     <!-- used for image -->

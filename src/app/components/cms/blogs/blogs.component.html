@@ -14,17 +14,17 @@
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Search</mat-label>
-          <input matInput placeholder="Search">
+          <input matInput [formControl]="textsearch" >
         </mat-form-field>
       </div>
       <div class="col-sm-auto">
         <div class="d-flex align-items-center gap-2">
-          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
-            <mat-icon class="material-symbols-rounded">
+          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button" (click)="getTableData('filter')">
+            <mat-icon class="material-symbols-rounded" >
               search
             </mat-icon>
           </button>
-          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="clearFilter()">
             <mat-icon class="material-symbols-rounded">
               close
             </mat-icon>
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="table-responsive scrollbar">
-      Table
+      <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
     </div>
   </mat-card-content>
 </mat-card>

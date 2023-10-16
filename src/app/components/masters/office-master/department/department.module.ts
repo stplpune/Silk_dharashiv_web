@@ -12,16 +12,20 @@ import {MatButtonModule} from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { AddDepartmentComponent } from './add-department/add-department.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
   declarations: [
-    DepartmentComponent
+    DepartmentComponent,
+    AddDepartmentComponent
   ],
   imports: [
     CommonModule,
     DepartmentRoutingModule,
     MatCardModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,

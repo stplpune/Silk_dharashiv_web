@@ -61,5 +61,8 @@ export class GlobalTableComponent {
      this.recObjToChild.emit(obj);
   }
 
+  setPrevVal(e:any){   //  this method for toggle button where we dont get table Api call when click on cancel button
+    e.source.checked = !e.source.checked
+  }
  
 }

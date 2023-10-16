@@ -138,7 +138,7 @@ export class SchemesComponent {
   }
 
   onSubmitData() {
-    let formData = this.schemeForm.value;
+    let formData = this.schemeForm.getRawValue();
     this.spinner.show();
     if (this.schemeForm.invalid) {
       this.spinner.hide();
@@ -267,7 +267,7 @@ export class SchemesComponent {
       autoFocus: false
     })
     deleteDialogRef.afterClosed().subscribe((result: any) => {
-      result == 'Yes' ? this.blockScheme(obj) : this.getTableData();
+      result == 'Yes' ? this.blockScheme(obj) : '';
     })
   }
 
