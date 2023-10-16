@@ -137,7 +137,29 @@
         "add": "Publish",
         "update": "Update",
         "clear": "Clear"
+      },
+
+      "talukaBlock":{
+        "block":"Block",
+        "search_by_blockName_name":"Search By Block Name",
+        "add_block":"Add Block",
+        "update_Block":"Update Block",
+        "select_state":"Select State",
+        "select_district":"Select District",
+        "select_taluka":"Select Taluka",        
+        "clear": "Cancle",
+        "save":"Submit",
+        "maximum_limit_30_characters":"Maximum limit is 30 characters",
+        "please_enter_valid_block_name(Marathi)":"Please Enter Valid Block Name(Marathi)",
+        "please_enter_valid_block_name(English)":"Please Enter Valid Block Name(English)",
+        "please_enter_block_name(English)":"Please Enter Block Name(Marathi)",
+        "please_enter_block_name(Marathi)":"Please Enter Block Name(Marathi)",
+        "please_select_taluka":"Please Select Taluka",
+        "block_name_en":"Block Name(English)",
+        "block_name_mr":"Block Name(Marathi)"
+
       }
+
 
 
 }
