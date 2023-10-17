@@ -65,7 +65,7 @@ export class ActionsComponent implements OnDestroy{
     let formData = this.filterFrm.getRawValue();
     status == 'filter' ? ((this.pageNumber = 1),  this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/Action/get-All-Action?SchemeTypeId=' + (formData?.schemeTypeId || 0) + str + '&TextSearch=' + (formData.textSearch.trim() || ''), false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Action/get-All-Action?SchemeTypeId=' + (formData?.schemeTypeId || 0) + str + '&TextSearch=' + (formData.textSearch.trim() || '')+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();

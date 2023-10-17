@@ -53,8 +53,8 @@ export class AddActionComponent {
   defaultFrm() {
     this.actionFrm = this.fb.group({
       id: [this.data ? this.data.id : 0],
-      actionName: [this.data ? this.data.actionName : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(50)]],
-      m_ActionName: [this.data ? this.data.m_ActionName : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(50)]],
+      actionName: [this.data ? this.data.actionName : '', [Validators.required, Validators.pattern(this.validator.fullNamequetion), this.validator.maxLengthValidator(50)]],
+      m_ActionName: [this.data ? this.data.m_ActionName : '', [Validators.required, Validators.pattern(this.validator.marathiquestion), this.validator.maxLengthValidator(50)]],
       schemeTypeId: [this.data ? this.data.schemeTypeId : '', Validators.required],
       description: [this.data ? this.data.description : '',this.validator.maxLengthValidator(500)],
       flag: [this.data ? "u" : "i"]
@@ -82,7 +82,7 @@ export class AddActionComponent {
       this.spinner.show();
       formvalue.id = Number(formvalue.id)
       let mainData = {...formvalue,"createdBy":this.webStorage.getUserId()};
-      this.apiService.setHttp('POST', 'sericulture/api/Action/Insert-Update-Action', false, mainData, false, 'masterUrl');
+      this.apiService.setHttp('POST', 'sericulture/api/Action/Insert-Update-Action?lan='+this.lang, false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
