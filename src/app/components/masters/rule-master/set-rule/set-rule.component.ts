@@ -40,10 +40,11 @@ bindTable() {
   this.apiService.getHttp().subscribe({
     next: (res: any) => {
       console.log(res);
-      
       this.spinner.hide();
       if (res.statusCode == '200') {
         this.tableresp = res.responseData;
+        console.log( this.tableresp);
+        
         // this.tableDatasize = res.responseData1?.totalCount;
         // this.totalPages = res.responseData1?.totalPages;
       } else {
@@ -79,18 +80,20 @@ childCompInfo(obj: any) {
 
 setTableData() {
   // this.highLightedFlag = true;
-  let displayedColumns =  ['srNo', 'state', 'district','schemeType','departmentName', 'action'] 
+  let displayedColumns =  ['srNo', 'state', 'district','schemeType','departmentName', 'action'] ;
   let displayedheaders =  ['Sr No', 'State', 'District', 'Scheme', 'Department','Action'] ;
   let tableData = {
-    // pageNumber: this.pageNumber,
-    // pagination: this.tableDatasize > 10 ? true : false,
+    pageNumber: '',
+    pagination: false,
     highlightedrow: true,
     displayedColumns: displayedColumns,
     tableData: this.tableresp,
-    // tableSize: this.tableDatasize,
+    tableSize: '',
     tableHeaders: displayedheaders,
     delete: true, view: false, edit: true,
   };
+  console.log("tableData",tableData);
+  
   // this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
   this.apiService.tableData.next(tableData);
 }

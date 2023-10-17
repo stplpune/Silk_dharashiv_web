@@ -112,9 +112,8 @@ export class AddcircleComponent {
     })
   }
   onSubmit() {
-   let talukaaa =  this.addBlockForm.value.talukas.toString();
-   this.addBlockForm.value.talukas =talukaaa
-    let formvalue = this.addBlockForm.value;
+    let formvalue = this.addBlockForm.getRawValue();
+    formvalue.talukas = this.addBlockForm.value.talukas.toString();
     if (this.addBlockForm.invalid) {
       return
     } else {  

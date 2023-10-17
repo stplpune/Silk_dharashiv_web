@@ -108,7 +108,7 @@ export class BlockCircleComponent {
 
   globalDialogOpen(delDataObj?: any) {
     let dialogObj = {
-      title: this.lang == 'mr-IN' ? 'तुम्हाला ब्लॉक हटवायचा आहे का?' : 'Do You Want To Delete Block??',
+      title: this.lang == 'mr-IN' ? 'तुम्हाला ब्लॉक हटवायचा आहे का?' : 'Do You Want To Delete Block?',
       header: this.lang == 'mr-IN' ? 'डिलीट करा' : 'Delete',
       okButton:  this.lang == 'mr-IN' ? 'डिलीट' : 'Delete',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
@@ -147,7 +147,7 @@ export class BlockCircleComponent {
     const dialogRef = this.dialog.open(AddcircleComponent,{
       width: '30%',
       data: obj,
-      // disableClose: true
+      disableClose: true
     });
     dialogRef.afterClosed().subscribe(res => {
       res == 'Yes'? this.getTableData() : '';

@@ -93,13 +93,13 @@
       <div class="col-sm-12">
         <div class="row gx-2 ">
           <div class="col-sm-4 form-label">State</div>
-          <div class="col-sm-8 form-data">:{{lang == 'en' ?  data?.state : data?.m_State}}</div>
+          <div class="col-sm-8 form-data">:{{lang == 'en' ?  (data?.state || '-') : (data?.m_State || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-12">
         <div class="row gx-2">
           <div class="col-sm-4 form-label">District</div>
-          <div class="col-sm-8 form-data">: {{lang == 'en' ?  data?.district : data?.m_District}}</div>
+          <div class="col-sm-8 form-data">: {{lang == 'en' ?  (data?.district || '-') : (data?.m_District || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-12">
@@ -107,7 +107,7 @@
           <div class="col-sm-4 form-label">Select Taluka</div>
           <div class="col-sm-8 form-data d-flex  " >:
             <span *ngFor="let taluka of data.getTalukaModel">
-              {{lang == 'en' ? taluka?.taluka : taluka?.m_Taluka}},
+              {{lang == 'en' ? (taluka?.taluka || '-'): (taluka?.m_Taluka || '-')}},
             </span>
           </div>
         </div>
@@ -115,7 +115,7 @@
       <div class="col-sm-12">
         <div class="row gx-2">
           <div class="col-sm-4 form-label">Block Name</div>
-          <div class="col-sm-8 form-data">:{{lang == 'en' ?  data?.blockName : data?.m_BlockName}}</div>
+          <div class="col-sm-8 form-data">:{{lang == 'en' ? ( data?.blockName || '-'): (data?.m_BlockName ||'-' )}}</div>
         </div>
       </div>
       <!-- <div class="col-sm-12">
