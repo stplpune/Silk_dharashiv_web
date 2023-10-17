@@ -10,6 +10,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ApiService } from 'src/app/core/services/api.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-global-table',
   templateUrl: './global-table.component.html',
@@ -28,13 +30,18 @@ export class GlobalTableComponent {
   pageIndex!: number;
   tableInfo: any;
   highlightedRow: any;
-  //checkBoxId:number |any;
-  //selectAllCheckbox: boolean = false;
+  subscription!: Subscription;//used  for lang conv
+  lang: any;//used for lang
   tableHeaders = new Array();
   pageName:any;
-  constructor(private apiservice:ApiService){}
+  constructor(private apiservice:ApiService,private WebStorageService: WebStorageService,){}
 
   ngOnInit() {
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+    })
+
     this.tableInfo = [];
     this.apiservice.tableData.subscribe((res:any)=>{
     this.tableInfo = res;
