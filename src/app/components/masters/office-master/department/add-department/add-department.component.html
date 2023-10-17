@@ -52,7 +52,7 @@
         </mat-error>
       </mat-form-field>
       <div class="d-flex align-items-center justify-content-end gap-2">
-        <button mat-flat-button class="btn-main-light" type="button" (click)="clearFormData()">Clear</button>
+        <button mat-flat-button class="btn-main-light" type="button" (click)="clearFormData()">{{'department.clear'|translate}}</button>
         <button mat-flat-button class="btn-main" type="submit">{{this.data ? ('department.update'|translate) :
           ('department.add'|translate)}}</button>
       </div>
