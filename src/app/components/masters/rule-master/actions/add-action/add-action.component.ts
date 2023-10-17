@@ -82,7 +82,7 @@ export class AddActionComponent {
       this.spinner.show();
       formvalue.id = Number(formvalue.id)
       let mainData = {...formvalue,"createdBy":this.webStorage.getUserId()};
-      this.apiService.setHttp('POST', 'sericulture/api/Action/Insert-Update-Action', false, mainData, false, 'masterUrl');
+      this.apiService.setHttp('POST', 'sericulture/api/Action/Insert-Update-Action?lan='+this.lang, false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
