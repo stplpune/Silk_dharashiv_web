@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">Add FAQ</div>
+    <div class="text-main">{{!this.data ? ('faq.add_faq'|translate) :isViewFlag ? ("faq.view_faq" | translate): ('faq.update_faq'|translate)}} </div>
     <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
       <mat-icon class="material-symbols-outlined">
         close
@@ -8,65 +8,88 @@
     </button>
   </div>
 </div>
-<div mat-dialog-content class="modal-body form-container">
+<mat-dialog-content class="modal-body form-container">
+<!-- View section -->
+<div *ngIf="isViewFlag">
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-auto form-label"> {{'faq.question_en' | translate}}</div>
+      <div class="col-sm-auto form-data">: {{this.data?.question || '-'}}</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-auto form-label">{{'faq.question_mr' | translate}}</div>
+      <div class="col-sm-auto form-data">: {{this.data?.m_Question || '-'}}</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-auto form-label">{{'faq.answer_en' | translate}}</div>
+      <div class="col-sm-auto form-data">: {{this.data?.answer || '-'}}</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-auto form-label">{{'faq.answer_mr' | translate}}</div>
+      <div class="col-sm-auto form-data">: {{this.data?.m_Answer || '-'}}</div>
+    </div>
+  </div>
+</div>
+</div>
+<form [formGroup]="faqFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
+  <div *ngIf="!isViewFlag" mat-dialog-content class="modal-body form-container">
     <div class="mb-0">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Question (English)</mat-label>
-        <input matInput formControlName="question">
-
+        <mat-label>{{'faq.question_en' | translate}}</mat-label>
+        <input matInput formControlName="question"
+          (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithQuetion($event)">
+        <mat-error *ngIf="f['question']?.hasError('required')">{{'faq.question_required' | translate}} </mat-error>
+        <mat-error *ngIf="f['question']?.hasError('pattern')">{{'faq.question_pattern' | translate}} </mat-error>
+        <mat-error *ngIf="f['question']?.hasError('maxLengthExceeded')">{{'faq.question_maxLength' | translate}}
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="mb-0">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Question (Marathi)</mat-label>
-        <input matInput formControlName="m_Question">
+        <mat-label>{{'faq.question_mr' | translate}}</mat-label>
+        <input matInput formControlName="m_Question"
+          (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiQuetionValidation($event)">
+        <mat-error *ngIf="f['m_Question']?.hasError('required')">{{'faq.question_required' | translate}} </mat-error>
+        <mat-error *ngIf="f['m_Question']?.hasError('pattern')">{{'faq.question_pattern' | translate}} </mat-error>
+        <mat-error *ngIf="f['m_Question']?.hasError('maxLengthExceeded')">{{'faq.question_maxLength' | translate}}
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Answer (English)</mat-label>
-        <textarea matInput formControlName="answer"></textarea>
+        <mat-label>{{'faq.answer_en' | translate}}</mat-label>
+        <textarea matInput formControlName="answer"
+          (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithQuetion($event)"></textarea>
+        <mat-error *ngIf="f['answer']?.hasError('required')">{{'faq.Answer_required' | translate}} </mat-error>
+        <mat-error *ngIf="f['answer']?.hasError('pattern')">{{'faq.Answer_pattern' | translate}} </mat-error>
+        <mat-error *ngIf="f['answer']?.hasError('maxLengthExceeded')">{{'faq.answer_maxLength' | translate}}
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Answer (Marathi)</mat-label>
-        <textarea matInput formControlName="m_Answer"></textarea>
+        <mat-label>{{'faq.answer_mr' | translate}}</mat-label>
+        <textarea matInput formControlName="m_Answer"
+          (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiQuetionValidation($event)"></textarea>
+        <mat-error *ngIf="f['m_Answer']?.hasError('required')">{{'faq.Answer_required' | translate}} </mat-error>
+        <mat-error *ngIf="f['m_Answer']?.hasError('pattern')">{{'faq.Answer_pattern' | translate}} </mat-error>
+        <mat-error *ngIf="f['m_Answer']?.hasError('maxLengthExceeded')">{{'faq.answer_maxLength' | translate}}
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="d-flex align-items-center justify-content-end gap-2">
-      <button mat-flat-button class="btn-main-light" type="button">Clear</button>
-      <button mat-flat-button class="btn-main" type="submit">Publish</button>
+      <button mat-flat-button class="btn-main-light" type="button"
+        (click)="clearFormData()">{{'faq.clear'|translate}}</button>
+      <button mat-flat-button class="btn-main" type="submit">{{!this.data ? ('faq.add'|translate) :
+        ('faq.update'|translate)}}</button>
     </div>
-
-
-
-
-    <!-- View section -->
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="d-flex flex-column">
-          <div class="form-label">Question(English)</div>
-          <div class="form-data">: question</div>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="d-flex flex-column">
-          <div class="form-label">Question(Marathi)</div>
-          <div class="form-data">: question</div>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="d-flex flex-column">
-          <div class="form-label">Answer(English)</div>
-          <div class="form-data">: question</div>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="d-flex flex-column">
-          <div class="form-label">Answer(Marathi)</div>
-          <div class="form-data">: question</div>
-        </div>
-      </div>
-    </div>
-</div>
+  </div>
+</form>
+</mat-dialog-content>
