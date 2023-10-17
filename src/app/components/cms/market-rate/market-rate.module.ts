@@ -13,11 +13,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { AddMarketRateComponent } from './add-market-rate/add-market-rate.component';
 
 
 @NgModule({
   declarations: [
-    MarketRateComponent
+    MarketRateComponent,
+    AddMarketRateComponent
   ],
   imports: [
     CommonModule,
