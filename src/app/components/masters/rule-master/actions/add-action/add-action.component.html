@@ -60,6 +60,7 @@
             <input matInput formControlName="actionName"
               (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecChars($event)">
             <mat-error *ngIf="f['actionName']?.hasError('required')">{{'action.action_required'|translate}} </mat-error>
+            <mat-error *ngIf="f['actionName']?.hasError('pattern')">{{'action.action_pattern'|translate}} </mat-error>
             <mat-error *ngIf="f['actionName']?.hasError('maxLengthExceeded')">{{'action.action_maxLength'|translate}}
             </mat-error>
           </mat-form-field>
@@ -71,6 +72,7 @@
               (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
             <mat-error *ngIf="f['m_ActionName']?.hasError('required')">{{'action.action_required'|translate}}
             </mat-error>
+            <mat-error *ngIf="f['m_ActionName']?.hasError('pattern')">{{'action.action_pattern_mr'|translate}} </mat-error>
             <mat-error *ngIf="f['m_ActionName']?.hasError('maxLengthExceeded')">{{'action.action_maxLength'|translate}}
             </mat-error>
           </mat-form-field>
