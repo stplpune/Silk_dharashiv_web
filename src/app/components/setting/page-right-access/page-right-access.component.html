@@ -1,150 +1,146 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item" aria-current="page">Setting</li>
-    <li class="breadcrumb-item" aria-current="page">Page Right Access</li>
+    <!-- <li class="breadcrumb-item" aria-current="page">Setting</li> -->
+    <li class="breadcrumb-item" aria-current="page">{{lang == 'en' ? "Page Right Access" : "पृष्ठ अधिकार"}} </li>
   </ol>
 </nav>
 <mat-card class="plain-card">
   <mat-card-header class="card-header-control pt-0 mt-3 mb-3 form-container">
     <form [formGroup]="filterFrm" #formDirective="ngForm">
-      <div class="row align-items-center w-100 justify-content-start g-2">
+      <div class="row align-items-center w-100 justify-content-start gy-4">
         <div class="col-sm-3">
-          <label class="form-label">Department</label>
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>Department</mat-label> -->
+            <mat-label>{{'designation.depertment'|translate}}</mat-label>
             <mat-select formControlName="departmentId">
-              <mat-option *ngFor="let department of departmentArray"
-                [value]="department.id">{{department.textEnglish}}</mat-option>
+              <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang == 'en' ?
+                department.textEnglish : department.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="col-sm-3">
-          <label class="form-label">Department Level</label>
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>Designation Level</mat-label> -->
+            <mat-label>{{'designation.designation_level'|translate}}</mat-label>
             <mat-select formControlName="designationLevelId">
-              <mat-option *ngFor="let level of designationLevelArray"
-                [value]="level.id">{{level.textEnglish}}</mat-option>
+              <mat-option *ngFor="let level of designationLevelArray" [value]="level.id">{{lang == 'en' ?
+                level.textEnglish : level.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="col-sm-3">
-          <label class="form-label">Designation</label>
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>Designation</mat-label> -->
+            <mat-label>{{'pageAccess.designation'|translate}}</mat-label>
             <mat-select formControlName="designationId">
-              <mat-option *ngFor="let  designation of designationArray"
-                [value]="designation.id">{{designation.textEnglish}}</mat-option>
+              <mat-option *ngFor="let  designation of designationArray" [value]="designation.id">{{lang == 'en' ?
+                designation.textEnglish : designation.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="col-sm-3">
-          <label class="form-label">Main Module</label>
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>Module</mat-label> -->
-            <mat-select formControlName="moduleId" (selectionChange)="getSubModule()">
-              <mat-option *ngFor="let  module of moduleArray" [value]="module.id">{{module.moduleName}}</mat-option>
+            <mat-label>{{'pageAccess.module'|translate}}</mat-label>
+            <mat-select formControlName="moduleId" (selectionChange)="clearDropdown('moduleId');getSubModule()">
+              <mat-option *ngFor="let  module of moduleArray" [value]="module.id">{{lang == 'en' ? module.textEnglish :
+                module.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="col-sm-3">
-          <label class="form-label">Sub Module</label>
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>SubModule</mat-label> -->
-            <mat-select formControlName="subModuleId">
-              <mat-option *ngFor="let  subModule of subModuleArray"
-                [value]="subModule.id">{{subModule.subModuleName}}</mat-option>
+            <mat-label>{{'pageAccess.submodule'|translate}}</mat-label>
+            <mat-select formControlName="subModuleId"
+            [class]="!a['moduleId'].getRawValue() ? a['subModuleId'].disable({ onlySelf: true }) : a['subModuleId'].enable({ onlySelf: true })">
+              <mat-option *ngFor="let  subModule of subModuleArray" [value]="subModule.id">
+                {{lang == 'en' ? subModule.textEnglish : subModule.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="col-sm-3">
-          <label class="form-label">
-            Search Page Name/Page URL
-          </label>
-          <mat-form-field appearance="outline" class="w-100">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'pageAccess.search_page_name'|translate}}</mat-label>
             <input matInput formControlName="searchText">
           </mat-form-field>
         </div>
 
         <div class="col-sm-auto text-end">
-          <button mat-flat-button class="btn-main me-2" (click)="getTableData()">Search</button>
-          <button mat-flat-button class="btn-main-light">Clear</button>
+          <button mat-flat-button type="submit" class="btn-main me-2"
+            (click)="getTableData()">{{'pageAccess.search'|translate}}</button>
+          <button mat-flat-button type="button" class="btn-main-light"
+            (click)="clearForm()">{{'pageAccess.clear'|translate}}</button>
         </div>
       </div>
     </form>
 
   </mat-card-header>
   <mat-card-content class="card-body pt-0">
-    <table mat-table [dataSource]="dataSource" class="dashboard-table">
-      <ng-container matColumnDef="srno">
-        <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
-        <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
-      </ng-container>
+    <ng-container *ngIf="dataSource?.length; else elseBlock">
+      <table mat-table [dataSource]="dataSource" class="dashboard-table">
+        <ng-container matColumnDef="srno">
+          <th mat-header-cell *matHeaderCellDef>{{lang == 'en' ? "Sr. No." : "अनुक्रमणिका"}}</th>
+          <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="module">
-        <th mat-header-cell *matHeaderCellDef>Module</th>
-        <td mat-cell *matCellDef="let element"> {{element.mainMenu}} </td>
-      </ng-container>
+        <ng-container matColumnDef="module">
+          <th mat-header-cell *matHeaderCellDef>{{lang == 'en' ? "Module" : "मॉड्यूल"}}</th>
+          <td mat-cell *matCellDef="let element">{{lang == 'en' ? element.mainMenu : element.m_MainMenu}}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="submodule">
-        <th mat-header-cell *matHeaderCellDef>Sub Module</th>
-        <td mat-cell *matCellDef="let element"> {{element.subMenu}} </td>
-      </ng-container>
-
-
-      <ng-container matColumnDef="pagename">
-        <th mat-header-cell *matHeaderCellDef> Page Name</th>
-        <td mat-cell *matCellDef="let element"> {{element.pageName}} </td>
-      </ng-container>
+        <ng-container matColumnDef="submodule">
+          <th mat-header-cell *matHeaderCellDef>{{lang == 'en' ? "SubModule" : "सबमॉड्यूल"}}</th>
+          <td mat-cell *matCellDef="let element"> {{lang == 'en' ? element.subMenu : element.m_SubMenu}} </td>
+        </ng-container>
 
 
-      <!-- <ng-container matColumnDef="PageURL">
-          <th mat-header-cell *matHeaderCellDef> Page URL </th>
-          <td mat-cell *matCellDef="let element"> {{element.pageURL}} </td>
-      </ng-container> -->
+        <ng-container matColumnDef="pagename">
+          <th mat-header-cell *matHeaderCellDef>{{lang == 'en' ? "Page Name" : "पृष्ठाचे नाव"}}</th>
+          <td mat-cell *matCellDef="let element">{{lang == 'en' ? element.pageName : element.m_PageName}}</td>
+        </ng-container>
 
+        <ng-container matColumnDef="read">
+          <th mat-header-cell *matHeaderCellDef> Read </th>
+          <td mat-cell *matCellDef="let element;let i=index">
+            <mat-checkbox class="example-margin" [(ngModel)]="element.readRight"
+              [checked]="element.readRight"></mat-checkbox>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="read">
-        <th mat-header-cell *matHeaderCellDef> Read </th>
-        <td mat-cell *matCellDef="let element;let i=index">
-          <mat-checkbox class="example-margin" [(ngModel)]="element.readRight"
-            [checked]="element.readRight"></mat-checkbox>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="write">
+          <th mat-header-cell *matHeaderCellDef> Write </th>
+          <td mat-cell *matCellDef="let element;let i=index">
+            <mat-checkbox class="example-margin" [(ngModel)]="element.writeRight"
+              [checked]="element.writeRight"></mat-checkbox>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="write">
-        <th mat-header-cell *matHeaderCellDef> Write </th>
-        <td mat-cell *matCellDef="let element;let i=index">
-          <mat-checkbox class="example-margin" [(ngModel)]="element.writeRight"
-            [checked]="element.writeRight"></mat-checkbox>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> Delete </th>
+          <td mat-cell *matCellDef="let element;let i=index">
+            <mat-checkbox class="example-margin" [(ngModel)]="element.deleteRight"
+              [checked]="element.deleteRight"></mat-checkbox>
+          </td>
+        </ng-container>
 
+        <ng-container matColumnDef="all">
+          <th mat-header-cell *matHeaderCellDef> All </th>
+          <td mat-cell *matCellDef="let element;let i=index">
+            <mat-checkbox class="example-margin" (change)="selectRow($event,i)"
+              [(ngModel)]="element.readRight && element.writeRight && element.deleteRight"
+              [checked]="(element.readRight && element.writeRight  && element.deleteRight)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
 
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </ng-container>
 
-      <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef> Delete </th>
-        <td mat-cell *matCellDef="let element;let i=index">
-          <mat-checkbox class="example-margin" [(ngModel)]="element.deleteRight"
-            [checked]="element.deleteRight"></mat-checkbox>
-        </td>
-      </ng-container>
+    <ng-template #elseBlock>
+      <div class="text-center ml-5 alert alert-danger text-center m-2 mt-2">{{lang == 'en' ? "No Data Found" : "माहिती उपलब्ध नाही"}}</div>
+    </ng-template>
 
-      <ng-container matColumnDef="all">
-        <th mat-header-cell *matHeaderCellDef> All </th>
-        <td mat-cell *matCellDef="let element;let i=index">
-          <mat-checkbox class="example-margin" (change)="selectRow($event,i)"
-            [(ngModel)]="element.readRight && element.writeRight && element.deleteRight"
-            [checked]="(element.readRight && element.writeRight  && element.deleteRight)">
-          </mat-checkbox>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
     <div class="text-end">
-      <button mat-flat-button class="btn-main" type="submit" (click)="onSubmitData()">Submit</button>
+      <button mat-flat-button class="btn-main" type="submit"
+        (click)="onSubmitData()">{{'pageAccess.add'|translate}}</button>
     </div>
   </mat-card-content>
 
