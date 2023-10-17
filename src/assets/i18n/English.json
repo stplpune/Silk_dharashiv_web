@@ -20,6 +20,8 @@
         "add_department": "Add Department",
         "view_Department":"View Department",
         "department_required" : "Please Enter Department Name",
+        "department_pattern" : "Department (English) Is Required",
+        "department_pattern_mr" : "Department (Marathi) Is Required",
         "department_maxLength": "Maximun 30 character allowed"
     },
 
