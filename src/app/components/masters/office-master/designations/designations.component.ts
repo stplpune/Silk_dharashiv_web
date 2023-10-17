@@ -73,6 +73,7 @@ export class DesignationsComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentArray = res.responseData;
+          this.departmentArray.unshift({ "id": 0, "textEnglish": "All Department","textMarathi": "सर्व विभाग"});
         }
         else {
           this.departmentArray = [];
@@ -87,6 +88,7 @@ export class DesignationsComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentLevelArray = res.responseData;
+          this.departmentLevelArray.unshift({ "id": 0, "textEnglish": "All Department Level","textMarathi": "सर्व विभाग स्तर"});
         }
         else {
           this.departmentLevelArray = [];

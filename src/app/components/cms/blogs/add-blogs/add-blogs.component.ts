@@ -17,7 +17,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 })
 export class AddBlogsComponent {
   blogForm!: FormGroup;
-  editFlag: boolean = false;
+  isViewFlag : boolean = false;
   get f() { return this.blogForm.controls };
   @ViewChild('uplodLogo') clearlogo!: any;
   subscription!: Subscription;//used  for lang conv
@@ -43,6 +43,7 @@ export class AddBlogsComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
+    this.isViewFlag = this.data?.label == 'View' ? true : false;
     this.defaultFrm();
   }
 
@@ -62,11 +63,8 @@ export class AddBlogsComponent {
   onSubmit() {
      let formvalue = this.blogForm.value;
      if (this.blogForm.invalid) {
-       return
-     } else if (!this.imageResponse) {
-      this.common.snackBar("Please Upload Featured Image", 1);
-      return;
-    }
+       return;
+     } 
      else {  
        formvalue.thumbnailImage = this.imageResponse;   
        let mainData = { ...formvalue, "createdBy": this.webStorage.getUserId() };

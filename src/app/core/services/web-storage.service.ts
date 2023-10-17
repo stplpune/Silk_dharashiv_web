@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 export class WebStorageService {
   toggled: boolean = false;
   lang: string = 'English';
+  data: any;
 
   constructor(private AESEncryptDecryptService: AesencryptDecryptService) { }
 
@@ -26,6 +27,7 @@ export class WebStorageService {
     else return false
   }
 
+ // Get LocalStorage Data
   getLoggedInLocalstorageData() {
     if (this.checkUserIsLoggedIn() == true) {
       var decryptData = JSON.parse(this.AESEncryptDecryptService.decrypt(localStorage['loggedInData']));
@@ -34,7 +36,24 @@ export class WebStorageService {
     }
   }
 
-  getUserId() {
+ // Get All Page Details For Sidebar
+  getAllPageName(){
+    let data=this.getLoggedInLocalstorageData();
+    if (this.checkUserIsLoggedIn() == true) {
+      return data.pageList;
+    }
+  }
+
+  // // Get Selected Page Details Object
+  // getPageDetailsObj(pageName:string){
+  //   const pageObj = this.getAllPageName()?.find((x:any)=>x.pageLink==pageName)
+  //   return pageObj
+  // }
+
+
+
+   
+   getUserId() {
     let data = this.getLoggedInLocalstorageData();
     return data.id ? data.id : 0;
   }

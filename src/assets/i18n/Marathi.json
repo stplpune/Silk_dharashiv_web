@@ -1,4 +1,13 @@
 {
+  "pageAccess":{
+    "designation": "पदनाम निवडा",
+    "module": "मॉड्यूल निवडा",
+    "submodule": "सबमॉड्यूल निवडा",
+    "search_page_name" :"पृष्ठाचे नाव शोधा",
+    "clear": "रद्द करा",
+    "search" : "शोधा",
+    "add": "जतन करा"
+  },
   "department": {
     "department": "विभाग",
     "searchDepartment": "विभागानुसार शोधा",
@@ -128,11 +137,13 @@
 
   "blogs":{
     "blogs":"ब्लॉग",
+    "search_by_title":"शीर्षकानुसार शोधा",
     "add_Blog":"ब्लॉग जोडा", 
     "add_Blogs_Article":"ब्लॉग/लेख जोडा",
     "update_Blogs_Article":"अपडेट ब्लॉग/लेख",
+    "view_Blogs_Article":"ब्लॉग/लेख पहा",
     "title":"शीर्षक",
-    "editortool":"संपादक साधन",
+    "editortool":"वर्णन",
     "featuredImage":"वैशिष्ट्यीकृत प्रतिमा",
     "PleaseEnterBlogTitle" : "कृपया ब्लॉग शीर्षक प्रविष्ट करा",
     "add": "प्रकाशित करा",

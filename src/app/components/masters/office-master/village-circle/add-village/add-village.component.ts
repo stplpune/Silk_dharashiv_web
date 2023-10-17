@@ -84,7 +84,8 @@ export class AddVillageComponent {
     this.master.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
         this.districtArray = res.responseData;
-        this.data ? (this.f['districtId'].setValue(this.data?.districtId), this.getTaluka()) : this.getTaluka();
+        this.data ? (this.f['districtId'].setValue(this.data?.districtId), this.getTaluka()) : '';
+        !this.data ?  this.getTaluka() : '';
       }), error: (() => {
         this.districtArray = [];
       })
