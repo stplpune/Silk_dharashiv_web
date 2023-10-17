@@ -16,6 +16,7 @@ import { BlockCircleComponent } from '../block-circle.component';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
@@ -23,7 +24,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './addcircle.component.html',
   styleUrls: ['./addcircle.component.scss'],
   standalone: true,
-  imports: [MatFormFieldModule,MatButtonModule, MatSelectModule, FormsModule, ReactiveFormsModule, NgIf,MatInputModule, NgFor,MatRadioModule,MatIconModule,MatDialogModule],
+  imports: [MatFormFieldModule,MatButtonModule, MatSelectModule, FormsModule, ReactiveFormsModule, NgIf,MatInputModule, NgFor,MatRadioModule,MatIconModule,MatDialogModule,TranslateModule],
 })
 export class AddcircleComponent {
   toppings = new FormControl('');
@@ -66,8 +67,8 @@ export class AddcircleComponent {
       "id": [this.data?.id || 0],
       "blockName": [this.data?.blockName || '',[Validators.required]],
       "m_BlockName": [this.data?.m_BlockName || '',[Validators.required]],
-      "stateId": [0],
-      "districtId": [0],
+      "stateId": [1],
+      "districtId": [1],
       "talukas": ['',[Validators.required]],
       "createdBy": 0,
       "flag": [this.data ? "u" : "i"]
@@ -78,26 +79,26 @@ export class AddcircleComponent {
     this.masterService.GetAllState().subscribe({
       next: ((res: any) => {
         this.stateArr = res.responseData; 
-        this.data ? (this.f['stateId'].setValue(this.data.stateId),this.getDistrict()) : '';      
+        this.data ? (this.f['stateId'].setValue(this.data.stateId),this.getDistrict()) : this.getDistrict();      
       }),
       error: () => { this.stateArr = [];}
     })
   }
 
   getDistrict() {
-    let stateId = this.addBlockForm.value.stateId;
+    let stateId = this.addBlockForm.getRawValue().stateId;
     this.masterService.GetAllDistrict(stateId).subscribe({
       next: ((res: any) => {
         this.districtArr = res.responseData;
-        this.data ? (this.f['districtId'].setValue(this.data.districtId),this.getTaluka()) : ''; 
+        this.data ? (this.f['districtId'].setValue(this.data.districtId),this.getTaluka()) :this.getTaluka(); 
       }),
       error: () => { this.districtArr = [];}
     })
   }
 
   getTaluka(){
-    let stateId = this.addBlockForm.value.stateId;
-    let districtId = this.addBlockForm.value.districtId;
+    let stateId = this.addBlockForm.getRawValue().stateId;
+    let districtId = this.addBlockForm.getRawValue().districtId;
     this.masterService.GetAllTaluka(stateId,districtId,0).subscribe({
       next: ((res: any) => {
         this.talukaArr = res.responseData;
@@ -111,9 +112,8 @@ export class AddcircleComponent {
     })
   }
   onSubmit() {
-   let talukaaa =  this.addBlockForm.value.talukas.toString();
-   this.addBlockForm.value.talukas =talukaaa
-    let formvalue = this.addBlockForm.value;
+    let formvalue = this.addBlockForm.getRawValue();
+    formvalue.talukas = this.addBlockForm.value.talukas.toString();
     if (this.addBlockForm.invalid) {
       return
     } else {  

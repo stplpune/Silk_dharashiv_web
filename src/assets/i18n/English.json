@@ -30,6 +30,7 @@
         "searchAction":"Search Action Name",
         "update_action": "Update Action",
         "add_action": "Add Action",
+        "view_Action":"View Action",
         "scheme_required":"Please select scheme"
 
 
@@ -127,11 +128,13 @@
 
       "blogs":{
         "blogs":"Blogs",
+        "search_by_title":"Search by Title",
         "add_Blog":"Add Blog",
         "add_Blogs_Article":"Add Blogs / Article",
         "update_Blogs_Article":"Update Blogs / Article",
+        "view_Blogs_Article":"View Blogs / Article",
         "title":"Title",
-        "editortool":"Editor tool",
+        "editortool":"Description",
         "featuredImage":"Featured Image",
         "PleaseEnterBlogTitle":"Please Enter Blog Title",
         "add": "Publish",
@@ -156,7 +159,7 @@
         "maximum_limit_30_characters":"Maximum limit is 30 characters",
         "please_enter_valid_block_name(Marathi)":"Please Enter Valid Block Name(Marathi)",
         "please_enter_valid_block_name(English)":"Please Enter Valid Block Name(English)",
-        "please_enter_block_name(English)":"Please Enter Block Name(Marathi)",
+        "please_enter_block_name(English)":"Please Enter Block Name(English)",
         "please_enter_block_name(Marathi)":"Please Enter Block Name(Marathi)",
         "please_select_taluka":"Please Select Taluka",
         "block_name_en":"Block Name(English)",

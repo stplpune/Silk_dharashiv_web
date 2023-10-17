@@ -32,6 +32,7 @@
     "searchAction":"कृतीचे नाव शोधा",
     "update_action": "कृती अपडेट करा",
     "add_action": "कृती जोडा",
+    "view_Action":"कृती पहा",
     "scheme_required":"कृपया योजना निवडा"
 
   },
@@ -127,11 +128,13 @@
 
   "blogs":{
     "blogs":"ब्लॉग",
+    "search_by_title":"शीर्षकानुसार शोधा",
     "add_Blog":"ब्लॉग जोडा", 
     "add_Blogs_Article":"ब्लॉग/लेख जोडा",
     "update_Blogs_Article":"अपडेट ब्लॉग/लेख",
+    "view_Blogs_Article":"ब्लॉग/लेख पहा",
     "title":"शीर्षक",
-    "editortool":"संपादक साधन",
+    "editortool":"वर्णन",
     "featuredImage":"वैशिष्ट्यीकृत प्रतिमा",
     "PleaseEnterBlogTitle" : "कृपया ब्लॉग शीर्षक प्रविष्ट करा",
     "add": "प्रकाशित करा",
@@ -157,10 +160,11 @@
     "maximum_limit_30_characters":"कमाल 30 वर्णांना अनुमती आहे",
     "please_enter_valid_block_name(Marathi)":"कृपया वैध ब्लॉक नाव(मराठी) प्रविष्ट करा ",
     "please_enter_valid_block_name(English)":"कृपया वैध ब्लॉक नाव(इंग्रजी) प्रविष्ट करा ",
-    "please_enter_block_name(English)":"कृपया ब्लॉकचे नाव(मराठी) प्रविष्ट करा ",
-    "please_enter_block_name(Marathi)":"कृपया ब्लॉकचे नाव(इंग्रजी) प्रविष्ट करा ",
+    "please_enter_block_name(English)":"कृपया ब्लॉकचे नाव(इंग्रजी) प्रविष्ट करा ",
+    "please_enter_block_name(Marathi)":"कृपया ब्लॉकचे नाव(मराठी) प्रविष्ट करा ",
     "please_select_taluka":"कृपया तालुका निवडा",
     "block_name_en":"ब्लॉकचे नाव (इंग्रजी)",
     "block_name_mr":"ब्लॉकचे नाव(मराठी)"
   }
+  
 }
