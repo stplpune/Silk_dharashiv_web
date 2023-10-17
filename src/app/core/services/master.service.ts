@@ -140,5 +140,27 @@ export class MasterService {
     })
   }
 
+  GetModule(){
+    return new Observable((obj)=>{
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-MainMenu', false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  GetSubModule(moduleId:number){
+    return new Observable((obj)=>{
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-SubMenuMenuId='+moduleId, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+
+
 }
 
