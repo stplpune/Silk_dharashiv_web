@@ -37,6 +37,7 @@
           (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
         <mat-error
           *ngIf="f['departmentName']?.hasError('required')">{{'department.department_required'|translate}}</mat-error>
+          <mat-error *ngIf="f['departmentName']?.hasError('pattern')">{{'Department (English) Is Required'}}</mat-error>
         <mat-error
           *ngIf="f['departmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}}</mat-error>
       </mat-form-field>
@@ -44,8 +45,8 @@
         <mat-label>{{"department.departmentName_mr" | translate}}</mat-label>
         <input matInput formControlName="m_DepartmentName"
           (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
-        <mat-error *ngIf="f['m_DepartmentName']?.hasError('required')">{{'department.department_required'|translate}}
-        </mat-error>
+        <mat-error *ngIf="f['m_DepartmentName']?.hasError('required')">{{'department.department_required'|translate}}</mat-error>
+        <mat-error *ngIf="f['m_DepartmentName']?.hasError('pattern')">{{'Department (Marathi) Is Required'}}</mat-error>
         <mat-error
           *ngIf="f['m_DepartmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}}
         </mat-error>
