@@ -128,6 +128,7 @@
 
   "blogs":{
     "blogs":"ब्लॉग",
+    "search_by_title":"शीर्षकानुसार शोधा",
     "add_Blog":"ब्लॉग जोडा", 
     "add_Blogs_Article":"ब्लॉग/लेख जोडा",
     "update_Blogs_Article":"अपडेट ब्लॉग/लेख",

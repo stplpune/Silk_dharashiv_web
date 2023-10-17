@@ -128,6 +128,7 @@
 
       "blogs":{
         "blogs":"Blogs",
+        "search_by_title":"Search by Title",
         "add_Blog":"Add Blog",
         "add_Blogs_Article":"Add Blogs / Article",
         "update_Blogs_Article":"Update Blogs / Article",
