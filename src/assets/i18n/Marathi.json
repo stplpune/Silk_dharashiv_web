@@ -1,4 +1,13 @@
 {
+  "pageAccess":{
+    "designation": "पदनाम निवडा",
+    "module": "मॉड्यूल निवडा",
+    "submodule": "सबमॉड्यूल निवडा",
+    "search_page_name" :"पृष्ठाचे नाव शोधा",
+    "clear": "रद्द करा",
+    "search" : "शोधा",
+    "add": "जतन करा"
+  },
   "department": {
     "department": "विभाग",
     "searchDepartment": "विभागानुसार शोधा",

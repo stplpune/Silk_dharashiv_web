@@ -1,4 +1,13 @@
-{
+{ 
+  "pageAccess":{
+    "designation": "Select Designation",
+    "module": "Select Module",
+    "submodule": "Select SubModule",
+    "search_page_name" :"Search Page Name",
+    "clear": "Clear",
+    "search" : "Search",
+     "add": "Add"
+  },
     "department": {
         "department":"Department",
         "searchDepartment":"Search Department",
