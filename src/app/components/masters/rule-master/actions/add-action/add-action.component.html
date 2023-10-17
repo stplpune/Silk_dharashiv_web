@@ -69,7 +69,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'action.action_mr' | translate}}</mat-label>
             <input matInput formControlName="m_ActionName"
-              (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
+              (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiQuetionValidation($event)">
             <mat-error *ngIf="f['m_ActionName']?.hasError('required')">{{'action.action_required'|translate}}
             </mat-error>
             <mat-error *ngIf="f['m_ActionName']?.hasError('pattern')">{{'action.action_pattern_mr'|translate}} </mat-error>
