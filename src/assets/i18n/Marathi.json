@@ -72,7 +72,8 @@
     "search_by_designation": "पदनामनुसार शोधा",
     "update_designation": "पदनाम अपडेट करा",
     "add_designation": "पदनाम जोडा",
-    "view_Designation":"पदनाम पहा"
+    "view_Designation":"पदनाम पहा",
+    "designation_maxLength": "कमाल 50 वर्णांना अनुमती आहे"
   },"scheme":{
     "scheme":"योजना",
     "search_by_scheme_name":"योजनेच्या नावाने शोधा",

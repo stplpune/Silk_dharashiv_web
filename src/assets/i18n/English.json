@@ -70,8 +70,10 @@
         "search_by_designation": "Search by Designation",
         "update_designation": "Update Designation",
         "add_designation": "Add Designation",
-        "view_Designation":"View Designation"
-    },"scheme":{
+        "view_Designation":"View Designation",
+        "designation_maxLength": "Maximun 50 character allowed"
+    },
+    "scheme":{
         "scheme":"Scheme",
         "search_by_scheme_name":"Search By Scheme Name",
         "add_scheme":"Add Scheme",
