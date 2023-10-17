@@ -1,4 +1,13 @@
-{
+{ 
+  "pageAccess":{
+    "designation": "Select Designation",
+    "module": "Select Module",
+    "submodule": "Select SubModule",
+    "search_page_name" :"Search Page Name",
+    "clear": "Clear",
+    "search" : "Search",
+     "add": "Add"
+  },
     "department": {
         "department":"Department",
         "searchDepartment":"Search Department",
@@ -11,6 +20,8 @@
         "add_department": "Add Department",
         "view_Department":"View Department",
         "department_required" : "Please Enter Department Name",
+        "department_pattern" : "Department (English) Is Required",
+        "department_pattern_mr" : "Department (Marathi) Is Required",
         "department_maxLength": "Maximun 30 character allowed"
     },
 
@@ -95,6 +106,7 @@
         "clear": "Clear",
         "update_faq": "Update FAQ's",
         "add_faq": "Add FAQ's",
+        "view_faq": "View FAQ's",
         "question_required" : "Please Enter A Question",
         "Answer_required" : "Please Enter Answer",
         "question_maxLength": "Maximum limit is 200",

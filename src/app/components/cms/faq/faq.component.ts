@@ -42,13 +42,6 @@ export class FaqComponent implements OnDestroy {
     public webStorage: WebStorageService
   ) { }
 
-
-  addfaq(){
-    this.dialog.open(AddFaqComponent,{
-      width:'30%'
-    })
-  }
-
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
@@ -63,10 +56,10 @@ export class FaqComponent implements OnDestroy {
   defaultFrm(data?: any) {
     this.faqFrm = this.fb.group({
       id: [data ? data.id : 0],
-      question: [data ? data.question : '', [Validators.required,Validators.pattern(this.validator.fullNamequetion), this.validator.maxLengthValidator(200)]],
-      m_Question: [data ? data.m_Question : '', [Validators.required,Validators.pattern(this.validator.marathiquestion), this.validator.maxLengthValidator(200)]],
-      answer: [data ? data.answer : '', [Validators.required,Validators.pattern(this.validator.fullNamequetion), this.validator.maxLengthValidator(1000)]],
-      m_Answer: [data ? data.m_Answer : '', [Validators.required,Validators.pattern(this.validator.marathiquestion), this.validator.maxLengthValidator(1000)]],
+      question: [data ? data.question : '', [Validators.required, Validators.pattern(this.validator.fullNamequetion), this.validator.maxLengthValidator(200)]],
+      m_Question: [data ? data.m_Question : '', [Validators.required, Validators.pattern(this.validator.marathiquestion), this.validator.maxLengthValidator(200)]],
+      answer: [data ? data.answer : '', [Validators.required, Validators.pattern(this.validator.fullNamequetion), this.validator.maxLengthValidator(1000)]],
+      m_Answer: [data ? data.m_Answer : '', [Validators.required, Validators.pattern(this.validator.marathiquestion), this.validator.maxLengthValidator(1000)]],
       status: [data ? data.status : true],
       flag: [this.editFlag ? "u" : "i"]
     })
@@ -83,7 +76,7 @@ export class FaqComponent implements OnDestroy {
     status == 'filter' ? ((this.pageNumber = 1), this.defaultFrm(), this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     let searchValue = this.filterFrm?.value || '';
-    this.apiService.setHttp('GET', 'sericulture/api/FAQ/get-faq-details?SeacrhText='+ (searchValue.textSearch || '') + str, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/FAQ/get-faq-details?SeacrhText=' + (searchValue.textSearch || '') + str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -110,7 +103,7 @@ export class FaqComponent implements OnDestroy {
     this.highLightRowFlag = true;
     let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_Question', 'status', 'action'] : ['srNo', 'question', 'status', 'action'];
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'प्रश्न', 'स्थिती', 'कृती'] : ['Sr. No.', 'Question', 'Status', 'ACTION'];
-    let tableData:any;
+    let tableData: any;
     tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
@@ -122,6 +115,7 @@ export class FaqComponent implements OnDestroy {
       tableHeaders: displayedheaders,
       edit: true,
       delete: true,
+      view: true,
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
@@ -137,15 +131,31 @@ export class FaqComponent implements OnDestroy {
         this.getTableData();
         break;
       case 'Edit':
-        this.editFlag = true;
-        this.defaultFrm(obj);
+        this.addfaq(obj);
+        break;
+      case 'View':
+        this.addfaq(obj);
         break;
       case 'Delete':
         this.globalDialogOpen(obj);
         break;
-        case 'Block':
+      case 'Block':
         this.openBlockDialog(obj);
     }
+  }
+
+  addfaq(obj?: any) {
+    const dialogRef = this.dialog.open(AddFaqComponent, {
+      width: '30%',
+      data: obj,
+      disableClose: true,
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      res == 'Yes' ? this.getTableData() : '';
+      this.highLightRowFlag = false;
+      this.setTableData();
+    });
   }
 
   onSubmitData() {
@@ -180,38 +190,38 @@ export class FaqComponent implements OnDestroy {
   }
 
   openBlockDialog(obj?: any) {
-    let userEng = obj.status == false ?'Publish' : 'UnPublish';
-    let userMara = obj.status == false ?'प्रकाशित' : 'अप्रकाशित';
+    let userEng = obj.status == false ? 'Publish' : 'UnPublish';
+    let userMara = obj.status == false ? 'प्रकाशित' : 'अप्रकाशित';
     let dialoObj = {
-      header: this.lang == 'mr-IN' ? 'एफएक्यू ' +userMara+ ' करा'  : userEng+' FAQ',
-      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेली एफएक्यू '+userMara+' करू इच्छिता' : 'Do You Want To ' + userEng + ' The Selected FAQ?',
+      header: this.lang == 'mr-IN' ? 'एफएक्यू ' + userMara + ' करा' : userEng + ' FAQ',
+      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेली एफएक्यू ' + userMara + ' करू इच्छिता' : 'Do You Want To ' + userEng + ' The Selected FAQ?',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
-  }
-  const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
-    width: '320px',
-    data: dialoObj,
-    disableClose: true,
-    autoFocus: false
-  })
-  deleteDialogRef.afterClosed().subscribe((result: any) => {
-    result == 'Yes' ? this.blockAction(obj) : '';
-  })
-}
-
-blockAction(obj: any) {
-  let status = !obj.status
-  this.apiService.setHttp('PUT', 'sericulture/api/FAQ/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status, false, false, false, 'masterUrl');
-  this.apiService.getHttp().subscribe({
-    next: (res: any) => {
-      res.statusCode == "200" ? (this.common.snackBar(res.statusMessage, 0), this.getTableData()) : this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
-    },
-    error: (error: any) => {
-      this.errorService.handelError(error.status);
-      this.common.checkDataType(error.status) == false ? this.errorService.handelError(error.status) : this.common.snackBar(error.status, 1);
     }
-  })
-}
+    const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
+      width: '320px',
+      data: dialoObj,
+      disableClose: true,
+      autoFocus: false
+    })
+    deleteDialogRef.afterClosed().subscribe((result: any) => {
+      result == 'Yes' ? this.blockAction(obj) : '';
+    })
+  }
+
+  blockAction(obj: any) {
+    let status = !obj.status
+    this.apiService.setHttp('PUT', 'sericulture/api/FAQ/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status, false, false, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        res.statusCode == "200" ? (this.common.snackBar(res.statusMessage, 0), this.getTableData()) : this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
+      },
+      error: (error: any) => {
+        this.errorService.handelError(error.status);
+        this.common.checkDataType(error.status) == false ? this.errorService.handelError(error.status) : this.common.snackBar(error.status, 1);
+      }
+    })
+  }
 
   globalDialogOpen(delDataObj?: any) {
     let dialogObj = {

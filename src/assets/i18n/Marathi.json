@@ -1,4 +1,13 @@
 {
+  "pageAccess":{
+    "designation": "पदनाम निवडा",
+    "module": "मॉड्यूल निवडा",
+    "submodule": "सबमॉड्यूल निवडा",
+    "search_page_name" :"पृष्ठाचे नाव शोधा",
+    "clear": "रद्द करा",
+    "search" : "शोधा",
+    "add": "जतन करा"
+  },
   "department": {
     "department": "विभाग",
     "searchDepartment": "विभागानुसार शोधा",
@@ -11,6 +20,8 @@
     "add_department": "विभाग जोडा",
     "view_Department":"विभाग पहा",
     "department_required" : "कृपया विभागाचे नाव प्रविष्ट करा",
+    "department_pattern" : "विभाग (इंग्रजी) आवश्यक आहे",
+    "department_pattern_mr" : "विभाग (मराठी) आवश्यक आहे",
     "department_maxLength": "कमाल 30 वर्णांना अनुमती आहे"
 
 
@@ -97,6 +108,7 @@
     "clear": "रद्द करा",
     "update_faq": "एफएक्यू अपडेट करा",
     "add_faq": "एफएक्यू जोडा",
+    "view_faq": "एफएक्यू पहा",
     "question_required" : "कृपया प्रश्न प्रविष्ट करा ",
     "Answer_required" : "कृपया उत्तर प्रविष्ट करा ",
     "question_maxLength": "कमाल 200 वर्णांना अनुमती आहे",

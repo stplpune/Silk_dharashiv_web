@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">Add Rule</div>
+    <div class="text-main">{{this.editFlag?'Update Rule':'Add Rule'}}</div>
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
     </button>
@@ -14,7 +14,8 @@
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Select State</mat-label>
-          <mat-select formControlName="state">
+          <mat-select formControlName="state" [disabled]="true"
+          [class]="setRulefrm.controls['state'].disable({ onlySelf: true })">
             <mat-option *ngFor="let data of statresponse" [value]="data.id">{{data.textEnglish}}</mat-option>
           </mat-select>
           <mat-error *ngIf="f['state'].hasError('required')">State Is Required</mat-error>
@@ -24,7 +25,8 @@
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Select District</mat-label>
-          <mat-select formControlName="district">
+          <mat-select formControlName="district"
+          [class]="setRulefrm.controls['district'].disable({ onlySelf: true })">
             <mat-option *ngFor="let data of districtresp" [value]="data.id">{{data.textEnglish}}</mat-option>
           </mat-select>
           <mat-error *ngIf="f['district'].hasError('required')">District Is Required</mat-error>
