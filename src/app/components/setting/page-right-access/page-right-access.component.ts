@@ -74,7 +74,7 @@ export class PageRightAccessComponent {
       this.spinner.show();
       let formData = this.filterFrm.getRawValue();
       let str = `&pageno=${this.pageNumber}&pagesize=10`;
-      this.apiService.setHttp('GET', `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId || 0}&DepartmentLevelId=${formData?.designationLevelId || 0}&DesignationId=${formData?.designationId || 0}&MainMenuId=${formData?.moduleId || 0}&SubMenuId=${formData?.subModuleId || 0}&lan=en` + str, false, false, false, 'baseUrl');
+      this.apiService.setHttp('GET', `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId || 0}&DepartmentLevelId=${formData?.designationLevelId || 0}&DesignationId=${formData?.designationId || 0}&MainMenuId=${formData?.moduleId || 0}&SubMenuId=${formData?.subModuleId || 0}&lan=${this.lang}` + str, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -115,7 +115,7 @@ export class PageRightAccessComponent {
       }
       this.passArray.push(obj)
     })
-    this.apiService.setHttp('post', 'sericulture/api/UserPages/AddUpdatePageRights?lan=en', false, this.passArray, false, 'masterUrl');
+    this.apiService.setHttp('post', 'sericulture/api/UserPages/AddUpdatePageRights?lan='+this.lang, false, this.passArray, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         this.spinner.hide();
