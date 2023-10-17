@@ -4,7 +4,7 @@
       <mat-card-header class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
           <div class="text-main">{{'designation.designation'|translate}}</div>
-          <button mat-flat-button class="btn-main" (click)="addDesignation()">
+          <button mat-flat-button class="btn-main" *ngIf="pageAccessObject?.writeRight == true" (click)="addDesignation()">
             <mat-icon class="material-symbols-rounded">
               add
             </mat-icon>

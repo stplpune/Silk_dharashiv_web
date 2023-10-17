@@ -28,6 +28,7 @@ export class DesignationsComponent {
   departmentLevelArray = new Array();
   subscription!: Subscription;//used  for lang conv
   lang: any;
+  pageAccessObject: object|any;
   //@ViewChild('formDirective') private formDirective!: NgForm;
 
   constructor(private fb: FormBuilder,
@@ -42,6 +43,8 @@ export class DesignationsComponent {
   ) { }
 
   ngOnInit() {
+    this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == "Designation" ? this.pageAccessObject = ele :''})
+ 
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -134,7 +137,12 @@ export class DesignationsComponent {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      delete: true, view: true, edit: true,
+      // delete: true, view: true, edit: true,
+      view: this.pageAccessObject?.readRight == true ? true: false,
+      edit: this.pageAccessObject?.writeRight == true ? true: false,
+      delete: this.pageAccessObject?.deleteRight == true ? true: false
+
+      
     };
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
     this.apiService.tableData.next(tableData);
