@@ -10,6 +10,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 import { AddDepartmentComponent } from './add-department/add-department.component';
+//import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-department',
@@ -27,6 +28,10 @@ export class DepartmentComponent implements OnDestroy{
   searchDataFlag: boolean = false
   subscription!: Subscription;//used  for lang conv
   lang: string = 'English';
+  pageAccessObject: object|any;
+  loginData:any;
+  pageDetailsObj: any;//page right access obj
+
   get fl() { return this.filterFrm.controls };
 
   constructor(private fb: FormBuilder,
@@ -36,16 +41,22 @@ export class DepartmentComponent implements OnDestroy{
       private errorService: ErrorHandlingService,
       private common: CommonMethodsService,
       public dialog: MatDialog,
+      // private router: Router,
       public webStorage: WebStorageService
-      ) { }
+      ) { 
+        // const routerlink = (this.router.url).slice(1);
+        // this.pageDetailsObj = this.webStorage.getPageDetailsObj(routerlink); 
+      }
 
 
   ngOnInit() {
-    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+     this.webStorage.getAllPageName().filter((ele:any) =>{return ele.pageName == 'Department'? this.pageAccessObject = ele :''})
+     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
        this.setTableData();
     })
+
     this.filterDefaultFrm();
     this.getTableData();
   }
@@ -96,9 +107,9 @@ export class DepartmentComponent implements OnDestroy{
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      edit: true,
-      delete: true,
-      view:true,
+      view: this.pageAccessObject?.readRight == true ? true: false,
+      edit: this.pageAccessObject?.writeRight == true ? true: false,
+      delete: this.pageAccessObject?.deleteRight == true ? true: false
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
