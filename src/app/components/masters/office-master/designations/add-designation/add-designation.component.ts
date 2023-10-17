@@ -55,8 +55,8 @@ export class AddDesignationComponent {
   addDefaultFrm(data?: any) {
     this.designationFrm = this.fb.group({
       "id": [data ? data.id : 0],
-      "designationName": [data ? data.designationName : '', [Validators.required, Validators.maxLength(50), Validators.pattern(this.validation.alphabetWithSpace)]],
-      "m_DesignationName": [data ? data.m_DesignationName : '', [Validators.required, Validators.maxLength(50), Validators.pattern(this.validation.marathi)]],
+      "designationName": [data ? data.designationName : '', [Validators.required, Validators.maxLength(50),this.validation.maxLengthValidator(50)]],
+      "m_DesignationName": [data ? data.m_DesignationName : '', [Validators.required, Validators.maxLength(50),this.validation.maxLengthValidator(50)]],
       "departmentId": [data ? data.departmentId : '', [Validators.required]],
       "departmentLevelId": [data ? data.departmentLevelId : '', [Validators.required]],
     })

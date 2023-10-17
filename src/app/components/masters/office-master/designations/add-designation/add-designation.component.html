@@ -20,8 +20,7 @@
               department.textEnglish : department.textMarathi}}
             </mat-option>
           </mat-select>
-          <mat-error
-            *ngIf="a['departmentId'].hasError('required')">{{'designation.department_required'|translate}}</mat-error>
+          <mat-error *ngIf="a['departmentId'].hasError('required')">{{'designation.department_required'|translate}}</mat-error>
         </mat-form-field>
       </div>
       <div class="mb-0">
@@ -31,34 +30,27 @@
             <mat-option *ngFor="let deptLevel of departmentLevelArray" [value]="deptLevel.id">{{lang == 'en' ?
               deptLevel.textEnglish : deptLevel.textMarathi}}</mat-option>
           </mat-select>
-          <mat-error
-            *ngIf="a['departmentLevelId'].hasError('required')">{{'designation.designation_level_required'|translate}}</mat-error>
+          <mat-error *ngIf="a['departmentLevelId'].hasError('required')">{{'designation.designation_level_required'|translate}}</mat-error>
         </mat-form-field>
       </div>
       <div class="mb-0">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{'designation.designation_en'|translate}}</mat-label>
-          <input matInput formControlName="designationName" maxlength="50"
+          <input matInput formControlName="designationName" 
             (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
-          <mat-error
-            *ngIf="a['designationName'].hasError('pattern')">{{'designation.Please_enter_designation'|translate}}</mat-error>
-          <mat-error *ngIf="a['designationName'].hasError('maxlength')">{{'designation.maximum 50
-            character_allowed'|translate}}</mat-error>
-          <mat-error
-            *ngIf="a['designationName'].hasError('required')">{{'designation.designation_en_required'|translate}}</mat-error>
+          <mat-error *ngIf="a['designationName'].hasError('pattern')">{{'designation.Please_enter_designation'|translate}}</mat-error>
+          <mat-error *ngIf="a['designationName']?.hasError('maxLengthExceeded')">{{'designation.designation_maxLength'|translate}}</mat-error>
+          <mat-error *ngIf="a['designationName'].hasError('required')">{{'designation.designation_en_required'|translate}}</mat-error>
         </mat-form-field>
       </div>
       <div class="mb-0">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{'designation.designation_mr'|translate}}</mat-label>
-          <input matInput formControlName="m_DesignationName" maxlength="50"
+          <input matInput formControlName="m_DesignationName"
             (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
-          <mat-error
-            *ngIf="a['designationName'].hasError('pattern')">{{'designation.Please_enter_designation_mr'|translate}}</mat-error>
-          <mat-error *ngIf="a['designationName'].hasError('maxlength')">{{'designation.maximum 50
-            character_allowed'|translate}}</mat-error>
-          <mat-error
-            *ngIf="a['designationName'].hasError('required')">{{'designation.designation_mr_required'|translate}}</mat-error>
+          <mat-error *ngIf="a['designationName'].hasError('pattern')">{{'designation.Please_enter_designation_mr'|translate}}</mat-error>
+         <mat-error *ngIf="a['m_DesignationName']?.hasError('maxLengthExceeded')">{{'designation.designation_maxLength'|translate}}</mat-error>
+         <mat-error *ngIf="a['designationName'].hasError('required')">{{'designation.designation_mr_required'|translate}}</mat-error>
         </mat-form-field>
       </div>
 
