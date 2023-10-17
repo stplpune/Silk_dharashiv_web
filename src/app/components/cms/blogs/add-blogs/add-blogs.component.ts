@@ -63,11 +63,8 @@ export class AddBlogsComponent {
   onSubmit() {
      let formvalue = this.blogForm.value;
      if (this.blogForm.invalid) {
-       return
-     } else if (!this.imageResponse) {
-      this.common.snackBar("Please Upload Featured Image", 1);
-      return;
-    }
+       return;
+     } 
      else {  
        formvalue.thumbnailImage = this.imageResponse;   
        let mainData = { ...formvalue, "createdBy": this.webStorage.getUserId() };
