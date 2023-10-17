@@ -38,6 +38,8 @@
     "action_mr":"कृतीचे नाव (मराठी)",
     "description":"वर्णन",
     "action_required" : "कृपया कृतीचे नाव प्रविष्ट करा ",
+    "action_pattern" : "कृतीचे नाव (इंग्रजी) आवश्यक आहे",
+    "action_pattern_mr" : "कृतीचे नाव (मराठी) आवश्यक आहे",
     "action_maxLength": "कमाल 50 वर्णांना अनुमती आहे",
     "description_maxLength": "कमाल मर्यादा ५०० आहे",
     "searchAction":"कृतीचे नाव शोधा",
