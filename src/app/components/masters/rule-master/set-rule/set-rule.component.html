@@ -11,54 +11,62 @@
     </div>
   </mat-card-header>
   <mat-card-content class="card-body">
-    <div class="row gx-2">
-      <div class="col-sm-auto">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>All State</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-auto">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>All District</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-auto">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>All Scheme</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>All Process Department</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-1">
-        <div class="d-flex align-items-center gap-2">
-          <button mat-flat-button class="btn-main btn-icon" type="button" matTooltip="search">
-            <mat-icon class="material-symbols-rounded">
-              search
-            </mat-icon>
-          </button>
-          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="close" type="button">
-            <mat-icon class="material-symbols-rounded">
-              close
-            </mat-icon>
-          </button>
+    <form [formGroup]="filterFrm" (ngSubmit)="bindTable()" #formDirective="ngForm">
+      <div class="row gx-2">
+        <div class="col-sm-auto">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>All State</mat-label>
+            <mat-select formControlName="state"
+            [class]="filterFrm.controls['state'].disable({ onlySelf: true })">
+              <mat-option *ngFor="let data of statresponse" [value]="data.id">{{lang == 'en' ?
+                data.textEnglish : data.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-auto">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>All District</mat-label>
+            <mat-select formControlName="district"
+            [class]="filterFrm.controls['district'].disable({ onlySelf: true })">
+              <mat-option *ngFor="let data of districtresp" [value]="data.id">{{lang == 'en' ?
+                data.textEnglish : data.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-auto">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>All Scheme</mat-label>
+            <mat-select formControlName="scheme">
+              <mat-option *ngFor="let data of schemeTyperesp" [value]="data.id">{{lang == 'en' ?
+                data.textEnglish : data.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>All Process Department</mat-label>
+            <mat-select formControlName="department">
+              <mat-option *ngFor="let data of departmentresp" [value]="data.id">{{lang == 'en' ?
+                data.textEnglish : data.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-1">
+          <div class="d-flex align-items-center gap-2">
+            <button mat-flat-button class="btn-main btn-icon" type="submit" matTooltip="search">
+              <mat-icon class="material-symbols-rounded">
+                search
+              </mat-icon>
+            </button>
+            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="close" type="button" (click)="clearFilterForm()">
+              <mat-icon class="material-symbols-rounded">
+                close
+              </mat-icon>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
     <div class="table-responsive scrollbar">
       <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
     </div>
