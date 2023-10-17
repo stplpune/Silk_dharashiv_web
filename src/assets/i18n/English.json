@@ -104,6 +104,7 @@
         "clear": "Clear",
         "update_faq": "Update FAQ's",
         "add_faq": "Add FAQ's",
+        "view_faq": "View FAQ's",
         "question_required" : "Please Enter A Question",
         "Answer_required" : "Please Enter Answer",
         "question_maxLength": "Maximum limit is 200",
