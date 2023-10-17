@@ -16,11 +16,13 @@ import { MatTableModule } from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { AddFaqComponent } from './add-faq/add-faq.component';
 
 
 @NgModule({
   declarations: [
-    FaqComponent
+    FaqComponent,
+    AddFaqComponent
   ],
   imports: [
     CommonModule,

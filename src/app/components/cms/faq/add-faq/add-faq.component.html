@@ -1,0 +1,72 @@
+<div mat-dialog-title class="modal-header">
+  <div class="d-flex align-items-center justify-content-between w-100">
+    <div class="text-main">Add FAQ</div>
+    <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
+      <mat-icon class="material-symbols-outlined">
+        close
+      </mat-icon>
+    </button>
+  </div>
+</div>
+<div mat-dialog-content class="modal-body form-container">
+    <div class="mb-0">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Question (English)</mat-label>
+        <input matInput formControlName="question">
+
+      </mat-form-field>
+    </div>
+    <div class="mb-0">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Question (Marathi)</mat-label>
+        <input matInput formControlName="m_Question">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Answer (English)</mat-label>
+        <textarea matInput formControlName="answer"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Answer (Marathi)</mat-label>
+        <textarea matInput formControlName="m_Answer"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="d-flex align-items-center justify-content-end gap-2">
+      <button mat-flat-button class="btn-main-light" type="button">Clear</button>
+      <button mat-flat-button class="btn-main" type="submit">Publish</button>
+    </div>
+
+
+
+
+    <!-- View section -->
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="d-flex flex-column">
+          <div class="form-label">Question(English)</div>
+          <div class="form-data">: question</div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="d-flex flex-column">
+          <div class="form-label">Question(Marathi)</div>
+          <div class="form-data">: question</div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="d-flex flex-column">
+          <div class="form-label">Answer(English)</div>
+          <div class="form-data">: question</div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="d-flex flex-column">
+          <div class="form-label">Answer(Marathi)</div>
+          <div class="form-data">: question</div>
+        </div>
+      </div>
+    </div>
+</div>

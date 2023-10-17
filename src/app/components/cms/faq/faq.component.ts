@@ -9,6 +9,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
+import { AddFaqComponent } from './add-faq/add-faq.component';
 
 @Component({
   selector: 'app-faq',
@@ -40,6 +41,13 @@ export class FaqComponent implements OnDestroy {
     public dialog: MatDialog,
     public webStorage: WebStorageService
   ) { }
+
+
+  addfaq(){
+    this.dialog.open(AddFaqComponent,{
+      width:'30%'
+    })
+  }
 
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
@@ -250,7 +258,7 @@ blockAction(obj: any) {
     this.searchDataFlag = false;
   }
 
-  clearFormData() { // for clear Form field    
+  clearFormData() { // for clear Form field
     this.editFlag = false;
     this.formDirective?.resetForm();
     this.defaultFrm();
