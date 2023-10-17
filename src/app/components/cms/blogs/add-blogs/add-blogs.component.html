@@ -1,63 +1,99 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between">
-    <div class="text-main">{{ this.data ?("blogs.update_Blogs_Article" | translate): ("blogs.add_Blogs_Article" | translate)}}</div>
+    <div class="text-main">
+      {{!this.data ? ('blogs.add_Blogs_Article'|translate) :isViewFlag ?
+      ("blogs.view_Blogs_Article" | translate): ('blogs.update_Blogs_Article'|translate)}}
+    </div>
     <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
       <mat-icon class="material-symbols-outlined">
-          close
+        close
       </mat-icon>
-  </button>
+    </button>
   </div>
 </div>
-<form [formGroup]="blogForm" #formDirective="ngForm" (ngSubmit)="onSubmit()">
-<div mat-dialog-content class="modal-body">
-  <div class="row">
-    <div class="col-sm-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{"blogs.title" | translate}}</mat-label>
-        <input matInput formControlName="title" 
-        (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithQuetion($event)">
-        <mat-error *ngIf="f['title']?.hasError('required')">{{"blogs.blog_empty" | translate}} </mat-error>
-        <mat-error *ngIf="f['title']?.hasError('maxLengthExceeded')">{{"blogs.blog_limit" | translate}} </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-6">
-      <div class="file-upload border rounded-2 p-1">
-        <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-          data-placement="right" (click)="uplodLogo.click()">
-          {{"blogs.featuredImage" | translate}}
-        </button>
-        <input type="file" #uplodLogo accept=".jpg,.jpeg,.png" id="real-file" hidden="hidden" (change)="imageUplod($event)"/>
-
-        <div class="d-flex gap-2" *ngIf="imageResponse">
-          <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-            matTooltip="view" (click)="viewimage()">
-            <mat-icon class="material-symbols-rounded">
-              preview
-            </mat-icon>
-          </button>
-          <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-            matTooltip="delete" (click)="deleteImage()">
-            <mat-icon class="material-symbols-rounded">
-              delete
-            </mat-icon>
-          </button>
+<mat-dialog-content class="modal-body form-container">
+  <div *ngIf="isViewFlag">
+    <div class="row gy-2">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-auto form-label">{{"blogs.title" | translate}}</div>
+          <div class="col-sm-auto form-data">: {{this.data?.title || '-'}}</div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-auto form-label">{{"blogs.featuredImage" | translate}}</div>
+          <div class="col-sm-auto form-data">: 
+             <img src="{{this.data?.thumbnailImage}}" alt="Image" width="100" height="100">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-auto form-label">{{"blogs.editortool" | translate}}</div>
+          <div class="col-sm-auto form-data">: {{this.data?.description || '-'}}</div>
         </div>
       </div>
     </div>
-    <div class="col-sm-12">
-      <div class="form-label"> {{"blogs.editortool" | translate}}</div>
+  </div>
+
+  <div class="" *ngIf="!isViewFlag">
+    <form [formGroup]="blogForm" #formDirective="ngForm" (ngSubmit)="onSubmit()">
+      <div mat-dialog-content class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{"blogs.title" | translate}}</mat-label>
+              <input matInput formControlName="title"
+                (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithQuetion($event)">
+              <mat-error *ngIf="f['title']?.hasError('required')">{{"blogs.blog_empty" | translate}} </mat-error>
+              <mat-error *ngIf="f['title']?.hasError('maxLengthExceeded')">{{"blogs.blog_limit" | translate}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6">
+            <div class="file-upload border rounded-2 p-1">
+              <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                data-placement="right" (click)="uplodLogo.click()">
+                {{"blogs.featuredImage" | translate}}
+              </button>
+              <input type="file" #uplodLogo accept=".jpg,.jpeg,.png" id="real-file" hidden="hidden"
+                (change)="imageUplod($event)" />
+
+              <div class="d-flex gap-2" *ngIf="imageResponse">
+                <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+                  matTooltip="view" (click)="viewimage()">
+                  <mat-icon class="material-symbols-rounded">
+                    preview
+                  </mat-icon>
+                </button>
+                <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                  matTooltip="delete" (click)="deleteImage()">
+                  <mat-icon class="material-symbols-rounded">
+                    delete
+                  </mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-label"> {{"blogs.editortool" | translate}}</div>
             <angular-editor formControlName="description" [config]="editorConfig">
               <mat-error *ngIf="f['description']?.hasError('required')">{{"Please add blog Description"}} </mat-error>
-              <mat-error *ngIf="f['description']?.hasError('maxLengthExceeded')">{{"Maximum limit is 5000 characters"}} </mat-error>
+              <mat-error *ngIf="f['description']?.hasError('maxLengthExceeded')">{{"Maximum limit is 5000 characters"}}
+              </mat-error>
             </angular-editor>
-    </div>
+          </div>
+        </div>
+      </div>
+      <div mat-dialog-actions class="modal-footer">
+        <div class="d-flex align-items-center justify-content-end w-100 gap-2">
+          <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">{{"blogs.clear" |
+            translate}}</button>
+          <button mat-flat-button class="btn-main" type="submit">{{this.data ? ('blogs.update'|translate) :
+            ('blogs.add'|translate)}}</button>
+        </div>
+      </div>
+    </form>
   </div>
-</div>
-<div mat-dialog-actions class="modal-footer">
-  <div class="d-flex align-items-center justify-content-end w-100 gap-2">
-    <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">{{"blogs.clear" | translate}}</button>
-    <button mat-flat-button class="btn-main"  type="submit">{{this.data ? ('blogs.update'|translate) :
-      ('blogs.add'|translate)}}</button>
-  </div>
-</div>
-</form>
+</mat-dialog-content>
