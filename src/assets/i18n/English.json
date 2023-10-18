@@ -28,7 +28,16 @@
     "Please_select_circle": "Please Select Circle",
     "cancel":"Cancel",
     "add": "Add",
-    "officer_Name": "Please Enter Officer Name",
+    "officer_en": "Officer Name(English)",
+    "officer_mr": "Officer Name(Marathi)",
+    "officer_Name_en": "Please Enter Officer Name(English)",
+    "officer_Name_mr": "Please Enter Officer Name(Marathi)",
+    "officer_Name_en_valid": "Please Enter Valid Officer Name(English)",
+    "officer_Name_mr_valid": "Please Enter Valid Officer Name(Marathi)",
+    "address_en": "Address(English)",
+    "address_mr": "Address(Marathi)",
+    "address_Required_en": "Please Enter Address(English)",
+    "address_Required_mr": "Please Enter Address(Marathi)",
     "officer_Name_limit": "Maximum limit 50 character",
     "Address_limit":"Maximum limit 100 charater",
     "searchbyMobile_email":"Search by Mobile No/Email Id"
@@ -46,15 +55,27 @@
     "allDepartment" :"All Department",
     "officer_Registration":"Officer Registration",
     "update_Officer":"Update Officer",
-    "register_Officer":"Register Officer"
-   
+    "register_Officer":"Register Officer",
+    "add_registered_officer":"Add Registered Officer",
+    "view_registered_officer":"Add Registered Officer",
+    "account_Info":"Account Info",
+    "work_Area":"Work Area",
+    "officer_Details":"Officer Details",
+    "view_Officer":"View Officer"
   },
 
   "marketRate":{
     "market_Name_en":"Please Enter Market Name(English)",
     "market_Name_mr":"Please Enter Market Name(Marathi)",
     "market_Name_limit":"Maximum limit 100 charater",
-    "farms_good_Dropdown":"Please Select Farm Goods"
+    "farms_good_Dropdown":"Please Select Farm Goods",
+    "pin_Code":"Pin Code",
+    "latitude":"Latitude",
+    "longitude":"Longitude",
+    "administrator":"Administrator",
+    "add_Market_List":"Add Market List",
+    "update_Market_List":"Update Market List",
+    "view_Market_List":"View Market List"
   },
   
 
@@ -256,7 +277,7 @@
         "Unit":"Unit",
         "Select_Date" : "Select_Date",
         "Min_Rate" : "Min Rate",
-        "Max_Rate " : "Max Rate",
+        "Max_Rate" : "Max Rate",
         "Average_Rate" : "Average Rate",
         "Income_Quantity" :"Income Quantity",
         "Add" : "Add",
@@ -270,7 +291,15 @@
         "Maximum_limit_is_10" :"Maximum limit is 10",
         "Please_enter_Max_Rate/Kg" : "Please enter Max Rate/Kg",
         "Please_enter_average_Rate/Kg" : "Please enter average Rate/Kg",
-        "Please_enter_income_quantity_per_qwintal" :"Please enter income quantity per qwintal"  
+        "Please_enter_income_quantity_per_qwintal" :"Please enter income quantity per qwintal",
+        "All_market" : "All Market",  
+        "All_Farm Goods" : "All Farm Goods",
+        "from_date" : "From Date",
+        "to_date" : "To Date",
+        "market_list" :"Market List",
+        "Market" : "Market",
+        "Farm_Goods" : "Farm Goods",
+        "Market_Rate_Date" : "Market Rate Date"
 
       }
 
