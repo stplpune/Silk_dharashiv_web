@@ -59,7 +59,6 @@
               </button>
               <input type="file" #uplodLogo accept=".jpg,.jpeg,.png" id="real-file" hidden="hidden"
                 (change)="imageUplod($event)" />
-
               <div class="d-flex gap-2" *ngIf="imageResponse">
                 <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
                   matTooltip="view" (click)="viewimage()">
@@ -75,6 +74,7 @@
                 </button>
               </div>
             </div>
+            <mat-error *ngIf="viewMsgFlag">{{lang == 'en' ? "Please Add Blog Feature Image" : "कृपया ब्लॉग वैशिष्ट्य प्रतिमा जोडा"}} </mat-error>
           </div>
           <div class="col-sm-12">
             <div class="form-label"> {{"blogs.editortool" | translate}}</div>
@@ -83,6 +83,7 @@
               <mat-error *ngIf="f['description']?.hasError('maxLengthExceeded')">{{"Maximum limit is 5000 characters"}}
               </mat-error>
             </angular-editor>
+            <mat-error *ngIf="viewMsgFlag">{{lang == 'en' ? "Please Add Blog Description" : "कृपया ब्लॉगचे वर्णन जोडा"}} </mat-error>
           </div>
         </div>
       </div>
