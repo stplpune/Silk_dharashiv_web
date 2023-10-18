@@ -59,14 +59,16 @@ export class AddBlogsComponent {
     })
     this.imageResponse = this.data ? this.data.thumbnailImage : ''
   }
-
+  viewMsgFlag:boolean=false;
   onSubmit() {
      let formvalue = this.blogForm.value;
-     if (this.blogForm.invalid) {
+     if (this.blogForm.invalid || !this.imageResponse || !formvalue.description) {
+        this.viewMsgFlag=true;
        return;
      } 
      else {  
-       formvalue.thumbnailImage = this.imageResponse;   
+       formvalue.thumbnailImage = this.imageResponse; 
+
        let mainData = { ...formvalue, "createdBy": this.webStorage.getUserId() };
        this.apiService.setHttp('POST', 'sericulture/api/Blogs/save-update-blogs', false, mainData, false, 'masterUrl');
        this.apiService.getHttp().subscribe({
@@ -74,7 +76,8 @@ export class AddBlogsComponent {
            if (res.statusCode == '200') {
              this.spinner.hide();
              this.common.snackBar(res.statusMessage, 0);  
-             this.dialogRef.close('Yes');       
+             this.dialogRef.close('Yes');   
+             this.viewMsgFlag=false; 
            } else {
              this.spinner.hide();
              this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -120,6 +123,7 @@ export class AddBlogsComponent {
     this.imageResponse = '';
     this.data = null;
     this.defaultFrm();
+    this.viewMsgFlag=false;
   }
 
   ngOnDestroy() {
