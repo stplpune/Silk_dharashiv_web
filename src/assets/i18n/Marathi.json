@@ -52,7 +52,11 @@
     "officer_Registration":"अधिकारी नोंदणी",
     "update_Officer":"अपडेट अधिकारी",
     "register_Officer":"अधिकारी नोंदणी ",
-    "add_registered_officer":"नोंदणीकृत अधिकारी जोडा"
+    "add_registered_officer":"नोंदणीकृत अधिकारी जोडा",
+    "account_Info":"खात्याची माहिती",
+    "work_Area":"कार्यक्षेत्र",
+    "officer_Details":"अधिकारी तपशील",
+    "view_Officer":"अधिकारी पहा"
    
   },
 
