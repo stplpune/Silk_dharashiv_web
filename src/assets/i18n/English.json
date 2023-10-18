@@ -71,7 +71,9 @@
         "update_designation": "Update Designation",
         "add_designation": "Add Designation",
         "view_Designation":"View Designation",
-        "designation_maxLength": "Maximun 50 character allowed"
+        "designation_maxLength": "Maximun 50 character allowed",
+        "please_enter_valid_designation_name(Marathi)":"Please Enter Valid Designation Name(Marathi)",
+        "please_enter_valid_designation_name(English)":"Please Enter Valid Designation Name(English)"
     },
     "scheme":{
         "scheme":"Scheme",
