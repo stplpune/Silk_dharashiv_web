@@ -3,10 +3,10 @@ import { AddMarketListComponent } from './add-market-list/add-market-list.compon
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-//import { MasterService } from 'src/app/core/services/master.service';
+import { MasterService } from 'src/app/core/services/master.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
@@ -22,14 +22,18 @@ export class MarketsComponent {
   totalPages!: number;
   tableDataArray: any;
   tableDatasize!: number;
+  stateArray = new Array();
+  districtArray = new Array();
+  talukaArray = new Array();
   highLightedFlag: boolean = true;
   subscription!: Subscription;//used  for lang conv
   lang: any;
   
   constructor(public dialog: MatDialog,
+    private fb: FormBuilder,
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
-  //  private masterService: MasterService,
+    private masterService: MasterService,
     private errorHandler: ErrorHandlingService,
     private commonMethod: CommonMethodsService,
     private WebStorageService: WebStorageService) {}
@@ -40,15 +44,27 @@ export class MarketsComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     })
+    this.formData();
+    this.getState();
+     this.getDistrict();
     this.bindTable();
+  }
+
+  formData(){
+  this.filterFrm = this.fb.group({
+    stateId:[1],
+    districtId:[''],
+    talukaId:[''],
+    textSearch:['']
+  })
   }
 
   bindTable(flag?: any) {
     this.spinner.show();
     flag == 'filter' ? (this.pageNumber = 1) : '';
-    //let formData = this.filterFrm?.getRawValue();
+    let formData = this.filterFrm?.getRawValue();
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', `sericulture/api/MarketCommittee/get-All-marketCommittee?StateId=1&DistrictId=1&TalukaId=1` + str, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', `sericulture/api/MarketCommittee/get-All-marketCommittee?StateId=${formData?.stateId || 0}&DistrictId=${formData?.districtId || 0}&TalukaId=${formData?.talukaId || 0}&TextSearch=${formData?.textSearch || ''}` + str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -134,7 +150,7 @@ export class MarketsComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('delete', 'sericulture/api/Designation/DeleteDesignation?Id=' + delObj.id + '&lan=' + this.lang, false, false, false, 'masterUrl');
+        this.apiService.setHttp('delete', 'sericulture/api/MarketPrice/DeleteMarketRate?Id=' + delObj.id + '&lan=' + this.lang, false, false, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
@@ -152,6 +168,50 @@ export class MarketsComponent {
       this.highLightedFlag = false;
     });
   }
+
+  getState() {
+    this.stateArray = [];
+    this.masterService.GetAllState().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.stateArray = res.responseData;
+          }
+        else {
+          this.stateArray = [];
+           }
+      })
+    })
+  }
+
+  getDistrict() {
+    this.districtArray = [];
+   this.masterService.GetAllDistrict(1).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.districtArray = res.responseData;
+        }
+        else {
+          this.districtArray = [];
+         }
+      })
+    })
+  }
+
+  getTaluka() {
+    this.talukaArray = [];
+    this.masterService.GetAllTaluka(1, 1, 0).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.talukaArray = res.responseData;
+          }
+        else {
+          this.talukaArray = [];
+          }
+      })
+    })
+   }
+
+
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();

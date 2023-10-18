@@ -7,12 +7,21 @@
           <button mat-flat-button class="btn-main"  (click)="addMarket()">
             <mat-icon class="material-symbols-rounded">
               add
-            </mat-icon>{{' बाजार यादी जोडा'}}
-            Add Market List</button>
+            </mat-icon>{{lang == 'en' ? "Add Market List" : "बाजार यादी जोडा"}}
+            </button>
         </div>
       </mat-card-header>
       <mat-card-header class="card-header-control">
         <div class="row g-2 w-100">
+          <div class="col-sm">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{'common.state' | translate}}</mat-label>
+              <mat-select formControlName="stateId">
+                <mat-option *ngFor="let state of stateArray"
+                  [value]="state.id">{{state.textEnglish}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Search District</mat-label>
