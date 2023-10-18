@@ -51,7 +51,7 @@ export class AddBlogsComponent {
     this.blogForm = this.fb.group({
       id: [this.data ? this.data.id : 0],
       title: [this.data ? this.data.title : '',[Validators.required, this.validator.maxLengthValidator(100)]],
-      thumbnailImage: [''],
+      thumbnailImage: ['',[Validators.required]],
       publishDate: [new Date()],
       status: [this.data ? this.data.status : true],
       description: [this.data ? this.data.description : '',[Validators.required, this.validator.maxLengthValidator(5000)]],
@@ -62,12 +62,14 @@ export class AddBlogsComponent {
   viewMsgFlag:boolean=false;
   onSubmit() {
      let formvalue = this.blogForm.value;
-     if (this.blogForm.invalid || !formvalue.description) {
+     if (this.blogForm.invalid) {
         this.viewMsgFlag=true;
        return;
-     } else if (!this.imageResponse) {
-      this.common.snackBar(this.lang == 'en' ? "Please Add Blog Feature Image" : "कृपया ब्लॉग प्रतिमा जोडा", 1); 
-     } else {  
+     } 
+    //  else if (!this.imageResponse) {
+    //   this.common.snackBar(this.lang == 'en' ? "Please Add Blog Feature Image" : "कृपया ब्लॉग प्रतिमा जोडा", 1); 
+    //  }
+      else {  
        formvalue.thumbnailImage = this.imageResponse; 
 
        let mainData = { ...formvalue, "createdBy": this.webStorage.getUserId() };
@@ -96,6 +98,7 @@ export class AddBlogsComponent {
         if (res.statusCode == '200') {
           this.spinner.hide();
           this.imageResponse = res.responseData;
+          this.f['thumbnailImage'].setValue(this.imageResponse)
         }
         else {
           this.clearlogo.nativeElement.value = "";
@@ -116,6 +119,7 @@ export class AddBlogsComponent {
 
   deleteImage() {
     this.imageResponse = "";
+    this.f['thumbnailImage'].setValue(this.imageResponse)
     this.clearlogo.nativeElement.value = "";
   }
 
