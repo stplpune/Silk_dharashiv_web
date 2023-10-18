@@ -228,6 +228,33 @@
         "block_name_en":"Block Name(English)",
         "block_name_mr":"Block Name(Marathi)"
 
+      },
+
+      "marketPrice":{
+        "add_market_rate" :"Add Market Rate",
+        "update_market_rate":"Update Market Rate",
+        "view_market_rate" :"View Market Rate",      
+        "Select_Market":"Select Market",
+        "Select_Farm_Goods" : "Select Farm Goods",
+        "Unit":"Unit",
+        "Select_Date" : "Select_Date",
+        "Min_Rate" : "Min Rate",
+        "Max_Rate " : "Max Rate",
+        "Average_Rate" : "Average Rate",
+        "Income_Quantity" :"Income Quantity",
+        "Add" : "Add",
+        "Clear" :"Clear",
+        "Update": "Update",
+        "Please_select_market" :"Please select market",
+        "Please_elect_Farm_Goods" :"Please select Farm Goods",
+        "Please_select_unit" :"Please select unit",
+        "Please_select_date" : "Please select date",
+        "Please_enter_Min_Rate/Kg" :"Please enter Min Rate/Kg",
+        "Maximum_limit_is_10" :"Maximum limit is 10",
+        "Please_enter_Max_Rate/Kg" : "Please enter Max Rate/Kg",
+        "Please_enter_average_Rate/Kg" : "Please enter average Rate/Kg",
+        "Please_enter_income_quantity_per_qwintal" :"Please enter income quantity per qwintal"  
+
       }
 
 

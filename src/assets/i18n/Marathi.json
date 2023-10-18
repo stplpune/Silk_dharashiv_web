@@ -217,6 +217,33 @@
     "please_select_taluka":"कृपया तालुका निवडा",
     "block_name_en":"ब्लॉकचे नाव (इंग्रजी)",
     "block_name_mr":"ब्लॉकचे नाव(मराठी)"
-  }
+  },
   
+  "marketPrice":{
+    "add_market_rate":"मार्केट रेट जोडा",
+    "update_market_rate":"अपडेट मार्केट रेट",
+    "view_market_rate" :"मार्केट रेट पहा",
+    "Select_Market":"बाजारपेठ निवडा ",
+    "Select_Farm_Goods" : "शेतमाल निवडा",
+    "Unit":"परिमाण ",
+    "Select_Date" : "तारीख निवडा",
+    "Min_Rate" : "किमान दर",
+    "Max_Rate " : "कमाल दर",
+    "Average_Rate" : "सरासरी  दर",
+    "Income_Quantity" :"आवक प्रती क्विंटल",
+    "Add" : "जतन करा ",
+    "Clear" :"रद्द करा ",
+    "Update": "अपडेट",
+    "Please_select_market" :"कृपया बाजारपेठ निवडा",
+    "Please_elect_Farm_Goods" :"कृपया शेतमाल निवडा",
+    "Please_select_unit" :"कृपया परिमाण निवडा",
+    "Please_select_date" : "कृपया तारीख निवडा",
+    "Please_enter_Min_Rate/Kg" :"कृपया किमान दर / किलो ग्राम प्रविष्ट करा",
+    "Maximum_limit_is_10" :"कमाल 10 वर्णांना अनुमती आहे",
+    "Please_enter_Max_Rate/Kg" : "कृपया किमाल दर / किलो ग्राम प्रविष्ट करा ",
+    "Please_enter_average_Rate/Kg" : "कृपया सरासरी दर / किलो ग्राम प्रविष्ट करा ",
+    "Please_enter_income_quantity_per_qwintal" :"कृपया आवक प्रती क्विंटल प्रविष्ट करा"
+
+  }
+
 }
