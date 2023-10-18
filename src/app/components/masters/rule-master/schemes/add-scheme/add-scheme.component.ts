@@ -45,6 +45,7 @@ export class AddSchemeComponent {
   ){}
 
   ngOnInit(){
+    console.log("data",this.data)
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
