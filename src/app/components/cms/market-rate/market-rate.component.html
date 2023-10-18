@@ -1,57 +1,62 @@
 <div class="row g-3">
-  <div class="col-sm-8">
+  <div class="col-sm-12">
     <mat-card class="plain-card">
       <mat-card-header class="card-header">
-        <div class="text-main">Market List</div>
+        <div class="d-flex align-items-center justify-content-between w-100">
+        <div class="text-main">{{'marketPrice.market_list'|translate}}</div>
+        <button mat-flat-button class="btn-main" *ngIf="pageAccessObject?.writeRight == true" (click)="addMarket()">
+          <mat-icon class="material-symbols-rounded">
+            add
+          </mat-icon>
+          <span>{{'marketPrice.add_market_rate'|translate}}</span>
+        </button>
+      </div>
       </mat-card-header>
+      <form [formGroup]="filterForm">
       <mat-card-header class="card-header-control">
         <div class="row g-2 w-100">
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label> All Market</mat-label>
-              <mat-select>
-                <mat-option>Option 1</mat-option>
+              <mat-label> {{'marketPrice.All_market'|translate}}</mat-label>
+              <mat-select formControlName="marketId">
+                <!-- <mat-option>Option 1</mat-option> -->
+                <mat-option *ngFor="let market of marketArr" [value]="market.id">{{market.textEnglish}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label> All Farm Goods</mat-label>
-              <mat-select>
-                <mat-option>Option 1</mat-option>
+              <mat-label> {{'marketPrice.All_Farm Goods'|translate}}</mat-label>
+              <mat-select formControlName="goodId">
+                <!-- <mat-option>Option 1</mat-option> -->
+                <mat-option *ngFor="let goods of goodsArr" [value]="goods.id">{{goods.textEnglish}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>From date</mat-label>
-              <input matInput [matDatepicker]="frompicker">
+              <mat-label>{{'marketPrice.from_date'|translate}}</mat-label>
+              <input matInput [matDatepicker]="frompicker" formControlName="fromDate" (click)="frompicker.open()">
               <mat-datepicker-toggle matIconSuffix [for]="frompicker"></mat-datepicker-toggle>
               <mat-datepicker #frompicker></mat-datepicker>
             </mat-form-field>
           </div>
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>To date</mat-label>
-              <input matInput [matDatepicker]="picker">
+              <mat-label>{{'marketPrice.to_date'|translate}}</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="toDate" (click)="picker.open()">
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           </div>
-          <div class="col-sm-3">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Market Name</mat-label>
-              <input matInput placeholder="market name ">
-            </mat-form-field>
-          </div>
           <div class="col-sm-1">
             <div class="d-flex align-items-center gap-2">
-              <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
+              <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button" (click)="filterFlag = true;getTableData('filter')">
                 <mat-icon class="material-symbols-rounded">
                   search
                 </mat-icon>
               </button>
-              <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+              <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="filterFlag = false;clearFilter()">
                 <mat-icon class="material-symbols-rounded">
                   close
                 </mat-icon>
@@ -60,19 +65,21 @@
           </div>
         </div>
       </mat-card-header>
+    </form>
       <mat-card-content class="card-body">
-        <div class="table-responsive scrollbar">
-          Table
+        <div class="table-responsive scrollbar">       
+            <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>  
         </div>
       </mat-card-content>
     </mat-card>
   </div>
-  <div class="col-sm-4">
+  <!-- <div class="col-sm-4">
     <mat-card class="plain-card">
       <mat-card-header class="card-header">
         <div class="text-main">Add Market List</div>
-      </mat-card-header>
-      <mat-card-content class="card-body">
+      </mat-card-header> -->
+
+      <!-- <mat-card-content class="card-body">
         <div class="row gx-2">
           <div class="col-sm-12">
             <mat-form-field appearance="outline" class="w-100">
@@ -135,7 +142,8 @@
           <button mat-flat-button class="btn-main-light">Clear</button>
           <button mat-flat-button class="btn-main">Add</button>
         </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+      </mat-card-content> -->
+    <!-- </mat-card>
+  </div> -->
 </div>
+
