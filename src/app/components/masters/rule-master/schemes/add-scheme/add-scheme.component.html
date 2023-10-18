@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">{{!data ? ('scheme.add_scheme' | translate ):('scheme.update_scheme' | translate )}}</div>
+    <div class="text-main">{{!data ? ('scheme.add_scheme' | translate ): isViewFlag ? ('scheme.view_scheme' | translate) : ('scheme.update_scheme' | translate )}}</div>
     <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
       <mat-icon class="material-symbols-outlined">
         close
@@ -8,6 +8,8 @@
     </button>
   </div>
 </div>
+
+<div class="" *ngIf="!isViewFlag">
 <form [formGroup]="schemeForm" (ngSubmit)="onSubmitData()" #formDirective="ngForm">
   <mat-dialog-content class="modal-body form-container">
     <div class="mb-0">
@@ -88,45 +90,9 @@
         </div>
       </div>
     </div>
-  
- 
-    <!-- View Section -->
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="row">
-          <div class="col-sm-6 form-label">Scheme Name (English)</div>
-          <div class="col-sm-6 form-data">: Scheme Name</div>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row">
-          <div class="col-sm-6 form-label">Select State</div>
-          <div class="col-sm-6 form-data">: Maharashtra</div>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row">
-          <div class="col-sm-6 form-label">Select District</div>
-          <div class="col-sm-6 form-data">: Pune</div>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row">
-          <div class="col-sm-6 form-label">Scheme Description</div>
-          <div class="col-sm-6 form-data">: Pune</div>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row">
-          <div class="col-sm-6 form-label">Scheme Logo</div>
-          <div class="col-sm-6 form-data">
-            logo
-          </div>
-        </div>
-      </div>
-    </div>
   </mat-dialog-content>
-  <mat-dialog-actions class="modal-footer">
+  
+ <mat-dialog-actions class="modal-footer">
     <div class="d-flex align-items-center justify-content-end w-100">
     <button mat-flat-button class="btn-main-light" type="button" (click)="clearForm()">{{'scheme.clear' |
               translate }}</button>
@@ -135,5 +101,44 @@
     </div>
   </mat-dialog-actions>
 </form>
+</div>
 
+<div class="" *ngIf="isViewFlag">
+<mat-dialog-content class="modal-body form-container">
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-6 form-label">Scheme Name (English)</div>
+      <div class="col-sm-6 form-data">: Scheme Name</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-6 form-label">Select State</div>
+      <div class="col-sm-6 form-data">: Maharashtra</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-6 form-label">Select District</div>
+      <div class="col-sm-6 form-data">: Pune</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-6 form-label">Scheme Description</div>
+      <div class="col-sm-6 form-data">: Pune</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-6 form-label">Scheme Logo</div>
+      <div class="col-sm-6 form-data">
+        logo
+      </div>
+    </div>
+  </div>
+</div>
+</mat-dialog-content>
+</div>
 

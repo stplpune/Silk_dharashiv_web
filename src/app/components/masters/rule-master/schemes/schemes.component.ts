@@ -122,11 +122,16 @@ export class SchemesComponent {
       case 'Edit':
         this.addscheme(obj);
         break;
+        case 'View':
+        this.addscheme(obj);
+        break;
       case 'Delete':
         this.deleteDialogOpen(obj);
         break;
       case 'Block':
         this.openBlockDialog(obj);
+        break;
+      
     }
   }
 
