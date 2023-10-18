@@ -51,7 +51,7 @@ export class AddBlogsComponent {
     this.blogForm = this.fb.group({
       id: [this.data ? this.data.id : 0],
       title: [this.data ? this.data.title : '',[Validators.required, this.validator.maxLengthValidator(100)]],
-      thumbnailImage: ['',[Validators.required]],
+      thumbnailImage: [this.data ? this.data.thumbnailImage : '',[Validators.required]],
       publishDate: [new Date()],
       status: [this.data ? this.data.status : true],
       description: [this.data ? this.data.description : '',[Validators.required, this.validator.maxLengthValidator(5000)]],
@@ -65,24 +65,23 @@ export class AddBlogsComponent {
      if (this.blogForm.invalid) {
         this.viewMsgFlag=true;
        return;
-     } 
-    //  else if (!this.imageResponse) {
-    //   this.common.snackBar(this.lang == 'en' ? "Please Add Blog Feature Image" : "कृपया ब्लॉग प्रतिमा जोडा", 1); 
-    //  }
+     }
       else {  
        formvalue.thumbnailImage = this.imageResponse; 
 
-       let mainData = { ...formvalue, "createdBy": this.webStorage.getUserId() };
+       let mainData ={...formvalue, "createdBy": this.webStorage.getUserId() }  ;
+       
        this.apiService.setHttp('POST', 'sericulture/api/Blogs/save-update-blogs', false, mainData, false, 'masterUrl');
        this.apiService.getHttp().subscribe({
          next: ((res: any) => {
+          this.spinner.hide();
            if (res.statusCode == '200') {
-             this.spinner.hide();
+             
              this.common.snackBar(res.statusMessage, 0);  
              this.dialogRef.close('Yes');   
              this.viewMsgFlag=false; 
            } else {
-             this.spinner.hide();
+             
              this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
            }
          }),
@@ -95,8 +94,8 @@ export class AddBlogsComponent {
     this.spinner.show();
     this.fileUpl.uploadDocuments(event, 'Upload', 'png,jpg,jpeg').subscribe({
       next: ((res: any) => {
+        this.spinner.hide();
         if (res.statusCode == '200') {
-          this.spinner.hide();
           this.imageResponse = res.responseData;
           this.f['thumbnailImage'].setValue(this.imageResponse)
         }
@@ -107,6 +106,7 @@ export class AddBlogsComponent {
       }),
       error: (error: any) => {
         this.clearlogo.nativeElement.value = "";
+        this.imageResponse = "";
         this.spinner.hide();
         this.common.checkDataType(error.status) == false ? this.errorService.handelError(error.statusCode) : this.common.snackBar(error.statusText, 1);
       }
@@ -124,7 +124,8 @@ export class AddBlogsComponent {
   }
 
   clearFormData() { // for clear Form field
-    this.formDirective?.resetForm();
+    
+    this.formDirective && this.formDirective?.resetForm();
     this.imageResponse = '';
     this.data = null;
     this.defaultFrm();
