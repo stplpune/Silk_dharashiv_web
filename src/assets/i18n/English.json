@@ -27,7 +27,11 @@
     "Please_select_block": "Please Select Block",
     "Please_select_circle": "Please Select Circle",
     "cancel":"Cancel",
-    "add": "Add"
+    "add": "Add",
+    "officer_Name": "Please Enter Officer Name",
+    "officer_Name_limit": "Maximum limit 50 character",
+    "Address_limit":"Maximum limit 100 charater",
+    "searchbyMobile_email":"Search by Mobile No/Email Id"
 
 
   },
