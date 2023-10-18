@@ -74,16 +74,14 @@
                 </button>
               </div>
             </div>
-            <mat-error *ngIf="viewMsgFlag">{{lang == 'en' ? "Please Add Blog Feature Image" : "कृपया ब्लॉग वैशिष्ट्य प्रतिमा जोडा"}} </mat-error>
+            <!-- <mat-error *ngIf="viewMsgFlag">{{lang == 'en' ? "Please Add Blog Feature Image" : "कृपया ब्लॉग प्रतिमा जोडा"}} </mat-error> -->
           </div>
           <div class="col-sm-12">
             <div class="form-label"> {{"blogs.editortool" | translate}}</div>
             <angular-editor formControlName="description" [config]="editorConfig">
-              <mat-error *ngIf="f['description']?.hasError('required')">{{"Please add blog Description"}} </mat-error>
-              <mat-error *ngIf="f['description']?.hasError('maxLengthExceeded')">{{"Maximum limit is 5000 characters"}}
-              </mat-error>
             </angular-editor>
-            <mat-error *ngIf="viewMsgFlag">{{lang == 'en' ? "Please Add Blog Description" : "कृपया ब्लॉगचे वर्णन जोडा"}} </mat-error>
+            <mat-error *ngIf="viewMsgFlag && !blogForm.value.description">{{lang == 'en' ? "Please Add Blog Description" : "कृपया ब्लॉगचे वर्णन जोडा"}} </mat-error>
+            <mat-error *ngIf="f['description']?.hasError('maxLengthExceeded')">{{lang == 'en' ? "Maximum limit is 5000 characters" : "कमाल 5000 वर्णांना अनुमती आहे"}} </mat-error>
           </div>
         </div>
       </div>

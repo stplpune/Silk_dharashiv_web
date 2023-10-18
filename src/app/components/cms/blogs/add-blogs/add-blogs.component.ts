@@ -62,11 +62,12 @@ export class AddBlogsComponent {
   viewMsgFlag:boolean=false;
   onSubmit() {
      let formvalue = this.blogForm.value;
-     if (this.blogForm.invalid || !this.imageResponse || !formvalue.description) {
+     if (this.blogForm.invalid || !formvalue.description) {
         this.viewMsgFlag=true;
        return;
-     } 
-     else {  
+     } else if (!this.imageResponse) {
+      this.common.snackBar(this.lang == 'en' ? "Please Add Blog Feature Image" : "कृपया ब्लॉग प्रतिमा जोडा", 1); 
+     } else {  
        formvalue.thumbnailImage = this.imageResponse; 
 
        let mainData = { ...formvalue, "createdBy": this.webStorage.getUserId() };
