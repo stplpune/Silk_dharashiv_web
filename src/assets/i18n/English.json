@@ -40,6 +40,13 @@
   
    
   },
+
+  "marketRate":{
+    "market_Name_en":"Please Enter Market Name(English)",
+    "market_Name_mr":"Please Enter Market Name(Marathi)",
+    "market_Name_limit":"Maximum limit 100 charater",
+    "farms_good_Dropdown":"Please Select Farm Goods"
+  },
   
 
 
@@ -125,6 +132,7 @@
         "search_by_scheme_name":"Search By Scheme Name",
         "add_scheme":"Add Scheme",
         "update_scheme":"Update Scheme",
+        "view_scheme":"View Scheme",
         "scheme_description":"Scheme Description",
         "scheme_name":"Scheme Name",
         "select_district":"Select District",

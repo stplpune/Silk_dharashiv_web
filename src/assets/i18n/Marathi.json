@@ -34,6 +34,15 @@
     "searchbyMobile_email":"मोबाईल नंबर/ईमेल आयडी द्वारे शोधा"
 
   },
+
+  "marketRate":{
+    "market_Name_en":"कृपया बाजाराचे नाव प्रविष्ट करा (इंग्रजी)",
+    "market_Name_mr":"कृपया बाजाराचे नाव प्रविष्ट करा (मराठी)",
+    "market_Name_limit":"कमाल 100 वर्णांना अनुमती आहे",
+    "farms_good_Dropdown":"कृपया शेतमाल निवडा"
+
+  },
+
   "pageAccess":{
     "designation": "पदनाम निवडा",
     "module": "मॉड्यूल निवडा",
@@ -116,6 +125,7 @@
     "search_by_scheme_name":"योजनेच्या नावाने शोधा",
     "add_scheme":"योजना जोडा",
     "update_scheme":"अपडेट योजना",
+    "view_scheme":"योजना पहा",
     "scheme_description":"योजनेची माहिती ",
     "scheme_name":"योजनेचे नाव",
     "select_district":"जिल्हा निवडा",
