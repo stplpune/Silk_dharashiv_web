@@ -39,7 +39,7 @@ export class BlogsComponent {
 
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
-      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = res ? res : (sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     })
@@ -73,7 +73,7 @@ export class BlogsComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'thumbnailImage', 'title', 'publishDate', 'status', 'action'] : ['srNo', 'thumbnailImage', 'title', 'publishDate', 'status', 'action'];
+    let displayedColumns =  ['srNo', 'thumbnailImage', 'title', 'publishDate', 'status', 'action'] ;
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'लघुप्रतिमा', 'शीर्षक', 'प्रकाशित तारीख', 'स्थिती', 'कृती'] : ['Sr. No.', 'Thumbnail Image', 'Tittle', 'Publish Date', 'Status', 'Action'];
     let getTableData = {
       pageNumber: this.pageNumber,
@@ -190,7 +190,6 @@ export class BlogsComponent {
     dialogRef.afterClosed().subscribe(res => {
       res == 'Yes' ? this.getTableData() : '';
       this.highLightRowFlag = false;
-      this.setTableData();
     });
   }
 
