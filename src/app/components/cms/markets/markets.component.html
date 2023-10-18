@@ -12,11 +12,12 @@
         </div>
       </mat-card-header>
       <mat-card-header class="card-header-control">
+        <form [formGroup]="filterFrm">
         <div class="row g-2 w-100">
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'common.state' | translate}}</mat-label>
-              <mat-select formControlName="stateId">
+              <mat-select formControlName="stateId" [class]="filterFrm.controls['stateId'].disable({ onlySelf: true })">
                 <mat-option *ngFor="let state of stateArray"
                   [value]="state.id">{{state.textEnglish}}</mat-option>
               </mat-select>
@@ -25,13 +26,19 @@
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Search District</mat-label>
-              <input matInput formControlName="textSearch">
+              <mat-select formControlName="districtId" [class]="filterFrm.controls['districtId'].disable({ onlySelf: true })">
+                <mat-option *ngFor="let district of districtArray"
+                    [value]="district.id">{{district.textEnglish}}</mat-option>
+                </mat-select>
             </mat-form-field>
           </div>
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Search Taluka</mat-label>
-              <input matInput formControlName="textSearch">
+              <mat-select formControlName="talukaId">
+                <mat-option *ngFor="let taluka of talukaArray"
+                  [value]="taluka.id">{{taluka.textEnglish}}</mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
           <div class="col-sm">
@@ -55,6 +62,7 @@
             </div>
           </div>
         </div>
+      </form>
       </mat-card-header>
       <mat-card-content class="card-body">
         <div class="table-responsive scrollbar">

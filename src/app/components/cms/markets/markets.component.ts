@@ -47,13 +47,14 @@ export class MarketsComponent {
     this.formData();
     this.getState();
      this.getDistrict();
-    this.bindTable();
+     this.getTaluka();
+     this.bindTable();
   }
 
   formData(){
   this.filterFrm = this.fb.group({
     stateId:[1],
-    districtId:[''],
+    districtId:[1],
     talukaId:[''],
     textSearch:['']
   })
