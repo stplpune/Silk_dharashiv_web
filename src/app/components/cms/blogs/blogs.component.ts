@@ -9,6 +9,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { ValidationService } from 'src/app/core/services/validation.service';
 
 @Component({
   selector: 'app-blogs',
@@ -31,7 +32,8 @@ export class BlogsComponent {
     private commonMethod: CommonMethodsService,
     private errorHandler: ErrorHandlingService,
     public dialog: MatDialog,
-    public webStorage: WebStorageService
+    public webStorage: WebStorageService,
+    public validator: ValidationService,
 
   ) { }
 
