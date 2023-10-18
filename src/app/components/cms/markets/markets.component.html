@@ -4,11 +4,11 @@
       <mat-card-header class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
           <div class="text-main">Market List</div>
-          <button mat-flat-button class="btn-main"  (click)="addmarketlist()">
+          <button mat-flat-button class="btn-main"  (click)="addMarket()">
             <mat-icon class="material-symbols-rounded">
               add
-            </mat-icon>
-            Add MArket List</button>
+            </mat-icon>{{' बाजार यादी जोडा'}}
+            Add Market List</button>
         </div>
       </mat-card-header>
       <mat-card-header class="card-header-control">
@@ -49,7 +49,7 @@
       </mat-card-header>
       <mat-card-content class="card-body">
         <div class="table-responsive scrollbar">
-          Table
+          <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
         </div>
       </mat-card-content>
     </mat-card>

@@ -190,7 +190,7 @@ export class BlogsComponent {
     dialogRef.afterClosed().subscribe(res => {
       res == 'Yes' ? this.getTableData() : '';
       this.highLightRowFlag = false;
-      this.setTableData();
+     // this.setTableData();
     });
   }
 

@@ -14,7 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { AddMarketListComponent } from './add-market-list/add-market-list.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +33,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule,
     MatSelectModule,
     MatNativeDateModule,
+    GlobalTableComponent,
     MatDatepickerModule
   ]
 })
