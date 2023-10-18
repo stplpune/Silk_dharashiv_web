@@ -5,7 +5,7 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
   providedIn: 'root'
 })
 export class ValidationService {
-  name = ('^[a-zA-Z]+$');
+  name = '^[a-zA-Z]+$';
   fullName = ('^[a-zA-Z][a-zA-Z ]*$');
   fullNamequetion = ('^[a-zA-Z?][a-zA-Z? !@#$%^&*0-9]*$');
   email = ('^[a-zA-Z0-9][a-zA-Z0-9._-]+[a-zA-Z0-9]+@([a-z.]+[.])+[a-z]{2,5}$');
@@ -16,7 +16,7 @@ export class ValidationService {
   marathi=('^[\u0900-\u0965 ]+$');
   marathiquestion=('^[\u0900-\u0965? !@#$%^&*0-9]+$');
   alphabetWithSpace = '^[a-zA-Z][a-zA-Z ]*$';
-  alphaNumericWithSpace = '^[a-zA-Z0-9 -][a-zA-Z0-9 -]*$'
+  alphaNumericWithSpace = '^[a-zA-Z0-9 -][a-zA-Z0-9 -]*$';
   
   maxLengthValidator(maxLength: number) {
     return (control: AbstractControl): ValidationErrors | null => {
