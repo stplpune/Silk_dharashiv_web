@@ -25,19 +25,19 @@
     <div class="col-sm-12">
       <div class="row gx-2">
         <div class="col-sm-5 form-label">{{'action.action_en' | translate}}</div>
-        <div class="col-sm-7 form-data">: {{this.data?.actionName}}</div>
+        <div class="col-sm-7 form-data">: {{this.data?.actionName || '-'}}</div>
       </div>
     </div>
     <div class="col-sm-12">
       <div class="row gx-2">
         <div class="col-sm-5 form-label">{{'action.action_mr' | translate}}</div>
-        <div class="col-sm-7 form-data">: {{this.data?.m_ActionName}}</div>
+        <div class="col-sm-7 form-data">: {{this.data?.m_ActionName || '-'}}</div>
       </div>
     </div>
     <div class="col-sm-12">
       <div class="row gx-2">
         <div class="col-sm-5 form-label">{{'action.description' | translate}}</div>
-        <div class="col-sm-7 form-data">: {{this.data?.description}}</div>
+        <div class="col-sm-7 form-data">: {{this.data?.description || '-'}}</div>
       </div>
     </div>
   </div>
