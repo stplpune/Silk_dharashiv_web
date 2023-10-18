@@ -32,6 +32,8 @@
     "officer_mr": "Officer Name(Marathi)",
     "officer_Name_en": "Please Enter Officer Name(English)",
     "officer_Name_mr": "Please Enter Officer Name(Marathi)",
+    "officer_Name_en_valid": "Please Enter Valid Officer Name(English)",
+    "officer_Name_mr_valid": "Please Enter Valid Officer Name(Marathi)",
     "address_en": "Address(English)",
     "address_mr": "Address(Marathi)",
     "address_Required_en": "Please Enter Address(English)",
@@ -66,7 +68,14 @@
     "market_Name_en":"Please Enter Market Name(English)",
     "market_Name_mr":"Please Enter Market Name(Marathi)",
     "market_Name_limit":"Maximum limit 100 charater",
-    "farms_good_Dropdown":"Please Select Farm Goods"
+    "farms_good_Dropdown":"Please Select Farm Goods",
+    "pin_Code":"Pin Code",
+    "latitude":"Latitude",
+    "longitude":"Longitude",
+    "administrator":"Administrator",
+    "add_Market_List":"Add Market List",
+    "update_Market_List":"Update Market List",
+    "view_Market_List":"View Market List"
   },
   
 
