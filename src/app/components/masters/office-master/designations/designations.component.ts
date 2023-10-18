@@ -128,7 +128,7 @@ export class DesignationsComponent {
   setTableData() {
     this.highLightedFlag = true;
     let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_DepartmentName', 'm_DepartmentLevel', 'm_DesignationName', 'action'] : ['srNo', 'departmentName', 'departmentLevel', 'designationName', 'action']
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'विभाग', 'पदनाम स्तर', 'पदनाम', 'कृती'] : ['Sr. No.', 'Department', 'Department Level', 'Designation', 'Action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'विभाग', 'पदनाम स्तर', 'पदनाम', 'कृती'] : ['Sr. No.', 'Department', 'Designation Level', 'Designation', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,

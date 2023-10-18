@@ -52,9 +52,7 @@
           <mat-label>{{'designation.designation_mr'|translate}}</mat-label>
           <input matInput formControlName="m_DesignationName"
             (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
-          <!-- <mat-error *ngIf="a['designationName'].hasError('pattern')">{{'designation.Please_enter_designation_mr'|translate}}</mat-error>
-         <mat-error *ngIf="a['m_DesignationName']?.hasError('maxLengthExceeded')">{{'designation.designation_maxLength'|translate}}</mat-error> -->
-         <mat-error *ngIf="a['m_DesignationName'].hasError('required')">{{'designation.designation_mr_required'|translate}}</mat-error>
+          <mat-error *ngIf="a['m_DesignationName'].hasError('required')">{{'designation.designation_mr_required'|translate}}</mat-error>
          <mat-error *ngIf="a['m_DesignationName']?.errors">
           <span class="text-danger"
               *ngIf="a['m_DesignationName']?.hasError('maxLengthExceeded') || a['m_DesignationName']?.hasError('pattern')">
@@ -65,7 +63,7 @@
       </div>
 
       <div class="d-flex align-items-center justify-content-end gap-2">
-        <button mat-flat-button class="btn-main-light" type="button">Cancel</button>
+        <button mat-flat-button  mat-dialog-close class="btn-main-light" type="button">Cancel</button>
         <button mat-flat-button class="btn-main" type="submit">{{this.editFlag ? ('designation.update'|translate) :
           ('designation.add'|translate)}}</button>
       </div>
