@@ -1,6 +1,7 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main"> {{!this.data ? ('action.add_action'|translate) :isViewFlag ? ("action.view_Action" | translate): ('action.update_action'|translate)}} </div>
+    <div class="text-main"> {{!this.data ? ('action.add_action'|translate) :isViewFlag ? ("action.view_Action" |
+      translate): ('action.update_action'|translate)}} </div>
     <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
       <mat-icon class="material-symbols-outlined">
         close
@@ -9,39 +10,43 @@
   </div>
 </div>
 
-<!-- view-details section  -->
 
-<div class="row gx-2" *ngIf="isViewFlag">
-  <div class="col-sm-12">
-    <div class="row gx-2">
-      <div class="col-sm-5 form-label">{{lang == 'en' ? 'Scheme Name': 'योजनेचे नाव'}}</div>
-      <div class="col-sm-7 form-label">: {{lang == 'en' ? this.data?.schemeType : this.data?.m_SchemeType}}</div>
-    </div>
-  </div>
-  <div class="col-sm-12">
-    <div class="row gx-2">
-      <div class="col-sm-5 form-label">{{'action.action_en' | translate}}</div>
-      <div class="col-sm-7 form-label">: {{this.data?.actionName}}</div>
-    </div>
-  </div>
-  <div class="col-sm-12">
-    <div class="row gx-2">
-      <div class="col-sm-5 form-label">{{'action.action_mr' | translate}}</div>
-      <div class="col-sm-7 form-label">: {{this.data?.m_ActionName}}</div>
-    </div>
-  </div>
-  <div class="col-sm-12">
-    <div class="row gx-2">
-      <div class="col-sm-5 form-label">{{'action.description' | translate}}</div>
-      <div class="col-sm-7 form-label">: {{this.data?.description}}</div>
-    </div>
-  </div>
-</div>
 
-<!-- Add / Update Form -->
-<div class="" *ngIf="!isViewFlag">
-  <form [formGroup]="actionFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
-    <mat-dialog-content class="modal-body form-container">
+<mat-dialog-content class="modal-body form-container">
+  <!-- view-details section  -->
+
+  <div class="row g-3" *ngIf="isViewFlag">
+    <div class="col-sm-12">
+      <div class="row gx-2">
+        <div class="col-sm-5 form-label">{{lang == 'en' ? 'Scheme Name': 'योजनेचे नाव'}}</div>
+        <div class="col-sm-7 form-data">: {{lang == 'en' ? this.data?.schemeType : this.data?.m_SchemeType}}</div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="row gx-2">
+        <div class="col-sm-5 form-label">{{'action.action_en' | translate}}</div>
+        <div class="col-sm-7 form-data">: {{this.data?.actionName}}</div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="row gx-2">
+        <div class="col-sm-5 form-label">{{'action.action_mr' | translate}}</div>
+        <div class="col-sm-7 form-data">: {{this.data?.m_ActionName}}</div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="row gx-2">
+        <div class="col-sm-5 form-label">{{'action.description' | translate}}</div>
+        <div class="col-sm-7 form-data">: {{this.data?.description}}</div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Add / Update Form -->
+  <div class="" *ngIf="!isViewFlag">
+    <form [formGroup]="actionFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
       <div class="row g-2 w-100">
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
@@ -72,7 +77,8 @@
               (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiQuetionValidation($event)">
             <mat-error *ngIf="f['m_ActionName']?.hasError('required')">{{'action.action_required'|translate}}
             </mat-error>
-            <mat-error *ngIf="f['m_ActionName']?.hasError('pattern')">{{'action.action_pattern_mr'|translate}} </mat-error>
+            <mat-error *ngIf="f['m_ActionName']?.hasError('pattern')">{{'action.action_pattern_mr'|translate}}
+            </mat-error>
             <mat-error *ngIf="f['m_ActionName']?.hasError('maxLengthExceeded')">{{'action.action_maxLength'|translate}}
             </mat-error>
           </mat-form-field>
@@ -87,13 +93,14 @@
           </mat-form-field>
         </div>
       </div>
-
-    </mat-dialog-content>
-    <mat-dialog-actions class="modal-footer">
-      <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-        <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">{{'action.clear'|translate}}</button>
-        <button mat-flat-button class="btn-main" type="submit">{{this.data ? ('action.update'|translate) : ('action.add'|translate)}}</button>
-      </div>
-    </mat-dialog-actions>
-  </form>
-</div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="modal-footer">
+  <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+    <button mat-flat-button class="btn-main-light" (click)="clearFormData()"
+      type="button">{{'action.clear'|translate}}</button>
+    <button mat-flat-button class="btn-main" type="submit">{{this.data ? ('action.update'|translate) :
+      ('action.add'|translate)}}</button>
+  </div>
+</mat-dialog-actions>
