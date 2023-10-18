@@ -277,7 +277,7 @@
         "Unit":"Unit",
         "Select_Date" : "Select_Date",
         "Min_Rate" : "Min Rate",
-        "Max_Rate " : "Max Rate",
+        "Max_Rate" : "Max Rate",
         "Average_Rate" : "Average Rate",
         "Income_Quantity" :"Income Quantity",
         "Add" : "Add",
@@ -291,7 +291,15 @@
         "Maximum_limit_is_10" :"Maximum limit is 10",
         "Please_enter_Max_Rate/Kg" : "Please enter Max Rate/Kg",
         "Please_enter_average_Rate/Kg" : "Please enter average Rate/Kg",
-        "Please_enter_income_quantity_per_qwintal" :"Please enter income quantity per qwintal"  
+        "Please_enter_income_quantity_per_qwintal" :"Please enter income quantity per qwintal",
+        "All_market" : "All Market",  
+        "All_Farm Goods" : "All Farm Goods",
+        "from_date" : "From Date",
+        "to_date" : "To Date",
+        "market_list" :"Market List",
+        "Market" : "Market",
+        "Farm_Goods" : "Farm Goods",
+        "Market_Rate_Date" : "Market Rate Date"
 
       }
 

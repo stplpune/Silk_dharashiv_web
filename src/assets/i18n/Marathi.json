@@ -271,7 +271,7 @@
     "Unit":"परिमाण ",
     "Select_Date" : "तारीख निवडा",
     "Min_Rate" : "किमान दर",
-    "Max_Rate " : "कमाल दर",
+    "Max_Rate" : "कमाल दर",
     "Average_Rate" : "सरासरी  दर",
     "Income_Quantity" :"आवक प्रती क्विंटल",
     "Add" : "जतन करा ",
@@ -285,8 +285,15 @@
     "Maximum_limit_is_10" :"कमाल 10 वर्णांना अनुमती आहे",
     "Please_enter_Max_Rate/Kg" : "कृपया किमाल दर / किलो ग्राम प्रविष्ट करा ",
     "Please_enter_average_Rate/Kg" : "कृपया सरासरी दर / किलो ग्राम प्रविष्ट करा ",
-    "Please_enter_income_quantity_per_qwintal" :"कृपया आवक प्रती क्विंटल प्रविष्ट करा"
-
+    "Please_enter_income_quantity_per_qwintal" :"कृपया आवक प्रती क्विंटल प्रविष्ट करा",
+    "All_market" : "सर्व बाजार",  
+    "All_Farm Goods" : "सर्व शेत माल",
+    "from_date" : "या तारखेपासून",
+    "to_date" : "आजपर्यंत",
+    "market_list" :"बाजार यादी",
+    "Market" : "बाजार",
+    "Farm_Goods" : "शेत माल",
+    "Market_Rate_Date" : "बाजार दर तारीख"
   }
 
 }
