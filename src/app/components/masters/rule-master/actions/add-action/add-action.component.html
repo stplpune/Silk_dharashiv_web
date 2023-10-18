@@ -93,14 +93,15 @@
           </mat-form-field>
         </div>
       </div>
+      <mat-dialog-actions class="modal-footer">
+        <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+          <button mat-flat-button class="btn-main-light" (click)="clearFormData()"
+            type="button">{{'action.clear'|translate}}</button>
+          <button mat-flat-button class="btn-main" type="submit">{{this.data ? ('action.update'|translate) :
+            ('action.add'|translate)}}</button>
+        </div>
+      </mat-dialog-actions>
     </form>
   </div>
 </mat-dialog-content>
-<mat-dialog-actions class="modal-footer">
-  <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-    <button mat-flat-button class="btn-main-light" (click)="clearFormData()"
-      type="button">{{'action.clear'|translate}}</button>
-    <button mat-flat-button class="btn-main" type="submit">{{this.data ? ('action.update'|translate) :
-      ('action.add'|translate)}}</button>
-  </div>
-</mat-dialog-actions>
+
