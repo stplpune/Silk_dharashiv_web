@@ -40,10 +40,7 @@ export class SetRuleComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
-      console.log( this.lang);
-      
     })
-    console.log(this.subscription);
     
     this.defaultFrom();
     this.bindTable();
@@ -66,6 +63,7 @@ export class SetRuleComponent {
     this.dialog.open(SetRuleModalComponent, {
       width: '80%',
       data: data,
+      disableClose: true
     })
   }
 
@@ -78,12 +76,9 @@ export class SetRuleComponent {
     this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?SchemeTypeId=' + (formData.scheme || 0) + '&DepartmentId=' + (formData.department || 0) + '&StateId=' + (formData.state || 1) + '&DistrictId=' + (formData.district || 1), false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
-        console.log(res);
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableresp = res.responseData;
-          console.log(this.tableresp);
-       
         } else {
           this.tableresp = [];
         }
@@ -107,8 +102,8 @@ export class SetRuleComponent {
       case 'Edit':
         this.setrules(obj);
         break;
-      case 'Delete':
-        // this.deleteDialogOpen(obj);
+      case 'View':
+        this.addactions(obj);
         break;
     }
   }
@@ -128,8 +123,6 @@ export class SetRuleComponent {
       tableHeaders: displayedheaders,
       delete: false, view: true, edit: true,
     };
-    console.log("tableData", tableData);
-
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
     this.apiService.tableData.next(tableData);
   }
@@ -138,6 +131,20 @@ export class SetRuleComponent {
     this.formDirective?.resetForm();
     this.defaultFrom();
     this.bindTable();
+  }
+
+  addactions(obj?:any){
+    const dialogRef = this.dialog.open(SetRuleModalComponent,{
+      width: '50%',
+      data: obj,
+      disableClose: true,
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      res == 'Yes'? this.bindTable() : '';
+      // this.highLightRowFlag = false;
+      this.setTableData();
+    });
   }
 
   // ---------------------------dropdown start here----------------------------
@@ -175,7 +182,6 @@ export class SetRuleComponent {
   getDepartment() {
     this.master.GetDepartmentDropdown().subscribe({
       next: ((res: any) => {
-        console.log(res);
         this.departmentresp = res.responseData;
       }), error: (() => {
         this.departmentresp = [];

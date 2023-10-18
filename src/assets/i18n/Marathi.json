@@ -1,4 +1,35 @@
 {
+  "common":{
+    "department":"विभाग निवडा",
+    "designation_level":"पदनाम स्तर निवडा",
+    "designation":"पदनाम निवडा",
+    "state":"राज्य निवडा",
+    "district":"जिल्हा निवडा",
+    "taluka": "तालुका निवडा",
+    "village":"गाव  निवडा",
+    "block":"ब्लॉक निवडा",
+    "circle":"मंडळ निवडा",
+    "email":"ईमेल आयडी",
+    "please_enter_email_id":"कृपया ईमेल आयडी प्रविष्ट करा",
+    "Please_enter_valid_email_id":"कृपया वैध ईमेल आयडी प्रविष्ट करा",
+    "mobile":"मोबाइल क्रमांक",
+    "please_enter_mobile_number":"कृपया मोबाइल क्रमांक प्रविष्ट करा",
+    "please_enter_valid_mobile_number":"कृपया वैध 10 अंकी मोबाइल नंबर प्रविष्ट करा",
+    "address":"पत्ता",
+   "address_maximum 100 character_allowed": "कमाल 100 वर्णांना अनुमती आहे",
+    "Please_select_department": "कृपया विभाग निवडा",
+    "Please_select_designation_level": "कृपया पदनाम स्तर निवडा",
+    "Please_select_designation": "कृपया पदनाम निवडा",
+    "Please_select_state": "कृपया राज्य निवडा",
+    "Please_select_district":"कृपया जिल्हा निवडा",
+    "Please_select_taluka": "कृपया तालुका निवडा",
+    "Please_select_village": "कृपया गाव निवडा",
+    "Please_select_block": "कृपया ब्लॉक (तालुक्यांचा समूह) निवडा",
+    "Please_select_circle": "कृपया मंडळ निवडा (गावांचा समूह)",
+    "cancel":"रद्द करा",
+    "add": "जतन करा"
+
+  },
   "pageAccess":{
     "designation": "पदनाम निवडा",
     "module": "मॉड्यूल निवडा",
@@ -74,8 +105,8 @@
     "add_designation": "पदनाम जोडा",
     "view_Designation":"पदनाम पहा",
     "designation_maxLength": "कमाल 50 वर्णांना अनुमती आहे",
-    "please_enter_valid_designation_name(Marathi)":"कृपया वैध पदनाम नाव(मराठी) टाका",
-    "please_enter_valid_designation_name(English)":"कृपया वैध  पदनाम नाव(इंग्रजी) टाका"
+    "please_enter_valid_designation_name(Marathi)":"कृपया वैध पदनाम(मराठी) प्रविष्ट करा",
+    "please_enter_valid_designation_name(English)":"कृपया वैध पदनाम(इंग्रजी) प्रविष्ट करा"
   },"scheme":{
     "scheme":"योजना",
     "search_by_scheme_name":"योजनेच्या नावाने शोधा",

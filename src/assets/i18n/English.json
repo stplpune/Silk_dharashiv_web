@@ -1,4 +1,45 @@
-{ 
+{
+  "common":{
+    "department":"Select Department",
+    "designation_level":"Select Designation Level",
+    "designation":"Select Designation",
+    "state":"Select State",
+    "district":"Select District",
+    "taluka": "Select Taluka",
+    "village":"Select Village",
+    "block":"Select Block",
+    "circle":"Select Circle",
+    "email":"Email Id",
+    "please_enter_email_id":"Please Enter Email Id",
+    "Please_enter_valid_email_id":"Please Enter Valid Email Id",
+    "mobile":"Mobile No.",
+    "please_enter_mobile_number":"Please Enter Mobile No.",
+    "please_enter_valid_mobile_number":"Please Enter Valid 10 Digit Mobile Number",
+    "address":"Address",
+    "address_maximum 100 character_allowed": "Maximun 100 character allowed",
+     "Please_select_department": "Please Select Department",
+    "Please_select_designation_level": "Please Select Designation Level",
+    "Please_select_designation": "Please Select Designation",
+    "Please_select_state": "Please Select State",
+    "Please_select_district": "Please Select District",
+    "Please_select_taluka": "Please Select Taluka",
+    "Please_select_village": "Please Select Village",
+    "Please_select_block": "Please Select Block",
+    "Please_select_circle": "Please Select Circle",
+    "cancel":"Cancel",
+    "add": "Add"
+
+
+  },
+
+  "officerreg":{
+  
+   
+  },
+  
+
+
+
   "pageAccess":{
     "designation": "Select Designation",
     "module": "Select Module",

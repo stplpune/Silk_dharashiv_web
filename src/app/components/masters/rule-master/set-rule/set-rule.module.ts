@@ -14,7 +14,7 @@ import { SetRuleModalComponent } from './set-rule-modal/set-rule-modal.component
 import {MatDialogModule} from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
-
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   declarations: [
     SetRuleComponent,
@@ -32,7 +32,8 @@ import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.c
     MatButtonModule,
     MatSelectModule,
     ReactiveFormsModule,
-    GlobalTableComponent
+    GlobalTableComponent,
+    TranslateModule
   ]
 })
 export class SetRuleModule { }
