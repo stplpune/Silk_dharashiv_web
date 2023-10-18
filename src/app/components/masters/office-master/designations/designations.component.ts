@@ -177,7 +177,7 @@ export class DesignationsComponent {
     dialogRef.afterClosed().subscribe((result: any) => {
       result == 'Yes' ? this.bindTable() : '';
       this.highLightedFlag = false;
-      this.setTableData();
+      //this.setTableData();
     });
   }
 
