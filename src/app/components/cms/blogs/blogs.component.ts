@@ -137,7 +137,7 @@ export class BlogsComponent {
     this.apiService.setHttp('PUT', 'sericulture/api/Blogs/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
-        res.statusCode == "200" ? (this.commonMethod.snackBar(res.statusMessage, 0), this.getTableData()) : this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        res.statusCode == "200" ? (this.commonMethod.snackBar(res.statusMessage, 0),this.getTableData()) : this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
       },
       error: (error: any) => {
         this.errorHandler.handelError(error.status);

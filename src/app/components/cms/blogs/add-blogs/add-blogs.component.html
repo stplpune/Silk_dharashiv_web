@@ -74,7 +74,7 @@
                 </button>
               </div>
             </div>
-            <!-- <mat-error *ngIf="viewMsgFlag">{{lang == 'en' ? "Please Add Blog Feature Image" : "कृपया ब्लॉग प्रतिमा जोडा"}} </mat-error> -->
+            <mat-error *ngIf="viewMsgFlag && !imageResponse">{{lang == 'en' ? "Please Add Blog Feature Image" : "कृपया ब्लॉग प्रतिमा जोडा"}} </mat-error>
           </div>
           <div class="col-sm-12">
             <div class="form-label"> {{"blogs.editortool" | translate}}</div>
