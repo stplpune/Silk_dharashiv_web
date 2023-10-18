@@ -37,7 +37,16 @@
   },
 
   "officerreg":{
-  
+    "allVillage" : "All Village" ,
+    "allCircle" : "All Circle",
+    "allBlocks" :"All Blocks",
+    "allTaluka" :"All Taluka",
+    "allDesignation" :"All Designation",
+    "allLevel" : "All Level",
+    "allDepartment" :"All Department",
+    "officer_Registration":"Officer Registration",
+    "update_Officer":"Update Officer",
+    "register_Officer":"Register Officer"
    
   },
 

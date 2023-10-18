@@ -34,6 +34,19 @@
     "searchbyMobile_email":"मोबाईल नंबर/ईमेल आयडी द्वारे शोधा"
 
   },
+  "officerreg":{
+    "allVillage" : "सर्व गाव" ,
+    "allCircle" : "सर्व मंडळ",
+    "allBlocks" :"सर्व ब्लॉक",
+    "allTaluka" :"सर्व तालुका",
+    "allDesignation" :"सर्व पदनाम",
+    "allLevel" : "सर्व स्तर",
+    "allDepartment" :"सर्व विभाग",
+    "officer_Registration":"अधिकारी नोंदणी",
+    "update_Officer":"अपडेट अधिकारी",
+    "register_Officer":"अधिकारी नोंदणी "
+   
+  },
 
   "marketRate":{
     "market_Name_en":"कृपया बाजाराचे नाव प्रविष्ट करा (इंग्रजी)",
