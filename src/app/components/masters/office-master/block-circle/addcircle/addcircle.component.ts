@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgIf, NgFor} from '@angular/common';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';import {MatRadioModule} from '@angular/material/radio';
@@ -27,9 +27,6 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [MatFormFieldModule,MatButtonModule, MatSelectModule, FormsModule, ReactiveFormsModule, NgIf,MatInputModule, NgFor,MatRadioModule,MatIconModule,MatDialogModule,TranslateModule],
 })
 export class AddcircleComponent {
-  toppings = new FormControl('');
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-
   addBlockForm !: FormGroup;
   stateArr = new Array();
   districtArr = new Array();
@@ -65,8 +62,8 @@ export class AddcircleComponent {
   formData(){
     this.addBlockForm = this.fb.group({
       "id": [this.data?.id || 0],
-      "blockName": [this.data?.blockName || '',[Validators.required]],
-      "m_BlockName": [this.data?.m_BlockName || '',[Validators.required]],
+      "blockName": [this.data?.blockName || '',[Validators.required,Validators.pattern(this.validator.fullName),this.validator.maxLengthValidator(30)]],
+      "m_BlockName": [this.data?.m_BlockName || '',[Validators.required,Validators.pattern(this.validator.marathi),this.validator.maxLengthValidator(30)]],
       "stateId": [1],
       "districtId": [1],
       "talukas": ['',[Validators.required]],

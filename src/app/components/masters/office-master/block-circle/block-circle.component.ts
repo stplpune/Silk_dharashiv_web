@@ -24,6 +24,7 @@ export class BlockCircleComponent {
   textsearch = new FormControl('');
   subscription!: Subscription;//used  for lang conv
   lang: string = 'English';
+  pageAccessObject: object|any;
   filterFlag : boolean = false;
 
   constructor(
@@ -36,6 +37,7 @@ export class BlockCircleComponent {
   ) { }
 
   ngOnInit() {  
+    this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == 'Department'? this.pageAccessObject = ele :''})
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -47,7 +49,7 @@ export class BlockCircleComponent {
   getTableData(flag?: any) {
     this.spinner.show();
     flag == 'filter' ? (this.pageNumber = 1) : '';
-    this.apiService.setHttp('GET', `sericulture/api/TalukaBlocks/GetAllTalukaBlocks?pageno=${this.pageNumber}&pagesize=10&TextSearch=${this.textsearch.value || ''}`, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', `sericulture/api/TalukaBlocks/GetAllTalukaBlocks?pageno=${this.pageNumber}&pagesize=10&TextSearch=${this.textsearch.value || ''}&lan=${this.lang}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -81,7 +83,10 @@ export class BlockCircleComponent {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      delete: true, view: true, edit: true,
+      view: this.pageAccessObject?.readRight == true ? true: false,
+      edit: this.pageAccessObject?.writeRight == true ? true: false,
+      delete: this.pageAccessObject?.deleteRight == true ? true: false
+      // delete: true, view: true, edit: true,
     };
     this.highLightRowFlag ? (getTableData.highlightedrow = true) : (getTableData.highlightedrow = false);
     this.apiService.tableData.next(getTableData);
