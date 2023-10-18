@@ -14,16 +14,16 @@
 <mat-dialog-content class="modal-body form-container">
   <div *ngIf="isViewFlag">
     <div class="row gy-2">
-      <div class="col-sm-12">
+      <div class="col-sm-8">
         <div class="row">
           <div class="col-sm-auto form-label">{{"blogs.title" | translate}}</div>
           <div class="col-sm-auto form-data">: {{this.data?.title || '-'}}</div>
         </div>
       </div>
-      <div class="col-sm-12">
+      <div class="col-sm-4">
         <div class="row">
           <div class="col-sm-auto form-label">{{"blogs.featuredImage" | translate}}</div>
-          <div class="col-sm-auto form-data">: 
+          <div class="col-sm-auto form-data">
              <img src="{{this.data?.thumbnailImage}}" alt="Image" width="100" height="100">
           </div>
         </div>
@@ -59,7 +59,6 @@
               </button>
               <input type="file" #uplodLogo accept=".jpg,.jpeg,.png" id="real-file" hidden="hidden"
                 (change)="imageUplod($event)" />
-
               <div class="d-flex gap-2" *ngIf="imageResponse">
                 <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
                   matTooltip="view" (click)="viewimage()">
@@ -75,14 +74,14 @@
                 </button>
               </div>
             </div>
+            <mat-error *ngIf="viewMsgFlag && !imageResponse">{{lang == 'en' ? "Please Add Blog Feature Image" : "कृपया ब्लॉग प्रतिमा जोडा"}} </mat-error>
           </div>
           <div class="col-sm-12">
             <div class="form-label"> {{"blogs.editortool" | translate}}</div>
             <angular-editor formControlName="description" [config]="editorConfig">
-              <mat-error *ngIf="f['description']?.hasError('required')">{{"Please add blog Description"}} </mat-error>
-              <mat-error *ngIf="f['description']?.hasError('maxLengthExceeded')">{{"Maximum limit is 5000 characters"}}
-              </mat-error>
             </angular-editor>
+            <mat-error *ngIf="viewMsgFlag && !blogForm.value.description">{{lang == 'en' ? "Please Add Blog Description" : "कृपया ब्लॉगचे वर्णन जोडा"}} </mat-error>
+            <mat-error *ngIf="f['description']?.hasError('maxLengthExceeded')">{{lang == 'en' ? "Maximum limit is 5000 characters" : "कमाल 5000 वर्णांना अनुमती आहे"}} </mat-error>
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { ValidationService } from 'src/app/core/services/validation.service';
 
 @Component({
   selector: 'app-blogs',
@@ -31,7 +32,8 @@ export class BlogsComponent {
     private commonMethod: CommonMethodsService,
     private errorHandler: ErrorHandlingService,
     public dialog: MatDialog,
-    public webStorage: WebStorageService
+    public webStorage: WebStorageService,
+    public validator: ValidationService,
 
   ) { }
 
@@ -135,7 +137,7 @@ export class BlogsComponent {
     this.apiService.setHttp('PUT', 'sericulture/api/Blogs/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
-        res.statusCode == "200" ? (this.commonMethod.snackBar(res.statusMessage, 0), this.getTableData()) : this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        res.statusCode == "200" ? (this.commonMethod.snackBar(res.statusMessage, 0),this.getTableData()) : this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
       },
       error: (error: any) => {
         this.errorHandler.handelError(error.status);

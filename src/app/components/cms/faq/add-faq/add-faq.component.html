@@ -11,7 +11,7 @@
 <mat-dialog-content class="modal-body form-container">
 <!-- View section -->
 <div *ngIf="isViewFlag">
-<div class="row">
+<div class="row g-3">
   <div class="col-sm-12">
     <div class="row">
       <div class="col-sm-auto form-label"> {{'faq.question_en' | translate}}</div>
@@ -38,8 +38,9 @@
   </div>
 </div>
 </div>
+
 <form [formGroup]="faqFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
-  <div *ngIf="!isViewFlag" mat-dialog-content class="modal-body form-container">
+  <div *ngIf="!isViewFlag">
     <div class="mb-0">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'faq.question_en' | translate}}</mat-label>

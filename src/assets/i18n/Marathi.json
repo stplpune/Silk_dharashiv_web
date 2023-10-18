@@ -73,7 +73,9 @@
     "update_designation": "पदनाम अपडेट करा",
     "add_designation": "पदनाम जोडा",
     "view_Designation":"पदनाम पहा",
-    "designation_maxLength": "कमाल 50 वर्णांना अनुमती आहे"
+    "designation_maxLength": "कमाल 50 वर्णांना अनुमती आहे",
+    "please_enter_valid_designation_name(Marathi)":"कृपया वैध पदनाम नाव(मराठी) टाका",
+    "please_enter_valid_designation_name(English)":"कृपया वैध  पदनाम नाव(इंग्रजी) टाका"
   },"scheme":{
     "scheme":"योजना",
     "search_by_scheme_name":"योजनेच्या नावाने शोधा",
