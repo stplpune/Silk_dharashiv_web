@@ -23,6 +23,8 @@ export class AddMarketListComponent {
   subscription!: Subscription;//used  for lang conv
   lang: any;
   sendFarmDataArray = new Array();
+  editFlag:boolean = false;
+  editObj?:any;
 
   constructor(
     private fb: FormBuilder,
@@ -39,12 +41,12 @@ export class AddMarketListComponent {
   ) { }
 
   ngOnInit() {
-  
-    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+    console.log("uuuuuuuuuu",this.data)
+   this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-    this.formData();
+     this.formData();
     this.getState();
     this.getDistrict();
     this.getTaluka();
@@ -62,7 +64,6 @@ export class AddMarketListComponent {
       "stateId": [1],
       "districtId": [1],
       "talukaId": [''],
-      "villageId": [''],
       "address": [''],
       "pincode": [''],
       "estDate": [''],
@@ -87,12 +88,43 @@ export class AddMarketListComponent {
 
   get a(){return this.marketFrm.controls }
 
+  // onEdit(data?:any){
+  // console.log("this.marketFrm.value.shetMalId",data)
+  // this.editObj = data;
+  // this.editFlag = true;
+  // console.log("this.editObj",this.editObj)
+  // this.marketFrm.patchValue({
+  //   "id":this.editObj?.id ,
+  //   "marketName": this.editObj?.marketName ,
+  //   "m_MarketName":this.editObj?.m_MarketName ,
+  //   "conactNo":this.editObj?.conactNo ,
+  //   "emailId":this.editObj?.emailId ,
+  //   "stateId":this.editObj?.stateId ,
+  //   "districtId":this.editObj?.districtId ,
+  //   "talukaId": this.editObj?.talukaId ,
+  //   "address":this.editObj?.address ,
+  //   "pincode":this.editObj?.pincode ,
+  //   "estDate": this.editObj?.estDate ,
+  //   "latitude":this.editObj?.latitude ,//number
+  //   "longitude":this.editObj?.longitude ,//number
+  //   "administratior": this.editObj?.administratior ,
+  //   "mobileNo": this.editObj?.mobileNo ,
+  //   "workingHours": this.editObj?.workingHours ,
+  //   // "shetMalId":this.editObj?.getCommitteeAssignShetmal.map((x:any)=>{return x.shetMalId}) ,
+  // })
+  // this.getState();
+  // this.getDistrict();
+  // this.getFarmGoods();
+
+  // }
+
   getState() {
     this.stateArray = [];
     this.masterService.GetAllState().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.stateArray = res.responseData;
+          this.editFlag ? this.a['stateId'].setValue(this.editObj?.stateId) : '';
         }
         else {
           this.stateArray = [];
@@ -107,6 +139,7 @@ export class AddMarketListComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.districtArray = res.responseData;
+          this.editFlag ? (this.a['districtId'].setValue(this.editObj?.districtId),this.getTaluka()) : this.getTaluka();
         }
         else {
           this.districtArray = [];
@@ -121,6 +154,7 @@ export class AddMarketListComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.talukaArray = res.responseData;
+          this.editFlag ? this.a['talukaId'].setValue(this.editObj?.talukaId) : '';
         }
         else {
           this.talukaArray = [];
@@ -138,6 +172,7 @@ export class AddMarketListComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.farmGoodsArray = res.responseData;
+          this.editFlag ? this.a['shetMalId'].setValue(this.editObj?.shetMalId) : '';
         }
         else {
           this.farmGoodsArray = [];
@@ -169,26 +204,25 @@ export class AddMarketListComponent {
         let obj = {
            "id" : data.id,
             "marketName": data.marketName,
-            "m_MarketName":data.marketName,
-            "conactNo": data.marketName,
-            "emailId": data.marketName,
-            "stateId":data.marketName,
-            "districtId": data.marketName,
-            "talukaId":data.marketName,
-            "villageId": data.marketName,
-            "address": data.marketName,
-            "pincode": data.marketName,
-            "estDate": data.marketName,
+            "m_MarketName":data.m_MarketName,
+            "conactNo": data.conactNo,
+            "emailId": data.emailId,
+            "stateId":data.stateId,
+            "districtId": data.districtId,
+            "talukaId":data.talukaId,
+            "villageId": 0,
+            "address": data.address,
+            "pincode": data.pincode,
+            "estDate": data.estDate,
             "latitude": Number(data.latitude),
             "longitude":Number(data.longitude),
-            "administratior": data.marketName,
-            "mobileNo": data.marketName,
-            "workingHours": data.marketName,
+            "administratior": data.administratior,
+            "mobileNo": data.mobileNo,
+            "workingHours": data.workingHours,
             "committeeAssignShetmal": this.sendFarmData(data.shetMalId),
             "createdBy": this.WebStorageService.getUserId() ,
             "flag": 'i'
-          
-        }
+          }
 
         // let mainData = { ...obj, "createdBy": this.WebStorageService.getUserId() };
         this.apiService.setHttp('post', 'sericulture/api/MarketCommittee/AddUpdateMarketCommittee?lan=' + this.lang, false, obj, false, 'masterUrl');
