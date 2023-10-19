@@ -2,6 +2,7 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -17,6 +18,8 @@ export class AddFaqComponent {
   faqFrm!: FormGroup;
   isViewFlag : boolean = false;
   @ViewChild('formDirective') private formDirective!: NgForm;
+  subscription!: Subscription;
+  lang: any;
   get f() { return this.faqFrm.controls };
 
   constructor(private fb: FormBuilder,
@@ -32,6 +35,10 @@ export class AddFaqComponent {
   ) { }
 
   ngOnInit() {
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+    })
     this.isViewFlag = this.data?.label == 'View' ? true : false;
     this.defaultFrm();
   }
@@ -56,7 +63,7 @@ export class AddFaqComponent {
       this.spinner.show();
       formvalue.id = Number(formvalue.id)
       let mainData = { ...formvalue, "createdBy": this.webStorage.getUserId() };
-      this.apiService.setHttp('POST', 'sericulture/api/FAQ/save-update-faq', false, mainData, false, 'masterUrl');
+      this.apiService.setHttp('POST', 'sericulture/api/FAQ/save-update-faq?lan='+ this.lang, false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
