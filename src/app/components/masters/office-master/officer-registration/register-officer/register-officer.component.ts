@@ -32,7 +32,7 @@ export class RegisterOfficerComponent {
   @ViewChild('formDirective') private formDirective!: NgForm;
   @ViewChild('uplodLogo') clearlogo!: any;
   tableDataArray = new Array();
-  statusArray = [{ id: 0, 'value': 'In Active' }, { id: 1, 'value': 'Active' }];
+  statusArray = [{ id: 0, 'value': 'In Active','mr_value':'निष्क्रिय' }, { id: 1, 'value': 'Active','mr_value':'सक्रिय' }];
   showFlag: boolean = false;
   statusForm!: FormGroup;
   imageResponse: string = '';
@@ -55,6 +55,10 @@ export class RegisterOfficerComponent {
 
 
   ngOnInit() {
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+    })
     this.getFormData();
     this.getstatusForm();
     this.getDepartment();
@@ -71,12 +75,12 @@ export class RegisterOfficerComponent {
       departmentLevelId: [this.data ? this.data?.departmentId : '', [Validators.required]],
       stateId: [this.data ? this.data?.stateId : 1],
       districtId: [this.data ? this.data?.districtId : 1],
-      blockId: [this.data ? this.data?.blockId : '', [Validators.required]],
-      talukaId: [this.data ? this.data?.talukaId : '', [Validators.required]],
+      blockId: [this.data ? this.data?.blockId : 0, [Validators.required]],
+      talukaId: [this.data ? this.data?.talukaId : 0, [Validators.required]],
       circleId: [this.data ? this.data?.circleId : '', [Validators.required]],
       villageId: [this.data ? this.data?.villageId : '', [Validators.required]],
       designationId: [this.data ? this.data?.designationId : '', [Validators.required]],
-      name: [this.data ? this.data?.name : '', [Validators.required, Validators.pattern(this.validator.name), this.validator.maxLengthValidator(50)]],
+      name: [this.data ? this.data?.name : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(50)]],
       m_Name: [this.data ? this.data?.m_Name : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(50)]],
       mobNo1: [this.data ? this.data?.mobNo1 : '', [Validators.required, Validators.pattern(this.validator.mobile_No)]],
       emailId: [this.data ? this.data?.emailId : '', [Validators.required, Validators.email, this.validator.maxLengthValidator(50)]],
@@ -217,14 +221,36 @@ export class RegisterOfficerComponent {
     });
   }
   onSubmitData() {
-    let formData = this.officeForm.getRawValue();
+    let formData = this.officeForm.getRawValue();    
+    formData.talukaId = formData.talukaId  == "" ? 0 : formData.talukaId;
+    formData.villageId =  formData.villageId == "" ? 0 : formData.villageId;
+    formData.blockId =  formData.blockId == "" ? 0 : formData.blockId;
+    formData.circleId =  formData.circleId  == "" ? 0 : formData.circleId;    
     if (this.officeForm.invalid) {
       this.spinner.hide();
+      return
     } else {
-      formData.blockId = formData.blockId ? formData.blockId : 0;
-      formData.talukaId = formData.talukaId ? formData.talukaId : 0;
-      formData.circleId = formData.circleId ? formData.circleId : 0;
-      formData.villageId = formData.villageId ? formData.villageId : 0;
+
+      // formData.talukaId = 
+      // if(formData.departmentLevelId == 5){
+      //   formData.talukaId = 0;
+      //   formData.villageId = 0;
+      //   formData.blockId = 0;
+      //   formData.circleId = 0;
+      // } else if(formData.departmentLevelId == 4){
+      //   formData.villageId = 0;
+      // }else if(formData.departmentLevelId == 3){
+      //   formData.blockId = 0;
+      //   formData.circleId = 0;
+      // }else if(formData.departmentLevelId == 2){
+      //   formData.talukaId = 0;
+      //   formData.villageId = 0;
+      //   formData.circleId = 0;
+      // }else if(formData.departmentLevelId == 1){
+      //   formData.villageId = 0;
+      //   formData.blockId = 0;
+      // }
+
       let obj = {
         ...formData,
         "crcRegNo": "string",

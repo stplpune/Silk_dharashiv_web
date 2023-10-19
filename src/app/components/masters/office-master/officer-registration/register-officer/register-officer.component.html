@@ -16,7 +16,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.department' | translate}}</mat-label>
             <mat-select formControlName="departmentId">
-              <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang != 'en' ? department.textMarathi : department.textEnglish}}
+              <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang != 'en' ? department.textMarathi  :department.textEnglish}}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="f['departmentId']?.hasError('required')">{{'common.Please_select_department'|translate}}  </mat-error>
@@ -279,7 +279,7 @@
           <div class="ms-2 me-auto">
             <div class="form-label">
               <mat-form-field appearance="outline" class="w-100" [class]="statusForm.value.statusId == 0 ? sendData(statusForm.value.statusId) : '' ">
-                <mat-label>Status</mat-label>
+                <mat-label>{{'officerreg.status' | translate}}</mat-label>
                 <mat-select formControlName="statusId" (selectionChange)="sendData(statusForm.value.statusId)"  >
                   <mat-option *ngFor="let st of statusArray" [value]="st.id">{{st.value}}</mat-option>
                 </mat-select>
