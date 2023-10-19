@@ -2,6 +2,7 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -24,14 +25,13 @@ export class SetRuleModalComponent {
   levelResp = new Array();
   designationResp = new Array();
   approveLevelResp = new Array();
-  editFlag: boolean = false;
-  editId: any;
-  aId: any;
-  deptlevelID: any;
-  designationID: any;
-  orderId: any;
-  Duplicate: any;
+  subscription!: Subscription;//used  for lang conv
   @ViewChild('formDirective') private formDirective!: NgForm;
+  lang: any;
+  isViewFlag: boolean = false;
+  editFlag: boolean = false;
+  displayedColumns: string[] = ['Sr.No', 'Order', 'Action', 'Designation Level', 'Designation'];
+  tableData = new Array();
   constructor(private fb: FormBuilder,
     private master: MasterService,
     private commonMethods: CommonMethodsService,
@@ -44,8 +44,12 @@ export class SetRuleModalComponent {
   ) { }
 
   ngOnInit() {
-    console.log(this.data);
-
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+      this.defaultFrom();
+    });
+    this.isViewFlag = this.data?.label == 'View' ? true : false;
     this.defaultFrom();
     this.getSchemeType();
     this.getDepartment();
@@ -55,10 +59,11 @@ export class SetRuleModalComponent {
     this.getLevel();
     this.getDesignation();
     this.getLevelApprovel();
-    // this.addList();
     this.data?.label == 'Edit' ? this.editData() : '';
+    this.tableData = this.data?.getApprovalMaster
   }
 
+  //#region ------------------------------------------------------filter drop fn start heare--------------------------------------------//
 
   defaultFrom() {
     this.setRulefrm = this.fb.group({
@@ -73,175 +78,14 @@ export class SetRuleModalComponent {
   get f() {
     return this.setRulefrm.controls;
   }
+
   get g() {
     return this.setRulefrm.controls['approvalLevels'].value;
   }
-  get approvallistForm() { return this.setRulefrm.get('approvalLevels') as FormArray }
 
-  addList() {
-    if (this.approvallistForm.length && this.approvallistForm.status == 'INVALID') {
-      this.commonMethods.snackBar("Please Add Approval Details First", 1);
-      return;
-    }
-    else {
-      const data = this.fb.group({
-        "actionId": ['', [Validators.required]],
-        "departmentLevelId": ['', [Validators.required]],
-        "designationId": ['', [Validators.required]],
-        "approvalLevel": ['', [Validators.required]]
-      })
-      let levelData = this.setRulefrm.controls['approvalLevels'].value;
-
-      levelData.map((x: any) => {
-        this.aId = x.actionId;
-      })
-
-      levelData.map((x: any) => {
-        this.deptlevelID = x.departmentLevelId;
-      })
-
-      levelData.map((x: any) => {
-        this.designationID = x.designationId;
-      })
-
-      levelData.map((x: any) => {
-        this.orderId = x.approvalLevel;
-      })
-      debugger
-      if (this.approvallistForm.length > 1) {
-        this.Duplicate = this.approvallistForm.controls.some((control: any) => {
-          console.log(control)
-          // if (this.approvallistForm.length > 1 && ) {
-          //   this.commonMethods.snackBar("This Record Already Exists Please Select Another Value", 1);
-          //   // control.get("approvalLevel")[i].setValue(0);
-          //   return true
-          // } else
-          if (control.value.approvalLevel == this.orderId && control.value.actionId == this.aId && control.value.departmentLevelId == this.deptlevelID && control.value.designationId == this.designationID) {
-            this.commonMethods.snackBar("This Record already exists.", 1);
-            return
-          }
-          else {
-            return false
-          }
-          // else if (this.approvallistForm.length > 1 && control.value.departmentLevelId == this.deptlevelID) {
-          //   this.commonMethods.snackBar("This dept level already exists.", 1);
-          //   return true
-          // } else if (this.approvallistForm.length > 1 && control.value.designationId == this.designationID) {
-          //   this.commonMethods.snackBar("This designation already exists.", 1);
-          //   return true;
-          // }
-
-          // control.value.actionId == this.aId &&
-          //   control.value.departmentLevelId === data.value.departmentLevelId &&
-          //   control.value.designationId === data.value.designationId &&
-          //   control.value.approvalLevel === data.value.approvalLevel
-        });
-
-      }
-
-      if (this.Duplicate == true) {
-        return
-      }
-      else {
-        this.approvallistForm.push(data);
-      }
+  get approvallistForm() { return this.setRulefrm.get('approvalLevels') as FormArray | any }
 
 
-      // if (isDuplicate == true) {
-      //   console.log("isDuplicate",isDuplicate);
-
-      //   // this.commonMethods.snackBar("This record already exists.", 1);
-      //   return;
-      // }
-      // else {
-      //   this.approvallistForm.push(data);
-      //   console.log("Array ......", this.approvallistForm.value);
-
-      // }
-    }
-  }
-
-  clearFormArray() {
-    if (this.editFlag == true) {
-      this.approvallistForm.clear()
-    }
-  }
-
-  editData() {
-    this.editFlag = true;
-    this.editId = this.data.id;
-    console.log(this.editId);
-    console.log(this.data);
-
-
-    this.setRulefrm.patchValue({
-      scheme: this.data.schemeTypeId,
-      department: this.data.departmentId,
-      state: this.data.stateId,
-      district: this.data.districtId,
-      approvalLevels: this.data.id
-    });
-
-    console.log(this.data.getApprovalMaster);
-    this.clearFormArray();
-
-    (this.data?.getApprovalMaster as Array<any>).forEach((x: any) => {
-      this.approvallistForm.push(this.fb.group(
-        {
-          id: [x?.id],
-          actionId: [x?.actionId],
-          departmentLevelId: [x?.departmentLevelId],
-          designationId: [x?.designationId],
-          approvalLevel: [x?.approvalLevel],
-        }
-      ));
-    });
-
-
-  }
-
-  onSubmit() {
-    let formData = this.setRulefrm.value;
-    if (this.setRulefrm.invalid) { return; }
-    let obj = {
-      "schemeTypeId": formData.scheme,
-      "departmentId": formData.department,
-      "stateId": formData.state,
-      "districtId": formData.district,
-      "createdBy": this.WebStorageService.getUserId(),
-      "flag": this.editFlag ? this.editId : 0,
-      "approvalLevels": formData.approvalLevels
-    }
-    this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/AddUpdateApprovalMasterLevels', false, obj, false, 'masterUrl');
-    this.apiService.getHttp().subscribe({
-      next: ((res: any) => {
-        this.spinner.hide();
-        if (res.statusCode == "200") {
-          this.commonMethods.snackBar(res.statusMessage, 0);
-          this.formDirective?.resetForm();
-          this.dialogRef.close('Yes');
-        } else {
-          this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
-        }
-      }),
-      error: (error: any) => {
-        this.spinner.hide();
-        this.error.handelError(error.statusCode);
-      }
-    });
-  }
-
-  clearForm() {
-    
-    this.formDirective?.resetForm();
-    this.setRulefrm.controls['state'].setValue(1);
-    this.setRulefrm.controls['district'].setValue(1);
-  }
-
-  deleteApproveLevel(i: any) {
-    this.approvallistForm.removeAt(i);
-  }
-  //--------Dropdown Code Start Here---------------------
   getSchemeType() {
     this.master.GetAllSchemeType().subscribe({
       next: ((res: any) => {
@@ -255,12 +99,10 @@ export class SetRuleModalComponent {
   getDepartment() {
     this.master.GetDepartmentDropdown().subscribe({
       next: ((res: any) => {
-        console.log(res);
         this.departmentresp = res.responseData;
       }), error: (() => {
         this.departmentresp = [];
       })
-
     })
   }
 
@@ -284,10 +126,14 @@ export class SetRuleModalComponent {
     })
   }
 
+  //#endregion ------------------------------------------------------filter drop fn end heare--------------------------------------------//
+
+  //#region ---------------------------------------------------------Add Level drop fn start heare--------------------------------------------//
   getAction() {
     this.master.GetActionDropDown().subscribe({
       next: ((res: any) => {
         this.actionresp = res.responseData;
+        this.actionresp.unshift({ id: '', 'textEnglish': 'Select Action' })
       }), error: (() => {
         this.actionresp = [];
       })
@@ -298,6 +144,7 @@ export class SetRuleModalComponent {
     this.master.GetDeptLevelDropDown().subscribe({
       next: ((res: any) => {
         this.levelResp = res.responseData;
+        this.levelResp.unshift({ id: '', 'textEnglish': 'Select Level' })
       }), error: (() => {
         this.levelResp = [];
       })
@@ -308,6 +155,7 @@ export class SetRuleModalComponent {
     this.master.GetDesignationDropDown().subscribe({
       next: ((res: any) => {
         this.designationResp = res.responseData;
+        this.designationResp.unshift({ id: '', 'textEnglish': 'Select Designation' })
       }), error: (() => {
         this.designationResp = [];
       })
@@ -318,12 +166,165 @@ export class SetRuleModalComponent {
     this.master.GetLevelApproval().subscribe({
       next: ((res: any) => {
         this.approveLevelResp = res.responseData;
+        this.approveLevelResp.map((ele: any) => { ele['selected'] = false })
+        this.approveLevelResp.unshift({ id: '', 'textEnglish': 'Select Level' })
       }), error: (() => {
         this.approveLevelResp = [];
       })
     })
   }
-  //-----------------------------Dropdown Code End Here---------------------- 
 
+  checkPrevData() {
+    this.spinner.show();
+    let formData = this.setRulefrm.getRawValue();
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?SchemeTypeId=' + (formData.scheme || 0) + '&DepartmentId=' + (formData.department || 0) + '&StateId=' + (formData.state || 1) + '&DistrictId=' + (formData.district || 1), false, false, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == '200' && res.responseData.length) {
+          this.data = res.responseData[0];
+          this.data.label = 'Edit';
+          this.data?.label == 'Edit' ? this.editData() : ''
+        } else {
+          this.addList();
+        }
+      },
+      error: (err: any) => {
+        this.spinner.hide();
+        this.error.handelError(err.status);
+      },
+    });
+  }
+
+  addList() {
+    if (this.approvallistForm.length && this.approvallistForm.status == 'INVALID') {
+      this.commonMethods.snackBar("Please Add Approval Details First", 1);
+    }
+    else {
+      const data: any = this.fb.group({
+        "actionId": ['', [Validators.required]],
+        "departmentLevelId": ['', [Validators.required]],
+        "designationId": ['', [Validators.required]],
+        "approvalLevel": ['', [Validators.required]],
+        "disabled": [false]
+      });
+      if (this.approvallistForm.length > 1) {
+        let approvallistForm = this.approvallistForm.getRawValue();
+        let len = this.approvallistForm.length - 2;
+        for (let i = 0; i <= len; i++) {
+          if ((approvallistForm[i]?.approvalLevel == approvallistForm[approvallistForm.length - 1]?.approvalLevel)) {
+            this.commonMethods.snackBar("Duplicate Order level is not allowed", 1);
+            return
+          } else if ((approvallistForm[i]?.actionId == approvallistForm[approvallistForm.length - 1]?.actionId) &&
+            approvallistForm[i]?.departmentLevelId == approvallistForm[approvallistForm.length - 1]?.departmentLevelId && (approvallistForm[i]?.designationId == approvallistForm[approvallistForm.length - 1]?.designationId)) {
+            this.commonMethods.snackBar("This Record already exists.", 1);
+            return
+          }
+        }
+        (this.approveLevelResp.length - 1) == approvallistForm.length ? this.commonMethods.snackBar("Exceed Limit", 1) : this.approvallistForm.push(data)
+        this.approvallistForm.controls[approvallistForm.length - 1].controls['disabled']?.setValue(true);
+      } else {
+        this.approvallistForm.push(data);
+        this.approvallistForm.length == 2 ? this.approvallistForm.controls[0].controls['disabled'].setValue(true) : '';
+      }
+    }
+  }
+
+  editData() {
+    this.editFlag = true;
+    this.setRulefrm.patchValue({
+      scheme: this.data.schemeTypeId,
+      department: this.data.departmentId,
+      state: this.data.stateId,
+      district: this.data.districtId,
+      approvalLevels: this.data.id
+    });
+
+    (this.data?.getApprovalMaster as Array<any>).forEach((x: any) => {
+      this.approvallistForm.push(this.fb.group(
+        {
+          id: [x?.id],
+          actionId: [x?.actionId],
+          departmentLevelId: [x?.departmentLevelId],
+          designationId: [x?.designationId],
+          approvalLevel: [x?.approvalLevel],
+          disabled: [true]
+        }
+      ));
+    });
+  }
+
+  deleteApproveLevel(i: any) {
+    this.approvallistForm.removeAt(i);
+  }
+
+  onSubmit() {
+    let formData = this.setRulefrm.getRawValue();
+    if (this.setRulefrm.invalid) {
+      return;
+    } else if ((this.approveLevelResp.length - 1) != this.approvallistForm.length) {
+      this.commonMethods.snackBar('All Order leavel is required', 1);
+      return
+    }
+
+    let addLevelArrayStatus = formData.approvalLevels.some((x: any) => {
+
+      let counter = 0;
+      formData.approvalLevels.map((a: any) => {
+        if (a.actionId === x.actionId && a.departmentLevelId === x.departmentLevelId && a.designationId === x.designationId) {
+          counter += 1;
+        }
+      })
+      return counter > 1;
+    });
+
+    if (addLevelArrayStatus) {
+      this.commonMethods.snackBar("Something went wrong.", 1);
+      return
+    }
+
+    if (this.editFlag) {
+      this.data.getApprovalMaster.find((ele: any) => {
+        formData.approvalLevels.map((item: any) => {
+          if (item.approvalLevel == ele.approvalLevel) {
+            item.id = ele.id
+          }
+        })
+      })
+    }
+
+    let obj = {
+      "schemeTypeId": formData.scheme,
+      "departmentId": formData.department,
+      "stateId": formData.state,
+      "districtId": formData.district,
+      "createdBy": this.WebStorageService.getUserId(),
+      "approvalLevels": formData.approvalLevels
+    }
+    this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/AddUpdateApprovalMasterLevels', false, obj, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == "200") {
+          this.commonMethods.snackBar(res.statusMessage, 0);
+          this.formDirective?.resetForm();
+          this.dialogRef.close('Yes');
+        } else {
+          this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.spinner.hide();
+        this.error.handelError(error.statusCode);
+      }
+    });
+  }
+
+  clearForm() {
+    this.formDirective?.resetForm();
+  }
+
+  //#endregion--------------------------------------------------------- Add Level drop fn end heare--------------------------------------------//
 }
+
 

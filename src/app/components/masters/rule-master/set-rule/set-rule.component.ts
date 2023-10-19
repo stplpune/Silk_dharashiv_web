@@ -23,6 +23,8 @@ export class SetRuleComponent {
   departmentresp = new Array();
   highLightedFlag: boolean = true;
   filterFrm!: FormGroup;
+  
+  pageNumber: number = 1;
   subscription!: Subscription;//used  for lang conv
   lang: any;
   @ViewChild('formDirective') private formDirective!: NgForm;
@@ -32,7 +34,7 @@ export class SetRuleComponent {
     private error: ErrorHandlingService,
     private master: MasterService,
     private fb: FormBuilder,
-    private WebStorageService:WebStorageService,
+    private WebStorageService: WebStorageService,
   ) { }
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class SetRuleComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     })
-    
+
     this.defaultFrom();
     this.bindTable();
     this.getState();
@@ -60,11 +62,16 @@ export class SetRuleComponent {
   }
 
   setrules(data?: any) {
-    this.dialog.open(SetRuleModalComponent, {
+    const dialogRef = this.dialog.open(SetRuleModalComponent, {
       width: '80%',
       data: data,
       disableClose: true
     })
+    dialogRef.afterClosed().subscribe(res => {
+      res == 'Yes' ? this.bindTable() : '';
+      // this.highLightRowFlag = false;
+      this.setTableData();
+    });
   }
 
 
@@ -73,7 +80,7 @@ export class SetRuleComponent {
     // flag == 'filter' ? (this.searchDataFlag = true, this.clearMainForm(), (this.pageNumber = 1)) : this.searchDataFlag = false;
     let formData = this.filterFrm.getRawValue();
     // let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?SchemeTypeId=' + (formData.scheme || 0) + '&DepartmentId=' + (formData.department || 0) + '&StateId=' + (formData.state || 1) + '&DistrictId=' + (formData.district || 1), false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?pageno='+this.pageNumber+'&pagesize=10&SchemeTypeId='+(formData.scheme || 0)+'&DepartmentId='+(formData.department || 0)+'&StateId='+ (formData.state || 1)+'&DistrictId='+(formData.district || 1)+'&lan=1', false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -94,9 +101,6 @@ export class SetRuleComponent {
   childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':
-        // this.searchDataFlag ? (this.f['deptId'].setValue(this.filterFrm.value?.deptId), this.f['deptLevelId'].setValue(this.filterFrm.value?.deptLevelId), this.f['textSearch'].setValue(this.filterFrm.value?.textSearch)) : (this.f['deptId'].setValue(''), this.f['deptLevelId'].setValue(''), this.f['textSearch'].setValue(''));
-        // this.pageNumber = obj.pageNumber;
-        // this.clearMainForm();//when we click on edit button & click on pagination that time clear form 
         this.bindTable();
         break;
       case 'Edit':
@@ -114,7 +118,7 @@ export class SetRuleComponent {
     let displayedColumns = ['srNo', 'state', 'district', 'schemeType', 'departmentName', 'action'];
     let displayedheaders = ['Sr No', 'State', 'District', 'Scheme', 'Department', 'Action'];
     let tableData = {
-      pageNumber: '',
+      pageNumber: this.pageNumber,
       pagination: false,
       highlightedrow: true,
       displayedColumns: displayedColumns,
@@ -127,22 +131,21 @@ export class SetRuleComponent {
     this.apiService.tableData.next(tableData);
   }
 
-  clearFilterForm(){
+  clearFilterForm() {
     this.formDirective?.resetForm();
     this.defaultFrom();
     this.bindTable();
   }
 
-  addactions(obj?:any){
-    const dialogRef = this.dialog.open(SetRuleModalComponent,{
+  addactions(obj?: any) {
+    const dialogRef = this.dialog.open(SetRuleModalComponent, {
       width: '50%',
       data: obj,
       disableClose: true,
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(res => {
-      res == 'Yes'? this.bindTable() : '';
-      // this.highLightRowFlag = false;
+      res == 'Yes' ? this.bindTable() : '';
       this.setTableData();
     });
   }
