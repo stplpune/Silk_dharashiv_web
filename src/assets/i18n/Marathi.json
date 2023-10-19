@@ -284,7 +284,12 @@
     "please_enter_block_name(Marathi)":"कृपया ब्लॉकचे नाव(मराठी) प्रविष्ट करा ",
     "please_select_taluka":"कृपया तालुका निवडा",
     "block_name_en":"ब्लॉकचे नाव (इंग्रजी)",
-    "block_name_mr":"ब्लॉकचे नाव(मराठी)"
+    "block_name_mr":"ब्लॉकचे नाव(मराठी)",
+    "state" : "राज्य",
+    "district" :"जिल्हा",
+    "taluka" : "तालुका",
+    "block_name" : "ब्लॉक नाव",
+    "block_circle" : "ब्लॉक/सर्कल"
   },
   
   "marketPrice":{
