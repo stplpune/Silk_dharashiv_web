@@ -87,8 +87,8 @@ export class MarketsComponent {
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_DepartmentName', 'm_DepartmentLevel', 'm_DesignationName', 'action'] : ['srNo', 'marketName', 'district', 'taluka','mobileNo','action']
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'बाजारपेठेचे नाव', 'जिल्हा', 'तालुका','संपर्क क्रमांक', 'कृती'] : ['Sr. No.', 'Market Name', 'District', 'Taluka','Contact No.', 'Action'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_District', 'm_Taluka', 'm_MarketName', 'action'] : ['srNo','district', 'taluka', 'marketName', 'action']
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका','जिल्हा', 'तालुका','बाजारपेठेचे नाव','कृती'] : ['Sr. No.','District', 'Taluka','Market Name', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
@@ -124,7 +124,7 @@ export class MarketsComponent {
 
   addMarket(obj?: any) {
     let dialogRef = this.dialog.open(AddMarketListComponent, {
-      width: '50%',
+      width: '55%',
       data: obj,
       disableClose: true,
       autoFocus: true,
