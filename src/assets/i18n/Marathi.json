@@ -123,9 +123,9 @@
     "longitude":"रेखांश",
     "administrator":"प्रशासक",
     "working_hours":"कामाचे तास",
-    "add_Market_List":"मार्केट लिस्ट जोडा",
-    "update_Market_List":"मार्केट लिस्ट अपडेट करा",
-    "view_Market_List":"बाजार सूची पहा",
+    "add_Market_List":"मार्केट यादी जोडा",
+    "update_Market_List":"मार्केट यादी अपडेट करा",
+    "view_Market_List":"मार्केट यादी पहा",
     "establishment_Date":"स्थापना दिवस",
     "please_enter_latitude":"कृपया अक्षांश प्रविष्ट करा",
     "please_enter_longitude":"कृपया रेखांश प्रविष्ट करा",
@@ -133,8 +133,8 @@
     "please_enter_pinCode":"कृपया पिन कोड प्रविष्ट करा",
     "please_enter_valid_pinCode":"कृपया वैध पिन कोड प्रविष्ट करा",
     "please_enter_valid_administrator":"कृपया वैध प्रशासक प्रविष्ट करा",
-    "please_enter_hours":"कृपया कामाचे तास प्रविष्ट करा"
- 
+    "please_enter_hours":"कृपया कामाचे तास प्रविष्ट करा",
+    "search_by":"बाजारपेठेचे नाव/मोबाइल क्रमांक शोधा"
 
 
 
