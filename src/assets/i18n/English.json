@@ -61,7 +61,14 @@
     "select_scheme":"Select Scheme",
     "select_department":"Please select department",
     "scheme_required":"Please select scheme",
-    "designation_level_required":"Please select designation level"
+    "designation_level_required":"Please select designation level",
+    "state":"State",
+    "district":"District",
+    "Scheme":"Scheme",
+    "Department":"Department",
+    "Order":"Order",
+    "Action":"Action"
+    
   },
 
   "officerreg":{
