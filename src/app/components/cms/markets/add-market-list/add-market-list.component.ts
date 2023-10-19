@@ -22,6 +22,7 @@ export class AddMarketListComponent {
   farmGoodsArray = new Array();
   subscription!: Subscription;//used  for lang conv
   lang: any;
+  sendFarmDataArray = new Array();
 
   constructor(
     private fb: FormBuilder,
@@ -38,6 +39,7 @@ export class AddMarketListComponent {
   ) { }
 
   ngOnInit() {
+    console.log("dialogRef",this.dialogRef.close('Yes'))
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -71,7 +73,7 @@ export class AddMarketListComponent {
       "workingHours": [''],
        "status": [''],//boolean
        "shetMalId":['']
-       
+
       // "committeeAssignShetmal": [
       //   {
       //     "id": 0,
@@ -141,6 +143,22 @@ export class AddMarketListComponent {
       })
     })
   }
+
+  sendFarmData(event?:any){ 
+    event.map((res:any)=>{
+      let obj={
+        "id": 0,
+       "marketCommitteeId": 0,
+      "shetMalId":res,
+      "createdBy": this.WebStorageService.getUserId() 
+       }
+      this.sendFarmDataArray.push(obj)
+    })
+    return this.sendFarmDataArray
+    
+    
+  }
+
 
   toppings = new FormControl('');
 
