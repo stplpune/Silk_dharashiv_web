@@ -118,7 +118,7 @@ export class BlogsComponent {
     let userMara = obj.status == false ? 'प्रकाशित' : 'अप्रकाशित';
     let dialoObj = {
       header: this.lang == 'mr-IN' ? 'ब्लॉग ' + userMara + ' करा' : userEng + ' Blog',
-      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेला ब्लॉग ' + userMara + ' करू इच्छिता' : 'Do You Want To ' + userEng + ' The Selected Blog?',
+      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेला ब्लॉग ?' + userMara + ' करू इच्छिता' : 'Do You Want To ' + userEng + ' The Selected Blog?',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
     }
