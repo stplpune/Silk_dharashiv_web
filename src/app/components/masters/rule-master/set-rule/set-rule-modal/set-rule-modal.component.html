@@ -81,7 +81,7 @@
                 <div class="col-sm-auto">
                   <div class="form-data">{{'setRule.order'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
-                    <mat-select formControlName="approvalLevel">
+                    <mat-select formControlName="approvalLevel" placeholder="Select Order">
                       <mat-option *ngFor="let data of approveLevelResp" [value]="data.id">{{lang == 'en' ?
                         data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
@@ -90,7 +90,7 @@
                 <div class="col-sm-auto">
                   <div class="form-data">{{'setRule.action'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
-                    <mat-select formControlName="actionId">
+                    <mat-select formControlName="actionId" placeholder="Select Action">
                       <mat-option *ngFor="let data of actionresp" [value]="data.id">{{lang == 'en' ?
                         data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
@@ -103,7 +103,7 @@
                   <div class="form-data">{{'setRule.designation_level'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <!-- <mat-label>Designation Level</mat-label> -->
-                    <mat-select formControlName="departmentLevelId">
+                    <mat-select formControlName="departmentLevelId" placeholder="Select Department Level">
                       <mat-option *ngFor="let data of levelResp" [value]="data.id">{{lang == 'en' ?
                         data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
@@ -114,7 +114,7 @@
                   <div class="form-data">{{'common.designation'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <!-- <mat-label>Designation</mat-label> -->
-                    <mat-select formControlName="designationId">
+                    <mat-select formControlName="designationId" placeholder="Select Designation">
                       <mat-option *ngFor="let data of designationResp" [value]="data.id">{{lang == 'en' ?
                         data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
