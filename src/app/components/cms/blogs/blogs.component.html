@@ -19,12 +19,12 @@
       </div>
       <div class="col-sm-auto">
         <div class="d-flex align-items-center gap-2">
-          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button" (click)="getTableData('filter')">
+          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button" (click)="searchDataFlag=true;getTableData('filter')">
             <mat-icon class="material-symbols-rounded" >
               search
             </mat-icon>
           </button>
-          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="clearFilter()">
+          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="searchDataFlag=false;clearFilter()">
             <mat-icon class="material-symbols-rounded">
               close
             </mat-icon>

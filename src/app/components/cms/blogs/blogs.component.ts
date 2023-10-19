@@ -17,7 +17,6 @@ import { ValidationService } from 'src/app/core/services/validation.service';
   styleUrls: ['./blogs.component.scss']
 })
 export class BlogsComponent {
-  filterForm = new FormControl('');
   pageNumber: number = 1;
   tableDatasize!: number;
   totalPages!: number;
@@ -26,6 +25,7 @@ export class BlogsComponent {
   textsearch = new FormControl('');
   subscription!: Subscription;//used  for lang conv
   lang: string = 'English';
+  searchDataFlag: boolean = false;
   constructor(
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
@@ -49,7 +49,7 @@ export class BlogsComponent {
 
   getTableData(flag?: any) {
     this.spinner.show();
-    this.pageNumber = flag == 'filter' ? 1 : this.pageNumber;
+    flag == 'filter' ? ((this.pageNumber = 1)) : '';
     this.apiService.setHttp('GET', `sericulture/api/Blogs/get-blogs-details?SeacrhText=${this.textsearch.value || ''}&PageNo=${this.pageNumber}&PageSize=10`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -96,6 +96,7 @@ export class BlogsComponent {
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
+        !this.searchDataFlag ? this.textsearch.reset() : '';
         this.getTableData();
         break;
       case 'Edit':
@@ -197,6 +198,7 @@ export class BlogsComponent {
     this.textsearch.setValue('');
     this.getTableData();
     this.pageNumber = 1;
+    this.searchDataFlag = false;
   }
 
   ngOnDestroy() {
