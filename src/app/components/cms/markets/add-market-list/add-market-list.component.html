@@ -39,7 +39,7 @@
     </div>
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label> {{'common.mobile' | translate}} </mat-label>
+        <mat-label> {{'common.mobile' | translate}} 1 </mat-label>
         <input matInput formControlName="conactNo"
         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
         <mat-error *ngIf="a['conactNo'].hasError('pattern')">{{'common.please_enter_valid_mobile_number'|translate}} </mat-error>
@@ -48,7 +48,7 @@
     </div>
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Contact No 2</mat-label>
+        <mat-label>{{'common.mobile' | translate}} 2</mat-label>
         <input matInput formControlName="mobileNo"
         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
         <mat-error *ngIf="a['mobileNo'].hasError('pattern')">{{'common.please_enter_valid_mobile_number'|translate}} </mat-error>
@@ -70,8 +70,7 @@
             farm.textEnglish : farm.textMarathi}}</mat-option>
         </mat-select>
         <mat-error *ngIf="a['shetMalId']?.hasError('required')">{{'marketRate.farms_good_Dropdown'|translate}}  </mat-error>
-
-      </mat-form-field>
+     </mat-form-field>
     </div>
     <div class="col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
@@ -115,11 +114,11 @@
         <mat-label>{{'marketRate.pin_Code' | translate}}</mat-label>
         <input matInput formControlName="pincode"
         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
-        <mat-error *ngIf="a['pincode'].hasError('required')">{{'marketRate.market_Name_mr'|translate}}</mat-error>
+        <mat-error *ngIf="a['pincode'].hasError('required')">{{'marketRate.please_enter_pinCode'|translate}}</mat-error>
         <mat-error *ngIf="a['pincode']?.errors">
          <span class="text-danger"
              *ngIf="a['pincode']?.hasError('maxLengthExceeded') || a['pincode']?.hasError('pattern')">
-             {{a['pincode'].hasError('maxLengthExceeded') ? ('marketRate.market_Name_limit'|translate) : ('marketRate.please_enter_valid_designation_name(Marathi)'|translate)}}
+             {{a['pincode'].hasError('maxLengthExceeded') ? ('common.pin_limit'|translate) : ('marketRate.please_enter_valid_pinCode'|translate)}}
          </span>
      </mat-error>
       </mat-form-field>
@@ -138,7 +137,7 @@
         <mat-label>{{'marketRate.latitude' | translate}}</mat-label>
         <input matInput formControlName="latitude"
         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
-        <mat-error *ngIf="a['latitude']?.hasError('required')">{{'marketRate.please_enter_latitude'|translate}}  </mat-error>
+        <mat-error *ngIf="a['latitude']?.hasError('required')">{{'marketRate.please_enter_latitude'|translate}}</mat-error>
    
       </mat-form-field>
     </div>
@@ -169,8 +168,8 @@
 </div>
 <mat-dialog-actions class="modal-footer">
   <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-    <button mat-button class="btn-main-light" type="button" mat-dialog-close>Cancel</button>
-    <button mat-button class="btn-main" type="submit" (click)="onSubmit()">Add</button>
+    <button mat-button class="btn-main-light" type="button" mat-dialog-close>{{'common.cancel'|translate}}</button>
+    <button mat-button class="btn-main" type="submit" (click)="onSubmit()">{{this.editFlag ? ('designation.update'|translate) :('designation.add'|translate)}}</button>
   </div>
 </mat-dialog-actions>
 </form>

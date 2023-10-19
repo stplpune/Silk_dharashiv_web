@@ -48,7 +48,7 @@ export class AddMarketListComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-    this.formData();
+   this.data ? this.onEdit(this.data) : this.formData();
     this.getState();
     this.getDistrict();
     this.getTaluka();
@@ -56,29 +56,34 @@ export class AddMarketListComponent {
   }
 
 
-  formData() {
+  formData(data?:any) {
     this.marketFrm = this.fb.group({
-      "id": [this.data ? this.data?.id : 0],
-      "marketName": [this.data ? this.data?.marketName : '',[Validators.required,this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
-      "m_MarketName": [this.data ? this.data?.m_MarketName : ''],
-      "conactNo": [this.data ? this.data?.conactNo : ''],
-      "emailId": [this.data ? this.data?.emailId : ''],
+      "id": [data ? data?.id : 0],
+      "marketName": [data ? data?.marketName : '',[Validators.required,this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
+      "m_MarketName": [data ? data?.m_MarketName : '',[Validators.required,this.validation.maxLengthValidator(100), Validators.pattern(this.validation.marathi)]],
+      "conactNo": [data ? data?.conactNo : '',[Validators.pattern(this.validation.mobile_No)]],
+      "emailId": [data ? data?.emailId : '',[Validators.email, this.validation.maxLengthValidator(50)]],
       "stateId": [1],
       "districtId": [1],
-      "talukaId": [this.data ? this.data?.talukaId : ''],
-      "villageId": [this.data ? this.data?.villageId : ''],
-      "address": [this.data ? this.data?.address : '',[Validators.pattern(this.validation.alphabetsWithSpecChar)]],
-      "pincode": [this.data ? this.data?.pincode : ''],
-      "estDate": [this.data ? this.data?.estDate : ''],
-      "latitude": [this.data ? this.data?.latitude : ''],//number
-      "longitude": [this.data ? this.data?.longitude : ''],//number
-      "administratior": [this.data ? this.data?.administratior : ''],
-      "mobileNo": [this.data ? this.data?.mobileNo : ''],
-      "workingHours": [this.data ? this.data?.workingHours : ''],
-      "status": [this.data ? this.data?.status : ''],//boolean
-      "shetMalId": [''],
+      "talukaId": [data ? data?.talukaId : '',[Validators.required]],
+      "villageId": [data ? data?.villageId : ''],
+      "address": [data ? data?.address : '',[Validators.pattern(this.validation.alphabetsWithSpecChar)]],
+      "pincode": [data ? data?.pincode : '',[Validators.required,this.validation.maxLengthValidator(6),Validators.pattern(this.validation.valPinCode)]],
+      "estDate": [data ? data?.estDate : ''],
+      "latitude": [data ? data?.latitude : '',[Validators.required]],//number
+      "longitude": [data ? data?.longitude : '',[Validators.required]],//number
+      "administratior": [data ? data?.administratior : '',[this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]],
+      "mobileNo": [data ? data?.mobileNo : '',[Validators.pattern(this.validation.mobile_No)]],
+      "workingHours": [data ? data?.workingHours : '',[Validators.required]],
+      "status": [data ? data?.status : ''],//boolean
+      "shetMalId": ['',[Validators.required]],
       "committeeAssignShetmal": []
     })
+}
+
+onEdit(edata?:any){
+  this.editFlag = true;
+  this.formData(edata);
 }
 
  // formData() {

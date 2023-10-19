@@ -77,7 +77,7 @@ export class RegisterOfficerComponent {
       districtId: [this.data ? this.data?.districtId : 1],
       blockId: [this.data ? this.data?.blockId : 0, [Validators.required]],
       talukaId: [this.data ? this.data?.talukaId : 0, [Validators.required]],
-      circleId: [this.data ? this.data?.circleId : '', [Validators.required]],
+      circleId: [this.data ? this.data?.circleId : 0, [Validators.required]],
       villageId: [this.data ? this.data?.villageId : '', [Validators.required]],
       designationId: [this.data ? this.data?.designationId : '', [Validators.required]],
       name: [this.data ? this.data?.name : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(50)]],
@@ -89,6 +89,8 @@ export class RegisterOfficerComponent {
       flag: [this.data ? "u" : "i"],
       createdBy: [this.WebStorageService.getUserId()]
     })
+    this.data ? this.dropDownCall() : ''
+
   }
   get f() { return this.officeForm.controls; }
 
@@ -117,8 +119,6 @@ export class RegisterOfficerComponent {
   getState() {
     this.masterService.GetAllState().subscribe({
       next: ((res: any) => {
-        console.log('form', this.officeForm.value.departmentLevelId);
-        console.log('this.data?.stateId', this.data?.departmentLevelId);
         this.stateArray = res.responseData;
         this.data ? (this.f['stateId'].setValue(this.data?.stateId)) : '';
       }), error: (() => {
@@ -176,8 +176,9 @@ export class RegisterOfficerComponent {
   getVillage() {
     let stateId = this.officeForm.getRawValue().stateId;
     let distId = this.officeForm.getRawValue().districtId;
-    let talukaId = this.officeForm.getRawValue().talukaId;
-    this.masterService.GetAllVillages(stateId, distId, talukaId || 0, 0).subscribe({
+    let talukaId = this.officeForm.getRawValue().talukaId || 0;
+    if(talukaId!=0){
+    this.masterService.GetAllVillages(stateId, distId, talukaId, 0).subscribe({
       next: ((res: any) => {
         this.villageArray = res.responseData;
         this.data ? (this.f['villageId'].setValue(this.data?.villageId)) : '';
@@ -185,6 +186,7 @@ export class RegisterOfficerComponent {
         this.villageArray = [];
       })
     })
+    }
   }
 
   getDesignation() {
@@ -205,9 +207,7 @@ export class RegisterOfficerComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;
-          console.log(" this.tableDataArray", this.tableDataArray);
-          
+          this.tableDataArray = res.responseData.responseData1;          
           // this.imageResponse = this.data?.profileImagePath ?  this.data?.profileImagePath : ''
         } else {
           this.spinner.hide();
@@ -230,27 +230,6 @@ export class RegisterOfficerComponent {
       this.spinner.hide();
       return
     } else {
-
-      // formData.talukaId = 
-      // if(formData.departmentLevelId == 5){
-      //   formData.talukaId = 0;
-      //   formData.villageId = 0;
-      //   formData.blockId = 0;
-      //   formData.circleId = 0;
-      // } else if(formData.departmentLevelId == 4){
-      //   formData.villageId = 0;
-      // }else if(formData.departmentLevelId == 3){
-      //   formData.blockId = 0;
-      //   formData.circleId = 0;
-      // }else if(formData.departmentLevelId == 2){
-      //   formData.talukaId = 0;
-      //   formData.villageId = 0;
-      //   formData.circleId = 0;
-      // }else if(formData.departmentLevelId == 1){
-      //   formData.villageId = 0;
-      //   formData.blockId = 0;
-      // }
-
       let obj = {
         ...formData,
         "crcRegNo": "string",
@@ -296,26 +275,36 @@ export class RegisterOfficerComponent {
   }
 
   dropDownCall(id?: any) {
-    if (id == 1) {
+    if (id == 1 || this.data?.departmentLevelId == 1) {
       this.getState();
       this.getDisrict();
       this.getCircle();
-    } else if (id == 2) {
+    } else if (id == 2 || this.data?.departmentLevelId == 2) {
       this.getState();
       this.getDisrict();
       this.getBlock();
-    } else if (id == 3) {
+    } else if (id == 3 || this.data?.departmentLevelId == 3) {
       this.getState();
       this.getDisrict();
-    } else if (id == 4) {
+    } else if (id == 4 || this.data?.departmentLevelId == 4) {
       this.getState();
       this.getDisrict();
-    } else if (id == 5) {
+    } else if (id == 5 || this.data?.departmentLevelId == 5) {
       this.getState();
       this.getDisrict();
     }
 
   }
+
+  clearDropDown(flag?:any){
+    if(flag == 'village'){
+      this.villageArray=[]
+      this.f['villageId'].setValue(0);
+    }
+  }
+
+
+
   getstatusForm() {
     this.statusForm = this.fb.group({
       remark: [this.data ? this.data?.reason : ''],

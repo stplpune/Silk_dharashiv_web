@@ -46,7 +46,7 @@ export class AddMarketRateComponent {
     private errorHandler: ErrorHandlingService,
     public WebStorageService: WebStorageService,
     public validator: ValidationService,
-    ) { }
+  ) { }
   get f() { return this.marketForm.controls }
 
   ngOnInit() {
@@ -60,17 +60,17 @@ export class AddMarketRateComponent {
 
   formdata() {
     this.marketForm = this.fb.group({
-      "id": [0],
+      "id": [this.data?.id || 0],
       "marketCommitteeId": [this.data?.marketCommitteeId || '', [Validators.required]],
       "shetmalCastId": [this.data?.shetmalCastId || '', [Validators.required]],
       "marketRateDate": [this.data?.marketRateDate || '', [Validators.required]],
       "unitId": [this.data?.unitId || '', [Validators.required]],
-      "minRate": [this.data?.minRate || '', [Validators.required,this.validator.maxLengthValidator(10)]],
-      "maxRate": [this.data?.maxRate || '', [Validators.required,this.validator.maxLengthValidator(10)]],
-      "averageRate": [this.data?.averageRate || '', [Validators.required,this.validator.maxLengthValidator(10)]],
-      "income": [this.data?.income || '', [Validators.required,this.validator.maxLengthValidator(10)]],
+      "minRate": [this.data?.minRate || '', [Validators.required, this.validator.maxLengthValidator(10)]],
+      "maxRate": [this.data?.maxRate || '', [Validators.required, this.validator.maxLengthValidator(10)]],
+      "averageRate": [this.data?.averageRate || '', [Validators.required, this.validator.maxLengthValidator(10)]],
+      "income": [this.data?.income || '', [Validators.required, this.validator.maxLengthValidator(10)]],
       "createdBy": [0],
-      "flag": [this.data ? 'i' : 'u']
+      "flag": [this.data ? 'u' : 'i']
     })
   }
 
@@ -124,7 +124,8 @@ export class AddMarketRateComponent {
     if (this.marketForm.invalid) {
       return
     } else {
-      this.apiService.setHttp('POST', 'sericulture/api/MarketPrice/AddUpdateMarketRate', false, formvalue, false, 'masterUrl');
+      this.spinner.show();
+      this.apiService.setHttp('POST', 'sericulture/api/MarketPrice/AddUpdateMarketRate?lan=' + this.lang, false, formvalue, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
