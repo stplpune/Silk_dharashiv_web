@@ -1,9 +1,7 @@
-import { Component } from '@angular/core';
-// ,Inject 
+import { Component,Inject  } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-//import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 //import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 // import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -35,8 +33,8 @@ export class AddMarketListComponent {
     private WebStorageService: WebStorageService,
     // private commonMethod: CommonMethodsService,
     public dialog: MatDialog,
-    // private dialogRef: MatDialogRef<AddMarketListComponent>,
-    // @Inject(MAT_DIALOG_DATA) public data: any
+    private dialogRef: MatDialogRef<AddMarketListComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit() {
@@ -45,7 +43,10 @@ export class AddMarketListComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
     this.formData();
-
+    this.getState();
+    this.getDistrict();
+    this.getTaluka();
+    this.getFarmGoods();
   }
 
 
@@ -68,8 +69,17 @@ export class AddMarketListComponent {
       "administratior": [''],
       "mobileNo": [''],
       "workingHours": [''],
-      //"createdBy": 1,
-      "status": [''],//bollean
+       "status": [''],//boolean
+       "shetMalId":['']
+       
+      // "committeeAssignShetmal": [
+      //   {
+      //     "id": 0,
+      //     "marketCommitteeId": 0,
+      //     "shetMalId": 0,
+      //     "createdBy": 0
+      //   }
+      // ],
     })
   }
 
