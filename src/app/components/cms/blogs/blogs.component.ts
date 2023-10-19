@@ -50,7 +50,7 @@ export class BlogsComponent {
   getTableData(flag?: any) {
     this.spinner.show();
     flag == 'filter' ? ((this.pageNumber = 1)) : '';
-    this.apiService.setHttp('GET', `sericulture/api/Blogs/get-blogs-details?SeacrhText=${this.textsearch.value || ''}&PageNo=${this.pageNumber}&PageSize=10`, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', `sericulture/api/Blogs/get-blogs-details?SeacrhText=${this.textsearch.value || ''}&PageNo=${this.pageNumber}&PageSize=10&lan=${this.lang}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -118,7 +118,7 @@ export class BlogsComponent {
     let userMara = obj.status == false ? 'प्रकाशित' : 'अप्रकाशित';
     let dialoObj = {
       header: this.lang == 'mr-IN' ? 'ब्लॉग ' + userMara + ' करा' : userEng + ' Blog',
-      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेला ब्लॉग ' + userMara + ' करू इच्छिता' : 'Do You Want To ' + userEng + ' The Selected Blog?',
+      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेला ब्लॉग ?' + userMara + ' करू इच्छिता' : 'Do You Want To ' + userEng + ' The Selected Blog?',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
     }
@@ -135,7 +135,7 @@ export class BlogsComponent {
 
   blockAction(obj: any) {
     let status = !obj.status
-    this.apiService.setHttp('PUT', 'sericulture/api/Blogs/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status, false, false, false, 'masterUrl');
+    this.apiService.setHttp('PUT', 'sericulture/api/Blogs/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         res.statusCode == "200" ? (this.commonMethod.snackBar(res.statusMessage, 0),this.getTableData()) : this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -162,7 +162,7 @@ export class BlogsComponent {
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('DELETE', 'sericulture/api/Blogs/delete-blogs?blogId=' + (delDataObj.id || 0), false, delDataObj, false, 'masterUrl');
+        this.apiService.setHttp('DELETE', 'sericulture/api/Blogs/delete-blogs?blogId=' + (delDataObj.id || 0)+'&lan='+this.lang, false, delDataObj, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
