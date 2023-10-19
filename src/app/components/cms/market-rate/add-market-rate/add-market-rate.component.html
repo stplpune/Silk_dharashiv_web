@@ -87,7 +87,7 @@
         </div>
       </div>
       <div class="d-flex align-items-center justify-content-end w-100 gap-2" (keypress)="validator.digitsWithDot($event)">
-        <button mat-flat-button class="btn-main-light">{{'marketPrice.Clear'|translate}}</button>
+        <button mat-flat-button class="btn-main-light" mat-dialog-close type="button">{{'marketPrice.Clear'|translate}}</button>
         <button mat-flat-button class="btn-main" (click)="onSubmit()">{{data ? ('marketPrice.Update'|translate) : ('marketPrice.Add'|translate)}}</button>
       </div>
     </mat-card-content>

@@ -176,7 +176,7 @@ export class MarketRateComponent {
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('DELETE', 'sericulture/api/MarketPrice/DeleteMarketRate?Id=' + (delDataObj.id || 0), false, false, false, 'masterUrl');
+        this.apiService.setHttp('DELETE', `sericulture/api/MarketPrice/DeleteMarketRate?Id= ${(delDataObj.id || 0)}&lan=${this.lang}`, false, false, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
