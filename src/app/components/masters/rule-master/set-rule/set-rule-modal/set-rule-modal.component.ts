@@ -60,7 +60,7 @@ export class SetRuleModalComponent {
     this.getDesignation();
     this.getLevelApprovel();
     this.data?.label == 'Edit' ? this.editData() : '';
-    this.tableData = this.data.getApprovalMaster
+    this.tableData = this.data?.getApprovalMaster
   }
 
   //#region ------------------------------------------------------filter drop fn start heare--------------------------------------------//
