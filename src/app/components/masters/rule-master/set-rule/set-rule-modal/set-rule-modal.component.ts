@@ -144,7 +144,7 @@ export class SetRuleModalComponent {
     this.master.GetDeptLevelDropDown().subscribe({
       next: ((res: any) => {
         this.levelResp = res.responseData;
-        this.levelResp.unshift({ id: '', 'textEnglish': 'Select Level' })
+        this.levelResp.unshift({ id: '', 'textEnglish': 'Select Designation Level' })
       }), error: (() => {
         this.levelResp = [];
       })
@@ -167,7 +167,7 @@ export class SetRuleModalComponent {
       next: ((res: any) => {
         this.approveLevelResp = res.responseData;
         this.approveLevelResp.map((ele: any) => { ele['selected'] = false })
-        this.approveLevelResp.unshift({ id: '', 'textEnglish': 'Select Level' })
+        this.approveLevelResp.unshift({ id: '', 'textEnglish': 'Select Order' })
       }), error: (() => {
         this.approveLevelResp = [];
       })
@@ -177,7 +177,7 @@ export class SetRuleModalComponent {
   checkPrevData() {
     this.spinner.show();
     let formData = this.setRulefrm.getRawValue();
-    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?SchemeTypeId=' + (formData.scheme || 0) + '&DepartmentId=' + (formData.department || 0) + '&StateId=' + (formData.state || 1) + '&DistrictId=' + (formData.district || 1), false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?pageno=1&pagesize=10&SchemeTypeId=' + (formData.scheme || 0) + '&DepartmentId=' + (formData.department || 0) + '&StateId=' + (formData.state || 1) + '&DistrictId=' + (formData.district || 1) + '&lan=1', false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -230,6 +230,7 @@ export class SetRuleModalComponent {
     }
   }
 
+
   editData() {
     this.editFlag = true;
     this.setRulefrm.patchValue({
@@ -258,15 +259,8 @@ export class SetRuleModalComponent {
     this.approvallistForm.removeAt(i);
   }
 
-  onSubmit() {
+  checkDuplicateEntry() {
     let formData = this.setRulefrm.getRawValue();
-    if (this.setRulefrm.invalid) {
-      return;
-    } else if ((this.approveLevelResp.length - 1) != this.approvallistForm.length) {
-      this.commonMethods.snackBar('All Order leavel is required', 1);
-      return
-    }
-
     let addLevelArrayStatus = formData.approvalLevels.some((x: any) => {
 
       let counter = 0;
@@ -292,6 +286,16 @@ export class SetRuleModalComponent {
         })
       })
     }
+  }
+  onSubmit() {
+    let formData = this.setRulefrm.getRawValue();
+    if (this.setRulefrm.invalid) {
+      return;
+    } else if ((this.approveLevelResp.length - 1) != this.approvallistForm.length) {
+      this.commonMethods.snackBar('All Order leavel is required', 1);
+      return
+    }
+    this.checkDuplicateEntry();
 
     let obj = {
       "schemeTypeId": formData.scheme,

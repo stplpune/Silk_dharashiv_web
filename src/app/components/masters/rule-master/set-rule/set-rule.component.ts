@@ -23,7 +23,7 @@ export class SetRuleComponent {
   departmentresp = new Array();
   highLightedFlag: boolean = true;
   filterFrm!: FormGroup;
-  
+  totalItem:any;
   pageNumber: number = 1;
   subscription!: Subscription;//used  for lang conv
   lang: any;
@@ -83,9 +83,12 @@ export class SetRuleComponent {
     this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?pageno='+this.pageNumber+'&pagesize=10&SchemeTypeId='+(formData.scheme || 0)+'&DepartmentId='+(formData.department || 0)+'&StateId='+ (formData.state || 1)+'&DistrictId='+(formData.district || 1)+'&lan=1', false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
+        console.log(res);
+        
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableresp = res.responseData;
+          // this.totalItem = res.responseData.responseData2.pageCount;
         } else {
           this.tableresp = [];
         }
@@ -115,8 +118,9 @@ export class SetRuleComponent {
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = ['srNo', 'state', 'district', 'schemeType', 'departmentName', 'action'];
-    let displayedheaders = ['Sr No', 'State', 'District', 'Scheme', 'Department', 'Action'];
+    // this.lang == 'mr-IN' ? ['srNo', 'm_DepartmentName', 'm_DepartmentLevel', 'm_DesignationName', 'action'] : ['srNo', 'departmentName', 'departmentLevel', 'designationName', 'action']
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_State', 'm_District', 'm_SchemeType','m_DepartmentName', 'action']:['srNo', 'state', 'district', 'schemeType', 'departmentName', 'action'];
+    let displayedheaders = this.lang == 'mr-IN' ?['अनुक्रमांक', 'राज्यांचे नाव', 'जिल्ह्याचे नाव', 'योजनेचे नाव','विभाग', 'कृती']:['Sr No', 'State', 'District', 'Scheme', 'Department', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: false,
