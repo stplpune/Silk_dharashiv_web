@@ -46,12 +46,14 @@
     "please_enter_pinCode":"कृपया पिन कोड प्रविष्ट करा",
     "please_enter_valid_pinCode":"कृपया वैध पिन कोड प्रविष्ट करा",
     "pin_limit":"कमाल 6 संख्याना अनुमती आहे"
+  
+    
  
 
   },
 
   "setRule":{
-    "set_rule":"नियम सेट करा",
+    "set_rule":"सेट नियम",
     "add_rule":"नियम जोडा",
     "update_rule":"नियम अपडेट करा",
     "view_rule":"नियम पहा",
@@ -130,7 +132,8 @@
     "pin_Code":"पिन कोड",
     "please_enter_pinCode":"कृपया पिन कोड प्रविष्ट करा",
     "please_enter_valid_pinCode":"कृपया वैध पिन कोड प्रविष्ट करा",
-    "please_enter_valid_administrator":"कृपया वैध प्रशासक प्रविष्ट करा"
+    "please_enter_valid_administrator":"कृपया वैध प्रशासक प्रविष्ट करा",
+    "please_enter_hours":"कृपया कामाचे तास प्रविष्ट करा"
  
 
 
