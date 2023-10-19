@@ -1,116 +1,114 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
     <div class="d-flex align-items-center justify-content-between w-100">
-      <div class="text-main">Officer Registration</div>
+      <div class="text-main">{{'officerreg.register_Officer' | translate}}</div>
       <div class="col-sm-auto">
         <button mat-flat-button class="btn-main" (click)="registerofficer()">
           <mat-icon class="material-symbols-rounded">
             add
           </mat-icon>
-         Add Registered Officer</button>
+           {{'officerreg.add_registered_officer' | translate}}
+        </button>
       </div>
     </div>
   </mat-card-header>
   <mat-card-content class="card-body">
+    <form [formGroup]="filterForm"  #formDirective="ngForm">
     <div class="row gx-2">
       <div class="col-sm">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>All Department</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
+          <mat-label>{{'common.department' | translate}}</mat-label>
+          <mat-select formControlName="departmentId">
+            <mat-option [value]="0">{{'officerreg.allDepartment' | translate}}</mat-option>
+            <mat-option *ngFor="let department of departmentArray"
+              [value]="department.id">{{lang != 'en' ? department.textMarathi  :department.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>All Level</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
+          <mat-label>{{'common.designation_level' | translate}}</mat-label>
+          <mat-select formControlName="departmentLevelId">
+            <mat-option  [value]="0">  {{'officerreg.allLevel' | translate}}</mat-option>
+            <mat-option *ngFor="let level of departmentLevelArray"
+            [value]="level.id">{{lang != 'en' ? level.textMarathi  : level.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>All Designation</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
+          <mat-label>{{'common.designation' | translate}}</mat-label>
+          <mat-select formControlName="designationId">
+            <mat-option  [value]="0">  {{'officerreg.allDesignation' | translate}}</mat-option>
+            <mat-option *ngFor="let  designation of designationArray"
+            [value]="designation.id">{{lang != 'en' ? designation.textMarathi  : designation.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>All Taluka</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
+          <mat-label>{{'common.taluka' | translate}}</mat-label>
+          <mat-select formControlName="talukaId">
+            <mat-option  [value]="0">  {{'officerreg.allTaluka' | translate}}</mat-option>
+            <mat-option *ngFor="let taluka of talukaArray"
+            [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi  : taluka.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>All Blocks</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
+          <mat-label>{{'common.block' | translate}}</mat-label>
+          <mat-select formControlName="blockId">
+            <mat-option  [value]="0">  {{'officerreg.allBlocks' | translate}}</mat-option>
+            <mat-option *ngFor="let block of blockArray"
+            [value]="block.id">{{lang != 'en' ? block.textMarathi  : block.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>All Circle</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
+          <mat-label>{{'common.circle' | translate}}</mat-label>
+          <mat-select formControlName="circleId">
+            <mat-option  [value]="0"> {{'officerreg.allCircle' | translate}}</mat-option>
+            <mat-option *ngFor="let circle of circleArray"
+            [value]="circle.id">{{lang != 'en' ? circle.textMarathi  : circle.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>All Village</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
+          <mat-label>{{'common.village' | translate}}</mat-label>
+          <mat-select formControlName="villageId">
+            <mat-option  [value]="0">{{'officerreg.allVillage' | translate}}</mat-option>
+            <mat-option *ngFor="let village of villageArray"
+            [value]="village.id">{{lang != 'en' ? village.textMarathi  : village.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm">
         <div class="d-flex gap-2">
-
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Search by Mobile No/Email Id</mat-label>
-            <input matInput placeholder="Search by Mobile No/Email Id">
+            <mat-label>{{'common.searchbyMobile_email' | translate}}</mat-label>
+            <input matInput  formControlName="searchtext"   (keypress)="validation.noFirstSpaceAllow($event)">
           </mat-form-field>
           <div class="d-flex align-items-center gap-2 mb-4">
-            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit">
+            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit" (click)="filterFlag=true;bindTable('filter')">
               <mat-icon class="material-symbols-rounded">
                 search
               </mat-icon>
             </button>
-            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit">
-              <mat-icon class="material-symbols-rounded" >
+            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" (click)="filterFlag=false;clearFilter()">
+              <mat-icon class="material-symbols-rounded">
                 close
               </mat-icon>
             </button>
           </div>
         </div>
       </div>
-
-      <!-- <div class="col-sm-1">
-            <div class="d-flex align-items-center gap-2">
-              <button mat-icon-button class="btn bg-success bg-opacity-10 text-success rounded " matTooltip="edit">
-                <mat-icon class="material-symbols-rounded">
-                  search
-                </mat-icon>
-              </button>
-              <button mat-icon-button class="btn bg-danger bg-opacity-10 text-danger rounded " matTooltip="edit">
-                <mat-icon class="material-symbols-rounded">
-                  close
-                </mat-icon>
-              </button>
-            </div>
-          </div> -->
     </div>
+  </form>
     <div class="table-responsive scrollbar">
       <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
-     
-
-        
- </div>
+    </div>
   </mat-card-content>
 </mat-card>

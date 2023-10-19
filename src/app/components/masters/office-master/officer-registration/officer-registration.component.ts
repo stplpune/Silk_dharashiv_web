@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { RegisterOfficerComponent } from './register-officer/register-officer.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-//import { MasterService } from 'src/app/core/services/master.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
+import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
+import { Subscription } from 'rxjs';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { MasterService } from 'src/app/core/services/master.service';
 
 @Component({
   selector: 'app-officer-registration',
@@ -18,29 +22,143 @@ export class OfficerRegistrationComponent {
   totalPages!: number;
   tableDataArray: any;
   tableDatasize!: number;
-  highLightedFlag:boolean = true;
-
-  constructor(public dialog: MatDialog,
+  highLightedFlag: boolean = true;
+  subscription!: Subscription;
+  lang: string = 'English';
+  filterForm!: FormGroup;
+  designationArray = new Array();
+  departmentArray = new Array();
+  departmentLevelArray = new Array();
+  talukaArray = new Array();
+  blockArray = new Array();
+  circleArray = new Array();
+  villageArray = new Array();
+  @ViewChild('formDirective') private formDirective!: NgForm;
+  filterFlag:boolean=false;
+  objId:any;
+  constructor(
+    public dialog: MatDialog,
     private apiService: ApiService,
     public validation: ValidationService,
     private spinner: NgxSpinnerService,
-    // private masterService: MasterService,
+    private fb: FormBuilder,
     private errorHandler: ErrorHandlingService,
     private commonMethod: CommonMethodsService,
-  //  private WebStorageService:WebStorageService
-   ) {}
+    private WebStorageService: WebStorageService,
+    private masterService: MasterService,
 
-   ngOnInit(){
+  ) { }
+
+  ngOnInit() {
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+      this.setTableData();
+    })
+    this.getFilterFormData();
+    this.getDepartment();
+    this.getDepartmentLevel();
+    this.getDesignation();
+    this.getTaluka();
+    this.getBlock();
+    this.getCircle();
+    this.getVillage();
     this.bindTable();
-   }
+  }
+
+
+  getFilterFormData() {
+    this.filterForm = this.fb.group({
+      departmentId: [0],
+      departmentLevelId: [0],
+      designationId: [0],
+      talukaId: [0],
+      blockId: [0],
+      circleId: [0],
+      villageId: [0],
+      searchtext: ['']
+    })
+  }
+
+  getDepartment() {
+    this.masterService.GetDepartmentDropdown().subscribe({
+      next: ((res: any) => {
+        this.departmentArray = res.responseData;
+      }), error: (() => {
+        this.departmentArray = [];
+      })
+    })
+  }
+
+  getDepartmentLevel() {
+    this.masterService.GetDeptLevelDropDown().subscribe({
+      next: ((res: any) => {
+        this.departmentLevelArray = res.responseData;
+      }), error: (() => {
+        this.departmentLevelArray = [];
+      })
+    })
+  }
+
+  getDesignation() {
+    this.masterService.GetDesignationDropDown().subscribe({
+      next: ((res: any) => {
+        this.designationArray = res.responseData;
+      }), error: (() => {
+        this.designationArray = [];
+      })
+    })
+  }
+
+  getTaluka() {
+    this.masterService.GetAllTaluka(1, 1, 0).subscribe({
+      next: ((res: any) => {
+        this.talukaArray = res.responseData;
+      }), error: (() => {
+        this.talukaArray = [];
+      })
+    })
+  }
+
+  getBlock() {
+    this.masterService.GetAllBlock(1, 1).subscribe({
+      next: ((res: any) => {
+        this.blockArray = res.responseData;
+      }), error: (() => {
+        this.blockArray = [];
+      })
+    })
+  }
+
+  getCircle() {
+    this.masterService.GetAllCircle(1, 1, 0).subscribe({
+      next: ((res: any) => {
+        this.circleArray = res.responseData;
+      }), error: (() => {
+        this.circleArray = [];
+      })
+    })
+  }
+
+  getVillage() {
+    let talukaId = this.filterForm.getRawValue().talukaId;
+    this.masterService.GetAllVillages(1, 1, talukaId || 0, 0).subscribe({
+      next: ((res: any) => {
+        this.villageArray = res.responseData;
+      }), error: (() => {
+        this.villageArray = [];
+      })
+    })
+  }
 
 
 
   bindTable(flag?: any) {
-   console.log("flag",flag)
     this.spinner.show();
+    let formData = this.filterForm.value;
+    flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/UserRegistration/get-user-details?' + str, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/UserRegistration/get-user-details?VillageId=' + (formData.villageId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&DepartmentLevelId=' + (formData.departmentLevelId || 0) + '&DepartmentId=' + (formData.departmentId || 0) + '&DesignationId=' + (formData.designationId || 0) + '&CircleId=' + (formData.circleId || 0) + '&BlockId=' + (formData.blockId || 0) + '&SearchText=' + (formData.searchtext || '') + '&' + str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -49,6 +167,7 @@ export class OfficerRegistrationComponent {
           this.tableDatasize = res.responseData.responseData2?.totalCount;
           this.totalPages = res.responseData.responseData2?.totalPages;
         } else {
+          this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
           this.tableDataArray = []; this.tableDatasize = 0;
         }
@@ -63,8 +182,10 @@ export class OfficerRegistrationComponent {
 
   setTableData() {
     this.highLightedFlag = true;
-     let displayedColumns = ['srNo', 'departmentName', 'departmentLevel','designationName', 'taluka','village','blockName','circleName','mobNo1','emailId','action'];
-     let displayedheaders = ['Sr. No.', 'Department','Department Level','Designation','Taluka','Village','Block','Circle','Mobile No.','Email','Action'];
+    let displayedColumns = this.lang == 'en' ?  ['srNo', 'name', 'departmentName', 'departmentLevel', 'designationName', 'mobNo1', 'emailId', 'action']
+                                               :['srNo', 'm_Name', 'm_DepartmentName', 'm_DepartmentLevel', 'm_DesignationName', 'mobNo1', 'emailId', 'action'];
+    let displayedheaders =  this.lang == 'en' ? ['Sr. No.', 'Officer Name', 'Department', 'Department Level', 'Designation', 'Mobile No.', 'Email', 'Action'] :
+                                                ['अनुक्रमांक', 'अधिकाऱ्याचे नाव', 'विभाग', 'विभाग स्तर', 'पदनाम', 'मोबाईल नंबर', 'ईमेल', 'कृती'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
@@ -75,44 +196,85 @@ export class OfficerRegistrationComponent {
       tableHeaders: displayedheaders,
       delete: true, view: true, edit: true,
     };
-    this.highLightedFlag? tableData.highlightedrow=true :tableData.highlightedrow=false;
-   this.apiService.tableData.next(tableData);
+    this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
+    this.apiService.tableData.next(tableData);
   }
 
-
   childCompInfo(obj: any) {
-   switch (obj.label) {
+    switch (obj.label) {
       case 'Pagination':
-        //this.searchDataFlag ? (this.f['deptId'].setValue(this.filterFrm.value?.deptId), this.f['deptLevelId'].setValue(this.filterFrm.value?.deptLevelId), this.f['textSearch'].setValue(this.filterFrm.value?.textSearch)) : (this.f['deptId'].setValue(''), this.f['deptLevelId'].setValue(''), this.f['textSearch'].setValue(''));
         this.pageNumber = obj.pageNumber;
-       // this.clearMainForm();//when we click on edit button & click on pagination that time clear form
+        !this.filterFlag ? this.formDirective.resetForm() : ''
         this.bindTable();
+        this.getFilterFormData();
         break;
-       case 'Edit':
-         this.registerofficer(obj);
+      case 'Edit':
+        this.registerofficer(obj);
         break;
       case 'Delete':
-        // this.deleteDialogOpen(obj);
+        this.deleteDialogOpen(obj);
         break;
-        case 'View':
-          this.registerofficer(obj);
+      case 'View':
+        this.registerofficer(obj);
+        obj.label == 'View' ? this.objId = obj.id : 0;
         break;
     }
   }
 
-  registerofficer(obj?:any){
+  registerofficer(obj?: any) {
     let dialogRef = this.dialog.open(RegisterOfficerComponent, {
-      width: '700px',
+      width: '800px',
       data: obj,
       disableClose: true,
       autoFocus: true,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       result == 'Yes' ? this.bindTable() : '';
-      this.highLightedFlag= false;
+      this.highLightedFlag = false;
       this.setTableData();
     });
-   }
+  }
+
+  deleteDialogOpen(delObj?: any) {
+    let dialogObj = {
+      title: this.lang == 'en' ? 'Do You Want To Delete Selected Officer ?' : 'तुम्हाला निवडलेल्या अधिकाऱ्याला हटवायचे आहे का? ?',
+      header: this.lang == 'en' ? 'Delete Officer' : 'अधिकारी हटवा',
+      okButton: this.lang == 'en' ? 'Delete' : 'हटवा',
+      cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
+    };
+    const dialogRef = this.dialog.open(GlobalDialogComponent, {
+      width: '30%',
+      data: dialogObj,
+      disableClose: true,
+      autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == 'Yes') {
+        this.apiService.setHttp('put', 'sericulture/api/UserRegistration/delete-user-details?Id=' + delObj.id, false, false, false, 'masterUrl');
+        this.apiService.getHttp().subscribe({
+          next: (res: any) => {
+            if (res.statusCode == '200') {
+              this.commonMethod.snackBar(res.statusMessage, 0);
+              this.bindTable();
+            } else {
+              this.commonMethod.snackBar(res.statusMessage, 1);
+            }
+          },
+          error: (error: any) => {
+            this.errorHandler.handelError(error.statusCode);
+          },
+        });
+      }
+      this.highLightedFlag = false;
+    });
+  }
+
+  clearFilter() {
+    this.formDirective.resetForm();
+    this.pageNumber=1;
+    this.getFilterFormData();
+    this.bindTable();
+  }
 
 }
 
