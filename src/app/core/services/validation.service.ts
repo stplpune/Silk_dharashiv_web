@@ -17,7 +17,8 @@ export class ValidationService {
   marathiquestion=('^[\u0900-\u0965? !@#$%^&*0-9]+$');
   alphabetWithSpace = '^[a-zA-Z][a-zA-Z ]*$';
   alphaNumericWithSpace = '^[a-zA-Z0-9 -][a-zA-Z0-9 -]*$';
-  valPinCode = '^[1-9][0-9]{5}$'
+  valPinCode = '^[1-9][0-9]{5}$';
+  alphabetsWithSpecChar = `^([a-zA-Z0-9 /(,)&.+-=\n'])*$`;
   
   maxLengthValidator(maxLength: number) {
     return (control: AbstractControl): ValidationErrors | null => {
