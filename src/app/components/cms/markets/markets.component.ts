@@ -124,7 +124,7 @@ export class MarketsComponent {
 
   addMarket(obj?: any) {
     let dialogRef = this.dialog.open(AddMarketListComponent, {
-      width: '30%',
+      width: '60%',
       data: obj,
       disableClose: true,
       autoFocus: true,

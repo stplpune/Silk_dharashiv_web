@@ -73,7 +73,7 @@ export class PageRightAccessComponent {
     else {
       this.spinner.show();
       let formData = this.filterFrm.getRawValue();
-      let str = `&pageno=${this.pageNumber}&pagesize=10`;
+      let str = `&pageno=${this.pageNumber}&pagesize=100`;
       this.apiService.setHttp('GET', `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId || 0}&DepartmentLevelId=${formData?.designationLevelId || 0}&DesignationId=${formData?.designationId || 0}&MainMenuId=${formData?.moduleId || 0}&SubMenuId=${formData?.subModuleId || 0}&lan=${this.lang}` + str, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
