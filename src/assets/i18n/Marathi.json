@@ -66,7 +66,12 @@
     "Scheme":"योजना",
     "Department":"विभाग",
     "Order":"ऑर्डर ",
-    "Action":"कृती"
+    "Action":"कृती",
+    "first_level":"प्रथम स्तर",
+    "second_level":"दुसरी पातळी",
+    "third_level":"तिसरा स्तर",
+    "four_level":"चौथा स्तर",
+    "fifth_level":"पाचवी पातळी"
   },
 
 
@@ -113,7 +118,12 @@
     "working_hours":"कामाचे तास",
     "add_Market_List":"मार्केट लिस्ट जोडा",
     "update_Market_List":"मार्केट लिस्ट अपडेट करा",
-    "view_Market_List":"बाजार सूची पहा"
+    "view_Market_List":"बाजार सूची पहा",
+    "establishment_Date":"स्थापना दिवस"
+
+
+
+    
   },
 
   "pageAccess":{
