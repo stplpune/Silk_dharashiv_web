@@ -19,6 +19,8 @@ export class ValidationService {
   alphaNumericWithSpace = '^[a-zA-Z0-9 -][a-zA-Z0-9 -]*$';
   valPinCode = '^[1-9][0-9]{5}$';
   alphabetsWithSpecChar = `^([a-zA-Z0-9 /(,)&.+-=\n'])*$`;
+  latValidation ='^([+-])?(?:90(?:\\.0{1,9})?|((?:|[1-8])[0-9])(?:\\.[0-9]{1,9})?)$';
+  longValidation ='^([+-])?(?:180(?:\\.0{1,9})?|((?:|[1-9]|1[0-7])[0-9])(?:\\.[0-9]{1,9})?)$';
   
   maxLengthValidator(maxLength: number) {
     return (control: AbstractControl): ValidationErrors | null => {
