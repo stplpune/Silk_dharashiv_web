@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { ValidationService } from 'src/app/core/services/validation.service';
 
 @Component({
   selector: 'app-block-circle',
@@ -33,7 +34,8 @@ export class BlockCircleComponent {
     private commonMethod: CommonMethodsService,
     private errorHandler: ErrorHandlingService,
     public dialog: MatDialog,
-    private WebStorageService:WebStorageService
+    private WebStorageService:WebStorageService,
+    public validator : ValidationService
   ) { }
 
   ngOnInit() {  
@@ -46,7 +48,7 @@ export class BlockCircleComponent {
     this.getTableData();
   }
 
-  getTableData(flag?: any) {
+  getTableData(flag?: any) {    
     this.spinner.show();
     flag == 'filter' ? (this.pageNumber = 1) : '';
     this.apiService.setHttp('GET', `sericulture/api/TalukaBlocks/GetAllTalukaBlocks?pageno=${this.pageNumber}&pagesize=10&TextSearch=${this.textsearch.value || ''}&lan=${this.lang}`, false, false, false, 'masterUrl');

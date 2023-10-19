@@ -40,16 +40,20 @@ export class MarketRateComponent {
   ) { }
 
   ngOnInit() {
+    this.filterFormData();
+    this.getTableData();
+    this.getAllMarket();
+    this.getFarmsGood();
+   
+    
     this.WebStorageService.getAllPageName().filter((ele: any) => { return ele.pageName == 'Department' ? this.pageAccessObject = ele : '' })
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     })
-    this.filterFormData();
-    this.getTableData();
-    this.getAllMarket();
-    this.getFarmsGood();
+
+
   }
 
   filterFormData() {
