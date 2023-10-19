@@ -1,5 +1,6 @@
 {
   "common":{
+    "srNo":"Sr.No",
     "department":"Select Department",
     "designation_level":"Select Designation Level",
     "designation":"Select Designation",
@@ -120,7 +121,10 @@
     "add_Market_List":"Add Market List",
     "update_Market_List":"Update Market List",
     "view_Market_List":"View Market List",
-    "establishment_Date":"Establishment Date"
+    "establishment_Date":"Establishment Date",
+    "please_enter_latitude":"Please Enter Latitude",
+    "please_enter_longitude":"Please Enter Longitude",
+    "please_enter_pinCode":"Please Enter Pin Code"
   },
   
 
