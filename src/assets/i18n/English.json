@@ -1,5 +1,6 @@
 {
   "common":{
+    "srNo":"Sr.No",
     "department":"Select Department",
     "designation_level":"Select Designation Level",
     "designation":"Select Designation",
@@ -61,7 +62,19 @@
     "select_scheme":"Select Scheme",
     "select_department":"Please select department",
     "scheme_required":"Please select scheme",
-    "designation_level_required":"Please select designation level"
+    "designation_level_required":"Please select designation level",
+    "state":"State",
+    "district":"District",
+    "Scheme":"Scheme",
+    "Department":"Department",
+    "Order":"Order",
+    "Action":"Action",
+    "first_level":"First Level",
+    "second_level":"Second Level",
+    "third_level":"Third Level",
+    "four_level":"Fourth Level",
+    "fifth_level":"Fifth Level"
+    
   },
 
   "officerreg":{
@@ -88,6 +101,14 @@
   },
 
   "marketRate":{
+    "market_en":"Market Name(English)",
+    "market_mr":"Market Name(Marathi)",
+    "contact_1":"Contact No 1",
+    "contact_2":"Contact No 2",
+    "farm_goods":"Farm Goods",
+    "state_lable":"Select State",
+    "district_lable":"Select District",
+    "taluka_lable":"Select Taluka",
     "market_Name_en":"Please Enter Market Name(English)",
     "market_Name_mr":"Please Enter Market Name(Marathi)",
     "market_Name_limit":"Maximum limit 100 charater",
@@ -96,9 +117,14 @@
     "latitude":"Latitude",
     "longitude":"Longitude",
     "administrator":"Administrator",
+    "working_hours":"Working Hours",
     "add_Market_List":"Add Market List",
     "update_Market_List":"Update Market List",
-    "view_Market_List":"View Market List"
+    "view_Market_List":"View Market List",
+    "establishment_Date":"Establishment Date",
+    "please_enter_latitude":"Please Enter Latitude",
+    "please_enter_longitude":"Please Enter Longitude",
+    "please_enter_pinCode":"Please Enter Pin Code"
   },
   
 

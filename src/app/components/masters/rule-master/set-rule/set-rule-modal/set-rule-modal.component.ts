@@ -61,6 +61,8 @@ export class SetRuleModalComponent {
     this.getLevelApprovel();
     this.data?.label == 'Edit' ? this.editData() : '';
     this.tableData = this.data?.getApprovalMaster
+    console.log( this.tableData);
+    
   }
 
   //#region ------------------------------------------------------filter drop fn start heare--------------------------------------------//
@@ -259,8 +261,43 @@ export class SetRuleModalComponent {
     this.approvallistForm.removeAt(i);
   }
 
-  checkDuplicateEntry() {
+  // checkDuplicateEntry() {
+  //   let formData = this.setRulefrm.getRawValue();
+  //   let addLevelArrayStatus = formData.approvalLevels.some((x: any) => {
+
+  //     let counter = 0;
+  //     formData.approvalLevels.map((a: any) => {
+  //       if (a.actionId === x.actionId && a.departmentLevelId === x.departmentLevelId && a.designationId === x.designationId) {
+  //         counter += 1;
+  //       }
+  //     })
+  //     return counter > 1;
+  //   });
+
+  //   if (addLevelArrayStatus) {
+  //     this.commonMethods.snackBar("Something went wrong.", 1);
+  //     return
+  //   }
+
+  //   if (this.editFlag) {
+  //     this.data.getApprovalMaster.find((ele: any) => {
+  //       formData.approvalLevels.map((item: any) => {
+  //         if (item.approvalLevel == ele.approvalLevel) {
+  //           item.id = ele.id
+  //         }
+  //       })
+  //     })
+  //   }
+  // }
+  onSubmit() {
     let formData = this.setRulefrm.getRawValue();
+    if (this.setRulefrm.invalid) {
+      return;
+    } else if ((this.approveLevelResp.length - 1) != this.approvallistForm.length) {
+      this.commonMethods.snackBar('All Order leavel is required', 1);
+      return
+    }
+  
     let addLevelArrayStatus = formData.approvalLevels.some((x: any) => {
 
       let counter = 0;
@@ -286,16 +323,6 @@ export class SetRuleModalComponent {
         })
       })
     }
-  }
-  onSubmit() {
-    let formData = this.setRulefrm.getRawValue();
-    if (this.setRulefrm.invalid) {
-      return;
-    } else if ((this.approveLevelResp.length - 1) != this.approvallistForm.length) {
-      this.commonMethods.snackBar('All Order leavel is required', 1);
-      return
-    }
-    this.checkDuplicateEntry();
 
     let obj = {
       "schemeTypeId": formData.scheme,

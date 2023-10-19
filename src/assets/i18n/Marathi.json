@@ -1,5 +1,6 @@
 {
   "common":{
+    "srNo":"अनुक्रमणिका",
     "department":"विभाग निवडा",
     "designation_level":"पदनाम स्तर निवडा",
     "designation":"पदनाम निवडा",
@@ -60,7 +61,18 @@
     "select_scheme":"योजना निवडा",
     "select_department":"कृपया विभाग निवडा ",
     "scheme_required":"कृपया योजना निवडा ",
-    "designation_level_required":"कृपया पदनाम स्तर निवडा"
+    "designation_level_required":"कृपया पदनाम स्तर निवडा",
+    "state":"राज्य",
+    "district":"जिल्हा",
+    "Scheme":"योजना",
+    "Department":"विभाग",
+    "Order":"ऑर्डर ",
+    "Action":"कृती",
+    "first_level":"प्रथम स्तर",
+    "second_level":"दुसरी पातळी",
+    "third_level":"तिसरा स्तर",
+    "four_level":"चौथा स्तर",
+    "fifth_level":"पाचवी पातळी"
   },
 
 
@@ -88,6 +100,14 @@
   },
 
   "marketRate":{
+    "market_en":"बाजाराचे नाव(इंग्रजी)",
+    "market_mr":"बाजाराचे नाव(मराठी)",
+    "contact_1":"संपर्क क्रमांक १",
+    "contact_2":"संपर्क क्रमांक 2",
+    "farm_goods":"शेत माल",
+    "state_lable":"राज्य निवडा",
+    "district_lable":"जिल्हा निवडा",
+    "taluka_lable":"तालुका निवडा",
     "market_Name_en":"कृपया बाजाराचे नाव प्रविष्ट करा (इंग्रजी)",
     "market_Name_mr":"कृपया बाजाराचे नाव प्रविष्ट करा (मराठी)",
     "market_Name_limit":"कमाल 100 वर्णांना अनुमती आहे",
@@ -96,9 +116,20 @@
     "latitude":"अक्षांश",
     "longitude":"रेखांश",
     "administrator":"प्रशासक",
+    "working_hours":"कामाचे तास",
     "add_Market_List":"मार्केट लिस्ट जोडा",
     "update_Market_List":"मार्केट लिस्ट अपडेट करा",
-    "view_Market_List":"बाजार सूची पहा"
+    "view_Market_List":"बाजार सूची पहा",
+    "establishment_Date":"स्थापना दिवस",
+    "please_enter_latitude":"कृपया अक्षांश प्रविष्ट करा",
+    "please_enter_longitude":"कृपया रेखांश प्रविष्ट करा",
+
+    "please_enter_pinCode":"कृपया पिन कोड करा"
+ 
+
+
+
+    
   },
 
   "pageAccess":{
