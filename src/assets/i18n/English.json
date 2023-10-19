@@ -45,6 +45,25 @@
 
   },
 
+  "setRule":{
+    "set_rule":"Set Rules",
+    "add_rule":"Add Rule",
+    "update_rule":"Update Rule",
+    "view_rule":"View Rule",
+    "add_level":"Add Level",
+    "update_level":"Update Lavel",
+    "order":"Order",
+    "action":"Action",
+    "designation_level":"Designation Level",
+    "designation":"Designation",
+    "select_state":"Select State",
+    "select_district":"Select District",
+    "select_scheme":"Select Scheme",
+    "select_department":"Please select department",
+    "scheme_required":"Please select scheme",
+    "designation_level_required":"Please select designation level"
+  },
+
   "officerreg":{
     "allVillage" : "All Village" ,
     "allCircle" : "All Circle",
