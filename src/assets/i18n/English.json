@@ -67,7 +67,12 @@
     "Scheme":"Scheme",
     "Department":"Department",
     "Order":"Order",
-    "Action":"Action"
+    "Action":"Action",
+    "first_level":"First Level",
+    "second_level":"Second Level",
+    "third_level":"Third Level",
+    "four_level":"Fourth Level",
+    "fifth_level":"Fifth Level"
     
   },
 
@@ -114,7 +119,8 @@
     "working_hours":"Working Hours",
     "add_Market_List":"Add Market List",
     "update_Market_List":"Update Market List",
-    "view_Market_List":"View Market List"
+    "view_Market_List":"View Market List",
+    "establishment_Date":"Establishment Date"
   },
   
 
