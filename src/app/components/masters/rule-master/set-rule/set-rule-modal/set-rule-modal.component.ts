@@ -135,7 +135,7 @@ export class SetRuleModalComponent {
     this.master.GetActionDropDown().subscribe({
       next: ((res: any) => {
         this.actionresp = res.responseData;
-        this.actionresp.unshift({ id: '', 'textEnglish': 'Select Action' })
+        this.actionresp.unshift({ id: 0, textEnglish: 'Select Action', textMarathi: "कृती निवडा" })
       }), error: (() => {
         this.actionresp = [];
       })
@@ -146,7 +146,7 @@ export class SetRuleModalComponent {
     this.master.GetDeptLevelDropDown().subscribe({
       next: ((res: any) => {
         this.levelResp = res.responseData;
-        this.levelResp.unshift({ id: '', 'textEnglish': 'Select Designation Level' })
+        this.levelResp.unshift({ id: 0, textEnglish: 'Select Designation Level',textMarathi: "पदनाम स्तर निवडा" })
       }), error: (() => {
         this.levelResp = [];
       })
@@ -157,7 +157,7 @@ export class SetRuleModalComponent {
     this.master.GetDesignationDropDown().subscribe({
       next: ((res: any) => {
         this.designationResp = res.responseData;
-        this.designationResp.unshift({ id: '', 'textEnglish': 'Select Designation' })
+        this.designationResp.unshift({ id: 0, textEnglish: 'Select Designation' ,textMarathi: "पदनाम निवडा"})
       }), error: (() => {
         this.designationResp = [];
       })
@@ -169,7 +169,7 @@ export class SetRuleModalComponent {
       next: ((res: any) => {
         this.approveLevelResp = res.responseData;
         this.approveLevelResp.map((ele: any) => { ele['selected'] = false })
-        this.approveLevelResp.unshift({ id: '', 'textEnglish': 'Select Order' })
+        this.approveLevelResp.unshift({ id: 0, textEnglish: 'Select Order',textMarathi:"ऑर्डर निवडा"})
       }), error: (() => {
         this.approveLevelResp = [];
       })
@@ -308,8 +308,10 @@ export class SetRuleModalComponent {
       })
       return counter > 1;
     });
-
+    console.log("addLevelArrayStatus",addLevelArrayStatus);
     if (addLevelArrayStatus) {
+      console.log("addLevelArrayStatus",addLevelArrayStatus);
+      
       this.commonMethods.snackBar("Something went wrong.", 1);
       return
     }
