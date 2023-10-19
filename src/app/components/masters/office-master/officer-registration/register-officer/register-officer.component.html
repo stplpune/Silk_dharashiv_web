@@ -26,7 +26,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.designation_level' | translate}}</mat-label>
             <mat-select formControlName="departmentLevelId"
-              (selectionChange)="dropDownCall(officeForm.value.departmentLevelId);">
+              (selectionChange)="dropDownCall(officeForm.value.departmentLevelId)">
               <mat-option *ngFor="let level of departmentLevelArray" [value]="level.id">{{lang != 'en' ? level.textMarathi : level.textEnglish}}
               </mat-option>
             </mat-select>
@@ -67,7 +67,7 @@
       || (officeForm.value.departmentLevelId == 1)">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.taluka' | translate}}</mat-label>
-            <mat-select formControlName="talukaId" (selectionChange)="getVillage()">
+            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('village');getVillage()">
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi :taluka.textEnglish}}</mat-option>
             </mat-select>
             <mat-error *ngIf="f['talukaId']?.hasError('required')">{{'common.Please_select_taluka'|translate}}  </mat-error>
