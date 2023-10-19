@@ -19,25 +19,25 @@
               <mat-label>{{'common.state' | translate}}</mat-label>
               <mat-select formControlName="stateId" [class]="filterFrm.controls['stateId'].disable({ onlySelf: true })">
                 <mat-option *ngFor="let state of stateArray"
-                  [value]="state.id">{{state.textEnglish}}</mat-option>
+                  [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Search District</mat-label>
+              <mat-label>{{'common.district' | translate}}</mat-label>
               <mat-select formControlName="districtId" [class]="filterFrm.controls['districtId'].disable({ onlySelf: true })">
                 <mat-option *ngFor="let district of districtArray"
-                    [value]="district.id">{{district.textEnglish}}</mat-option>
+                    [value]="district.id">{{lang == 'en' ? district.textEnglish : district.textMarathi}}</mat-option>
                 </mat-select>
             </mat-form-field>
           </div>
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Search Taluka</mat-label>
+              <mat-label>{{'common.taluka' | translate}}</mat-label>
               <mat-select formControlName="talukaId">
                 <mat-option *ngFor="let taluka of talukaArray"
-                  [value]="taluka.id">{{taluka.textEnglish}}</mat-option>
+                  [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish : taluka.textMarathi}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -47,7 +47,7 @@
               <input matInput placeholder="Market name / contact no">
             </mat-form-field>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm">
             <div class="d-flex align-items-center gap-2">
               <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
                 <mat-icon class="material-symbols-rounded">
