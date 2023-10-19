@@ -139,8 +139,8 @@ export class SchemesComponent {
     let userEng = obj.isActive == false ? 'Block' : 'Unblock';
     let userMara = obj.isActive == false ? 'ब्लॉक' : 'अनब्लॉक';
     let dialoObj = {
-      header: this.lang == 'mr-IN' ? 'योजना ' + userMara + ' करा' : userEng + ' Action',
-      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेली योजना ' + userMara + ' करू इच्छिता' : 'Do You Want To ' + userEng + ' The Selected Action?',
+      header: this.lang == 'mr-IN' ? 'योजना ' + userMara + ' करा' : userEng + ' Scheme',
+      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेली योजना ' + userMara + ' करू इच्छिता ?' : 'Do You Want To ' + userEng + ' The Selected Scheme ?',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
     }
