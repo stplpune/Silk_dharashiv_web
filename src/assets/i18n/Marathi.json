@@ -60,7 +60,13 @@
     "select_scheme":"योजना निवडा",
     "select_department":"कृपया विभाग निवडा ",
     "scheme_required":"कृपया योजना निवडा ",
-    "designation_level_required":"कृपया पदनाम स्तर निवडा"
+    "designation_level_required":"कृपया पदनाम स्तर निवडा",
+    "state":"राज्य",
+    "district":"जिल्हा",
+    "Scheme":"योजना",
+    "Department":"विभाग",
+    "Order":"ऑर्डर ",
+    "Action":"कृती"
   },
 
 
@@ -139,7 +145,8 @@
     "action_en":"कृतीचे नाव (इंग्रजी)",
     "action_mr":"कृतीचे नाव (मराठी)",
     "description":"वर्णन",
-    "action_required" : "कृपया कृतीचे नाव प्रविष्ट करा ",
+    "action_required_en" : "कृपया कृतीचे नाव प्रविष्ट करा (इंग्रजी)",
+    "action_required_mr" : "कृपया कृतीचे नाव प्रविष्ट करा (मराठी)",
     "action_pattern" : "कृतीचे नाव (इंग्रजी) आवश्यक आहे",
     "action_pattern_mr" : "कृतीचे नाव (मराठी) आवश्यक आहे",
     "action_maxLength": "कमाल 50 वर्णांना अनुमती आहे",
