@@ -261,8 +261,9 @@
     "answer_maxLength": "कमाल 1000 वर्णांना अनुमती आहे",
     "question_pattern" : "वैध प्रश्न प्रविष्ट करा",
      "Answer_pattern" : "वैध उत्तर प्रविष्ट करा"
-  },"villageCircle":{
-    "village_circle":"गाव मंडळ",
+  },
+  "villageCircle":{
+    "village_circle":"मंडळ",
     "search_by_village_circle_name":"मंडळाच्या नावाने शोधा",
     "add_village":"गाव जोडा",
     "update_village":"अपडेट गाव",
