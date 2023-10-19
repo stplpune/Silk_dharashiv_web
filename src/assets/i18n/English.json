@@ -117,7 +117,7 @@
         "action_en":"Action Name(English)",
         "action_mr":"Action Name(Marathi)",
         "description":"Description",
-        "action_required" : "Please Enter Action Name",
+        "action_required" : "Please enter action name",
         "action_pattern" : "Action Name (English) Required",
         "action_pattern_mr" : "Action Name (Marathi) Required",
         "action_maxLength": "Maximum limit is 50",
