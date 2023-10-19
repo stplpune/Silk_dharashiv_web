@@ -12,7 +12,7 @@
         </div>
       </mat-card-header>
       <mat-card-header class="card-header-control">
-        <form [formGroup]="filterFrm" class="w-100">
+        <form [formGroup]="filterFrm" class="w-100" (ngSubmit)="getTableData('filter')">
           <div class="row g-2 w-100">
             <div class="col-sm-4">
               <mat-form-field appearance="outline" class="w-100">
@@ -32,8 +32,8 @@
             </div>
             <div class="col-sm-auto">
               <div class="d-flex align-items-center gap-2">
-                <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"
-                (click)="getTableData('filter')">
+                <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit"
+                >
                   <mat-icon class="material-symbols-rounded">
                     search
                   </mat-icon>
