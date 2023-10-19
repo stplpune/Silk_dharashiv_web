@@ -29,6 +29,7 @@ export class DesignationsComponent {
   subscription!: Subscription;//used  for lang conv
   lang: any;
   pageAccessObject: object|any;
+  searchDataFlag: boolean = false
   //@ViewChild('formDirective') private formDirective!: NgForm;
 
   constructor(private fb: FormBuilder,
@@ -102,7 +103,7 @@ export class DesignationsComponent {
   //#endregion-----------dropdown code end here-----------------
   bindTable(flag?: any) {
     this.spinner.show();
-    flag == 'filter' ? (this.pageNumber = 1) : '';
+    flag == 'filter' ? (this.searchDataFlag = true,this.pageNumber = 1) : '';
     let formData = this.filterFrm?.getRawValue();
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
     this.apiService.setHttp('GET', `sericulture/api/Designation/get-All-Designation?DeptId=${formData?.deptId || 0}&Deptlevel=${formData?.deptLevelId || 0}&lan=${this.lang}&TextSearch=${formData?.textSearch || ''}` + str, false, false, false, 'masterUrl');
@@ -152,6 +153,7 @@ export class DesignationsComponent {
   childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':
+        this.searchDataFlag ? (this.filterFrm.controls['deptId'].setValue(this.filterFrm.value?.deptId),this.filterFrm.controls['deptLevelId'].setValue(this.filterFrm.value?.deptLevelId), this.filterFrm.controls['textSearch'].setValue(this.filterFrm.value.textSearch)) : (this.filterFrm.controls['deptId'].setValue(''),this.filterFrm.controls['deptLevelId'].setValue(''), this.filterFrm.controls['textSearch'].setValue(''));
         this.pageNumber = obj.pageNumber;
         this.bindTable();
         break;
