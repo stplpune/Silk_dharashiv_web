@@ -278,9 +278,9 @@
         <li class="list-group-item d-flex justify-content-between align-items-start">
           <div class="ms-2 me-auto">
             <div class="form-label">
-              <mat-form-field appearance="outline" class="w-100">
+              <mat-form-field appearance="outline" class="w-100" [class]="statusForm.value.statusId == 0 ? sendData(statusForm.value.statusId) : '' ">
                 <mat-label>Status</mat-label>
-                <mat-select formControlName="statusId" (selectionChange)="sendData(statusForm.value.statusId)">
+                <mat-select formControlName="statusId" (selectionChange)="sendData(statusForm.value.statusId)"  >
                   <mat-option *ngFor="let st of statusArray" [value]="st.id">{{st.value}}</mat-option>
                 </mat-select>
               </mat-form-field>
