@@ -95,6 +95,14 @@
   },
 
   "marketRate":{
+    "market_en":"Market Name(English)",
+    "market_mr":"Market Name(Marathi)",
+    "contact_1":"Contact No 1",
+    "contact_2":"Contact No 2",
+    "farm_goods":"Farm Goods",
+    "state_lable":"Select State",
+    "district_lable":"Select District",
+    "taluka_lable":"Select Taluka",
     "market_Name_en":"Please Enter Market Name(English)",
     "market_Name_mr":"Please Enter Market Name(Marathi)",
     "market_Name_limit":"Maximum limit 100 charater",
@@ -103,6 +111,7 @@
     "latitude":"Latitude",
     "longitude":"Longitude",
     "administrator":"Administrator",
+    "working_hours":"Working Hours",
     "add_Market_List":"Add Market List",
     "update_Market_List":"Update Market List",
     "view_Market_List":"View Market List"
