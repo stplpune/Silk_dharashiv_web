@@ -1,11 +1,11 @@
 import { Component,Inject  } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-//import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
-// import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
-// import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
+ import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
+ import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
@@ -28,18 +28,18 @@ export class AddMarketListComponent {
     private fb: FormBuilder,
     private apiService: ApiService,
     public validation: ValidationService,
-    //private spinner: NgxSpinnerService,
+    private spinner: NgxSpinnerService,
     private masterService: MasterService,
-    // private errorHandler: ErrorHandlingService,
+     private errorHandler: ErrorHandlingService,
     private WebStorageService: WebStorageService,
-    // private commonMethod: CommonMethodsService,
+    private commonMethod: CommonMethodsService,
     public dialog: MatDialog,
     private dialogRef: MatDialogRef<AddMarketListComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit() {
-    console.log("dialogRef",this.dialogRef.close('Yes'))
+  
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -84,6 +84,8 @@ export class AddMarketListComponent {
       // ],
     })
   }
+
+  get a(){return this.marketFrm.controls }
 
   getState() {
     this.stateArray = [];
@@ -155,13 +157,58 @@ export class AddMarketListComponent {
       this.sendFarmDataArray.push(obj)
     })
     return this.sendFarmDataArray
-    
-    
-  }
+    }
 
+    onSubmit() {
+      if (this.marketFrm.invalid) {
+        return;
+      }
+      else {
+        this.spinner.show();
+        let data = this.marketFrm.getRawValue();
+        let obj = {
+           "id" : data.id,
+            "marketName": data.marketName,
+            "m_MarketName":data.marketName,
+            "conactNo": data.marketName,
+            "emailId": data.marketName,
+            "stateId":data.marketName,
+            "districtId": data.marketName,
+            "talukaId":data.marketName,
+            "villageId": data.marketName,
+            "address": data.marketName,
+            "pincode": data.marketName,
+            "estDate": data.marketName,
+            "latitude": Number(data.latitude),
+            "longitude":Number(data.longitude),
+            "administratior": data.marketName,
+            "mobileNo": data.marketName,
+            "workingHours": data.marketName,
+            "committeeAssignShetmal": this.sendFarmData(data.shetMalId),
+            "createdBy": this.WebStorageService.getUserId() ,
+            "flag": 'i'
+          
+        }
 
-  toppings = new FormControl('');
-
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-
+        // let mainData = { ...obj, "createdBy": this.WebStorageService.getUserId() };
+        this.apiService.setHttp('post', 'sericulture/api/MarketCommittee/AddUpdateMarketCommittee?lan=' + this.lang, false, obj, false, 'masterUrl');
+        this.apiService.getHttp().subscribe({
+          next: ((res: any) => {
+            this.spinner.hide();
+            if (res.statusCode == "200") {
+              this.commonMethod.snackBar(res.statusMessage, 0);
+              this.dialogRef.close('Yes');
+             // this.clearMainForm();
+            } else {
+              this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+            }
+          }),
+          error: (error: any) => {
+            this.spinner.hide();
+            this.errorHandler.handelError(error.statusCode);
+          }
+        });
+      }
+    }
+ 
 }
