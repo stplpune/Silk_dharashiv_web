@@ -59,7 +59,7 @@ export class FaqComponent implements OnDestroy {
     status == 'filter' ? ((this.pageNumber = 1), this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     let searchValue = this.filterFrm?.value || '';
-    this.apiService.setHttp('GET', 'sericulture/api/FAQ/get-faq-details?SeacrhText=' + (searchValue.textSearch || '') + str, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/FAQ/get-faq-details?SeacrhText=' + (searchValue.textSearch || '') + str+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -160,7 +160,7 @@ export class FaqComponent implements OnDestroy {
 
   blockAction(obj: any) {
     let status = !obj.status
-    this.apiService.setHttp('PUT', 'sericulture/api/FAQ/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status, false, false, false, 'masterUrl');
+    this.apiService.setHttp('PUT', 'sericulture/api/FAQ/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         res.statusCode == "200" ? (this.common.snackBar(res.statusMessage, 0), this.getTableData()) : this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
