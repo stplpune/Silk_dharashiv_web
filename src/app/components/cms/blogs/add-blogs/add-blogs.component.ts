@@ -71,7 +71,7 @@ export class AddBlogsComponent {
 
        let mainData ={...formvalue, "createdBy": this.webStorage.getUserId() }  ;
        
-       this.apiService.setHttp('POST', 'sericulture/api/Blogs/save-update-blogs', false, mainData, false, 'masterUrl');
+       this.apiService.setHttp('POST', 'sericulture/api/Blogs/save-update-blogs?lan='+this.lang, false, mainData, false, 'masterUrl');
        this.apiService.getHttp().subscribe({
          next: ((res: any) => {
           this.spinner.hide();

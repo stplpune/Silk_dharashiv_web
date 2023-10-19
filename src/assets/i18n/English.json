@@ -61,7 +61,11 @@
     "account_Info":"Account Info",
     "work_Area":"Work Area",
     "officer_Details":"Officer Details",
-    "view_Officer":"View Officer"
+    "view_Officer":"View Officer",
+    "inactive":"Inactive",
+    "remark":"Remark",
+    "active":"Active",
+    "status":"Status"
   },
 
   "marketRate":{

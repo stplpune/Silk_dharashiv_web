@@ -202,6 +202,8 @@ export class RegisterOfficerComponent {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData.responseData1;
+          console.log(" this.tableDataArray", this.tableDataArray);
+          
           // this.imageResponse = this.data?.profileImagePath ?  this.data?.profileImagePath : ''
         } else {
           this.spinner.hide();
@@ -295,9 +297,7 @@ export class RegisterOfficerComponent {
     })
   }
   sendData(id: any) {
-    id == 1 || this.data?.activeStatus == 'Active' ? this.showFlag = false : this.showFlag = true;
-    console.log(this.showFlag );
-    
+    id == 1  ? (this.showFlag = false,this.statusForm.controls['remark'].setValue('')) : this.showFlag = true;      
   }
 
   submitStatusData() {
