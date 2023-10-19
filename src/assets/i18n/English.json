@@ -41,7 +41,12 @@
     "address_Required_mr": "Please Enter Address(Marathi)",
     "officer_Name_limit": "Maximum limit 50 character",
     "Address_limit":"Maximum limit 100 charater",
-    "searchbyMobile_email":"Search by Mobile No/Email Id"
+    "searchbyMobile_email":"Search by Mobile No/Email Id",
+    "pin_Code":"Pin Code",
+    "please_enter_pinCode":"Please Enter Pin Code",
+    "please_enter_valid_pinCode":"Please Enter Valid Pin Code",
+    "pin_limit":"Maximum limit 6 Number"
+ 
 
 
   },
@@ -124,7 +129,9 @@
     "establishment_Date":"Establishment Date",
     "please_enter_latitude":"Please Enter Latitude",
     "please_enter_longitude":"Please Enter Longitude",
-    "please_enter_pinCode":"Please Enter Pin Code"
+     "please_enter_pinCode":"Please Enter Pin Code",
+    "please_enter_valid_pinCode":"Please Enter Valid Pin Code",
+    "please_enter_valid_administrator":"Please Enter Valid Administrator"
   },
   
 
