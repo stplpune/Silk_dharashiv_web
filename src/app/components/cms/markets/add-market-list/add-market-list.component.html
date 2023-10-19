@@ -1,17 +1,20 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between">
-    <div class="text-main">Add Market List</div>
+    <div class="text-main">{{!this.data ? ('marketRate.add_Market_List'|translate) :isViewFlag ?
+      ("marketRate.view_Market_List" | translate): ('marketRate.update_Market_List'|translate)}}</div>
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded" >close</span>
     </button>
   </div>
 </div>
+
+<div class="" *ngIf="!isViewFlag">
 <form [formGroup]="marketFrm">
 <div mat-dialog-content class="modal-body">
   <div class="row gx-2">
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Market Name(English)</mat-label>
+        <mat-label>{{'marketRate.market_en' | translate}}</mat-label>
         <input matInput formControlName="marketName"
         (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
         <mat-error *ngIf="a['marketName'].hasError('required')">{{'marketRate.market_Name_en'|translate}}</mat-error>
@@ -25,7 +28,7 @@
     </div>
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Market Name(Marathi)</mat-label>
+        <mat-label>{{'marketRate.market_mr' | translate}}</mat-label>
         <input matInput formControlName="m_MarketName"
         (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
         <mat-error *ngIf="a['marketName'].hasError('required')">{{'marketRate.market_Name_mr'|translate}}</mat-error>
@@ -64,7 +67,7 @@
     </div>
     <div class="col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Farm Goods/शेत माल</mat-label>
+        <mat-label>{{'marketRate.farm_goods' | translate}}</mat-label>
         <mat-select multiple formControlName="shetMalId">
          <mat-option *ngFor="let farm of farmGoodsArray" [value]="farm.id">{{lang == 'en' ?
             farm.textEnglish : farm.textMarathi}}</mat-option>
@@ -104,7 +107,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'common.address_en' | translate}}</mat-label>
         <textarea matInput formControlName="address"
-        (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumericWithSpacesAndSpecChars($event)"></textarea>
+        (keypress)="validation.noFirstSpaceAllow($event)"></textarea>
         <mat-error *ngIf="a['address'].hasError('maxLengthExceeded')">{{'marketRate.market_Name_limit'|translate}}
         </mat-error>
       </mat-form-field>
@@ -155,6 +158,12 @@
         <mat-label>{{'marketRate.administrator' | translate}}</mat-label>
         <input matInput formControlName="administratior"
         (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
+        <mat-error *ngIf="a['administratior']?.errors">
+          <span class="text-danger"
+              *ngIf="a['administratior']?.hasError('maxLengthExceeded') || a['administratior']?.hasError('pattern')">
+              {{a['administratior'].hasError('maxLengthExceeded') ? ('department.department_maxLength'|translate) : ('marketRate.please_enter_valid_administrator'|translate)}}
+          </span>
+      </mat-error>
       </mat-form-field> 
      </div>
      <div class="col-sm-12">
@@ -173,3 +182,107 @@
   </div>
 </mat-dialog-actions>
 </form>
+</div>
+
+<div class="" *ngIf="isViewFlag">
+<div mat-dialog-content class="modal-body form-container">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">Market Name(English)</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">Market Name(Marathi)</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">Mobile No. 1</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">Mobile No. 2</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">Email-ID</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">Farm Goods</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">State</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">Destrict</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">Taluka</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">Address</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">Pin Code</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">Establishment Date</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">Latitude</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">Longitude</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">Administrator</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row gx-2">
+        <div class="col-sm-7 form-label">Working Hours</div>
+        <div class="col-sm-5 form-data">: test</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
