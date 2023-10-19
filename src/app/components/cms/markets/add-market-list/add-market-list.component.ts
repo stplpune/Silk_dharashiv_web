@@ -1,5 +1,5 @@
 import { Component,Inject  } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -46,9 +46,9 @@ export class AddMarketListComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-     this.formData();
-    this.getState();
-    this.getDistrict();
+    this.data ? this.onEdit(this.data) : this.formData();
+   // this.getState();
+    //this.getDistrict();
     this.getTaluka();
     this.getFarmGoods();
   }
@@ -57,66 +57,56 @@ export class AddMarketListComponent {
   formData() {
     this.marketFrm = this.fb.group({
       "id": [0],
-      "marketName": [''],
-      "m_MarketName": [''],
-      "conactNo": [''],
-      "emailId": [''],
+      "marketName": ['',[Validators.required,this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
+      "m_MarketName": ['',[Validators.required,this.validation.maxLengthValidator(100), Validators.pattern(this.validation.marathi)]],
+      "conactNo": ['',[Validators.pattern(this.validation.mobile_No)]],
+      "emailId": ['', [Validators.email, this.validation.maxLengthValidator(50)]],
       "stateId": [1],
       "districtId": [1],
-      "talukaId": [''],
+      "talukaId": ['',[Validators.required]],
       "address": [''],
-      "pincode": [''],
+      "pincode": ['',[Validators.required,this.validation.maxLengthValidator(6), Validators.pattern(this.validation.fullName)]],
       "estDate": [''],
-      "latitude": [''],//number
-      "longitude": [''],//number
-      "administratior": [''],
-      "mobileNo": [''],
-      "workingHours": [''],
+      "latitude": ['',[Validators.required]],//number
+      "longitude": ['',[Validators.required]],//number
+      "administratior": ['',this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)],
+      "mobileNo": ['',[Validators.pattern(this.validation.mobile_No)]],
+      "workingHours": ['',[Validators.required]],
        "status": [''],//boolean
-       "shetMalId":['']
-
-      // "committeeAssignShetmal": [
-      //   {
-      //     "id": 0,
-      //     "marketCommitteeId": 0,
-      //     "shetMalId": 0,
-      //     "createdBy": 0
-      //   }
-      // ],
+       "shetMalId":['',[Validators.required]]
     })
   }
 
   get a(){return this.marketFrm.controls }
 
-  // onEdit(data?:any){
-  // console.log("this.marketFrm.value.shetMalId",data)
-  // this.editObj = data;
-  // this.editFlag = true;
-  // console.log("this.editObj",this.editObj)
-  // this.marketFrm.patchValue({
-  //   "id":this.editObj?.id ,
-  //   "marketName": this.editObj?.marketName ,
-  //   "m_MarketName":this.editObj?.m_MarketName ,
-  //   "conactNo":this.editObj?.conactNo ,
-  //   "emailId":this.editObj?.emailId ,
-  //   "stateId":this.editObj?.stateId ,
-  //   "districtId":this.editObj?.districtId ,
-  //   "talukaId": this.editObj?.talukaId ,
-  //   "address":this.editObj?.address ,
-  //   "pincode":this.editObj?.pincode ,
-  //   "estDate": this.editObj?.estDate ,
-  //   "latitude":this.editObj?.latitude ,//number
-  //   "longitude":this.editObj?.longitude ,//number
-  //   "administratior": this.editObj?.administratior ,
-  //   "mobileNo": this.editObj?.mobileNo ,
-  //   "workingHours": this.editObj?.workingHours ,
-  //   // "shetMalId":this.editObj?.getCommitteeAssignShetmal.map((x:any)=>{return x.shetMalId}) ,
-  // })
-  // this.getState();
-  // this.getDistrict();
-  // this.getFarmGoods();
+  onEdit(data?:any){
+  this.editObj = data;
+  this.editFlag = true;
+  console.log("this.editObj",this.editObj)
+  this.marketFrm.patchValue({
+    "id":this.editObj?.id ,
+    "marketName": this.editObj?.marketName ,
+    "m_MarketName":this.editObj?.m_MarketName ,
+    "conactNo":this.editObj?.conactNo ,
+    "emailId":this.editObj?.emailId ,
+    "stateId":this.editObj?.stateId ,
+    "districtId":this.editObj?.districtId ,
+    "talukaId": this.editObj?.talukaId ,
+    "address":this.editObj?.address ,
+    "pincode":this.editObj?.pincode ,
+    "estDate": this.editObj?.estDate ,
+    "latitude":this.editObj?.latitude ,//number
+    "longitude":this.editObj?.longitude ,//number
+    "administratior": this.editObj?.administratior ,
+    "mobileNo": this.editObj?.mobileNo ,
+    "workingHours": this.editObj?.workingHours ,
+    // "shetMalId":this.editObj?.getCommitteeAssignShetmal.map((x:any)=>{return x.shetMalId}) ,
+  })
+  //this.getState();
+ // this.getDistrict();
+  this.getFarmGoods();
 
-  // }
+  }
 
   getState() {
     this.stateArray = [];
@@ -124,7 +114,7 @@ export class AddMarketListComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.stateArray = res.responseData;
-          this.editFlag ? this.a['stateId'].setValue(this.editObj?.stateId) : '';
+          this.editFlag ? this.marketFrm.controls['stateId'].setValue(this.editObj?.stateId) : '';
         }
         else {
           this.stateArray = [];
@@ -139,7 +129,7 @@ export class AddMarketListComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.districtArray = res.responseData;
-          this.editFlag ? (this.a['districtId'].setValue(this.editObj?.districtId),this.getTaluka()) : this.getTaluka();
+          this.editFlag ? (this.marketFrm.controls['districtId'].setValue(this.editObj?.districtId),this.getTaluka()) : this.getTaluka();
         }
         else {
           this.districtArray = [];
@@ -154,7 +144,7 @@ export class AddMarketListComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.talukaArray = res.responseData;
-          this.editFlag ? this.a['talukaId'].setValue(this.editObj?.talukaId) : '';
+          this.editFlag ? this.marketFrm.controls['talukaId'].setValue(this.editObj?.talukaId) : '';
         }
         else {
           this.talukaArray = [];
@@ -172,7 +162,7 @@ export class AddMarketListComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.farmGoodsArray = res.responseData;
-          this.editFlag ? this.a['shetMalId'].setValue(this.editObj?.shetMalId) : '';
+         // this.editFlag ? this.marketFrm.controls['shetMalId'].setValue(this.editObj?.shetMalId) : '';
         }
         else {
           this.farmGoodsArray = [];
