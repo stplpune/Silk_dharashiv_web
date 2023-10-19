@@ -67,7 +67,7 @@ export class AddcircleComponent {
       "stateId": [1],
       "districtId": [1],
       "talukas": ['',[Validators.required]],
-      "createdBy": 0,
+      "createdBy": this.WebStorageService.getUserId(),
       "flag": [this.data ? "u" : "i"]
     })
   }
@@ -114,7 +114,7 @@ export class AddcircleComponent {
     if (this.addBlockForm.invalid) {
       return
     } else {  
-      this.apiService.setHttp('POST', 'sericulture/api/TalukaBlocks/AddUpdateTalukaBlocks', false, formvalue, false, 'masterUrl');
+      this.apiService.setHttp('POST', 'sericulture/api/TalukaBlocks/AddUpdateTalukaBlocks?lan='+this.lang, false, formvalue, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
