@@ -50,7 +50,7 @@ export class BlogsComponent {
   getTableData(flag?: any) {
     this.spinner.show();
     flag == 'filter' ? ((this.pageNumber = 1)) : '';
-    this.apiService.setHttp('GET', `sericulture/api/Blogs/get-blogs-details?SeacrhText=${this.textsearch.value || ''}&PageNo=${this.pageNumber}&PageSize=10'&lan='${this.lang}`, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', `sericulture/api/Blogs/get-blogs-details?SeacrhText=${this.textsearch.value || ''}&PageNo=${this.pageNumber}&PageSize=10&lan=${this.lang}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
