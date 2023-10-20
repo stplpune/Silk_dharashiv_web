@@ -107,7 +107,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'common.address' | translate}}</mat-label>
         <textarea matInput formControlName="address"
-        (keypress)="validation.noFirstSpaceAllow($event);lang == 'en' ? validation.alphaNumericWithSpacesAndSpecChars($event):validation.unicodeMarathiValidation($event)"></textarea>
+        (keypress)="validation.noFirstSpaceAllow($event);lang == 'en' ? validation.alphaNumericWithSpacesAndSpecChars($event):validation.unicodeMarathiQuetionValidation($event)"></textarea>
         <mat-error *ngIf="a['address'].hasError('maxLengthExceeded')">{{ ('marketRate.market_Name_limit'|translate)}}
         </mat-error>
       </mat-form-field>

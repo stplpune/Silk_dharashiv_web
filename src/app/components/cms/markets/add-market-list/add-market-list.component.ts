@@ -29,7 +29,9 @@ export class AddMarketListComponent {
   maxDate = new Date();
   isViewFlag: boolean = false;
   @ViewChild('formDirective') private formDirective!: NgForm;
-  
+
+  get a() { return this.marketFrm.controls }
+
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -73,8 +75,8 @@ export class AddMarketListComponent {
       "address": [data ? data?.address : ''],
       "pincode": [data ? data?.pincode : '', [Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],
       "estDate": [data ? data?.estDate : ''],
-      "latitude": [data ? data?.latitude : '', [Validators.required,Validators.pattern(this.validation.latValidation)]],//number
-      "longitude": [data ? data?.longitude : '', [Validators.required,Validators.pattern(this.validation.longValidation)]],//number  
+      "latitude": [data ? data?.latitude : '', [Validators.required, Validators.pattern(this.validation.latValidation)]],//number
+      "longitude": [data ? data?.longitude : '', [Validators.required, Validators.pattern(this.validation.longValidation)]],//number  
       "administratior": [data ? data?.administratior : '',],
       "mobileNo": [data ? data?.mobileNo : '', [Validators.pattern(this.validation.mobile_No)]],
       "workingHours": [data ? data?.workingHours : '', [Validators.required]],
@@ -92,8 +94,84 @@ export class AddMarketListComponent {
     this.addValidation();
   }
 
-  get a() { return this.marketFrm.controls }
+  onSubmit() {
+    if (this.marketFrm.invalid) {
+      return;
+    }
+    else {
+      this.spinner.show();
+      let data = this.marketFrm.getRawValue();
+      let obj = {
+        "id": data.id,
+        "marketName": data.marketName,
+        "m_MarketName": data.m_MarketName,
+        "conactNo": data.conactNo,
+        "emailId": data.emailId,
+        "stateId": data.stateId,
+        "districtId": data.districtId,
+        "talukaId": data.talukaId,
+        "villageId": 0,
+        "address": data.address,
+        "pincode": data.pincode,
+        "estDate": data.estDate,
+        "latitude": Number(data.latitude),
+        "longitude": Number(data.longitude),
+        "administratior": data.administratior,
+        "mobileNo": data.mobileNo,
+        "workingHours": data.workingHours,
+        "committeeAssignShetmal": this.sendFarmData(data.shetMalId),
+        "createdBy": this.WebStorageService.getUserId(),
+        "flag": data?.flag
+      }
+      this.apiService.setHttp('post', 'sericulture/api/MarketCommittee/AddUpdateMarketCommittee?lan=' + this.lang, false, obj, false, 'masterUrl');
+      this.apiService.getHttp().subscribe({
+        next: ((res: any) => {
+          this.spinner.hide();
+          if (res.statusCode == "200") {
+            this.commonMethod.snackBar(res.statusMessage, 0);
+            this.dialogRef.close('Yes');
+            this.clearMainForm();
+          } else {
+            this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+          }
+        }),
+        error: (error: any) => {
+          this.spinner.hide();
+          this.errorHandler.handelError(error.statusCode);
+        }
+      });
+    }
+  }
 
+  //clear add form functionality here
+  clearMainForm() {
+    this.formDirective?.resetForm();
+    this.formData();
+    this.editFlag = false;
+  }
+
+
+  addValidation() {
+    if (this.lang == 'en') {
+      this.marketFrm.controls["address"].clearValidators();
+      this.marketFrm.controls['address'].setValidators([this.validation.maxLengthValidator(100), Validators.pattern(this.validation.alphabetsWithSpecChar)]);
+      this.marketFrm.controls["address"].updateValueAndValidity();
+
+      this.marketFrm.controls["administratior"].clearValidators();
+      this.marketFrm.controls['administratior'].setValidators([this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]);
+      this.marketFrm.controls["administratior"].updateValueAndValidity();
+    } else {
+      this.marketFrm.controls["address"].clearValidators();
+      this.marketFrm.controls['address'].setValidators([this.validation.maxLengthValidator(100), Validators.pattern(this.validation.marathiquestion)]);
+      this.marketFrm.controls["address"].updateValueAndValidity();
+
+      this.marketFrm.controls["administratior"].clearValidators();
+      this.marketFrm.controls['administratior'].setValidators([this.validation.maxLengthValidator(30), Validators.pattern(this.validation.marathi)]);
+      this.marketFrm.controls["administratior"].updateValueAndValidity();
+    }
+  }
+
+  //#region ------------------Dropdown code start here--------------------------------------------
   getState() {
     this.stateArray = [];
     this.masterService.GetAllState().subscribe({
@@ -174,83 +252,7 @@ export class AddMarketListComponent {
     })
     return this.sendFarmDataArray
   }
-
-  onSubmit() {
-    if (this.marketFrm.invalid) {
-      return;
-    }
-    else {
-      this.spinner.show();
-      let data = this.marketFrm.getRawValue();
-      let obj = {
-        "id": data.id,
-        "marketName": data.marketName,
-        "m_MarketName": data.m_MarketName,
-        "conactNo": data.conactNo,
-        "emailId": data.emailId,
-        "stateId": data.stateId,
-        "districtId": data.districtId,
-        "talukaId": data.talukaId,
-        "villageId": 0,
-        "address": data.address,
-        "pincode": data.pincode,
-        "estDate": data.estDate,
-        "latitude": Number(data.latitude),
-        "longitude": Number(data.longitude),
-        "administratior": data.administratior,
-        "mobileNo": data.mobileNo,
-        "workingHours": data.workingHours,
-        "committeeAssignShetmal": this.sendFarmData(data.shetMalId),
-        "createdBy": this.WebStorageService.getUserId(),
-        "flag": data?.flag
-      }
-      this.apiService.setHttp('post', 'sericulture/api/MarketCommittee/AddUpdateMarketCommittee?lan=' + this.lang, false, obj, false, 'masterUrl');
-      this.apiService.getHttp().subscribe({
-        next: ((res: any) => {
-          this.spinner.hide();
-          if (res.statusCode == "200") {
-            this.commonMethod.snackBar(res.statusMessage, 0);
-            this.dialogRef.close('Yes');
-            // this.clearMainForm();
-          } else {
-            this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-          }
-        }),
-        error: (error: any) => {
-          this.spinner.hide();
-          this.errorHandler.handelError(error.statusCode);
-        }
-      });
-    }
-  }
-
-  //clear add form functionality here
-  clearMainForm() {
-    this.formDirective?.resetForm();
-    this.formData();
-    this.editFlag = false;
-  }
-
-
-  addValidation() {
-    if (this.lang == 'en') {
-      this.marketFrm.controls["address"].clearValidators();
-      this.marketFrm.controls['address'].setValidators([this.validation.maxLengthValidator(100), Validators.pattern(this.validation.alphabetsWithSpecChar)]);
-      this.marketFrm.controls["address"].updateValueAndValidity();
-
-      this.marketFrm.controls["administratior"].clearValidators();
-      this.marketFrm.controls['administratior'].setValidators([this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]);
-      this.marketFrm.controls["administratior"].updateValueAndValidity();
-    } else {
-      this.marketFrm.controls["address"].clearValidators();
-      this.marketFrm.controls['address'].setValidators([this.validation.maxLengthValidator(100), Validators.pattern(this.validation.marathi)]);
-      this.marketFrm.controls["address"].updateValueAndValidity();
-
-      this.marketFrm.controls["administratior"].clearValidators();
-      this.marketFrm.controls['administratior'].setValidators([this.validation.maxLengthValidator(30), Validators.pattern(this.validation.marathi)]);
-      this.marketFrm.controls["administratior"].updateValueAndValidity();
-    }
-  }
+  //#endregion------------------Dropdown code end here--------------------------------------------
 }
 
 
