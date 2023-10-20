@@ -129,20 +129,20 @@
     "establishment_Date":"स्थापना दिवस",
     "please_enter_latitude":"कृपया अक्षांश प्रविष्ट करा",
     "please_enter_longitude":"कृपया रेखांश प्रविष्ट करा",
-    "pin_Code":"पिन कोड",
+   "pin_Code":"पिन कोड",
     "please_enter_pinCode":"कृपया पिन कोड प्रविष्ट करा",
     "please_enter_valid_pinCode":"कृपया वैध पिन कोड प्रविष्ट करा",
     "please_enter_valid_administrator":"कृपया वैध प्रशासक प्रविष्ट करा",
     "please_enter_hours":"कृपया कामाचे तास प्रविष्ट करा",
     "search_by":"बाजारपेठेचे नाव/मोबाइल क्रमांक शोधा",
-    
-    "please_enter_valid_marketName":"कृपया वैध बाजाराचे नाव(इंग्रजी) प्रविष्ट करा",
-    "please_enter_valid_marketName_mr":"कृपया वैध बाजाराचे नाव(मराठी) प्रविष्ट करा"
+     "please_enter_valid_marketName":"कृपया वैध बाजाराचे नाव(इंग्रजी) प्रविष्ट करा",
+    "please_enter_valid_marketName_mr":"कृपया वैध बाजाराचे नाव(मराठी) प्रविष्ट करा",
+
+    "please_enter_valid_latitude":"कृपया वैध अक्षांश प्रविष्ट करा",
+    "please_enter_valid_longitude":"कृपया वैध रेखांश प्रविष्ट करा"
 
 
-
-    
-  },
+},
 
   "pageAccess":{
     "designation": "पदनाम निवडा",

@@ -136,7 +136,9 @@
     "please_enter_hours":"Please Enter Working Hours",
     "search_by":"Search By Mobile No./Market Name",
     "please_enter_valid_marketName":"Please Enter Valid Market Name(English)",
-    "please_enter_valid_marketName_mr":"Please Enter Valid Market Name(Marathi)"
+    "please_enter_valid_marketName_mr":"Please Enter Valid Market Name(Marathi)",
+    "please_enter_valid_latitude":"Please Enter Valid Latitude",
+    "please_enter_valid_longitude":"Please Enter Valid Longitude"
   },
   
 
