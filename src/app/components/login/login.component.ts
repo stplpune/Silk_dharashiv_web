@@ -55,7 +55,7 @@ export class LoginComponent {
 
   defaultForm() {
     this.loginForm = this.fb.group({
-      userName: ['', [Validators.required]],
+      userName: ['', [Validators.required, Validators.pattern(this.validation.mobile_No),(this.validation.maxLengthValidator(30))]],
       password: ['', [Validators.required, Validators.pattern(this.validation.password)]],
       captcha: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]]
     })
