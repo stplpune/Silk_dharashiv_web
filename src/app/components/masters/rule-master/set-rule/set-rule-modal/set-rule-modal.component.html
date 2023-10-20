@@ -14,7 +14,7 @@
   </div>
 
   <div *ngIf="!isViewFlag">
-    <form [formGroup]="setRulefrm" (ngSubmit)="onSubmit()" #formDirective="ngForm"  >
+    <form [formGroup]="setRulefrm"  #formDirective="ngForm"  >
       <mat-dialog-content class="modal-body form-container">
         <div class="row gx-2" [class.disable]="editFlag">
           <div class="col-sm-3">
@@ -67,7 +67,7 @@
 
         <div class="d-flex w-100 justify-content-between align-items-center mb-3">
           <p class="mb-0 text-main fw-bold small"></p>
-          <button mat-flat-button type="button" [class.disable]="(approvallistForm.length>0)" class="btn-main" (click)="checkPrevData()" >
+          <button mat-flat-button type="submit" [class.disable]="(approvallistForm.length>0)" class="btn-main" (click)="checkPrevData()" >
             <mat-icon
               class="material-symbols-rounded">add</mat-icon>{{editFlag?('setRule.update_level'|translate):('setRule.add_level'|translate)}}
           </button>
@@ -176,27 +176,27 @@
       <div class="col-sm-6">
         <div class="d-flex gap-2">
           <div class="form-label"> {{'setRule.state'|translate}}</div>
-          <div class="form-data">: {{data?.state}}</div>
+          <div class="form-data">: {{lang == 'mr-IN'?(data?.m_State):(data?.state)}}</div>
         </div>
       </div>
 
       <div class="col-sm-6">
         <div class="d-flex gap-2">
           <div class="form-label">  {{'setRule.district'|translate}}</div>
-          <div class="form-data">: {{data?.district}}</div>
+          <div class="form-data">:{{lang == 'mr-IN'?(data?.m_District):(data?.district)}}</div>
         </div>
       </div>
 
       <div class="col-sm-6">
         <div class="d-flex gap-2">
           <div class="form-label"> {{'setRule.Scheme'|translate}}</div>
-          <div class="form-data">: {{data?.schemeType}}</div>
+          <div class="form-data">:{{lang == 'mr-IN'?(data?.m_SchemeType):(data?.schemeType)}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="d-flex gap-2">
           <div class="form-label">  {{'setRule.Department'|translate}}</div>
-          <div class="form-data">: {{data?.departmentName}}</div>
+          <div class="form-data">:{{lang == 'mr-IN'?(data?.m_DepartmentName):(data?.departmentName)}}</div>
         </div>
       </div>
     </div>
