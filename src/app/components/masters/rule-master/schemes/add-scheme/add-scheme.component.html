@@ -37,7 +37,7 @@
         <input matInput placeholder=""> -->
         <mat-label>{{'scheme.scheme_namee' | translate }}</mat-label>
         <input matInput placeholder="" formControlName="schemeType"
-        (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecCharss($event)">
+        (keypress)="validator.noFirstSpaceAllow($event);validator.englishNumericspecialChar($event)">
         <mat-error *ngIf="f['schemeType']?.hasError('required')">{{'scheme.please_enter_scheme_name'|translate}}
         </mat-error>
         <mat-error *ngIf="f['schemeType']?.hasError('pattern')">
@@ -49,7 +49,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'scheme.scheme_namemr' | translate }}</mat-label>
         <input matInput placeholder="" formControlName="m_SchemeType"
-          (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
+          (keypress)="validator.noFirstSpaceAllow($event);validator.marathiNumericspecialChar($event)">
         <mat-error *ngIf="f['m_SchemeType']?.hasError('required')">
           {{'scheme.please_enter_scheme_name_mr'|translate}} </mat-error>
           <mat-error *ngIf="f['m_SchemeType']?.hasError('pattern')">
