@@ -134,7 +134,9 @@
     "please_enter_valid_pinCode":"Please Enter Valid Pin Code",
     "please_enter_valid_administrator":"Please Enter Valid Administrator",
     "please_enter_hours":"Please Enter Working Hours",
-    "search_by":"Search By Mobile No./Market Name"
+    "search_by":"Search By Mobile No./Market Name",
+    "please_enter_valid_marketName":"Please Enter Valid Market Name(English)",
+    "please_enter_valid_marketName_mr":"Please Enter Valid Market Name(Marathi)"
   },
   
 
