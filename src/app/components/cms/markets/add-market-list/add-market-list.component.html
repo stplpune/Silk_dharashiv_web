@@ -107,8 +107,8 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'common.address' | translate}}</mat-label>
         <textarea matInput formControlName="address"
-        (keypress)="validation.noFirstSpaceAllow($event)"></textarea>
-        <mat-error *ngIf="a['address'].hasError('maxLengthExceeded')">{{'marketRate.market_Name_limit'|translate}}
+        (keypress)="validation.noFirstSpaceAllow($event);lang == 'en' ? validation.alphaNumericWithSpacesAndSpecChars($event):validation.unicodeMarathiValidation($event)"></textarea>
+        <mat-error *ngIf="a['address'].hasError('maxLengthExceeded')">{{ ('marketRate.market_Name_limit'|translate)}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -157,7 +157,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'marketRate.administrator' | translate}}</mat-label>
         <input matInput formControlName="administratior"
-        (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
+        (keypress)="validation.noFirstSpaceAllow($event); lang == 'en' ? validation.alphabetsWithSpaces($event) : validation.unicodeMarathiValidation($event)">
         <mat-error *ngIf="a['administratior']?.errors">
           <span class="text-danger"
               *ngIf="a['administratior']?.hasError('maxLengthExceeded') || a['administratior']?.hasError('pattern')">
