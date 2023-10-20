@@ -61,8 +61,7 @@ export class SetRuleModalComponent {
     this.getLevelApprovel();
     this.data?.label == 'Edit' ? this.editData() : '';
     this.tableData = this.data?.getApprovalMaster
-    console.log(this.tableData);
-
+  
   }
 
   //#region ------------------------------------------------------filter drop fn start heare--------------------------------------------//
@@ -177,7 +176,7 @@ export class SetRuleModalComponent {
   }
 
   checkPrevData() {
-    if (!this.setRulefrm.value.scheme && !this.setRulefrm.value.department) {
+    if (this.setRulefrm.invalid) {
       return
     }
     else {
@@ -187,7 +186,6 @@ export class SetRuleModalComponent {
       this.apiService.getHttp().subscribe({
         next: (res: any) => {
           this.spinner.hide();
-          // console.log('res.responseData.length',res.responseData.length);
           if (res.statusCode == '200' && res.responseData.length) {
             this.data = res.responseData[0];
             this.data.label = 'Edit';
@@ -219,8 +217,6 @@ export class SetRuleModalComponent {
       if (this.approvallistForm.length > 1) {
         let approvallistForm = this.approvallistForm.getRawValue();
         let len = this.approvallistForm.length - 2;
-        console.log(len);
-
         for (let i = 0; i <= len; i++) {
           if ((approvallistForm[i]?.approvalLevel == approvallistForm[approvallistForm.length - 1]?.approvalLevel)) {
             this.commonMethods.snackBar("Duplicate Order level is not allowed", 1);
@@ -315,7 +311,7 @@ export class SetRuleModalComponent {
       })
       return counter > 1;
     });
-    console.log("addLevelArrayStatus", addLevelArrayStatus);
+   
     if (addLevelArrayStatus) {
       this.commonMethods.snackBar("Duplicate Record Is Not Allowed", 1);
       return
