@@ -1,5 +1,8 @@
 {
   "common":{
+    "edit": "Edit",
+    "view": "View",
+    "delete": "Delete",
     "srNo":"Sr.No",
     "department":"Select Department",
     "designation_level":"Select Designation Level",
