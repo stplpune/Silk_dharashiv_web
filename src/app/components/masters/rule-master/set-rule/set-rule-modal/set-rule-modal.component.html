@@ -14,7 +14,7 @@
   </div>
 
   <div *ngIf="!isViewFlag">
-    <form [formGroup]="setRulefrm" (ngSubmit)="onSubmit()" #formDirective="ngForm">
+    <form [formGroup]="setRulefrm" (ngSubmit)="onSubmit()" #formDirective="ngForm"  >
       <mat-dialog-content class="modal-body form-container">
         <div class="row gx-2" [class.disable]="editFlag">
           <div class="col-sm-3">
@@ -67,7 +67,7 @@
 
         <div class="d-flex w-100 justify-content-between align-items-center mb-3">
           <p class="mb-0 text-main fw-bold small"></p>
-          <button mat-flat-button type="button" [class.disable]="(approvallistForm.length>0)" class="btn-main" (click)="checkPrevData()">
+          <button mat-flat-button type="button" [class.disable]="(approvallistForm.length>0)" class="btn-main" (click)="checkPrevData()" >
             <mat-icon
               class="material-symbols-rounded">add</mat-icon>{{editFlag?('setRule.update_level'|translate):('setRule.add_level'|translate)}}
           </button>
@@ -161,7 +161,7 @@
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-flat-button class="btn-main-light" type="button" mat-dialog-close
             (click)="clearForm()">{{'common.cancel'|translate}}</button>
-          <button mat-flat-button class="btn-main" type="submit">{{editFlag?(('blogs.update'|translate)):('villageCircle.save'|translate)}}</button>
+          <button mat-flat-button class="btn-main" type="submit" (click)="onSubmit()" >{{editFlag?(('blogs.update'|translate)):('villageCircle.save'|translate)}}</button>
         </div>
       </mat-dialog-actions>
     </form>
