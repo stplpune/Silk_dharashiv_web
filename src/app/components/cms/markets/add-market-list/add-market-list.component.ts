@@ -62,6 +62,7 @@ export class AddMarketListComponent {
 
 
   formData(data?: any) {
+    console.log("data",data)
     this.marketFrm = this.fb.group({
       "id": [data ? data?.id : 0],
       "marketName": [data ? data?.marketName : '', [Validators.required, this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
@@ -90,8 +91,9 @@ export class AddMarketListComponent {
 
   onEdit(edata?: any) {
     this.editFlag = true;
+    this.editObj = edata
     this.formData(edata);
-    this.addValidation();
+   this.addValidation();
   }
 
   onSubmit() {
@@ -190,6 +192,8 @@ export class AddMarketListComponent {
   getDistrict() {
     this.districtArray = [];
     let stateId = this.marketFrm.getRawValue()?.stateId;
+    console.log("stateId",stateId)
+    if(stateId != 0){
     this.masterService.GetAllDistrict(stateId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
@@ -202,11 +206,13 @@ export class AddMarketListComponent {
       })
     })
   }
+  }
 
   getTaluka() {
     this.talukaArray = [];
     let stateId = this.marketFrm.getRawValue()?.stateId
     let disId = this.marketFrm.getRawValue()?.districtId
+    if(disId != 0){
     this.masterService.GetAllTaluka(stateId, disId, 0).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
@@ -218,6 +224,7 @@ export class AddMarketListComponent {
         }
       })
     })
+  }
   }
 
   getFarmGoods() {
