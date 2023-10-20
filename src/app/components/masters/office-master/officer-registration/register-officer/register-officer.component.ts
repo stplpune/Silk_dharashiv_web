@@ -61,10 +61,8 @@ export class RegisterOfficerComponent {
     })
     this.getFormData();
     this.getstatusForm();
-    this.getDepartment();
-    this.getDepartmentLevel();
-    this.getDesignation();
-    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : this.viewFlag = false;
+    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(),
+    this.getDepartmentLevel(),this.getDesignation());
   }
 
 
