@@ -178,7 +178,7 @@
 </div>
 <mat-dialog-actions class="modal-footer">
   <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-    <button mat-button class="btn-main-light" type="button" (click)="clearMainForm()">{{'department.clear'|translate}}</button>
+    <button mat-button class="btn-main-light" type="reset" (click)="clearMainForm()">{{'department.clear'|translate}}</button>
     <button mat-button class="btn-main" type="submit" (click)="onSubmit()">{{this.editFlag ? ('designation.update'|translate) :('designation.add'|translate)}}</button>
   </div>
 </mat-dialog-actions>
