@@ -18,19 +18,17 @@
                         <mat-form-field appearance="outline" class="w-100">
                             <input id="usernameId" matInput placeholder="Username" formControlName="userName"
                                 (keypress)="validation.noSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
-                            <mat-error *ngIf="f['userName'].errors">
-                                <span class="text-danger" *ngIf="f['userName'].hasError('required')">Please enter
+                            <!-- <mat-error *ngIf="f['userName'].errors"> -->
+                                <mat-error class="text-danger" *ngIf="f['userName'].hasError('required')">Please enter
                                     username
-                                </span>
-                                <span class="text-danger" *ngIf="f['userName'].hasError('pattern')">Please enter
+                                </mat-error>
+                                <mat-error class="text-danger" *ngIf="f['userName'].hasError('pattern')">Please enter
                                    valid username
-                                </span>
-                                <span class="text-danger" *ngIf="f['userName'].hasError('maxLengthExceeded')">Maximum
+                                </mat-error>
+                                <mat-error class="text-danger" *ngIf="f['userName'].hasError('maxLengthExceeded')">Maximum
                                     Limit is 30
-                                </span>
-                            </mat-error>
-                            <!-- <mat-error *ngIf="f['userName']?.hasError('maxLengthExceeded')">Maximum length is 30
-                            </mat-error> -->
+                                </mat-error>
+                            <!-- </mat-error> -->
                         </mat-form-field>
                     </div>
                     <div class="mb-0">
