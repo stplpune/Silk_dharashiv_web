@@ -166,6 +166,7 @@ export class BlockCircleComponent {
   clearFilter(){
     this.textsearch.setValue('');
     this.getTableData();
+    this.pageNumber = 1;
   }
 
 }

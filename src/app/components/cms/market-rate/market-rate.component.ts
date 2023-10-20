@@ -207,6 +207,7 @@ export class MarketRateComponent {
   clearFilter() {
     this.filterFormData();
     this.getTableData();
+    this.pageNumber = 1
   }
 
 }
