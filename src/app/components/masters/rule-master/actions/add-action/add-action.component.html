@@ -63,7 +63,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'action.action_en' | translate}}</mat-label>
             <input matInput formControlName="actionName"
-              (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecChars($event)">
+              (keypress)="validator.noFirstSpaceAllow($event);validator.englishNumericspecialChar($event)">
             <mat-error *ngIf="f['actionName']?.hasError('required')">{{'action.action_required_en'|translate}} </mat-error>
             <mat-error *ngIf="f['actionName']?.hasError('pattern')">{{'action.action_pattern'|translate}} </mat-error>
             <mat-error *ngIf="f['actionName']?.hasError('maxLengthExceeded')">{{'action.action_maxLength'|translate}}
@@ -74,7 +74,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'action.action_mr' | translate}}</mat-label>
             <input matInput formControlName="m_ActionName"
-              (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiQuetionValidation($event)">
+              (keypress)="validator.noFirstSpaceAllow($event);validator.marathiNumericspecialChar($event)">
             <mat-error *ngIf="f['m_ActionName']?.hasError('required')">{{'action.action_required_mr'|translate}}
             </mat-error>
             <mat-error *ngIf="f['m_ActionName']?.hasError('pattern')">{{'action.action_pattern_mr'|translate}}
@@ -87,7 +87,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'action.description' | translate}}</mat-label>
             <textarea matInput formControlName="description"
-              (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecChars($event)"></textarea>
+              (keypress)="validator.noFirstSpaceAllow($event)"></textarea>
             <mat-error *ngIf="f['description']?.hasError('maxLengthExceeded')">{{'action.description_maxLength' |
               translate}} </mat-error>
           </mat-form-field>
