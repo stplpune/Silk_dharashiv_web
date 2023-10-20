@@ -81,6 +81,7 @@ export class AddMarketListComponent {
       "mobileNo": [data ? data?.mobileNo : '', [Validators.pattern(this.validation.mobile_No)]],
       "workingHours": [data ? data?.workingHours : '', [Validators.required]],
       "status": [data ? data?.status : ''],//boolean
+      "flag":[data ? "u" : "i"],
       "shetMalId": ['', [Validators.required]],
       "committeeAssignShetmal": []
     })
@@ -223,7 +224,7 @@ export class AddMarketListComponent {
         "workingHours": data.workingHours,
         "committeeAssignShetmal": this.sendFarmData(data.shetMalId),
         "createdBy": this.WebStorageService.getUserId(),
-        "flag": 'i'
+        "flag":  data?.flag
       }
       this.apiService.setHttp('post', 'sericulture/api/MarketCommittee/AddUpdateMarketCommittee?lan=' + this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
