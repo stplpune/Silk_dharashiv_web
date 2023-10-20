@@ -50,7 +50,7 @@ export class AddMarketListComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
     this.isViewFlag = this.data?.label == 'View' ? true : false;
-    this.data ? this.onEdit(this.data) : this.formData();
+    this.data ? (this.onEdit(this.data)) : this.formData();
     if (!this.isViewFlag) {
       this.getState();
       this.getDistrict();
@@ -72,23 +72,26 @@ export class AddMarketListComponent {
       "districtId": [1],
       "talukaId": [data ? data?.talukaId : '', [Validators.required]],
       "villageId": [data ? data?.villageId : ''],
-      "address": [data ? data?.address : '', [Validators.pattern(this.validation.alphabetsWithSpecChar)]],
+      "address": [data ? data?.address : ''],
       "pincode": [data ? data?.pincode : '', [Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],
       "estDate": [data ? data?.estDate : ''],
       "latitude": [data ? data?.latitude : '', [Validators.required]],//number
       "longitude": [data ? data?.longitude : '', [Validators.required]],//number
-      "administratior": [data ? data?.administratior : '', [this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]],
+      "administratior": [data ? data?.administratior : '', ],
       "mobileNo": [data ? data?.mobileNo : '', [Validators.pattern(this.validation.mobile_No)]],
       "workingHours": [data ? data?.workingHours : '', [Validators.required]],
       "status": [data ? data?.status : ''],//boolean
+      "flag":[data ? "u" : "i"],
       "shetMalId": ['', [Validators.required]],
       "committeeAssignShetmal": []
     })
+    this.addValidation();
   }
 
   onEdit(edata?: any) {
     this.editFlag = true;
     this.formData(edata);
+    this.addValidation();
   }
 
   // formData() {
@@ -221,7 +224,7 @@ export class AddMarketListComponent {
         "workingHours": data.workingHours,
         "committeeAssignShetmal": this.sendFarmData(data.shetMalId),
         "createdBy": this.WebStorageService.getUserId(),
-        "flag": 'i'
+        "flag":  data?.flag
       }
       this.apiService.setHttp('post', 'sericulture/api/MarketCommittee/AddUpdateMarketCommittee?lan=' + this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
@@ -242,5 +245,26 @@ export class AddMarketListComponent {
       });
     }
   }
+  
+  addValidation(){    
+    if(this.lang == 'en'){
+      this.marketFrm.controls["address"].clearValidators();
+      this.marketFrm.controls['address'].setValidators([this.validation.maxLengthValidator(100),Validators.pattern(this.validation.alphabetsWithSpecChar)]);
+      this.marketFrm.controls["address"].updateValueAndValidity();
 
-}
+      this.marketFrm.controls["administratior"].clearValidators();
+      this.marketFrm.controls['administratior'].setValidators([this.validation.maxLengthValidator(10), Validators.pattern(this.validation.fullName)]);
+      this.marketFrm.controls["administratior"].updateValueAndValidity();
+    }else {
+      this.marketFrm.controls["address"].clearValidators();
+      this.marketFrm.controls['address'].setValidators([this.validation.maxLengthValidator(100),Validators.pattern(this.validation.marathi)]);
+      this.marketFrm.controls["address"].updateValueAndValidity();
+
+      this.marketFrm.controls["administratior"].clearValidators();
+      this.marketFrm.controls['administratior'].setValidators([this.validation.maxLengthValidator(30), Validators.pattern(this.validation.marathi)]);
+      this.marketFrm.controls["administratior"].updateValueAndValidity();
+    }
+    }
+  }
+
+
