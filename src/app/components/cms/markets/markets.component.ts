@@ -29,6 +29,7 @@ export class MarketsComponent {
   highLightedFlag: boolean = true;
   subscription!: Subscription;//used  for lang conv
   lang: any;
+  searchDataFlag: boolean = false
   
   constructor(public dialog: MatDialog,
     private fb: FormBuilder,
@@ -64,7 +65,7 @@ export class MarketsComponent {
 
   bindTable(flag?: any) {
     this.spinner.show();
-    flag == 'filter' ? (this.pageNumber = 1) : '';
+    flag == 'filter' ? (this.searchDataFlag = true,this.pageNumber = 1) : '';
     let formData = this.filterFrm?.getRawValue();
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
     this.apiService.setHttp('GET', `sericulture/api/MarketCommittee/get-All-marketCommittee?StateId=${formData?.stateId || 0}&DistrictId=${formData?.districtId || 0}&TalukaId=${formData?.talukaId || 0}&TextSearch=${formData?.textSearch || ''}` + str, false, false, false, 'masterUrl');
@@ -89,8 +90,8 @@ export class MarketsComponent {
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_District', 'm_Taluka', 'm_MarketName','mobileNo', 'action'] : ['srNo','district', 'taluka', 'marketName','mobileNo', 'action']
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका','जिल्हा', 'तालुका','बाजारपेठेचे नाव','मोबाइल क्रमांक','कृती'] : ['Sr. No.','District', 'Taluka','Market Name','Mobile No.', 'Action'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_District', 'm_Taluka', 'm_MarketName','mobileNo','status', 'action'] : ['srNo','district', 'taluka', 'marketName','mobileNo','status', 'action']
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका','जिल्हा', 'तालुका','बाजारपेठेचे नाव','मोबाइल क्रमांक','स्थिती','कृती'] : ['Sr. No.','District', 'Taluka','Market Name','Mobile No.','Status', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
@@ -109,6 +110,7 @@ export class MarketsComponent {
   childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':
+        this.searchDataFlag ? (this.filterFrm.controls['talukaId'].setValue(this.filterFrm.value?.talukaId),this.filterFrm.controls['textSearch'].setValue(this.filterFrm.value?.textSearch)) : (this.filterFrm.controls['talukaId'].setValue(''),this.filterFrm.controls['textSearch'].setValue(''));
         this.pageNumber = obj.pageNumber;
         this.bindTable();
         break;
