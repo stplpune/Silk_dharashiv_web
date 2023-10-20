@@ -61,8 +61,8 @@ export class SetRuleModalComponent {
     this.getLevelApprovel();
     this.data?.label == 'Edit' ? this.editData() : '';
     this.tableData = this.data?.getApprovalMaster
-    console.log( this.tableData);
-    
+    console.log(this.tableData);
+
   }
 
   //#region ------------------------------------------------------filter drop fn start heare--------------------------------------------//
@@ -146,7 +146,7 @@ export class SetRuleModalComponent {
     this.master.GetDeptLevelDropDown().subscribe({
       next: ((res: any) => {
         this.levelResp = res.responseData;
-        this.levelResp.unshift({ id: 0, textEnglish: 'Select Designation Level',textMarathi: "पदनाम स्तर निवडा" })
+        this.levelResp.unshift({ id: 0, textEnglish: 'Select Designation Level', textMarathi: "पदनाम स्तर निवडा" })
       }), error: (() => {
         this.levelResp = [];
       })
@@ -157,7 +157,7 @@ export class SetRuleModalComponent {
     this.master.GetDesignationDropDown().subscribe({
       next: ((res: any) => {
         this.designationResp = res.responseData;
-        this.designationResp.unshift({ id: 0, textEnglish: 'Select Designation' ,textMarathi: "पदनाम निवडा"})
+        this.designationResp.unshift({ id: 0, textEnglish: 'Select Designation', textMarathi: "पदनाम निवडा" })
       }), error: (() => {
         this.designationResp = [];
       })
@@ -169,7 +169,7 @@ export class SetRuleModalComponent {
       next: ((res: any) => {
         this.approveLevelResp = res.responseData;
         this.approveLevelResp.map((ele: any) => { ele['selected'] = false })
-        this.approveLevelResp.unshift({ id: 0, textEnglish: 'Select Order',textMarathi:"ऑर्डर निवडा"})
+        this.approveLevelResp.unshift({ id: 0, textEnglish: 'Select Order', textMarathi: "ऑर्डर निवडा" })
       }), error: (() => {
         this.approveLevelResp = [];
       })
@@ -177,29 +177,35 @@ export class SetRuleModalComponent {
   }
 
   checkPrevData() {
-    this.spinner.show();
-    let formData = this.setRulefrm.getRawValue();
-    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?pageno=1&pagesize=10&SchemeTypeId=' + (formData.scheme || 0) + '&DepartmentId=' + (formData.department || 0) + '&StateId=' + (formData.state || 1) + '&DistrictId=' + (formData.district || 1) + '&lan=1', false, false, false, 'masterUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {
-        this.spinner.hide();
-        if (res.statusCode == '200' && res.responseData.length) {
-          this.data = res.responseData[0];
-          this.data.label = 'Edit';
-          this.data?.label == 'Edit' ? this.editData() : ''
-        } else {
-          this.addList();
-        }
-      },
-      error: (err: any) => {
-        this.spinner.hide();
-        this.error.handelError(err.status);
-      },
-    });
+    if (!this.setRulefrm.value.scheme && !this.setRulefrm.value.department) {
+      return
+    }
+    else {
+      this.spinner.show();
+      let formData = this.setRulefrm.getRawValue();
+      this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?pageno=1&pagesize=10&SchemeTypeId=' + (formData.scheme || 0) + '&DepartmentId=' + (formData.department || 0) + '&StateId=' + (formData.state || 1) + '&DistrictId=' + (formData.district || 1) + '&lan=1', false, false, false, 'masterUrl');
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => {
+          this.spinner.hide();
+          // console.log('res.responseData.length',res.responseData.length);
+          if (res.statusCode == '200' && res.responseData.length) {
+            this.data = res.responseData[0];
+            this.data.label = 'Edit';
+            this.data?.label == 'Edit' ? this.editData() : ''
+          } else {
+            this.addList();
+          }
+        },
+        error: (err: any) => {
+          this.spinner.hide();
+          this.error.handelError(err.status);
+        },
+      });
+    }
   }
 
   addList() {
-    if (this.approvallistForm.length && this.approvallistForm.status == 'INVALID') {
+    if (this.setRulefrm.invalid && this.approvallistForm.length && this.approvallistForm.status == 'INVALID') {
       this.commonMethods.snackBar("Please Add Approval Details First", 1);
     }
     else {
@@ -213,13 +219,15 @@ export class SetRuleModalComponent {
       if (this.approvallistForm.length > 1) {
         let approvallistForm = this.approvallistForm.getRawValue();
         let len = this.approvallistForm.length - 2;
+        console.log(len);
+
         for (let i = 0; i <= len; i++) {
           if ((approvallistForm[i]?.approvalLevel == approvallistForm[approvallistForm.length - 1]?.approvalLevel)) {
             this.commonMethods.snackBar("Duplicate Order level is not allowed", 1);
             return
           } else if ((approvallistForm[i]?.actionId == approvallistForm[approvallistForm.length - 1]?.actionId) &&
             approvallistForm[i]?.departmentLevelId == approvallistForm[approvallistForm.length - 1]?.departmentLevelId && (approvallistForm[i]?.designationId == approvallistForm[approvallistForm.length - 1]?.designationId)) {
-            this.commonMethods.snackBar("This Record already exists.", 1);
+            this.commonMethods.snackBar("Duplicate Record Not Allowed", 1);
             return
           }
         }
@@ -297,9 +305,8 @@ export class SetRuleModalComponent {
       this.commonMethods.snackBar('All Order leavel is required', 1);
       return
     }
-  
-    let addLevelArrayStatus = formData.approvalLevels.some((x: any) => {
 
+    let addLevelArrayStatus = formData.approvalLevels.some((x: any) => {
       let counter = 0;
       formData.approvalLevels.map((a: any) => {
         if (a.actionId === x.actionId && a.departmentLevelId === x.departmentLevelId && a.designationId === x.designationId) {
@@ -308,11 +315,9 @@ export class SetRuleModalComponent {
       })
       return counter > 1;
     });
-    console.log("addLevelArrayStatus",addLevelArrayStatus);
+    console.log("addLevelArrayStatus", addLevelArrayStatus);
     if (addLevelArrayStatus) {
-      console.log("addLevelArrayStatus",addLevelArrayStatus);
-      
-      this.commonMethods.snackBar("Something went wrong.", 1);
+      this.commonMethods.snackBar("Duplicate Record Is Not Allowed", 1);
       return
     }
 

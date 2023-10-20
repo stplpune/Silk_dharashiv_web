@@ -19,6 +19,8 @@ export class ValidationService {
   alphaNumericWithSpace = '^[a-zA-Z0-9 -][a-zA-Z0-9 -]*$';
   valPinCode = '^[1-9][0-9]{5}$';
   alphabetsWithSpecChar = `^([a-zA-Z0-9 /(,)&.+-=\n'])*$`;
+  latValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
+  longValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
   
   maxLengthValidator(maxLength: number) {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -46,6 +48,12 @@ export class ValidationService {
     const maskSeperator = new RegExp('^([a-zA-Z ])', 'g');
     return maskSeperator.test(event.key);
   }
+
+  // latitude_longitude(event: any) {
+  //   const maskSeperator = new RegExp('^([1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$)', 'g');
+  //   return maskSeperator.test(event.key);
+  // }
+
   onlyAlphabetsWithSpace(event: any) {
     const maskSeperator = new RegExp('^([a-zA-Z])', 'g');
     return maskSeperator.test(event.key);

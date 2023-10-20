@@ -61,15 +61,12 @@
             <mat-label>{{'villageCircle.circle_name_en' | translate}}</mat-label>
             <input matInput formControlName="circleName"
               (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
-            <mat-error *ngIf="f['circleName']?.hasError('required')">{{'villageCircle.please_enter_circle_name(English)'
-              |
-              translate}}</mat-error>
+            <mat-error *ngIf="f['circleName']?.hasError('required')">{{'villageCircle.please_enter_circle_name_en'
+              |  translate}}</mat-error>
             <mat-error
-              *ngIf="f['circleName']?.hasError('pattern')">{{'villageCircle.please_enter_valid_circle_name(English)' |
-              translate}}</mat-error>
+              *ngIf="f['circleName']?.hasError('pattern')">{{'villageCircle.please_enter_valid_circle_name_en' |  translate}}</mat-error>
             <mat-error
-              *ngIf="f['circleName']?.hasError('maxLengthExceeded')">{{'villageCircle.maximum_limit_30_characters' |
-              translate}}</mat-error>
+              *ngIf="f['circleName']?.hasError('maxLengthExceeded')">{{'villageCircle.maximum_limit_30_characters' |  translate}}</mat-error>
           </mat-form-field>
         </div>
         <div class="col-sm-12">
@@ -78,10 +75,10 @@
             <input matInput formControlName="m_CircleName"
               (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
             <mat-error
-              *ngIf="f['m_CircleName']?.hasError('required')">{{'villageCircle.please_enter_circle_name(Marathi)'
+              *ngIf="f['m_CircleName']?.hasError('required')">{{'villageCircle.please_enter_circle_name_mr'
               | translate}}</mat-error>
             <mat-error
-              *ngIf="f['m_CircleName']?.hasError('pattern')">{{'villageCircle.please_enter_valid_circle_name(English)' |
+              *ngIf="f['m_CircleName']?.hasError('pattern')">{{'villageCircle.please_enter_valid_circle_name_mr' |
               translate}}</mat-error>
             <mat-error
               *ngIf="f['m_CircleName']?.hasError('maxLengthExceeded')">{{'villageCircle.maximum_limit_30_characters' |
@@ -91,8 +88,8 @@
       </div>
       <div class="d-flex align-items-center justify-content-end gap-2">
         <button mat-flat-button type="button" class="btn-main-light" type="button"
-          (click)="clearFormData()" mat-dialog-close>Cancel</button>
-        <button mat-flat-button class="btn-main" type="submit">{{!data ? 'Submit' : 'Update'}}</button>
+          (click)="clearFormData()" mat-dialog-close>{{'villageCircle.clear'| translate}}</button>
+        <button mat-flat-button class="btn-main" type="submit">{{!data ? ('villageCircle.save'| translate) : ('faq.update'| translate)}}</button>
       </div>
     </form>
   </div>
@@ -118,10 +115,27 @@
         </div>
       </div>
       <div class="col-sm-12">
-        <div class="row gx-2">
+
+
+        <!-- <div class="row gx-2">
           <div class="col-sm-5 form-label">{{lang == 'en' ? 'Village' : 'गाव'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.village || '-') : (data?.m_Village || '-')}}</div>
+          <span *ngFor="let villahes of data.villages">
+            {{lang == 'en' ? (villahes?.village || '-'): (villahes?.m_Village || '-')}},
+          </span>
+        </div> -->
+
+        <div class="col-sm-12">
+          <div class="row gx-2">
+            <div class="col-sm-4 form-label">{{lang == 'en' ? 'Village' : 'गाव'}}</div>
+            <div class="col-sm-8 form-data d-flex  " >:
+              <span *ngFor="let villahes of data.villages">
+                {{lang == 'en' ? (villahes?.village || '-'): (villahes?.m_Village || '-')}},
+              </span>
+            </div>
+          </div>
         </div>
+
+
       </div>
       <div class="col-sm-12">
         <div class="row gx-2">

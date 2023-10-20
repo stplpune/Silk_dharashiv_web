@@ -61,10 +61,8 @@ export class RegisterOfficerComponent {
     })
     this.getFormData();
     this.getstatusForm();
-    this.getDepartment();
-    this.getDepartmentLevel();
-    this.getDesignation();
-    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : this.viewFlag = false;
+    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(),
+    this.getDepartmentLevel(),this.getDesignation());
   }
 
 
@@ -80,7 +78,7 @@ export class RegisterOfficerComponent {
       circleId: [this.data ? this.data?.circleId : 0, [Validators.required]],
       villageId: [this.data ? this.data?.villageId : '', [Validators.required]],
       designationId: [this.data ? this.data?.designationId : '', [Validators.required]],
-      name: [this.data ? this.data?.name : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(50)]],
+      name: [this.data ? this.data?.name : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(10)]],
       m_Name: [this.data ? this.data?.m_Name : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(50)]],
       mobNo1: [this.data ? this.data?.mobNo1 : '', [Validators.required, Validators.pattern(this.validator.mobile_No)]],
       emailId: [this.data ? this.data?.emailId : '', [Validators.required, Validators.email, this.validator.maxLengthValidator(50)]],
@@ -207,7 +205,9 @@ export class RegisterOfficerComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;          
+          this.tableDataArray = res.responseData.responseData1;     
+          console.log(' this.tableDataArray', this.tableDataArray);
+               
           // this.imageResponse = this.data?.profileImagePath ?  this.data?.profileImagePath : ''
         } else {
           this.spinner.hide();
@@ -369,5 +369,32 @@ export class RegisterOfficerComponent {
     })
   }
 
+  onSubmitProfileData(){
+    let obj=
+    {
+      "id": this.tableDataArray[0].id,
+      "imagePath":  this.imageResponse
+    }
+    this.apiService.setHttp('put', 'sericulture/api/UserRegistration/Upload-Image_web?lan='+this.lang, false, obj, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == "200") {
+          this.commonMethod.snackBar(res.statusMessage, 0);
+          this.dialogRef.close('Yes');
+        }
+        else {
+          this.commonMethod.checkDataType(res.statusMessage) == false
+            ? this.errorHandler.handelError(res.statusCode)
+            : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.spinner.hide();
+        this.errorHandler.handelError(error.status);
+      }
+    })
+  }
+  }
 
-}
+
