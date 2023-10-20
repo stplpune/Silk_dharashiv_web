@@ -115,10 +115,27 @@
         </div>
       </div>
       <div class="col-sm-12">
-        <div class="row gx-2">
+
+
+        <!-- <div class="row gx-2">
           <div class="col-sm-5 form-label">{{lang == 'en' ? 'Village' : 'गाव'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.village || '-') : (data?.m_Village || '-')}}</div>
+          <span *ngFor="let villahes of data.villages">
+            {{lang == 'en' ? (villahes?.village || '-'): (villahes?.m_Village || '-')}},
+          </span>
+        </div> -->
+
+        <div class="col-sm-12">
+          <div class="row gx-2">
+            <div class="col-sm-4 form-label">{{lang == 'en' ? 'Village' : 'गाव'}}</div>
+            <div class="col-sm-8 form-data d-flex  " >:
+              <span *ngFor="let villahes of data.villages">
+                {{lang == 'en' ? (villahes?.village || '-'): (villahes?.m_Village || '-')}},
+              </span>
+            </div>
+          </div>
         </div>
+
+
       </div>
       <div class="col-sm-12">
         <div class="row gx-2">

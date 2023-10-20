@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -33,6 +33,7 @@ export class AddMarketRateComponent {
   goodsArr = new Array();
   unitArr = new Array();
   viewFlag: boolean = false;
+  editFlag : boolean = false;
   lang: any;
   subscription!: Subscription;
 
@@ -48,14 +49,14 @@ export class AddMarketRateComponent {
     public validator: ValidationService,
   ) { }
   get f() { return this.marketForm.controls }
-
+  @ViewChild('formDirective') private formDirective!: NgForm;
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
     this.viewFlag = this.data?.label == "View" ? true : false;
-    !this.viewFlag ? (this.formdata(), this.getAllMarket(), this.getFarmsGood(), this.getAllUnit()) : '';
+    !this.viewFlag ? (this.formdata(), this.getAllMarket(), this.getFarmsGood(), this.getAllUnit()) : ''
   }
 
   formdata() {
@@ -140,5 +141,11 @@ export class AddMarketRateComponent {
         error: (() => { this.spinner.hide(); })
       })
     }
+  }
+
+  clearFormData() { 
+    this.formDirective?.resetForm();
+    this.data = null;
+    this.formdata();
   }
 }
