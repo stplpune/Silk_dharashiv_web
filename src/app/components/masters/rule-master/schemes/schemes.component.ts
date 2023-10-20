@@ -72,7 +72,7 @@ export class SchemesComponent {
         if (res.statusCode == '200') {
           this.spinner.hide();
           this.tableDataArray = res.responseData;
-          this.totalCount = res.responseData1.totalPages;
+          this.totalCount = res.responseData1.totalCount;
         } else {
           this.spinner.hide();
           this.tableDataArray = [];
@@ -102,7 +102,7 @@ export class SchemesComponent {
       tableSize: this.totalCount,
       tableHeaders: tableHeaders,
       displayedColumns: displayedColumns,
-      pagination: this.totalCount > 10 ? true : false,
+      pagination: this.totalCount > 5 ? true : false,
       view: true,
       edit: true,
       delete: true,
@@ -136,7 +136,7 @@ export class SchemesComponent {
   }
 
   openBlockDialog(obj?: any) {
-    let userEng = obj.isActive == false ? 'Block' : 'Unblock';
+    let userEng = obj.isActive == false ? 'Active' : 'Deactive';
     let userMara = obj.isActive == false ? 'ब्लॉक' : 'अनब्लॉक';
     let dialoObj = {
       header: this.lang == 'mr-IN' ? 'योजना ' + userMara + ' करा' : userEng + ' Scheme',

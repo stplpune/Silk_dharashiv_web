@@ -64,7 +64,7 @@ export class AddSchemeComponent {
       districtId: [this.data ? this.data.districtId : 1],
       logoPath: [''],
       isActive: [this.data ? this.data.isActive : true],
-      schemeInfo: [this.data ? this.data.schemeInfo : '', [Validators.required, this.validator.maxLengthValidator(5000)]],
+      schemeInfo: [this.data ? this.data.schemeInfo : '', [Validators.required, this.validator.maxLengthValidator(100)]],
       m_SchemeType: [this.data ? this.data.m_SchemeType : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(100)]]
     })
     this.imageResponse = this.data ? this.data.logoPath : '';
@@ -127,15 +127,16 @@ export class AddSchemeComponent {
   onSubmitData() {
     let formData = this.schemeForm.getRawValue();
     this.spinner.show();
-    if (this.schemeForm.invalid || formData.schemeInfo) {
+    if (this.schemeForm.invalid || formData.schemeInfo || !this.imageResponse) {
       this.editorFlag=true;
       this.spinner.hide();
       return
-    } else if (!this.imageResponse) {
-      this.commonMethodService.snackBar("Please Scheme Uploade Logo", 1);
-      this.spinner.hide();
-      return;
-    }
+    } 
+    // else if (!this.imageResponse) {
+    //   this.commonMethodService.snackBar("Please Scheme Uploade Logo", 1);
+    //   this.spinner.hide();
+    //   return;
+    // }
     else {
       formData.id = this.data ? this.data.id : 0;
       formData.logoPath = this.imageResponse;
