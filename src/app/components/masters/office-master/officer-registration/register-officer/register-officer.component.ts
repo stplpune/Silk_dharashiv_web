@@ -78,7 +78,7 @@ export class RegisterOfficerComponent {
       circleId: [this.data ? this.data?.circleId : 0, [Validators.required]],
       villageId: [this.data ? this.data?.villageId : '', [Validators.required]],
       designationId: [this.data ? this.data?.designationId : '', [Validators.required]],
-      name: [this.data ? this.data?.name : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(50)]],
+      name: [this.data ? this.data?.name : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(10)]],
       m_Name: [this.data ? this.data?.m_Name : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(50)]],
       mobNo1: [this.data ? this.data?.mobNo1 : '', [Validators.required, Validators.pattern(this.validator.mobile_No)]],
       emailId: [this.data ? this.data?.emailId : '', [Validators.required, Validators.email, this.validator.maxLengthValidator(50)]],
@@ -370,10 +370,11 @@ export class RegisterOfficerComponent {
   }
 
   onSubmitProfileData(){
-    let obj={
+    let obj=
+    {
       "id": this.tableDataArray[0].id,
       "imagePath":  this.imageResponse
-  }
+    }
     this.apiService.setHttp('put', 'sericulture/api/UserRegistration/Upload-Image_web?lan='+this.lang, false, obj, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
