@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -28,7 +28,8 @@ export class AddMarketListComponent {
   editObj?: any;
   maxDate = new Date();
   isViewFlag: boolean = false;
-
+  @ViewChild('formDirective') private formDirective!: NgForm;
+  
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -53,11 +54,8 @@ export class AddMarketListComponent {
     this.data ? (this.onEdit(this.data)) : this.formData();
     if (!this.isViewFlag) {
       this.getState();
-      this.getDistrict();
-      this.getTaluka();
       this.getFarmGoods();
     }
-
   }
 
 
@@ -68,20 +66,20 @@ export class AddMarketListComponent {
       "m_MarketName": [data ? data?.m_MarketName : '', [Validators.required, this.validation.maxLengthValidator(100), Validators.pattern(this.validation.marathi)]],
       "conactNo": [data ? data?.conactNo : '', [Validators.pattern(this.validation.mobile_No)]],
       "emailId": [data ? data?.emailId : '', [Validators.email, this.validation.maxLengthValidator(50)]],
-      "stateId": [1],
-      "districtId": [1],
+      "stateId": [data ? data?.stateId : this.apiService.stateId],
+      "districtId": [data ? data?.districtId : this.apiService.disId],
       "talukaId": [data ? data?.talukaId : '', [Validators.required]],
       "villageId": [data ? data?.villageId : ''],
       "address": [data ? data?.address : ''],
       "pincode": [data ? data?.pincode : '', [Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],
       "estDate": [data ? data?.estDate : ''],
-      "latitude": [data ? data?.latitude : '', [Validators.required]],//number
-      "longitude": [data ? data?.longitude : '', [Validators.required]],//number
-      "administratior": [data ? data?.administratior : '', ],
+      "latitude": [data ? data?.latitude : '', [Validators.required,Validators.pattern(this.validation.latValidation)]],//number
+      "longitude": [data ? data?.longitude : '', [Validators.required,Validators.pattern(this.validation.longValidation)]],//number  
+      "administratior": [data ? data?.administratior : '',],
       "mobileNo": [data ? data?.mobileNo : '', [Validators.pattern(this.validation.mobile_No)]],
       "workingHours": [data ? data?.workingHours : '', [Validators.required]],
       "status": [data ? data?.status : ''],//boolean
-      "flag":[data ? "u" : "i"],
+      "flag": [data ? "u" : "i"],
       "shetMalId": ['', [Validators.required]],
       "committeeAssignShetmal": []
     })
@@ -94,29 +92,6 @@ export class AddMarketListComponent {
     this.addValidation();
   }
 
-  // formData() {
-  //   this.marketFrm = this.fb.group({
-  //     "id": [0],
-  //     "marketName": ['',[Validators.required,this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
-  //     "m_MarketName": ['',[Validators.required,this.validation.maxLengthValidator(100), Validators.pattern(this.validation.marathi)]],
-  //     "conactNo": ['',[Validators.pattern(this.validation.mobile_No)]],
-  //     "emailId": ['', [Validators.email, this.validation.maxLengthValidator(50)]],
-  //     "stateId": [1],
-  //     "districtId": [1],
-  //     "talukaId": ['',[Validators.required]],
-  //     "address": [''],
-  //     "pincode": ['',[Validators.required,this.validation.maxLengthValidator(6),Validators.pattern(this.validation.valPinCode)]],
-  //     "estDate": [''],
-  //     "latitude": ['',[Validators.required]],//number
-  //     "longitude": ['',[Validators.required]],//number
-  //     "administratior": ['',this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)],
-  //     "mobileNo": ['',[Validators.pattern(this.validation.mobile_No)]],
-  //     "workingHours": ['',[Validators.required]],
-  //      "status": [''],//boolean
-  //      "shetMalId":['',[Validators.required]]
-  //   })
-  // }
-
   get a() { return this.marketFrm.controls }
 
   getState() {
@@ -125,7 +100,7 @@ export class AddMarketListComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.stateArray = res.responseData;
-          this.editFlag ? this.a['stateId'].setValue(this.editObj?.stateId) : '';
+          this.editFlag ? (this.a['stateId'].setValue(this.editObj?.stateId), this.getDistrict()) : this.getDistrict();
         }
         else {
           this.stateArray = [];
@@ -136,7 +111,8 @@ export class AddMarketListComponent {
 
   getDistrict() {
     this.districtArray = [];
-    this.masterService.GetAllDistrict(1).subscribe({
+    let stateId = this.marketFrm.getRawValue()?.stateId;
+    this.masterService.GetAllDistrict(stateId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.districtArray = res.responseData;
@@ -151,7 +127,9 @@ export class AddMarketListComponent {
 
   getTaluka() {
     this.talukaArray = [];
-    this.masterService.GetAllTaluka(1, 1, 0).subscribe({
+    let stateId = this.marketFrm.getRawValue()?.stateId
+    let disId = this.marketFrm.getRawValue()?.districtId
+    this.masterService.GetAllTaluka(stateId, disId, 0).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.talukaArray = res.responseData;
@@ -224,7 +202,7 @@ export class AddMarketListComponent {
         "workingHours": data.workingHours,
         "committeeAssignShetmal": this.sendFarmData(data.shetMalId),
         "createdBy": this.WebStorageService.getUserId(),
-        "flag":  data?.flag
+        "flag": data?.flag
       }
       this.apiService.setHttp('post', 'sericulture/api/MarketCommittee/AddUpdateMarketCommittee?lan=' + this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
@@ -245,26 +223,34 @@ export class AddMarketListComponent {
       });
     }
   }
-  
-  addValidation(){    
-    if(this.lang == 'en'){
+
+  //clear add form functionality here
+  clearMainForm() {
+    this.formDirective?.resetForm();
+    this.formData();
+    this.editFlag = false;
+  }
+
+
+  addValidation() {
+    if (this.lang == 'en') {
       this.marketFrm.controls["address"].clearValidators();
-      this.marketFrm.controls['address'].setValidators([this.validation.maxLengthValidator(100),Validators.pattern(this.validation.alphabetsWithSpecChar)]);
+      this.marketFrm.controls['address'].setValidators([this.validation.maxLengthValidator(100), Validators.pattern(this.validation.alphabetsWithSpecChar)]);
       this.marketFrm.controls["address"].updateValueAndValidity();
 
       this.marketFrm.controls["administratior"].clearValidators();
-      this.marketFrm.controls['administratior'].setValidators([this.validation.maxLengthValidator(10), Validators.pattern(this.validation.fullName)]);
+      this.marketFrm.controls['administratior'].setValidators([this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]);
       this.marketFrm.controls["administratior"].updateValueAndValidity();
-    }else {
+    } else {
       this.marketFrm.controls["address"].clearValidators();
-      this.marketFrm.controls['address'].setValidators([this.validation.maxLengthValidator(100),Validators.pattern(this.validation.marathi)]);
+      this.marketFrm.controls['address'].setValidators([this.validation.maxLengthValidator(100), Validators.pattern(this.validation.marathi)]);
       this.marketFrm.controls["address"].updateValueAndValidity();
 
       this.marketFrm.controls["administratior"].clearValidators();
       this.marketFrm.controls['administratior'].setValidators([this.validation.maxLengthValidator(30), Validators.pattern(this.validation.marathi)]);
       this.marketFrm.controls["administratior"].updateValueAndValidity();
     }
-    }
   }
+}
 
 
