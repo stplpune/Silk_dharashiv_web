@@ -56,8 +56,8 @@ export class SetRuleComponent {
     this.filterFrm = this.fb.group({
       state: [1, [Validators.required]],
       district: [1, [Validators.required]],
-      scheme: ['', [Validators.required]],
-      department: ['', [Validators.required]],
+      scheme: ['',],
+      department: ['',],
     })
   }
 
