@@ -139,7 +139,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'marketRate.latitude' | translate}}</mat-label>
         <input matInput formControlName="latitude"
-        (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+        (keypress)="validation.noFirstSpaceAllow($event);validation.latitude_longitude($event)">
         <mat-error *ngIf="a['latitude']?.hasError('required')">{{'marketRate.please_enter_latitude'|translate}}</mat-error>
         <mat-error *ngIf="a['latitude']?.hasError('pattern')">{{'marketRate.please_enter_valid_latitude'|translate}}</mat-error>
       </mat-form-field>
@@ -148,7 +148,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'marketRate.longitude' | translate}}</mat-label>
         <input matInput formControlName="longitude"
-        (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+        (keypress)="validation.noFirstSpaceAllow($event);validation.latitude_longitude($event)">
         <mat-error *ngIf="a['longitude']?.hasError('required')">{{'marketRate.please_enter_longitude'|translate}}  </mat-error>
         <mat-error *ngIf="a['latitude']?.hasError('pattern')">{{'marketRate.please_enter_valid_longitude'|translate}}</mat-error>
      </mat-form-field>
