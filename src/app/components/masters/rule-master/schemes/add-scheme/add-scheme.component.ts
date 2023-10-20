@@ -28,7 +28,7 @@ export class AddSchemeComponent {
   lang: string = 'English';
   isViewFlag: boolean = false;
   editorConfig = this.commonMethodService.editorConfig;
-
+  editorFlag:boolean=false;
   constructor
   (
     public dialogRef: MatDialogRef<SchemesComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
@@ -127,11 +127,12 @@ export class AddSchemeComponent {
   onSubmitData() {
     let formData = this.schemeForm.getRawValue();
     this.spinner.show();
-    if (this.schemeForm.invalid) {
+    if (this.schemeForm.invalid || formData.schemeInfo) {
+      this.editorFlag=true;
       this.spinner.hide();
       return
     } else if (!this.imageResponse) {
-      this.commonMethodService.snackBar("Please Uploade Logo", 1);
+      this.commonMethodService.snackBar("Please Scheme Uploade Logo", 1);
       this.spinner.hide();
       return;
     }
@@ -147,7 +148,8 @@ export class AddSchemeComponent {
             this.commonMethodService.snackBar(res.statusMessage, 0)
             this.clearForm();
             this.formDirective.reset();
-            this.dialogRef.close('Yes')
+            this.dialogRef.close('Yes');
+            this.editorFlag=false;
           } else {
             this.spinner.hide();
             this.commonMethodService.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.commonMethodService.snackBar(res.statusMessage, 1);
@@ -168,5 +170,6 @@ export class AddSchemeComponent {
     this.clearlogo.nativeElement.value = "";
     this.imageResponse = "";
     this.data = null;
+    this.editorFlag=false;
   }
 }
