@@ -27,6 +27,7 @@ export class AddMarketListComponent {
   editFlag: boolean = false;
   editObj?: any;
   maxDate = new Date();
+  isViewFlag: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -41,52 +42,56 @@ export class AddMarketListComponent {
     private dialogRef: MatDialogRef<AddMarketListComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dateAdapter: DateAdapter<Date>,
-    ) {this.dateAdapter.setLocale('en-GB')}
+  ) { this.dateAdapter.setLocale('en-GB') }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-   this.data ? this.onEdit(this.data) : this.formData();
-    this.getState();
-    this.getDistrict();
-    this.getTaluka();
-    this.getFarmGoods();
+    this.isViewFlag = this.data?.label == 'View' ? true : false;
+    this.data ? this.onEdit(this.data) : this.formData();
+    if (!this.isViewFlag) {
+      this.getState();
+      this.getDistrict();
+      this.getTaluka();
+      this.getFarmGoods();
+    }
+
   }
 
 
-  formData(data?:any) {
+  formData(data?: any) {
     this.marketFrm = this.fb.group({
       "id": [data ? data?.id : 0],
-      "marketName": [data ? data?.marketName : '',[Validators.required,this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
-      "m_MarketName": [data ? data?.m_MarketName : '',[Validators.required,this.validation.maxLengthValidator(100), Validators.pattern(this.validation.marathi)]],
-      "conactNo": [data ? data?.conactNo : '',[Validators.pattern(this.validation.mobile_No)]],
-      "emailId": [data ? data?.emailId : '',[Validators.email, this.validation.maxLengthValidator(50)]],
+      "marketName": [data ? data?.marketName : '', [Validators.required, this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
+      "m_MarketName": [data ? data?.m_MarketName : '', [Validators.required, this.validation.maxLengthValidator(100), Validators.pattern(this.validation.marathi)]],
+      "conactNo": [data ? data?.conactNo : '', [Validators.pattern(this.validation.mobile_No)]],
+      "emailId": [data ? data?.emailId : '', [Validators.email, this.validation.maxLengthValidator(50)]],
       "stateId": [1],
       "districtId": [1],
-      "talukaId": [data ? data?.talukaId : '',[Validators.required]],
+      "talukaId": [data ? data?.talukaId : '', [Validators.required]],
       "villageId": [data ? data?.villageId : ''],
-      "address": [data ? data?.address : '',[Validators.pattern(this.validation.alphabetsWithSpecChar)]],
-      "pincode": [data ? data?.pincode : '',[Validators.required,this.validation.maxLengthValidator(6),Validators.pattern(this.validation.valPinCode)]],
+      "address": [data ? data?.address : '', [Validators.pattern(this.validation.alphabetsWithSpecChar)]],
+      "pincode": [data ? data?.pincode : '', [Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],
       "estDate": [data ? data?.estDate : ''],
-      "latitude": [data ? data?.latitude : '',[Validators.required]],//number
-      "longitude": [data ? data?.longitude : '',[Validators.required]],//number
-      "administratior": [data ? data?.administratior : '',[this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]],
-      "mobileNo": [data ? data?.mobileNo : '',[Validators.pattern(this.validation.mobile_No)]],
-      "workingHours": [data ? data?.workingHours : '',[Validators.required]],
+      "latitude": [data ? data?.latitude : '', [Validators.required]],//number
+      "longitude": [data ? data?.longitude : '', [Validators.required]],//number
+      "administratior": [data ? data?.administratior : '', [this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]],
+      "mobileNo": [data ? data?.mobileNo : '', [Validators.pattern(this.validation.mobile_No)]],
+      "workingHours": [data ? data?.workingHours : '', [Validators.required]],
       "status": [data ? data?.status : ''],//boolean
-      "shetMalId": ['',[Validators.required]],
+      "shetMalId": ['', [Validators.required]],
       "committeeAssignShetmal": []
     })
-}
+  }
 
-onEdit(edata?:any){
-  this.editFlag = true;
-  this.formData(edata);
-}
+  onEdit(edata?: any) {
+    this.editFlag = true;
+    this.formData(edata);
+  }
 
- // formData() {
+  // formData() {
   //   this.marketFrm = this.fb.group({
   //     "id": [0],
   //     "marketName": ['',[Validators.required,this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
@@ -109,9 +114,9 @@ onEdit(edata?:any){
   //   })
   // }
 
-get a() { return this.marketFrm.controls }
+  get a() { return this.marketFrm.controls }
 
-getState() {
+  getState() {
     this.stateArray = [];
     this.masterService.GetAllState().subscribe({
       next: ((res: any) => {
@@ -126,7 +131,7 @@ getState() {
     })
   }
 
-getDistrict() {
+  getDistrict() {
     this.districtArray = [];
     this.masterService.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
@@ -139,9 +144,9 @@ getDistrict() {
         }
       })
     })
-}
+  }
 
- getTaluka() {
+  getTaluka() {
     this.talukaArray = [];
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
@@ -156,7 +161,7 @@ getDistrict() {
     })
   }
 
-   getFarmGoods() {
+  getFarmGoods() {
     this.farmGoodsArray = [];
     this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-FarmGoods', false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
@@ -184,8 +189,8 @@ getDistrict() {
         "shetMalId": res,
         "createdBy": this.WebStorageService.getUserId()
       }
-     this.sendFarmDataArray.push(obj)
-   })
+      this.sendFarmDataArray.push(obj)
+    })
     return this.sendFarmDataArray
   }
 
@@ -218,7 +223,7 @@ getDistrict() {
         "createdBy": this.WebStorageService.getUserId(),
         "flag": 'i'
       }
-    this.apiService.setHttp('post', 'sericulture/api/MarketCommittee/AddUpdateMarketCommittee?lan=' + this.lang, false, obj, false, 'masterUrl');
+      this.apiService.setHttp('post', 'sericulture/api/MarketCommittee/AddUpdateMarketCommittee?lan=' + this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();

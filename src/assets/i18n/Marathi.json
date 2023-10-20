@@ -46,12 +46,14 @@
     "please_enter_pinCode":"कृपया पिन कोड प्रविष्ट करा",
     "please_enter_valid_pinCode":"कृपया वैध पिन कोड प्रविष्ट करा",
     "pin_limit":"कमाल 6 संख्याना अनुमती आहे"
+  
+    
  
 
   },
 
   "setRule":{
-    "set_rule":"नियम सेट करा",
+    "set_rule":"सेट नियम",
     "add_rule":"नियम जोडा",
     "update_rule":"नियम अपडेट करा",
     "view_rule":"नियम पहा",
@@ -113,25 +115,29 @@
     "state_lable":"राज्य निवडा",
     "district_lable":"जिल्हा निवडा",
     "taluka_lable":"तालुका निवडा",
-    "market_Name_en":"कृपया बाजाराचे नाव प्रविष्ट करा (इंग्रजी)",
-    "market_Name_mr":"कृपया बाजाराचे नाव प्रविष्ट करा (मराठी)",
+    "market_Name_en":"कृपया बाजाराचे नाव(इंग्रजी) प्रविष्ट करा ",
+    "market_Name_mr":"कृपया बाजाराचे नाव(मराठी) प्रविष्ट करा",
     "market_Name_limit":"कमाल 100 वर्णांना अनुमती आहे",
     "farms_good_Dropdown":"कृपया शेतमाल निवडा",
     "latitude":"अक्षांश",
     "longitude":"रेखांश",
     "administrator":"प्रशासक",
     "working_hours":"कामाचे तास",
-    "add_Market_List":"मार्केट लिस्ट जोडा",
-    "update_Market_List":"मार्केट लिस्ट अपडेट करा",
-    "view_Market_List":"बाजार सूची पहा",
+    "add_Market_List":"मार्केट यादी जोडा",
+    "update_Market_List":"मार्केट यादी अपडेट करा",
+    "view_Market_List":"मार्केट यादी पहा",
     "establishment_Date":"स्थापना दिवस",
     "please_enter_latitude":"कृपया अक्षांश प्रविष्ट करा",
     "please_enter_longitude":"कृपया रेखांश प्रविष्ट करा",
     "pin_Code":"पिन कोड",
     "please_enter_pinCode":"कृपया पिन कोड प्रविष्ट करा",
     "please_enter_valid_pinCode":"कृपया वैध पिन कोड प्रविष्ट करा",
-    "please_enter_valid_administrator":"कृपया वैध प्रशासक प्रविष्ट करा"
- 
+    "please_enter_valid_administrator":"कृपया वैध प्रशासक प्रविष्ट करा",
+    "please_enter_hours":"कृपया कामाचे तास प्रविष्ट करा",
+    "search_by":"बाजारपेठेचे नाव/मोबाइल क्रमांक शोधा",
+    
+    "please_enter_valid_marketName":"कृपया वैध बाजाराचे नाव(इंग्रजी) प्रविष्ट करा",
+    "please_enter_valid_marketName_mr":"कृपया वैध बाजाराचे नाव(मराठी) प्रविष्ट करा"
 
 
 

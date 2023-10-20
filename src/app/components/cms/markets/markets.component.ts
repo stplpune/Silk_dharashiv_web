@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
+import { ValidationService } from 'src/app/core/services/validation.service';
 
 @Component({
   selector: 'app-markets',
@@ -36,7 +37,8 @@ export class MarketsComponent {
     private masterService: MasterService,
     private errorHandler: ErrorHandlingService,
     private commonMethod: CommonMethodsService,
-    private WebStorageService: WebStorageService) {}
+    private WebStorageService: WebStorageService,
+    public validation: ValidationService,) {}
 
   ngOnInit(){
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
@@ -87,8 +89,8 @@ export class MarketsComponent {
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_DepartmentName', 'm_DepartmentLevel', 'm_DesignationName', 'action'] : ['srNo', 'marketName', 'district', 'taluka','mobileNo','action']
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'बाजारपेठेचे नाव', 'जिल्हा', 'तालुका','संपर्क क्रमांक', 'कृती'] : ['Sr. No.', 'Market Name', 'District', 'Taluka','Contact No.', 'Action'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_District', 'm_Taluka', 'm_MarketName','mobileNo', 'action'] : ['srNo','district', 'taluka', 'marketName','mobileNo', 'action']
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका','जिल्हा', 'तालुका','बाजारपेठेचे नाव','मोबाइल क्रमांक','कृती'] : ['Sr. No.','District', 'Taluka','Market Name','Mobile No.', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
@@ -124,7 +126,7 @@ export class MarketsComponent {
 
   addMarket(obj?: any) {
     let dialogRef = this.dialog.open(AddMarketListComponent, {
-      width: '50%',
+      width: '55%',
       data: obj,
       disableClose: true,
       autoFocus: true,
@@ -169,6 +171,13 @@ export class MarketsComponent {
       this.highLightedFlag = false;
     });
   }
+
+   //clear filter form functionality here
+   clearForm() {
+    this.formData();
+    this.bindTable();
+  }
+
 
   getState() {
     this.stateArray = [];
