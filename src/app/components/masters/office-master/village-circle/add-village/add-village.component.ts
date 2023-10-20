@@ -131,10 +131,11 @@ export class AddVillageComponent {
       return;
     } else {
       formData.villages = this.villageForm.value.villages.toString();
-      this.apiService.setHttp('post', 'sericulture/api/TalukaBlocks/AddUpdateVillageCircles', false, formData, false, 'masterUrl');
+      this.apiService.setHttp('post', 'sericulture/api/TalukaBlocks/AddUpdateVillageCircles?lan='+this.lang, false, formData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
+            this.commonMethodService.snackBar(res.statusMessage, 0);
             this.spinner.hide();
             this.dialogRef.close('Yes');
             this.formDirective.resetForm();
