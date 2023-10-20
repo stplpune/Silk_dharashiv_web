@@ -44,17 +44,17 @@
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'marketRate.search_by' | translate}}</mat-label>
-              <input matInput placeholder="Market name / contact no">
+              <input matInput formControlName="textSearch"  (keypress)="validation.noFirstSpaceAllow($event)" maxlength="50">
             </mat-form-field>
           </div>
           <div class="col-sm">
             <div class="d-flex align-items-center gap-2">
-              <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
+              <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button" (click)="bindTable('filter')">
                 <mat-icon class="material-symbols-rounded">
                   search
                 </mat-icon>
               </button>
-              <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+              <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="clearForm()">
                 <mat-icon class="material-symbols-rounded">
                   close
                 </mat-icon>

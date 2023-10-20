@@ -21,7 +21,7 @@
          <mat-error *ngIf="a['marketName']?.errors">
           <span class="text-danger"
               *ngIf="a['marketName']?.hasError('maxLengthExceeded') || a['marketName']?.hasError('pattern')">
-              {{a['marketName'].hasError('maxLengthExceeded') ? ('marketRate.market_Name_limit'|translate) : ('marketRate.please_enter_valid_designation_name(Marathi)'|translate)}}
+              {{a['marketName'].hasError('maxLengthExceeded') ? ('marketRate.market_Name_limit'|translate) : ('marketRate.please_enter_valid_marketName'|translate)}}
           </span>
       </mat-error>
       </mat-form-field>
@@ -35,7 +35,7 @@
          <mat-error *ngIf="a['marketName']?.errors">
           <span class="text-danger"
               *ngIf="a['marketName']?.hasError('maxLengthExceeded') || a['marketName']?.hasError('pattern')">
-              {{a['marketName'].hasError('maxLengthExceeded') ? ('marketRate.market_Name_limit'|translate) : ('marketRate.please_enter_valid_designation_name(Marathi)'|translate)}}
+              {{a['marketName'].hasError('maxLengthExceeded') ? ('marketRate.market_Name_limit'|translate) : ('marketRate.please_enter_valid_marketName_mr'|translate)}}
           </span>
       </mat-error>
       </mat-form-field>
