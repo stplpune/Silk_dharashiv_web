@@ -12,11 +12,12 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-global-table',
   templateUrl: './global-table.component.html',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule,MatSlideToggleModule,FormsModule,ReactiveFormsModule, MatButtonModule, MatIconModule,MatTooltipModule,MatCheckboxModule],
+  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule,MatSlideToggleModule,FormsModule,ReactiveFormsModule, MatButtonModule, MatIconModule,MatTooltipModule,MatCheckboxModule,TranslateModule],
   styleUrls: ['./global-table.component.scss']
 })
 export class GlobalTableComponent {
