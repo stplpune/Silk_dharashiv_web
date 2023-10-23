@@ -188,7 +188,7 @@
     <h2 class="page-heading mb-0 fw-bold my-2">{{'officerreg.officer_Details' | translate}}</h2>
     <div class="d-flex align-items-center justify-content-center">
       <div class="profile-pic position-relative">
-        <img [src]="imageResponse? imageResponse :'assets/images/user.png'" class="">
+        <img [src]=" data.profileImagePath ? data.profileImagePath : imageResponse? imageResponse :'assets/images/user.png'" class="">
         <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" #uplodLogo
           (change)="imageUplod($event)" />
         <div class="profile-btn text-center">
