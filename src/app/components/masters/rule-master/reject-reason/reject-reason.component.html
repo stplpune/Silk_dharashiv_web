@@ -1,0 +1,50 @@
+<mat-card class="plain-card">
+  <mat-card-header class="card-header">
+    <div class="d-flex align-items-center justify-content-between w-100">
+      <div class="text-main">Reject Reasons</div>
+      <button mat-flat-button class="btn-main" (click)="addrejectreason()">
+        <mat-icon class="material-symbols-rounded">
+          add
+        </mat-icon>
+        Add Reject Reason
+      </button>
+    </div>
+  </mat-card-header>
+  <mat-card-content class="card-body">
+    <div class="row gx-2">
+      <div class="col-sm-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>All Stage/Action</mat-label>
+          <mat-select>
+            <mat-option>Option 1</mat-option>
+            <mat-option>Option 2</mat-option>
+            <mat-option>Option 3</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Search by Reject Title</mat-label>
+          <input matInput placeholder="">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-auto">
+        <div class="d-flex align-items-center gap-2">
+          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
+            <mat-icon class="material-symbols-rounded">
+              search
+            </mat-icon>
+          </button>
+          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+            <mat-icon class="material-symbols-rounded">
+              close
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive scrollbar">
+      table
+    </div>
+  </mat-card-content>
+</mat-card>
