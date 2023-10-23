@@ -49,8 +49,8 @@
     "please_enter_pinCode":"Please Enter Pin Code",
     "please_enter_valid_pinCode":"Please Enter Valid Pin Code",
     "pin_limit":"Maximum limit 6 Number"
-   
- 
+
+
 
 
   },
@@ -83,7 +83,7 @@
     "third_level":"Third Level",
     "four_level":"Fourth Level",
     "fifth_level":"Fifth Level"
-    
+
   },
 
   "officerreg":{
@@ -143,7 +143,7 @@
     "please_enter_valid_latitude":"Please Enter Valid Latitude",
     "please_enter_valid_longitude":"Please Enter Valid Longitude"
   },
-  
+
 
 
 
@@ -235,7 +235,7 @@
         "select_district":"Select District",
         "select_state":"Select State",
         "save":"save",
-        "clear":"Cancel",
+        "clear":"Clear",
         "update":"Update",
         "scheme_namee":"Scheme Name(English)",
         "scheme_namemr":"Scheme Name(Marathi)",
@@ -342,7 +342,7 @@
       "marketPrice":{
         "add_market_rate" :"Add Market Rate",
         "update_market_rate":"Update Market Rate",
-        "view_market_rate" :"View Market Rate",      
+        "view_market_rate" :"View Market Rate",
         "Select_Market":"Select Market",
         "Select_Farm_Goods" : "Select Farm Goods",
         "Unit":"Unit",
@@ -363,7 +363,7 @@
         "Please_enter_Max_Rate/Kg" : "Please enter Max Rate/Kg",
         "Please_enter_average_Rate/Kg" : "Please enter average Rate/Kg",
         "Please_enter_income_quantity_per_qwintal" :"Please enter income quantity per qwintal",
-        "All_market" : "All Market",  
+        "All_market" : "All Market",
         "All_Farm Goods" : "All Farm Goods",
         "from_date" : "From Date",
         "to_date" : "To Date",
