@@ -92,7 +92,7 @@ export class DesignationsComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentLevelArray = res.responseData;
-          this.departmentLevelArray.unshift({ "id": 0, "textEnglish": "All Department Level","textMarathi": "सर्व विभाग स्तर"});
+          this.departmentLevelArray.unshift({ "id": 0, "textEnglish": "All Designation Level","textMarathi": "सर्व पदनाम स्तर"});
         }
         else {
           this.departmentLevelArray = [];
