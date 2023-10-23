@@ -62,9 +62,13 @@
         <mat-label>{{'common.email' | translate}}</mat-label>
         <input matInput formControlName="emailId"
         (keypress)="validation.noFirstSpaceAllow($event);validation.emailRegex($event)">
-        <mat-error *ngIf="a['emailId'].hasError('emailId')">{{'common.Please_enter_valid_email_id'|translate}}</mat-error>
+        <mat-error *ngIf="a['emailId'].hasError('email')">{{'common.Please_enter_valid_email_id'|translate}}</mat-error>
         </mat-form-field>
     </div>
+    <!-- <mat-error *ngIf="f.emailId.errors?.pattern">Please Enter Valid Email
+      ID</mat-error>
+  <mat-error *ngIf="!f.emailId.errors?.pattern && f.emailId.errors?.email">Please
+      Enter Valid Email ID</mat-error> -->
     <div class="col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'marketRate.farm_goods' | translate}}</mat-label>
