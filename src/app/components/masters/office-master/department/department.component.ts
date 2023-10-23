@@ -43,9 +43,9 @@ export class DepartmentComponent implements OnDestroy{
       public dialog: MatDialog,
       // private router: Router,
       public webStorage: WebStorageService
-      ) { 
+      ) {
         // const routerlink = (this.router.url).slice(1);
-        // this.pageDetailsObj = this.webStorage.getPageDetailsObj(routerlink); 
+        // this.pageDetailsObj = this.webStorage.getPageDetailsObj(routerlink);
       }
 
 
@@ -170,7 +170,7 @@ export class DepartmentComponent implements OnDestroy{
 
   adddepartment(obj?:any){
     const dialogRef = this.dialog.open(AddDepartmentComponent,{
-      width: '30%',
+      width: '40%',
       data: obj,
       disableClose: true,
       autoFocus: false

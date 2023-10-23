@@ -23,9 +23,11 @@ export class SetRuleComponent {
   departmentresp = new Array();
   highLightedFlag: boolean = true;
   filterFrm!: FormGroup;
-  totalItem:any;
+  totalItem: any;
+  totalPages:any;
   pageNumber: number = 1;
   subscription!: Subscription;//used  for lang conv
+  filterFlag: boolean = false;
   lang: any;
   @ViewChild('formDirective') private formDirective!: NgForm;
   constructor(public dialog: MatDialog,
@@ -75,22 +77,22 @@ export class SetRuleComponent {
   }
 
 
-  bindTable() {
+  bindTable(flag?:any) {
     this.spinner.show();
-    // flag == 'filter' ? (this.searchDataFlag = true, this.clearMainForm(), (this.pageNumber = 1)) : this.searchDataFlag = false;
+    flag == 'filter' ? (this.filterFlag = true, (this.pageNumber = 1)) :'';
     let formData = this.filterFrm.getRawValue();
-    // let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?pageno='+this.pageNumber+'&pagesize=10&SchemeTypeId='+(formData.scheme || 0)+'&DepartmentId='+(formData.department || 0)+'&StateId='+ (formData.state || 1)+'&DistrictId='+(formData.district || 1)+'&lan=1', false, false, false, 'masterUrl');
+    let str='pageno='+this.pageNumber+'&pagesize=10';
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?'+str+ '&SchemeTypeId=' + (formData.scheme || 0) + '&DepartmentId=' + (formData.department || 0) + '&StateId=' + (formData.state || 1) + '&DistrictId=' + (formData.district || 1) + '&lan=1', false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
-        console.log(res);
-        
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableresp = res.responseData;
-          // this.totalItem = res.responseData.responseData2.pageCount;
+          this.totalItem = res.responseData1.totalCount;
+          this.totalPages = res.responseData1?.totalPages;
         } else {
           this.tableresp = [];
+          this.totalItem = 0
         }
         this.setTableData();
       },
@@ -104,6 +106,8 @@ export class SetRuleComponent {
   childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':
+        this.filterFlag ? '' : (this.filterFrm.controls['scheme'].setValue(''),this.filterFrm.controls['department'].setValue(''), this.filterFlag = false);
+        this.pageNumber = obj.pageNumber;
         this.bindTable();
         break;
       case 'Edit':
@@ -119,19 +123,19 @@ export class SetRuleComponent {
   setTableData() {
     this.highLightedFlag = true;
     // this.lang == 'mr-IN' ? ['srNo', 'm_DepartmentName', 'm_DepartmentLevel', 'm_DesignationName', 'action'] : ['srNo', 'departmentName', 'departmentLevel', 'designationName', 'action']
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_State', 'm_District', 'm_SchemeType','m_DepartmentName', 'action']:['srNo', 'state', 'district', 'schemeType', 'departmentName', 'action'];
-    let displayedheaders = this.lang == 'mr-IN' ?['अनुक्रमांक', 'राज्यांचे नाव', 'जिल्ह्याचे नाव', 'योजनेचे नाव','विभाग', 'कृती']:['Sr No', 'State', 'District', 'Scheme', 'Department', 'Action'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_State', 'm_District', 'm_SchemeType', 'm_DepartmentName', 'action'] : ['srNo', 'state', 'district', 'schemeType', 'departmentName', 'action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'राज्यांचे नाव', 'जिल्ह्याचे नाव', 'योजनेचे नाव', 'विभाग', 'कृती'] : ['Sr No', 'State', 'District', 'Scheme', 'Department', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
-      pagination: false,
+      pagination: this.totalItem > 10 ? true : false,
       highlightedrow: true,
       displayedColumns: displayedColumns,
       tableData: this.tableresp,
-      tableSize: '',
+      tableSize: this.totalItem,
       tableHeaders: displayedheaders,
       delete: false, view: true, edit: true,
     };
-    this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
+    this.highLightedFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
   }
 

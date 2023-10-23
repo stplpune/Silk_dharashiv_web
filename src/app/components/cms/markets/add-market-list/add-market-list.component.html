@@ -9,7 +9,7 @@
 </div>
 
 <div class="" *ngIf="!isViewFlag">
-<form [formGroup]="marketFrm" #formGroupDirective="ngForm">
+<form [formGroup]="marketFrm" #formDirective="ngForm">
 <div mat-dialog-content class="modal-body">
   <div class="row gx-2">
     <div class="col-sm-6">
@@ -62,7 +62,7 @@
         <mat-label>{{'common.email' | translate}}</mat-label>
         <input matInput formControlName="emailId"
         (keypress)="validation.noFirstSpaceAllow($event);validation.emailRegex($event)">
-        <mat-error *ngIf="a['emailId'].hasError('emailId')">{{'common.Please_enter_valid_email_id'|translate}}</mat-error>
+        <mat-error *ngIf="a['emailId'].hasError('email')">{{'common.Please_enter_valid_email_id'|translate}}</mat-error>
         </mat-form-field>
     </div>
     <div class="col-sm-12">
@@ -88,7 +88,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'common.district' | translate}}</mat-label>
         <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
-          [class]="marketFrm.controls['districtId'].disable({ onlySelf: true })">
+          [class]="WebStorageService.getDistrictId() ? a['districtId'].disable({ onlySelf: true }) : a['districtId'].enable({ onlySelf: true })">
           <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang == 'en' ? district.textEnglish : district.textMarathi }}
           </mat-option>
         </mat-select>
@@ -178,7 +178,7 @@
 </div>
 <mat-dialog-actions class="modal-footer">
   <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-    <button mat-button class="btn-main-light" type="reset" (click)="clearMainForm()">{{'department.clear'|translate}}</button>
+    <button mat-button class="btn-main-light" type="button" (click)="clearMainForm()">{{'department.clear'|translate}}</button>
     <button mat-button class="btn-main" type="submit" (click)="onSubmit()">{{this.editFlag ? ('designation.update'|translate) :('designation.add'|translate)}}</button>
   </div>
 </mat-dialog-actions>
