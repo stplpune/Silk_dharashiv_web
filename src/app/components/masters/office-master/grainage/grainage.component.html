@@ -1,1 +1,56 @@
-<p>grainage works!</p>
+<mat-card class="plain-card">
+  <mat-card-header class="card-header">
+    <div class="d-flex align-items-center justify-content-between w-100">
+      <div class="text-main">Grainage</div>
+      <button mat-flat-button class="btn-main" (click)="addgrainage()">
+        <mat-icon class="material-symbols-rounded">
+          add
+        </mat-icon>
+        Add Grainage
+      </button>
+    </div>
+  </mat-card-header>
+  <mat-card-content class="card-body">
+    <div class="row gx-2">
+      <div class="col-sm-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>All Type</mat-label>
+          <mat-select>
+            <mat-option>Option 1</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>All State</mat-label>
+          <mat-select>
+            <mat-option>Option 1</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Search Grainage Name</mat-label>
+          <input matInput placeholder="">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <div class="d-flex align-items-center gap-2">
+          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
+            <mat-icon class="material-symbols-rounded">
+              search
+            </mat-icon>
+          </button>
+          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+            <mat-icon class="material-symbols-rounded">
+              close
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive scrollbar">
+      Table
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AddGrainageComponent } from './add-grainage/add-grainage.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-grainage',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./grainage.component.scss']
 })
 export class GrainageComponent {
+  constructor(public dialog: MatDialog) {}
 
+  addgrainage(){
+    this.dialog.open(AddGrainageComponent,{
+      width:'60%'
+    })
+  }
 }
