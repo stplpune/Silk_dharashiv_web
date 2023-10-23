@@ -136,4 +136,8 @@ export class AddDesignationComponent {
     this.addDefaultFrm();
     this.editFlag = false;
   }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
 }

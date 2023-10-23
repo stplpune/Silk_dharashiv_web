@@ -262,6 +262,10 @@ export class AddMarketListComponent {
     return this.sendFarmDataArray
   }
   //#endregion------------------Dropdown code end here--------------------------------------------
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
 }
 
 
