@@ -1,10 +1,8 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
     <div class="text-main">{{!data ? ('scheme.add_scheme' | translate ): isViewFlag ? ('scheme.view_scheme' | translate) : ('scheme.update_scheme' | translate )}}</div>
-    <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
-      <mat-icon class="material-symbols-outlined">
-        close
-      </mat-icon>
+    <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
+      <span class="material-symbols-rounded">close</span>
     </button>
   </div>
 </div>
@@ -92,7 +90,7 @@
       </div>
     </div>
   </mat-dialog-content>
-  
+
  <mat-dialog-actions class="modal-footer">
     <div class="d-flex align-items-center justify-content-end w-100">
     <button mat-flat-button class="btn-main-light" type="button" (click)="clearForm()">{{'scheme.clear' |
