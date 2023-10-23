@@ -149,8 +149,6 @@ export class AddMarketListComponent {
   clearMainForm() {
     this.formDirective?.resetForm();
     this.formData();
-    //this.marketFrm.controls['stateId'].setValue(this.apiService.stateId);
-    //this.marketFrm.controls['districtId'].setValue(this.apiService.disId);
     this.editFlag = false;
   }
 
