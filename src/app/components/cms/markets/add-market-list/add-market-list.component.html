@@ -31,11 +31,11 @@
         <mat-label>{{'marketRate.market_mr' | translate}}</mat-label>
         <input matInput formControlName="m_MarketName"
         (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
-        <mat-error *ngIf="a['marketName'].hasError('required')">{{'marketRate.market_Name_mr'|translate}}</mat-error>
-         <mat-error *ngIf="a['marketName']?.errors">
+        <mat-error *ngIf="a['m_MarketName'].hasError('required')">{{'marketRate.market_Name_mr'|translate}}</mat-error>
+         <mat-error *ngIf="a['m_MarketName']?.errors">
           <span class="text-danger"
-              *ngIf="a['marketName']?.hasError('maxLengthExceeded') || a['marketName']?.hasError('pattern')">
-              {{a['marketName'].hasError('maxLengthExceeded') ? ('marketRate.market_Name_limit'|translate) : ('marketRate.please_enter_valid_marketName_mr'|translate)}}
+              *ngIf="a['m_MarketName']?.hasError('maxLengthExceeded') || a['m_MarketName']?.hasError('pattern')">
+              {{a['m_MarketName'].hasError('maxLengthExceeded') ? ('marketRate.market_Name_limit'|translate) : ('marketRate.please_enter_valid_marketName_mr'|translate)}}
           </span>
       </mat-error>
       </mat-form-field>
@@ -43,7 +43,7 @@
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label> {{'common.mobile' | translate}} 1 </mat-label>
-        <input matInput formControlName="conactNo"
+        <input matInput formControlName="conactNo" maxlength="10"
         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
         <mat-error *ngIf="a['conactNo'].hasError('pattern')">{{'common.please_enter_valid_mobile_number'|translate}} </mat-error>
     
@@ -52,7 +52,7 @@
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'common.mobile' | translate}} 2</mat-label>
-        <input matInput formControlName="mobileNo"
+        <input matInput formControlName="mobileNo" maxlength="10"
         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
         <mat-error *ngIf="a['mobileNo'].hasError('pattern')">{{'common.please_enter_valid_mobile_number'|translate}} </mat-error>
    </mat-form-field>

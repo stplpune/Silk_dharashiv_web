@@ -180,7 +180,8 @@ export class AddMarketListComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.stateArray = res.responseData;
-          this.editFlag ? (this.a['stateId'].setValue(this.editObj?.stateId), this.getDistrict()) : this.getDistrict();
+          this.editFlag ? (this.a['stateId'].setValue(this.editObj?.stateId)) : '';
+          this.getDistrict();
         }
         else {
           this.stateArray = [];
@@ -198,7 +199,8 @@ export class AddMarketListComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.districtArray = res.responseData;
-          this.editFlag ? (this.a['districtId'].setValue(this.editObj?.districtId), this.getTaluka()) : this.getTaluka();
+          this.editFlag ? this.a['districtId'].setValue(this.editObj?.districtId) : '';
+          this.getTaluka();
         }
         else {
           this.districtArray = [];
