@@ -36,7 +36,7 @@
       <div class="mb-0">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{'designation.designation_en'|translate}}</mat-label>
-          <input matInput formControlName="designationName" 
+          <input matInput formControlName="designationName"
             (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
           <mat-error *ngIf="a['designationName'].hasError('required')">{{'designation.designation_en_required'|translate}}</mat-error>
           <mat-error *ngIf="a['designationName']?.errors">
@@ -83,26 +83,26 @@
     <div class="row gy-2 gx-2">
       <div class="col-sm-12">
         <div class="row gx-2">
-          <div class="col-sm-6 form-label">{{lang == 'en' ? 'Department Name' : 'विभाग'}}</div>
-          <div class="col-sm-6 form-data">: {{lang == 'en' ? (data?.departmentName || '-') : (data?.m_DepartmentName || '-')}}</div>
+          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Department Name' : 'विभाग'}}</div>
+          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.departmentName || '-') : (data?.m_DepartmentName || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-12">
         <div class="row gx-2">
-          <div class="col-sm-6 form-label">{{lang == 'en' ? 'Department Level' : 'पदनाम स्तर'}}</div>
-          <div class="col-sm-6 form-data">: {{lang == 'en' ? (data?.departmentLevel || '-') : (data?.m_DepartmentLevel || '-')}}</div>
+          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Department Level' : 'पदनाम स्तर'}}</div>
+          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.departmentLevel || '-') : (data?.m_DepartmentLevel || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-12">
         <div class="row gx-2">
-          <div class="col-sm-6 form-label">{{lang == 'en' ? 'Designation Name(English)' : 'पदनाम(इंग्रजी)'}}</div>
-          <div class="col-sm-6 form-data">: {{lang == 'en' ? (data?.designationName || '-') : (data?.designationName || '-')}}</div>
+          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Designation Name(English)' : 'पदनाम(इंग्रजी)'}}</div>
+          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.designationName || '-') : (data?.designationName || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-12">
         <div class="row gx-2">
-          <div class="col-sm-6 form-label">{{lang == 'en' ? 'Designation Name(Marathi)' : 'पदनाम(मराठी)'}}</div>
-          <div class="col-sm-6 form-data">: {{lang == 'en' ? (data?.m_DesignationName || '-') : (data?.m_DesignationName || '-')}}</div>
+          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Designation Name(Marathi)' : 'पदनाम(मराठी)'}}</div>
+          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.m_DesignationName || '-') : (data?.m_DesignationName || '-')}}</div>
         </div>
       </div>
     </div>
