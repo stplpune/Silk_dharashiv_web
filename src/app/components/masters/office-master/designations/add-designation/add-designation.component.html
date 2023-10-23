@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">{{!this.data ? ('designation.add_designation'|translate) :isViewFlag ?
+    <div class="text-main">{{!this.editFlag? ('designation.add_designation'|translate) :isViewFlag ?
       ("designation.view_Designation" | translate): ('designation.update_designation'|translate)}}</div>
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
@@ -11,7 +11,7 @@
 <div class="" *ngIf="!isViewFlag">
   <mat-dialog-content class="modal-body form-container">
 
-    <form [formGroup]="designationFrm" (ngSubmit)=" onSubmit()" #formGroupDirective="ngForm">
+    <form [formGroup]="designationFrm" (ngSubmit)=" onSubmit()" #formDirective="ngForm">
       <div class="mb-0">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{'designation.depertment'|translate}}</mat-label>
@@ -73,14 +73,7 @@
 
 <div class="" *ngIf="isViewFlag">
   <mat-dialog-content class="modal-body form-container">
-    <!-- View Details Section -->
-    <!-- <div class="d-flex align-items-center justify-content-between w-100">
-      <div class="text-main">View Designation</div>
-      <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
-        <span class="material-symbols-rounded">close</span>
-      </button>
-    </div> -->
-    <div class="row gy-2 gx-2">
+  <div class="row gy-2 gx-2">
       <div class="col-sm-12">
         <div class="row gx-2">
           <div class="col-sm-5 form-label">{{lang == 'en' ? 'Department Name' : 'विभाग'}}</div>
