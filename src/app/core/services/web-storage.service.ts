@@ -58,6 +58,13 @@ export class WebStorageService {
     return data.id ? data.id : 0;
   }
 
+  // Get District Id
+   getDistrictId(){
+    let data = this.getLoggedInLocalstorageData();
+    return data ? data?.districtId > 0 ? data?.districtId : '' : '';
+  }
+
+
   // change language
   setLanguage = new BehaviorSubject('');
 
