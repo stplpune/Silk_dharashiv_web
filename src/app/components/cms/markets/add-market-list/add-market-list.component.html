@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between">
-    <div class="text-main">{{!this.data ? ('marketRate.add_Market_List'|translate) :isViewFlag ?
+    <div class="text-main">{{!this.editFlag ? ('marketRate.add_Market_List'|translate) :isViewFlag ?
       ("marketRate.view_Market_List" | translate): ('marketRate.update_Market_List'|translate)}}</div>
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded" >close</span>
