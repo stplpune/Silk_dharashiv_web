@@ -214,4 +214,8 @@ export class PageRightAccessComponent {
     }
   }
 
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
+
 }

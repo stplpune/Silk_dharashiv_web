@@ -153,7 +153,7 @@ export class MarketsComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('delete', 'sericulture/api/MarketPrice/DeleteMarketRate?Id=' + delObj.id + '&lan=' + this.lang, false, false, false, 'masterUrl');
+        this.apiService.setHttp('delete', 'sericulture/api/MarketCommittee/DeleteMarketCommittee?Id=' + delObj.id + '&lan=' + this.lang, false, false, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {

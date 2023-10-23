@@ -45,7 +45,7 @@ export class DesignationsComponent {
 
   ngOnInit() {
     this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == "Designation" ? this.pageAccessObject = ele :''})
- 
+
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -92,7 +92,7 @@ export class DesignationsComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentLevelArray = res.responseData;
-          this.departmentLevelArray.unshift({ "id": 0, "textEnglish": "All Department Level","textMarathi": "सर्व विभाग स्तर"});
+          this.departmentLevelArray.unshift({ "id": 0, "textEnglish": "All Designation Level","textMarathi": "सर्व पदनाम स्तर"});
         }
         else {
           this.departmentLevelArray = [];
@@ -143,7 +143,7 @@ export class DesignationsComponent {
       edit: this.pageAccessObject?.writeRight == true ? true: false,
       delete: this.pageAccessObject?.deleteRight == true ? true: false
 
-      
+
     };
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
     this.apiService.tableData.next(tableData);
@@ -171,7 +171,7 @@ export class DesignationsComponent {
 
   addDesignation(obj?: any) {
     let dialogRef = this.dialog.open(AddDesignationComponent, {
-      width: '30%',
+      width: '35%',
       data: obj,
       disableClose: true,
       autoFocus: true,
