@@ -17,15 +17,16 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>All Stage/Action</mat-label>
           <mat-select formControlName="actionId">
-            <mat-option *ngFor="let data of actionResp" [value]="data.id">{{data.textEnglish}}</mat-option>
-            
+            <mat-option *ngFor="let data of actionResp" [value]="data.id">{{lang == 'en' ?
+              data.textEnglish : data.textMarathi}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Search by Reject Title</mat-label>
-          <input matInput placeholder="" formControlName="textSearch">
+          <input matInput placeholder="" formControlName="textSearch"
+          (keypress)="validation.noSpaceAllow($event)">
         </mat-form-field>
       </div>
       <div class="col-sm-auto">
