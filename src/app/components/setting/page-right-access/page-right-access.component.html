@@ -7,7 +7,7 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header-control pt-0 mt-3 mb-3 form-container">
     <form [formGroup]="filterFrm" #formDirective="ngForm">
-      <div class="row align-items-center w-100 justify-content-start gy-4">
+      <div class="row align-items-center w-100 justify-content-start gy-4 gx-2">
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'designation.depertment'|translate}}</mat-label>
@@ -62,10 +62,24 @@
         </div>
 
         <div class="col-sm-auto text-end">
-          <button mat-flat-button type="submit" class="btn-main me-2"
+          <!-- <button mat-flat-button type="submit" class="btn-main me-2"
             (click)="getTableData()">{{'pageAccess.search'|translate}}</button>
           <button mat-flat-button type="button" class="btn-main-light"
-            (click)="clearForm()">{{'pageAccess.clear'|translate}}</button>
+            (click)="clearForm()">{{'pageAccess.clear'|translate}}</button> -->
+
+
+            <div class="d-flex gap-2">
+              <button mat-flat-button class="btn-main btn-icon " matTooltip="edit" >
+                <mat-icon class="material-symbols-rounded">
+                  search
+                </mat-icon>
+              </button>
+              <button mat-flat-button class="btn-main-light btn-icon " matTooltip="edit" >
+                <mat-icon class="material-symbols-rounded">
+                  close
+                </mat-icon>
+              </button>
+            </div>
         </div>
       </div>
     </form>
