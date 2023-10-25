@@ -21,10 +21,13 @@ export class ValidationService {
   alphabetsWithSpecChar = `^([a-zA-Z0-9 /(,)&.+-=\n'])*$`;
   latValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
   longValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
-  marathiNumericAndspecialChar = /^[\u0900-\u0965?~`!@#$%^&*()\[\]\-+_={}|;:\\<,>.?\/ 0-9]+$/;
-  englishNumericAndspecialChar = /^[a-zA-Z?~`!@#$%^&*()-_+={}[\]:|\\;"'<,>.?\/ 0-9]*$/;
+  marathiNumericAndspecialChar = '/^[\u0900-\u0965?~`!@#$%^&*()\[\]\-+_={}|;:\\<,>.?\/ 0-9]+$/';
+  englishNumericAndspecialChar = '/^[a-zA-Z?~`!@#$%^&*()-_+={}[\]:|\\;"<,>.?\/ 0-9]*$/';
   numericWithdecimaluptotwoDigits='^[0-9][0-9]*[.]?[0-9]{0,2}$';
+  alphaNumericWithSpacesWithDashSlashs = '^([a-zA-Z0-9/-])';
+
  
+
 
   marathiNumericspecialChar(event: any) {
     const maskSeperator = new RegExp('^[\u0900-\u0965?~`!@#$%^&*()\\-+_={}\\[\\]:|;\\\\<,>.?/ 0-9]+$', 'g');
@@ -50,6 +53,11 @@ export class ValidationService {
 
   alphaNumericWithSpacesAndSpecCharss(event: any) {
     const maskSeperator = new RegExp('^([a-zA-Z0-9 -])', 'g');
+    return maskSeperator.test(event.key);
+  }
+
+  alphaNumericWithSpacesWithDashSlash(event: any) {
+    const maskSeperator = new RegExp('^([a-zA-Z0-9/-])', 'g');
     return maskSeperator.test(event.key);
   }
 
