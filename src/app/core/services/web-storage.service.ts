@@ -58,6 +58,12 @@ export class WebStorageService {
     return data.id ? data.id : 0;
   }
 
+  // Get State Id
+  getStateId(){
+    let data = this.getLoggedInLocalstorageData();
+    return data ? data?.stateId > 0 ? data?.stateId : '' : '';
+  }
+
   // Get District Id
    getDistrictId(){
     let data = this.getLoggedInLocalstorageData();

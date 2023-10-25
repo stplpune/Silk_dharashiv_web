@@ -28,6 +28,7 @@ export class MarketRateComponent {
   marketArr = new Array();
   goodsArr = new Array();
   pageAccessObject: object | any;
+  maxDate = new Date();
 
   constructor(
     private apiService: ApiService,
@@ -51,6 +52,8 @@ export class MarketRateComponent {
       this.setTableData();
     })
   }
+
+  get f(){return  this.filterForm.controls}
 
   filterFormData() {
     this.filterForm = this.fb.group({
