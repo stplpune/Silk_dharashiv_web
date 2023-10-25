@@ -1,6 +1,7 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">Add Grainage</div>
+    <div class="text-main">{{!this.data ? ('grainage.add_Grainage'|translate) :isViewFlag ? ("grainage.view_Grainage" |
+      translate): ('grainage.update_Grainage'|translate)}} </div>
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
     </button>
@@ -9,7 +10,7 @@
 <form [formGroup]="grainageFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
   <div mat-dialog-content class="modal-body">
     <mat-form-field appearance="outline" class="w-50">
-      <mat-label>Type</mat-label>
+      <mat-label>{{"grainage.Type" | translate}}</mat-label>
       <mat-select formControlName="type">
         <mat-option *ngFor=" let grain of grainageArr" [value]="grain.id">{{lang == 'en' ? grain.textEnglish :
           grain.textMarathi}}</mat-option>
@@ -50,7 +51,7 @@
       </div>
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Taluka</mat-label>
+          <mat-label>{{"grainage.taluka" | translate}}</mat-label>
           <mat-select formControlName="talukaId">
             <mat-option *ngFor=" let taluka of talukaArr"
             [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish : taluka.textMarathi}}</mat-option>
@@ -59,20 +60,20 @@
       </div>
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Pincode</mat-label>
+          <mat-label>{{"grainage.pincode" | translate}}</mat-label>
           <input formControlName="pincode" matInput placeholder="">
         </mat-form-field>
       </div>
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Address</mat-label>
+          <mat-label>{{"grainage.address" | translate}}</mat-label>
           <textarea formControlName="address" matInput placeholder=""></textarea>
         </mat-form-field>
       </div>
 
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Remark</mat-label>
+          <mat-label>{{"grainage.remark" | translate}}</mat-label>
           <textarea formControlName="remark" matInput placeholder=""></textarea>
         </mat-form-field>
       </div>
