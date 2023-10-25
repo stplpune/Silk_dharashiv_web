@@ -62,9 +62,7 @@ export class AddMarketListComponent {
 
 
   formData(data?: any) {
-    console.log("data",data)
-  //  organizationId: [data ? data?.organizationId : this.webStorage.getOrgId() == '' ? 0 : this.webStorage.getOrgId(), Validators.required],
-
+    //console.log("data",data)
     this.marketFrm = this.fb.group({
       "id": [data ? data?.id : 0],
       "marketName": [data ? data?.marketName : '', [Validators.required, this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
