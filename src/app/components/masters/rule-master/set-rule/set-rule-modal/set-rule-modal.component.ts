@@ -176,9 +176,18 @@ export class SetRuleModalComponent {
   }
 
   checkPrevData() {
-    if (this.setRulefrm.invalid) {
+    let formData = this.setRulefrm.getRawValue();
+
+    if (formData.scheme == '') {
+      this.commonMethods.snackBar("Please select scheme name", 1);
+      return
+    } else if (formData.department == '') {
+      this.commonMethods.snackBar("Please select department name", 1);
+      return
+    } else if (this.setRulefrm.invalid) {
       return
     }
+   
     else {
       this.spinner.show();
       let formData = this.setRulefrm.getRawValue();
@@ -216,12 +225,18 @@ export class SetRuleModalComponent {
       });
       if (this.approvallistForm.length > 1) {
         let approvallistForm = this.approvallistForm.getRawValue();
+        console.log(approvallistForm);
+        
         let len = this.approvallistForm.length - 2;
         for (let i = 0; i <= len; i++) {
           if ((approvallistForm[i]?.approvalLevel == approvallistForm[approvallistForm.length - 1]?.approvalLevel)) {
             this.commonMethods.snackBar("Duplicate Order level is not allowed", 1);
             return
-          } else if ((approvallistForm[i]?.actionId == approvallistForm[approvallistForm.length - 1]?.actionId) &&
+          }else  if ((approvallistForm[i]?.actionId == approvallistForm[approvallistForm.length - 1]?.actionId)) {
+            this.commonMethods.snackBar("Duplicate Action is not allowed", 1);
+            return
+          }
+           else if ((approvallistForm[i]?.actionId == approvallistForm[approvallistForm.length - 1]?.actionId) &&
             approvallistForm[i]?.departmentLevelId == approvallistForm[approvallistForm.length - 1]?.departmentLevelId && (approvallistForm[i]?.designationId == approvallistForm[approvallistForm.length - 1]?.designationId)) {
             this.commonMethods.snackBar("Duplicate Record Not Allowed", 1);
             return
@@ -265,34 +280,7 @@ export class SetRuleModalComponent {
     this.approvallistForm.removeAt(i);
   }
 
-  // checkDuplicateEntry() {
-  //   let formData = this.setRulefrm.getRawValue();
-  //   let addLevelArrayStatus = formData.approvalLevels.some((x: any) => {
-
-  //     let counter = 0;
-  //     formData.approvalLevels.map((a: any) => {
-  //       if (a.actionId === x.actionId && a.departmentLevelId === x.departmentLevelId && a.designationId === x.designationId) {
-  //         counter += 1;
-  //       }
-  //     })
-  //     return counter > 1;
-  //   });
-
-  //   if (addLevelArrayStatus) {
-  //     this.commonMethods.snackBar("Something went wrong.", 1);
-  //     return
-  //   }
-
-  //   if (this.editFlag) {
-  //     this.data.getApprovalMaster.find((ele: any) => {
-  //       formData.approvalLevels.map((item: any) => {
-  //         if (item.approvalLevel == ele.approvalLevel) {
-  //           item.id = ele.id
-  //         }
-  //       })
-  //     })
-  //   }
-  // }
+ 
   onSubmit() {
     let formData = this.setRulefrm.getRawValue();
     if (this.setRulefrm.invalid) {

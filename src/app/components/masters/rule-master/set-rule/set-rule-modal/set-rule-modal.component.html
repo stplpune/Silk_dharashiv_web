@@ -67,7 +67,7 @@
 
         <div class="d-flex w-100 justify-content-between align-items-center mb-3">
           <p class="mb-0 text-main fw-bold small"></p>
-          <button mat-flat-button type="submit" [class.disable]="(approvallistForm.length>0)" class="btn-main" (click)="checkPrevData()" >
+          <button mat-flat-button type="button" [class.disable]="(approvallistForm.length>0)" class="btn-main" (click)="checkPrevData()" >
             <mat-icon
               class="material-symbols-rounded">add</mat-icon>{{editFlag?('setRule.update_level'|translate):('setRule.add_level'|translate)}}
           </button>
@@ -79,10 +79,14 @@
 
               <div class="row  gx-2">
                 <div class="col-sm-auto">
+                  {{i + 1}}
+                </div>
+                <div class="col-sm-auto">
+               
                   <div class="form-data">{{'setRule.order'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="approvalLevel" placeholder="Select Order">
-                      <mat-option *ngFor="let data of approveLevelResp" [value]="data.id">{{lang == 'en' ?
+                      <mat-option *ngFor="let data of approveLevelResp" [value]="data.id"   [disabled]="data.id == 0">{{lang == 'en' ?
                         data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -91,7 +95,7 @@
                   <div class="form-data">{{'setRule.action'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="actionId" placeholder="Select Action">
-                      <mat-option *ngFor="let data of actionresp" [value]="data.id">{{lang == 'en' ?
+                      <mat-option *ngFor="let data of actionresp" [value]="data.id"  [disabled]="data.id == 0">{{lang == 'en' ?
                         data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
                     <!-- <div *ngIf="approvallistForm.controls['actionId'].hasError('required')">
@@ -104,7 +108,7 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <!-- <mat-label>Designation Level</mat-label> -->
                     <mat-select formControlName="departmentLevelId" placeholder="Select Department Level">
-                      <mat-option *ngFor="let data of levelResp" [value]="data.id">{{lang == 'en' ?
+                      <mat-option *ngFor="let data of levelResp" [value]="data.id"  [disabled]="data.id == 0">{{lang == 'en' ?
                         data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
                     <!-- <mat-error *ngIf="g['departmentLevelId'].hasError('required')">Department Level Is Required</mat-error> -->
@@ -115,7 +119,7 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <!-- <mat-label>Designation</mat-label> -->
                     <mat-select formControlName="designationId" placeholder="Select Designation">
-                      <mat-option *ngFor="let data of designationResp" [value]="data.id">{{lang == 'en' ?
+                      <mat-option *ngFor="let data of designationResp" [value]="data.id"  [disabled]="data.id == 0">{{lang == 'en' ?
                         data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
                   </mat-form-field>
