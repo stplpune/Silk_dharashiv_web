@@ -61,11 +61,13 @@
     "add_reject_reason":"Add Reject Reason",
     "reject_title":"Search by Reject Title",
     "update_reject_reason":"Update Reject Reason",
-    "enter_rejection_title":"Enter Rejection Title",
+    "enter_rejection_title":"Enter Rejection Title(English)",
+    "enter_rejection_title_marathi":"Enter Rejection Title(Marathi)",
     "enter_rejection_description":"Enter Rejection Description",
     "please_select_action":"Please Select Stage/Action",
     "please_enter_rejection_title":"Please Enter Rejection Title",
-    "please_enter_rejection_description":"Please Enter Rejection Description"
+    "please_enter_rejection_description":"Please Enter Rejection Description",
+    "please_enter_rejection_title_marathi":"Please Enter Rejection Title (Marathi)"
   },
 
   "setRule":{
