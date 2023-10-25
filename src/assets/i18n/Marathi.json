@@ -269,9 +269,9 @@
   "villageCircle": {
     "village_circle": "मंडळ",
     "search_by_village_circle_name": "मंडळाच्या नावाने शोधा",
-    "add_village": "गाव जोडा",
-    "update_village": "अपडेट गाव",
-    "view_village": "गाव पहा",
+    "add_village": "मंडळ जोडा",
+    "update_village": "अपडेट मंडळ",
+    "view_village": "मंडळ पहा",
     "select_state": "राज्य निवडा",
     "select_district": "जिल्हा निवडा",
     "select_taluka": "तालुका निवडा",
