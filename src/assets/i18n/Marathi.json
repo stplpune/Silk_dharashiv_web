@@ -50,6 +50,24 @@
     "please_enter_valid_pinCode": "कृपया वैध पिन कोड प्रविष्ट करा",
     "pin_limit": "कमाल 6 संख्याना अनुमती आहे"
   },
+
+  "grainage": {
+    "Type": "प्रकार निवडा",
+    "grainageName_en": "ग्रेनेजचे नाव (इंग्रजी)",
+    "grainageName_en_require": "कृपया ग्रेनेजचे नाव प्रविष्ट करा (इंग्रजी)",
+    "grainageName_en_limit": "कमाल 50 वर्णांना अनुमती आहे",
+    "grainageName_mr": "ग्रेनेजचे नाव (मराठी)",
+    "grainageName_mr_require": "कृपया ग्रेनेजचे नाव प्रविष्ट करा (मराठी)",
+    "grainageName_mr_limit": "कमाल 50 वर्णांना अनुमती आहे",
+    "state": "राज्य निवडा",
+    "district": "जिल्हा निवडा ",
+    "taluka": "तालुका निवडा",
+    "taluka_reuired": "कृपया तालुका निवडा",
+    "address":"पत्ता",
+    "pincode":"पिनकोड",
+    "remark":"टीप"
+  },
+
   "rejectReason":{
     "reject_reason":"नामंजूर कारणे ",
     "all_stage_action":"कृती निवडा",
