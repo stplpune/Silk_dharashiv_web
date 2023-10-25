@@ -12,6 +12,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import {MatSelectModule} from '@angular/material/select';
 import { AddGrainageComponent } from './add-grainage/add-grainage.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -30,6 +33,10 @@ import { AddGrainageComponent } from './add-grainage/add-grainage.component';
     MatIconModule,
     MatTableModule,
     MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    GlobalTableComponent,
+    TranslateModule
   ]
 })
 export class GrainageModule { }
