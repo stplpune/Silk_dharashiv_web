@@ -53,6 +53,7 @@
 
   "grainage": {
     "Type": "Select Type",
+    "grainage": "Grainage",
     "grainageName_en": "Grainage Name (English)",
     "grainageName_en_require": "Please enter grainage Name (English)",
     "grainageName_en_limit": "Maximum limit 50 character",

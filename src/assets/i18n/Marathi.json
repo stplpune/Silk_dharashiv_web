@@ -53,6 +53,7 @@
 
   "grainage": {
     "Type": "प्रकार निवडा",
+    "grainage": "ग्रेनेज",
     "grainageName_en": "ग्रेनेजचे नाव (इंग्रजी)",
     "grainageName_en_require": "कृपया ग्रेनेजचे नाव प्रविष्ट करा (इंग्रजी)",
     "grainageName_en_limit": "कमाल 50 वर्णांना अनुमती आहे",
