@@ -57,7 +57,7 @@
         <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'pageAccess.search_page_name'|translate}}</mat-label>
-            <input matInput formControlName="searchText">
+            <input matInput formControlName="searchText"  (keypress)="validation.noFirstSpaceAllow($event)">
           </mat-form-field>
         </div>
 
@@ -138,7 +138,7 @@
       <div class="text-center ml-5 alert alert-danger text-center m-2 mt-2">{{lang == 'en' ? "No Data Found" : "माहिती उपलब्ध नाही"}}</div>
     </ng-template>
 
-    <div class="text-end">
+    <div class="text-end" *ngIf="dataSource?.length">
       <button mat-flat-button class="btn-main" type="submit"
         (click)="onSubmitData()">{{'pageAccess.add'|translate}}</button>
     </div>

@@ -8,6 +8,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
+import { ValidationService } from 'src/app/core/services/validation.service';
 @Component({
   selector: 'app-page-right-access',
   templateUrl: './page-right-access.component.html',
@@ -35,6 +36,7 @@ export class PageRightAccessComponent {
     private commonMethod: CommonMethodsService,
     private spinner: NgxSpinnerService,
     private webStorage: WebStorageService,
+    public validation: ValidationService,
     private errorHandler: ErrorHandlingService) { }
 
   ngOnInit() {
@@ -74,14 +76,13 @@ export class PageRightAccessComponent {
       this.spinner.show();
       let formData = this.filterFrm.getRawValue();
       let str = `&pageno=${this.pageNumber}&pagesize=100`;
-      this.apiService.setHttp('GET', `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId || 0}&DepartmentLevelId=${formData?.designationLevelId || 0}&DesignationId=${formData?.designationId || 0}&MainMenuId=${formData?.moduleId || 0}&SubMenuId=${formData?.subModuleId || 0}&lan=${this.lang}` + str, false, false, false, 'baseUrl');
+      this.apiService.setHttp('GET', `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId || 0}&DepartmentLevelId=${formData?.designationLevelId || 0}&DesignationId=${formData?.designationId || 0}&MainMenuId=${formData?.moduleId || 0}&SubMenuId=${formData?.subModuleId || 0}&lan=${this.lang}&TextSearch=${formData?.searchText || ''}` + str, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
           if (res.statusCode == '200') {
             this.dataSource = res.responseData;
-            console.log(" this.dataSource page right", this.dataSource)
-          } else {
+        } else {
             this.dataSource = [];
           }
         }),
