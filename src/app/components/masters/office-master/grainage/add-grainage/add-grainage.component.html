@@ -6,80 +6,83 @@
     </button>
   </div>
 </div>
-<div mat-dialog-content class="modal-body">
-  <mat-form-field appearance="outline" class="w-50">
-    <mat-label>Type</mat-label>
-    <mat-select>
-      <mat-option>Government</mat-option>
-      <mat-option>Private</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <div class="row gx-2">
-    <div class="col-sm-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Grainage Name (English)</mat-label>
-        <input matInput placeholder="">
-      </mat-form-field>
-    </div>
-    <div class="col-sm-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Grainage Name (Marathi)</mat-label>
-        <input matInput placeholder="">
-      </mat-form-field>
-    </div>
-    <div class="col-sm-4">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>State</mat-label>
-        <mat-select>
-          <mat-option>Maharashtra</mat-option>
-          <mat-option>Goa</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-4">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>District</mat-label>
-        <mat-select>
-          <mat-option>Pune</mat-option>
-          <mat-option>Nagar</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-4">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Taluka</mat-label>
-        <mat-select>
-          <mat-option>Haveli</mat-option>
-          <mat-option>Junnar</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-4">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Pincode</mat-label>
-        <input matInput placeholder="">
-      </mat-form-field>
-    </div>
-    <div class="col-sm-4">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Address</mat-label>
-        <textarea matInput placeholder=""></textarea>
-      </mat-form-field>
-    </div>
+<form [formGroup]="grainageFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
+  <div mat-dialog-content class="modal-body">
+    <mat-form-field appearance="outline" class="w-50">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor=" let grain of grainageArr" [value]="grain.id">{{lang == 'en' ? grain.textEnglish :
+          grain.textMarathi}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="row gx-2">
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{"grainage.grainageName_en" | translate}}</mat-label>
+          <input formControlName="grainage" matInput >
+        </mat-form-field>
+      </div>
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{"grainage.grainageName_mr" | translate}}</mat-label>
+          <input formControlName="m_Grainage" matInput >
+        </mat-form-field>
+      </div>
+      <div class="col-sm-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{"grainage.state" | translate}}</mat-label>
+          <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
+          [class]="grainageFrm.controls['stateId'].disable({ onlySelf: true })">
+            <mat-option *ngFor=" let state of stateArr"
+            [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{"grainage.district" | translate}}</mat-label>
+          <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
+          [class]="grainageFrm.controls['districtId'].disable({ onlySelf: true })">
+            <mat-option *ngFor=" let dist of districtArr"
+            [value]="dist.id">{{lang == 'en' ? dist.textEnglish : dist.textMarathi}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Taluka</mat-label>
+          <mat-select formControlName="talukaId">
+            <mat-option *ngFor=" let taluka of talukaArr"
+            [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish : taluka.textMarathi}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Pincode</mat-label>
+          <input formControlName="pincode" matInput placeholder="">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Address</mat-label>
+          <textarea formControlName="address" matInput placeholder=""></textarea>
+        </mat-form-field>
+      </div>
 
-    <div class="col-sm-4">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Remark</mat-label>
-        <textarea matInput placeholder=""></textarea>
-      </mat-form-field>
+      <div class="col-sm-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Remark</mat-label>
+          <textarea formControlName="remark" matInput placeholder=""></textarea>
+        </mat-form-field>
+      </div>
     </div>
   </div>
-</div>
-<div mat-dialog-actions class="modal-footer">
-  <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-    <button mat-flat-button class="btn-main-light" >Clear</button>
-    <button mat-flat-button [mat-dialog-close]=true class="btn-main">Add</button>
+  <div mat-dialog-actions class="modal-footer">
+    <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+      <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">{{'action.clear'|translate}} </button>
+      <button mat-flat-button  class="btn-main" type="submit">{{this.data ? ('action.update'|translate) :
+        ('action.add'|translate)}}</button>
+    </div>
   </div>
-</div>
-
-
+</form>
