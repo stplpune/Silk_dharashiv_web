@@ -65,7 +65,10 @@
     "taluka_reuired": "कृपया तालुका निवडा",
     "address":"पत्ता",
     "pincode":"पिनकोड",
-    "remark":"टीप"
+    "remark":"टीप",
+    "add_Grainage":"ग्रेनेज जोडा",
+    "update_Grainage":"ग्रेनेज संपादित करा",
+    "view_Grainage":"ग्रेनेज पहा"
   },
 
   "rejectReason":{
