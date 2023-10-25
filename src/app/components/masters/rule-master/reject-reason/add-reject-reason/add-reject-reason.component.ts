@@ -51,6 +51,7 @@ export class AddRejectReasonComponent {
     this.rejectResonFrm = this.fb.group({
       actionId: ['', [Validators.required]],
       rejectionTitle: ['', [Validators.required,this.validation.maxLengthValidator(100)]],
+      rejectionTitleMarathi:['', [Validators.required,this.validation.maxLengthValidator(100),Validators.pattern(this.validation.marathi)]],
       description: ['', [Validators.required,this.validation.maxLengthValidator(500)]],
     })
   }
@@ -79,7 +80,7 @@ export class AddRejectReasonComponent {
       "id":this.editFlag?this.editId: 0,
       "actionId": formData.actionId,
       "rejectionTitle": formData.rejectionTitle,
-      "m_RejectionTitle": "",
+      "m_RejectionTitle":formData.rejectionTitleMarathi,
       "rejectionDescription": formData.description,
       "createdBy": this.webStorage.getUserId(),
       "flag": this.editFlag?"u":"i"
@@ -109,6 +110,7 @@ export class AddRejectReasonComponent {
     this.rejectResonFrm.patchValue({
       actionId:this.data.actionId,
       rejectionTitle:this.data.rejectionTitle,
+      rejectionTitleMarathi:this.data.m_RejectionTitle,
       description:this.data.rejectionDescription,
     })
     
