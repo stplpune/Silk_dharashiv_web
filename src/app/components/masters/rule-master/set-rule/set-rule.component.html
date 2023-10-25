@@ -35,7 +35,7 @@
         </div>
         <div class="col-sm-auto">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'action.scheme' | translate}}</mat-label>
+            <mat-label>{{'setRule.select_scheme' | translate}}</mat-label>
             <mat-select formControlName="scheme">
               <mat-option *ngFor="let data of schemeTyperesp" [value]="data.id">{{lang == 'en' ?
                 data.textEnglish : data.textMarathi}}</mat-option>
