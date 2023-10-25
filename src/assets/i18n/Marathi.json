@@ -50,6 +50,18 @@
     "please_enter_valid_pinCode": "कृपया वैध पिन कोड प्रविष्ट करा",
     "pin_limit": "कमाल 6 संख्याना अनुमती आहे"
   },
+  "rejectReason":{
+    "reject_reason":"नामंजूर कारणे ",
+    "all_stage_action":"कृती निवडा",
+    "add_reject_reason":"नाकारण्याचे कारण जोडा",
+    "reject_title":"नामंजूर शीर्षक ",
+    "update_reject_reason":"कारण अद्ययावत करा",
+    "enter_rejection_title":"नकार शीर्षक प्रविष्ट करा",
+    "enter_rejection_description":"नकार वर्णन प्रविष्ट करा",
+    "please_select_action":"कृपया स्टेज/कृती निवडा",
+    "please_enter_rejection_title":"कृपया नकार शीर्षक प्रविष्ट करा",
+    "please_enter_rejection_description":"कृपया नकार वर्णन प्रविष्ट करा"
+  },
   "setRule": {
     "set_rule": "सेट नियम",
     "add_rule": "नियम जोडा",
