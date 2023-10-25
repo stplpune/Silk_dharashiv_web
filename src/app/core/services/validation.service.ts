@@ -23,7 +23,7 @@ export class ValidationService {
   longValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
   marathiNumericAndspecialChar = /^[\u0900-\u0965?~`!@#$%^&*()\[\]\-+_={}|;:\\<,>.?\/ 0-9]+$/;
   englishNumericAndspecialChar = /^[a-zA-Z?~`!@#$%^&*()-_+={}[\]:|\\;"'<,>.?\/ 0-9]*$/;
-  digitsWithDots ='^([0-9 .])'
+  numericWithdecimaluptotwoDigits='^[0-9][0-9]*[.]?[0-9]{0,2}$';
  
 
   marathiNumericspecialChar(event: any) {

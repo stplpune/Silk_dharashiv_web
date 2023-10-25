@@ -19,6 +19,7 @@ import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-add-market-rate',
@@ -36,7 +37,7 @@ export class AddMarketRateComponent {
   editFlag : boolean = false;
   lang: any;
   subscription!: Subscription;
-
+  maxDate = new Date();
 
   constructor(private fb: FormBuilder,
     private apiService: ApiService,
@@ -47,7 +48,8 @@ export class AddMarketRateComponent {
     private errorHandler: ErrorHandlingService,
     public WebStorageService: WebStorageService,
     public validator: ValidationService,
-  ) { }
+    private dateAdapter: DateAdapter<Date>
+  ) { this.dateAdapter.setLocale('en-GB')}
   get f() { return this.marketForm.controls }
   @ViewChild('formDirective') private formDirective!: NgForm;
   ngOnInit() {
@@ -66,10 +68,10 @@ export class AddMarketRateComponent {
       "shetmalCastId": [this.data?.shetmalCastId || '', [Validators.required]],
       "marketRateDate": [this.data?.marketRateDate || '', [Validators.required]],
       "unitId": [this.data?.unitId || '', [Validators.required]],
-      "minRate": [this.data?.minRate || '', [Validators.required, this.validator.maxLengthValidator(10)]],
-      "maxRate": [this.data?.maxRate || '', [Validators.required, this.validator.maxLengthValidator(10)]],
-      "averageRate": [this.data?.averageRate || '', [Validators.required, this.validator.maxLengthValidator(10)]],
-      "income": [this.data?.income || '', [Validators.required, this.validator.maxLengthValidator(10)]],
+      "minRate": [this.data?.minRate || '', [Validators.required,Validators.pattern(this.validator.numericWithdecimaluptotwoDigits), this.validator.maxLengthValidator(10)]],
+      "maxRate": [this.data?.maxRate || '', [Validators.required,Validators.pattern(this.validator.numericWithdecimaluptotwoDigits), this.validator.maxLengthValidator(10)]],
+      "averageRate": [this.data?.averageRate || '', [Validators.required,Validators.pattern(this.validator.numericWithdecimaluptotwoDigits), this.validator.maxLengthValidator(10)]],
+      "income": [this.data?.income || '', [Validators.required,Validators.pattern(this.validator.numericWithdecimaluptotwoDigits), this.validator.maxLengthValidator(10)]],
       "createdBy": [0],
       "flag": [this.data ? 'u' : 'i']
     })
@@ -126,6 +128,7 @@ export class AddMarketRateComponent {
       return
     } else {
       this.spinner.show();
+      formvalue.marketRateDate=this.commonMethod.setDate( formvalue?.marketRateDate)
       this.apiService.setHttp('POST', 'sericulture/api/MarketPrice/AddUpdateMarketRate?lan=' + this.lang, false, formvalue, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {

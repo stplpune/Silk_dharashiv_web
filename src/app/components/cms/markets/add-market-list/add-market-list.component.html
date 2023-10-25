@@ -79,7 +79,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'common.state' | translate}}</mat-label>
         <mat-select formControlName="stateId" (selectionChange)="getDistrict()"
-          [class]="marketFrm.controls['stateId'].disable({ onlySelf: true })">
+        [class]="WebStorageService.getStateId() ? a['stateId'].disable({ onlySelf: true }) : a['stateId'].enable({ onlySelf: true })">
           <mat-option *ngFor="let state of stateArray" [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
         </mat-select>
       </mat-form-field>

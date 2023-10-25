@@ -38,7 +38,7 @@ export class MarketsComponent {
     private masterService: MasterService,
     private errorHandler: ErrorHandlingService,
     private commonMethod: CommonMethodsService,
-    private WebStorageService: WebStorageService,
+    public WebStorageService: WebStorageService,
     public validation: ValidationService,) { }
 
   ngOnInit() {
@@ -54,8 +54,8 @@ export class MarketsComponent {
 
   formData() {
     this.filterFrm = this.fb.group({
-      stateId: [this.apiService.stateId],
-      districtId: [this.apiService.disId],
+      stateId: [this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],
+      districtId: [ this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],
       talukaId: [''],
       textSearch: ['']
     })
