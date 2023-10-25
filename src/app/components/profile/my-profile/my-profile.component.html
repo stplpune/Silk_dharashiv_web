@@ -13,19 +13,30 @@
     <div class="col-sm-4">
       <div class="d-flex align-items-center justify-content-center">
         <div class="profile-pic position-relative">
-          <img src="assets/images/user.png" class="">
-          <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" #uploadDocument />
+          <img [src]="profilDetailsArr?.profileImagePath ?  profilDetailsArr?.profileImagePath : imageRes ? imageRes : 'assets/images/user.png'" class="">
+          <!-- <img [src]="profilDetailsArr?.profileImagePath" class=""> -->
+          <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" #uploadDocument 
+          (change)="imageUplod($event)" />
           <div class="profile-btn text-center">
-            <input type="file" class="profile-upload d-none">
-            <!-- <button type="button" mat-icon-button class="btn text-primary add-btn">
-              <mat-icon class="material-symbols-outlined">add</mat-icon>
-            </button> -->
+            <input type="file" class="profile-upload d-none"  >
+            <button type="button" mat-icon-button class="btn text-primary add-btn" (click)="uploadDocument.click()">
+              <!-- <mat-icon class="material-symbols-outlined">add</mat-icon> -->
+              <span class="material-symbols-rounded text-warning">
+                edit_square
+            </span>
+            </button>
             <!-- <button type="button" mat-icon-button class="btn text-danger">
               <mat-icon class="material-symbols-outlined">delete</mat-icon>
             </button> -->
+<!--        <button mat-icon-button class=" btn-icon bg-danger bg-opacity-10" (click)="setProfilePhoto()">
+              <span class="material-symbols-rounded text-primary">
+                  upload
+              </span>
+          </button>  -->
           </div>
         </div>
       </div>
+
     </div>
     <div class="col-sm-8">
       <div class="row gx-2">
@@ -33,31 +44,31 @@
           <div class="form-label">Name</div>
         </div>
         <div class="col-sm-8">
-          <div class="form-data">: Arti Wakure</div>
+          <div class="form-data">: {{lang == 'en' ?  (profilDetailsArr?.name || '-') : (profilDetailsArr?.m_Name || '-')}}</div>
         </div>
         <div class="col-sm-3">
           <div class="form-label">Designation</div>
         </div>
         <div class="col-sm-8">
-          <div class="form-data">: Admin</div>
+          <div class="form-data">:{{lang == 'en' ?  (profilDetailsArr?.designationName || '-') : (profilDetailsArr?.m_DesignationName || '-')}}</div>
         </div>
         <div class="col-sm-3">
           <div class="form-label">Department</div>
         </div>
         <div class="col-sm-8">
-          <div class="form-data">: Sericulture</div>
+          <div class="form-data">: {{lang == 'en' ?  (profilDetailsArr?.departmentName || '-') : (profilDetailsArr?.m_DepartmentName || '-')}}</div>
         </div>
         <div class="col-sm-3">
           <div class="form-label">Mobile No.</div>
         </div>
         <div class="col-sm-8">
-          <div class="form-data">: +91-8669264767</div>
+          <div class="form-data">: {{(profilDetailsArr?.mobNo1 || '-')}}</div>
         </div>
         <div class="col-sm-3">
           <div class="form-label">Email ID</div>
         </div>
         <div class="col-sm-8">
-          <div class="form-data">: artiwakure@gmail.com</div>
+          <div class="form-data">: {{(profilDetailsArr?.emailId || '-')}}</div>
         </div>
       </div>
     </div>
