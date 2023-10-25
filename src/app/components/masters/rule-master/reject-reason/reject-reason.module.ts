@@ -14,7 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { AddRejectReasonComponent } from './add-reject-reason/add-reject-reason.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
-
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   declarations: [
     RejectReasonComponent,
@@ -32,7 +32,8 @@ import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.c
     MatTableModule,
     MatButtonModule,
     ReactiveFormsModule,
-    GlobalTableComponent
+    GlobalTableComponent,
+    TranslateModule
   ]
 })
 export class RejectReasonModule { }

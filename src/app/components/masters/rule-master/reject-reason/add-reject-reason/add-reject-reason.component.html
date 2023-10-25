@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">{{editFlag?'Update Reject Reson':'Add Reject Reson'}}</div>
+    <div class="text-main">{{editFlag?('rejectReason.update_reject_reason'|translate):('rejectReason.add_reject_reason'|translate)}}</div>
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
     </button>
@@ -11,23 +11,21 @@
   <div class="row">
     <div class="col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Select Stage/Action</mat-label>
+        <mat-label>{{'rejectReason.all_stage_action'|translate}}</mat-label>
         <mat-select formControlName="actionId">
           <mat-option *ngFor="let data of actionResp" [value]="data.id">{{lang == 'en' ?
             data.textEnglish : data.textMarathi}}</mat-option>
         </mat-select>
-        <mat-error class="text-danger" *ngIf="f['actionId'].hasError('required')">Please Select
-          Stage/Action
+        <mat-error class="text-danger" *ngIf="f['actionId'].hasError('required')">{{'rejectReason.please_select_action'|translate}}
       </mat-error>
       </mat-form-field>
     </div>
     <div class="col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Enter Rejection Title</mat-label>
+        <mat-label>{{'rejectReason.enter_rejection_title'|translate}}</mat-label>
         <input matInput placeholder="" formControlName="rejectionTitle"
         (keypress)="validation.noSpaceAllow($event)">
-        <mat-error class="text-danger" *ngIf="f['rejectionTitle'].hasError('required')">Please Enter
-          Rejection Title
+        <mat-error class="text-danger" *ngIf="f['rejectionTitle'].hasError('required')">{{'rejectReason.please_enter_rejection_title'|translate}}
       </mat-error>
       <mat-error class="text-danger" *ngIf="f['rejectionTitle'].hasError('maxLengthExceeded')">Maximum
         Limit is 100 Character
@@ -36,11 +34,10 @@
     </div>
     <div class="col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Enter Rejection Description</mat-label>
+        <mat-label>{{'rejectReason.enter_rejection_description'|translate}}</mat-label>
         <textarea matInput placeholder="" rows="3" formControlName="description"
         (keypress)="validation.noSpaceAllow($event)"></textarea>
-        <mat-error class="text-danger" *ngIf="f['description'].hasError('required')">Please Enter
-          Rejection Description
+        <mat-error class="text-danger" *ngIf="f['description'].hasError('required')">{{'rejectReason.please_enter_rejection_description'|translate}}
       </mat-error>
       <mat-error class="text-danger" *ngIf="f['description'].hasError('maxLengthExceeded')">Maximum
         Limit is 500 Character
@@ -50,8 +47,8 @@
   </div>
   <div mat-dialog-actions class="modal-footer">
     <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-      <button mat-flat-button type="button" class="btn-main-light" (click)="clearForm()" >Clear</button>
-      <button mat-flat-button type="submit" class="btn-main">{{editFlag?'Update':'Save'}}</button>
+      <button mat-flat-button type="button" class="btn-main-light" (click)="clearForm()" >{{'department.clear'|translate}}</button>
+      <button mat-flat-button type="submit" class="btn-main">{{editFlag?('department.update'|translate):('department.add'|translate)}}</button>
     </div>
   </div>
 </form>
