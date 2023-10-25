@@ -13,7 +13,6 @@ const routes: Routes = [
   // { path: 'ref', component: ReferanceComponent },// For Testing purpose
   { path: '', canActivate: [CheckLoggedInGuard], component: PublicComponent, loadChildren: () => import('./layouts/public/public.module').then(m => m.PublicModule) },
   { path: '', canActivate: [AuthGuard], component: SecureComponent, loadChildren: () => import('./layouts/secure/secure.module').then(m => m.SecureModule) },
-  { path: 'grainage', loadChildren: () => import('./components/masters/office-master/grainage/grainage.module').then(m => m.GrainageModule) },
   { path: '**', component: ErrorComponent }
 ];
 
