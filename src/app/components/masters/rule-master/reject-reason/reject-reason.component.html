@@ -11,21 +11,21 @@
     </div>
   </mat-card-header>
   <mat-card-content class="card-body">
+    <form [formGroup]="filterFrm" (ngSubmit)="onSubmit()">
     <div class="row gx-2">
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>All Stage/Action</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-            <mat-option>Option 2</mat-option>
-            <mat-option>Option 3</mat-option>
+          <mat-select formControlName="actionId">
+            <mat-option *ngFor="let data of actionResp" [value]="data.id">{{data.textEnglish}}</mat-option>
+            
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Search by Reject Title</mat-label>
-          <input matInput placeholder="">
+          <input matInput placeholder="" formControlName="textSearch">
         </mat-form-field>
       </div>
       <div class="col-sm-auto">
@@ -43,8 +43,9 @@
         </div>
       </div>
     </div>
+    </form>
     <div class="table-responsive scrollbar">
-      table
+      <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
     </div>
   </mat-card-content>
 </mat-card>

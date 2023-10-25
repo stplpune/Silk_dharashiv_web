@@ -12,7 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { AddRejectReasonComponent } from './add-reject-reason/add-reject-reason.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { AddRejectReasonComponent } from './add-reject-reason/add-reject-reason.
     MatInputModule,
     MatIconModule,
     MatTableModule,
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule,
+    GlobalTableComponent
   ]
 })
 export class RejectReasonModule { }
