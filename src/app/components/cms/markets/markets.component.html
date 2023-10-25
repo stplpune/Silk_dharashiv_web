@@ -17,8 +17,9 @@
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'common.state' | translate}}</mat-label>
-              <mat-select formControlName="stateId" [class]="filterFrm.controls['stateId'].disable({ onlySelf: true })">
-                <mat-option *ngFor="let state of stateArray"
+              <mat-select formControlName="stateId" 
+              [class]="WebStorageService.getStateId() ? filterFrm.controls['stateId'].disable({ onlySelf: true }) : filterFrm.controls['stateId'].enable({ onlySelf: true })">
+              <mat-option *ngFor="let state of stateArray"
                   [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -26,7 +27,8 @@
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'common.district' | translate}}</mat-label>
-              <mat-select formControlName="districtId" [class]="filterFrm.controls['districtId'].disable({ onlySelf: true })">
+              <mat-select formControlName="districtId"
+              [class]="WebStorageService.getDistrictId() ? filterFrm.controls['districtId'].disable({ onlySelf: true }) : filterFrm.controls['districtId'].enable({ onlySelf: true })">
                 <mat-option *ngFor="let district of districtArray"
                     [value]="district.id">{{lang == 'en' ? district.textEnglish : district.textMarathi}}</mat-option>
                 </mat-select>

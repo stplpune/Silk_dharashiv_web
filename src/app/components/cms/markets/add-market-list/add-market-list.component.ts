@@ -48,6 +48,7 @@ export class AddMarketListComponent {
   ) { this.dateAdapter.setLocale('en-GB') }
 
   ngOnInit() {
+    //console.log("this.WebStorageService.getDistrictId()",this.WebStorageService.getStateId())
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -69,7 +70,7 @@ export class AddMarketListComponent {
       "m_MarketName": [data ? data?.m_MarketName : '', [Validators.required, this.validation.maxLengthValidator(100), Validators.pattern(this.validation.marathi)]],
       "conactNo": [data ? data?.conactNo : '', [Validators.pattern(this.validation.mobile_No)]],
       "emailId": [data ? data?.emailId : '', [Validators.email, this.validation.maxLengthValidator(50)]],
-      "stateId": [data ? data?.stateId : this.apiService.stateId],
+      "stateId": [data ? data?.stateId : this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],
       "districtId": [data ? data?.districtId :  this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId(), [Validators.required]],
       "talukaId": [data ? data?.talukaId : '', [Validators.required]],
       "villageId": [data ? data?.villageId : ''],
@@ -193,7 +194,7 @@ export class AddMarketListComponent {
   getDistrict() {
     this.districtArray = [];
     let stateId = this.marketFrm.getRawValue()?.stateId;
-    console.log("stateId",stateId)
+    //console.log("stateId",stateId)
     if(stateId != 0){
     this.masterService.GetAllDistrict(stateId).subscribe({
       next: ((res: any) => {
