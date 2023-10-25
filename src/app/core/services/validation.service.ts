@@ -25,7 +25,7 @@ export class ValidationService {
   englishNumericAndspecialChar = '/^[a-zA-Z?~`!@#$%^&*()-_+={}[\]:|\\;"<,>.?\/ 0-9]*$/';
   numericWithdecimaluptotwoDigits='^[0-9][0-9]*[.]?[0-9]{0,2}$';
   alphaNumericWithSpacesWithDashSlashs = '^([a-zA-Z0-9/-])';
-
+  marathiAlphanumeric=('^[\u0900-\u09650-9 -][\u0900-\u09650-9 -]+$');
  
 
 
