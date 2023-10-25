@@ -1,8 +1,16 @@
 <div class="row g-3">
-  <div class="col-sm-8">
+  <div class="col-sm-12">
     <mat-card class="plain-card">
       <mat-card-header class="card-header">
-        <div class="text-main">{{"department.department" | translate}}</div>
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <div class="text-main">{{"department.department" | translate}}</div>
+          <button mat-flat-button class="btn-main" *ngIf="pageAccessObject?.writeRight == true" (click)="adddepartment()">
+            <mat-icon class="material-symbols-rounded">
+              add
+            </mat-icon>
+            {{"department.add_department" | translate}}
+          </button>
+        </div>
       </mat-card-header>
       <mat-card-header class="card-header-control">
         <form [formGroup]="filterFrm" class="w-100">
@@ -39,35 +47,5 @@
         </div>
       </mat-card-content>
     </mat-card>
-  </div>
-  <div class="col-sm-4">
-    <form [formGroup]="departmentFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
-      <div class="card plain-card">
-        <div class="card-header text-main">
-           {{editFlag ? ('department.update_department'|translate) : ('department.add_designation'|translate)}}
-        </div>
-        <div class="card-body">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{"department.departmentName_en" | translate}}</mat-label>
-            <input matInput formControlName="departmentName"  maxlength="30"
-              (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
-            <mat-error *ngIf="f['departmentName']?.hasError('required')">{{'department.department_required'|translate}} </mat-error>
-            <mat-error *ngIf="f['departmentName']?.hasError('maxLength')">{{'department.department_maxLength'|translate}} </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{"department.departmentName_mr" | translate}}</mat-label>
-            <input matInput formControlName="m_DepartmentName"  maxlength="30"
-              (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
-            <mat-error *ngIf="f['m_DepartmentName']?.hasError('required')">{{'department.department_required'|translate}} </mat-error>
-            <mat-error *ngIf="f['m_DepartmentName']?.hasError('maxLength')">{{'department.department_maxLength'|translate}} </mat-error>
-          </mat-form-field>
-          <div class="d-flex align-items-center justify-content-end gap-2">
-            <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">{{'department.clear'|translate}}</button>
-            <button mat-flat-button class="btn-main" type="submit">{{!editFlag ? ('department.add'|translate) :
-              ('department.update'|translate)}}</button>
-          </div>
-        </div>
-      </div>
-    </form>
   </div>
 </div>

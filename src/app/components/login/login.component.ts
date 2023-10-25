@@ -55,7 +55,7 @@ export class LoginComponent {
 
   defaultForm() {
     this.loginForm = this.fb.group({
-      userName: ['', [Validators.required]],
+      userName: ['', [Validators.required, Validators.pattern(this.validation.mobile_No),(this.validation.maxLengthValidator(30))]],
       password: ['', [Validators.required, Validators.pattern(this.validation.password)]],
       captcha: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]]
     })
@@ -92,8 +92,6 @@ export class LoginComponent {
       }
       this.apiService.setHttp('post', 'sericulture/api/Login/CheckLogin', false, obj, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
-        console.log(res);
-
         if (res.statusCode == "200") {
           this.spinner.hide();
           this.commonMethods.snackBar(res.statusMessage, 0);

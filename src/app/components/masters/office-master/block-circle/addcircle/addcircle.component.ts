@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgIf, NgFor} from '@angular/common';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';import {MatRadioModule} from '@angular/material/radio';
@@ -14,6 +14,9 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { BlockCircleComponent } from '../block-circle.component';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { Subscription } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
@@ -21,18 +24,17 @@ import { ValidationService } from 'src/app/core/services/validation.service';
   templateUrl: './addcircle.component.html',
   styleUrls: ['./addcircle.component.scss'],
   standalone: true,
-  imports: [MatFormFieldModule,MatButtonModule, MatSelectModule, FormsModule, ReactiveFormsModule, NgIf,MatInputModule, NgFor,MatRadioModule,MatIconModule,MatDialogModule],
+  imports: [MatFormFieldModule,MatButtonModule, MatSelectModule, FormsModule, ReactiveFormsModule, NgIf,MatInputModule, NgFor,MatRadioModule,MatIconModule,MatDialogModule,TranslateModule],
 })
 export class AddcircleComponent {
-  toppings = new FormControl('');
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-
   addBlockForm !: FormGroup;
   stateArr = new Array();
   districtArr = new Array();
   talukaArr = new Array();
   villageArr = new Array();
-
+  lang:any;
+  subscription!: Subscription;
+  viewFlag : boolean = false;
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -41,6 +43,7 @@ export class AddcircleComponent {
     private masterService: MasterService,
     private errorHandler: ErrorHandlingService,
     public validator: ValidationService,
+    public WebStorageService : WebStorageService,    
     public dialogRef: MatDialogRef<BlockCircleComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     
@@ -48,21 +51,23 @@ export class AddcircleComponent {
   get f() { return this.addBlockForm.controls }
 
   ngOnInit() {
-    this.formData();
-    this.getState();
-    this.getTaluka();
-    console.log("data",this.data); 
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+    })
+    this.viewFlag = this.data?.label == "View" ? true : false;
+    !this.viewFlag ? (this.formData(),this.getState()) : ''
   }
 
   formData(){
     this.addBlockForm = this.fb.group({
       "id": [this.data?.id || 0],
-      "blockName": [this.data?.blockName || '',[Validators.required]],
-      "m_BlockName": [this.data?.m_BlockName || '',[Validators.required]],
-      "stateId": [0],
-      "districtId": [0],
+      "blockName": [this.data?.blockName || '',[Validators.required,Validators.pattern(this.validator.fullName),this.validator.maxLengthValidator(30)]],
+      "m_BlockName": [this.data?.m_BlockName || '',[Validators.required,Validators.pattern(this.validator.marathi),this.validator.maxLengthValidator(30)]],
+      "stateId": [1],
+      "districtId": [1],
       "talukas": ['',[Validators.required]],
-      "createdBy": 0,
+      "createdBy": this.WebStorageService.getUserId(),
       "flag": [this.data ? "u" : "i"]
     })
   }
@@ -71,27 +76,27 @@ export class AddcircleComponent {
     this.masterService.GetAllState().subscribe({
       next: ((res: any) => {
         this.stateArr = res.responseData; 
-        this.data ? (this.f['stateId'].setValue(this.data.stateId),this.getDistrict()) : '';      
+        this.data ? (this.f['stateId'].setValue(this.data.stateId),this.getDistrict()) : this.getDistrict();      
       }),
       error: () => { this.stateArr = [];}
     })
   }
 
   getDistrict() {
-    let stateId = this.addBlockForm.value.stateId;
+    let stateId = this.addBlockForm.getRawValue().stateId;
     this.masterService.GetAllDistrict(stateId).subscribe({
       next: ((res: any) => {
         this.districtArr = res.responseData;
-        this.data ? (this.f['districtId'].setValue(this.data.districtId),this.getTaluka()) : ''; 
+        this.data ? (this.f['districtId'].setValue(this.data.districtId),this.getTaluka()) :this.getTaluka(); 
       }),
       error: () => { this.districtArr = [];}
     })
   }
 
   getTaluka(){
-    // let stateId = this.addBlockForm.value.stateId;
-    // let districtId = this.addBlockForm.value.districtId;
-    this.masterService.GetAllTaluka(0,0,0).subscribe({
+    let stateId = this.addBlockForm.getRawValue().stateId;
+    let districtId = this.addBlockForm.getRawValue().districtId;
+    this.masterService.GetAllTaluka(stateId,districtId,0).subscribe({
       next: ((res: any) => {
         this.talukaArr = res.responseData;
         let taluka = new Array()
@@ -103,29 +108,13 @@ export class AddcircleComponent {
       error: () => { this.talukaArr = [];}
     })
   }
-
-  // getVillage(){
-  //   let stateId = 0;
-  //   let districtId = 0;
-  //   let talukaId = 0;
-  //   this.masterService.GetAllVillage(stateId,districtId,talukaId,0).subscribe({
-  //     next: ((res: any) => {
-  //       this.villageArr = res.responseData;
-  //     }),
-  //     error: () => { this.villageArr = [];}
-  //   })
-  // }
-
   onSubmit() {
-   let talukaaa =  this.addBlockForm.value.talukas.toString();
-   this.addBlockForm.value.talukas =talukaaa
-    let formvalue = this.addBlockForm.value;
+    let formvalue = this.addBlockForm.getRawValue();
+    formvalue.talukas = this.addBlockForm.value.talukas.toString();
     if (this.addBlockForm.invalid) {
       return
     } else {  
-      console.log("formValue",formvalue);
-          
-      this.apiService.setHttp('POST', 'sericulture/api/TalukaBlocks/AddUpdateTalukaBlocks', false, formvalue, false, 'masterUrl');
+      this.apiService.setHttp('POST', 'sericulture/api/TalukaBlocks/AddUpdateTalukaBlocks?lan='+this.lang, false, formvalue, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {

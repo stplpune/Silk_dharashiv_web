@@ -9,7 +9,7 @@ export class MasterService {
 
   constructor(private apiService:ApiService ) { }
 
-    GetAllSchemeType(){
+  GetAllSchemeType(){
     return new Observable((obj)=>{
       this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetAllSchemeType', false, false, false, 'masterUrl')
       this.apiService.getHttp().subscribe({
@@ -129,6 +129,38 @@ export class MasterService {
       })
     })
   }
+
+  GetLevelApproval(){
+    return new Observable((obj)=>{
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-MasterLevelApproval', false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  GetModule(){
+    return new Observable((obj)=>{
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-MainMenu', false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  GetSubModule(moduleId:number){
+    return new Observable((obj)=>{
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-SubMenu?MenuId='+moduleId, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+
 
 }
 

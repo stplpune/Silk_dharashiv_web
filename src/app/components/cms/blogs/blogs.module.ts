@@ -14,6 +14,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { AddBlogsComponent } from './add-blogs/add-blogs.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -33,7 +37,12 @@ import { AddBlogsComponent } from './add-blogs/add-blogs.component';
     MatButtonModule,
     MatSelectModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    AngularEditorModule,
+    FormsModule,
+    ReactiveFormsModule,
+    GlobalTableComponent,
+    TranslateModule
   ]
 })
 export class BlogsModule { }

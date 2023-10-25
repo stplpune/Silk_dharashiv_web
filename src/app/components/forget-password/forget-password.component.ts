@@ -49,7 +49,7 @@ export class ForgetPasswordComponent {
 
   defaultSendOTPFrom() {
     this.sendOTPForm = this.fb.group({
-      mobileno: ['', [Validators.required, Validators.pattern(this.validation.mobile_No)]]
+      mobileno: ['', [Validators.required, Validators.pattern(this.validation.mobile_No),(this.validation.maxLengthValidator(10))]]
     })
   }
 
@@ -65,8 +65,8 @@ export class ForgetPasswordComponent {
 
   defaultchangepassword() {
     this.changePasswordfrm = this.fb.group({
-      newpassword: ['', [Validators.required, Validators.pattern(this.validation.password)]],
-      confirmPassword: ['', [Validators.required, Validators.pattern(this.validation.password)]],
+      newpassword: ['', [Validators.required, Validators.pattern(this.validation.password),(this.validation.maxLengthValidator(42))]],
+      confirmPassword: ['', [Validators.required, Validators.pattern(this.validation.password),(this.validation.maxLengthValidator(42))]],
     })
   }
 
@@ -91,8 +91,9 @@ export class ForgetPasswordComponent {
         "pageName": "forgotpassword",
         "createdBy": 0
       }
+     
 
-      this.apiService.setHttp('post', 'sericulture/api/Login/GenerateOTPtoforgotpassword', false, obj, false, 'baseUrl');
+      this.apiService.setHttp('post', 'sericulture/api/OtpTran/GenerateOTP', false, obj, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.commonMethods.snackBar(res.statusMessage, 0);

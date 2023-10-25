@@ -1,15 +1,23 @@
 <div class="row g-3">
-  <div class="col-sm-8">
+  <div class="col-sm-12">
     <mat-card class="plain-card">
       <mat-card-header class="card-header">
-        <div class="text-main">{{'scheme.scheme' | translate }}</div>
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <div class="text-main">{{'scheme.scheme' | translate }}</div>
+          <button mat-flat-button class="btn-main" (click)="addscheme()">
+            <mat-icon class="material-symbols-rounded">
+              add
+            </mat-icon>
+           {{'scheme.add_scheme' | translate}}
+          </button>
+        </div>
       </mat-card-header>
       <mat-card-header class="card-header-control">
         <div class="row g-2 w-100">
           <div class="col-sm-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'scheme.search_by_scheme_name' | translate }}</mat-label>
-              <input matInput [formControl]="filterForm" placeholder="Search Name"
+              <input matInput [formControl]="filterForm"
                 (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
             </mat-form-field>
           </div>
@@ -37,110 +45,5 @@
         </div>
       </mat-card-content>
     </mat-card>
-  </div>
-  <div class="col-sm-4">
-    <div class="card plain-card">
-      <div class="card-header text-main">
-        {{!data ? ('scheme.add_scheme' | translate ):('scheme.update_scheme' | translate )}}
-      </div>
-      <form [formGroup]="schemeForm" (ngSubmit)="onSubmitData()" #formDirective="ngForm">
-        <div class="card-body">
-          <div class="mb-0">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'scheme.scheme_namee' | translate }}</mat-label>
-              <input matInput placeholder="" formControlName="schemeType" minlength="5" maxlength="100">
-              <mat-error *ngIf="f['schemeType']?.hasError('required')">{{'scheme.please_enter_scheme_name'|translate}}
-              </mat-error>
-              <mat-error *ngIf="f['schemeType']?.hasError('pattern')">
-                {{'scheme.please_enter_valid_scheme_name'|translate}} </mat-error>
-
-              <!-- <mat-error *ngIf="f['schemeType']?.errors">
-                <span class="text-danger" *ngIf="f['schemeType']?.hasError('required')">
-                  Please Enter Scheme Name
-                </span>
-                <span class="text-danger" *ngIf="f['schemeType']?.hasError('minlength') || f['schemeType']?.hasError('pattern')">
-                  {{f['schemeType'].hasError('minlength') ? 'Please enter minimum 5 character Scheme name' : 'Please
-                  enter valid Scheme name'}}
-                </span>
-              </mat-error> -->
-            </mat-form-field>
-          </div>
-          <div class="row gx-2">
-            <div class="col-sm-6">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>{{'scheme.select_state' | translate }}</mat-label>
-                <mat-select formControlName="stateId" (selectionChange)="getDisrict()">
-                  <mat-option *ngFor="let st of stateArray" [value]="st.id">{{lang != 'en' ? st.textMarathi
-                    :st.textEnglish}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-6">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>{{'scheme.select_district' | translate }}</mat-label>
-                <mat-select formControlName="districtId">
-                  <mat-option *ngFor="let dist of districtArray" [value]="dist.id">{{lang != 'en' ? dist.textMarathi
-                    :dist.textEnglish}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-12">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>{{'scheme.scheme_namemr' | translate }}</mat-label>
-                <input matInput placeholder="" formControlName="m_SchemeType"
-                  (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
-                <mat-error *ngIf="f['m_SchemeType']?.hasError('required')">
-                  {{'scheme.please_enter_scheme_name_mr'|translate}} </mat-error>
-              </mat-form-field>
-            </div>
-          </div>
-          <!-- <div class="mb-0">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'scheme.scheme_description' | translate }}</mat-label>
-              <input matInput placeholder="" formControlName="schemeInfo" maxlength="5000" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
-              <mat-error *ngIf="f['schemeInfo']?.hasError('required')">{{'scheme.please_enter_scheme_description'|translate}} </mat-error>
-              
-            </mat-form-field>
-          </div> -->
-          <div class="mb-3">
-            <div class="form-label">{{'scheme.scheme_description' | translate }}</div>
-            <angular-editor formControlName="schemeInfo" [config]="editorConfig" placeholder="{{'scheme.scheme_description' | translate }}">
-              <mat-error *ngIf="f['schemeInfo']?.hasError('required')">
-                {{'scheme.please_enter_scheme_description'|translate}} </mat-error>
-            </angular-editor>
-          </div>
-          <div class="mb-0">
-            <div class="file-upload border rounded-2 p-1">
-              <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                (click)="uplodLogo.click()" data-placement="right">
-                {{'scheme.scheme_logo' | translate }}
-              </button>
-              <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" (change)="imageUplod($event)"/>
-
-              <div class="d-flex gap-2">
-                <button type="button" *ngIf="imageResponse" mat-flat-button
-                  class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view" (click)="viewimage()">
-                  <mat-icon class="material-symbols-rounded">
-                    preview
-                  </mat-icon>
-                </button>
-                <button type="button" *ngIf="imageResponse" (click)="deleteImage()" mat-flat-button
-                  class="bg-danger-subtle text-danger btn-icon btn-action" matTooltip="delete">
-                  <mat-icon class="material-symbols-rounded">
-                    delete
-                  </mat-icon>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex align-items-center justify-content-end gap-2 my-2">
-            <button mat-flat-button class="btn-main-light" type="button" (click)="clearForm()">{{'scheme.clear' |
-              translate }}</button>
-            <button mat-flat-button class="btn-main" type="submit">{{!data ?('scheme.save' | translate )
-              :('scheme.update' | translate )}}</button>
-          </div>
-        </div>
-      </form>
-    </div>
   </div>
 </div>

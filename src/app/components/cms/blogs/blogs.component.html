@@ -1,30 +1,30 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
     <div class="d-flex align-items-center justify-content-between w-100">
-      <div class="text-main">Blogs</div>
+      <div class="text-main">{{"blogs.blogs" | translate}}</div>
       <button mat-flat-button class="btn-main" (click)="addblogs()">
         <mat-icon class="material-symbols-rounded">
           add
         </mat-icon>
-        Add Blog</button>
+        {{"blogs.add_Blog" | translate}}</button>
     </div>
   </mat-card-header>
   <mat-card-content class="card-body">
     <div class="row gx-2">
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Search</mat-label>
-          <input matInput placeholder="Search">
+          <mat-label>{{"blogs.search_by_title" | translate}}</mat-label>
+          <input matInput [formControl]="textsearch" (keyup.enter)="searchDataFlag=true;getTableData('filter')" (keypress)="validator.noFirstSpaceAllow($event)">
         </mat-form-field>
       </div>
       <div class="col-sm-auto">
         <div class="d-flex align-items-center gap-2">
-          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
-            <mat-icon class="material-symbols-rounded">
+          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button" (click)="searchDataFlag=true;getTableData('filter')">
+            <mat-icon class="material-symbols-rounded" >
               search
             </mat-icon>
           </button>
-          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="searchDataFlag=false;clearFilter()">
             <mat-icon class="material-symbols-rounded">
               close
             </mat-icon>
@@ -32,8 +32,8 @@
         </div>
       </div>
     </div>
-    <div class="table-responsive scrollbar">
-      Table
+    <div class="table-responsive scrollbar blogs-table" id="blogs-table">
+      <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
     </div>
   </mat-card-content>
 </mat-card>

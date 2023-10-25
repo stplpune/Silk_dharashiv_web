@@ -14,8 +14,9 @@ import { MatTableModule } from '@angular/material/table';
 import { AddMarketListComponent } from './add-market-list/add-market-list.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
-
+import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     MarketsComponent,
@@ -33,7 +34,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule,
     MatSelectModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    GlobalTableComponent,
+    MatDatepickerModule,
+    TranslateModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class MarketsModule { }

@@ -12,8 +12,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { SetRuleModalComponent } from './set-rule-modal/set-rule-modal.component';
 import {MatDialogModule} from '@angular/material/dialog';
-
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   declarations: [
     SetRuleComponent,
@@ -29,7 +30,10 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDialogModule,
     MatTableModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    ReactiveFormsModule,
+    GlobalTableComponent,
+    TranslateModule
   ]
 })
 export class SetRuleModule { }

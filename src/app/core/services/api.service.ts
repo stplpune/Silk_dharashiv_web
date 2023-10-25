@@ -8,6 +8,8 @@ import { Subject } from 'rxjs';
 })
 export class ApiService {
   tableData = new Subject<any>(); //all table set and set data using BehaviorSubject
+  stateId: number = 1; // maharashta
+  disId: number = 1 // 1 for dharashiv
   
   private httpObj: any = {
     type: '',
@@ -21,7 +23,7 @@ export class ApiService {
   getBaseurl(url: string) {
     switch (url) {
       case 'masterUrl': return this._configService.baseUrl; break;
-      case 'baseUrl': return 'https://demosilkapi.mahamining.com/'; break;
+      case 'baseUrl': return this._configService.baseUrl; break;
       default: return ''; break;
     }
   }

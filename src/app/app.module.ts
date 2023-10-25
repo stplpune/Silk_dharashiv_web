@@ -9,24 +9,19 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
- import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-//import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-//import { HttpClientModule } from '@angular/common/http';
 
 export function httpTranslateLoaderFactory(http: HttpClient) {
- // export HttpLoaderFactory function that allows NGX-Translate to dynamically load translation files from a server or 
-//local folder and make them available for translation.
+  // export HttpLoaderFactory function that allows NGX-Translate to dynamically load translation files from a server or 
+  //local folder and make them available for translation.
   return new TranslateHttpLoader(http);
 }
 @NgModule({
   declarations: [
     AppComponent,
-   // ForgetPasswordComponent,
-],
-    //GlobalTableComponent,
-    //  GlobalDialogComponent,
- 
+  ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,7 +30,6 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatSnackBarModule,
     HttpClientModule,
-    MatDialogModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -44,7 +38,7 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
       }
     })
   ],
-   providers: [DatePipe],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

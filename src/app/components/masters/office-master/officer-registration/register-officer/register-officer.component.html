@@ -1,206 +1,313 @@
-<div mat-dialog-title class="modal-header">
-  <div class="d-flex align-items-center justify-content-between">
-    <div class="text-main fw-bold">Register Officer</div>
-    <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
-      <mat-icon class="material-symbols-outlined">
+<ng-container *ngIf="!viewFlag">
+  <div mat-dialog-title class="modal-header">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="text-main fw-bold">{{!data ? ('officerreg.officer_Registration' | translate) :  ('officerreg.update_Officer' | translate)}}</div>
+      <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
+        <mat-icon class="material-symbols-outlined">
           close
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <mat-dialog-content class="modal-body">
+    <form [formGroup]="officeForm" (ngSubmit)="onSubmitData()" #formDirective="ngForm">
+      <div class="row gx-2">
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.department' | translate}}</mat-label>
+            <mat-select formControlName="departmentId">
+              <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang != 'en' ? department.textMarathi  :department.textEnglish}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="f['departmentId']?.hasError('required')">{{'common.Please_select_department'|translate}}  </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.designation_level' | translate}}</mat-label>
+            <mat-select formControlName="departmentLevelId"
+              (selectionChange)="dropDownCall(officeForm.value.departmentLevelId)">
+              <mat-option *ngFor="let level of departmentLevelArray" [value]="level.id">{{lang != 'en' ? level.textMarathi : level.textEnglish}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="f['departmentLevelId']?.hasError('required')">{{'common.Please_select_designation_level'|translate}}  </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 5) || (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3)
+       || (officeForm.value.departmentLevelId == 2) || (officeForm.value.departmentLevelId == 1)">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.state' | translate}}</mat-label>
+            <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
+              [class]="officeForm.controls['stateId'].disable({ onlySelf: true })">
+              <mat-option *ngFor="let state of stateArray" [value]="state.id">{{lang != 'en' ? state.textMarathi : state.textEnglish}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 5) || (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 2)
+      || (officeForm.value.departmentLevelId == 1)">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.district' | translate}}</mat-label>
+            <mat-select formControlName="districtId"
+              [class]="officeForm.controls['districtId'].disable({ onlySelf: true })">
+              <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ? district.textMarathi : district.textEnglish}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 2)">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.block' | translate}}</mat-label>
+            <mat-select formControlName="blockId">
+              <mat-option *ngFor="let block of blockArray" [value]="block.id">{{lang != 'en' ? block.textMarathi : block.textEnglish}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f['blockId']?.hasError('required')">{{'common.Please_select_block'|translate}}  </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6" *ngIf=" (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3)
+      || (officeForm.value.departmentLevelId == 1)">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.taluka' | translate}}</mat-label>
+            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('village');getVillage()">
+              <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi :taluka.textEnglish}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f['talukaId']?.hasError('required')">{{'common.Please_select_taluka'|translate}}  </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 1)">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.circle' | translate}}</mat-label>
+            <mat-select formControlName="circleId">
+              <mat-option *ngFor="let circle of circleArray" [value]="circle.id">{{lang != 'en' ? circle.textMarathi :circle.textEnglish}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f['circleId']?.hasError('required')">{{'common.Please_select_circle'|translate}}  </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 3)">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.village' | translate}}</mat-label>
+            <mat-select formControlName="villageId">
+              <mat-option *ngFor="let village of villageArray" [value]="village.id">{{lang != 'en' ? village.textMarathi : village.textEnglish}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f['villageId']?.hasError('required')">{{'common.Please_select_village'|translate}}  </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.designation' | translate}}</mat-label>
+            <mat-select formControlName="designationId">
+              <mat-option *ngFor="let  designation of designationArray" [value]="designation.id">
+                {{lang != 'en' ? designation.textMarathi :  designation.textEnglish}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f['designationId']?.hasError('required')">{{'common.Please_select_designation'|translate}}  </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.officer_en' | translate}}</mat-label>
+            <input matInput formControlName="name"
+              (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
+            <mat-error *ngIf="officeForm.controls['name'].hasError('required')">{{'common.officer_Name_en'|translate}}</mat-error>
+            <mat-error *ngIf="officeForm.controls['name'].hasError('pattern')">{{'common.officer_Name_en_valid'|translate}}
+            </mat-error>
+            <mat-error *ngIf="officeForm.controls['name'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.officer_mr' | translate}}</mat-label>
+            <input matInput formControlName="m_Name"
+              (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
+            <mat-error *ngIf="officeForm.controls['m_Name'].hasError('required')">{{'common.officer_Name_mr'|translate}}</mat-error>
+            <mat-error *ngIf="officeForm.controls['m_Name'].hasError('pattern')">{{'common.address_Required_mr'|translate}}
+            </mat-error>
+            <mat-error *ngIf="officeForm.controls['m_Name'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label> {{'common.mobile' | translate}}</mat-label>
+            <input matInput formControlName="mobNo1" maxlength="10"
+              (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
+            <mat-error *ngIf="officeForm.controls['mobNo1'].hasError('required')">{{'common.please_enter_mobile_number'|translate}}</mat-error>
+            <mat-error *ngIf="officeForm.controls['mobNo1'].hasError('pattern')">{{'common.please_enter_valid_mobile_number'|translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label> {{'common.email' | translate}}</mat-label>
+            <input matInput formControlName="emailId"
+              (keypress)="validator.noFirstSpaceAllow($event);validator.emailRegex($event)">
+            <mat-error *ngIf="officeForm.controls['emailId'].hasError('required')">{{'common.please_enter_email_id'|translate}}</mat-error>
+            <mat-error *ngIf="officeForm.controls['emailId'].hasError('emailId')">{{'common.Please_enter_valid_email_id'|translate}}
+            </mat-error>
+            <mat-error *ngIf="officeForm.controls['emailId'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.address_en' | translate}}</mat-label>
+            <textarea matInput formControlName="address" (keypress)="validator.noFirstSpaceAllow($event)"
+              (keyup)="validator.alphaNumericWithSpacesAndSpecChars($event)" maxlength="100"></textarea>
+            <mat-error *ngIf="officeForm.controls['address'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
+              </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.address_mr' | translate}}</mat-label>
+            <textarea matInput formControlName="m_Address"
+              (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)"></textarea>
+          </mat-form-field>
+          <mat-error *ngIf="officeForm.controls['m_Address'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center justify-content-end gap-2">
+        <button mat-flat-button class="btn-main-light" type="button" mat-dialog-close="">{{'common.cancel' | translate}}</button>
+        <button mat-flat-button class="btn-main" type="submit">{{!data ? ('talukaBlock.save' | translate) : ('talukaBlock.update' | translate)}}</button>
+      </div>
+    </form>
+  </mat-dialog-content>
+</ng-container>
+<div class="div" *ngIf="viewFlag">
+  <div mat-dialog-title class="modal-header">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="text-main fw-bold">{{'officerreg.view_Officer' | translate}}</div>
+      <mat-icon class="material-symbols-rounded" mat-dialog-close="true">
+        close
       </mat-icon>
-  </button>
-  </div>
-</div>
-<mat-dialog-content class="modal-body">
-  <div class="row gx-2">
-    <div class="col-sm-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>All Department</mat-label>
-        <mat-select>
-          <mat-option>Option 1</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Level</mat-label>
-        <mat-select>
-          <mat-option>Option 1</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>State</mat-label>
-        <mat-select>
-          <mat-option>Option 1</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>District</mat-label>
-        <mat-select>
-          <mat-option>Option 1</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Designation</mat-label>
-        <mat-select>
-          <mat-option>Option 1</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label> Name</mat-label>
-        <input matInput placeholder="Enter Name">
-      </mat-form-field>
-    </div>
-    <div class="col-sm-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label> Mobile No.</mat-label>
-        <input matInput placeholder="Enter Name">
-      </mat-form-field>
-    </div>
-    <div class="col-sm-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label> Email ID</mat-label>
-        <input matInput placeholder="Enter Name">
-      </mat-form-field>
-    </div>
-    <div class="col-sm-12">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Address</mat-label>
-        <textarea matInput placeholder=""></textarea>
-      </mat-form-field>
     </div>
   </div>
-  <div class="d-flex align-items-center justify-content-end gap-2">
-    <button mat-flat-button class="btn-main-light">Cancel</button>
-    <button mat-flat-button class="btn-main">Add</button>
-  </div>
-</mat-dialog-content>
-
-
-
-
-
-<div mat-dialog-title class="modal-header">
-  <div class="d-flex align-items-center justify-content-between">
-    <div class="text-main fw-bold">View Officer</div>
-    <mat-icon class="material-symbols-rounded" mat-dialog-close="true">
-      close
-    </mat-icon>
-  </div>
-</div>
-<mat-dialog-content class="modal-body form-container">
-  <h2 class="page-heading mb-0 fw-bold my-2">Officer Details</h2>
-  <div class="d-flex align-items-center justify-content-center">
-    <div class="profile-pic position-relative">
-      <img src="assets/images/user.png" class="">
-      <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" #uploadDocument />
-      <div class="profile-btn text-center">
-        <input type="file" class="profile-upload d-none">
-        <button type="button" mat-icon-button class="btn text-primary add-btn">
-          <mat-icon class="material-symbols-outlined">add</mat-icon>
+  <!---------------------------------------------------------------------- View Data-------------------------------------------------------------------- -->
+  <mat-dialog-content class="modal-body form-container">
+    <h2 class="page-heading mb-0 fw-bold my-2">{{'officerreg.officer_Details' | translate}}</h2>
+    <div class="d-flex align-items-center justify-content-center">
+      <div class="profile-pic position-relative">
+        <img [src]=" data.profileImagePath ? data.profileImagePath : imageResponse? imageResponse :'assets/images/user.png'" class="">
+        <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" #uplodLogo
+          (change)="imageUplod($event)" />
+        <div class="profile-btn text-center">
+          <input type="file" class="profile-upload d-none">
+          <!-- <button type="button" mat-icon-button class="btn text-primary add-btn" (click)="uplodLogo.click()"> -->
+            <!-- <mat-icon class="material-symbols-outlined">add</mat-icon> -->
+          <!-- </button> -->
+          <!-- <button mat-icon-button class=" btn-icon bg-danger bg-opacity-10">
+            <span class="material-symbols-rounded text-danger">
+                delete
+            </span>
         </button>
-        <!-- <button type="button" mat-icon-button class="btn text-danger">
-          <mat-icon class="material-symbols-outlined">delete</mat-icon>
-        </button> -->
+        <button mat-icon-button class=" btn-icon bg-danger bg-opacity-10" (click)="onSubmitProfileData()">
+          <span class="material-symbols-rounded text-primary">
+              upload
+          </span>
+      </button> -->
+        </div>
       </div>
     </div>
-  </div>
-
-  <ol class="list-group list-group-numbered">
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-      <div class="ms-2 me-auto">
-        <div class=" form-label">Officer Name</div>
+    <ol class="list-group list-group-numbered">
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class=" form-label">Officer Name</div>
+        </div>
+        <span class="form-data">{{tableDataArray[0]?.name || '-'}}</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="form-label">Designation</div>
+        </div>
+        <span class="form-data">{{tableDataArray[0]?.designationName || '-'}}</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="form-label">Mobile No</div>
+        </div>
+        <span class="form-data">{{tableDataArray[0]?.mobNo1 || '-'}}</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="form-label">Email Id</div>
+        </div>
+        <span class="form-data">{{tableDataArray[0]?.emailId || '-'}}</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="form-label">Department</div>
+        </div>
+        <span class=" form-data">{{tableDataArray[0]?.departmentName || '-'}}</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="form-label">Department Level</div>
+        </div>
+        <span class="form-data">{{tableDataArray[0]?.departmentLevel || '-'}}</span>
+      </li>
+      <li class="list-group-item d-flex  justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="form-label">Address</div>
+        </div>
+        <span class="form-data">{{tableDataArray[0]?.address || '-'}}</span>
+      </li>
+    </ol>
+    <div class="page-heading mb-0 fw-bold my-2">{{'officerreg.work_Area' | translate}}</div>
+    <ol class="list-group list-group-numbered">
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="form-label">State</div>
+        </div>
+        <span class="form-data">{{tableDataArray[0]?.statId || '-'}}</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="form-label">District</div>
+        </div>
+        <span class="form-data">{{tableDataArray[0]?.district || '-'}}</span>
+      </li>
+    </ol>
+    <div class="page-heading mb-0 fw-bold my-2">{{'officerreg.account_Info' | translate}}</div>
+    <ol class="list-group list-group-numbered">
+      <!-- <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="form-label">Username</div>
+        </div>
+        <span class="form-data">{{tableDataArray[0]?.userName || '-'}}</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="form-label">Password</div>
+        </div>
+        <span class="form-data">Password@12345</span>
+      </li> -->
+      <div>
       </div>
-      <span class="form-data">Aarti Wakure</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-      <div class="ms-2 me-auto">
-        <div class="form-label">Designation</div>
-      </div>
-      <span class="form-data">Skill Development Officer</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-      <div class="ms-2 me-auto">
-        <div class="form-label">Mobile No</div>
-      </div>
-      <span class="form-data">8669264767</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-      <div class="ms-2 me-auto">
-        <div class="form-label">Email Id</div>
-      </div>
-      <span class="form-data">shaurya@gmail.com</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-      <div class="ms-2 me-auto">
-        <div class="form-label">Department</div>
-      </div>
-      <span class=" form-data">Sericulture</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-      <div class="ms-2 me-auto">
-        <div class="form-label">Department Level</div>
-      </div>
-      <span class="form-data">District</span>
-    </li>
-    <li class="list-group-item d-flex  justify-content-between align-items-start">
-      <div class="ms-2 me-auto">
-        <div class="form-label">Address</div>
-      </div>
-      <span class="form-data">7th Floor, Cybernex, 399, Shankar Sheth Rd, Swargate</span>
-    </li>
-  </ol>
-
-  <div class="page-heading mb-0 fw-bold my-2">Work Area</div>
-  <ol class="list-group list-group-numbered">
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-      <div class="ms-2 me-auto">
-        <div class="form-label">State</div>
-      </div>
-      <span class="form-data">Maharashtra</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-      <div class="ms-2 me-auto">
-        <div class="form-label">District</div>
-      </div>
-      <span class="form-data">Dharashiv</span>
-    </li>
-  </ol>
-
-
-  <div class="page-heading mb-0 fw-bold my-2">Account Info</div>
-  <ol class="list-group list-group-numbered">
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-      <div class="ms-2 me-auto">
-        <div class="form-label">Username</div>
-      </div>
-      <span class="form-data">8669264767</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-      <div class="ms-2 me-auto">
-        <div class="form-label">Password</div>
-      </div>
-      <span class="form-data">Password@12345</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-start text-success fw-bold">
-      <div class="ms-2 me-auto">
-        <div class="form-label">Status</div>
-      </div>
-      <span class="form-data fw-bold">Active</span>
-    </li>
-  </ol>
-
-
-
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <div class="d-flex align-items-center justify-content-end gap-2">
-    <button mat-flat-button class="btn-main-light">Cancel</button>
-    <button mat-flat-button class="btn-main">Add</button>
-  </div>
-</mat-dialog-actions>
+      <form [formGroup]="statusForm" (ngSubmit)="submitStatusData()">
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="ms-2 me-auto">
+            <div class="form-label">
+              <mat-form-field appearance="outline" class="w-100" [class]="statusForm.value.statusId == 0 ? sendData(statusForm.value.statusId) : '' ">
+                <mat-label>{{'officerreg.status' | translate}}</mat-label>
+                <mat-select formControlName="statusId" (selectionChange)="sendData(statusForm.value.statusId)"  >
+                  <mat-option *ngFor="let st of statusArray" [value]="st.id">{{st.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <span class="form-data" *ngIf="showFlag">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Remark</mat-label>
+              <input matInput formControlName="remark" placeholder="">
+            </mat-form-field>
+          </span>
+          <div class="d-flex align-items-center justify-content-end gap-2">
+            <button mat-flat-button class="btn-main-light" type="reset">{{'common.cancel' | translate}}</button>
+            <button mat-flat-button class="btn-main" type="submit">{{'talukaBlock.save' | translate}}</button>
+          </div>
+        </li>
+      </form>
+    </ol>
+  </mat-dialog-content>
+</div>

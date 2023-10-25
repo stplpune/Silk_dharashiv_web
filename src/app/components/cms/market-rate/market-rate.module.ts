@@ -13,11 +13,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+// import { AddMarketRateComponent } from './add-market-rate/add-market-rate.component';
 
 
 @NgModule({
   declarations: [
-    MarketRateComponent
+    MarketRateComponent,
+    // AddMarketRateComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +36,10 @@ import { MatTableModule } from '@angular/material/table';
     MatButtonModule,
     MatSelectModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    GlobalTableComponent,
+    ReactiveFormsModule,
+    TranslateModule
   ]
 })
 export class MarketRateModule { }

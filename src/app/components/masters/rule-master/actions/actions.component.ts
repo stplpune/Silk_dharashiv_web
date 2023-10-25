@@ -1,5 +1,5 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MasterService } from 'src/app/core/services/master.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -10,6 +10,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { AddActionComponent } from './add-action/add-action.component';
 
 @Component({
   selector: 'app-actions',
@@ -17,11 +18,8 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
   styleUrls: ['./actions.component.scss']
 })
 export class ActionsComponent implements OnDestroy{
-  actionFrm!: FormGroup;
   filterFrm!: FormGroup;
-  schemeArray = new Array();
   schemeFilterArr = new Array();
-  editFlag: boolean = false;
   tableDataArray = new Array();
   tableDatasize!: number;
   totalPages!: number;
@@ -30,8 +28,6 @@ export class ActionsComponent implements OnDestroy{
   searchDataFlag: boolean = false;
   subscription!: Subscription;//used  for lang conv
   lang: string = 'English';
-  @ViewChild('formDirective') private formDirective!: NgForm;
-  get f() { return this.actionFrm.controls };
   get fl() { return this.filterFrm.controls };
 
   constructor(private fb: FormBuilder,
@@ -45,27 +41,16 @@ export class ActionsComponent implements OnDestroy{
     public webStorage: WebStorageService
   ) { }
 
+
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
        this.setTableData();
     })
-    this.defaultFrm();
     this.filterDefaultFrm();
     this.getAllScheme();
     this.getTableData();
-  }
-
-  defaultFrm(data?: any) {
-    this.actionFrm = this.fb.group({
-      id: [data ? data.id : 0],
-      actionName: [data ? data.actionName : '', [Validators.required, Validators.pattern(this.validator.fullName), Validators.maxLength(50)]],
-      m_ActionName: [data ? data.m_ActionName : '', [Validators.required, Validators.pattern(this.validator.marathi), Validators.maxLength(50)]],
-      schemeTypeId: [data ? data.schemeTypeId : '', Validators.required],
-      description: [data ? data.description : '', Validators.maxLength(500)],
-      flag: [this.editFlag ? "u" : "i"]
-    })
   }
 
   filterDefaultFrm() {
@@ -78,9 +63,9 @@ export class ActionsComponent implements OnDestroy{
   getTableData(status?: any) {
     this.spinner.show();
     let formData = this.filterFrm.getRawValue();
-    status == 'filter' ? ((this.pageNumber = 1), this.defaultFrm(), this.searchDataFlag = true) : '';
+    status == 'filter' ? ((this.pageNumber = 1),  this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/Action/get-All-Action?SchemeTypeId=' + (formData?.schemeTypeId || 0) + str + '&TextSearch=' + (formData.textSearch.trim() || ''), false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Action/get-All-Action?SchemeTypeId=' + (formData?.schemeTypeId || 0) + str + '&TextSearch=' + (formData.textSearch.trim() || '')+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -89,7 +74,7 @@ export class ActionsComponent implements OnDestroy{
           this.totalPages = res.responseData1?.totalPages;
           this.tableDatasize = res.responseData1?.totalCount;
         } else {
-          this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
+          // this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
           this.spinner.hide();
           this.tableDataArray = [];
           this.tableDatasize = 0;
@@ -121,6 +106,7 @@ export class ActionsComponent implements OnDestroy{
       tableHeaders: displayedheaders,
       edit: true,
       delete: true,
+      view:true,
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
@@ -130,14 +116,14 @@ export class ActionsComponent implements OnDestroy{
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
-        this.editFlag = false;
-        this.clearFormData();
         this.searchDataFlag ? (this.fl['textSearch'].setValue(this.filterFrm.value.textSearch)) : (this.fl['textSearch'].setValue(''));
         this.getTableData();
         break;
       case 'Edit':
-        this.editFlag = true
-        this.onEditData(obj);
+        this.addactions(obj);
+        break;
+      case 'View':
+        this.addactions(obj);
         break;
       case 'Delete':
         this.globalDialogOpen(obj);
@@ -148,62 +134,40 @@ export class ActionsComponent implements OnDestroy{
   }
 
   getAllScheme() {
-    this.schemeArray = [];
+    this.schemeFilterArr = [];
     this.master.GetAllSchemeType().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
-          this.schemeArray = res.responseData;
           this.schemeFilterArr.unshift({ id: 0, textEnglish: "All Scheme", textMarathi: "सर्व योजना" }, ...res.responseData);
         } else {
           this.schemeFilterArr = [];
-          this.schemeArray = [];
         }
       },
     });
   }
 
-  onSubmitData() {
-    let formvalue = this.actionFrm.value;
-    if (this.actionFrm.invalid) {
-      return
-    } else {
-      this.spinner.show();
-      formvalue.id = Number(formvalue.id)
-      let mainData = {...formvalue,"createdBy":this.webStorage.getUserId()};
-      this.apiService.setHttp('POST', 'sericulture/api/Action/Insert-Update-Action', false, mainData, false, 'masterUrl');
-      this.apiService.getHttp().subscribe({
-        next: ((res: any) => {
-          if (res.statusCode == '200') {
-            this.common.snackBar(res.statusMessage, 0);
-            this.clearFormData();
-            this.defaultFrm();
-            this.filterFrm.controls['textSearch'].setValue('');
-            this.getTableData();
-            this.editFlag = false;
-          } else {
-            this.spinner.hide();
-            this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
-          }
-        }),
-        error: ((error: any) => {
-          this.spinner.hide()
-          this.errorService.handelError(error.status)
-        })
-      })
-    }
+  
+
+  addactions(obj?:any){
+    const dialogRef = this.dialog.open(AddActionComponent,{
+      width: '30%',
+      data: obj,
+      disableClose: true,
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      res == 'Yes'? this.getTableData() : '';
+      this.highLightRowFlag = false;
+    });
   }
 
-  onEditData(receiveObj: any) {
-    this.editFlag = true;
-    this.defaultFrm(receiveObj);
-  }
 
   openBlockDialog(obj?: any) {
-      let userEng = obj.status == false ?'Block' : 'Unblock';
-      let userMara = obj.status == false ?'ब्लॉक' : 'अनब्लॉक';
+      let userEng = obj.status == false ?'Active' : 'Deactive';
+      let userMara = obj.status == false ?'सक्रिय' : 'निष्क्रिय';
       let dialoObj = {
         header: this.lang == 'mr-IN' ? 'कृती ' +userMara+ ' करा'  : userEng+' Action',
-        title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेली कृती '+userMara+' करू इच्छिता' : 'Do You Want To ' + userEng + ' The Selected Action?',
+        title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेली कृती '+userMara+' करू इच्छिता ?' : 'Do You Want To ' + userEng + ' The Selected Action ?',
         cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
         okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
     }
@@ -214,13 +178,13 @@ export class ActionsComponent implements OnDestroy{
       autoFocus: false
     })
     deleteDialogRef.afterClosed().subscribe((result: any) => {
-      result == 'Yes' ? this.blockAction(obj) : this.getTableData();
+      result == 'Yes' ? this.blockAction(obj) : '';
     })
   }
 
   blockAction(obj: any) {
     let status = !obj.status
-    this.apiService.setHttp('PUT', 'sericulture/api/Action/ActionStatus?Id=' + obj.id + '&Status=' + status, false, false, false, 'masterUrl');
+    this.apiService.setHttp('PUT', 'sericulture/api/Action/ActionStatus?Id=' + obj.id + '&Status=' + status+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         res.statusCode == "200" ? (this.common.snackBar(res.statusMessage, 0), this.getTableData()) : this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -247,14 +211,12 @@ export class ActionsComponent implements OnDestroy{
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('DELETE', 'sericulture/api/Action/DeleteAction?Id=' + (delDataObj.id || 0), false, delDataObj, false, 'masterUrl');
+        this.apiService.setHttp('DELETE', 'sericulture/api/Action/DeleteAction?Id=' + (delDataObj.id || 0)+'&lan='+this.lang, false, delDataObj, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
               this.common.snackBar(res.statusMessage, 0);
               this.getTableData();
-              this.clearFormData();
-              this.editFlag = false;
             } else {
               this.common.snackBar(res.statusMessage, 1);
             }
@@ -274,12 +236,6 @@ export class ActionsComponent implements OnDestroy{
     this.getTableData();
     this.pageNumber = 1;
     this.searchDataFlag = false;
-  }
-
-  clearFormData() { // for clear Form field
-    this.editFlag = false;
-    this.formDirective?.resetForm();
-    this.defaultFrm();
   }
 
   ngOnDestroy() {

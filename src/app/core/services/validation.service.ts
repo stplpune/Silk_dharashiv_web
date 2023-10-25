@@ -1,24 +1,75 @@
 import { Injectable } from '@angular/core';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ValidationService {
-  name = ('^[a-zA-Z]+$');
+  name = '^[a-zA-Z]+$';
   fullName = ('^[a-zA-Z][a-zA-Z ]*$');
+  fullNamequetion = ('^[a-zA-Z?][a-zA-Z? !@#$%^&*0-9]*$');
   email = ('^[a-zA-Z0-9][a-zA-Z0-9._-]+[a-zA-Z0-9]+@([a-z.]+[.])+[a-z]{2,5}$');
   mobile_No = ('[6-9]\\d{9}');
   aadhar_card = ('^[2-9][0-9]{11}$');
   password =('^(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{8,20}$');
   panNumber = '[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}';
   marathi=('^[\u0900-\u0965 ]+$');
+  marathiquestion=('^[\u0900-\u0965? !@#$%^&*0-9]+$');
   alphabetWithSpace = '^[a-zA-Z][a-zA-Z ]*$';
-  alphaNumericWithSpace = '^[a-zA-Z0-9 ][a-zA-Z0-9 ]*$'
+  alphaNumericWithSpace = '^[a-zA-Z0-9 -][a-zA-Z0-9 -]*$';
+  valPinCode = '^[1-9][0-9]{5}$';
+  alphabetsWithSpecChar = `^([a-zA-Z0-9 /(,)&.+-=\n'])*$`;
+  latValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
+  longValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
+  marathiNumericAndspecialChar = /^[\u0900-\u0965?~`!@#$%^&*()\[\]\-+_={}|;:\\<,>.?\/ 0-9]+$/;
+  englishNumericAndspecialChar = /^[a-zA-Z?~`!@#$%^&*()-_+={}[\]:|\\;"'<,>.?\/ 0-9]*$/;
+
+
+  marathiNumericspecialChar(event: any) {
+    const maskSeperator = new RegExp('^[\u0900-\u0965?~`!@#$%^&*()\\-+_={}\\[\\]:|;\\\\<,>.?/ 0-9]+$', 'g');
+    return maskSeperator.test(event.key);
+  }
+  
+
+  englishNumericspecialChar(event: any) {
+    const regexPattern = /^[a-zA-Z?~`!@#$%^&*()\-_+={}[\]:|;\\<,>.?\/ 0-9]*$/;
+    return regexPattern.test(event);
+  }
+  
+  
+  
+  maxLengthValidator(maxLength: number) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (control.value && control.value.length > maxLength) {
+        return { maxLengthExceeded: true };
+      }
+      return null;
+    };
+  }
+
+  alphaNumericWithSpacesAndSpecCharss(event: any) {
+    const maskSeperator = new RegExp('^([a-zA-Z0-9 -])', 'g');
+    return maskSeperator.test(event.key);
+  }
+
+  alphaNumericWithQuetion(event: any) {
+    if (!this.noSpacesAtStart(event)) {
+      return false
+    }
+    const maskSeperator = new RegExp('^([a-zA-Z0-9 ?!@#$%^&*0-9])', 'g');
+    return maskSeperator.test(event.key);
+  }
 
   alphabetsWithSpaces(event: any) {
     const maskSeperator = new RegExp('^([a-zA-Z ])', 'g');
     return maskSeperator.test(event.key);
   }
+
+  // latitude_longitude(event: any) {
+  //   const maskSeperator = new RegExp('^([1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$)', 'g');
+  //   return maskSeperator.test(event.key);
+  // }
+
   onlyAlphabetsWithSpace(event: any) {
     const maskSeperator = new RegExp('^([a-zA-Z])', 'g');
     return maskSeperator.test(event.key);
@@ -61,6 +112,11 @@ export class ValidationService {
 
   unicodeMarathiValidation(event: any) {
     const maskSeperator = new RegExp('[^\u0900-\u0965 ]+', 'm');
+    return !maskSeperator.test(event.key);
+  }
+
+  unicodeMarathiQuetionValidation(event: any) {
+    const maskSeperator = new RegExp('[^\u0900-\u0965? !@#$%^&*0-9]+', 'm');
     return !maskSeperator.test(event.key);
   }
   emailRegex(event: any) { //Email Validation
