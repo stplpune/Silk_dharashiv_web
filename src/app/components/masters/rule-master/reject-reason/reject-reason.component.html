@@ -11,7 +11,7 @@
     </div>
   </mat-card-header>
   <mat-card-content class="card-body">
-    <form [formGroup]="filterFrm" (ngSubmit)="onSubmit()" #formDirective="ngForm">
+    <form [formGroup]="filterFrm" (ngSubmit)="bindTable()" #formDirective="ngForm">
     <div class="row gx-2">
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">

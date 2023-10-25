@@ -69,14 +69,14 @@ export class RejectReasonComponent {
       })
     })
   }
-  onSubmit() { }
+  // onSubmit() { }
 
   bindTable(flag?:any) {
     this.spinner.show();
     flag == 'filter' ? (this.filterFlag = true, (this.pageNumber = 1)) :'';
     let formData = this.filterFrm.getRawValue();
     let str='PageNo='+this.pageNumber+'&PageSize=10';
-    this.apiService.setHttp('GET', 'sericulture/api/ Reject Reasons/GetAllRejectReasons?'+str+'&ActionId='+(formData.actionId || 0)+'&TextSearch='+(formData.textSearch || "")+'&lan=1', false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/ Reject Reasons/GetAllRejectReasons?'+str+'&ActionId='+(formData.actionId || 0)+'&TextSearch='+(formData.textSearch.trim() || "")+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
