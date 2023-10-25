@@ -87,9 +87,9 @@
         </div>
       </div>
       <div class="d-flex align-items-center justify-content-end gap-2">
-        <button mat-flat-button type="button" class="btn-main-light" type="button"
-          (click)="clearFormData()" mat-dialog-close>{{'villageCircle.clear'| translate}}</button>
-        <button mat-flat-button class="btn-main" type="submit">{{!data ? ('villageCircle.save'| translate) : ('faq.update'| translate)}}</button>
+        <button mat-flat-button type="button" class="btn-main-light" type="button" (click)="clearFormData()">
+          {{'villageCircle.clear'| translate}}</button>
+        <button mat-flat-button class="btn-main" type="submit">{{!data ? ('common.add'| translate) : ('faq.update'| translate)}}</button>
       </div>
     </form>
   </div>
