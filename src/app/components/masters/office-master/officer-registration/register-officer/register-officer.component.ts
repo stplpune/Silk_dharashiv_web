@@ -63,6 +63,9 @@ export class RegisterOfficerComponent {
     this.getstatusForm();
     this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(),
     this.getDepartmentLevel(),this.getDesignation());
+
+    console.log("data",this.data);
+    
   }
 
 
