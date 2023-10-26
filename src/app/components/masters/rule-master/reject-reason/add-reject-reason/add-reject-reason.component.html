@@ -27,6 +27,8 @@
         (keypress)="validation.noFirstSpaceAllow($event)">
         <mat-error class="text-danger" *ngIf="f['rejectionTitle'].hasError('required')">{{'rejectReason.please_enter_rejection_title'|translate}}
       </mat-error>
+      <mat-error class="text-danger" *ngIf="f['rejectionTitle'].hasError('pattern')">{{'rejectReason.please_enter_valid_rejection_title'|translate}}
+      </mat-error>
       <mat-error class="text-danger" *ngIf="f['rejectionTitle'].hasError('maxLengthExceeded')">Maximum
         Limit is 100 Character
     </mat-error>
