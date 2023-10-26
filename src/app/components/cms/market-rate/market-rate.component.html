@@ -42,10 +42,10 @@
             </mat-form-field>
           </div>
           <div class="col-sm-3">
-            <mat-form-field appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100" [class]="filterForm.value.fromDate ? this.f['toDate'].enable({ onlySelf: true }): this.f['toDate'].disable({ onlySelf: true })">
               <mat-label>{{'marketPrice.to_date'|translate}}</mat-label>
               <input matInput [matDatepicker]="picker" formControlName="toDate" (click)="picker.open()"
-               [min]="f['fromDate'].value" max="maxDate">
+               [min]="f['fromDate'].value" max="maxDate" >
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>

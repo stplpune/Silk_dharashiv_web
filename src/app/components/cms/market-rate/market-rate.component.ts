@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-market-rate',
@@ -37,8 +38,10 @@ export class MarketRateComponent {
     private errorHandler: ErrorHandlingService,
     public dialog: MatDialog,
     private fb: FormBuilder,
-    private WebStorageService: WebStorageService
-  ) { }
+    private WebStorageService: WebStorageService,
+    private dateAdapter: DateAdapter<Date>,
+  ) { this.dateAdapter.setLocale('en-GB')}
+
 
   ngOnInit() {
     this.filterFormData();
@@ -97,8 +100,8 @@ export class MarketRateComponent {
   getTableData(flag?: any) {
     this.spinner.show();
     flag == 'filter' ? (this.pageNumber = 1) : '';
-    let fromDate = this.commonMethod.setDate(this.filterForm?.value?.fromDate)
-    let toDate = this.commonMethod.setDate(this.filterForm?.value?.toDate)
+    let fromDate = this.commonMethod.setDate(this.filterForm?.getRawValue()?.fromDate)
+    let toDate = this.commonMethod.setDate(this.filterForm?.getRawValue()?.toDate)
     this.apiService.setHttp('GET', `sericulture/api/MarketPrice/Web_GetAllMarketRate?pageno=${this.pageNumber}&pagesize=10&MarketId=${this.filterForm?.value?.marketId || 0}&ShetmalId=${this.filterForm.value.goodId || 0}&FromDate=${fromDate || ''}&Todate=${toDate || ''}&lan=${this.lang}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
