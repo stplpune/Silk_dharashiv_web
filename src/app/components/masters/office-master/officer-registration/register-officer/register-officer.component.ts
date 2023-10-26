@@ -32,7 +32,7 @@ export class RegisterOfficerComponent {
   @ViewChild('formDirective') private formDirective!: NgForm;
   @ViewChild('uplodLogo') clearlogo!: any;
   tableDataArray = new Array();
-  statusArray = [{ id: 0, 'value': 'In Active','mr_value':'निष्क्रिय' }, { id: 1, 'value': 'Active','mr_value':'सक्रिय' }];
+  statusArray = [{ id: 0, 'value': 'De Active','mr_value':'निष्क्रिय' }, { id: 1, 'value': 'Active','mr_value':'सक्रिय' }];
   showFlag: boolean = false;
   statusForm!: FormGroup;
   imageResponse: string = '';
