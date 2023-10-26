@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AddMarketListComponent } from './add-market-list/add-market-list.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -17,7 +17,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
   templateUrl: './markets.component.html',
   styleUrls: ['./markets.component.scss']
 })
-export class MarketsComponent {
+export class MarketsComponent implements OnDestroy{
   filterFrm !: FormGroup;
   pageNumber: number = 1;
   totalPages!: number;

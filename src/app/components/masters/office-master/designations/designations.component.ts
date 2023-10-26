@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
 import { MasterService } from 'src/app/core/services/master.service';
@@ -16,7 +16,7 @@ import { AddDesignationComponent } from './add-designation/add-designation.compo
   templateUrl: './designations.component.html',
   styleUrls: ['./designations.component.scss']
 })
-export class DesignationsComponent {
+export class DesignationsComponent implements OnDestroy{
   filterFrm !: FormGroup;
 
   pageNumber: number = 1;
