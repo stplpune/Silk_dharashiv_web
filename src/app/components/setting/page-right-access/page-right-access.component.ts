@@ -143,6 +143,7 @@ export class PageRightAccessComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.departmentArray = res.responseData;
+          this.departmentArray.unshift({ "id": 0, "textEnglish": "All Department","textMarathi": "सर्व विभाग"});
         }
         else {
           this.departmentArray = [];
@@ -156,7 +157,8 @@ export class PageRightAccessComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.designationLevelArray = res.responseData;
-        }
+          this.designationLevelArray.unshift({ "id": 0, "textEnglish": "All Designation Level","textMarathi": "सर्व पदनाम स्तर"});
+         }
         else {
           this.designationLevelArray = [];
         }
