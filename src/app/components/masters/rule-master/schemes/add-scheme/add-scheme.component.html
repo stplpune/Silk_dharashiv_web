@@ -86,8 +86,8 @@
             </button>
           </div>
         </div>
-        <mat-error *ngIf="editorFlag">{{lang == 'en' ? "Please Add Scheme Logo" : "कृपया योजनेचा लोगो जोडा"}} </mat-error>
       </div>
+      <mat-error *ngIf="editorFlag && !imageResponse">{{lang == 'en' ? "Please Add Scheme Logo" : "कृपया योजनेचा लोगो जोडा"}} </mat-error>
     </div>
   </mat-dialog-content>
 
