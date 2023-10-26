@@ -15,18 +15,27 @@
         <mat-option *ngFor=" let grain of grainageArr" [value]="grain.id">{{lang == 'en' ? grain.textEnglish :
           grain.textMarathi}}</mat-option>
       </mat-select>
+      <mat-error *ngIf="f['type']?.hasError('required')">{{'grainage.Type_reqired'|translate}}</mat-error>
     </mat-form-field>
     <div class="row gx-2">
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{"grainage.grainageName_en" | translate}}</mat-label>
-          <input formControlName="grainage" matInput >
+          <input formControlName="grainage" matInput 
+          (keypress)="validator.noFirstSpaceAllow($event)">
+          <mat-error *ngIf="f['grainage']?.hasError('required')">{{'grainage.grainageName_en_require'|translate}}</mat-error>
+          <mat-error *ngIf="f['grainage']?.hasError('pattern')">{{'grainage.grainageName_en_pattern'|translate}}</mat-error>
+          <mat-error *ngIf="f['grainage']?.hasError('maxLengthExceeded')">{{'grainage.grainageName_en_limit'|translate}}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{"grainage.grainageName_mr" | translate}}</mat-label>
-          <input formControlName="m_Grainage" matInput >
+          <input formControlName="m_Grainage" matInput 
+          (keypress)="validator.noFirstSpaceAllow($event);validator.marathiAlphaNumeric($event)">
+          <mat-error *ngIf="f['m_Grainage']?.hasError('required')">{{'grainage.grainageName_mr_require'|translate}}</mat-error>
+          <mat-error *ngIf="f['m_Grainage']?.hasError('pattern')">{{'grainage.grainageName_mr_pattern'|translate}}</mat-error>
+          <mat-error *ngIf="f['m_Grainage']?.hasError('maxLengthExceeded')">{{'grainage.grainageName_mr_limit'|translate}}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-sm-4">
@@ -56,18 +65,22 @@
             <mat-option *ngFor=" let taluka of talukaArr"
             [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish : taluka.textMarathi}}</mat-option>
           </mat-select>
+          <mat-error *ngIf="f['talukaId']?.hasError('required')">{{'grainage.taluka_reuired'|translate}}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{"grainage.pincode" | translate}}</mat-label>
-          <input formControlName="pincode" matInput placeholder="">
+          <input formControlName="pincode" matInput  maxlength="6"> 
+          <mat-error *ngIf="f['pincode']?.hasError('required')">{{'grainage.pincode_require'|translate}}</mat-error>
+          <mat-error *ngIf="f['pincode']?.hasError('pattern')">{{'grainage.pincode_maxlength'|translate}}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{"grainage.address" | translate}}</mat-label>
-          <textarea formControlName="address" matInput placeholder=""></textarea>
+          <textarea formControlName="address" matInput ></textarea>
+          <mat-error *ngIf="f['address']?.hasError('required')">{{'grainage.address_require'|translate}}</mat-error>
         </mat-form-field>
       </div>
 
