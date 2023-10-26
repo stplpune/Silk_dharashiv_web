@@ -407,8 +407,33 @@
         "Farm_Goods" : "Farm Goods",
         "Market_Rate_Date" : "Market Rate Date"
 
-      }
+      },
 
+      "myProfile":{   
+        "Profile" : "Profile",  
+        "Add" : "Add",
+        "Clear" :"Clear",
+        "Update": "Update",
+        "label_Name" : "Name",
+        "Name" : "Name(English)",
+        "Name_M" : "Name(Marathi)",
+        "Mobile_No":"Mobile No",
+        "Designation":"Designation",
+        "Department" :"Department",
+        "Email_ID" :"Email ID",
+        "Level" :"Level",
+        "Address" :"Address",
+        "Working_Area":"Working Area",
+        "State" :"State",
+        "District": "District",
+        "Taluka":"Taluka",
+        "Mandal":"Mandal",
+        "Name_mr": "Please Enter Name(Marathi)",
+        "Name_en": "Please Enter Name(English)",
+        "Name_en_valid": "Please Enter Valid Name(English)",
+        "Name_mr_valid": "Please Enter Valid  Name(Marathi)"
+    
+      }
 
 
 }
