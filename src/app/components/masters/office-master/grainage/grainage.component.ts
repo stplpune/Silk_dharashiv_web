@@ -119,7 +119,7 @@ export class GrainageComponent {
   setTableData() {
     this.highLightRowFlag = true;
     let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_Type', 'm_Grainage', 'm_State', 'm_District', 'action'] : ['srNo', 'type', 'grainage', 'state', 'district', 'action'];
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'प्रकार', 'ग्रेनेजचे नाव', 'राज्य', 'जिल्हा', 'कृती'] : ['Sr. No.','Type', 'Grainage Name', 'State', 'District', 'Action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'प्रकार', 'ग्रेनेज', 'राज्य', 'जिल्हा', 'कृती'] : ['Sr. No.','Type', 'Grainage', 'State', 'District', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,

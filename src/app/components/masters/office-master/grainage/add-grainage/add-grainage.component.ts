@@ -137,12 +137,11 @@ export class AddGrainageComponent {
       this.apiService.setHttp('POST', 'sericulture/api/GrainageModel/Insert-Update-Grainage?lan='+this.lang, false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
+          this.spinner.hide();
           if (res.statusCode == '200') {
-            this.spinner.hide();
              this.common.snackBar(res.statusMessage, 0);  
              this.dialogRef.close('Yes');
           } else {
-            this.spinner.hide();
             this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
           }
         }),
