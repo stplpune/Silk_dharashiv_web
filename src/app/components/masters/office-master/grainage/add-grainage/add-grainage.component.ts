@@ -89,7 +89,8 @@ export class AddGrainageComponent {
     this.master.GetAllState().subscribe({
       next: ((res: any) => {
         this.stateArr = res.responseData;
-        this.data ? (this.f['stateId'].setValue(this.webStorage.getStateId()), this.getDisrict()) : this.getDisrict();
+        this.data ? (this.f['stateId'].setValue(this.webStorage.getStateId())) : '';
+        this.getDisrict();
       }), error: (() => {
         this.stateArr = [];
       })
@@ -102,7 +103,8 @@ export class AddGrainageComponent {
     this.master.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
         this.districtArr = res.responseData;
-        this.data ? (this.f['districtId'].setValue(this.webStorage.getDistrictId()), this.getTaluka()) : this.getTaluka();
+        this.data ? (this.f['districtId'].setValue(this.webStorage.getDistrictId())) : '';
+        this.getTaluka();
       }), error: (() => {
         this.districtArr = [];
       })
