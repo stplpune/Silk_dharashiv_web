@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -15,7 +15,7 @@ import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialo
   templateUrl: './village-circle.component.html',
   styleUrls: ['./village-circle.component.scss']
 })
-export class VillageCircleComponent {
+export class VillageCircleComponent implements OnDestroy{
 
   totalCount: number | any;
   tableDataArray = new Array();
@@ -167,6 +167,9 @@ export class VillageCircleComponent {
     this.getTableData();
   }
 
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
 
 }
 
