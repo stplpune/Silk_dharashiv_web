@@ -57,13 +57,12 @@ export class AddGrainageComponent {
     this.grainageFrm = this.fb.group({
       id: [this.data ? this.data.id : 0],
       type: [this.data ? this.data.type : '',[Validators.required]],
-      grainage: [this.data ? this.data.grainage : '',[Validators.required, this.validator.maxLengthValidator(50)]],
+      grainage: [this.data ? this.data.grainage : '',[Validators.required,Validators.pattern(this.validator.englishAlphanumeric), this.validator.maxLengthValidator(50)]],
       m_Grainage: [this.data ? this.data.m_Grainage : '',[Validators.required,Validators.pattern(this.validator.marathiAlphanumeric), this.validator.maxLengthValidator(50)]],
       stateId: [this.data ? this.data.stateId : this.webStorage.getStateId() == '' ? 0 : this.webStorage.getStateId()],
       districtId: [this.data ? this.data.districtId : this.webStorage.getDistrictId() == '' ? 0 : this.webStorage.getDistrictId()],
       talukaId: [this.data ? this.data.talukaId : '',[Validators.required]],
-      address: [this.data ? this.data.address : '',[Validators.required]],
-      // m_Address: [this.data ? this.data.m_Address : ''],
+      address: [this.data ? this.data.address : '',[Validators.required, this.validator.maxLengthValidator(100)]],
       pincode: [this.data ? this.data.pincode : '',[Validators.required,Validators.pattern(this.validator.valPinCode)]],
       remark: [this.data ? this.data.remark : ''],
       flag: [this.data ? "u" : "i"]
@@ -77,8 +76,6 @@ export class AddGrainageComponent {
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.grainageArr = res.responseData;
-          console.log('hg',this.data);
-          
           this.data ? (this.f['type'].setValue(this.data?.typeId)) : '';
         } else {
           this.grainageArr = [];
@@ -92,7 +89,8 @@ export class AddGrainageComponent {
     this.master.GetAllState().subscribe({
       next: ((res: any) => {
         this.stateArr = res.responseData;
-        this.data ? (this.f['stateId'].setValue(this.webStorage.getStateId()), this.getDisrict()) : this.getDisrict();
+        this.data ? (this.f['stateId'].setValue(this.webStorage.getStateId())) : '';
+        this.getDisrict();
       }), error: (() => {
         this.stateArr = [];
       })
@@ -105,7 +103,8 @@ export class AddGrainageComponent {
     this.master.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
         this.districtArr = res.responseData;
-        this.data ? (this.f['districtId'].setValue(this.webStorage.getDistrictId()), this.getTaluka()) : this.getTaluka();
+        this.data ? (this.f['districtId'].setValue(this.webStorage.getDistrictId())) : '';
+        this.getTaluka();
       }), error: (() => {
         this.districtArr = [];
       })
@@ -130,7 +129,7 @@ export class AddGrainageComponent {
   onSubmitData() {
     let formvalue = this.grainageFrm.getRawValue();
     if (this.grainageFrm.invalid) {
-      return
+      return;
     } else {
       this.spinner.show();
       formvalue.id = Number(formvalue.id)
@@ -138,12 +137,11 @@ export class AddGrainageComponent {
       this.apiService.setHttp('POST', 'sericulture/api/GrainageModel/Insert-Update-Grainage?lan='+this.lang, false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
+          this.spinner.hide();
           if (res.statusCode == '200') {
-            this.spinner.hide();
              this.common.snackBar(res.statusMessage, 0);  
              this.dialogRef.close('Yes');
           } else {
-            this.spinner.hide();
             this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
           }
         }),

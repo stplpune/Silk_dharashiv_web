@@ -46,7 +46,6 @@ export class RejectReasonComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     })
-    console.log(this.subscription);
     
     this.defaultForm();
     this.getAction();
@@ -82,7 +81,7 @@ export class RejectReasonComponent {
         if (res.statusCode == '200') {
           this.tableresp = res.responseData;
           this.totalItem = res.responseData1.totalCount;
-          this.totalPages = res.responseData1?.totalPages;
+          // this.totalPages = res.responseData1?.totalPages;
         } else {
           this.tableresp = [];
           this.totalItem = 0
@@ -118,7 +117,7 @@ export class RejectReasonComponent {
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'स्टेज/कृती', 'नामंजूर  शीर्षक', 'नामंजूर  वर्णन', 'कृती'] : ['Sr No', 'Stage/Action', 'Rejection Title', 'Rejection Description', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
-      pagination: this.totalItem > 10 ? true : false,
+      pagination:  true ,
       highlightedrow: true,
       displayedColumns: displayedColumns,
       tableData: this.tableresp,
@@ -180,5 +179,9 @@ export class RejectReasonComponent {
       }
       // this.highLightedFlag = false;
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 }

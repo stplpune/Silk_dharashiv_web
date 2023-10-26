@@ -47,7 +47,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'scheme.scheme_namemr' | translate }}</mat-label>
         <input matInput placeholder="" formControlName="m_SchemeType"
-          (keypress)="validator.noFirstSpaceAllow($event);validator.marathiNumericspecialChar($event)">
+          (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiQuetionValidation($event)">
         <mat-error *ngIf="f['m_SchemeType']?.hasError('required')">
           {{'scheme.please_enter_scheme_name_mr'|translate}} </mat-error>
           <mat-error *ngIf="f['m_SchemeType']?.hasError('pattern')">

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { RegisterOfficerComponent } from './register-officer/register-officer.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -17,7 +17,7 @@ import { MasterService } from 'src/app/core/services/master.service';
   templateUrl: './officer-registration.component.html',
   styleUrls: ['./officer-registration.component.scss']
 })
-export class OfficerRegistrationComponent {
+export class OfficerRegistrationComponent implements OnDestroy{
   pageNumber: number = 1;
   totalPages!: number;
   tableDataArray: any;
@@ -36,6 +36,8 @@ export class OfficerRegistrationComponent {
   @ViewChild('formDirective') private formDirective!: NgForm;
   filterFlag:boolean=false;
   objId:any;
+  pageAccessObject: object|any;
+
   constructor(
     public dialog: MatDialog,
     private apiService: ApiService,
@@ -50,6 +52,8 @@ export class OfficerRegistrationComponent {
   ) { }
 
   ngOnInit() {    
+    this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == 'Officer Registration'? this.pageAccessObject = ele :''})
+
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -158,7 +162,7 @@ export class OfficerRegistrationComponent {
     let formData = this.filterForm.value;
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/UserRegistration/get-user-details?VillageId=' + (formData.villageId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&DepartmentLevelId=' + (formData.departmentLevelId || 0) + '&DepartmentId=' + (formData.departmentId || 0) + '&DesignationId=' + (formData.designationId || 0) + '&CircleId=' + (formData.circleId || 0) + '&BlockId=' + (formData.blockId || 0) + '&SearchText=' + (formData.searchtext || '') + '&' + str, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/UserRegistration/get-user-details?VillageId=' + (formData.villageId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&DepartmentLevelId=' + (formData.departmentLevelId || 0) + '&DepartmentId=' + (formData.departmentId || 0) + '&DesignationId=' + (formData.designationId || 0) + '&CircleId=' + (formData.circleId || 0) + '&BlockId=' + (formData.blockId || 0) + '&SearchText=' + (formData.searchtext || '') + '&' + str+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -194,7 +198,11 @@ export class OfficerRegistrationComponent {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      delete: true, view: true, edit: true,
+      view: this.pageAccessObject?.readRight == true ? true: false,
+      edit: this.pageAccessObject?.writeRight == true ? true: false,
+      delete: this.pageAccessObject?.deleteRight == true ? true: false
+
+      // delete: true, view: true, edit: true,
     };
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
     this.apiService.tableData.next(tableData);
@@ -234,7 +242,7 @@ export class OfficerRegistrationComponent {
       this.setTableData();
     });
   }
-
+  // sericulture/api/UserRegistration/delete-user-details?Id=1&lan=en
   deleteDialogOpen(delObj?: any) {
     let dialogObj = {
       title: this.lang == 'en' ? 'Do You Want To Delete Selected Officer ?' : 'तुम्हाला निवडलेल्या अधिकाऱ्याला हटवायचे आहे का? ?',
@@ -250,7 +258,7 @@ export class OfficerRegistrationComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('put', 'sericulture/api/UserRegistration/delete-user-details?Id=' + delObj.id, false, false, false, 'masterUrl');
+        this.apiService.setHttp('put', 'sericulture/api/UserRegistration/delete-user-details?Id=' + delObj.id+'&lan='+this.lang, false, false, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
@@ -274,6 +282,10 @@ export class OfficerRegistrationComponent {
     this.pageNumber=1;
     this.getFilterFormData();
     this.bindTable();
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
 }

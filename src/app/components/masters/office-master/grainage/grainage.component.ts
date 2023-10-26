@@ -99,8 +99,6 @@ export class GrainageComponent {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData.responseData1;
-          console.log(this.tableDataArray);
-          
           this.totalPages = res.responseData.responseData2?.totalPages;
           this.tableDatasize = res.responseData.responseData2?.totalCount;
         } else {
@@ -120,8 +118,8 @@ export class GrainageComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_Type', 'm_Grainage', 'state', 'district', 'action'] : ['srNo', 'type', 'grainage', 'state', 'district', 'action'];
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'प्रकार', 'ग्रेनेजचे नाव', 'राज्य', 'जिल्हा', 'कृती'] : ['Sr. No.','Type', 'Grainage Name', 'State', 'District', 'Action'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_Type', 'm_Grainage', 'm_State', 'm_District', 'action'] : ['srNo', 'type', 'grainage', 'state', 'district', 'action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'प्रकार', 'ग्रेनेज', 'राज्य', 'जिल्हा', 'कृती'] : ['Sr. No.','Type', 'Grainage', 'State', 'District', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
@@ -142,7 +140,7 @@ export class GrainageComponent {
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
-        this.searchDataFlag ? (this.fl['textSearch'].setValue(this.filterFrm.value.textSearch)) : (this.fl['textSearch'].setValue(''));
+        this.searchDataFlag ? '' : (this.fl['textSearch'].setValue(''));
         this.getTableData();
         break;
       case 'Edit':
@@ -216,9 +214,4 @@ export class GrainageComponent {
     this.subscription.unsubscribe();
   }
 
-  // addgrainage(){
-  //   this.dialog.open(AddGrainageComponent,{
-  //     width:'60%'
-  //   })
-  // }
 }

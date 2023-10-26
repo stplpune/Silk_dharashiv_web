@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './add-scheme.component.html',
   styleUrls: ['./add-scheme.component.scss']
 })
-export class AddSchemeComponent {
+export class AddSchemeComponent implements OnDestroy{
   schemeForm!: FormGroup;
   imageResponse: string = '';
   stateArray = new Array();
@@ -45,7 +45,7 @@ export class AddSchemeComponent {
   ){}
 
   ngOnInit(){
-    console.log("data",this.data)
+    //console.log("data",this.data)
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -65,7 +65,7 @@ export class AddSchemeComponent {
       logoPath: [''],
       isActive: [this.data ? this.data.isActive : true],
       schemeInfo: [this.data ? this.data.schemeInfo : '', [Validators.required, this.validator.maxLengthValidator(100)]],
-      m_SchemeType: [this.data ? this.data.m_SchemeType : '', [Validators.required, Validators.pattern(this.validator.marathiNumericAndspecialChar), this.validator.maxLengthValidator(100)]]
+      m_SchemeType: [this.data ? this.data.m_SchemeType : '', [Validators.required, Validators.pattern(this.validator.marathiquestion), this.validator.maxLengthValidator(100)]]
     })
     this.imageResponse = this.data ? this.data.logoPath : '';
   }
@@ -172,5 +172,9 @@ export class AddSchemeComponent {
     this.imageResponse = "";
     this.data = null;
     this.editorFlag=false;
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 }

@@ -119,7 +119,7 @@ export class DepartmentComponent implements OnDestroy{
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
-        this.searchDataFlag ? (this.fl['textSearch'].setValue(this.filterFrm.value.textSearch)) : (this.fl['textSearch'].setValue(''));
+        this.searchDataFlag ? '' : (this.fl['textSearch'].setValue(''));
         this.getTableData();
         break;
       case 'Edit':

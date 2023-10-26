@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './register-officer.component.html',
   styleUrls: ['./register-officer.component.scss']
 })
-export class RegisterOfficerComponent {
+export class RegisterOfficerComponent implements OnDestroy{
 
   officeForm!: FormGroup
   viewFlag: boolean = false;
@@ -32,7 +32,7 @@ export class RegisterOfficerComponent {
   @ViewChild('formDirective') private formDirective!: NgForm;
   @ViewChild('uplodLogo') clearlogo!: any;
   tableDataArray = new Array();
-  statusArray = [{ id: 0, 'value': 'In Active','mr_value':'निष्क्रिय' }, { id: 1, 'value': 'Active','mr_value':'सक्रिय' }];
+  statusArray = [{ id: 0, 'value': 'De Active','mr_value':'निष्क्रिय' }, { id: 1, 'value': 'Active','mr_value':'सक्रिय' }];
   showFlag: boolean = false;
   statusForm!: FormGroup;
   imageResponse: string = '';
@@ -61,8 +61,7 @@ export class RegisterOfficerComponent {
     })
     this.getFormData();
     this.getstatusForm();
-    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(),
-    this.getDepartmentLevel(),this.getDesignation());    
+    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(),this.getDepartmentLevel(),this.getDesignation());    
   }
 
 
@@ -220,7 +219,7 @@ export class RegisterOfficerComponent {
   }
   onSubmitData() {
     let formData = this.officeForm.getRawValue();    
-    formData.talukaId = formData.talukaId > 0  ?formData.talukaId    : 0;
+    formData.talukaId = formData.talukaId > 0  ? formData.talukaId : 0;
     // formData.villageId =  formData.villageId == "" ? 0 : formData.villageId;
     // formData.blockId =  formData.blockId == "" ? 0 : formData.blockId;
     // formData.circleId =  formData.circleId  == "" ? 0 : formData.circleId;    
@@ -248,9 +247,9 @@ export class RegisterOfficerComponent {
         "userName": "string",
         "password": "string",
         "profileImagePath": "string",
-         "userTypeId":2
+        "userTypeId":2
       }
-      this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details', false, obj, false, 'masterUrl');
+      this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan='+this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -311,7 +310,7 @@ export class RegisterOfficerComponent {
   sendData(id: any) {
     id == 1  ? (this.showFlag = false,this.statusForm.controls['remark'].setValue('')) : this.showFlag = true;      
   }
-
+ 
   submitStatusData() {
     this.spinner.show();
     let formData = this.statusForm.value;
@@ -323,7 +322,7 @@ export class RegisterOfficerComponent {
         "isActive": formData.statusId == 0 ? true : false,
         "reason": formData.statusId == 1 ? "" : formData.remark
       }
-      this.apiService.setHttp('put', 'sericulture/api/UserRegistration/User-Active-Status', false, obj, false, 'masterUrl');
+      this.apiService.setHttp('put', ' sericulture/api/UserRegistration/User-Active-Status?lan='+this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -352,6 +351,9 @@ export class RegisterOfficerComponent {
         if (res.statusCode == '200') {
           this.spinner.hide();
           this.imageResponse = res.responseData;
+          setTimeout(() => {
+            this.onSubmitProfileData(); 
+          }, 500);
         }
         else {
           this.clearlogo.nativeElement.value = "";
@@ -378,7 +380,8 @@ export class RegisterOfficerComponent {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.commonMethod.snackBar(res.statusMessage, 0);
-          this.dialogRef.close('Yes');
+          this.getDataById();
+          // this.dialogRef.close('Yes');
         }
         else {
           this.commonMethod.checkDataType(res.statusMessage) == false
@@ -391,6 +394,10 @@ export class RegisterOfficerComponent {
         this.errorHandler.handelError(error.status);
       }
     })
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
   }
 
