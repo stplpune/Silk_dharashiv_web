@@ -141,9 +141,9 @@
             <input matInput formControlName="emailId"
               (keypress)="validator.noFirstSpaceAllow($event);validator.emailRegex($event)">
             <mat-error *ngIf="officeForm.controls['emailId'].hasError('required')">{{'common.please_enter_email_id'|translate}}</mat-error>
-            <mat-error *ngIf="officeForm.controls['emailId'].hasError('emailId')">{{'common.Please_enter_valid_email_id'|translate}}
+            <mat-error *ngIf="officeForm.controls['emailId'].hasError('email')">{{'common.Please_enter_valid_email_id'|translate}}
             </mat-error>
-            <mat-error *ngIf="officeForm.controls['emailId'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
+            <mat-error *ngIf="officeForm.controls['emailId'].hasError('maxLengthExceeded')">{{'common.Address_limit'|translate}}
             </mat-error>
           </mat-form-field>
         </div>
@@ -151,8 +151,8 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.address_en' | translate}}</mat-label>
             <textarea matInput formControlName="address" (keypress)="validator.noFirstSpaceAllow($event)"
-              (keyup)="validator.alphaNumericWithSpacesAndSpecChars($event)" maxlength="100"></textarea>
-            <mat-error *ngIf="officeForm.controls['address'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
+              (keyup)="validator.alphaNumericWithSpacesAndSpecChars($event)"></textarea>
+            <mat-error *ngIf="officeForm.controls['address'].hasError('maxLengthExceeded')">{{'common.Address_limit'|translate}}
               </mat-error>
           </mat-form-field>
         </div>
@@ -168,7 +168,7 @@
       </div>
 
       <div class="d-flex align-items-center justify-content-end gap-2">
-        <button mat-flat-button class="btn-main-light" type="button" mat-dialog-close="">{{'common.cancel' | translate}}</button>
+        <button mat-flat-button class="btn-main-light" type="button" mat-dialog-close="">{{'action.clear' | translate}}</button>
         <button mat-flat-button class="btn-main" type="submit">{{!data ? ('talukaBlock.save' | translate) : ('talukaBlock.update' | translate)}}</button>
       </div>
     </form>
@@ -188,7 +188,7 @@
     <h2 class="page-heading mb-0 fw-bold my-2">{{'officerreg.officer_Details' | translate}}</h2>
     <div class="d-flex align-items-center justify-content-center">
       <div class="profile-pic position-relative">
-        <img [src]="this.tableDataArray[0]?.profileImagePath !='' ? this.tableDataArray[0]?.profileImagePath : 'assets/images/user.png'" class="">
+        <img [src]="this.tableDataArray[0]?.profileImagePath !='string' ? this.tableDataArray[0]?.profileImagePath : 'assets/images/user.png'" class="">
         <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" #uplodLogo
           (change)="imageUplod($event)" />
         <div class="profile-btn text-center">
