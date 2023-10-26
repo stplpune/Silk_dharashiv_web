@@ -188,7 +188,7 @@
     <h2 class="page-heading mb-0 fw-bold my-2">{{'officerreg.officer_Details' | translate}}</h2>
     <div class="d-flex align-items-center justify-content-center">
       <div class="profile-pic position-relative">
-        <img [src]=" data.profileImagePath ? data.profileImagePath : imageResponse? imageResponse :'assets/images/user.png'" class="">
+        <img [src]="this.tableDataArray[0]?.profileImagePath !='string' ? this.tableDataArray[0]?.profileImagePath : 'assets/images/user.png'" class="">
         <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" #uplodLogo
           (change)="imageUplod($event)" />
         <div class="profile-btn text-center">
@@ -212,60 +212,60 @@
     <ol class="list-group list-group-numbered">
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-          <div class=" form-label">Officer Name</div>
+          <div class=" form-label">{{'officerreg.officer_name' |translate}}</div>
         </div>
-        <span class="form-data">{{tableDataArray[0]?.name || '-'}}</span>
+        <span class="form-data">{{this.lang == 'en' ? tableDataArray[0]?.name :  tableDataArray[0]?.m_Name|| '-'}}</span>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-          <div class="form-label">Designation</div>
+          <div class="form-label">{{'officerreg.designation' |translate}}</div>
         </div>
-        <span class="form-data">{{tableDataArray[0]?.designationName || '-'}}</span>
+        <span class="form-data">{{this.lang == 'en' ? tableDataArray[0]?.designationName :  tableDataArray[0]?.m_DesignationName || '-'}}</span>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-          <div class="form-label">Mobile No</div>
+          <div class="form-label">{{'officerreg.mobile_no' |translate}}</div>
         </div>
         <span class="form-data">{{tableDataArray[0]?.mobNo1 || '-'}}</span>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-          <div class="form-label">Email Id</div>
+          <div class="form-label">{{'officerreg.email_id' |translate}}</div>
         </div>
         <span class="form-data">{{tableDataArray[0]?.emailId || '-'}}</span>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-          <div class="form-label">Department</div>
+          <div class="form-label">{{'officerreg.department' |translate}}</div>
         </div>
-        <span class=" form-data">{{tableDataArray[0]?.departmentName || '-'}}</span>
+        <span class=" form-data">{{this.lang == 'en' ? tableDataArray[0]?.departmentName :  tableDataArray[0]?.m_DepartmentName|| '-'}}</span>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-          <div class="form-label">Department Level</div>
+          <div class="form-label"> {{'officerreg.department_level' |translate}}</div>
         </div>
-        <span class="form-data">{{tableDataArray[0]?.departmentLevel || '-'}}</span>
+        <span class="form-data">{{this.lang == 'en' ? tableDataArray[0]?.departmentLevel : tableDataArray[0]?.m_DepartmentLevel || '-'}}</span>
       </li>
       <li class="list-group-item d-flex  justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-          <div class="form-label">Address</div>
+          <div class="form-label">{{'officerreg.address' |translate}}</div>
         </div>
-        <span class="form-data">{{tableDataArray[0]?.address || '-'}}</span>
+        <span class="form-data">{{this.lang == 'en' ? tableDataArray[0]?.address : tableDataArray[0]?.m_Address || '-'}}</span>
       </li>
     </ol>
     <div class="page-heading mb-0 fw-bold my-2">{{'officerreg.work_Area' | translate}}</div>
     <ol class="list-group list-group-numbered">
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-          <div class="form-label">State</div>
+          <div class="form-label">{{'officerreg.state' |translate}}</div>
         </div>
         <span class="form-data">{{tableDataArray[0]?.statId || '-'}}</span>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-          <div class="form-label">District</div>
+          <div class="form-label">{{'officerreg.district' |translate}}</div>
         </div>
-        <span class="form-data">{{tableDataArray[0]?.district || '-'}}</span>
+        <span class="form-data">{{this.lang == 'en' ? tableDataArray[0]?.district : tableDataArray[0]?.m_District || '-'}}</span>
       </li>
     </ol>
     <div class="page-heading mb-0 fw-bold my-2">{{'officerreg.account_Info' | translate}}</div>

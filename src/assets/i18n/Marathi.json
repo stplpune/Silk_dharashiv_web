@@ -141,7 +141,16 @@
     "inactive": "निष्क्रिय",
     "remark": " टिप्पणी",
     "active": "सक्रिय",
-    "status": "स्थिती"
+    "status": "स्थिती",
+    "officer_name":"अधिकाऱ्याचे नाव",
+    "designation":"पदनाम",
+    "mobile_no":"मोबाईल नंबर",
+    "email_id":"ई - मेल आयडी",
+    "department":"विभाग",
+    "department_level":"विभाग स्तर",
+    "address":"पत्ता",
+    "state":"राज्य",
+    "district":"जिल्हा"
   },
   "marketRate": {
     "market_en": "बाजाराचे नाव(इंग्रजी)",
