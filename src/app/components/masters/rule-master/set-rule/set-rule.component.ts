@@ -82,7 +82,7 @@ export class SetRuleComponent {
     flag == 'filter' ? (this.filterFlag = true, (this.pageNumber = 1)) :'';
     let formData = this.filterFrm.getRawValue();
     let str='pageno='+this.pageNumber+'&pagesize=10';
-    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?'+str+ '&SchemeTypeId=' + (formData.scheme || 0) + '&DepartmentId=' + (formData.department || 0) + '&StateId=' + (formData.state || 1) + '&DistrictId=' + (formData.district || 1) + '&lan=1', false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?'+str+ '&SchemeTypeId=' + (formData.scheme || 0) + '&DepartmentId=' + (formData.department || 0) + '&StateId=' + (formData.state || 1) + '&DistrictId=' + (formData.district || 1) + '&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -202,4 +202,7 @@ export class SetRuleComponent {
   }
   // ------------------------dropdown code end here----------------
 
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
 }
