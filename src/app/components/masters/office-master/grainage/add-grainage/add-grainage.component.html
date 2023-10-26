@@ -68,7 +68,6 @@
 
 <div class="" *ngIf="!isViewFlag">
 <form [formGroup]="grainageFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
-  <div mat-dialog-content class="modal-body">
     <mat-form-field appearance="outline" class="w-50">
       <mat-label>{{"grainage.Type" | translate}}</mat-label>
       <mat-select formControlName="type">
@@ -152,7 +151,6 @@
         </mat-form-field>
       </div>
     </div>
-  </div>
   <div mat-dialog-actions class="modal-footer">
     <div class="d-flex align-items-center justify-content-end gap-2 w-100">
       <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">{{'action.clear'|translate}} </button>
