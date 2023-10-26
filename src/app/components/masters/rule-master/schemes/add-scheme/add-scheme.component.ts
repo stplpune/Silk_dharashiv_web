@@ -65,7 +65,7 @@ export class AddSchemeComponent implements OnDestroy{
       logoPath: [''],
       isActive: [this.data ? this.data.isActive : true],
       schemeInfo: [this.data ? this.data.schemeInfo : '', [Validators.required, this.validator.maxLengthValidator(100)]],
-      m_SchemeType: [this.data ? this.data.m_SchemeType : '', [Validators.required, Validators.pattern(this.validator.marathiNumericAndspecialChar), this.validator.maxLengthValidator(100)]]
+      m_SchemeType: [this.data ? this.data.m_SchemeType : '', [Validators.required, Validators.pattern(this.validator.marathiquestion), this.validator.maxLengthValidator(100)]]
     })
     this.imageResponse = this.data ? this.data.logoPath : '';
   }
