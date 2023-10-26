@@ -16,6 +16,10 @@ const routes: Routes = [
   { path: 'set-rule', loadChildren: () => import('../../components/masters/rule-master/set-rule/set-rule.module').then(m => m.SetRuleModule), data: { breadcrumb: [{ title: 'Set Rule', active: true }] }  },
   { path: 'reject-reason', loadChildren: () => import('../../components/masters/rule-master/reject-reason/reject-reason.module').then(m => m.RejectReasonModule), data: { breadcrumb: [{ title: 'Reject Reason', active: true }] } },
 
+  // applications
+  { path: 'approval-process', loadChildren: () => import('../../components/Application/manarega/approval-process/approval-process.module').then(m => m.ApprovalProcessModule), data: { breadcrumb: [{ title: 'Approval Process', active: true }] } },
+
+
   // CMS section files routing
   { path: 'markets', loadChildren: () => import('../../components/cms/markets/markets.module').then(m => m.MarketsModule), data: { breadcrumb: [{ title: 'Markets', active: true }] } },
   { path: 'market-rate', loadChildren: () => import('../../components/cms/market-rate/market-rate.module').then(m => m.MarketRateModule), data: { breadcrumb: [{ title: 'Market Rate', active: true }] }},
