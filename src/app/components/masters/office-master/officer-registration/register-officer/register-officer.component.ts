@@ -32,7 +32,7 @@ export class RegisterOfficerComponent {
   @ViewChild('formDirective') private formDirective!: NgForm;
   @ViewChild('uplodLogo') clearlogo!: any;
   tableDataArray = new Array();
-  statusArray = [{ id: 0, 'value': 'In Active','mr_value':'निष्क्रिय' }, { id: 1, 'value': 'Active','mr_value':'सक्रिय' }];
+  statusArray = [{ id: 0, 'value': 'De Active','mr_value':'निष्क्रिय' }, { id: 1, 'value': 'Active','mr_value':'सक्रिय' }];
   showFlag: boolean = false;
   statusForm!: FormGroup;
   imageResponse: string = '';
@@ -61,26 +61,22 @@ export class RegisterOfficerComponent {
     })
     this.getFormData();
     this.getstatusForm();
-    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(),
-    this.getDepartmentLevel(),this.getDesignation());
-
-    console.log("data",this.data);
-    
+    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(),this.getDepartmentLevel(),this.getDesignation());    
   }
 
 
   getFormData() {
     this.officeForm = this.fb.group({
       id: [this.data ? this.data?.id : 0],
-      departmentId: [this.data ? this.data?.id : '', [Validators.required]],
-      departmentLevelId: [this.data ? this.data?.departmentId : '', [Validators.required]],
+      departmentId: [this.data ? this.data?.id : 0, [Validators.required]],
+      departmentLevelId: [this.data ? this.data?.departmentId : 0, [Validators.required]],
       stateId: [this.data ? this.data?.stateId : 1],
       districtId: [this.data ? this.data?.districtId : 1],
       blockId: [this.data ? this.data?.blockId : 0, [Validators.required]],
       talukaId: [this.data ? this.data?.talukaId : 0, [Validators.required]],
       circleId: [this.data ? this.data?.circleId : 0, [Validators.required]],
-      villageId: [this.data ? this.data?.villageId : '', [Validators.required]],
-      designationId: [this.data ? this.data?.designationId : '', [Validators.required]],
+      villageId: [this.data ? this.data?.villageId : 0, [Validators.required]],
+      designationId: [this.data ? this.data?.designationId : 0, [Validators.required]],
       name: [this.data ? this.data?.name : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(10)]],
       m_Name: [this.data ? this.data?.m_Name : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(50)]],
       mobNo1: [this.data ? this.data?.mobNo1 : '', [Validators.required, Validators.pattern(this.validator.mobile_No)]],
@@ -208,9 +204,7 @@ export class RegisterOfficerComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;     
-          console.log(' this.tableDataArray', this.tableDataArray);
-               
+          this.tableDataArray = res.responseData.responseData1;                    
           // this.imageResponse = this.data?.profileImagePath ?  this.data?.profileImagePath : ''
         } else {
           this.spinner.hide();
@@ -225,10 +219,10 @@ export class RegisterOfficerComponent {
   }
   onSubmitData() {
     let formData = this.officeForm.getRawValue();    
-    formData.talukaId = formData.talukaId  == "" ? 0 : formData.talukaId;
-    formData.villageId =  formData.villageId == "" ? 0 : formData.villageId;
-    formData.blockId =  formData.blockId == "" ? 0 : formData.blockId;
-    formData.circleId =  formData.circleId  == "" ? 0 : formData.circleId;    
+    formData.talukaId = formData.talukaId > 0  ? formData.talukaId : 0;
+    // formData.villageId =  formData.villageId == "" ? 0 : formData.villageId;
+    // formData.blockId =  formData.blockId == "" ? 0 : formData.blockId;
+    // formData.circleId =  formData.circleId  == "" ? 0 : formData.circleId;    
     if (this.officeForm.invalid) {
       this.spinner.hide();
       return
@@ -253,8 +247,9 @@ export class RegisterOfficerComponent {
         "userName": "string",
         "password": "string",
         "profileImagePath": "string",
+        "userTypeId":2
       }
-      this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details', false, obj, false, 'masterUrl');
+      this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan='+this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -300,13 +295,11 @@ export class RegisterOfficerComponent {
   }
 
   clearDropDown(flag?:any){
-    if(flag == 'village'){
-      this.villageArray=[]
-      this.f['villageId'].setValue(0);
-    }
+    if(flag == 5 && flag == 2){
+      this.villageArray=[];
+      this.f['talukaId'].setValue(0);
+    } 
   }
-
-
 
   getstatusForm() {
     this.statusForm = this.fb.group({
@@ -317,7 +310,7 @@ export class RegisterOfficerComponent {
   sendData(id: any) {
     id == 1  ? (this.showFlag = false,this.statusForm.controls['remark'].setValue('')) : this.showFlag = true;      
   }
-
+ 
   submitStatusData() {
     this.spinner.show();
     let formData = this.statusForm.value;
@@ -329,7 +322,7 @@ export class RegisterOfficerComponent {
         "isActive": formData.statusId == 0 ? true : false,
         "reason": formData.statusId == 1 ? "" : formData.remark
       }
-      this.apiService.setHttp('put', 'sericulture/api/UserRegistration/User-Active-Status', false, obj, false, 'masterUrl');
+      this.apiService.setHttp('put', ' sericulture/api/UserRegistration/User-Active-Status?lan='+this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -358,6 +351,9 @@ export class RegisterOfficerComponent {
         if (res.statusCode == '200') {
           this.spinner.hide();
           this.imageResponse = res.responseData;
+          setTimeout(() => {
+            this.onSubmitProfileData(); 
+          }, 500);
         }
         else {
           this.clearlogo.nativeElement.value = "";
@@ -384,7 +380,8 @@ export class RegisterOfficerComponent {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.commonMethod.snackBar(res.statusMessage, 0);
-          this.dialogRef.close('Yes');
+          this.getDataById();
+          // this.dialogRef.close('Yes');
         }
         else {
           this.commonMethod.checkDataType(res.statusMessage) == false

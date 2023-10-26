@@ -41,7 +41,7 @@ export class HeaderComponent {
 
   myprofile(){
     this.dialog.open(MyProfileComponent,{
-      width:'40%'
+      width:'70%'
     })
   }
 

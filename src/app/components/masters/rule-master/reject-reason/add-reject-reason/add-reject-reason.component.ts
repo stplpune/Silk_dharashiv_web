@@ -19,7 +19,6 @@ import { Subscription } from 'rxjs';
 export class AddRejectReasonComponent {
   rejectResonFrm!: FormGroup;
   actionResp = new Array();
-  editId: any;
   lang: any;
   editFlag: boolean = false;
   subscription!: Subscription;//used  for lang conv
@@ -36,11 +35,9 @@ export class AddRejectReasonComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,) { }
 
   ngOnInit() {
-    console.log(this.data);
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-      this.defaultForm();
     })
     this.defaultForm();
     this.getAction();
@@ -50,7 +47,7 @@ export class AddRejectReasonComponent {
   defaultForm() {
     this.rejectResonFrm = this.fb.group({
       actionId: ['', [Validators.required]],
-      rejectionTitle: ['', [Validators.required,this.validation.maxLengthValidator(100)]],
+      rejectionTitle: ['', [Validators.required,Validators.pattern(this.validation.englishNumericAndspecialChar),this.validation.maxLengthValidator(100)]],
       rejectionTitleMarathi:['', [Validators.required,this.validation.maxLengthValidator(100),Validators.pattern(this.validation.marathi)]],
       description: ['', [Validators.required,this.validation.maxLengthValidator(500)]],
     })
@@ -74,10 +71,10 @@ export class AddRejectReasonComponent {
     if (this.rejectResonFrm.invalid) {
       return;
     }
-    console.log(this.rejectResonFrm.value);
+    this.spinner.show();
     let formData = this.rejectResonFrm.getRawValue();
     let obj = {
-      "id":this.editFlag?this.editId: 0,
+      "id":this.editFlag?this.data?.id: 0,
       "actionId": formData.actionId,
       "rejectionTitle": formData.rejectionTitle,
       "m_RejectionTitle":formData.rejectionTitleMarathi,
@@ -106,18 +103,20 @@ export class AddRejectReasonComponent {
 
   editData() {
     this.editFlag = true;
-    this.editId=this.data.id;
     this.rejectResonFrm.patchValue({
       actionId:this.data.actionId,
       rejectionTitle:this.data.rejectionTitle,
       rejectionTitleMarathi:this.data.m_RejectionTitle,
       description:this.data.rejectionDescription,
     })
-    
   }
 
   clearForm() {
     this.formDirective?.resetForm();
+    this.editFlag = false;
   }
 
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
 }

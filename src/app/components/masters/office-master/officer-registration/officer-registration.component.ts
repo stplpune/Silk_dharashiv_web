@@ -49,9 +49,7 @@ export class OfficerRegistrationComponent {
 
   ) { }
 
-  ngOnInit() {
-    console.log( this.WebStorageService.getUserId());
-    
+  ngOnInit() {    
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -160,7 +158,7 @@ export class OfficerRegistrationComponent {
     let formData = this.filterForm.value;
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/UserRegistration/get-user-details?VillageId=' + (formData.villageId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&DepartmentLevelId=' + (formData.departmentLevelId || 0) + '&DepartmentId=' + (formData.departmentId || 0) + '&DesignationId=' + (formData.designationId || 0) + '&CircleId=' + (formData.circleId || 0) + '&BlockId=' + (formData.blockId || 0) + '&SearchText=' + (formData.searchtext || '') + '&' + str, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/UserRegistration/get-user-details?VillageId=' + (formData.villageId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&DepartmentLevelId=' + (formData.departmentLevelId || 0) + '&DepartmentId=' + (formData.departmentId || 0) + '&DesignationId=' + (formData.designationId || 0) + '&CircleId=' + (formData.circleId || 0) + '&BlockId=' + (formData.blockId || 0) + '&SearchText=' + (formData.searchtext || '') + '&' + str+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -236,7 +234,7 @@ export class OfficerRegistrationComponent {
       this.setTableData();
     });
   }
-
+  // sericulture/api/UserRegistration/delete-user-details?Id=1&lan=en
   deleteDialogOpen(delObj?: any) {
     let dialogObj = {
       title: this.lang == 'en' ? 'Do You Want To Delete Selected Officer ?' : 'तुम्हाला निवडलेल्या अधिकाऱ्याला हटवायचे आहे का? ?',
@@ -252,7 +250,7 @@ export class OfficerRegistrationComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('put', 'sericulture/api/UserRegistration/delete-user-details?Id=' + delObj.id, false, false, false, 'masterUrl');
+        this.apiService.setHttp('put', 'sericulture/api/UserRegistration/delete-user-details?Id=' + delObj.id+'&lan='+this.lang, false, false, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {

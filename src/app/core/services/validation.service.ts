@@ -22,7 +22,8 @@ export class ValidationService {
   latValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
   longValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
   marathiNumericAndspecialChar = '/^[\u0900-\u0965?~`!@#$%^&*()\[\]\-+_={}|;:\\<,>.?\/ 0-9]+$/';
-  englishNumericAndspecialChar = '/^[a-zA-Z?~`!@#$%^&*()-_+={}[\]:|\\;"<,>.?\/ 0-9]*$/';
+  //englishNumericAndspecialChar = '^[a-zA-Z?~`!@#$%^&*()-_+={}[\]:|\\;"<,>.?\/ 0-9]*$';
+  englishNumericAndspecialChar = '^[A-Za-z0-9 /(,)&.+-_@#$]*$'
   numericWithdecimaluptotwoDigits='^[0-9][0-9]*[.]?[0-9]{0,2}$';
   alphaNumericWithSpacesWithDashSlashs = '^([a-zA-Z0-9/-])';
   marathiAlphanumeric=('^[\u0900-\u09650-9 ][\u0900-\u09650-9 ]+$');
@@ -45,7 +46,7 @@ export class ValidationService {
   
 
   englishNumericspecialChar(event: any) {
-    const regexPattern = /^[a-zA-Z?~`!@#$%^&*()\-_+={}[\]:|;\\<,>.?\/ 0-9]*$/;
+    const regexPattern = new RegExp('^[A-Za-z0-9 /(,)&.+-_@#$]*$','g');
     return regexPattern.test(event);
   }
   

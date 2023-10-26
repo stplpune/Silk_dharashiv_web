@@ -146,7 +146,16 @@
     "inactive": "Inactive",
     "remark": "Remark",
     "active": "Active",
-    "status": "Status"
+    "status": "Status",
+    "officer_name":"Officer Name",
+    "designation":"Designation",
+    "mobile_no":"Mobile No",
+    "email_id":"Email Id",
+    "department":"Department",
+    "department_level":"Department Level",
+    "address":"Address",
+    "state":"State",
+    "district":"District"
   },
   "marketRate": {
     "market_en": "Market Name(English)",

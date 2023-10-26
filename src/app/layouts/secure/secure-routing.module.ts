@@ -4,18 +4,17 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: 'dashboard', loadComponent: () => import('../../components/dashboard/dashboard.component').then(m => m.DashboardComponent), data: { breadcrumb: [{ title: 'Dashboard', active: true }] } },
   { path: 'department', loadChildren: () => import('../../components/masters/office-master/department/department.module').then(m => m.DepartmentModule), data: { breadcrumb: [{ title: 'Department', active: true }] } },
-  // { path: 'department-levels', loadChildren: () => import('../../components/masters/office-master/department-levels/department-levels.module').then(m => m.DepartmentLevelsModule) },
   { path: 'designations', loadChildren: () => import('../../components/masters/office-master/designations/designations.module').then(m => m.DesignationsModule), data: { breadcrumb: [{ title: 'Designation', active: true }] } },
-  { path: 'block-circle', loadChildren: () => import('../../components/masters/office-master/block-circle/block-circle.module').then(m => m.BlockCircleModule), data: { breadcrumb: [{ title: 'Block', active: true }] } },
+  { path: 'block', loadChildren: () => import('../../components/masters/office-master/block-circle/block-circle.module').then(m => m.BlockCircleModule), data: { breadcrumb: [{ title: 'Block', active: true }] } },
   { path: 'officer-registration', loadChildren: () => import('../../components/masters/office-master/officer-registration/officer-registration.module').then(m => m.OfficerRegistrationModule), data: { breadcrumb: [{ title: 'Officer Registration', active: true }] } },
-  { path: 'village-circle', loadChildren: () => import('../../components/masters/office-master/village-circle/village-circle.module').then(m => m.VillageCircleModule), data: { breadcrumb: [{ title: 'Circle', active: true }] } },
+  { path: 'circle', loadChildren: () => import('../../components/masters/office-master/village-circle/village-circle.module').then(m => m.VillageCircleModule), data: { breadcrumb: [{ title: 'Circle', active: true }] } },
   { path: 'grainage', loadChildren: () => import('../../components/masters/office-master/grainage/grainage.module').then(m => m.GrainageModule), data: { breadcrumb: [{ title: 'Grainage', active: true }] }  },
 
   // masters -> Rule master routing
   { path: 'schemes', loadChildren: () => import('../../components/masters/rule-master/schemes/schemes.module').then(m => m.SchemesModule), data: { breadcrumb: [{ title: 'Schemes', active: true }] } },
   { path: 'actions', loadChildren: () => import('../../components/masters/rule-master/actions/actions.module').then(m => m.ActionsModule),  data: { breadcrumb: [{ title: 'Actions', active: true }] } },
   { path: 'set-rule', loadChildren: () => import('../../components/masters/rule-master/set-rule/set-rule.module').then(m => m.SetRuleModule), data: { breadcrumb: [{ title: 'Set Rule', active: true }] }  },
-  { path: 'reject-reason', loadChildren: () => import('../../components/masters/rule-master/reject-reason/reject-reason.module').then(m => m.RejectReasonModule) },
+  { path: 'reject-reason', loadChildren: () => import('../../components/masters/rule-master/reject-reason/reject-reason.module').then(m => m.RejectReasonModule), data: { breadcrumb: [{ title: 'Reject Reason', active: true }] } },
 
   // CMS section files routing
   { path: 'markets', loadChildren: () => import('../../components/cms/markets/markets.module').then(m => m.MarketsModule), data: { breadcrumb: [{ title: 'Markets', active: true }] } },
