@@ -117,14 +117,14 @@
             </li>
             <li class="menu-item">
               <a class="menu-link" href="#" data-bs-toggle="collapse" href="#collapseCMS" role="button"
-                  aria-expanded="false" aria-controls="collapseCMS">
+                  aria-expanded="false" aria-controls="collapseCMS" routerLink="application">
                   <div class="d-flex align-items-center">
                       <img src="assets/images/sidebar-icons/cms.svg" class="menu-icon">
                       <span>Application</span>
                   </div>
                   <span class="dropdown-toggle"></span>
               </a>
-              <div class="collapse" id="collapseCMS">
+              <!-- <div class="collapse" id="collapseCMS">
                   <ul class="sub-menu">
                       <li>
                           <a class="submenu-link" routerLink="manarega">
@@ -135,7 +135,7 @@
                           </a>
                       </li>
                   </ul>
-              </div>
+              </div> -->
           </li>
             <li class="menu-item">
                 <a class="menu-link" href="#" data-bs-toggle="collapse" href="#collapseCMS" role="button"
@@ -192,7 +192,20 @@
                   </div>
                   <span class="dropdown-toggle"></span>
               </a>
-              <div class="collapse" id="collapseSetting">
+              <div div class="collapse" id="collapseSetting">
+                <ul class="sub-menu">
+                    <li>
+                        <a class="submenu-link" routerLink="page-right-access">
+                            <div class="d-flex">
+                                <img src="assets/images/sidebar-icons/arrow-small-right.svg">
+                                <span>Page Right Access</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div> 
+
+              <!-- <div class="collapse" id="collapseSetting">
                 <ul class="sub-menu">
                     <li>
                         <a class="submenu-link" href="#" data-bs-toggle="collapse" href="#collapseOfficeMaster"
@@ -210,16 +223,13 @@
                                         <img src="assets/images/sidebar-icons/arrow-small-right.svg">
                                         <span>Page Right Access</span>
                                     </a>
-                                    <!-- <a routerLink="department-levels" routerLinkActive="active">
-                                        <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                        <span>Department Levels</span>
-                                    </a> -->
+                                    
                                 </li>
                             </ul>
                         </div>
                     </li>
                 </ul>
-            </div>
+            </div> -->
           </li>
         </ul>
     </div>

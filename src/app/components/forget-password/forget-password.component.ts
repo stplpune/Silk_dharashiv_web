@@ -118,7 +118,7 @@ export class ForgetPasswordComponent {
       this.verifyOTPForm.value.otpD + this.verifyOTPForm.value.otpE
 
     if (this.verifyOTPForm.invalid) {
-      this.commonMethods.snackBar("Please Enter Valid OTP", 1);
+      this.commonMethods.snackBar("Please Enter OTP", 1);
       return;
     }
 
