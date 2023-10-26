@@ -152,6 +152,12 @@ a.text-main:hover {
     padding: 15px !important;
 }
 
+.dashboard-table .highlighted-row {
+  background-color: var(--main-light-color) !important;
+ color: var(--main-color) !important;
+ cursor: pointer;
+ }
+
 .dashboard-table {
     @include mat.all-component-densities(-3);
     font-family: 'Public Sans', sans-serif !important;
