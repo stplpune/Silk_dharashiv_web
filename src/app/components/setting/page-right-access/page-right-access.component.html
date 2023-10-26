@@ -69,12 +69,12 @@
 
 
             <div class="d-flex gap-2">
-              <button mat-flat-button class="btn-main btn-icon " matTooltip="edit" >
+              <button mat-flat-button class="btn-main btn-icon " matTooltip="edit"  (click)="getTableData()">
                 <mat-icon class="material-symbols-rounded">
                   search
                 </mat-icon>
               </button>
-              <button mat-flat-button class="btn-main-light btn-icon " matTooltip="edit" >
+              <button mat-flat-button class="btn-main-light btn-icon " matTooltip="edit" (click)="clearForm()">
                 <mat-icon class="material-symbols-rounded">
                   close
                 </mat-icon>
