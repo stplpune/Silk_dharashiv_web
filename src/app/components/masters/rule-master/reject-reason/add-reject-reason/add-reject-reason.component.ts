@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './add-reject-reason.component.html',
   styleUrls: ['./add-reject-reason.component.scss']
 })
-export class AddRejectReasonComponent {
+export class AddRejectReasonComponent implements OnDestroy{
   rejectResonFrm!: FormGroup;
   actionResp = new Array();
   lang: any;
