@@ -56,7 +56,7 @@ export class MarketsComponent {
     this.filterFrm = this.fb.group({
       stateId: [this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],
       districtId: [ this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],
-      talukaId: [''],
+      talukaId: [0],
       textSearch: ['']
     })
   }
@@ -202,6 +202,7 @@ export class MarketsComponent {
         next: ((res: any) => {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.districtArray = res.responseData;
+            this.districtArray.unshift({ "id": 0, "textEnglish": "All Districts","textMarathi": "सर्व जिल्हे"});
             (this.filterFrm.controls['districtId'].setValue(this.filterFrm.getRawValue()?.districtId), this.getTaluka());
           }
           else {
@@ -221,6 +222,7 @@ export class MarketsComponent {
         next: ((res: any) => {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.talukaArray = res.responseData;
+            this.talukaArray.unshift({ "id": 0, "textEnglish": "All Talukas","textMarathi": "सर्व तालुके"});
           }
           else {
             this.talukaArray = [];
