@@ -65,6 +65,9 @@ export class FaqComponent implements OnDestroy {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData.responseData1;
+          this.tableDataArray.map((ele:any)=>{
+            ele.status1 = ele.status
+          })
           this.totalPages = res.responseData.responseData2?.totalPages;
           this.tableDatasize = res.responseData.responseData2?.totalCount;
         } else {
@@ -84,13 +87,13 @@ export class FaqComponent implements OnDestroy {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_Question', 'status', 'action'] : ['srNo', 'question', 'status', 'action'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_Question', 'status', 'action'] : ['srNo', 'question', 'status1', 'action'];
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'प्रश्न', 'स्थिती', 'कृती'] : ['Sr. No.', 'Question', 'Status', 'ACTION'];
     let tableData: any;
     tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
-      isBlock: 'status',
+      isBlock: 'status1',
       pagination: this.tableDatasize > 10 ? true : false,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
