@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { SetRuleModalComponent } from './set-rule-modal/set-rule-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -14,7 +14,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
   templateUrl: './set-rule.component.html',
   styleUrls: ['./set-rule.component.scss']
 })
-export class SetRuleComponent {
+export class SetRuleComponent implements OnDestroy{
 
   tableresp = new Array();
   statresponse = new Array();
@@ -29,6 +29,8 @@ export class SetRuleComponent {
   subscription!: Subscription;//used  for lang conv
   filterFlag: boolean = false;
   lang: any;
+  pageAccessObject: object|any;
+
   @ViewChild('formDirective') private formDirective!: NgForm;
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -40,6 +42,9 @@ export class SetRuleComponent {
   ) { }
 
   ngOnInit() {
+    this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == "Set Rule" ? this.pageAccessObject = ele :''})
+
+
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -133,7 +138,10 @@ export class SetRuleComponent {
       tableData: this.tableresp,
       tableSize: this.totalItem,
       tableHeaders: displayedheaders,
-      delete: false, view: true, edit: true,
+      // delete: false, view: true, edit: true,
+      view: this.pageAccessObject?.readRight == true ? true: false,
+      edit: this.pageAccessObject?.writeRight == true ? true: false,
+      delete: this.pageAccessObject?.deleteRight == true ? true: false
     };
     this.highLightedFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);

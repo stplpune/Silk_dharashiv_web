@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { RegisterOfficerComponent } from './register-officer/register-officer.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -17,7 +17,7 @@ import { MasterService } from 'src/app/core/services/master.service';
   templateUrl: './officer-registration.component.html',
   styleUrls: ['./officer-registration.component.scss']
 })
-export class OfficerRegistrationComponent {
+export class OfficerRegistrationComponent implements OnDestroy{
   pageNumber: number = 1;
   totalPages!: number;
   tableDataArray: any;
@@ -36,6 +36,8 @@ export class OfficerRegistrationComponent {
   @ViewChild('formDirective') private formDirective!: NgForm;
   filterFlag:boolean=false;
   objId:any;
+  pageAccessObject: object|any;
+
   constructor(
     public dialog: MatDialog,
     private apiService: ApiService,
@@ -50,6 +52,8 @@ export class OfficerRegistrationComponent {
   ) { }
 
   ngOnInit() {    
+    this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == 'Officer Registration'? this.pageAccessObject = ele :''})
+
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -194,7 +198,11 @@ export class OfficerRegistrationComponent {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      delete: true, view: true, edit: true,
+      view: this.pageAccessObject?.readRight == true ? true: false,
+      edit: this.pageAccessObject?.writeRight == true ? true: false,
+      delete: this.pageAccessObject?.deleteRight == true ? true: false
+
+      // delete: true, view: true, edit: true,
     };
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
     this.apiService.tableData.next(tableData);
@@ -274,6 +282,10 @@ export class OfficerRegistrationComponent {
     this.pageNumber=1;
     this.getFilterFormData();
     this.bindTable();
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
 }

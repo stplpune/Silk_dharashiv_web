@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -14,7 +14,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
   templateUrl: './set-rule-modal.component.html',
   styleUrls: ['./set-rule-modal.component.scss']
 })
-export class SetRuleModalComponent {
+export class SetRuleModalComponent implements OnDestroy{
 
   setRulefrm!: FormGroup;
   statresponse = new Array();
@@ -350,6 +350,9 @@ export class SetRuleModalComponent {
     this.subscription?.unsubscribe();
   }
   //#endregion--------------------------------------------------------- Add Level drop fn end heare--------------------------------------------//
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
 }
 
 

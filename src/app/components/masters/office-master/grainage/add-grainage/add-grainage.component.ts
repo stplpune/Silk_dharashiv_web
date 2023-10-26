@@ -89,7 +89,8 @@ export class AddGrainageComponent {
     this.master.GetAllState().subscribe({
       next: ((res: any) => {
         this.stateArr = res.responseData;
-        this.data ? (this.f['stateId'].setValue(this.webStorage.getStateId()), this.getDisrict()) : this.getDisrict();
+        this.data ? (this.f['stateId'].setValue(this.webStorage.getStateId())) : '';
+        this.getDisrict();
       }), error: (() => {
         this.stateArr = [];
       })
@@ -102,7 +103,8 @@ export class AddGrainageComponent {
     this.master.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
         this.districtArr = res.responseData;
-        this.data ? (this.f['districtId'].setValue(this.webStorage.getDistrictId()), this.getTaluka()) : this.getTaluka();
+        this.data ? (this.f['districtId'].setValue(this.webStorage.getDistrictId())) : '';
+        this.getTaluka();
       }), error: (() => {
         this.districtArr = [];
       })
@@ -135,12 +137,11 @@ export class AddGrainageComponent {
       this.apiService.setHttp('POST', 'sericulture/api/GrainageModel/Insert-Update-Grainage?lan='+this.lang, false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
+          this.spinner.hide();
           if (res.statusCode == '200') {
-            this.spinner.hide();
              this.common.snackBar(res.statusMessage, 0);  
              this.dialogRef.close('Yes');
           } else {
-            this.spinner.hide();
             this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
           }
         }),
