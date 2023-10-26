@@ -53,19 +53,25 @@
 
   "grainage": {
     "Type": "Select Type",
+    "Type_reqired": "Please select type",
     "grainage": "Grainage",
     "grainageName_en": "Grainage Name (English)",
-    "grainageName_en_require": "Please enter grainage Name (English)",
+    "grainageName_en_require": "Please enter grainage name (English)",
+    "grainageName_en_pattern" : "Grainage (English) is required",
     "grainageName_en_limit": "Maximum limit 50 character",
     "grainageName_mr": "Grainage Name (Marathi)",
-    "grainageName_mr_require": "Please enter grainage Name (Marathi)",
+    "grainageName_mr_require": "Please enter grainage name (Marathi)",
+    "grainageName_mr_pattern" : "Grainage (Marathi) is required",
     "grainageName_mr_limit": "Maximum limit 50 character",
     "state": "Select State",
     "district": "Select District",
     "taluka": "Select Taluka",
     "taluka_reuired": "Please select taluka",
     "address":"Address",
+    "address_require":"Please enter address",
     "pincode":"Pincode",
+    "pincode_require":"Please enter pincode",
+    "pincode_maxlength":"Please valid pincode number",
     "remark":"Remark",
     "add_Grainage":"Add Grainage",
     "update_Grainage":"Update Grainage",
@@ -84,7 +90,8 @@
     "please_select_action": "Please Select Stage/Action",
     "please_enter_rejection_title": "Please Enter Rejection Title (English)",
     "please_enter_rejection_description": "Please Enter Rejection Description",
-    "please_enter_rejection_title_marathi": "Please Enter Rejection Title (Marathi)"
+    "please_enter_rejection_title_marathi": "Please Enter Rejection Title (Marathi)",
+    "please_enter_valid_rejection_title": "Please Enter Valid Rejection Title (English)"
   },
   "setRule": {
     "set_rule": "Set Rules",
