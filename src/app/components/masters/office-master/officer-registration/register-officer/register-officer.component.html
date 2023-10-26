@@ -26,7 +26,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.designation_level' | translate}}</mat-label>
             <mat-select formControlName="departmentLevelId"
-              (selectionChange)="dropDownCall(officeForm.value.departmentLevelId)">
+              (selectionChange)="clearDropDown(officeForm.value.departmentLevelId);dropDownCall(officeForm.value.departmentLevelId)">
               <mat-option *ngFor="let level of departmentLevelArray" [value]="level.id">{{lang != 'en' ? level.textMarathi : level.textEnglish}}
               </mat-option>
             </mat-select>
@@ -193,9 +193,9 @@
           (change)="imageUplod($event)" />
         <div class="profile-btn text-center">
           <input type="file" class="profile-upload d-none">
-          <!-- <button type="button" mat-icon-button class="btn text-primary add-btn" (click)="uplodLogo.click()"> -->
-            <!-- <mat-icon class="material-symbols-outlined">add</mat-icon> -->
-          <!-- </button> -->
+          <button type="button" mat-icon-button class="btn text-primary add-btn" (click)="uplodLogo.click()">
+           <mat-icon class="material-symbols-outlined">add</mat-icon> 
+      </button>
           <!-- <button mat-icon-button class=" btn-icon bg-danger bg-opacity-10">
             <span class="material-symbols-rounded text-danger">
                 delete
