@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './register-officer.component.html',
   styleUrls: ['./register-officer.component.scss']
 })
-export class RegisterOfficerComponent {
+export class RegisterOfficerComponent implements OnDestroy{
 
   officeForm!: FormGroup
   viewFlag: boolean = false;
@@ -394,6 +394,10 @@ export class RegisterOfficerComponent {
         this.errorHandler.handelError(error.status);
       }
     })
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
   }
 

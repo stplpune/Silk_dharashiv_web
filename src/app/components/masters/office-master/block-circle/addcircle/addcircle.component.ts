@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgIf, NgFor} from '@angular/common';
 import {MatSelectModule} from '@angular/material/select';
@@ -26,7 +26,7 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [MatFormFieldModule,MatButtonModule, MatSelectModule, FormsModule, ReactiveFormsModule, NgIf,MatInputModule, NgFor,MatRadioModule,MatIconModule,MatDialogModule,TranslateModule],
 })
-export class AddcircleComponent {
+export class AddcircleComponent implements OnDestroy{
   addBlockForm !: FormGroup;
   stateArr = new Array();
   districtArr = new Array();
@@ -129,5 +129,9 @@ export class AddcircleComponent {
         error: (() => { this.spinner.hide(); })
       })
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 }

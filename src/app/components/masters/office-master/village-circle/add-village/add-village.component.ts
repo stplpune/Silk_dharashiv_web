@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './add-village.component.html',
   styleUrls: ['./add-village.component.scss']
 })
-export class AddVillageComponent {
+export class AddVillageComponent implements OnDestroy{
   villageForm!: FormGroup;
   stateArray = new Array();
   districtArray = new Array();
@@ -163,7 +163,10 @@ export class AddVillageComponent {
     this.data = null;
     this.getFormData();
   }
-
+ 
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
 
 
 
