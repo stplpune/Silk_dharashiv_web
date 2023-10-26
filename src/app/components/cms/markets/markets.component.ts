@@ -92,7 +92,7 @@ export class MarketsComponent {
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'जिल्हा', 'तालुका', 'बाजारपेठेचे नाव', 'मोबाइल क्रमांक', 'स्थिती', 'कृती'] : ['Sr. No.', 'District', 'Taluka', 'Market Name', 'Mobile No.', 'Status', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
-      pagination: this.tableDatasize > 10 ? true : false,
+      pagination: true,
       highlightedrow: true,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
