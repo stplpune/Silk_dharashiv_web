@@ -76,8 +76,6 @@ export class AddGrainageComponent {
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.grainageArr = res.responseData;
-          console.log('hg',this.data);
-          
           this.data ? (this.f['type'].setValue(this.data?.typeId)) : '';
         } else {
           this.grainageArr = [];

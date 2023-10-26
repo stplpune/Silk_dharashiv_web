@@ -99,8 +99,6 @@ export class GrainageComponent {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData.responseData1;
-          console.log(this.tableDataArray);
-          
           this.totalPages = res.responseData.responseData2?.totalPages;
           this.tableDatasize = res.responseData.responseData2?.totalCount;
         } else {
@@ -142,7 +140,7 @@ export class GrainageComponent {
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
-        this.searchDataFlag ? (this.fl['textSearch'].setValue(this.filterFrm.value.textSearch)) : (this.fl['textSearch'].setValue(''));
+        this.searchDataFlag ? '' : (this.fl['textSearch'].setValue(''));
         this.getTableData();
         break;
       case 'Edit':
