@@ -26,6 +26,7 @@ export class VillageCircleComponent implements OnDestroy{
   subscription!: Subscription;
   lang: string = 'English';
   filterFlag: boolean = false;
+  pageAccessObject: object|any;
 
   constructor
     (
@@ -38,6 +39,7 @@ export class VillageCircleComponent implements OnDestroy{
     ) { }
 
   ngOnInit() {
+    this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == 'Circle'? this.pageAccessObject = ele :''})
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -98,9 +100,12 @@ export class VillageCircleComponent implements OnDestroy{
       tableData: this.tableDataArray,
       tableSize: this.totalCount,
       pagination: this.totalCount > 10 ? true : false,
-      view: true,
-      edit: true,
-      delete: true,
+      // view: true,
+      // edit: true,
+      // delete: true,
+      view: this.pageAccessObject?.readRight == true ? true: false,
+      edit: this.pageAccessObject?.writeRight == true ? true: false,
+      delete: this.pageAccessObject?.deleteRight == true ? true: false,
       reset: false
     }
     this.highLightedFlag ? this.tableObj.highlightedrow = true : this.tableObj.highlightedrow = false;
