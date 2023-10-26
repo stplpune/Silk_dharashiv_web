@@ -26,9 +26,15 @@ export class ValidationService {
   numericWithdecimaluptotwoDigits='^[0-9][0-9]*[.]?[0-9]{0,2}$';
   alphaNumericWithSpacesWithDashSlashs = '^([a-zA-Z0-9/-])';
   marathiAlphanumeric=('^[\u0900-\u09650-9 ][\u0900-\u09650-9 ]+$');
+  englishAlphanumeric = '^[a-zA-Z0-9 ][a-zA-Z0-9 ]*$';
 
   marathiAlphaNumeric(event: any) {
     const maskSeperator = new RegExp('^[\u0900-\u09650-9 ]+$', 'g');
+    return maskSeperator.test(event.key);
+  }
+
+  englishAlphaNumeric(event: any) {
+    const maskSeperator = new RegExp('^[a-zA-Z0-9 ]+$', 'g');
     return maskSeperator.test(event.key);
   }
 
