@@ -350,9 +350,7 @@ export class SetRuleModalComponent implements OnDestroy{
     this.subscription?.unsubscribe();
   }
   //#endregion--------------------------------------------------------- Add Level drop fn end heare--------------------------------------------//
-  ngOnDestroy() {
-    this.subscription?.unsubscribe();
-  }
+ 
 }
 
 
