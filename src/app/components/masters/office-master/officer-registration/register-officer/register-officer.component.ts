@@ -62,25 +62,22 @@ export class RegisterOfficerComponent {
     this.getFormData();
     this.getstatusForm();
     this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(),
-    this.getDepartmentLevel(),this.getDesignation());
-
-    console.log("data",this.data);
-    
+    this.getDepartmentLevel(),this.getDesignation());    
   }
 
 
   getFormData() {
     this.officeForm = this.fb.group({
       id: [this.data ? this.data?.id : 0],
-      departmentId: [this.data ? this.data?.id : '', [Validators.required]],
-      departmentLevelId: [this.data ? this.data?.departmentId : '', [Validators.required]],
+      departmentId: [this.data ? this.data?.id : 0, [Validators.required]],
+      departmentLevelId: [this.data ? this.data?.departmentId : 0, [Validators.required]],
       stateId: [this.data ? this.data?.stateId : 1],
       districtId: [this.data ? this.data?.districtId : 1],
       blockId: [this.data ? this.data?.blockId : 0, [Validators.required]],
       talukaId: [this.data ? this.data?.talukaId : 0, [Validators.required]],
       circleId: [this.data ? this.data?.circleId : 0, [Validators.required]],
-      villageId: [this.data ? this.data?.villageId : '', [Validators.required]],
-      designationId: [this.data ? this.data?.designationId : '', [Validators.required]],
+      villageId: [this.data ? this.data?.villageId : 0, [Validators.required]],
+      designationId: [this.data ? this.data?.designationId : 0, [Validators.required]],
       name: [this.data ? this.data?.name : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(10)]],
       m_Name: [this.data ? this.data?.m_Name : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(50)]],
       mobNo1: [this.data ? this.data?.mobNo1 : '', [Validators.required, Validators.pattern(this.validator.mobile_No)]],
@@ -208,9 +205,7 @@ export class RegisterOfficerComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;     
-          console.log(' this.tableDataArray', this.tableDataArray);
-               
+          this.tableDataArray = res.responseData.responseData1;                    
           // this.imageResponse = this.data?.profileImagePath ?  this.data?.profileImagePath : ''
         } else {
           this.spinner.hide();
@@ -225,10 +220,10 @@ export class RegisterOfficerComponent {
   }
   onSubmitData() {
     let formData = this.officeForm.getRawValue();    
-    formData.talukaId = formData.talukaId  == "" ? 0 : formData.talukaId;
-    formData.villageId =  formData.villageId == "" ? 0 : formData.villageId;
-    formData.blockId =  formData.blockId == "" ? 0 : formData.blockId;
-    formData.circleId =  formData.circleId  == "" ? 0 : formData.circleId;    
+    formData.talukaId = formData.talukaId > 0  ?formData.talukaId    : 0;
+    // formData.villageId =  formData.villageId == "" ? 0 : formData.villageId;
+    // formData.blockId =  formData.blockId == "" ? 0 : formData.blockId;
+    // formData.circleId =  formData.circleId  == "" ? 0 : formData.circleId;    
     if (this.officeForm.invalid) {
       this.spinner.hide();
       return
@@ -253,6 +248,7 @@ export class RegisterOfficerComponent {
         "userName": "string",
         "password": "string",
         "profileImagePath": "string",
+         "userTypeId":2
       }
       this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details', false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
@@ -300,13 +296,11 @@ export class RegisterOfficerComponent {
   }
 
   clearDropDown(flag?:any){
-    if(flag == 'village'){
-      this.villageArray=[]
-      this.f['villageId'].setValue(0);
-    }
+    if(flag == 5 && flag == 2){
+      this.villageArray=[];
+      this.f['talukaId'].setValue(0);
+    } 
   }
-
-
 
   getstatusForm() {
     this.statusForm = this.fb.group({
