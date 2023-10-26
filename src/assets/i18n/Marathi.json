@@ -50,7 +50,35 @@
     "please_enter_valid_pinCode": "कृपया वैध पिन कोड प्रविष्ट करा",
     "pin_limit": "कमाल 6 संख्याना अनुमती आहे"
   },
-
+  "login": {
+    "username": "वापरकर्ता नाव",
+    "password": "पासवर्ड",
+    "login": "लॉगिन करा",
+    "forgot_password": "पासवर्ड विसरलात",
+    "please_enter_username": "कृपया वापरकर्तानाव प्रविष्ट करा",
+    "please_enter_password": "कृपया पासवर्ड टाका",
+    "please_enter_captcha":"कृपया कॅप्चा प्रविष्ट करा",
+    "please_enter_valid_username":"कृपया वैध वापरकर्तानाव प्रविष्ट करा",
+    "invalid_password": "अवैध पासवर्ड"
+  },
+  "forgotPassword":{
+    "forgot_password":"पासवर्ड विसरलात",
+    "mobile_no":"मोबाईल क्र",
+    "send_otp":"OTP पाठवा",
+    "please_enter_mobile_no":"कृपया मोबाईल नंबर टाका",
+    "please_enter_valid_mobile_no":"कृपया वैध मोबाइल नंबर प्रविष्ट करा",
+    "enter_otp":"OTP एंटर करा",
+    "verify_otp":"OTP सत्यापित करा",
+    "resend_otp":"OTP पुन्हा पाठवायचा?",
+    "new_password":"नवीन पासवर्ड",
+    "confirm_password":"पासवर्डची पुष्टी करा",
+    "set_password":"पासवर्ड सेट करा",
+    "please_enter_new_password":"कृपया नवीन पासवर्ड टाका",
+    "please_enter_confirm_password":"कृपया पुष्टी संकेतशब्द प्रविष्ट करा",
+    "please_enter_valid_password":"कृपया वैध संकेतशब्द प्रविष्ट करा",
+    "confirm_valid_password":"कृपया वैध पासवर्ड एंटर करा",
+    "back_to_login":"लॉगिन करण्यासाठी परत"
+  },
   "grainage": {
     "search": "ग्रेनेजनुसार  शोधा",
     "Type": "प्रकार निवडा",
