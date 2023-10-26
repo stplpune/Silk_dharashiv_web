@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {  FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,7 +16,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
   templateUrl: './schemes.component.html',
   styleUrls: ['./schemes.component.scss']
 })
-export class SchemesComponent {
+export class SchemesComponent implements OnDestroy{
 
   totalCount: number | any;
   tableDataArray = new Array();
@@ -27,6 +27,7 @@ export class SchemesComponent {
   filtarFlag: boolean = false;
   subscription!: Subscription;
   lang: string = 'English';
+  pageAccessObject: object|any;
 
   constructor
     (
@@ -52,6 +53,7 @@ export class SchemesComponent {
   }
 
   ngOnInit() {
+    this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == "Schemes" ? this.pageAccessObject = ele :''})
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -103,9 +105,9 @@ export class SchemesComponent {
       tableHeaders: tableHeaders,
       displayedColumns: displayedColumns,
       pagination: this.totalCount > 5 ? true : false,
-      view: true,
-      edit: true,
-      delete: true,
+      view: this.pageAccessObject?.readRight == true ? true: false,
+      edit: this.pageAccessObject?.writeRight == true ? true: false,
+      delete: this.pageAccessObject?.deleteRight == true ? true: false,
       reset: false,
     }
     this.highLightedFlag ? this.tableObj.highlightedrow = true : this.tableObj.highlightedrow = false;
@@ -208,6 +210,10 @@ export class SchemesComponent {
   clearFilter() {
     this.filterForm.reset();
     this.getTableData();
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
 }
