@@ -220,7 +220,7 @@ export class RegisterOfficerComponent {
   }
   onSubmitData() {
     let formData = this.officeForm.getRawValue();    
-    formData.talukaId = formData.talukaId > 0  ?formData.talukaId    : 0;
+    formData.talukaId = formData.talukaId > 0  ? formData.talukaId : 0;
     // formData.villageId =  formData.villageId == "" ? 0 : formData.villageId;
     // formData.blockId =  formData.blockId == "" ? 0 : formData.blockId;
     // formData.circleId =  formData.circleId  == "" ? 0 : formData.circleId;    
@@ -250,7 +250,7 @@ export class RegisterOfficerComponent {
         "profileImagePath": "string",
          "userTypeId":2
       }
-      this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details', false, obj, false, 'masterUrl');
+      this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan='+this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();

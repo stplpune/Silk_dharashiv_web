@@ -158,7 +158,7 @@ export class OfficerRegistrationComponent {
     let formData = this.filterForm.value;
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/UserRegistration/get-user-details?VillageId=' + (formData.villageId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&DepartmentLevelId=' + (formData.departmentLevelId || 0) + '&DepartmentId=' + (formData.departmentId || 0) + '&DesignationId=' + (formData.designationId || 0) + '&CircleId=' + (formData.circleId || 0) + '&BlockId=' + (formData.blockId || 0) + '&SearchText=' + (formData.searchtext || '') + '&' + str, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/UserRegistration/get-user-details?VillageId=' + (formData.villageId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&DepartmentLevelId=' + (formData.departmentLevelId || 0) + '&DepartmentId=' + (formData.departmentId || 0) + '&DesignationId=' + (formData.designationId || 0) + '&CircleId=' + (formData.circleId || 0) + '&BlockId=' + (formData.blockId || 0) + '&SearchText=' + (formData.searchtext || '') + '&' + str+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
