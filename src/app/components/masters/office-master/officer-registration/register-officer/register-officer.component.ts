@@ -311,7 +311,7 @@ export class RegisterOfficerComponent {
   sendData(id: any) {
     id == 1  ? (this.showFlag = false,this.statusForm.controls['remark'].setValue('')) : this.showFlag = true;      
   }
-
+ 
   submitStatusData() {
     this.spinner.show();
     let formData = this.statusForm.value;
@@ -323,7 +323,7 @@ export class RegisterOfficerComponent {
         "isActive": formData.statusId == 0 ? true : false,
         "reason": formData.statusId == 1 ? "" : formData.remark
       }
-      this.apiService.setHttp('put', 'sericulture/api/UserRegistration/User-Active-Status', false, obj, false, 'masterUrl');
+      this.apiService.setHttp('put', ' sericulture/api/UserRegistration/User-Active-Status?lan='+this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -366,32 +366,32 @@ export class RegisterOfficerComponent {
     })
   }
 
-  onSubmitProfileData(){
-    let obj=
-    {
-      "id": this.tableDataArray[0].id,
-      "imagePath":  this.imageResponse
-    }
-    this.apiService.setHttp('put', 'sericulture/api/UserRegistration/Upload-Image_web?lan='+this.lang, false, obj, false, 'masterUrl');
-    this.apiService.getHttp().subscribe({
-      next: ((res: any) => {
-        this.spinner.hide();
-        if (res.statusCode == "200") {
-          this.commonMethod.snackBar(res.statusMessage, 0);
-          this.dialogRef.close('Yes');
-        }
-        else {
-          this.commonMethod.checkDataType(res.statusMessage) == false
-            ? this.errorHandler.handelError(res.statusCode)
-            : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      }),
-      error: (error: any) => {
-        this.spinner.hide();
-        this.errorHandler.handelError(error.status);
-      }
-    })
-  }
+  // onSubmitProfileData(){
+  //   let obj=
+  //   {
+  //     "id": this.tableDataArray[0].id,
+  //     "imagePath":  this.imageResponse
+  //   }
+  //   this.apiService.setHttp('put', 'sericulture/api/UserRegistration/Upload-Image_web?lan='+this.lang, false, obj, false, 'masterUrl');
+  //   this.apiService.getHttp().subscribe({
+  //     next: ((res: any) => {
+  //       this.spinner.hide();
+  //       if (res.statusCode == "200") {
+  //         this.commonMethod.snackBar(res.statusMessage, 0);
+  //         // this.dialogRef.close('Yes');
+  //       }
+  //       else {
+  //         this.commonMethod.checkDataType(res.statusMessage) == false
+  //           ? this.errorHandler.handelError(res.statusCode)
+  //           : this.commonMethod.snackBar(res.statusMessage, 1);
+  //       }
+  //     }),
+  //     error: (error: any) => {
+  //       this.spinner.hide();
+  //       this.errorHandler.handelError(error.status);
+  //     }
+  //   })
+  // }
   }
 
 

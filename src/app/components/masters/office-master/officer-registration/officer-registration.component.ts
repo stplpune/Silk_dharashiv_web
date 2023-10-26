@@ -234,7 +234,7 @@ export class OfficerRegistrationComponent {
       this.setTableData();
     });
   }
-
+  // sericulture/api/UserRegistration/delete-user-details?Id=1&lan=en
   deleteDialogOpen(delObj?: any) {
     let dialogObj = {
       title: this.lang == 'en' ? 'Do You Want To Delete Selected Officer ?' : 'तुम्हाला निवडलेल्या अधिकाऱ्याला हटवायचे आहे का? ?',
@@ -250,7 +250,7 @@ export class OfficerRegistrationComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('put', 'sericulture/api/UserRegistration/delete-user-details?Id=' + delObj.id, false, false, false, 'masterUrl');
+        this.apiService.setHttp('put', 'sericulture/api/UserRegistration/delete-user-details?Id=' + delObj.id+'&lan='+this.lang, false, false, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
