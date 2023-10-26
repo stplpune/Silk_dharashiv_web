@@ -15,7 +15,7 @@
       <div class="row gx-2">
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>All Type</mat-label>
+            <mat-label>{{"grainage.type" | translate}}</mat-label>
             <mat-select formControlName="type">
               <mat-option *ngFor=" let grain of grainageArr"
               [value]="grain.id">{{lang == 'en' ? grain.textEnglish : grain.textMarathi}}</mat-option>
@@ -24,7 +24,7 @@
         </div>
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>All State</mat-label>
+            <mat-label>{{"grainage.State" | translate}}</mat-label>
             <mat-select formControlName="stateId">
               <mat-option *ngFor=" let state of stateArr"
               [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
@@ -33,7 +33,7 @@
         </div>
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Search Grainage Name</mat-label>
+            <mat-label>{{"grainage.search" | translate}}</mat-label>
             <input matInput formControlName="textSearch" (keypress)="validator.noFirstSpaceAllow($event)">
           </mat-form-field>
         </div>

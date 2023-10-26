@@ -52,7 +52,9 @@
   },
 
   "grainage": {
+    "search": "Search Grainage Name",
     "Type": "Select Type",
+    "type": "Type",
     "Type_reqired": "Please select type",
     "grainage": "Grainage",
     "grainageName_en": "Grainage Name (English)",
@@ -64,11 +66,13 @@
     "grainageName_mr_pattern" : "Grainage (Marathi) is required",
     "grainageName_mr_limit": "Maximum limit 50 character",
     "state": "Select State",
+    "State": "State",
     "district": "Select District",
     "taluka": "Select Taluka",
     "taluka_reuired": "Please select taluka",
     "address":"Address",
     "address_require":"Please enter address",
+    "address_limit":"Maximum limit 100 character",
     "pincode":"Pincode",
     "pincode_require":"Please enter pincode",
     "pincode_maxlength":"Please valid pincode number",
