@@ -93,7 +93,7 @@ export class SchemesComponent {
   setTableData() {
     this.highLightedFlag = true;
     let displayedColumns = this.lang == 'en' ? ['srNo', 'schemeType', 'state', 'district', 'isActive', 'action'] : ['srNo', 'm_SchemeType', 'm_State', 'm_District', 'isActive', 'action']
-    let tableHeaders = this.lang == 'en' ? ['Sr. No.', 'Scheme Name', 'State Name', 'District Name', 'Status', 'Action'] : ['अनुक्रमांक', 'योजनेचे नाव', 'राज्यांचे नाव', 'जिल्ह्याचे नाव', 'स्थिती', 'क्रिया']
+    let tableHeaders = this.lang == 'en' ? ['Sr. No.', 'Scheme', 'State', 'District', 'Status', 'Action'] : ['अनुक्रमांक', 'योजना', 'राज्य', 'जिल्हा', 'स्थिती', 'क्रिया']
     this.tableObj = {
       pageNumber: this.pageNumber,
       status: '',
