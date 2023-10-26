@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: 'page-right-access', loadChildren: () => import('../../components/setting/page-right-access/page-right-access.module').then(m => m.PageRightAccessModule), data: { breadcrumb: [{ title: 'Page Right Access', active: true }] }  },
 
   //Application
-  { path: 'manarega', loadChildren: () => import('../../components/Application/manarega/manarega.module').then(m => m.ManaregaModule), data: { breadcrumb: [{ title: 'Manarega', active: true }] }   },
+  { path: 'application', loadChildren: () => import('../../components/Application/manarega/manarega.module').then(m => m.ManaregaModule), data: { breadcrumb: [{ title: 'Manarega', active: true }] }   },
 
 ];
 
