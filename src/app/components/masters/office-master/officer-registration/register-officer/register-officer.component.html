@@ -259,7 +259,7 @@
         <div class="ms-2 me-auto">
           <div class="form-label">{{'officerreg.state' |translate}}</div>
         </div>
-        <span class="form-data">{{tableDataArray[0]?.statId || '-'}}</span>
+        <span class="form-data">{{this.lang == 'en' ? tableDataArray[0]?.statId : 'महाराष्ट्र' || '-'}}</span>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
@@ -291,14 +291,14 @@
               <mat-form-field appearance="outline" class="w-100" [class]="statusForm.value.statusId == 0 ? sendData(statusForm.value.statusId) : '' ">
                 <mat-label>{{'officerreg.status' | translate}}</mat-label>
                 <mat-select formControlName="statusId" (selectionChange)="sendData(statusForm.value.statusId)"  >
-                  <mat-option *ngFor="let st of statusArray" [value]="st.id">{{st.value}}</mat-option>
+                  <mat-option *ngFor="let st of statusArray" [value]="st.id">{{this.lang == 'en' ? st.value : st.mr_value}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
           </div>
           <span class="form-data" *ngIf="showFlag">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Remark</mat-label>
+              <mat-label>{{'officerreg.remark' | translate}}</mat-label>
               <input matInput formControlName="remark" placeholder="">
             </mat-form-field>
           </span>
