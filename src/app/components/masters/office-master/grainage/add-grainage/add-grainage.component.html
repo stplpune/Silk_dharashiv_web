@@ -99,7 +99,7 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{"grainage.state" | translate}}</mat-label>
           <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
-          [class]="grainageFrm.controls['stateId'].disable({ onlySelf: true })">
+          [class]="f['stateId'].disable({ onlySelf: true })">
             <mat-option *ngFor=" let state of stateArr"
             [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
           </mat-select>
@@ -109,7 +109,7 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{"grainage.district" | translate}}</mat-label>
           <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
-          [class]="grainageFrm.controls['districtId'].disable({ onlySelf: true })">
+          [class]="f['districtId'].disable({ onlySelf: true })">
             <mat-option *ngFor=" let dist of districtArr"
             [value]="dist.id">{{lang == 'en' ? dist.textEnglish : dist.textMarathi}}</mat-option>
           </mat-select>

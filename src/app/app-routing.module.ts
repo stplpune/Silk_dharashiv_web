@@ -13,6 +13,7 @@ const routes: Routes = [
   // { path: 'ref', component: ReferanceComponent },// For Testing purpose
   { path: '', canActivate: [CheckLoggedInGuard], component: PublicComponent, loadChildren: () => import('./layouts/public/public.module').then(m => m.PublicModule) },
   { path: '', canActivate: [AuthGuard], component: SecureComponent, loadChildren: () => import('./layouts/secure/secure.module').then(m => m.SecureModule) },
+  { path: 'approval-process', loadChildren: () => import('./components/Application/manarega/approval-process/approval-process.module').then(m => m.ApprovalProcessModule) },
   { path: '**', component: ErrorComponent }
 ];
 

@@ -153,7 +153,7 @@ export class DesignationsComponent implements OnDestroy{
   childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':
-        this.searchDataFlag ? (this.filterFrm.controls['deptId'].setValue(this.filterFrm.value?.deptId),this.filterFrm.controls['deptLevelId'].setValue(this.filterFrm.value?.deptLevelId), this.filterFrm.controls['textSearch'].setValue(this.filterFrm.value.textSearch)) : (this.filterFrm.controls['deptId'].setValue(''),this.filterFrm.controls['deptLevelId'].setValue(''), this.filterFrm.controls['textSearch'].setValue(''));
+        this.searchDataFlag ? '' : (this.filterFrm.controls['deptId'].setValue(''),this.filterFrm.controls['deptLevelId'].setValue(''), this.filterFrm.controls['textSearch'].setValue(''));
         this.pageNumber = obj.pageNumber;
         this.bindTable();
         break;
