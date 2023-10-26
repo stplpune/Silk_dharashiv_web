@@ -259,7 +259,7 @@
         <div class="ms-2 me-auto">
           <div class="form-label">{{'officerreg.state' |translate}}</div>
         </div>
-        <span class="form-data">{{this.lang == 'en' ? tableDataArray[0]?.statId : 'महाराष्ट्र' || '-'}}</span>
+        <span class="form-data">{{this.lang == 'en' ? tableDataArray[0]?.statId : tableDataArray[0]?.m_OfficeState || '-'}}</span>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
