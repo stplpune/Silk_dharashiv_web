@@ -69,7 +69,6 @@ export class RejectReasonComponent {
       })
     })
   }
-  // onSubmit() { }
 
   bindTable(flag?:any) {
     this.spinner.show();

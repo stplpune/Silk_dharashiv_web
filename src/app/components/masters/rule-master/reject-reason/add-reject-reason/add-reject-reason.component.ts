@@ -36,7 +36,6 @@ export class AddRejectReasonComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,) { }
 
   ngOnInit() {
-    console.log(this.data);
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -50,7 +49,7 @@ export class AddRejectReasonComponent {
   defaultForm() {
     this.rejectResonFrm = this.fb.group({
       actionId: ['', [Validators.required]],
-      rejectionTitle: ['', [Validators.required,this.validation.maxLengthValidator(100)]],
+      rejectionTitle: ['', [Validators.required,Validators.pattern(this.validation.englishNumericAndspecialChar),this.validation.maxLengthValidator(100)]],
       rejectionTitleMarathi:['', [Validators.required,this.validation.maxLengthValidator(100),Validators.pattern(this.validation.marathi)]],
       description: ['', [Validators.required,this.validation.maxLengthValidator(500)]],
     })
@@ -74,7 +73,7 @@ export class AddRejectReasonComponent {
     if (this.rejectResonFrm.invalid) {
       return;
     }
-    console.log(this.rejectResonFrm.value);
+   
     let formData = this.rejectResonFrm.getRawValue();
     let obj = {
       "id":this.editFlag?this.editId: 0,
@@ -118,6 +117,7 @@ export class AddRejectReasonComponent {
 
   clearForm() {
     this.formDirective?.resetForm();
+    this.editFlag = false;
   }
 
 }
