@@ -61,8 +61,7 @@ export class RegisterOfficerComponent {
     })
     this.getFormData();
     this.getstatusForm();
-    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(),
-    this.getDepartmentLevel(),this.getDesignation());    
+    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(),this.getDepartmentLevel(),this.getDesignation());    
   }
 
 
@@ -248,7 +247,7 @@ export class RegisterOfficerComponent {
         "userName": "string",
         "password": "string",
         "profileImagePath": "string",
-         "userTypeId":2
+        "userTypeId":2
       }
       this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan='+this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
@@ -311,7 +310,7 @@ export class RegisterOfficerComponent {
   sendData(id: any) {
     id == 1  ? (this.showFlag = false,this.statusForm.controls['remark'].setValue('')) : this.showFlag = true;      
   }
-
+ 
   submitStatusData() {
     this.spinner.show();
     let formData = this.statusForm.value;
@@ -323,7 +322,7 @@ export class RegisterOfficerComponent {
         "isActive": formData.statusId == 0 ? true : false,
         "reason": formData.statusId == 1 ? "" : formData.remark
       }
-      this.apiService.setHttp('put', 'sericulture/api/UserRegistration/User-Active-Status', false, obj, false, 'masterUrl');
+      this.apiService.setHttp('put', ' sericulture/api/UserRegistration/User-Active-Status?lan='+this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -352,6 +351,9 @@ export class RegisterOfficerComponent {
         if (res.statusCode == '200') {
           this.spinner.hide();
           this.imageResponse = res.responseData;
+          setTimeout(() => {
+            this.onSubmitProfileData(); 
+          }, 500);
         }
         else {
           this.clearlogo.nativeElement.value = "";
@@ -378,7 +380,8 @@ export class RegisterOfficerComponent {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.commonMethod.snackBar(res.statusMessage, 0);
-          this.dialogRef.close('Yes');
+          this.getDataById();
+          // this.dialogRef.close('Yes');
         }
         else {
           this.commonMethod.checkDataType(res.statusMessage) == false

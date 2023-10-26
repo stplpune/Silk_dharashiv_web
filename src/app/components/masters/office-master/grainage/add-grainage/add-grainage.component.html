@@ -7,6 +7,64 @@
     </button>
   </div>
 </div>
+<div class="row g-3" *ngIf="isViewFlag">
+  <div class="col-sm-12">
+    <div class="row gx-2">
+      <div class="col-sm-5 form-label">{{lang == 'en' ? 'Type ': 'प्रकार'}}</div>
+      <div class="col-sm-7 form-data">: {{lang == 'en' ? data?.type : data?.m_Type}}</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row gx-2">
+      <div class="col-sm-5 form-label">{{'grainage.grainageName_en' | translate}}</div>
+      <div class="col-sm-7 form-data">: {{data?.grainage || '-'}}</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row gx-2">
+      <div class="col-sm-5 form-label">{{'grainage.grainageName_mr' | translate}}</div>
+      <div class="col-sm-7 form-data">: {{data?.m_Grainage || '-'}}</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row gx-2">
+      <div class="col-sm-5 form-label">{{lang == 'en' ? 'State': 'राज्य'}}</div>
+      <div class="col-sm-7 form-data">:{{lang == 'en' ? data?.state : data?.m_State}}</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row gx-2">
+      <div class="col-sm-5 form-label">{{lang == 'en' ? 'District': 'जिल्हा'}}</div>
+      <div class="col-sm-7 form-data">: {{lang == 'en' ? data?.district : data?.m_District}}</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row gx-2">
+      <div class="col-sm-5 form-label">{{lang == 'en' ? 'Taluka': 'तालुका'}}</div>
+      <div class="col-sm-7 form-data">: {{lang == 'en' ? data?.taluka : data?.m_Taluka}}</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row gx-2">
+      <div class="col-sm-5 form-label">{{"grainage.pincode" | translate}}</div>
+      <div class="col-sm-7 form-data">: {{data?.pincode || '-'}}</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row gx-2">
+      <div class="col-sm-5 form-label">{{"grainage.address" | translate}}</div>
+      <div class="col-sm-7 form-data">: {{data?.address || '-'}}</div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row gx-2">
+      <div class="col-sm-5 form-label">{{"grainage.remark" | translate}}</div>
+      <div class="col-sm-7 form-data">: {{data?.remark || '-'}}</div>
+    </div>
+  </div>
+</div>
+
+<div class="" *ngIf="!isViewFlag">
 <form [formGroup]="grainageFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
   <div mat-dialog-content class="modal-body">
     <mat-form-field appearance="outline" class="w-50">
@@ -21,8 +79,7 @@
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{"grainage.grainageName_en" | translate}}</mat-label>
-          <input formControlName="grainage" matInput 
-          (keypress)="validator.noFirstSpaceAllow($event)">
+          <input formControlName="grainage" matInput (keypress)="validator.noFirstSpaceAllow($event);validator.englishAlphaNumeric($event)">
           <mat-error *ngIf="f['grainage']?.hasError('required')">{{'grainage.grainageName_en_require'|translate}}</mat-error>
           <mat-error *ngIf="f['grainage']?.hasError('pattern')">{{'grainage.grainageName_en_pattern'|translate}}</mat-error>
           <mat-error *ngIf="f['grainage']?.hasError('maxLengthExceeded')">{{'grainage.grainageName_en_limit'|translate}}</mat-error>
@@ -71,7 +128,8 @@
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{"grainage.pincode" | translate}}</mat-label>
-          <input formControlName="pincode" matInput  maxlength="6"> 
+          <input formControlName="pincode" matInput  maxlength="6"
+          (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)"> 
           <mat-error *ngIf="f['pincode']?.hasError('required')">{{'grainage.pincode_require'|translate}}</mat-error>
           <mat-error *ngIf="f['pincode']?.hasError('pattern')">{{'grainage.pincode_maxlength'|translate}}</mat-error>
         </mat-form-field>
@@ -79,15 +137,16 @@
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{"grainage.address" | translate}}</mat-label>
-          <textarea formControlName="address" matInput ></textarea>
+          <textarea formControlName="address" matInput (keypress)="validator.noFirstSpaceAllow($event)"></textarea>
           <mat-error *ngIf="f['address']?.hasError('required')">{{'grainage.address_require'|translate}}</mat-error>
+          <mat-error *ngIf="f['address']?.hasError('maxLengthExceeded')">{{'grainage.address_limit'|translate}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{"grainage.remark" | translate}}</mat-label>
-          <textarea formControlName="remark" matInput placeholder=""></textarea>
+          <textarea formControlName="remark" matInput (keypress)="validator.noFirstSpaceAllow($event)"></textarea>
         </mat-form-field>
       </div>
     </div>
@@ -100,3 +159,4 @@
     </div>
   </div>
 </form>
+</div>

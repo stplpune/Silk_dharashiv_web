@@ -57,13 +57,12 @@ export class AddGrainageComponent {
     this.grainageFrm = this.fb.group({
       id: [this.data ? this.data.id : 0],
       type: [this.data ? this.data.type : '',[Validators.required]],
-      grainage: [this.data ? this.data.grainage : '',[Validators.required, this.validator.maxLengthValidator(50)]],
+      grainage: [this.data ? this.data.grainage : '',[Validators.required,Validators.pattern(this.validator.englishAlphanumeric), this.validator.maxLengthValidator(50)]],
       m_Grainage: [this.data ? this.data.m_Grainage : '',[Validators.required,Validators.pattern(this.validator.marathiAlphanumeric), this.validator.maxLengthValidator(50)]],
       stateId: [this.data ? this.data.stateId : this.webStorage.getStateId() == '' ? 0 : this.webStorage.getStateId()],
       districtId: [this.data ? this.data.districtId : this.webStorage.getDistrictId() == '' ? 0 : this.webStorage.getDistrictId()],
       talukaId: [this.data ? this.data.talukaId : '',[Validators.required]],
-      address: [this.data ? this.data.address : '',[Validators.required]],
-      // m_Address: [this.data ? this.data.m_Address : ''],
+      address: [this.data ? this.data.address : '',[Validators.required, this.validator.maxLengthValidator(100)]],
       pincode: [this.data ? this.data.pincode : '',[Validators.required,Validators.pattern(this.validator.valPinCode)]],
       remark: [this.data ? this.data.remark : ''],
       flag: [this.data ? "u" : "i"]
@@ -130,7 +129,7 @@ export class AddGrainageComponent {
   onSubmitData() {
     let formvalue = this.grainageFrm.getRawValue();
     if (this.grainageFrm.invalid) {
-      return
+      return;
     } else {
       this.spinner.show();
       formvalue.id = Number(formvalue.id)
