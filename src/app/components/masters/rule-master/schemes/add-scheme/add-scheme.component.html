@@ -10,7 +10,8 @@
 <div class="" *ngIf="!isViewFlag">
 <form [formGroup]="schemeForm" (ngSubmit)="onSubmitData()" #formDirective="ngForm">
   <mat-dialog-content class="modal-body form-container">
-    <div class="col-sm-12">
+    <div class="row">
+    <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'scheme.select_state' | translate }}</mat-label>
         <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
@@ -20,7 +21,7 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-sm-12">
+    <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'scheme.select_district' | translate }}</mat-label>
         <mat-select formControlName="districtId"  [class]="schemeForm.controls['districtId'].disable({ onlySelf: true })">
@@ -89,6 +90,8 @@
       </div>
       <mat-error *ngIf="editorFlag && !imageResponse">{{lang == 'en' ? "Please Add Scheme Logo" : "कृपया योजनेचा लोगो जोडा"}} </mat-error>
     </div>
+  </div>
+
   </mat-dialog-content>
 
  <mat-dialog-actions class="modal-footer">
