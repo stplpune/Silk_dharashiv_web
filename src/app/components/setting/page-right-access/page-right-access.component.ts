@@ -98,8 +98,7 @@ export class PageRightAccessComponent {
     this.dataSource[i].readRight = allStatus;
     this.dataSource[i].writeRight = allStatus;
     this.dataSource[i].deleteRight = allStatus;
-    this.dataSource[i].isSideBarMenu = allStatus;
-  }
+   }
 
   onSubmitData() {
     this.spinner.show();
@@ -112,7 +111,6 @@ export class PageRightAccessComponent {
         "readRight": res.readRight,
         "writeRight": res.writeRight,
         "deleteRight": res.deleteRight,
-        "isSideBarMenu":res.isSideBarMenu,//used for show pages on sidebar or not(pass flag false)
         "createdBy": this.webStorage.getUserId(),
       }
       this.passArray.push(obj)
