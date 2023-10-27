@@ -43,7 +43,7 @@ export class SchemesComponent implements OnDestroy{
 
   addscheme(data?: any) {
     const dialogRef = this.dialog.open(AddSchemeComponent, {
-      width: '30%',
+      width: '40%',
       data: data,
       disableClose: true
     });
@@ -133,7 +133,7 @@ export class SchemesComponent implements OnDestroy{
       case 'Block':
         this.openBlockDialog(obj);
         break;
-      
+
     }
   }
 
@@ -205,7 +205,7 @@ export class SchemesComponent implements OnDestroy{
     });
   }
 
- 
+
 
   clearFilter() {
     this.filterForm.reset();

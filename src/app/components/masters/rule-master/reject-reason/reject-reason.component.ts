@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { AddRejectReasonComponent } from './add-reject-reason/add-reject-reason.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
@@ -17,7 +17,7 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
   templateUrl: './reject-reason.component.html',
   styleUrls: ['./reject-reason.component.scss']
 })
-export class RejectReasonComponent {
+export class RejectReasonComponent implements OnDestroy{
   filterFrm!: FormGroup;
   actionResp = new Array();
   tableresp= new Array();
@@ -26,6 +26,7 @@ export class RejectReasonComponent {
   totalPages:any;
   pageNumber: number = 1;
   filterFlag: boolean = false;
+  pageAccessObject: object|any;
   subscription!: Subscription;//used  for lang conv
   @ViewChild('formDirective') private formDirective!: NgForm;
   constructor(public dialog: MatDialog,
@@ -41,6 +42,8 @@ export class RejectReasonComponent {
  
 
   ngOnInit() {
+    this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == "Reject Reason" ? this.pageAccessObject = ele :''})
+
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -123,7 +126,10 @@ export class RejectReasonComponent {
       tableData: this.tableresp,
       tableSize: this.totalItem,
       tableHeaders: displayedheaders,
-      delete: true, view: false, edit: true,
+      // delete: true, view: false, edit: true,
+      view: this.pageAccessObject?.readRight == true ? true: false,
+      edit: this.pageAccessObject?.writeRight == true ? true: false,
+      delete: this.pageAccessObject?.deleteRight == true ? true: false
     };
     // this.highLightedFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);

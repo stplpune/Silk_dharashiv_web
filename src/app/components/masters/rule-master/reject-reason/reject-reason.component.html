@@ -2,7 +2,7 @@
   <mat-card-header class="card-header">
     <div class="d-flex align-items-center justify-content-between w-100">
       <div class="text-main">{{'rejectReason.reject_reason'|translate}}</div>
-      <button mat-flat-button class="btn-main" (click)="addrejectreason()">
+      <button mat-flat-button class="btn-main" *ngIf="pageAccessObject?.writeRight == true" (click)="addrejectreason()">
         <mat-icon class="material-symbols-rounded">
           add
         </mat-icon>

@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './register-officer.component.html',
   styleUrls: ['./register-officer.component.scss']
 })
-export class RegisterOfficerComponent implements OnDestroy{
+export class RegisterOfficerComponent {
 
   officeForm!: FormGroup
   viewFlag: boolean = false;
@@ -32,7 +32,7 @@ export class RegisterOfficerComponent implements OnDestroy{
   @ViewChild('formDirective') private formDirective!: NgForm;
   @ViewChild('uplodLogo') clearlogo!: any;
   tableDataArray = new Array();
-  statusArray = [{ id: 0, 'value': 'De Active','mr_value':'निष्क्रिय' }, { id: 1, 'value': 'Active','mr_value':'सक्रिय' }];
+  statusArray = [{ id: 0, 'value': 'De Active', 'mr_value': 'निष्क्रिय' }, { id: 1, 'value': 'Active', 'mr_value': 'सक्रिय' }];
   showFlag: boolean = false;
   statusForm!: FormGroup;
   imageResponse: string = '';
@@ -61,28 +61,28 @@ export class RegisterOfficerComponent implements OnDestroy{
     })
     this.getFormData();
     this.getstatusForm();
-    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(),this.getDepartmentLevel(),this.getDesignation());    
+    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(), this.getDepartmentLevel(), this.getDesignation());
   }
 
 
   getFormData() {
     this.officeForm = this.fb.group({
       id: [this.data ? this.data?.id : 0],
-      departmentId: [this.data ? this.data?.id : 0, [Validators.required]],
-      departmentLevelId: [this.data ? this.data?.departmentId : 0, [Validators.required]],
+      departmentId: [this.data ? this.data?.id : '', [Validators.required]],
+      departmentLevelId: [this.data ? this.data?.departmentId : '', [Validators.required]],
       stateId: [this.data ? this.data?.stateId : 1],
       districtId: [this.data ? this.data?.districtId : 1],
       blockId: [this.data ? this.data?.blockId : 0, [Validators.required]],
       talukaId: [this.data ? this.data?.talukaId : 0, [Validators.required]],
       circleId: [this.data ? this.data?.circleId : 0, [Validators.required]],
       villageId: [this.data ? this.data?.villageId : 0, [Validators.required]],
-      designationId: [this.data ? this.data?.designationId : 0, [Validators.required]],
-      name: [this.data ? this.data?.name : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(10)]],
+      designationId: [this.data ? this.data?.designationId : '', [Validators.required]],
+      name: [this.data ? this.data?.name : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(50)]],
       m_Name: [this.data ? this.data?.m_Name : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(50)]],
       mobNo1: [this.data ? this.data?.mobNo1 : '', [Validators.required, Validators.pattern(this.validator.mobile_No)]],
       emailId: [this.data ? this.data?.emailId : '', [Validators.required, Validators.email, this.validator.maxLengthValidator(50)]],
-      address: [this.data ? this.data?.address : '',[this.validator.maxLengthValidator(100)]],
-      m_Address: [this.data ? this.data?.m_Address : '', [this.validator.maxLengthValidator(100),Validators.pattern(this.validator.marathi)]],
+      address: [this.data ? this.data?.address : '', [this.validator.maxLengthValidator(100)]],
+      m_Address: [this.data ? this.data?.m_Address : '', [this.validator.maxLengthValidator(100), Validators.pattern(this.validator.marathi)]],
       flag: [this.data ? "u" : "i"],
       createdBy: [this.WebStorageService.getUserId()]
     })
@@ -174,15 +174,15 @@ export class RegisterOfficerComponent implements OnDestroy{
     let stateId = this.officeForm.getRawValue().stateId;
     let distId = this.officeForm.getRawValue().districtId;
     let talukaId = this.officeForm.getRawValue().talukaId || 0;
-    if(talukaId!=0){
-    this.masterService.GetAllVillages(stateId, distId, talukaId, 0).subscribe({
-      next: ((res: any) => {
-        this.villageArray = res.responseData;
-        this.data ? (this.f['villageId'].setValue(this.data?.villageId)) : '';
-      }), error: (() => {
-        this.villageArray = [];
+    if (talukaId != 0) {
+      this.masterService.GetAllVillages(stateId, distId, talukaId, 0).subscribe({
+        next: ((res: any) => {
+          this.villageArray = res.responseData;
+          this.data ? (this.f['villageId'].setValue(this.data?.villageId)) : '';
+        }), error: (() => {
+          this.villageArray = [];
+        })
       })
-    })
     }
   }
 
@@ -204,7 +204,7 @@ export class RegisterOfficerComponent implements OnDestroy{
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;                    
+          this.tableDataArray = res.responseData.responseData1;
           // this.imageResponse = this.data?.profileImagePath ?  this.data?.profileImagePath : ''
         } else {
           this.spinner.hide();
@@ -218,11 +218,11 @@ export class RegisterOfficerComponent implements OnDestroy{
     });
   }
   onSubmitData() {
-    let formData = this.officeForm.getRawValue();    
-    formData.talukaId = formData.talukaId > 0  ? formData.talukaId : 0;
+    let formData = this.officeForm.getRawValue();
+    formData.talukaId = formData.talukaId  ? formData.talukaId : 0;
     // formData.villageId =  formData.villageId == "" ? 0 : formData.villageId;
     // formData.blockId =  formData.blockId == "" ? 0 : formData.blockId;
-    // formData.circleId =  formData.circleId  == "" ? 0 : formData.circleId;    
+    // formData.circleId =  formData.circleId  == "" ? 0 : formData.circleId; 
     if (this.officeForm.invalid) {
       this.spinner.hide();
       return
@@ -247,9 +247,9 @@ export class RegisterOfficerComponent implements OnDestroy{
         "userName": "string",
         "password": "string",
         "profileImagePath": "string",
-        "userTypeId":2
+        "userTypeId": 2
       }
-      this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan='+this.lang, false, obj, false, 'masterUrl');
+      this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan=' + this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -293,12 +293,42 @@ export class RegisterOfficerComponent implements OnDestroy{
     }
 
   }
+  // this.departmentArray = [];
+    // this.f['departmentId'].setValue(0);
+    // this.departmentLevelArray=[];
+    // this.f['departmentLevelId'].setValue(0);
+    // this.designationArray=[];
+    // this.f['designationId'].setValue(0);
+    // this.blockArray=[];
+    // this.f['blockId'].setValue(0);
+    // this.circleArray=[];
+    // this.f['circleId'].setValue(0);
+    // this.talukaArray=[];
+    // this.f['talukaId'].setValue(0);
+    // this.villageArray=[];
+    // this.f['villageId'].setValue(0);
 
-  clearDropDown(flag?:any){
-    if(flag == 5 && flag == 2){
-      this.villageArray=[];
+  clearDropDown(levelId?: any) {
+   if(levelId == 1){
+      this.talukaArray=[];
       this.f['talukaId'].setValue(0);
-    } 
+      this.circleArray=[];
+      this.f['circleId'].setValue(0);
+   }else if(levelId == 2){
+      this.blockArray=[];
+      this.f['blockId'].setValue(0);
+   }else if(levelId == 3){
+    this.talukaArray=[];
+    this.f['talukaId'].setValue(0);
+    this.villageArray=[];
+    this.f['villageId'].setValue(0);
+   }else if(levelId == 4){
+    this.talukaArray=[];
+    this.f['talukaId'].setValue(0);
+   }else if(levelId == 'village') {
+    this.villageArray=[];
+    this.f['villageId'].setValue(0);
+   }
   }
 
   getstatusForm() {
@@ -308,9 +338,9 @@ export class RegisterOfficerComponent implements OnDestroy{
     })
   }
   sendData(id: any) {
-    id == 1  ? (this.showFlag = false,this.statusForm.controls['remark'].setValue('')) : this.showFlag = true;      
+    id == 1 ? (this.showFlag = false, this.statusForm.controls['remark'].setValue('')) : this.showFlag = true;
   }
- 
+
   submitStatusData() {
     this.spinner.show();
     let formData = this.statusForm.value;
@@ -322,7 +352,7 @@ export class RegisterOfficerComponent implements OnDestroy{
         "isActive": formData.statusId == 0 ? true : false,
         "reason": formData.statusId == 1 ? "" : formData.remark
       }
-      this.apiService.setHttp('put', ' sericulture/api/UserRegistration/User-Active-Status?lan='+this.lang, false, obj, false, 'masterUrl');
+      this.apiService.setHttp('put', ' sericulture/api/UserRegistration/User-Active-Status?lan=' + this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -352,7 +382,7 @@ export class RegisterOfficerComponent implements OnDestroy{
           this.spinner.hide();
           this.imageResponse = res.responseData;
           setTimeout(() => {
-            this.onSubmitProfileData(); 
+            this.onSubmitProfileData();
           }, 500);
         }
         else {
@@ -368,13 +398,13 @@ export class RegisterOfficerComponent implements OnDestroy{
     })
   }
 
-  onSubmitProfileData(){
-    let obj=
+  onSubmitProfileData() {
+    let obj =
     {
       "id": this.tableDataArray[0].id,
-      "imagePath":  this.imageResponse
+      "imagePath": this.imageResponse
     }
-    this.apiService.setHttp('put', 'sericulture/api/UserRegistration/Upload-Image_web?lan='+this.lang, false, obj, false, 'masterUrl');
+    this.apiService.setHttp('put', 'sericulture/api/UserRegistration/Upload-Image_web?lan=' + this.lang, false, obj, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         this.spinner.hide();
@@ -395,10 +425,6 @@ export class RegisterOfficerComponent implements OnDestroy{
       }
     })
   }
-
-  ngOnDestroy() {
-    this.subscription?.unsubscribe();
-  }
-  }
+}
 
 
