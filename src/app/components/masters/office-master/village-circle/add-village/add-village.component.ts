@@ -21,7 +21,7 @@ export class AddVillageComponent implements OnDestroy{
   stateArray = new Array();
   districtArray = new Array();
   talukaArray = new Array();
-  villageArray = new Array();
+  grampanchayatArray = new Array();
   @ViewChild('formDirective') private formDirective!: NgForm;
   subscription!: Subscription;
   lang: any;
@@ -59,7 +59,7 @@ export class AddVillageComponent implements OnDestroy{
       stateId: [this.data ? this.data?.stateId : 1],
       districtId: [this.data ? this.data?.districtId : 1],
       talukaId: [this.data ? this.data?.talukaId : '', [Validators.required]],
-      villages: [this.data ? this.data?.villages : '', [Validators.required]],
+      grampanchayats: [this.data ? this.data?.grampanchayat : '', [Validators.required]],
       circleName: [this.data ? this.data?.circleName : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(30)]],
       m_CircleName: [this.data ? this.data?.m_CircleName : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(30)]],
       flag: [this.data ? "u" : "i"],
@@ -98,27 +98,25 @@ export class AddVillageComponent implements OnDestroy{
     this.master.GetAllTaluka(stateId, distId, 0,).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
-        this.data ? (this.f['districtId'].setValue(this.data?.talukaId), this.getVillage()) : '';
+        this.data ? (this.f['districtId'].setValue(this.data?.talukaId), this.getGrampanchayat()) : '';
       }), error: (() => {
         this.talukaArray = [];
       })
     })
   }
 
-  getVillage() {
-    let stateId = this.villageForm.getRawValue().stateId;
-    let distId = this.villageForm.getRawValue().districtId;
+  getGrampanchayat() {
     let talukaId = this.villageForm.getRawValue().talukaId;
-    this.master.GetAllVillages(stateId, distId, talukaId, 0).subscribe({
+    this.master.GetGrampanchayat(talukaId || 0).subscribe({
       next: ((res: any) => {
-        this.villageArray = res.responseData;
+        this.grampanchayatArray = res.responseData;
         let newVillage = new Array();
-        this.data?.villages.forEach((res: any) => {
+        this.data?.grampanchayat.forEach((res: any) => {
           newVillage.push(res.id)
         });
-        this.data ? this.f['villages'].setValue(newVillage) : ''
+        this.data ? this.f['grampanchayats'].setValue(newVillage) : ''
       }), error: (() => {
-        this.villageArray = [];
+        this.grampanchayatArray = [];
       })
     })
   }
@@ -130,8 +128,8 @@ export class AddVillageComponent implements OnDestroy{
       this.spinner.hide();
       return;
     } else {
-      formData.villages = this.villageForm.value.villages.toString();
-      this.apiService.setHttp('post', 'sericulture/api/TalukaBlocks/AddUpdateVillageCircles?lan='+this.lang, false, formData, false, 'masterUrl');
+      formData.grampanchayats = this.villageForm.value.grampanchayats.toString();
+      this.apiService.setHttp('post', 'sericulture/api/Circles/AddUpdateCircles?lan='+this.lang, false, formData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
@@ -153,8 +151,8 @@ export class AddVillageComponent implements OnDestroy{
 
   clearDropDown(flag?: any) {
     if (flag == 'village') {
-      this.f['villages'].setValue('');
-      this.villageArray = [];
+      this.f['grampanchayats'].setValue('');
+      this.grampanchayatArray = [];
     }
   }
 

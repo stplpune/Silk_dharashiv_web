@@ -354,9 +354,10 @@
     "please_enter_circle_name_en": "Please Enter Circle Name(English)",
     "please_enter_circle_name_mr": "Please Enter Circle Name(Marathi)",
     "please_select_taluka": "Please Select Taluka",
-    "please_select_village": "Please Select Village",
+    "please_select_grampanchayat": "Please Select Grampanchayat",
     "circle_name_en": "Circle Name(English)",
-    "circle_name_mr": "Circle Name(Marathi)"
+    "circle_name_mr": "Circle Name(Marathi)",
+    "select_grampanchayat":"Select Grampanchayat"
   },
   "blogs": {
     "blogs": "Blogs",
