@@ -9,8 +9,8 @@
         {{"blogs.add_Blog" | translate}}</button>
     </div>
   </mat-card-header>
-  <mat-card-content class="card-body">
-    <div class="row gx-2">
+  <mat-card-header class="card-header-control">
+    <div class="row gx-2 w-100">
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{"blogs.search_by_title" | translate}}</mat-label>
@@ -32,6 +32,8 @@
         </div>
       </div>
     </div>
+  </mat-card-header>
+  <mat-card-content class="card-body">
     <div class="table-responsive scrollbar blogs-table" id="blogs-table">
       <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
     </div>
