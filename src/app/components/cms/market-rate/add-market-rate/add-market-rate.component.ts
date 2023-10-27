@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -28,7 +28,7 @@ import { DateAdapter } from '@angular/material/core';
   standalone: true,
   imports: [MatFormFieldModule, MatButtonModule, MatDatepickerModule, NgFor, NgIf, DatePipe, MatCardModule, MatSelectModule, FormsModule, ReactiveFormsModule, MatInputModule, MatRadioModule, MatIconModule, MatDialogModule, TranslateModule],
 })
-export class AddMarketRateComponent {
+export class AddMarketRateComponent implements OnDestroy{
   marketForm !: FormGroup;
   marketArr = new Array();
   goodsArr = new Array();
@@ -151,4 +151,11 @@ export class AddMarketRateComponent {
     this.data = null;
     this.formdata();
   }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
+
+
+
 }
