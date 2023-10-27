@@ -4,8 +4,6 @@
     "view": "View",
     "delete": "Delete",
     "srNo": "Sr.No",
-    "department_filter": "Department",
-    "designation_filter": "Designation Level",
     "department": "Select Department",
     "designation_level": "Select Designation Level",
     "designation": "Select Designation",
@@ -50,7 +48,22 @@
     "pin_Code": "Pin Code",
     "please_enter_pinCode": "Please Enter Pin Code",
     "please_enter_valid_pinCode": "Please Enter Valid Pin Code",
-    "pin_limit": "Maximum limit 6 Number"
+    "pin_limit": "Maximum limit 6 Number",
+    "department_filter": "Department",
+    "designation_lev_filter": "Designation Level",
+    "designation_filter":"Designation",
+    "taluka_filter":"Taluka",
+    "block_filter":"Block",
+    "circle_filter":"Circle",
+    "grampanchayat_filter":"Grampanchayat"
+  },
+  "manrega": {
+    "manrega": "Manarega",
+    "district": "District",
+    "taluka": "Taluka",
+    "village": "Village",
+    "status": "Status",
+    "search_by": "Application ID/Farmer Name/ Mobile No."
   },
   "login": {
     "username": "Username",
@@ -59,27 +72,27 @@
     "forgot_password": "Forgot Password",
     "please_enter_username": "Please enter username",
     "please_enter_password": "Please enter password",
-    "please_enter_captcha":"Please enter captcha",
-    "please_enter_valid_username":"Please enter valid username",
+    "please_enter_captcha": "Please enter captcha",
+    "please_enter_valid_username": "Please enter valid username",
     "invalid_password": "Invalid password"
   },
-  "forgotPassword":{
-    "forgot_password":"FORGOT PASSWORD",
-    "mobile_no":"Mobile No",
-    "send_otp":"Send OTP",
-    "please_enter_mobile_no":"Please enter mobile number",
-    "please_enter_valid_mobile_no":"Please enter valid mobile number",
-    "enter_otp":"Enter OTP",
-    "verify_otp":"Verify OTP",
-    "resend_otp":"Resend OTP?",
-    "new_password":"New Password",
-    "confirm_password":"Confirm Password",
-    "set_password":"Set Password",
-    "please_enter_new_password":"Please enter new password",
-    "please_enter_confirm_password":"Please enter confirm password",
-    "please_enter_valid_password":"Please enter valid password",
-    "confirm_valid_password":"Please enter confirm valid password",
-    "back_to_login":"Back To Login"
+  "forgotPassword": {
+    "forgot_password": "FORGOT PASSWORD",
+    "mobile_no": "Mobile No",
+    "send_otp": "Send OTP",
+    "please_enter_mobile_no": "Please enter mobile number",
+    "please_enter_valid_mobile_no": "Please enter valid mobile number",
+    "enter_otp": "Enter OTP",
+    "verify_otp": "Verify OTP",
+    "resend_otp": "Resend OTP?",
+    "new_password": "New Password",
+    "confirm_password": "Confirm Password",
+    "set_password": "Set Password",
+    "please_enter_new_password": "Please enter new password",
+    "please_enter_confirm_password": "Please enter confirm password",
+    "please_enter_valid_password": "Please enter valid password",
+    "confirm_valid_password": "Please enter confirm valid password",
+    "back_to_login": "Back To Login"
   },
   "grainage": {
     "search": "Search Grainage Name",
@@ -184,7 +197,10 @@
     "department_level": "Department Level",
     "address": "Address",
     "state": "State",
-    "district": "District"
+    "district": "District",
+    "all_grampanchayat":"All Grampanchayat",
+    "select_grampanchayat":"Select Grampanchayat",
+    "please_select_grampanchayat":"Please Select Grampanchayat"
   },
   "marketRate": {
     "market_en": "Market Name(English)",
@@ -359,7 +375,7 @@
     "please_select_grampanchayat": "Please Select Grampanchayat",
     "circle_name_en": "Circle Name(English)",
     "circle_name_mr": "Circle Name(Marathi)",
-    "select_grampanchayat":"Select Grampanchayat"
+    "select_grampanchayat": "Select Grampanchayat"
   },
   "blogs": {
     "blogs": "Blogs",
@@ -441,29 +457,28 @@
     "Farm_Goods": "Farm Goods",
     "Market_Rate_Date": "Market Rate Date"
   },
-  "myProfile":{   
-    "Profile" : "Profile",  
-    "Add" : "Add",
-    "Clear" :"Clear",
+  "myProfile": {
+    "Profile": "Profile",
+    "Add": "Add",
+    "Clear": "Clear",
     "Update": "Update",
-    "label_Name" : "Name",
-    "Name" : "Name(English)",
-    "Name_M" : "Name(Marathi)",
-    "Mobile_No":"Mobile No",
-    "Designation":"Designation",
-    "Department" :"Department",
-    "Email_ID" :"Email ID",
-    "Level" :"Level",
-    "Address" :"Address",
-    "Working_Area":"Working Area",
-    "State" :"State",
+    "label_Name": "Name",
+    "Name": "Name(English)",
+    "Name_M": "Name(Marathi)",
+    "Mobile_No": "Mobile No",
+    "Designation": "Designation",
+    "Department": "Department",
+    "Email_ID": "Email ID",
+    "Level": "Level",
+    "Address": "Address",
+    "Working_Area": "Working Area",
+    "State": "State",
     "District": "District",
-    "Taluka":"Taluka",
-    "Mandal":"Mandal",
+    "Taluka": "Taluka",
+    "Mandal": "Mandal",
     "Name_mr": "Please Enter Name(Marathi)",
     "Name_en": "Please Enter Name(English)",
     "Name_en_valid": "Please Enter Valid Name(English)",
     "Name_mr_valid": "Please Enter Valid  Name(Marathi)"
-
   }
 }
