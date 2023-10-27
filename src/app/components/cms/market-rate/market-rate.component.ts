@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddMarketRateComponent } from './add-market-rate/add-market-rate.component';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,7 +16,7 @@ import { DateAdapter } from '@angular/material/core';
   templateUrl: './market-rate.component.html',
   styleUrls: ['./market-rate.component.scss']
 })
-export class MarketRateComponent {
+export class MarketRateComponent implements OnDestroy{
   filterForm !: FormGroup
   pageNumber: number = 1;
   tableDatasize!: number;
@@ -214,6 +214,10 @@ export class MarketRateComponent {
     this.filterFormData();
     this.getTableData();
     this.pageNumber = 1
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
 }

@@ -16,9 +16,10 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 })
 export class ManaregaComponent {
   filterFrm!: FormGroup;
+  schemeFilterArr = new Array();
   districtArr  = new Array();
   talukaArr  = new Array();
-  villageArr  = new Array();
+  grampanchayatArray  = new Array();
   statusArr = new Array();
   tableDataArray = new Array();
   tableDatasize!: number;
@@ -49,18 +50,33 @@ export class ManaregaComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     })
-    this.filterDefaultFrm();
-    this.getDisrict()
+    this.filterDefaultFrm();this.getAllScheme();
+    this.getDisrict(); this.getStatus();
   }
 
   filterDefaultFrm() {
     this.filterFrm = this.fb.group({
+      schemeTypeId: [0],
       districtId: [this.webStorage.getDistrictId()],
       talukaId: [0],
-      villageId:[0],
-      status:[''],
+      grampanchayatId:[0],
+      statusId:[0],
+      actionId:[0],
       textSearch: [''],
     })
+  }
+
+  getAllScheme() {
+    this.schemeFilterArr = [];
+    this.master.GetAllSchemeType().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == '200') {
+          this.schemeFilterArr.unshift({ id: 0, textEnglish: "All Scheme", textMarathi: "सर्व योजना" }, ...res.responseData);
+        } else {
+          this.schemeFilterArr = [];
+        }
+      },
+    });
   }
 
   getDisrict() {
@@ -81,26 +97,38 @@ export class ManaregaComponent {
     this.master.GetAllTaluka(this.webStorage.getStateId(), distId, 0,).subscribe({
       next: ((res: any) => {
         this.talukaArr.unshift({ id: 0, textEnglish: "All Taluka", textMarathi: "सर्व तालुका" }, ...res.responseData);
-        this.getVillage();
+        this.getGrampanchayat();
       }), error: (() => {
         this.talukaArr = [];
       })
     })
   }
 
-  getVillage() {
-    this.villageArr =[];
-    let distId = this.filterFrm.getRawValue().districtId;
-    let talukaId = this.filterFrm.getRawValue().talukaId || 0;
+  getGrampanchayat() {
+    this.grampanchayatArray = [];
+    let talukaId = this.filterFrm.getRawValue().talukaId;
     if (talukaId != 0) {
-      this.master.GetAllVillages(this.webStorage.getStateId(), distId, talukaId, 0).subscribe({
+      this.master.GetGrampanchayat(talukaId || 0).subscribe({
         next: ((res: any) => {
-          this.villageArr.unshift({ id: 0, textEnglish: "All Village", textMarathi: "सर्व गाव" }, ...res.responseData);
+          this.grampanchayatArray.unshift({ id: 0, textEnglish: "All Grampanchayat", textMarathi: "सर्व ग्रामपंचायत" }, ...res.responseData);
         }), error: (() => {
-          this.villageArr = [];
+          this.grampanchayatArray = [];
         })
       })
     }
+  }
+
+  getStatus() {
+    this.statusArr = [];
+    this.master.GetApprovalStatus().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == '200') {
+          this.statusArr =res.responseData;
+        } else {
+          this.statusArr = [];
+        }
+      },
+    });
   }
 
   getTableData(status?: any) {
@@ -153,8 +181,8 @@ export class ManaregaComponent {
 
   clearDropdown(dropdown: string) {
     if (dropdown == 'Taluka') {
-      this.f['villageId'].setValue(0);;
-      this.villageArr = [];
+      this.f['grampanchayatId'].setValue(0);;
+      this.grampanchayatArray = [];
     }
   }
 
@@ -164,7 +192,7 @@ export class ManaregaComponent {
     this.getTableData();
     this.pageNumber = 1;
     this.searchDataFlag = false;
-    this.villageArr = [];
+    this.grampanchayatArray = [];
   }
 
 

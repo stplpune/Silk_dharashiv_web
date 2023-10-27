@@ -132,7 +132,7 @@ export class DesignationsComponent implements OnDestroy{
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'विभाग', 'पदनाम स्तर', 'पदनाम', 'कृती'] : ['Sr. No.', 'Department', 'Designation Level', 'Designation', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
-      pagination: true ,
+      pagination: this.tableDatasize > 10 ? true : false,
       highlightedrow: true,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
@@ -179,7 +179,6 @@ export class DesignationsComponent implements OnDestroy{
     dialogRef.afterClosed().subscribe((result: any) => {
       result == 'Yes' ? this.bindTable() : '';
       this.highLightedFlag = false;
-      this.setTableData();
     });
   }
 

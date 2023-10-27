@@ -59,6 +59,8 @@
   },
   "manrega": {
     "manrega": "Manarega",
+    "scheme": "Scheme",
+    "action": "Action",
     "district": "District",
     "taluka": "Taluka",
     "village": "Village",

@@ -4,7 +4,15 @@
   </mat-card-header>
   <mat-card-header class="card-header-control">
     <form [formGroup]="filterFrm" class="w-100">
-      <div class="row gx-1">
+      <div class="row gx-2 gy-2">
+        <div class="col-sm-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'manrega.scheme'| translate}}</mat-label>
+            <mat-select formControlName="schemeTypeId">
+              <mat-option *ngFor=" let scheme of schemeFilterArr" [value]="scheme.id">{{lang == 'en' ? scheme.textEnglish : scheme.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'manrega.district'| translate}}</mat-label>
@@ -18,7 +26,7 @@
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'manrega.taluka'| translate}}</mat-label>
-            <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('Taluka');getVillage()">
+            <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('Taluka');getGrampanchayat()">
               <mat-option *ngFor=" let taluka of talukaArr" [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish :
                 taluka.textMarathi}}</mat-option>
             </mat-select>
@@ -26,23 +34,43 @@
         </div>
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label>
+            <mat-select formControlName="grampanchayatId" >
+              <mat-option *ngFor=" let gram of grampanchayatArray" [value]="gram.id">{{lang == 'en' ? gram.textEnglish :
+                gram.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'manrega.action'| translate}}</mat-label>
+            <mat-select formControlName="talukaId">
+              <!-- <mat-option *ngFor=" let taluka of talukaArr" [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish :
+                taluka.textMarathi}}</mat-option> -->
+              <mat-option>Option 1</mat-option>
+              <mat-option>Option 2</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- <div class="col-sm-2">
+          <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'manrega.village'| translate}}</mat-label>
             <mat-select formControlName="villageId">
               <mat-option *ngFor=" let village of villageArr" [value]="village.id">{{lang == 'en' ? village.textEnglish
                 : village.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
-        </div>
+        </div> -->
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'manrega.status'| translate}}</mat-label>
-            <mat-select>
-              <mat-option>Option 1</mat-option>
-              <mat-option>Option 2</mat-option>
+            <mat-select formControlName="statusId">
+              <mat-option *ngFor=" let status of statusArr" [value]="status.id">{{lang == 'en' ? status.textEnglish
+                : status.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm">
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'manrega.search_by'| translate}}</mat-label>
             <input matInput formControlName="textSearch" (keypress)="validator.noFirstSpaceAllow($event)">
