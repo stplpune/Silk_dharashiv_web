@@ -15,7 +15,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
   styleUrls: ['./page-right-access.component.scss']
 })
 export class PageRightAccessComponent {
-  displayedColumns: string[] = ['srno', 'module', 'submodule', 'pagename', 'read', 'write', 'delete', 'sidebar','all'];
+  displayedColumns: string[] = ['srno', 'module', 'submodule', 'pagename', 'read', 'write', 'delete','all'];
   filterFrm !: FormGroup;
   pageNumber: number = 1;
   totalPages!: number;
