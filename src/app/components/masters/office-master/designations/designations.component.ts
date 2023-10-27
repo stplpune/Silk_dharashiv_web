@@ -179,7 +179,6 @@ export class DesignationsComponent implements OnDestroy{
     dialogRef.afterClosed().subscribe((result: any) => {
       result == 'Yes' ? this.bindTable() : '';
       this.highLightedFlag = false;
-      this.setTableData();
     });
   }
 
