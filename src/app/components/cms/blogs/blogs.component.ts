@@ -56,6 +56,9 @@ export class BlogsComponent {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData.responseData1;
+          this.tableDataArray.map((ele:any)=>{
+            ele.status1 = ele.status
+          })
           this.tableDatasize = res.responseData.responseData2?.totalCount;
           this.totalPages = res.responseData.responseData2?.totalPages;
         } else {
@@ -73,13 +76,13 @@ export class BlogsComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns =  ['srNo', 'thumbnailImage', 'title', 'publishDate', 'status', 'action'];
+    let displayedColumns =  ['srNo', 'thumbnailImage', 'title', 'publishDate', 'status1', 'action'];
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'लघुप्रतिमा', 'शीर्षक', 'प्रकाशित तारीख', 'स्थिती', 'कृती'] : ['Sr. No.', 'Thumbnail Image', 'Tittle', 'Publish Date', 'Status', 'Action'];
     let getTableData = {
       pageNumber: this.pageNumber,
       date: 'publishDate',
       img: 'thumbnailImage',
-      isBlock: 'status',
+      isBlock: 'status1',
       pagination: this.tableDatasize > 10 ? true : false,
       highlightedrow: true,
       displayedColumns: displayedColumns,

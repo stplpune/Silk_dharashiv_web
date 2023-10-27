@@ -289,7 +289,7 @@ export class SetRuleModalComponent implements OnDestroy{
       this.commonMethods.snackBar('All Order leavel is required', 1);
       return
     }
-
+    this.spinner.show();
     let addLevelArrayStatus = formData.approvalLevels.some((x: any) => {
       let counter = 0;
       formData.approvalLevels.map((a: any) => {
@@ -346,10 +346,11 @@ export class SetRuleModalComponent implements OnDestroy{
     this.formDirective?.resetForm();
   }
 
-  //#endregion--------------------------------------------------------- Add Level drop fn end heare--------------------------------------------//
   ngOnDestroy() {
     this.subscription?.unsubscribe();
   }
+  //#endregion--------------------------------------------------------- Add Level drop fn end heare--------------------------------------------//
+ 
 }
 
 

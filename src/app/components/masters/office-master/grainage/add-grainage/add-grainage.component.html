@@ -7,58 +7,60 @@
     </button>
   </div>
 </div>
-<div class="row g-3" *ngIf="isViewFlag">
+<div mat-dialog-content class="modal-body form-container">
+
+<div class="row g-2" *ngIf="isViewFlag">
   <div class="col-sm-12">
     <div class="row gx-2">
-      <div class="col-sm-5 form-label">{{lang == 'en' ? 'Type ': 'प्रकार'}}</div>
+      <div class="col-sm-3 form-label">{{lang == 'en' ? 'Type ': 'प्रकार'}}</div>
       <div class="col-sm-7 form-data">: {{lang == 'en' ? data?.type : data?.m_Type}}</div>
     </div>
   </div>
-  <div class="col-sm-12">
+  <div class="col-sm-6">
     <div class="row gx-2">
-      <div class="col-sm-5 form-label">{{'grainage.grainageName_en' | translate}}</div>
-      <div class="col-sm-7 form-data">: {{data?.grainage || '-'}}</div>
+      <div class="col-sm-6 form-label">{{'grainage.grainageName_en' | translate}}</div>
+      <div class="col-sm-6 form-data">: {{data?.grainage || '-'}}</div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="row gx-2">
+      <div class="col-sm-6 form-label">{{'grainage.grainageName_mr' | translate}}</div>
+      <div class="col-sm-6 form-data">: {{data?.m_Grainage || '-'}}</div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="row gx-2">
+      <div class="col-sm-6 form-label">{{lang == 'en' ? 'State': 'राज्य'}}</div>
+      <div class="col-sm-6 form-data">:{{lang == 'en' ? data?.state : data?.m_State}}</div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="row gx-2">
+      <div class="col-sm-6 form-label">{{lang == 'en' ? 'District': 'जिल्हा'}}</div>
+      <div class="col-sm-6 form-data">: {{lang == 'en' ? data?.district : data?.m_District}}</div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="row gx-2">
+      <div class="col-sm-6 form-label">{{lang == 'en' ? 'Taluka': 'तालुका'}}</div>
+      <div class="col-sm-6 form-data">: {{lang == 'en' ? data?.taluka : data?.m_Taluka}}</div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="row gx-2">
+      <div class="col-sm-6 form-label">{{"grainage.pincode" | translate}}</div>
+      <div class="col-sm-6 form-data">: {{data?.pincode || '-'}}</div>
     </div>
   </div>
   <div class="col-sm-12">
     <div class="row gx-2">
-      <div class="col-sm-5 form-label">{{'grainage.grainageName_mr' | translate}}</div>
-      <div class="col-sm-7 form-data">: {{data?.m_Grainage || '-'}}</div>
-    </div>
-  </div>
-  <div class="col-sm-12">
-    <div class="row gx-2">
-      <div class="col-sm-5 form-label">{{lang == 'en' ? 'State': 'राज्य'}}</div>
-      <div class="col-sm-7 form-data">:{{lang == 'en' ? data?.state : data?.m_State}}</div>
-    </div>
-  </div>
-  <div class="col-sm-12">
-    <div class="row gx-2">
-      <div class="col-sm-5 form-label">{{lang == 'en' ? 'District': 'जिल्हा'}}</div>
-      <div class="col-sm-7 form-data">: {{lang == 'en' ? data?.district : data?.m_District}}</div>
-    </div>
-  </div>
-  <div class="col-sm-12">
-    <div class="row gx-2">
-      <div class="col-sm-5 form-label">{{lang == 'en' ? 'Taluka': 'तालुका'}}</div>
-      <div class="col-sm-7 form-data">: {{lang == 'en' ? data?.taluka : data?.m_Taluka}}</div>
-    </div>
-  </div>
-  <div class="col-sm-12">
-    <div class="row gx-2">
-      <div class="col-sm-5 form-label">{{"grainage.pincode" | translate}}</div>
-      <div class="col-sm-7 form-data">: {{data?.pincode || '-'}}</div>
-    </div>
-  </div>
-  <div class="col-sm-12">
-    <div class="row gx-2">
-      <div class="col-sm-5 form-label">{{"grainage.address" | translate}}</div>
+      <div class="col-sm-3 form-label">{{"grainage.address" | translate}}</div>
       <div class="col-sm-7 form-data">: {{data?.address || '-'}}</div>
     </div>
   </div>
   <div class="col-sm-12">
     <div class="row gx-2">
-      <div class="col-sm-5 form-label">{{"grainage.remark" | translate}}</div>
+      <div class="col-sm-3 form-label">{{"grainage.remark" | translate}}</div>
       <div class="col-sm-7 form-data">: {{data?.remark || '-'}}</div>
     </div>
   </div>
@@ -66,7 +68,6 @@
 
 <div class="" *ngIf="!isViewFlag">
 <form [formGroup]="grainageFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
-  <div mat-dialog-content class="modal-body">
     <mat-form-field appearance="outline" class="w-50">
       <mat-label>{{"grainage.Type" | translate}}</mat-label>
       <mat-select formControlName="type">
@@ -88,7 +89,7 @@
       <div class="col-sm-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{"grainage.grainageName_mr" | translate}}</mat-label>
-          <input formControlName="m_Grainage" matInput 
+          <input formControlName="m_Grainage" matInput
           (keypress)="validator.noFirstSpaceAllow($event);validator.marathiAlphaNumeric($event)">
           <mat-error *ngIf="f['m_Grainage']?.hasError('required')">{{'grainage.grainageName_mr_require'|translate}}</mat-error>
           <mat-error *ngIf="f['m_Grainage']?.hasError('pattern')">{{'grainage.grainageName_mr_pattern'|translate}}</mat-error>
@@ -129,7 +130,7 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{"grainage.pincode" | translate}}</mat-label>
           <input formControlName="pincode" matInput  maxlength="6"
-          (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)"> 
+          (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
           <mat-error *ngIf="f['pincode']?.hasError('required')">{{'grainage.pincode_require'|translate}}</mat-error>
           <mat-error *ngIf="f['pincode']?.hasError('pattern')">{{'grainage.pincode_maxlength'|translate}}</mat-error>
         </mat-form-field>
@@ -150,7 +151,6 @@
         </mat-form-field>
       </div>
     </div>
-  </div>
   <div mat-dialog-actions class="modal-footer">
     <div class="d-flex align-items-center justify-content-end gap-2 w-100">
       <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">{{'action.clear'|translate}} </button>
@@ -159,4 +159,5 @@
     </div>
   </div>
 </form>
+</div>
 </div>

@@ -62,7 +62,7 @@ export class AddSchemeComponent implements OnDestroy{
       schemeType: [this.data ? this.data.schemeType : '', [Validators.required, Validators.pattern(this.validator.englishNumericAndspecialChar), this.validator.maxLengthValidator(100)]],
       stateId: [this.data ? this.data.stateId : 1],
       districtId: [this.data ? this.data.districtId : 1],
-      logoPath: [''],
+      logoPath: [this.data ? this.data.logoPath : '',[Validators.required]],
       isActive: [this.data ? this.data.isActive : true],
       schemeInfo: [this.data ? this.data.schemeInfo : '', [Validators.required, this.validator.maxLengthValidator(100)]],
       m_SchemeType: [this.data ? this.data.m_SchemeType : '', [Validators.required, Validators.pattern(this.validator.marathiquestion), this.validator.maxLengthValidator(100)]]
@@ -101,6 +101,7 @@ export class AddSchemeComponent implements OnDestroy{
         if (res.statusCode == '200') {
           this.spinner.hide();
           this.imageResponse = res.responseData;
+          this.f['logoPath'].setValue(this.imageResponse)
         }
         else {
           this.clearlogo.nativeElement.value = "";
@@ -127,7 +128,7 @@ export class AddSchemeComponent implements OnDestroy{
   onSubmitData() {
     let formData = this.schemeForm.getRawValue();
     this.spinner.show();
-    if (this.schemeForm.invalid || formData.schemeInfo || !this.imageResponse) {
+    if (this.schemeForm.invalid) {
       this.editorFlag=true;
       this.spinner.hide();
       return
