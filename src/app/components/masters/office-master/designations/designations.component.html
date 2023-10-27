@@ -12,7 +12,7 @@
           </button>
         </div>
       </mat-card-header>
-      <mat-card-content class="card-body">
+      <mat-card-header class="card-header-control">
         <form [formGroup]="filterFrm">
           <div class="row gx-2">
             <div class="col-sm">
@@ -56,6 +56,9 @@
             </div>
           </div>
         </form>
+      </mat-card-header>
+      <mat-card-content class="card-body">
+
         <div class="table-responsive scrollbar">
           <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
         </div>

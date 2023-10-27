@@ -4,8 +4,6 @@
     "view": "View",
     "delete": "Delete",
     "srNo": "Sr.No",
-    "department_filter": "Department",
-    "designation_filter": "Designation Level",
     "department": "Select Department",
     "designation_level": "Select Designation Level",
     "designation": "Select Designation",
@@ -50,7 +48,14 @@
     "pin_Code": "Pin Code",
     "please_enter_pinCode": "Please Enter Pin Code",
     "please_enter_valid_pinCode": "Please Enter Valid Pin Code",
-    "pin_limit": "Maximum limit 6 Number"
+    "pin_limit": "Maximum limit 6 Number",
+    "department_filter": "Department",
+    "designation_lev_filter": "Designation Level",
+    "designation_filter":"Designation",
+    "taluka_filter":"Taluka",
+    "block_filter":"Block",
+    "circle_filter":"Circle",
+    "grampanchayat_filter":"Grampanchayat"
   },
   "manrega": {
     "manrega": "Manarega",
@@ -192,7 +197,10 @@
     "department_level": "Department Level",
     "address": "Address",
     "state": "State",
-    "district": "District"
+    "district": "District",
+    "all_grampanchayat":"All Grampanchayat",
+    "select_grampanchayat":"Select Grampanchayat",
+    "please_select_grampanchayat":"Please Select Grampanchayat"
   },
   "marketRate": {
     "market_en": "Market Name(English)",

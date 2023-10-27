@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
-    ManaregaComponent
+    ManaregaComponent,
   ],
   imports: [
     CommonModule,

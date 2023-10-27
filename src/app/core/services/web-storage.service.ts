@@ -9,6 +9,7 @@ export class WebStorageService {
   toggled: boolean = false;
   lang: string = 'English';
   data: any;
+  private profileInfo=new BehaviorSubject('');
 
   constructor(private AESEncryptDecryptService: AesencryptDecryptService) { }
 
@@ -85,6 +86,15 @@ export class WebStorageService {
       this.lang = this.lang === 'English' ? 'en' : 'mr-IN';
     });
     return this.lang
+  }
+
+// header profile data patch
+  getProfileData() {
+    return this.profileInfo.asObservable()  
+  }
+  
+  setProfileData(info: any) {
+    this.profileInfo.next(info)
   }
 
 

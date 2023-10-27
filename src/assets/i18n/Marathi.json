@@ -4,8 +4,6 @@
     "view": "पहा",
     "delete": "हटवा",
     "srNo": "अनुक्रमणिका",
-    "department_filter": "विभाग",
-    "designation_filter": "पदनाम स्तर",
     "department": "विभाग निवडा",
     "designation_level": "पदनाम स्तर निवडा",
     "designation": "पदनाम निवडा",
@@ -50,7 +48,14 @@
     "pin_Code": "पिन कोड",
     "please_enter_pinCode": "कृपया पिन कोड प्रविष्ट करा",
     "please_enter_valid_pinCode": "कृपया वैध पिन कोड प्रविष्ट करा",
-    "pin_limit": "कमाल 6 संख्याना अनुमती आहे"
+    "pin_limit": "कमाल 6 संख्याना अनुमती आहे",
+    "department_filter": "विभाग",
+    "designation_lev_filter": "पदनाम स्तर",
+    "designation_filter":"पदनाम",
+    "taluka_filter":"तालुका",
+    "block_filter":"ब्लॉक",
+    "circle_filter":"मंडळ",
+    "grampanchayat_filter":"ग्रामपंचायत"
   },
   "manrega": {
     "manrega": "मनरेगा",
@@ -193,7 +198,10 @@
     "department_level":"विभाग स्तर",
     "address":"पत्ता",
     "state":"राज्य",
-    "district":"जिल्हा"
+    "district":"जिल्हा",
+    "all_grampanchayat":"सर्व ग्रामपंचायत",
+    "select_grampanchayat":"ग्रामपंचायत निवडा" ,
+    "please_select_grampanchayat":"कृपया ग्रामपंचायत निवडा"
   },
   "marketRate": {
     "market_en": "बाजाराचे नाव(इंग्रजी)",

@@ -10,10 +10,9 @@
     left: 0;
     height: 100%;
     width: 260px;
-    background: #fff;
+    background: var(--sidebar-bg-color);
     z-index: 100;
     transition: cubic-bezier(0.4, 0, 0.2, 1) all 0.5s;
-    border-right: solid 1px rgba(0, 0, 0, 0.18);
 }
 
 .wrapper .content-wrapper {

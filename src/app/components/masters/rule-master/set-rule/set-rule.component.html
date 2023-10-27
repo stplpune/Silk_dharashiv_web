@@ -10,8 +10,8 @@
       </button>
     </div>
   </mat-card-header>
-  <mat-card-content class="card-body">
-    <form [formGroup]="filterFrm" (ngSubmit)="bindTable('filter')" #formDirective="ngForm">
+  <mat-card-header class="card-header-control">
+    <form [formGroup]="filterFrm" (ngSubmit)="bindTable('filter')" #formDirective="ngForm" class="w-100">
       <div class="row gx-2">
         <div class="col-sm-auto">
           <mat-form-field appearance="outline" class="w-100">
@@ -67,6 +67,9 @@
         </div>
       </div>
     </form>
+  </mat-card-header>
+  <mat-card-content class="card-body">
+
     <div class="table-responsive scrollbar">
       <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
     </div>

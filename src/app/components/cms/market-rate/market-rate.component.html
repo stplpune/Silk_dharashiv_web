@@ -12,8 +12,8 @@
         </button>
       </div>
       </mat-card-header>
-      <form [formGroup]="filterForm">
       <mat-card-header class="card-header-control">
+        <form [formGroup]="filterForm">
         <div class="row g-2 w-100">
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
@@ -65,11 +65,11 @@
             </div>
           </div>
         </div>
+      </form>
       </mat-card-header>
-    </form>
       <mat-card-content class="card-body">
-        <div class="table-responsive scrollbar">       
-            <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>  
+        <div class="table-responsive scrollbar">
+            <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
         </div>
       </mat-card-content>
     </mat-card>

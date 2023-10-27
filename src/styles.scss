@@ -12,9 +12,9 @@ body {
 }
 
 :root {
-    --main-color: #4758B8; //#2065ae
-    --main-dark-color: #384693;
-    --main-light-color: #eceef7;
+    --main-color: #1E5799;
+    --main-dark-color: #18457a;
+    --main-light-color: #e8eef4;
 }
 
 .fs-main {
@@ -153,10 +153,10 @@ a.text-main:hover {
 }
 
 .dashboard-table .highlighted-row {
-  background-color: var(--main-light-color) !important;
- color: var(--main-color) !important;
- cursor: pointer;
- }
+    background-color: var(--main-light-color) !important;
+    color: var(--main-color) !important;
+    cursor: pointer;
+}
 
 .dashboard-table {
     @include mat.all-component-densities(-3);
@@ -187,11 +187,12 @@ a.text-main:hover {
 .dashboard-table .profile-photo {
     width: 36px;
 }
+
 // for blogs table img
-.blogs-table table tbody tr td img{
-  width: 50px !important;
-  height: 50px !important;
-  border-radius: 50% !important;
+.blogs-table table tbody tr td img {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
 }
 
 .form-container .form-label {
@@ -361,15 +362,18 @@ button.btn-modal-close {
 
 // toggle button css
 .mat-mdc-slide-toggle .mdc-switch.mdc-switch--unselected:enabled .mdc-switch__icon {
-  fill: transparent !important;
+    fill: transparent !important;
 }
+
 .mat-mdc-slide-toggle .mdc-switch.mdc-switch--selected:enabled .mdc-switch__icon {
-  fill: transparent !important;
+    fill: transparent !important;
 }
+
+// toggle button css end
 // toggle button css end
 
 
-.disable{
+.disable {
     opacity: 0.9;
     pointer-events: none;
 }
