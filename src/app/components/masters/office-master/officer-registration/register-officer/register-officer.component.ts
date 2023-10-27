@@ -32,7 +32,7 @@ export class RegisterOfficerComponent {
   @ViewChild('formDirective') private formDirective!: NgForm;
   @ViewChild('uplodLogo') clearlogo!: any;
   tableDataArray = new Array();
-  statusArray = [{ id: 0, 'value': 'In Active','mr_value':'निष्क्रिय' }, { id: 1, 'value': 'Active','mr_value':'सक्रिय' }];
+  statusArray = [{ id: 0, 'value': 'De Active', 'mr_value': 'निष्क्रिय' }, { id: 1, 'value': 'Active', 'mr_value': 'सक्रिय' }];
   showFlag: boolean = false;
   statusForm!: FormGroup;
   imageResponse: string = '';
@@ -61,8 +61,7 @@ export class RegisterOfficerComponent {
     })
     this.getFormData();
     this.getstatusForm();
-    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(),
-    this.getDepartmentLevel(),this.getDesignation());
+    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(), this.getDepartmentLevel());
   }
 
 
@@ -76,14 +75,14 @@ export class RegisterOfficerComponent {
       blockId: [this.data ? this.data?.blockId : 0, [Validators.required]],
       talukaId: [this.data ? this.data?.talukaId : 0, [Validators.required]],
       circleId: [this.data ? this.data?.circleId : 0, [Validators.required]],
-      villageId: [this.data ? this.data?.villageId : '', [Validators.required]],
+      villageId: [this.data ? this.data?.villageId : 0, [Validators.required]],
       designationId: [this.data ? this.data?.designationId : '', [Validators.required]],
       name: [this.data ? this.data?.name : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(50)]],
       m_Name: [this.data ? this.data?.m_Name : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(50)]],
       mobNo1: [this.data ? this.data?.mobNo1 : '', [Validators.required, Validators.pattern(this.validator.mobile_No)]],
       emailId: [this.data ? this.data?.emailId : '', [Validators.required, Validators.email, this.validator.maxLengthValidator(50)]],
-      address: [this.data ? this.data?.address : '',[this.validator.maxLengthValidator(100)]],
-      m_Address: [this.data ? this.data?.m_Address : '', [this.validator.maxLengthValidator(100),Validators.pattern(this.validator.marathi)]],
+      address: [this.data ? this.data?.address : '', [this.validator.maxLengthValidator(100)]],
+      m_Address: [this.data ? this.data?.m_Address : '', [this.validator.maxLengthValidator(100), Validators.pattern(this.validator.marathi)]],
       flag: [this.data ? "u" : "i"],
       createdBy: [this.WebStorageService.getUserId()]
     })
@@ -96,11 +95,26 @@ export class RegisterOfficerComponent {
     this.masterService.GetDepartmentDropdown().subscribe({
       next: ((res: any) => {
         this.departmentArray = res.responseData;
-        this.data ? (this.f['departmentId'].setValue(this.data?.departmentId)) : ''
+        this.data ? (this.f['departmentId'].setValue(this.data?.departmentId),this.getDesignation()) : ''
       }), error: (() => {
         this.departmentArray = [];
       })
     })
+  }
+
+  getDesignation() {
+    let deptId=this.officeForm.getRawValue().departmentId;
+    if (deptId != 0) {
+      this.masterService.GetDesignationDropDown(deptId || 0).subscribe({
+        next: ((res: any) => {
+          this.designationArray = res.responseData;
+          this.data ? (this.f['designationId'].setValue(this.data?.designationId)) : '';
+        }), error: (() => {
+          this.designationArray = [];
+        })
+      })
+    }
+   
   }
 
   getDepartmentLevel() {
@@ -175,28 +189,18 @@ export class RegisterOfficerComponent {
     let stateId = this.officeForm.getRawValue().stateId;
     let distId = this.officeForm.getRawValue().districtId;
     let talukaId = this.officeForm.getRawValue().talukaId || 0;
-    if(talukaId!=0){
-    this.masterService.GetAllVillages(stateId, distId, talukaId, 0).subscribe({
-      next: ((res: any) => {
-        this.villageArray = res.responseData;
-        this.data ? (this.f['villageId'].setValue(this.data?.villageId)) : '';
-      }), error: (() => {
-        this.villageArray = [];
+    if (talukaId != 0) {
+      this.masterService.GetAllVillages(stateId, distId, talukaId, 0).subscribe({
+        next: ((res: any) => {
+          this.villageArray = res.responseData;
+          this.data ? (this.f['villageId'].setValue(this.data?.villageId)) : '';
+        }), error: (() => {
+          this.villageArray = [];
+        })
       })
-    })
     }
   }
 
-  getDesignation() {
-    this.masterService.GetDesignationDropDown().subscribe({
-      next: ((res: any) => {
-        this.designationArray = res.responseData;
-        this.data ? (this.f['designationId'].setValue(this.data?.designationId)) : '';
-      }), error: (() => {
-        this.designationArray = [];
-      })
-    })
-  }
 
   getDataById() {
     this.spinner.show();
@@ -205,9 +209,7 @@ export class RegisterOfficerComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;     
-          console.log(' this.tableDataArray', this.tableDataArray);
-               
+          this.tableDataArray = res.responseData.responseData1;
           // this.imageResponse = this.data?.profileImagePath ?  this.data?.profileImagePath : ''
         } else {
           this.spinner.hide();
@@ -221,11 +223,11 @@ export class RegisterOfficerComponent {
     });
   }
   onSubmitData() {
-    let formData = this.officeForm.getRawValue();    
-    formData.talukaId = formData.talukaId  == "" ? 0 : formData.talukaId;
-    formData.villageId =  formData.villageId == "" ? 0 : formData.villageId;
-    formData.blockId =  formData.blockId == "" ? 0 : formData.blockId;
-    formData.circleId =  formData.circleId  == "" ? 0 : formData.circleId;    
+    let formData = this.officeForm.getRawValue();
+    formData.talukaId = formData.talukaId  ? formData.talukaId : 0;
+    // formData.villageId =  formData.villageId == "" ? 0 : formData.villageId;
+    // formData.blockId =  formData.blockId == "" ? 0 : formData.blockId;
+    // formData.circleId =  formData.circleId  == "" ? 0 : formData.circleId; 
     if (this.officeForm.invalid) {
       this.spinner.hide();
       return
@@ -250,8 +252,9 @@ export class RegisterOfficerComponent {
         "userName": "string",
         "password": "string",
         "profileImagePath": "string",
+        "userTypeId": 2
       }
-      this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details', false, obj, false, 'masterUrl');
+      this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan=' + this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -295,15 +298,46 @@ export class RegisterOfficerComponent {
     }
 
   }
+  // this.departmentArray = [];
+    // this.f['departmentId'].setValue(0);
+    // this.departmentLevelArray=[];
+    // this.f['departmentLevelId'].setValue(0);
+    // this.designationArray=[];
+    // this.f['designationId'].setValue(0);
+    // this.blockArray=[];
+    // this.f['blockId'].setValue(0);
+    // this.circleArray=[];
+    // this.f['circleId'].setValue(0);
+    // this.talukaArray=[];
+    // this.f['talukaId'].setValue(0);
+    // this.villageArray=[];
+    // this.f['villageId'].setValue(0);
 
-  clearDropDown(flag?:any){
-    if(flag == 'village'){
-      this.villageArray=[]
-      this.f['villageId'].setValue(0);
-    }
+  clearDropDown(levelId?: any) {
+   if(levelId == 1){
+      this.talukaArray=[];
+      this.f['talukaId'].setValue(0);
+      this.circleArray=[];
+      this.f['circleId'].setValue(0);
+   }else if(levelId == 2){
+      this.blockArray=[];
+      this.f['blockId'].setValue(0);
+   }else if(levelId == 3){
+    this.talukaArray=[];
+    this.f['talukaId'].setValue(0);
+    this.villageArray=[];
+    this.f['villageId'].setValue(0);
+   }else if(levelId == 4){
+    this.talukaArray=[];
+    this.f['talukaId'].setValue(0);
+   }else if(levelId == 'village') {
+    this.villageArray=[];
+    this.f['villageId'].setValue(0);
+   }else if(levelId == 'dept'){
+    this.designationArray=[];
+    this.f['designationId'].setValue(0);
+   }
   }
-
-
 
   getstatusForm() {
     this.statusForm = this.fb.group({
@@ -312,7 +346,7 @@ export class RegisterOfficerComponent {
     })
   }
   sendData(id: any) {
-    id == 1  ? (this.showFlag = false,this.statusForm.controls['remark'].setValue('')) : this.showFlag = true;      
+    id == 1 ? (this.showFlag = false, this.statusForm.controls['remark'].setValue('')) : this.showFlag = true;
   }
 
   submitStatusData() {
@@ -326,7 +360,7 @@ export class RegisterOfficerComponent {
         "isActive": formData.statusId == 0 ? true : false,
         "reason": formData.statusId == 1 ? "" : formData.remark
       }
-      this.apiService.setHttp('put', 'sericulture/api/UserRegistration/User-Active-Status', false, obj, false, 'masterUrl');
+      this.apiService.setHttp('put', ' sericulture/api/UserRegistration/User-Active-Status?lan=' + this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -355,6 +389,9 @@ export class RegisterOfficerComponent {
         if (res.statusCode == '200') {
           this.spinner.hide();
           this.imageResponse = res.responseData;
+          setTimeout(() => {
+            this.onSubmitProfileData();
+          }, 500);
         }
         else {
           this.clearlogo.nativeElement.value = "";
@@ -369,18 +406,20 @@ export class RegisterOfficerComponent {
     })
   }
 
-  onSubmitProfileData(){
-    let obj={
+  onSubmitProfileData() {
+    let obj =
+    {
       "id": this.tableDataArray[0].id,
-      "imagePath":  this.imageResponse
-  }
-    this.apiService.setHttp('put', 'sericulture/api/UserRegistration/Upload-Image_web?lan='+this.lang, false, obj, false, 'masterUrl');
+      "imagePath": this.imageResponse
+    }
+    this.apiService.setHttp('put', 'sericulture/api/UserRegistration/Upload-Image_web?lan=' + this.lang, false, obj, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.commonMethod.snackBar(res.statusMessage, 0);
-          this.dialogRef.close('Yes');
+          this.getDataById();
+          // this.dialogRef.close('Yes');
         }
         else {
           this.commonMethod.checkDataType(res.statusMessage) == false
@@ -394,6 +433,6 @@ export class RegisterOfficerComponent {
       }
     })
   }
-  }
+}
 
 

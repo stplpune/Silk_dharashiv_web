@@ -8,13 +8,14 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
+import { ValidationService } from 'src/app/core/services/validation.service';
 @Component({
   selector: 'app-page-right-access',
   templateUrl: './page-right-access.component.html',
   styleUrls: ['./page-right-access.component.scss']
 })
 export class PageRightAccessComponent {
-  displayedColumns: string[] = ['srno', 'module', 'submodule', 'pagename', 'read', 'write', 'delete', 'all'];
+  displayedColumns: string[] = ['srno', 'module', 'submodule', 'pagename', 'read', 'write', 'delete', 'sidebar','all'];
   filterFrm !: FormGroup;
   pageNumber: number = 1;
   totalPages!: number;
@@ -35,6 +36,7 @@ export class PageRightAccessComponent {
     private commonMethod: CommonMethodsService,
     private spinner: NgxSpinnerService,
     private webStorage: WebStorageService,
+    public validation: ValidationService,
     private errorHandler: ErrorHandlingService) { }
 
   ngOnInit() {
@@ -45,10 +47,9 @@ export class PageRightAccessComponent {
     this.getFilterForm();
     this.getDepartment();
     this.getDesignationLevel();
-    this.getDesignation();
+    //this.getDesignation();
     this.getModule();
-    this.getSubModule();
-    this.getTableData();
+   this.getTableData();
   }
 
   getFilterForm() {
@@ -74,14 +75,13 @@ export class PageRightAccessComponent {
       this.spinner.show();
       let formData = this.filterFrm.getRawValue();
       let str = `&pageno=${this.pageNumber}&pagesize=100`;
-      this.apiService.setHttp('GET', `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId || 0}&DepartmentLevelId=${formData?.designationLevelId || 0}&DesignationId=${formData?.designationId || 0}&MainMenuId=${formData?.moduleId || 0}&SubMenuId=${formData?.subModuleId || 0}&lan=${this.lang}` + str, false, false, false, 'baseUrl');
+      this.apiService.setHttp('GET', `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId || 0}&DepartmentLevelId=${formData?.designationLevelId || 0}&DesignationId=${formData?.designationId || 0}&MainMenuId=${formData?.moduleId || 0}&SubMenuId=${formData?.subModuleId || 0}&lan=${this.lang}&TextSearch=${formData?.searchText || ''}` + str, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
           if (res.statusCode == '200') {
             this.dataSource = res.responseData;
-            console.log(" this.dataSource page right", this.dataSource)
-          } else {
+        } else {
             this.dataSource = [];
           }
         }),
@@ -98,6 +98,7 @@ export class PageRightAccessComponent {
     this.dataSource[i].readRight = allStatus;
     this.dataSource[i].writeRight = allStatus;
     this.dataSource[i].deleteRight = allStatus;
+    this.dataSource[i].isSideBarMenu = allStatus;
   }
 
   onSubmitData() {
@@ -111,6 +112,7 @@ export class PageRightAccessComponent {
         "readRight": res.readRight,
         "writeRight": res.writeRight,
         "deleteRight": res.deleteRight,
+        "isSideBarMenu":res.isSideBarMenu,//used for show pages on sidebar or not(pass flag false)
         "createdBy": this.webStorage.getUserId(),
       }
       this.passArray.push(obj)
@@ -142,6 +144,7 @@ export class PageRightAccessComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.departmentArray = res.responseData;
+          this.departmentArray.unshift({ "id": 0, "textEnglish": "All Department","textMarathi": "सर्व विभाग"});
         }
         else {
           this.departmentArray = [];
@@ -155,7 +158,8 @@ export class PageRightAccessComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.designationLevelArray = res.responseData;
-        }
+          this.designationLevelArray.unshift({ "id": 0, "textEnglish": "All Designation Level","textMarathi": "सर्व पदनाम स्तर"});
+         }
         else {
           this.designationLevelArray = [];
         }
@@ -164,7 +168,8 @@ export class PageRightAccessComponent {
   }
 
   getDesignation() {
-    this.masterService.GetDesignationDropDown().subscribe({
+    let deptId =  this.filterFrm.getRawValue().departmentId;
+   this.masterService.GetDesignationDropDown(deptId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.designationArray = res.responseData;
@@ -208,10 +213,18 @@ export class PageRightAccessComponent {
   //clear dropdown on dependency wise
   clearDropdown(flag: any) {
     switch (flag) {
+      case 'deptId':
+        this.filterFrm.controls['designationId'].setValue(0);
+        break;
+
       case 'moduleId':
         this.filterFrm.controls['subModuleId'].setValue(0);
         break;
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
 }

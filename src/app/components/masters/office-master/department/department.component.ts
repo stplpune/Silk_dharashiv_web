@@ -43,9 +43,9 @@ export class DepartmentComponent implements OnDestroy{
       public dialog: MatDialog,
       // private router: Router,
       public webStorage: WebStorageService
-      ) { 
+      ) {
         // const routerlink = (this.router.url).slice(1);
-        // this.pageDetailsObj = this.webStorage.getPageDetailsObj(routerlink); 
+        // this.pageDetailsObj = this.webStorage.getPageDetailsObj(routerlink);
       }
 
 
@@ -119,7 +119,7 @@ export class DepartmentComponent implements OnDestroy{
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
-        this.searchDataFlag ? (this.fl['textSearch'].setValue(this.filterFrm.value.textSearch)) : (this.fl['textSearch'].setValue(''));
+        this.searchDataFlag ? '' : (this.fl['textSearch'].setValue(''));
         this.getTableData();
         break;
       case 'Edit':
@@ -170,7 +170,7 @@ export class DepartmentComponent implements OnDestroy{
 
   adddepartment(obj?:any){
     const dialogRef = this.dialog.open(AddDepartmentComponent,{
-      width: '30%',
+      width: '40%',
       data: obj,
       disableClose: true,
       autoFocus: false

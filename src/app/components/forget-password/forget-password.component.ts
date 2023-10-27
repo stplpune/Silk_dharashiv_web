@@ -49,7 +49,7 @@ export class ForgetPasswordComponent {
 
   defaultSendOTPFrom() {
     this.sendOTPForm = this.fb.group({
-      mobileno: ['', [Validators.required, Validators.pattern(this.validation.mobile_No)]]
+      mobileno: ['', [Validators.required, Validators.pattern(this.validation.mobile_No),(this.validation.maxLengthValidator(10))]]
     })
   }
 
@@ -65,8 +65,8 @@ export class ForgetPasswordComponent {
 
   defaultchangepassword() {
     this.changePasswordfrm = this.fb.group({
-      newpassword: ['', [Validators.required, Validators.pattern(this.validation.password)]],
-      confirmPassword: ['', [Validators.required, Validators.pattern(this.validation.password)]],
+      newpassword: ['', [Validators.required, Validators.pattern(this.validation.password),(this.validation.maxLengthValidator(42))]],
+      confirmPassword: ['', [Validators.required, Validators.pattern(this.validation.password),(this.validation.maxLengthValidator(42))]],
     })
   }
 
@@ -118,7 +118,7 @@ export class ForgetPasswordComponent {
       this.verifyOTPForm.value.otpD + this.verifyOTPForm.value.otpE
 
     if (this.verifyOTPForm.invalid) {
-      this.commonMethods.snackBar("Please Enter Valid OTP", 1);
+      this.commonMethods.snackBar("Please Enter OTP", 1);
       return;
     }
 

@@ -92,8 +92,6 @@ export class LoginComponent {
       }
       this.apiService.setHttp('post', 'sericulture/api/Login/CheckLogin', false, obj, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
-        console.log(res);
-
         if (res.statusCode == "200") {
           this.spinner.hide();
           this.commonMethods.snackBar(res.statusMessage, 0);

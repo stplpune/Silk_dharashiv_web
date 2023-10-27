@@ -1,40 +1,42 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DepartmentLevelsRoutingModule } from './department-levels-routing.module';
-import { DepartmentLevelsComponent } from './department-levels.component';
+import { GrainageRoutingModule } from './grainage-routing.module';
+import { GrainageComponent } from './grainage.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
-import { MatCardModule } from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
+import { AddGrainageComponent } from './add-grainage/add-grainage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
-// import { HttpClientModule } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
   declarations: [
-    DepartmentLevelsComponent
+    GrainageComponent,
+    AddGrainageComponent
   ],
   imports: [
     CommonModule,
-    DepartmentLevelsRoutingModule,
-    MatFormFieldModule,
+    GrainageRoutingModule,
     MatCardModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     MatTableModule,
-    MatSelectModule,
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    // HttpClientModule,
-    GlobalTableComponent
-
-
+    GlobalTableComponent,
+    TranslateModule
   ]
 })
-export class DepartmentLevelsModule { }
+export class GrainageModule { }

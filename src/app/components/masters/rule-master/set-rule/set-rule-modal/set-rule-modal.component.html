@@ -14,7 +14,7 @@
   </div>
 
   <div *ngIf="!isViewFlag">
-    <form [formGroup]="setRulefrm" (ngSubmit)="onSubmit()" #formDirective="ngForm"  >
+    <form [formGroup]="setRulefrm"  #formDirective="ngForm"  >
       <mat-dialog-content class="modal-body form-container">
         <div class="row gx-2" [class.disable]="editFlag">
           <div class="col-sm-3">
@@ -56,6 +56,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'common.department'|translate}}</mat-label>
               <mat-select formControlName="department"
+              (selectionChange)="getDesignation(setRulefrm.controls['department'].value)"
                 [class]="editFlag ? setRulefrm.controls['department'].disable({ onlySelf: true }) :setRulefrm.controls['department'].enable({ onlySelf: true })">
                 <mat-option *ngFor="let data of departmentresp" [value]="data.id">{{lang == 'en' ?
                   data.textEnglish : data.textMarathi}}</mat-option>
@@ -65,9 +66,17 @@
           </div>
         </div>
 
-        <div class="d-flex w-100 justify-content-between align-items-center mb-3">
+        <!-- <div class="d-flex w-100 justify-content-between align-items-center mb-3">
           <p class="mb-0 text-main fw-bold small"></p>
           <button mat-flat-button type="button" [class.disable]="(approvallistForm.length>0)" class="btn-main" (click)="checkPrevData()" >
+            <mat-icon
+              class="material-symbols-rounded">add</mat-icon>{{editFlag?('setRule.update_level'|translate):('setRule.add_level'|translate)}}
+          </button>
+        </div> -->
+
+         <div class="d-flex w-100 justify-content-between align-items-center mb-3">
+          <p class="mb-0 text-main fw-bold small"></p>
+          <button mat-flat-button type="button" class="btn-main" (click)="checkPrevData()" >
             <mat-icon
               class="material-symbols-rounded">add</mat-icon>{{editFlag?('setRule.update_level'|translate):('setRule.add_level'|translate)}}
           </button>
@@ -79,10 +88,13 @@
 
               <div class="row  gx-2">
                 <div class="col-sm-auto">
+                  {{i + 1}}
+                </div>
+                <div class="col-sm-auto">
                   <div class="form-data">{{'setRule.order'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="approvalLevel" placeholder="Select Order">
-                      <mat-option *ngFor="let data of approveLevelResp" [value]="data.id">{{lang == 'en' ?
+                      <mat-option *ngFor="let data of approveLevelResp" [value]="data.id"   [disabled]="data.id == 0">{{lang == 'en' ?
                         data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -91,8 +103,8 @@
                   <div class="form-data">{{'setRule.action'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="actionId" placeholder="Select Action">
-                      <mat-option *ngFor="let data of actionresp" [value]="data.id">{{lang == 'en' ?
-                        data.textEnglish : data.textMarathi}}</mat-option>
+                      <mat-option *ngFor="let data of actionresp" [value]="data.id"  [disabled]="data.id == 0">{{lang == 'en' ?
+                        data.actionName : data.m_ActionName}}</mat-option>
                     </mat-select>
                     <!-- <div *ngIf="approvallistForm.controls['actionId'].hasError('required')">
                     Pipe Diameter is Required.
@@ -104,7 +116,7 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <!-- <mat-label>Designation Level</mat-label> -->
                     <mat-select formControlName="departmentLevelId" placeholder="Select Department Level">
-                      <mat-option *ngFor="let data of levelResp" [value]="data.id">{{lang == 'en' ?
+                      <mat-option *ngFor="let data of levelResp" [value]="data.id"  [disabled]="data.id == 0">{{lang == 'en' ?
                         data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
                     <!-- <mat-error *ngIf="g['departmentLevelId'].hasError('required')">Department Level Is Required</mat-error> -->
@@ -115,11 +127,17 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <!-- <mat-label>Designation</mat-label> -->
                     <mat-select formControlName="designationId" placeholder="Select Designation">
-                      <mat-option *ngFor="let data of designationResp" [value]="data.id">{{lang == 'en' ?
+                      <mat-option *ngFor="let data of designationResp" [value]="data.id"  [disabled]="data.id == 0">{{lang == 'en' ?
                         data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
+
+                <div class="col-sm-auto">
+                  <div class="form-data">{{'common.designation'|translate}}</div>
+                  <mat-checkbox class="example-margin" (change)="selectRow($event,i)"></mat-checkbox>
+                </div>
+               
 
                 <!-- <div class="col-sm-2">
               <button  mat-flat-button type="button"
@@ -127,7 +145,7 @@
                 <mat-icon class="material-symbols-rounded">add</mat-icon>
               </button>
             </div> -->
-                <div class="col-sm-auto">
+                <!-- <div class="col-sm-auto">
                   <button *ngIf="approvallistForm.length >= 1" mat-flat-button type="button"
                     class="btn-icon mt-4 text-danger bg-danger bg-opacity-10 me-2" (click)="deleteApproveLevel(i)">
                     <mat-icon class="material-symbols-rounded">delete</mat-icon>
@@ -136,7 +154,7 @@
                     class="btn-icon mt-4 text-danger bg-danger bg-opacity-10" (click)="addList()">
                     <mat-icon class="material-symbols-rounded">add</mat-icon>
                   </button>
-                </div>
+                </div> -->
               </div>
 
               <!-- <div class="col-sm-6">
@@ -176,27 +194,27 @@
       <div class="col-sm-6">
         <div class="d-flex gap-2">
           <div class="form-label"> {{'setRule.state'|translate}}</div>
-          <div class="form-data">: {{data?.state}}</div>
+          <div class="form-data">: {{lang == 'mr-IN'?(data?.m_State):(data?.state)}}</div>
         </div>
       </div>
 
       <div class="col-sm-6">
         <div class="d-flex gap-2">
           <div class="form-label">  {{'setRule.district'|translate}}</div>
-          <div class="form-data">: {{data?.district}}</div>
+          <div class="form-data">:{{lang == 'mr-IN'?(data?.m_District):(data?.district)}}</div>
         </div>
       </div>
 
       <div class="col-sm-6">
         <div class="d-flex gap-2">
           <div class="form-label"> {{'setRule.Scheme'|translate}}</div>
-          <div class="form-data">: {{data?.schemeType}}</div>
+          <div class="form-data">:{{lang == 'mr-IN'?(data?.m_SchemeType):(data?.schemeType)}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="d-flex gap-2">
           <div class="form-label">  {{'setRule.Department'|translate}}</div>
-          <div class="form-data">: {{data?.departmentName}}</div>
+          <div class="form-data">:{{lang == 'mr-IN'?(data?.m_DepartmentName):(data?.departmentName)}}</div>
         </div>
       </div>
     </div>

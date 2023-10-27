@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AddMarketListComponent } from './add-market-list/add-market-list.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -17,7 +17,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
   templateUrl: './markets.component.html',
   styleUrls: ['./markets.component.scss']
 })
-export class MarketsComponent {
+export class MarketsComponent implements OnDestroy{
   filterFrm !: FormGroup;
   pageNumber: number = 1;
   totalPages!: number;
@@ -38,7 +38,7 @@ export class MarketsComponent {
     private masterService: MasterService,
     private errorHandler: ErrorHandlingService,
     private commonMethod: CommonMethodsService,
-    private WebStorageService: WebStorageService,
+    public WebStorageService: WebStorageService,
     public validation: ValidationService,) { }
 
   ngOnInit() {
@@ -54,9 +54,9 @@ export class MarketsComponent {
 
   formData() {
     this.filterFrm = this.fb.group({
-      stateId: [this.apiService.stateId],
-      districtId: [this.apiService.disId],
-      talukaId: [''],
+      stateId: [this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],
+      districtId: [ this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],
+      talukaId: [0],
       textSearch: ['']
     })
   }
@@ -92,7 +92,7 @@ export class MarketsComponent {
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'जिल्हा', 'तालुका', 'बाजारपेठेचे नाव', 'मोबाइल क्रमांक', 'स्थिती', 'कृती'] : ['Sr. No.', 'District', 'Taluka', 'Market Name', 'Mobile No.', 'Status', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
-      pagination: this.tableDatasize > 10 ? true : false,
+      pagination: true,
       highlightedrow: true,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
@@ -108,7 +108,7 @@ export class MarketsComponent {
   childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':
-        this.searchDataFlag ? (this.filterFrm.controls['talukaId'].setValue(this.filterFrm.value?.talukaId), this.filterFrm.controls['textSearch'].setValue(this.filterFrm.value?.textSearch)) : (this.filterFrm.controls['talukaId'].setValue(''), this.filterFrm.controls['textSearch'].setValue(''));
+        this.searchDataFlag ? '' : (this.filterFrm.controls['talukaId'].setValue(''), this.filterFrm.controls['textSearch'].setValue(''));
         this.pageNumber = obj.pageNumber;
         this.bindTable();
         break;
@@ -153,7 +153,7 @@ export class MarketsComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('delete', 'sericulture/api/MarketPrice/DeleteMarketRate?Id=' + delObj.id + '&lan=' + this.lang, false, false, false, 'masterUrl');
+        this.apiService.setHttp('delete', 'sericulture/api/MarketCommittee/DeleteMarketCommittee?Id=' + delObj.id + '&lan=' + this.lang, false, false, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
@@ -202,6 +202,7 @@ export class MarketsComponent {
         next: ((res: any) => {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.districtArray = res.responseData;
+            this.districtArray.unshift({ "id": 0, "textEnglish": "All Districts","textMarathi": "सर्व जिल्हे"});
             (this.filterFrm.controls['districtId'].setValue(this.filterFrm.getRawValue()?.districtId), this.getTaluka());
           }
           else {
@@ -221,6 +222,7 @@ export class MarketsComponent {
         next: ((res: any) => {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.talukaArray = res.responseData;
+            this.talukaArray.unshift({ "id": 0, "textEnglish": "All Talukas","textMarathi": "सर्व तालुके"});
           }
           else {
             this.talukaArray = [];

@@ -1,65 +1,187 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">Profile</div>
-    <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
-      <mat-icon class="material-symbols-outlined">
+    <div class="text-main">{{'myProfile.Profile' | translate}}</div>
+    <div class="d-flex align-items-center gap-3">
+
+      <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
+        <mat-icon class="material-symbols-outlined">
           close
-      </mat-icon>
-  </button>
+        </mat-icon>
+      </button>
+    </div>
   </div>
 </div>
 <mat-dialog-content class="modal-body form-container">
-  <div class="row align-items-center">
-    <div class="col-sm-4">
+  <div class="text-end" *ngIf="!editFlag">
+    <button mat-icon-button class="btn-edit" (click)="onEditProfile()">
+      <span class="material-symbols-rounded">
+        edit_square
+    </span>
+    </button>
+  </div>
+  <div class="row gx-2 ">
+    <div class="col-sm-3">
       <div class="d-flex align-items-center justify-content-center">
         <div class="profile-pic position-relative">
-          <img src="assets/images/user.png" class="">
-          <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" #uploadDocument />
+          <img [src]=" imageRes ? imageRes : profilDetailsArr?.profileImagePath ?  profilDetailsArr?.profileImagePath : 'assets/images/user.png'" class="">
+          <!-- <img [src]="profilDetailsArr?.profileImagePath" class=""> -->
+          <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" #uploadDocument
+          (change)="imageUplod($event)" />
           <div class="profile-btn text-center">
-            <input type="file" class="profile-upload d-none">
-            <!-- <button type="button" mat-icon-button class="btn text-primary add-btn">
-              <mat-icon class="material-symbols-outlined">add</mat-icon>
-            </button> -->
+            <input type="file" class="profile-upload d-none"  >
+            <button *ngIf="editFlag" type="button" mat-icon-button class="btn text-primary add-btn" (click)="uploadDocument.click()">
+              <!-- <mat-icon class="material-symbols-outlined">add</mat-icon> -->
+              <span class="material-symbols-rounded ">
+                edit_square
+            </span>
+            </button>
             <!-- <button type="button" mat-icon-button class="btn text-danger">
               <mat-icon class="material-symbols-outlined">delete</mat-icon>
             </button> -->
+<!--  <button mat-icon-button class=" btn-icon bg-danger bg-opacity-10" (click)="setProfilePhoto()">
+              <span class="material-symbols-rounded text-primary">
+                  upload
+              </span>
+          </button>  -->
           </div>
         </div>
       </div>
+      <ng-container></ng-container>
+
     </div>
-    <div class="col-sm-8">
-      <div class="row gx-2">
-        <div class="col-sm-3">
-          <div class="form-label">Name</div>
-        </div>
-        <div class="col-sm-8">
-          <div class="form-data">: Arti Wakure</div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-label">Designation</div>
-        </div>
-        <div class="col-sm-8">
-          <div class="form-data">: Admin</div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-label">Department</div>
-        </div>
-        <div class="col-sm-8">
-          <div class="form-data">: Sericulture</div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-label">Mobile No.</div>
-        </div>
-        <div class="col-sm-8">
-          <div class="form-data">: +91-8669264767</div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-label">Email ID</div>
-        </div>
-        <div class="col-sm-8">
-          <div class="form-data">: artiwakure@gmail.com</div>
-        </div>
+    <div class="col-sm-9">  
+      <div class="row gx-2 gy-2">
+        <ng-container *ngIf="!editFlag">
+          <div class="col-sm-6">
+            <div class="row gx-2">
+              <div class="col-sm-3 form-label">{{'myProfile.label_Name' | translate}}</div>
+              <div class="col-sm-9 form-data">: {{lang == 'en' ?  (profilDetailsArr?.name || '-') : (profilDetailsArr?.m_Name || '-')}}</div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row gx-3">
+              <div class="col-sm-3 form-label">{{'myProfile.Designation' | translate}}</div>
+              <div class="col-sm-9 form-data">:{{lang == 'en' ?  (profilDetailsArr?.designationName || '-') : (profilDetailsArr?.m_DesignationName || '-')}}</div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row gx-2">
+              <div class="col-sm-3 form-label">{{'myProfile.Mobile_No' | translate}}</div>
+              <div class="col-sm-9 form-data">: {{(profilDetailsArr?.mobNo1 || '-')}}</div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row gx-2">
+              <div class="col-sm-3 form-label">{{'myProfile.Email_ID' | translate}}</div>
+              <div class="col-sm-9 form-data">: {{(profilDetailsArr?.emailId || '-')}}</div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row gx-2">
+              <div class="col-sm-3 form-label">{{'myProfile.Department' | translate}}</div>
+              <div class="col-sm-9 form-data">: {{lang == 'en' ?  (profilDetailsArr?.departmentName || '-') : (profilDetailsArr?.m_DepartmentName || '-')}}</div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row gx-2">
+              <div class="col-sm-3 form-label">{{'myProfile.Level' | translate}}</div>
+              <div class="col-sm-9 form-data">: {{lang == 'en' ?  (profilDetailsArr?.departmentLevel || '-') : (profilDetailsArr?.m_DepartmentLevel || '-')}}</div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="d-flex gap-4">
+              <div class="form-label">{{'myProfile.Address' | translate}}</div>
+              <div class="form-data">:{{lang == 'en' ?  (profilDetailsArr?.address || '-') : (profilDetailsArr?.m_Address || '-')}}</div>
+            </div>
+          </div>
+        </ng-container>
+        
+          <ng-container *ngIf="editFlag">
+            <form [formGroup]="profileForm" >
+            <div class="col-sm-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{'myProfile.Name' | translate}}</mat-label>
+                <input matInput placeholder="Enter your name(English)" formControlName="name"
+                (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
+                <mat-error *ngIf="f['name'].hasError('required')">{{'myProfile.Name_en'|translate}}</mat-error>
+                <mat-error *ngIf="f['name'].hasError('pattern')">{{'myProfile.Name_en_valid'|translate}}
+                </mat-error>
+                <mat-error *ngIf="f['name'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
+                </mat-error>
+                
+              </mat-form-field>
+            </div>
+
+            <div class="col-sm-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{'myProfile.Name_M' | translate}}</mat-label>
+                <input matInput placeholder="Enter your name(Marathi)" formControlName="m_Name"
+                (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
+                <mat-error *ngIf="f['m_Name'].hasError('required')">{{'myProfile.Name_mr'|translate}}</mat-error>
+            <mat-error *ngIf="f['m_Name'].hasError('pattern')">{{'myProfile.Name_mr_valid'|translate}}
+            </mat-error>
+            <mat-error *ngIf="f['m_Name'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
+            </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-sm-6">
+              <mat-form-field appearance="outline" class="w-100" >
+                <mat-label>{{'myProfile.Mobile_No' | translate}}</mat-label>
+                <input matInput placeholder="Enter your name" formControlName="mobileNo" readonly>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-12">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{'myProfile.Address' | translate}}</mat-label>
+                <textarea matInput placeholder="" rows="2" formControlName="address"
+                (keypress)="validator.noFirstSpaceAllow($event)" (keyup)="validator.alphaNumericWithSpacesAndSpecChars($event)" maxlength="100"></textarea>
+                <mat-error *ngIf="f['address'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div mat-dialog-actions class="modal-footer" >
+              <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+                <button mat-flat-button class="btn-main-light" (click)="editFlag = false">{{'myProfile.Clear' | translate}}</button>
+                <button mat-flat-button class="btn-main" (click)="onSubmit()" >{{'myProfile.Update' | translate}}</button>
+              </div>
+            </div>
+          </form>
+          </ng-container>
       </div>
     </div>
+    <ng-container *ngIf="!editFlag">
+      <div class="d-flex align-items-center gap-5">
+        <div class="form-data">{{'myProfile.Working_Area' | translate}}</div>
+        <hr>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="d-flex gap-2">
+            <div class="form-label">{{'myProfile.State' | translate}}</div>
+            <div class="form-data">: {{lang == 'en' ?  (profilDetailsArr?.officeState || '-') : (profilDetailsArr?.m_OfficeState || '-')}}</div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="d-flex gap-2">
+            <div class="form-label">{{'myProfile.District' | translate}}</div>
+            <div class="form-data">: {{lang == 'en' ?  (profilDetailsArr?.district || '-') : (profilDetailsArr?.m_District || '-')}}</div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="d-flex gap-2">
+            <div class="form-label">{{'myProfile.Taluka' | translate}}</div>
+            <div class="form-data">: {{lang == 'en' ?  (profilDetailsArr?.taluka || '-') : (profilDetailsArr?.m_Taluka || '-')}}</div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="d-flex gap-2">
+            <div class="form-label">{{'myProfile.Mandal' | translate}}</div>
+            <div class="form-data">:{{lang == 'en' ?  (profilDetailsArr?.circleName || '-') : (profilDetailsArr?.m_CircleName || '-')}}</div>
+          </div>
+        </div>
+      </div>
+    </ng-container>   
   </div>
 </mat-dialog-content>
+

@@ -6,6 +6,9 @@ import { MyProfileComponent } from './my-profile.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -17,7 +20,10 @@ import { MatButtonModule } from '@angular/material/button';
     MyProfileRoutingModule,
     MatDialogModule,
     MatIconModule,
-    MatButtonModule
+    MatInputModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    TranslateModule
   ]
 })
 export class MyProfileModule { }

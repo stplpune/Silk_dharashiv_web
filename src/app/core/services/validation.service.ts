@@ -21,6 +21,36 @@ export class ValidationService {
   alphabetsWithSpecChar = `^([a-zA-Z0-9 /(,)&.+-=\n'])*$`;
   latValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
   longValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
+  marathiNumericAndspecialChar = '/^[\u0900-\u0965?~`!@#$%^&*()\[\]\-+_={}|;:\\<,>.?\/ 0-9]+$/';
+  //englishNumericAndspecialChar = '^[a-zA-Z?~`!@#$%^&*()-_+={}[\]:|\\;"<,>.?\/ 0-9]*$';
+  englishNumericAndspecialChar = '^[A-Za-z0-9 /(,)&.+-_@#$]*$'
+  numericWithdecimaluptotwoDigits='^[0-9][0-9]*[.]?[0-9]{0,2}$';
+  alphaNumericWithSpacesWithDashSlashs = '^([a-zA-Z0-9/-])';
+  marathiAlphanumeric=('^[\u0900-\u09650-9 ][\u0900-\u09650-9 ]+$');
+  englishAlphanumeric = '^[a-zA-Z0-9 ][a-zA-Z0-9 ]*$';
+
+  marathiAlphaNumeric(event: any) {
+    const maskSeperator = new RegExp('^[\u0900-\u09650-9 ]+$', 'g');
+    return maskSeperator.test(event.key);
+  }
+
+  englishAlphaNumeric(event: any) {
+    const maskSeperator = new RegExp('^[a-zA-Z0-9 ]+$', 'g');
+    return maskSeperator.test(event.key);
+  }
+
+  marathiNumericspecialChar(event: any) {
+    const maskSeperator = new RegExp('^[\u0900-\u0965?~`!@#$%^&*()\\-+_={}\\[\\]:|;\\\\<,>.?/ 0-9]+$', 'g');
+    return maskSeperator.test(event.key);
+  }
+  
+
+  englishNumericspecialChar(event: any) {
+    const regexPattern = new RegExp('^[A-Za-z0-9 /(,)&.+-_@#$]*$','g');
+    return regexPattern.test(event);
+  }
+  
+  
   
   maxLengthValidator(maxLength: number) {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -36,16 +66,23 @@ export class ValidationService {
     return maskSeperator.test(event.key);
   }
 
+  alphaNumericWithSpacesWithDashSlash(event: any) {
+    const maskSeperator = new RegExp('^([a-zA-Z0-9/-])', 'g');
+    return maskSeperator.test(event.key);
+  }
+
   alphaNumericWithQuetion(event: any) {
-    if (!this.noSpacesAtStart(event)) {
-      return false
-    }
     const maskSeperator = new RegExp('^([a-zA-Z0-9 ?!@#$%^&*0-9])', 'g');
     return maskSeperator.test(event.key);
   }
 
   alphabetsWithSpaces(event: any) {
     const maskSeperator = new RegExp('^([a-zA-Z ])', 'g');
+    return maskSeperator.test(event.key);
+  }
+
+  alphabetsMarathiWithSpaces(event: any) {
+    const maskSeperator = new RegExp('^([a-zA-Z\u0900-\u0965 ])', 'g');
     return maskSeperator.test(event.key);
   }
 

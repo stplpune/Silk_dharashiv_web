@@ -39,7 +39,7 @@ export class AddMarketListComponent {
     private spinner: NgxSpinnerService,
     private masterService: MasterService,
     private errorHandler: ErrorHandlingService,
-    private WebStorageService: WebStorageService,
+    public WebStorageService: WebStorageService,
     private commonMethod: CommonMethodsService,
     public dialog: MatDialog,
     private dialogRef: MatDialogRef<AddMarketListComponent>,
@@ -48,6 +48,7 @@ export class AddMarketListComponent {
   ) { this.dateAdapter.setLocale('en-GB') }
 
   ngOnInit() {
+    //console.log("this.WebStorageService.getDistrictId()",this.WebStorageService.getStateId())
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -62,14 +63,15 @@ export class AddMarketListComponent {
 
 
   formData(data?: any) {
+    //console.log("data",data)
     this.marketFrm = this.fb.group({
       "id": [data ? data?.id : 0],
       "marketName": [data ? data?.marketName : '', [Validators.required, this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
       "m_MarketName": [data ? data?.m_MarketName : '', [Validators.required, this.validation.maxLengthValidator(100), Validators.pattern(this.validation.marathi)]],
       "conactNo": [data ? data?.conactNo : '', [Validators.pattern(this.validation.mobile_No)]],
       "emailId": [data ? data?.emailId : '', [Validators.email, this.validation.maxLengthValidator(50)]],
-      "stateId": [data ? data?.stateId : this.apiService.stateId],
-      "districtId": [data ? data?.districtId : this.apiService.disId],
+      "stateId": [data ? data?.stateId : this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],
+      "districtId": [data ? data?.districtId :  this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId(), [Validators.required]],
       "talukaId": [data ? data?.talukaId : '', [Validators.required]],
       "villageId": [data ? data?.villageId : ''],
       "address": [data ? data?.address : ''],
@@ -90,8 +92,9 @@ export class AddMarketListComponent {
 
   onEdit(edata?: any) {
     this.editFlag = true;
+    this.editObj = edata
     this.formData(edata);
-    this.addValidation();
+   this.addValidation();
   }
 
   onSubmit() {
@@ -113,7 +116,7 @@ export class AddMarketListComponent {
         "villageId": 0,
         "address": data.address,
         "pincode": data.pincode,
-        "estDate": data.estDate,
+        "estDate":this.commonMethod.setDate(data.estDate),
         "latitude": Number(data.latitude),
         "longitude": Number(data.longitude),
         "administratior": data.administratior,
@@ -178,7 +181,8 @@ export class AddMarketListComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.stateArray = res.responseData;
-          this.editFlag ? (this.a['stateId'].setValue(this.editObj?.stateId), this.getDistrict()) : this.getDistrict();
+          this.editFlag ? (this.a['stateId'].setValue(this.editObj?.stateId)) : '';
+          this.getDistrict();
         }
         else {
           this.stateArray = [];
@@ -190,11 +194,16 @@ export class AddMarketListComponent {
   getDistrict() {
     this.districtArray = [];
     let stateId = this.marketFrm.getRawValue()?.stateId;
+    //console.log("stateId",stateId)
+    if(stateId != 0){
     this.masterService.GetAllDistrict(stateId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.districtArray = res.responseData;
-          this.editFlag ? (this.a['districtId'].setValue(this.editObj?.districtId), this.getTaluka()) : this.getTaluka();
+          this.districtArray.unshift({ "id": 0, "textEnglish": "All District","textMarathi": "सर्व जिल्हे"});
+    
+          this.editFlag ? this.a['districtId'].setValue(this.editObj?.districtId) : '';
+          this.getTaluka();
         }
         else {
           this.districtArray = [];
@@ -202,11 +211,13 @@ export class AddMarketListComponent {
       })
     })
   }
+  }
 
   getTaluka() {
     this.talukaArray = [];
     let stateId = this.marketFrm.getRawValue()?.stateId
     let disId = this.marketFrm.getRawValue()?.districtId
+    if(disId != 0){
     this.masterService.GetAllTaluka(stateId, disId, 0).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
@@ -218,6 +229,7 @@ export class AddMarketListComponent {
         }
       })
     })
+  }
   }
 
   getFarmGoods() {
@@ -253,6 +265,10 @@ export class AddMarketListComponent {
     return this.sendFarmDataArray
   }
   //#endregion------------------Dropdown code end here--------------------------------------------
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
 }
 
 

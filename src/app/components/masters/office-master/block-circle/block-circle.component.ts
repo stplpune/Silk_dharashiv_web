@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, OnDestroy} from '@angular/core';
 import { AddcircleComponent } from './addcircle/addcircle.component';
 import { MatDialog} from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,7 +16,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
   templateUrl: './block-circle.component.html',
   styleUrls: ['./block-circle.component.scss']
 })
-export class BlockCircleComponent {
+export class BlockCircleComponent implements OnDestroy{
   pageNumber: number = 1;
   tableDatasize!: number;
   totalPages!: number;
@@ -166,6 +166,11 @@ export class BlockCircleComponent {
   clearFilter(){
     this.textsearch.setValue('');
     this.getTableData();
+    this.pageNumber = 1;
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
 }

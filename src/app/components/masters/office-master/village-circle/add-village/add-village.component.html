@@ -36,7 +36,7 @@
         <div class="col-sm-12">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'villageCircle.select_taluka' | translate}}</mat-label>
-            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('village');getVillage()"
+            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('village');getGrampanchayat()"
               [disabled]="true">
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi
                 :taluka.textEnglish}}</mat-option>
@@ -47,12 +47,12 @@
         </div>
         <div class="col-sm-12">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'villageCircle.select_village' | translate}}</mat-label>
-            <mat-select formControlName="villages" multiple>
-              <mat-option *ngFor="let vil of villageArray" [value]="vil.id">{{lang != 'en' ? vil.textMarathi
+            <mat-label>{{'villageCircle.select_grampanchayat' | translate}}</mat-label>
+            <mat-select formControlName="grampanchayats" multiple>
+              <mat-option *ngFor="let vil of grampanchayatArray" [value]="vil.id">{{lang != 'en' ? vil.textMarathi
                 :vil.textEnglish}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="f['villages']?.hasError('required')">{{'villageCircle.please_select_village' |
+            <mat-error *ngIf="f['grampanchayats']?.hasError('required')">{{'villageCircle.please_select_grampanchayat' |
               translate}}</mat-error>
           </mat-form-field>
         </div>
@@ -87,9 +87,9 @@
         </div>
       </div>
       <div class="d-flex align-items-center justify-content-end gap-2">
-        <button mat-flat-button type="button" class="btn-main-light" type="button"
-          (click)="clearFormData()" mat-dialog-close>{{'villageCircle.clear'| translate}}</button>
-        <button mat-flat-button class="btn-main" type="submit">{{!data ? ('villageCircle.save'| translate) : ('faq.update'| translate)}}</button>
+        <button mat-flat-button type="button" class="btn-main-light" type="button" (click)="clearFormData()">
+          {{'villageCircle.clear'| translate}}</button>
+        <button mat-flat-button class="btn-main" type="submit">{{!data ? ('common.add'| translate) : ('faq.update'| translate)}}</button>
       </div>
     </form>
   </div>
@@ -115,10 +115,27 @@
         </div>
       </div>
       <div class="col-sm-12">
-        <div class="row gx-2">
+
+
+        <!-- <div class="row gx-2">
           <div class="col-sm-5 form-label">{{lang == 'en' ? 'Village' : 'गाव'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.village || '-') : (data?.m_Village || '-')}}</div>
+          <span *ngFor="let villahes of data.villages">
+            {{lang == 'en' ? (villahes?.village || '-'): (villahes?.m_Village || '-')}},
+          </span>
+        </div> -->
+
+        <div class="col-sm-12">
+          <div class="row gx-2">
+            <div class="col-sm-4 form-label">{{lang == 'en' ? 'Grampanchayat' : 'ग्रामपंचायत'}}</div>
+            <div class="col-sm-8 form-data d-flex  " >:
+              <span *ngFor="let villahes of data.grampanchayat">
+                {{lang == 'en' ? (villahes?.grampanchayatName || '-'): (villahes?.m_GrampanchayatName || '-')}},
+              </span>
+            </div>
+          </div>
         </div>
+
+
       </div>
       <div class="col-sm-12">
         <div class="row gx-2">

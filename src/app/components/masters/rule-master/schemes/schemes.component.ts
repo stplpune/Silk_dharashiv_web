@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {  FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,7 +16,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
   templateUrl: './schemes.component.html',
   styleUrls: ['./schemes.component.scss']
 })
-export class SchemesComponent {
+export class SchemesComponent implements OnDestroy{
 
   totalCount: number | any;
   tableDataArray = new Array();
@@ -27,6 +27,7 @@ export class SchemesComponent {
   filtarFlag: boolean = false;
   subscription!: Subscription;
   lang: string = 'English';
+  pageAccessObject: object|any;
 
   constructor
     (
@@ -42,7 +43,7 @@ export class SchemesComponent {
 
   addscheme(data?: any) {
     const dialogRef = this.dialog.open(AddSchemeComponent, {
-      width: '30%',
+      width: '40%',
       data: data,
       disableClose: true
     });
@@ -52,6 +53,7 @@ export class SchemesComponent {
   }
 
   ngOnInit() {
+    this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == "Schemes" ? this.pageAccessObject = ele :''})
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -72,7 +74,7 @@ export class SchemesComponent {
         if (res.statusCode == '200') {
           this.spinner.hide();
           this.tableDataArray = res.responseData;
-          this.totalCount = res.responseData1.totalPages;
+          this.totalCount = res.responseData1.totalCount;
         } else {
           this.spinner.hide();
           this.tableDataArray = [];
@@ -93,7 +95,7 @@ export class SchemesComponent {
   setTableData() {
     this.highLightedFlag = true;
     let displayedColumns = this.lang == 'en' ? ['srNo', 'schemeType', 'state', 'district', 'isActive', 'action'] : ['srNo', 'm_SchemeType', 'm_State', 'm_District', 'isActive', 'action']
-    let tableHeaders = this.lang == 'en' ? ['Sr. No.', 'Scheme Name', 'State Name', 'District Name', 'Status', 'Action'] : ['अनुक्रमांक', 'योजनेचे नाव', 'राज्यांचे नाव', 'जिल्ह्याचे नाव', 'स्थिती', 'क्रिया']
+    let tableHeaders = this.lang == 'en' ? ['Sr. No.', 'Scheme', 'State', 'District', 'Status', 'Action'] : ['अनुक्रमांक', 'योजना', 'राज्य', 'जिल्हा', 'स्थिती', 'क्रिया']
     this.tableObj = {
       pageNumber: this.pageNumber,
       status: '',
@@ -102,10 +104,10 @@ export class SchemesComponent {
       tableSize: this.totalCount,
       tableHeaders: tableHeaders,
       displayedColumns: displayedColumns,
-      pagination: this.totalCount > 10 ? true : false,
-      view: true,
-      edit: true,
-      delete: true,
+      pagination: this.totalCount > 5 ? true : false,
+      view: this.pageAccessObject?.readRight == true ? true: false,
+      edit: this.pageAccessObject?.writeRight == true ? true: false,
+      delete: this.pageAccessObject?.deleteRight == true ? true: false,
       reset: false,
     }
     this.highLightedFlag ? this.tableObj.highlightedrow = true : this.tableObj.highlightedrow = false;
@@ -131,12 +133,12 @@ export class SchemesComponent {
       case 'Block':
         this.openBlockDialog(obj);
         break;
-      
+
     }
   }
 
   openBlockDialog(obj?: any) {
-    let userEng = obj.isActive == false ? 'Block' : 'Unblock';
+    let userEng = obj.isActive == false ? 'Active' : 'Deactive';
     let userMara = obj.isActive == false ? 'ब्लॉक' : 'अनब्लॉक';
     let dialoObj = {
       header: this.lang == 'mr-IN' ? 'योजना ' + userMara + ' करा' : userEng + ' Scheme',
@@ -203,11 +205,15 @@ export class SchemesComponent {
     });
   }
 
- 
+
 
   clearFilter() {
     this.filterForm.reset();
     this.getTableData();
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
 import { MasterService } from 'src/app/core/services/master.service';
@@ -16,7 +16,7 @@ import { AddDesignationComponent } from './add-designation/add-designation.compo
   templateUrl: './designations.component.html',
   styleUrls: ['./designations.component.scss']
 })
-export class DesignationsComponent {
+export class DesignationsComponent implements OnDestroy{
   filterFrm !: FormGroup;
 
   pageNumber: number = 1;
@@ -45,7 +45,7 @@ export class DesignationsComponent {
 
   ngOnInit() {
     this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == "Designation" ? this.pageAccessObject = ele :''})
- 
+
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -92,7 +92,7 @@ export class DesignationsComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentLevelArray = res.responseData;
-          this.departmentLevelArray.unshift({ "id": 0, "textEnglish": "All Department Level","textMarathi": "सर्व विभाग स्तर"});
+          this.departmentLevelArray.unshift({ "id": 0, "textEnglish": "All Designation Level","textMarathi": "सर्व पदनाम स्तर"});
         }
         else {
           this.departmentLevelArray = [];
@@ -132,7 +132,7 @@ export class DesignationsComponent {
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'विभाग', 'पदनाम स्तर', 'पदनाम', 'कृती'] : ['Sr. No.', 'Department', 'Designation Level', 'Designation', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
-      pagination: this.tableDatasize > 10 ? true : false,
+      pagination: true ,
       highlightedrow: true,
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
@@ -143,7 +143,7 @@ export class DesignationsComponent {
       edit: this.pageAccessObject?.writeRight == true ? true: false,
       delete: this.pageAccessObject?.deleteRight == true ? true: false
 
-      
+
     };
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
     this.apiService.tableData.next(tableData);
@@ -153,7 +153,7 @@ export class DesignationsComponent {
   childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':
-        this.searchDataFlag ? (this.filterFrm.controls['deptId'].setValue(this.filterFrm.value?.deptId),this.filterFrm.controls['deptLevelId'].setValue(this.filterFrm.value?.deptLevelId), this.filterFrm.controls['textSearch'].setValue(this.filterFrm.value.textSearch)) : (this.filterFrm.controls['deptId'].setValue(''),this.filterFrm.controls['deptLevelId'].setValue(''), this.filterFrm.controls['textSearch'].setValue(''));
+        this.searchDataFlag ? '' : (this.filterFrm.controls['deptId'].setValue(''),this.filterFrm.controls['deptLevelId'].setValue(''), this.filterFrm.controls['textSearch'].setValue(''));
         this.pageNumber = obj.pageNumber;
         this.bindTable();
         break;
@@ -171,7 +171,7 @@ export class DesignationsComponent {
 
   addDesignation(obj?: any) {
     let dialogRef = this.dialog.open(AddDesignationComponent, {
-      width: '30%',
+      width: '35%',
       data: obj,
       disableClose: true,
       autoFocus: true,

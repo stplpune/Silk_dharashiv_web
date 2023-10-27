@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -15,7 +15,7 @@ import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialo
   templateUrl: './village-circle.component.html',
   styleUrls: ['./village-circle.component.scss']
 })
-export class VillageCircleComponent {
+export class VillageCircleComponent implements OnDestroy{
 
   totalCount: number | any;
   tableDataArray = new Array();
@@ -26,6 +26,7 @@ export class VillageCircleComponent {
   subscription!: Subscription;
   lang: string = 'English';
   filterFlag: boolean = false;
+  pageAccessObject: object|any;
 
   constructor
     (
@@ -38,6 +39,7 @@ export class VillageCircleComponent {
     ) { }
 
   ngOnInit() {
+    this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == 'Circle'? this.pageAccessObject = ele :''})
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -56,12 +58,12 @@ export class VillageCircleComponent {
       result == 'Yes' ? this.getTableData() : '';
     })
   }
-
+  // sericulture/api/Circles/GetAllCircles?pageno='+(this.pageNumber) +'&pagesize=10&TextSearch= + formValue
   getTableData(flag?: any) {
     let formValue = this.filterForm.value || ''
     this.spinner.show();
     flag == 'filter' ? this.pageNumber = 1 : ''
-    this.apiService.setHttp('GET', 'sericulture/api/TalukaBlocks/GetAllVillageCircles?pageno=' + (this.pageNumber) + '&pagesize=10&TextSearch=' + formValue, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Circles/GetAllCircles?pageno='+(this.pageNumber) +'&pagesize=10&TextSearch='+formValue, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
@@ -98,9 +100,12 @@ export class VillageCircleComponent {
       tableData: this.tableDataArray,
       tableSize: this.totalCount,
       pagination: this.totalCount > 10 ? true : false,
-      view: true,
-      edit: true,
-      delete: true,
+      // view: true,
+      // edit: true,
+      // delete: true,
+      view: this.pageAccessObject?.readRight == true ? true: false,
+      edit: this.pageAccessObject?.writeRight == true ? true: false,
+      delete: this.pageAccessObject?.deleteRight == true ? true: false,
       reset: false
     }
     this.highLightedFlag ? this.tableObj.highlightedrow = true : this.tableObj.highlightedrow = false;
@@ -167,6 +172,9 @@ export class VillageCircleComponent {
     this.getTableData();
   }
 
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
 
 }
 

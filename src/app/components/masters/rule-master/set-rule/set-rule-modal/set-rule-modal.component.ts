@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -14,7 +14,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
   templateUrl: './set-rule-modal.component.html',
   styleUrls: ['./set-rule-modal.component.scss']
 })
-export class SetRuleModalComponent {
+export class SetRuleModalComponent implements OnDestroy {
 
   setRulefrm!: FormGroup;
   statresponse = new Array();
@@ -57,11 +57,10 @@ export class SetRuleModalComponent {
     this.getDisrict();
     this.getAction();
     this.getLevel();
-    this.getDesignation();
+    // this.getDesignation();
     this.getLevelApprovel();
     this.data?.label == 'Edit' ? this.editData() : '';
     this.tableData = this.data?.getApprovalMaster
-    console.log(this.tableData);
 
   }
 
@@ -131,15 +130,31 @@ export class SetRuleModalComponent {
   //#endregion ------------------------------------------------------filter drop fn end heare--------------------------------------------//
 
   //#region ---------------------------------------------------------Add Level drop fn start heare--------------------------------------------//
-  getAction() {
-    this.master.GetActionDropDown().subscribe({
-      next: ((res: any) => {
-        this.actionresp = res.responseData;
-        this.actionresp.unshift({ id: 0, textEnglish: 'Select Action', textMarathi: "कृती निवडा" })
-      }), error: (() => {
-        this.actionresp = [];
-      })
-    })
+  // getAction() {
+  //   this.master.GetActionDropDown().subscribe({
+  //     next: ((res: any) => {
+  //       this.actionresp = res.responseData;
+  //       this.actionresp.unshift({ id: 0, textEnglish: 'Select Action', textMarathi: "कृती निवडा" })
+  //     }), error: (() => {
+  //       this.actionresp = [];
+  //     })
+  //   })
+  // }
+  
+  getAction(){
+    this.apiService.setHttp('GET', 'sericulture/api/Action/get-All-Action?SchemeId=1&DepartmentId=1&DistrictId=1', false, false, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == '200') {
+          this.actionresp = res.responseData;
+        } else {
+          this.actionresp = [];
+        }
+      },
+      // error: (err: any) => {
+      //   this.error.handelError(err.status);
+      // },
+    });
   }
 
   getLevel() {
@@ -153,8 +168,8 @@ export class SetRuleModalComponent {
     })
   }
 
-  getDesignation() {
-    this.master.GetDesignationDropDown().subscribe({
+  getDesignation(deptId:number) {
+    this.master.GetDesignationDropDown(deptId).subscribe({
       next: ((res: any) => {
         this.designationResp = res.responseData;
         this.designationResp.unshift({ id: 0, textEnglish: 'Select Designation', textMarathi: "पदनाम निवडा" })
@@ -177,9 +192,18 @@ export class SetRuleModalComponent {
   }
 
   checkPrevData() {
-    if (!this.setRulefrm.value.scheme && !this.setRulefrm.value.department) {
+    let formData = this.setRulefrm.getRawValue();
+
+    if (formData.scheme == '') {
+      this.commonMethods.snackBar("Please select scheme name", 1);
+      return
+    } else if (formData.department == '') {
+      this.commonMethods.snackBar("Please select department name", 1);
+      return
+    } else if (this.setRulefrm.invalid) {
       return
     }
+
     else {
       this.spinner.show();
       let formData = this.setRulefrm.getRawValue();
@@ -187,7 +211,6 @@ export class SetRuleModalComponent {
       this.apiService.getHttp().subscribe({
         next: (res: any) => {
           this.spinner.hide();
-          // console.log('res.responseData.length',res.responseData.length);
           if (res.statusCode == '200' && res.responseData.length) {
             this.data = res.responseData[0];
             this.data.label = 'Edit';
@@ -218,14 +241,18 @@ export class SetRuleModalComponent {
       });
       if (this.approvallistForm.length > 1) {
         let approvallistForm = this.approvallistForm.getRawValue();
-        let len = this.approvallistForm.length - 2;
-        console.log(len);
+        console.log(approvallistForm);
 
+        let len = this.approvallistForm.length - 2;
         for (let i = 0; i <= len; i++) {
           if ((approvallistForm[i]?.approvalLevel == approvallistForm[approvallistForm.length - 1]?.approvalLevel)) {
             this.commonMethods.snackBar("Duplicate Order level is not allowed", 1);
             return
-          } else if ((approvallistForm[i]?.actionId == approvallistForm[approvallistForm.length - 1]?.actionId) &&
+          } else if ((approvallistForm[i]?.actionId == approvallistForm[approvallistForm.length - 1]?.actionId)) {
+            this.commonMethods.snackBar("Duplicate Action is not allowed", 1);
+            return
+          }
+          else if ((approvallistForm[i]?.actionId == approvallistForm[approvallistForm.length - 1]?.actionId) &&
             approvallistForm[i]?.departmentLevelId == approvallistForm[approvallistForm.length - 1]?.departmentLevelId && (approvallistForm[i]?.designationId == approvallistForm[approvallistForm.length - 1]?.designationId)) {
             this.commonMethods.snackBar("Duplicate Record Not Allowed", 1);
             return
@@ -240,6 +267,25 @@ export class SetRuleModalComponent {
     }
   }
 
+  order = [
+    { id: 1, name: 'level one', action: "Action1" },
+    { id: 2, name: 'level Two', action: "Action1" },
+    { id: 3, name: 'level Three', action: "Action1" },
+    { id: 4, name: 'level Four', action: "Action1" },
+    { id: 5, name: 'level Five', action: "Action1" },
+    { id: 6, name: 'level six', action: "Action1" },
+    { id: 7, name: 'level seven', action: "Action1" },
+    { id: 1, name: 'level eight', action: "Action1" },
+    { id: 1, name: 'level nine', action: "Action1" },
+    { id: 1, name: 'level ten', action: "Action1" },
+  ]
+
+  selectRow(event: any, index: any) {
+    console.log(this.order.length);
+    
+    console.log(event);
+    console.log(index);
+  }
 
   editData() {
     this.editFlag = true;
@@ -259,67 +305,41 @@ export class SetRuleModalComponent {
           departmentLevelId: [x?.departmentLevelId],
           designationId: [x?.designationId],
           approvalLevel: [x?.approvalLevel],
-          disabled: [true]
+          // disabled: [true]
         }
       ));
     });
   }
 
-  deleteApproveLevel(i: any) {
-    this.approvallistForm.removeAt(i);
-  }
-
-  // checkDuplicateEntry() {
-  //   let formData = this.setRulefrm.getRawValue();
-  //   let addLevelArrayStatus = formData.approvalLevels.some((x: any) => {
-
-  //     let counter = 0;
-  //     formData.approvalLevels.map((a: any) => {
-  //       if (a.actionId === x.actionId && a.departmentLevelId === x.departmentLevelId && a.designationId === x.designationId) {
-  //         counter += 1;
-  //       }
-  //     })
-  //     return counter > 1;
-  //   });
-
-  //   if (addLevelArrayStatus) {
-  //     this.commonMethods.snackBar("Something went wrong.", 1);
-  //     return
-  //   }
-
-  //   if (this.editFlag) {
-  //     this.data.getApprovalMaster.find((ele: any) => {
-  //       formData.approvalLevels.map((item: any) => {
-  //         if (item.approvalLevel == ele.approvalLevel) {
-  //           item.id = ele.id
-  //         }
-  //       })
-  //     })
-  //   }
+  // deleteApproveLevel(i: any) {
+  //   this.approvallistForm.removeAt(i);
   // }
+
+
   onSubmit() {
     let formData = this.setRulefrm.getRawValue();
     if (this.setRulefrm.invalid) {
       return;
-    } else if ((this.approveLevelResp.length - 1) != this.approvallistForm.length) {
-      this.commonMethods.snackBar('All Order leavel is required', 1);
-      return
     }
+    //  else if ((this.approveLevelResp.length - 1) != this.approvallistForm.length) {
+    //   this.commonMethods.snackBar('All Order leavel is required', 1);
+    //   return
+    // }
+    this.spinner.show();
+    // let addLevelArrayStatus = formData.approvalLevels.some((x: any) => {
+    //   let counter = 0;
+    //   formData.approvalLevels.map((a: any) => {
+    //     if (a.actionId === x.actionId && a.departmentLevelId === x.departmentLevelId && a.designationId === x.designationId) {
+    //       counter += 1;
+    //     }
+    //   })
+    //   return counter > 1;
+    // });
 
-    let addLevelArrayStatus = formData.approvalLevels.some((x: any) => {
-      let counter = 0;
-      formData.approvalLevels.map((a: any) => {
-        if (a.actionId === x.actionId && a.departmentLevelId === x.departmentLevelId && a.designationId === x.designationId) {
-          counter += 1;
-        }
-      })
-      return counter > 1;
-    });
-    console.log("addLevelArrayStatus", addLevelArrayStatus);
-    if (addLevelArrayStatus) {
-      this.commonMethods.snackBar("Duplicate Record Is Not Allowed", 1);
-      return
-    }
+    // if (addLevelArrayStatus) {
+    //   this.commonMethods.snackBar("Duplicate Record Is Not Allowed", 1);
+    //   return
+    // }
 
     if (this.editFlag) {
       this.data.getApprovalMaster.find((ele: any) => {
@@ -362,7 +382,11 @@ export class SetRuleModalComponent {
     this.formDirective?.resetForm();
   }
 
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
   //#endregion--------------------------------------------------------- Add Level drop fn end heare--------------------------------------------//
+
 }
 
 

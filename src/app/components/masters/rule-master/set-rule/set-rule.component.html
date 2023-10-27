@@ -2,7 +2,7 @@
   <mat-card-header class="card-header">
     <div class="d-flex align-items-center justify-content-between w-100 ">
       <div class="text-main">{{'setRule.set_rule' | translate }}</div>
-      <button mat-flat-button class="btn-main" (click)="setrules()">
+      <button mat-flat-button class="btn-main" *ngIf="pageAccessObject?.writeRight == true" (click)="setrules()">
         <mat-icon class="material-symbols-rounded">
           add
         </mat-icon>
@@ -11,7 +11,7 @@
     </div>
   </mat-card-header>
   <mat-card-content class="card-body">
-    <form [formGroup]="filterFrm" (ngSubmit)="bindTable()" #formDirective="ngForm">
+    <form [formGroup]="filterFrm" (ngSubmit)="bindTable('filter')" #formDirective="ngForm">
       <div class="row gx-2">
         <div class="col-sm-auto">
           <mat-form-field appearance="outline" class="w-100">
@@ -35,7 +35,7 @@
         </div>
         <div class="col-sm-auto">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'action.scheme' | translate}}</mat-label>
+            <mat-label>{{'setRule.select_scheme' | translate}}</mat-label>
             <mat-select formControlName="scheme">
               <mat-option *ngFor="let data of schemeTyperesp" [value]="data.id">{{lang == 'en' ?
                 data.textEnglish : data.textMarathi}}</mat-option>

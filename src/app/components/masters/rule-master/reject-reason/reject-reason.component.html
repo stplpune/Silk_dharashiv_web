@@ -1,0 +1,52 @@
+<mat-card class="plain-card">
+  <mat-card-header class="card-header">
+    <div class="d-flex align-items-center justify-content-between w-100">
+      <div class="text-main">{{'rejectReason.reject_reason'|translate}}</div>
+      <button mat-flat-button class="btn-main" *ngIf="pageAccessObject?.writeRight == true" (click)="addrejectreason()">
+        <mat-icon class="material-symbols-rounded">
+          add
+        </mat-icon>
+        {{'rejectReason.add_reject_reason'|translate}}
+      </button>
+    </div>
+  </mat-card-header>
+  <mat-card-content class="card-body">
+    <form [formGroup]="filterFrm" (ngSubmit)="bindTable()" #formDirective="ngForm">
+    <div class="row gx-2">
+      <div class="col-sm-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{'rejectReason.all_stage_action'|translate}}</mat-label>
+          <mat-select formControlName="actionId">
+            <mat-option *ngFor="let data of actionResp" [value]="data.id">{{lang == 'en' ?
+              data.textEnglish : data.textMarathi}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-4">
+        <mat-form-field appearance="outline" class="w-100"> 
+          <mat-label>{{'rejectReason.reject_title'|translate}}</mat-label>
+          <input matInput placeholder="" formControlName="textSearch"
+          (keypress)="validation.noFirstSpaceAllow($event)">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-auto">
+        <div class="d-flex align-items-center gap-2">
+          <button mat-flat-button class="btn-main btn-icon" (click)="bindTable('filter')" matTooltip="edit" type="button">
+            <mat-icon class="material-symbols-rounded">
+              search
+            </mat-icon>
+          </button>
+          <button mat-flat-button class="btn-main-light btn-icon" (click)="clearFilterForm()" matTooltip="edit" type="button">
+            <mat-icon class="material-symbols-rounded">
+              close
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    </form>
+    <div class="table-responsive scrollbar">
+      <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
+    </div>
+  </mat-card-content>
+</mat-card>

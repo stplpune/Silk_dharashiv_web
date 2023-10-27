@@ -47,17 +47,21 @@
                                             <img src="assets/images/sidebar-icons/arrow-small-right.svg">
                                             <span>Designations</span>
                                         </a>
-                                        <a routerLink="block-circle" routerLinkActive="active">
+                                        <a routerLink="block" routerLinkActive="active">
                                             <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                            <span>Block / Circle</span>
+                                            <span>Block</span>
                                         </a>
-                                        <a routerLink="village-circle" routerLinkActive="active">
+                                        <a routerLink="circle" routerLinkActive="active">
                                             <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                            <span>Village/ Circle</span>
+                                            <span>Circle</span>
                                         </a>
                                         <a routerLink="officer-registration" routerLinkActive="active">
                                             <img src="assets/images/sidebar-icons/arrow-small-right.svg">
                                             <span>Officer Registration</span>
+                                        </a>
+                                        <a routerLink="grainage" routerLinkActive="active">
+                                            <img src="assets/images/sidebar-icons/arrow-small-right.svg">
+                                            <span>Grainage</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -79,13 +83,17 @@
                                             <img src="assets/images/sidebar-icons/arrow-small-right.svg">
                                             <span>Schemes</span>
                                         </a>
-                                        <a routerLink="actions">
+                                        <!-- <a routerLink="actions">
                                             <img src="assets/images/sidebar-icons/arrow-small-right.svg">
                                             <span>Actions</span>
-                                        </a>
+                                        </a> -->
                                         <a routerLink="set-rule">
                                             <img src="assets/images/sidebar-icons/arrow-small-right.svg">
                                             <span>Set Rule</span>
+                                        </a>
+                                        <a routerLink="reject-reason">
+                                            <img src="assets/images/sidebar-icons/arrow-small-right.svg">
+                                            <span>Reject Reason</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -101,6 +109,28 @@
                         </li>
                     </ul>
                 </div>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="#" data-bs-toggle="collapse" href="#collapseCMS" role="button"
+                    aria-expanded="false" aria-controls="collapseCMS" routerLink="application">
+                    <div class="d-flex align-items-center">
+                        <img src="assets/images/sidebar-icons/cms.svg" class="menu-icon">
+                        <span>Application</span>
+                    </div>
+                    <span class="dropdown-toggle"></span>
+                </a>
+                <!-- <div class="collapse" id="collapseCMS">
+                  <ul class="sub-menu">
+                      <li>
+                          <a class="submenu-link" routerLink="manarega">
+                              <div class="d-flex">
+                                  <img src="assets/images/sidebar-icons/circle.svg">
+                                  <span>Manarega</span>
+                              </div>
+                          </a>
+                      </li>
+                  </ul>
+              </div> -->
             </li>
             <li class="menu-item">
                 <a class="menu-link" href="#" data-bs-toggle="collapse" href="#collapseCMS" role="button"
@@ -152,7 +182,7 @@
                 <a class="menu-link" href="#" data-bs-toggle="collapse" href="#collapseSetting" role="button"
                     aria-expanded="false" aria-controls="collapseSetting">
                     <div class="d-flex align-items-center">
-                        <img src="assets/images/sidebar-icons/setting.svg" class="menu-icon">
+                        <img src="assets/images/sidebar-icons/master.svg" class="menu-icon">
                         <span>Setting</span>
                     </div>
                     <span class="dropdown-toggle"></span>

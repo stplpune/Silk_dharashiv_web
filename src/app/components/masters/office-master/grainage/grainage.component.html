@@ -1,0 +1,62 @@
+<mat-card class="plain-card">
+  <mat-card-header class="card-header">
+    <div class="d-flex align-items-center justify-content-between w-100">
+      <div class="text-main"> {{"grainage.grainage" | translate}}</div>
+      <button mat-flat-button class="btn-main" (click)="addgrainage()">
+        <mat-icon class="material-symbols-rounded">
+          add
+        </mat-icon>
+        {{"grainage.add_Grainage" | translate}}
+      </button>
+    </div>
+  </mat-card-header>
+  <mat-card-content class="card-body">
+    <form [formGroup]="filterFrm" class="w-100">
+      <div class="row gx-2">
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{"grainage.type" | translate}}</mat-label>
+            <mat-select formControlName="type">
+              <mat-option *ngFor=" let grain of grainageArr"
+              [value]="grain.id">{{lang == 'en' ? grain.textEnglish : grain.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{"grainage.State" | translate}}</mat-label>
+            <mat-select formControlName="stateId">
+              <mat-option *ngFor=" let state of stateArr"
+              [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{"grainage.search" | translate}}</mat-label>
+            <input matInput formControlName="textSearch" (keypress)="validator.noFirstSpaceAllow($event)">
+          </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+          <div class="d-flex align-items-center gap-2">
+            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"
+            (click)="getTableData('filter')">
+              <mat-icon class="material-symbols-rounded">
+                search
+              </mat-icon>
+            </button>
+            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button"
+            (click)="clearSearchFilter()">
+              <mat-icon class="material-symbols-rounded">
+                close
+              </mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="table-responsive scrollbar">
+      <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
+    </div>
+  </mat-card-content>
+</mat-card>

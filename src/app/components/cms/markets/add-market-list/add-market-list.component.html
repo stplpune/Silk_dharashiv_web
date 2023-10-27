@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between">
-    <div class="text-main">{{!this.data ? ('marketRate.add_Market_List'|translate) :isViewFlag ?
+    <div class="text-main">{{!this.editFlag ? ('marketRate.add_Market_List'|translate) :isViewFlag ?
       ("marketRate.view_Market_List" | translate): ('marketRate.update_Market_List'|translate)}}</div>
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded" >close</span>
@@ -9,7 +9,7 @@
 </div>
 
 <div class="" *ngIf="!isViewFlag">
-<form [formGroup]="marketFrm" #formGroupDirective="ngForm">
+<form [formGroup]="marketFrm" #formDirective="ngForm">
 <div mat-dialog-content class="modal-body">
   <div class="row gx-2">
     <div class="col-sm-6">
@@ -31,11 +31,11 @@
         <mat-label>{{'marketRate.market_mr' | translate}}</mat-label>
         <input matInput formControlName="m_MarketName"
         (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
-        <mat-error *ngIf="a['marketName'].hasError('required')">{{'marketRate.market_Name_mr'|translate}}</mat-error>
-         <mat-error *ngIf="a['marketName']?.errors">
+        <mat-error *ngIf="a['m_MarketName'].hasError('required')">{{'marketRate.market_Name_mr'|translate}}</mat-error>
+         <mat-error *ngIf="a['m_MarketName']?.errors">
           <span class="text-danger"
-              *ngIf="a['marketName']?.hasError('maxLengthExceeded') || a['marketName']?.hasError('pattern')">
-              {{a['marketName'].hasError('maxLengthExceeded') ? ('marketRate.market_Name_limit'|translate) : ('marketRate.please_enter_valid_marketName_mr'|translate)}}
+              *ngIf="a['m_MarketName']?.hasError('maxLengthExceeded') || a['m_MarketName']?.hasError('pattern')">
+              {{a['m_MarketName'].hasError('maxLengthExceeded') ? ('marketRate.market_Name_limit'|translate) : ('marketRate.please_enter_valid_marketName_mr'|translate)}}
           </span>
       </mat-error>
       </mat-form-field>
@@ -43,7 +43,7 @@
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label> {{'common.mobile' | translate}} 1 </mat-label>
-        <input matInput formControlName="conactNo"
+        <input matInput formControlName="conactNo" maxlength="10"
         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
         <mat-error *ngIf="a['conactNo'].hasError('pattern')">{{'common.please_enter_valid_mobile_number'|translate}} </mat-error>
     
@@ -52,7 +52,7 @@
     <div class="col-sm-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'common.mobile' | translate}} 2</mat-label>
-        <input matInput formControlName="mobileNo"
+        <input matInput formControlName="mobileNo" maxlength="10"
         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
         <mat-error *ngIf="a['mobileNo'].hasError('pattern')">{{'common.please_enter_valid_mobile_number'|translate}} </mat-error>
    </mat-form-field>
@@ -62,7 +62,7 @@
         <mat-label>{{'common.email' | translate}}</mat-label>
         <input matInput formControlName="emailId"
         (keypress)="validation.noFirstSpaceAllow($event);validation.emailRegex($event)">
-        <mat-error *ngIf="a['emailId'].hasError('emailId')">{{'common.Please_enter_valid_email_id'|translate}}</mat-error>
+        <mat-error *ngIf="a['emailId'].hasError('email')">{{'common.Please_enter_valid_email_id'|translate}}</mat-error>
         </mat-form-field>
     </div>
     <div class="col-sm-12">
@@ -79,7 +79,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'common.state' | translate}}</mat-label>
         <mat-select formControlName="stateId" (selectionChange)="getDistrict()"
-          [class]="marketFrm.controls['stateId'].disable({ onlySelf: true })">
+        [class]="WebStorageService.getStateId() ? a['stateId'].disable({ onlySelf: true }) : a['stateId'].enable({ onlySelf: true })">
           <mat-option *ngFor="let state of stateArray" [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -88,7 +88,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>{{'common.district' | translate}}</mat-label>
         <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
-          [class]="marketFrm.controls['districtId'].disable({ onlySelf: true })">
+          [class]="WebStorageService.getDistrictId() ? a['districtId'].disable({ onlySelf: true }) : a['districtId'].enable({ onlySelf: true })">
           <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang == 'en' ? district.textEnglish : district.textMarathi }}
           </mat-option>
         </mat-select>
@@ -178,7 +178,7 @@
 </div>
 <mat-dialog-actions class="modal-footer">
   <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-    <button mat-button class="btn-main-light" type="reset" (click)="clearMainForm()">{{'department.clear'|translate}}</button>
+    <button mat-button class="btn-main-light" type="button" (click)="clearMainForm()">{{'department.clear'|translate}}</button>
     <button mat-button class="btn-main" type="submit" (click)="onSubmit()">{{this.editFlag ? ('designation.update'|translate) :('designation.add'|translate)}}</button>
   </div>
 </mat-dialog-actions>

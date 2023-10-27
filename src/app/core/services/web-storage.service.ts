@@ -9,6 +9,7 @@ export class WebStorageService {
   toggled: boolean = false;
   lang: string = 'English';
   data: any;
+  private profileInfo=new BehaviorSubject('');
 
   constructor(private AESEncryptDecryptService: AesencryptDecryptService) { }
 
@@ -58,6 +59,19 @@ export class WebStorageService {
     return data.id ? data.id : 0;
   }
 
+  // Get State Id
+  getStateId(){
+    let data = this.getLoggedInLocalstorageData();
+    return data ? data?.stateId > 0 ? data?.stateId : '' : '';
+  }
+
+  // Get District Id
+   getDistrictId(){
+    let data = this.getLoggedInLocalstorageData();
+    return data ? data?.districtId > 0 ? data?.districtId : '' : '';
+  }
+
+
   // change language
   setLanguage = new BehaviorSubject('');
 
@@ -72,6 +86,15 @@ export class WebStorageService {
       this.lang = this.lang === 'English' ? 'en' : 'mr-IN';
     });
     return this.lang
+  }
+
+// header profile data patch
+  getProfileData() {
+    return this.profileInfo.asObservable()  
+  }
+  
+  setProfileData(info: any) {
+    this.profileInfo.next(info)
   }
 
 
