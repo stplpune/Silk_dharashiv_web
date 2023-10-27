@@ -11,6 +11,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import {MatSelectModule} from '@angular/material/select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -28,6 +31,10 @@ import {MatSelectModule} from '@angular/material/select';
     MatIconModule,
     MatTableModule,
     MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    GlobalTableComponent,
+    TranslateModule
   ]
 })
 export class ManaregaModule { }
