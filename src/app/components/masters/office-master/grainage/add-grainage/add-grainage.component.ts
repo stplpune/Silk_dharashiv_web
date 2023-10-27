@@ -71,8 +71,7 @@ export class AddGrainageComponent {
 
   getGrainage(){
     this.grainageArr = [];
-    this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-Grainage-Type?lan='+this.lang, false, false, false, 'masterUrl');
-    this.apiService.getHttp().subscribe({
+    this.master.GetGrainageType().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.grainageArr = res.responseData;
