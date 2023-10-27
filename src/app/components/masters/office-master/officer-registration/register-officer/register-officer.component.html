@@ -197,7 +197,7 @@
       </div>
 
       <div class="d-flex align-items-center justify-content-end gap-2">
-        <button mat-flat-button class="btn-main-light" type="button" mat-dialog-close="">{{'action.clear' |
+        <button mat-flat-button class="btn-main-light" type="button" (click)="clearFormData()">{{'action.clear' |
           translate}}</button>
         <button mat-flat-button class="btn-main" type="submit">{{!data ? ('talukaBlock.save' | translate) :
           ('talukaBlock.update' | translate)}}</button>
