@@ -56,6 +56,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'common.department'|translate}}</mat-label>
               <mat-select formControlName="department"
+              (selectionChange)="getDesignation(setRulefrm.controls['department'].value)"
                 [class]="editFlag ? setRulefrm.controls['department'].disable({ onlySelf: true }) :setRulefrm.controls['department'].enable({ onlySelf: true })">
                 <mat-option *ngFor="let data of departmentresp" [value]="data.id">{{lang == 'en' ?
                   data.textEnglish : data.textMarathi}}</mat-option>
@@ -65,9 +66,17 @@
           </div>
         </div>
 
-        <div class="d-flex w-100 justify-content-between align-items-center mb-3">
+        <!-- <div class="d-flex w-100 justify-content-between align-items-center mb-3">
           <p class="mb-0 text-main fw-bold small"></p>
           <button mat-flat-button type="button" [class.disable]="(approvallistForm.length>0)" class="btn-main" (click)="checkPrevData()" >
+            <mat-icon
+              class="material-symbols-rounded">add</mat-icon>{{editFlag?('setRule.update_level'|translate):('setRule.add_level'|translate)}}
+          </button>
+        </div> -->
+
+         <div class="d-flex w-100 justify-content-between align-items-center mb-3">
+          <p class="mb-0 text-main fw-bold small"></p>
+          <button mat-flat-button type="button" class="btn-main" (click)="checkPrevData()" >
             <mat-icon
               class="material-symbols-rounded">add</mat-icon>{{editFlag?('setRule.update_level'|translate):('setRule.add_level'|translate)}}
           </button>
@@ -82,7 +91,6 @@
                   {{i + 1}}
                 </div>
                 <div class="col-sm-auto">
-               
                   <div class="form-data">{{'setRule.order'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="approvalLevel" placeholder="Select Order">
@@ -96,7 +104,7 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="actionId" placeholder="Select Action">
                       <mat-option *ngFor="let data of actionresp" [value]="data.id"  [disabled]="data.id == 0">{{lang == 'en' ?
-                        data.textEnglish : data.textMarathi}}</mat-option>
+                        data.actionName : data.m_ActionName}}</mat-option>
                     </mat-select>
                     <!-- <div *ngIf="approvallistForm.controls['actionId'].hasError('required')">
                     Pipe Diameter is Required.
@@ -125,13 +133,19 @@
                   </mat-form-field>
                 </div>
 
+                <div class="col-sm-auto">
+                  <div class="form-data">{{'common.designation'|translate}}</div>
+                  <mat-checkbox class="example-margin" (change)="selectRow($event,i)"></mat-checkbox>
+                </div>
+               
+
                 <!-- <div class="col-sm-2">
               <button  mat-flat-button type="button"
                 class="btn-icon mt-4 text-danger bg-danger bg-opacity-10" (click)="addList()">
                 <mat-icon class="material-symbols-rounded">add</mat-icon>
               </button>
             </div> -->
-                <div class="col-sm-auto">
+                <!-- <div class="col-sm-auto">
                   <button *ngIf="approvallistForm.length >= 1" mat-flat-button type="button"
                     class="btn-icon mt-4 text-danger bg-danger bg-opacity-10 me-2" (click)="deleteApproveLevel(i)">
                     <mat-icon class="material-symbols-rounded">delete</mat-icon>
@@ -140,7 +154,7 @@
                     class="btn-icon mt-4 text-danger bg-danger bg-opacity-10" (click)="addList()">
                     <mat-icon class="material-symbols-rounded">add</mat-icon>
                   </button>
-                </div>
+                </div> -->
               </div>
 
               <!-- <div class="col-sm-6">

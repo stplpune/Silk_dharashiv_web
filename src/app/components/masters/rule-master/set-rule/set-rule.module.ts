@@ -15,6 +15,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
 import { TranslateModule } from '@ngx-translate/core';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 @NgModule({
   declarations: [
     SetRuleComponent,
@@ -33,7 +34,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSelectModule,
     ReactiveFormsModule,
     GlobalTableComponent,
-    TranslateModule
+    TranslateModule,
+    MatCheckboxModule
   ]
 })
 export class SetRuleModule { }
