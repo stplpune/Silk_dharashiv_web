@@ -81,6 +81,11 @@ export class ValidationService {
     return maskSeperator.test(event.key);
   }
 
+  alphabetsMarathiWithSpaces(event: any) {
+    const maskSeperator = new RegExp('^([a-zA-Z\u0900-\u0965 ])', 'g');
+    return maskSeperator.test(event.key);
+  }
+
   // latitude_longitude(event: any) {
   //   const maskSeperator = new RegExp('^([1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$)', 'g');
   //   return maskSeperator.test(event.key);
