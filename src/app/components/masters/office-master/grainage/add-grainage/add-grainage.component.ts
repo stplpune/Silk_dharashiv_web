@@ -100,7 +100,8 @@ export class AddGrainageComponent {
 
   getDisrict() {
     this.districtArr = [];
-    this.master.GetAllDistrict(1).subscribe({
+    let stateId = this.grainageFrm.getRawValue().stateId;
+    this.master.GetAllDistrict(stateId).subscribe({
       next: ((res: any) => {
         this.districtArr = res.responseData;
         this.data ? (this.f['districtId'].setValue(this.webStorage.getDistrictId())) : '';
@@ -113,6 +114,7 @@ export class AddGrainageComponent {
 
 
   getTaluka() {
+    this.talukaArr =[];
     let stateId = this.grainageFrm.getRawValue().stateId;
     let distId = this.grainageFrm.getRawValue().districtId;
     this.master.GetAllTaluka(stateId, distId, 0,).subscribe({
