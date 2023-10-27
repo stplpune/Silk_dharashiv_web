@@ -52,6 +52,15 @@
     "please_enter_valid_pinCode": "कृपया वैध पिन कोड प्रविष्ट करा",
     "pin_limit": "कमाल 6 संख्याना अनुमती आहे"
   },
+  "manrega": {
+    "manrega": "मनरेगा",
+    "district": "जिल्हा",
+    "taluka": "तालुका",
+    "village": "गाव",
+    "status": "स्थिती",
+    "search_by": "अर्ज आयडी/शेतकऱ्यांचे नाव/मोबाईल क्र."
+  },
+
   "login": {
     "username": "वापरकर्ता नाव",
     "password": "पासवर्ड",
