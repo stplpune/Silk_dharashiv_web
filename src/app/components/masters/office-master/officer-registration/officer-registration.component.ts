@@ -147,19 +147,6 @@ export class OfficerRegistrationComponent implements OnDestroy {
     })
   }
 
-  // getVillage() {
-  //   let talukaId = this.filterForm.getRawValue().talukaId;
-  //   if(talukaId !=0){
-  //     this.masterService.GetAllVillages(1, 1, talukaId || 0, 0).subscribe({
-  //       next: ((res: any) => {
-  //         this.villageArray = res.responseData;
-  //       }), error: (() => {
-  //         this.villageArray = [];
-  //       })
-  //     })
-  //   }
-  // }
-
   getGrampanchayat() {
     let talukaId = this.filterForm.getRawValue().talukaId;
     this.masterService.GetGrampanchayat(talukaId || 0).subscribe({
@@ -170,8 +157,6 @@ export class OfficerRegistrationComponent implements OnDestroy {
       })
     })
   }
-
-
 
   bindTable(flag?: any) {
     this.spinner.show();
@@ -217,8 +202,6 @@ export class OfficerRegistrationComponent implements OnDestroy {
       view: this.pageAccessObject?.readRight == true ? true : false,
       edit: this.pageAccessObject?.writeRight == true ? true : false,
       delete: this.pageAccessObject?.deleteRight == true ? true : false
-
-      // delete: true, view: true, edit: true,
     };
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
     this.apiService.tableData.next(tableData);
@@ -258,7 +241,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
       this.setTableData();
     });
   }
-  // sericulture/api/UserRegistration/delete-user-details?Id=1&lan=en
+
   deleteDialogOpen(delObj?: any) {
     let dialogObj = {
       title: this.lang == 'en' ? 'Do You Want To Delete Selected Officer ?' : 'तुम्हाला निवडलेल्या अधिकाऱ्याला हटवायचे आहे का? ?',
