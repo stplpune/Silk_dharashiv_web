@@ -47,7 +47,7 @@ export class PageRightAccessComponent {
     this.getFilterForm();
     this.getDepartment();
     this.getDesignationLevel();
-    this.getDesignation();
+    //this.getDesignation();
     this.getModule();
    this.getTableData();
   }
@@ -168,7 +168,8 @@ export class PageRightAccessComponent {
   }
 
   getDesignation() {
-    this.masterService.GetDesignationDropDown().subscribe({
+    let deptId =  this.filterFrm.getRawValue().departmentId;
+   this.masterService.GetDesignationDropDown(deptId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.designationArray = res.responseData;
@@ -212,6 +213,10 @@ export class PageRightAccessComponent {
   //clear dropdown on dependency wise
   clearDropdown(flag: any) {
     switch (flag) {
+      case 'deptId':
+        this.filterFrm.controls['designationId'].setValue(0);
+        break;
+
       case 'moduleId':
         this.filterFrm.controls['subModuleId'].setValue(0);
         break;
