@@ -4,6 +4,8 @@
     "view": "पहा",
     "delete": "हटवा",
     "srNo": "अनुक्रमणिका",
+    "department_filter": "विभाग",
+    "designation_filter": "पदनाम स्तर",
     "department": "विभाग निवडा",
     "designation_level": "पदनाम स्तर निवडा",
     "designation": "पदनाम निवडा",

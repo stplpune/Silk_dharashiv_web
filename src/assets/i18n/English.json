@@ -4,6 +4,8 @@
     "view": "View",
     "delete": "Delete",
     "srNo": "Sr.No",
+    "department_filter": "Department",
+    "designation_filter": "Designation Level",
     "department": "Select Department",
     "designation_level": "Select Designation Level",
     "designation": "Select Designation",
