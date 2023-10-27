@@ -15,7 +15,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
   styleUrls: ['./page-right-access.component.scss']
 })
 export class PageRightAccessComponent {
-  displayedColumns: string[] = ['srno', 'module', 'submodule', 'pagename', 'read', 'write', 'delete', 'all'];
+  displayedColumns: string[] = ['srno', 'module', 'submodule', 'pagename', 'read', 'write', 'delete', 'sidebar','all'];
   filterFrm !: FormGroup;
   pageNumber: number = 1;
   totalPages!: number;
@@ -49,8 +49,7 @@ export class PageRightAccessComponent {
     this.getDesignationLevel();
     this.getDesignation();
     this.getModule();
-    this.getSubModule();
-    this.getTableData();
+   this.getTableData();
   }
 
   getFilterForm() {
@@ -99,6 +98,7 @@ export class PageRightAccessComponent {
     this.dataSource[i].readRight = allStatus;
     this.dataSource[i].writeRight = allStatus;
     this.dataSource[i].deleteRight = allStatus;
+    this.dataSource[i].isSideBarMenu = allStatus;
   }
 
   onSubmitData() {
@@ -112,6 +112,7 @@ export class PageRightAccessComponent {
         "readRight": res.readRight,
         "writeRight": res.writeRight,
         "deleteRight": res.deleteRight,
+        "isSideBarMenu":res.isSideBarMenu,//used for show pages on sidebar or not(pass flag false)
         "createdBy": this.webStorage.getUserId(),
       }
       this.passArray.push(obj)
