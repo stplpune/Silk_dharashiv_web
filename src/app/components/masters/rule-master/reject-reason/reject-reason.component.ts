@@ -120,7 +120,7 @@ export class RejectReasonComponent implements OnDestroy{
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'स्टेज/कृती', 'नामंजूर  शीर्षक', 'नामंजूर  वर्णन', 'कृती'] : ['Sr No', 'Stage/Action', 'Rejection Title', 'Rejection Description', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
-      pagination:  true ,
+      pagination: this.totalItem > 10 ? true :false,
       highlightedrow: true,
       displayedColumns: displayedColumns,
       tableData: this.tableresp,
