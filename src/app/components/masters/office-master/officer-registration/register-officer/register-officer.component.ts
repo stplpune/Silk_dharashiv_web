@@ -61,7 +61,7 @@ export class RegisterOfficerComponent {
     })
     this.getFormData();
     this.getstatusForm();
-    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(), this.getDepartmentLevel(), this.getDesignation());
+    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(), this.getDepartmentLevel());
   }
 
 
@@ -95,11 +95,26 @@ export class RegisterOfficerComponent {
     this.masterService.GetDepartmentDropdown().subscribe({
       next: ((res: any) => {
         this.departmentArray = res.responseData;
-        this.data ? (this.f['departmentId'].setValue(this.data?.departmentId)) : ''
+        this.data ? (this.f['departmentId'].setValue(this.data?.departmentId),this.getDesignation()) : ''
       }), error: (() => {
         this.departmentArray = [];
       })
     })
+  }
+
+  getDesignation() {
+    let deptId=this.officeForm.getRawValue().departmentId;
+    if (deptId != 0) {
+      this.masterService.GetDesignationDropDown(deptId || 0).subscribe({
+        next: ((res: any) => {
+          this.designationArray = res.responseData;
+          this.data ? (this.f['designationId'].setValue(this.data?.designationId)) : '';
+        }), error: (() => {
+          this.designationArray = [];
+        })
+      })
+    }
+   
   }
 
   getDepartmentLevel() {
@@ -186,16 +201,6 @@ export class RegisterOfficerComponent {
     }
   }
 
-  getDesignation() {
-    this.masterService.GetDesignationDropDown().subscribe({
-      next: ((res: any) => {
-        this.designationArray = res.responseData;
-        this.data ? (this.f['designationId'].setValue(this.data?.designationId)) : '';
-      }), error: (() => {
-        this.designationArray = [];
-      })
-    })
-  }
 
   getDataById() {
     this.spinner.show();
@@ -328,6 +333,9 @@ export class RegisterOfficerComponent {
    }else if(levelId == 'village') {
     this.villageArray=[];
     this.f['villageId'].setValue(0);
+   }else if(levelId == 'dept'){
+    this.designationArray=[];
+    this.f['designationId'].setValue(0);
    }
   }
 

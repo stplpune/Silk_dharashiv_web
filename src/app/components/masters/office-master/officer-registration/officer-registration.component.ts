@@ -62,7 +62,7 @@ export class OfficerRegistrationComponent implements OnDestroy{
     this.getFilterFormData();
     this.getDepartment();
     this.getDepartmentLevel();
-    this.getDesignation();
+    // this.getDesignation();
     this.getTaluka();
     this.getBlock();
     this.getCircle();
@@ -105,7 +105,8 @@ export class OfficerRegistrationComponent implements OnDestroy{
   }
 
   getDesignation() {
-    this.masterService.GetDesignationDropDown().subscribe({
+    let deptId=this.filterForm.getRawValue().departmentId
+    this.masterService.GetDesignationDropDown(deptId || 0).subscribe({
       next: ((res: any) => {
         this.designationArray = res.responseData;
       }), error: (() => {

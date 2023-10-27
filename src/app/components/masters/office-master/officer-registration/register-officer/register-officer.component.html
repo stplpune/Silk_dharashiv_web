@@ -15,7 +15,7 @@
         <div class="col-sm-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.department' | translate}}</mat-label>
-            <mat-select formControlName="departmentId">
+            <mat-select formControlName="departmentId" (selectionChange)="clearDropDown('dept');getDesignation()">
               <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang != 'en' ? department.textMarathi  :department.textEnglish}}
               </mat-option>
             </mat-select>
