@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -15,7 +16,6 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
   styleUrls: ['./my-profile.component.scss']
 })
 export class MyProfileComponent {
-
   profileForm !: FormGroup;
   pageAccessObject: object | any;
   subscription!: Subscription;//used  for lang conv
@@ -28,15 +28,16 @@ export class MyProfileComponent {
     private spinner: NgxSpinnerService,
     private commonMethod: CommonMethodsService,
     private errorHandler: ErrorHandlingService,
-    // private fb: FormBuilder,
     private WebStorageService: WebStorageService,
     private fileUpl : FileUploadService,
     private fb : FormBuilder,
-    public validator: ValidationService
+    public validator: ValidationService,
+    private encrypt :AesencryptDecryptService
   ) { }
 
   ngOnInit() {
-    console.log("userId",this.WebStorageService.getUserId());    
+    console.log("local storage data",this.WebStorageService.getLoggedInLocalstorageData());   
+
     this.WebStorageService.getAllPageName().filter((ele: any) => { return ele.pageName == 'Department' ? this.pageAccessObject = ele : '' })
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
@@ -63,7 +64,7 @@ export class MyProfileComponent {
       next: (res: any) => {
         if (res.statusCode == 200) {         
           this.profilDetailsArr = res.responseData.responseData1[0]
-          console.log("this.profilDetailsArr",this.profilDetailsArr);
+          this.WebStorageService.setProfileData(this.profilDetailsArr);
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
@@ -101,7 +102,6 @@ export class MyProfileComponent {
       next: (res: any) => {
         if (res.statusCode == 200) {        
           this.commonMethod.snackBar(res.statusMessage, 0);
-          // this.getProfileData();
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
@@ -120,19 +120,58 @@ export class MyProfileComponent {
 
   onSubmit() {
     let formvalue = this.profileForm.getRawValue();
-    this.profilDetailsArr.name = formvalue.name;
-    this.profilDetailsArr.m_Name = formvalue.m_Name;
-    this.profilDetailsArr.mobNo1 = formvalue.mobileNo;
-    this.profilDetailsArr.address = formvalue.address;
-    this.profilDetailsArr.gender = 1;
-    this.profilDetailsArr.flag = 'u';
-    this.profilDetailsArr.password = 'string';
+    // this.profilDetailsArr.name = formvalue.name;
+    // this.profilDetailsArr.m_Name = formvalue.m_Name;
+    // this.profilDetailsArr.mobNo1 = formvalue.mobileNo;
+    // this.profilDetailsArr.address = formvalue.address;
+    // this.profilDetailsArr.gender = 1;
+    // this.profilDetailsArr.flag = 'u';
+    // this.profilDetailsArr.password = 'string';
 
+    let obj ={    
+        "id": this.profilDetailsArr.id,
+        "crcName": this.profilDetailsArr.crcName,
+        "m_CRCName": this.profilDetailsArr.m_CRCName,
+        "blockId":this.profilDetailsArr.blockId,
+        "circleId":this.profilDetailsArr.circleId,
+        "designationId":this.profilDetailsArr.designationId,
+        "departmentId": this.profilDetailsArr.departmentId,
+        "departmentLevelId": this.profilDetailsArr.departmentLevelId,
+        "name": formvalue.name,
+        "m_Name": formvalue.m_Name,
+        "crcRegNo": this.profilDetailsArr.crcRegNo,
+        "aadharNumber": this.profilDetailsArr.aadharNumber,
+        "gender": 1,
+        "dob": new Date(),
+        "mobNo1": this.profilDetailsArr.mobNo1,
+        "mobNo2": this.profilDetailsArr.mobNo2,
+        "emailId": this.profilDetailsArr.emailId,
+        "userName": this.profilDetailsArr.userName,
+        "password": "string",
+        "stateId": this.profilDetailsArr.stateId,
+        "districtId": this.profilDetailsArr.districtId,
+        "talukaId": this.profilDetailsArr.talukaId,
+        "grampanchayatId": this.profilDetailsArr.grampanchayatId,
+        "village": "string",
+        "address":  formvalue.address,
+        "m_Address": this.profilDetailsArr.m_Address,
+        "pinCode": this.profilDetailsArr.pinCode,
+        "totalAreaForCRC": 0,
+        "areaUnderCRC": 0,
+        "chalkyCapacity": 0,
+        "officerAssignArea": this.profilDetailsArr.officerAssignArea,
+        "chalkyApprovedQty": 0,
+        "doj": "2023-10-27T06:04:55.417Z",
+        "profileImagePath": this.profilDetailsArr.profileImagePath,
+        "userTypeId": 0,
+        "createdBy": 0,
+        "flag": 'u'
+    }
     if (this.profileForm.invalid) {
       return
-    } else {
+    } else {      
       this.spinner.show();
-      this.apiService.setHttp('POST', 'sericulture/api/UserRegistration/insert-update-user-details?lan=' + this.lang, false, this.profilDetailsArr, false, 'masterUrl');
+      this.apiService.setHttp('POST', 'sericulture/api/UserRegistration/insert-update-user-details?lan=' + this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == '200') {
@@ -140,7 +179,7 @@ export class MyProfileComponent {
             this.commonMethod.snackBar(res.statusMessage, 0);
             this.setProfilePhoto(); 
             this.getProfileData();
-            // this.dialogRef.close('Yes');
+            this.changeLocalStorageDate()
             this.editFlag = false;
           } else {
             this.spinner.hide();
@@ -151,5 +190,18 @@ export class MyProfileComponent {
       })
     }
   }
+  changeLocalStorageDate(){  
+    let encryptInfo ;
+    this.WebStorageService.getProfileData().subscribe((res: any) => {   
+      let localData =this.WebStorageService.getLoggedInLocalstorageData();   
+      localData.name = res.name;
+      localData.designationName = res.designationName
+      encryptInfo =  this.encrypt.encrypt(JSON.stringify(localData))
+      localStorage.setItem('loggedInData',encryptInfo);
+    }) 
+  }
+
+
+  
 
 }

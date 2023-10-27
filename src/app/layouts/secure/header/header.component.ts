@@ -21,6 +21,10 @@ export class HeaderComponent {
   language: string = 'English'
   lag = ['English', 'Marathi']
   selLang!: string;
+  loginData : any;
+  userName : string = '';
+  designationName : string = '';
+
 
   constructor(private webStorage: WebStorageService, public dialog: MatDialog,
     private commonMethods: CommonMethodsService,
@@ -28,6 +32,7 @@ export class HeaderComponent {
   }
 
   ngOnInit(){
+    this.loginData = this.webStorage.getLoggedInLocalstorageData();
     let language: any = sessionStorage.getItem('language');
     language = language ? language :'English';
     // sessionStorage.setItem('language', language)
@@ -35,6 +40,11 @@ export class HeaderComponent {
     this.translate.use(language);
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.selLang = res;
+    })
+
+    this.webStorage.getProfileData().subscribe((res:any)=>{     
+      this.userName = res.name;
+      this.designationName = res.designationName
     })
   }
 
@@ -102,6 +112,8 @@ export class HeaderComponent {
     this.webStorage.setLanguage.next(lang)
     sessionStorage.setItem('language', lang)
   }
+
+
 
 
 }
