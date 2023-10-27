@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AddDocumentsComponent } from './add-documents/add-documents.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ViewDetailsComponent } from './view-details/view-details.component';
 
 @Component({
   selector: 'app-approval-process',
@@ -16,9 +17,9 @@ export class ApprovalProcessComponent {
     })
   }
 
-  // viewdetails(){
-  //   this.dialog.open(ViewDetailsComponent,{
-  //     width:'80%'
-  //   })
-  // }
+  viewdetails(){
+    this.dialog.open(ViewDetailsComponent,{
+      width:'80%'
+    })
+  }
 }

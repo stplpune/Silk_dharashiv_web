@@ -14,12 +14,14 @@ import { MatTableModule } from '@angular/material/table';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AddDocumentsComponent } from './add-documents/add-documents.component';
+import { ViewDetailsComponent } from './view-details/view-details.component';
 
 
 @NgModule({
   declarations: [
     ApprovalProcessComponent,
     AddDocumentsComponent,
+    ViewDetailsComponent,
   ],
   imports: [
     CommonModule,
