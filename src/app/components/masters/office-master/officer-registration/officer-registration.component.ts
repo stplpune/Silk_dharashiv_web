@@ -17,7 +17,7 @@ import { MasterService } from 'src/app/core/services/master.service';
   templateUrl: './officer-registration.component.html',
   styleUrls: ['./officer-registration.component.scss']
 })
-export class OfficerRegistrationComponent implements OnDestroy{
+export class OfficerRegistrationComponent implements OnDestroy {
   pageNumber: number = 1;
   totalPages!: number;
   tableDataArray: any;
@@ -32,12 +32,12 @@ export class OfficerRegistrationComponent implements OnDestroy{
   talukaArray = new Array();
   blockArray = new Array();
   circleArray = new Array();
-  villageArray = new Array();
+  // villageArray = new Array();
   @ViewChild('formDirective') private formDirective!: NgForm;
-  filterFlag:boolean=false;
-  objId:any;
-  pageAccessObject: object|any;
-
+  filterFlag: boolean = false;
+  objId: any;
+  pageAccessObject: object | any;
+  grampanchayatArray = new Array();
   constructor(
     public dialog: MatDialog,
     private apiService: ApiService,
@@ -51,8 +51,8 @@ export class OfficerRegistrationComponent implements OnDestroy{
 
   ) { }
 
-  ngOnInit() {    
-    this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == 'Officer Registration'? this.pageAccessObject = ele :''})
+  ngOnInit() {
+    this.WebStorageService.getAllPageName().filter((ele: any) => { return ele.pageName == 'Officer Registration' ? this.pageAccessObject = ele : '' })
 
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
@@ -66,7 +66,7 @@ export class OfficerRegistrationComponent implements OnDestroy{
     this.getTaluka();
     this.getBlock();
     this.getCircle();
-    this.getVillage();
+    // this.getVillage();
     this.bindTable();
   }
 
@@ -79,11 +79,11 @@ export class OfficerRegistrationComponent implements OnDestroy{
       talukaId: [0],
       blockId: [0],
       circleId: [0],
-      villageId: [0],
+      grampanchayatId: [0],
       searchtext: ['']
     })
   }
-
+  get f() { return this.filterForm.controls; }
   getDepartment() {
     this.masterService.GetDepartmentDropdown().subscribe({
       next: ((res: any) => {
@@ -105,14 +105,16 @@ export class OfficerRegistrationComponent implements OnDestroy{
   }
 
   getDesignation() {
-    let deptId=this.filterForm.getRawValue().departmentId
-    this.masterService.GetDesignationDropDown(deptId || 0).subscribe({
-      next: ((res: any) => {
-        this.designationArray = res.responseData;
-      }), error: (() => {
-        this.designationArray = [];
+    let deptId = this.filterForm.getRawValue().departmentId
+    if (deptId != 0) {
+      this.masterService.GetDesignationDropDown(deptId || 0).subscribe({
+        next: ((res: any) => {
+          this.designationArray = res.responseData;
+        }), error: (() => {
+          this.designationArray = [];
+        })
       })
-    })
+    }
   }
 
   getTaluka() {
@@ -145,13 +147,26 @@ export class OfficerRegistrationComponent implements OnDestroy{
     })
   }
 
-  getVillage() {
+  // getVillage() {
+  //   let talukaId = this.filterForm.getRawValue().talukaId;
+  //   if(talukaId !=0){
+  //     this.masterService.GetAllVillages(1, 1, talukaId || 0, 0).subscribe({
+  //       next: ((res: any) => {
+  //         this.villageArray = res.responseData;
+  //       }), error: (() => {
+  //         this.villageArray = [];
+  //       })
+  //     })
+  //   }
+  // }
+
+  getGrampanchayat() {
     let talukaId = this.filterForm.getRawValue().talukaId;
-    this.masterService.GetAllVillages(1, 1, talukaId || 0, 0).subscribe({
+    this.masterService.GetGrampanchayat(talukaId || 0).subscribe({
       next: ((res: any) => {
-        this.villageArray = res.responseData;
+        this.grampanchayatArray = res.responseData;
       }), error: (() => {
-        this.villageArray = [];
+        this.grampanchayatArray = [];
       })
     })
   }
@@ -163,7 +178,7 @@ export class OfficerRegistrationComponent implements OnDestroy{
     let formData = this.filterForm.value;
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/UserRegistration/get-user-details?VillageId=' + (formData.villageId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&DepartmentLevelId=' + (formData.departmentLevelId || 0) + '&DepartmentId=' + (formData.departmentId || 0) + '&DesignationId=' + (formData.designationId || 0) + '&CircleId=' + (formData.circleId || 0) + '&BlockId=' + (formData.blockId || 0) + '&SearchText=' + (formData.searchtext || '') + '&' + str+'&lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/UserRegistration/get-user-details?VillageId=' + (formData.villageId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&DepartmentLevelId=' + (formData.departmentLevelId || 0) + '&DepartmentId=' + (formData.departmentId || 0) + '&DesignationId=' + (formData.designationId || 0) + '&CircleId=' + (formData.circleId || 0) + '&BlockId=' + (formData.blockId || 0) + '&SearchText=' + (formData.searchtext || '') + '&' + str + '&lan=' + this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -187,10 +202,10 @@ export class OfficerRegistrationComponent implements OnDestroy{
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'en' ?  ['srNo', 'name', 'departmentName', 'departmentLevel', 'designationName', 'mobNo1', 'emailId', 'action']
-                                               :['srNo', 'm_Name', 'm_DepartmentName', 'm_DepartmentLevel', 'm_DesignationName', 'mobNo1', 'emailId', 'action'];
-    let displayedheaders =  this.lang == 'en' ? ['Sr. No.', 'Officer Name', 'Department', 'Department Level', 'Designation', 'Mobile No.', 'Email', 'Action'] :
-                                                ['अनुक्रमांक', 'अधिकाऱ्याचे नाव', 'विभाग', 'विभाग स्तर', 'पदनाम', 'मोबाईल नंबर', 'ईमेल', 'कृती'];
+    let displayedColumns = this.lang == 'en' ? ['srNo', 'name', 'departmentName', 'departmentLevel', 'designationName', 'mobNo1', 'emailId', 'action']
+      : ['srNo', 'm_Name', 'm_DepartmentName', 'm_DepartmentLevel', 'm_DesignationName', 'mobNo1', 'emailId', 'action'];
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Officer Name', 'Department', 'Department Level', 'Designation', 'Mobile No.', 'Email', 'Action'] :
+      ['अनुक्रमांक', 'अधिकाऱ्याचे नाव', 'विभाग', 'विभाग स्तर', 'पदनाम', 'मोबाईल नंबर', 'ईमेल', 'कृती'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
@@ -199,9 +214,9 @@ export class OfficerRegistrationComponent implements OnDestroy{
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      view: this.pageAccessObject?.readRight == true ? true: false,
-      edit: this.pageAccessObject?.writeRight == true ? true: false,
-      delete: this.pageAccessObject?.deleteRight == true ? true: false
+      view: this.pageAccessObject?.readRight == true ? true : false,
+      edit: this.pageAccessObject?.writeRight == true ? true : false,
+      delete: this.pageAccessObject?.deleteRight == true ? true : false
 
       // delete: true, view: true, edit: true,
     };
@@ -259,7 +274,7 @@ export class OfficerRegistrationComponent implements OnDestroy{
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('put', 'sericulture/api/UserRegistration/delete-user-details?Id=' + delObj.id+'&lan='+this.lang, false, false, false, 'masterUrl');
+        this.apiService.setHttp('put', 'sericulture/api/UserRegistration/delete-user-details?Id=' + delObj.id + '&lan=' + this.lang, false, false, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
@@ -280,9 +295,19 @@ export class OfficerRegistrationComponent implements OnDestroy{
 
   clearFilter() {
     this.formDirective.resetForm();
-    this.pageNumber=1;
+    this.pageNumber = 1;
     this.getFilterFormData();
     this.bindTable();
+  }
+
+  clearDropDown(flag?: any) {
+    if (flag == 'dept') {
+      this.designationArray = [];
+      this.f['designationId'].setValue(0);
+    } else {
+      this.grampanchayatArray = [];
+      this.f['grampanchayatId'].setValue(0);
+    }
   }
 
   ngOnDestroy() {

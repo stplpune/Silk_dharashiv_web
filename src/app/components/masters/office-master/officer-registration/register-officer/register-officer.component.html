@@ -67,7 +67,7 @@
       || (officeForm.value.departmentLevelId == 1)">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.taluka' | translate}}</mat-label>
-            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('village');getVillage()">
+            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('village');getGrampanchayat()">
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi :taluka.textEnglish}}</mat-option>
             </mat-select>
             <mat-error *ngIf="f['talukaId']?.hasError('required')">{{'common.Please_select_taluka'|translate}}  </mat-error>
@@ -84,11 +84,11 @@
         </div>
         <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 3)">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'common.village' | translate}}</mat-label>
-            <mat-select formControlName="villageId">
-              <mat-option *ngFor="let village of villageArray" [value]="village.id">{{lang != 'en' ? village.textMarathi : village.textEnglish}}</mat-option>
+            <mat-label>{{'officerreg.select_grampanchayat' | translate}}</mat-label>
+            <mat-select formControlName="grampanchayatId">
+              <mat-option *ngFor="let village of grampanchayatArray" [value]="village.id">{{lang != 'en' ? village.textMarathi : village.textEnglish}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="f['villageId']?.hasError('required')">{{'common.Please_select_village'|translate}}  </mat-error>
+            <mat-error *ngIf="f['grampanchayatId']?.hasError('required')">{{'officerreg.please_select_grampanchayat'|translate}}  </mat-error>
           </mat-form-field>
         </div>
         <div class="col-sm-6">
@@ -299,7 +299,7 @@
           <span class="form-data" *ngIf="showFlag">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'officerreg.remark' | translate}}</mat-label>
-              <input matInput formControlName="remark" placeholder="">
+              <input matInput formControlName="remark"  (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
             </mat-form-field>
           </span>
           <div class="d-flex align-items-center justify-content-end gap-2">
