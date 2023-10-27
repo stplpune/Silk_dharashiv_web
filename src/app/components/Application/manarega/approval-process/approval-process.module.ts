@@ -13,11 +13,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { AddDocumentsComponent } from './add-documents/add-documents.component';
 
 
 @NgModule({
   declarations: [
-    ApprovalProcessComponent
+    ApprovalProcessComponent,
+    AddDocumentsComponent,
   ],
   imports: [
     CommonModule,

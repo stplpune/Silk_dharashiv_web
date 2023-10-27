@@ -15,7 +15,7 @@ import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
-    ManaregaComponent
+    ManaregaComponent,
   ],
   imports: [
     CommonModule,
