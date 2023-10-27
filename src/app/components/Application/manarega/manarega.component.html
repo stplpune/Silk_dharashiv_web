@@ -36,9 +36,9 @@
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'manrega.status'| translate}}</mat-label>
-            <mat-select>
-              <mat-option>Option 1</mat-option>
-              <mat-option>Option 2</mat-option>
+            <mat-select formControlName="statusId">
+              <mat-option *ngFor=" let status of statusArr" [value]="status.id">{{lang == 'en' ? status.textEnglish
+                : status.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

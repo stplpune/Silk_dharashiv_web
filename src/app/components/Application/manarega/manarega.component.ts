@@ -50,7 +50,7 @@ export class ManaregaComponent {
       this.setTableData();
     })
     this.filterDefaultFrm();
-    this.getDisrict()
+    this.getDisrict(); this.getStatus();
   }
 
   filterDefaultFrm() {
@@ -58,7 +58,7 @@ export class ManaregaComponent {
       districtId: [this.webStorage.getDistrictId()],
       talukaId: [0],
       villageId:[0],
-      status:[''],
+      statusId:[0],
       textSearch: [''],
     })
   }
@@ -101,6 +101,19 @@ export class ManaregaComponent {
         })
       })
     }
+  }
+
+  getStatus() {
+    this.statusArr = [];
+    this.master.GetApprovalStatus().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == '200') {
+          this.statusArr =res.responseData;
+        } else {
+          this.statusArr = [];
+        }
+      },
+    });
   }
 
   getTableData(status?: any) {
