@@ -2,16 +2,16 @@
   <mat-card-header class="card-header">
     <div class="text-main">{{'manrega.manrega'| translate}}</div>
   </mat-card-header>
-  <mat-card-content class="card-body">
+  <mat-card-header class="card-header-control">
     <form [formGroup]="filterFrm" class="w-100">
       <div class="row gx-1">
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'manrega.district'| translate}}</mat-label>
             <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
-            [class]="f['districtId'].disable({ onlySelf: true })">
-              <mat-option *ngFor=" let dist of districtArr"
-              [value]="dist.id">{{lang == 'en' ? dist.textEnglish : dist.textMarathi}}</mat-option>
+              [class]="f['districtId'].disable({ onlySelf: true })">
+              <mat-option *ngFor=" let dist of districtArr" [value]="dist.id">{{lang == 'en' ? dist.textEnglish :
+                dist.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -19,8 +19,8 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'manrega.taluka'| translate}}</mat-label>
             <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('Taluka');getVillage()">
-              <mat-option *ngFor=" let taluka of talukaArr"
-              [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish : taluka.textMarathi}}</mat-option>
+              <mat-option *ngFor=" let taluka of talukaArr" [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish :
+                taluka.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -28,8 +28,8 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'manrega.village'| translate}}</mat-label>
             <mat-select formControlName="villageId">
-              <mat-option *ngFor=" let village of villageArr"
-              [value]="village.id">{{lang == 'en' ? village.textEnglish : village.textMarathi}}</mat-option>
+              <mat-option *ngFor=" let village of villageArr" [value]="village.id">{{lang == 'en' ? village.textEnglish
+                : village.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -56,7 +56,7 @@
               </mat-icon>
             </button>
             <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button"
-            (click)="clearSearchFilter()">
+              (click)="clearSearchFilter()">
               <mat-icon class="material-symbols-rounded">
                 close
               </mat-icon>
@@ -65,65 +65,6 @@
         </div>
       </div>
     </form>
-  <mat-card-header class="card-header-control">
-    <div class="row gx-1">
-      <div class="col-sm-2">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>District</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-            <mat-option>Option 2</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-2">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Taluka</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-            <mat-option>Option 2</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-2">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Village</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-            <mat-option>Option 2</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-2">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Status</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-            <mat-option>Option 2</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Application ID/Farmer Name/ Mobile No.</mat-label>
-          <input matInput placeholder="">
-        </mat-form-field>
-      </div>
-      <div class="col-sm-1">
-        <div class="d-flex gap-2">
-          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
-            <mat-icon class="material-symbols-rounded">
-              search
-            </mat-icon>
-          </button>
-          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
-            <mat-icon class="material-symbols-rounded">
-              close
-            </mat-icon>
-          </button>
-        </div>
-      </div>
-    </div>
   </mat-card-header>
   <mat-card-content class="card-body">
     <div class="row">
