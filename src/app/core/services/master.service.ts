@@ -160,7 +160,17 @@ export class MasterService {
     })
   }
 
+ 
 
+  GetGrampanchayat(talukaId:number){
+    return new Observable((obj)=>{
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-Grampanchayat?TalukaId='+talukaId, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next:(res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
 
 }
 

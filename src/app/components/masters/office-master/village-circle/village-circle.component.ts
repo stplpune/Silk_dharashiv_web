@@ -58,12 +58,12 @@ export class VillageCircleComponent implements OnDestroy{
       result == 'Yes' ? this.getTableData() : '';
     })
   }
-
+  // sericulture/api/Circles/GetAllCircles?pageno='+(this.pageNumber) +'&pagesize=10&TextSearch= + formValue
   getTableData(flag?: any) {
     let formValue = this.filterForm.value || ''
     this.spinner.show();
     flag == 'filter' ? this.pageNumber = 1 : ''
-    this.apiService.setHttp('GET', 'sericulture/api/TalukaBlocks/GetAllVillageCircles?pageno=' + (this.pageNumber) + '&pagesize=10&TextSearch=' + formValue, false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Circles/GetAllCircles?pageno='+(this.pageNumber) +'&pagesize=10&TextSearch='+formValue, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
