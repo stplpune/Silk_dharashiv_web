@@ -27,7 +27,6 @@ export class RegisterOfficerComponent {
   blockArray = new Array();
   talukaArray = new Array();
   circleArray = new Array();
-  // villageArray = new Array();
   grampanchayatArray = new Array();
   designationArray = new Array();
   @ViewChild('formDirective') private formDirective!: NgForm;
@@ -115,7 +114,6 @@ export class RegisterOfficerComponent {
         })
       })
     }
-
   }
 
   getDepartmentLevel() {
@@ -230,26 +228,26 @@ export class RegisterOfficerComponent {
     } else {
       let obj = {
         ...formData,
-        "crcRegNo": "string",
-        "aadharNumber": "string",
-        "gender": 1,
-        "dob": new Date(),
-        "mobNo2": "string",
-        "pinCode": "string",
-        "officeAddressId": 0,
-        "totalAreaForCRC": 0,
-        "areaUnderCRC": 0,
-        "chalkyCapacity": 0,
-        "officerAssignArea": "string",
-        "chalkyApprovedQty": 0,
-        "doj": new Date(),
-        "crcName": "string",
-        "m_CRCName": "string",
-        "userName": "string",
-        "password": "string",
-        "profileImagePath": "string",
-        "userTypeId": 2,
-        "village": "0"
+        crcRegNo: "string",
+        aadharNumber: "string",
+        gender: 1,
+        dob: new Date(),
+        mobNo2: "string",
+        pinCode: "string",
+        officeAddressId: 0,
+        totalAreaForCRC: 0,
+        areaUnderCRC: 0,
+        chalkyCapacity: 0,
+        officerAssignArea: "string",
+        chalkyApprovedQty: 0,
+        doj: new Date(),
+        crcName: "string",
+        m_CRCName: "string",
+        userName: "string",
+        password: "string",
+        profileImagePath: "string",
+        userTypeId: 2,
+        village: "0"
       }
       this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan=' + this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
@@ -261,9 +259,7 @@ export class RegisterOfficerComponent {
             this.formDirective.resetForm();
           }
           else {
-            this.commonMethod.checkDataType(res.statusMessage) == false
-              ? this.errorHandler.handelError(res.statusCode)
-              : this.commonMethod.snackBar(res.statusMessage, 1);
+            this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
           }
         }),
         error: (error: any) => {
@@ -295,7 +291,7 @@ export class RegisterOfficerComponent {
     }
 
   }
- 
+
   clearDropDown(levelId?: any) {
     if (levelId == 1) {
       this.talukaArray = [];
