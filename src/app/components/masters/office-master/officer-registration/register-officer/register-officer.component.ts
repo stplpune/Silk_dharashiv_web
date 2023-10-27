@@ -411,6 +411,11 @@ export class RegisterOfficerComponent {
       }
     })
   }
+
+  clearFormData(){
+    this.formDirective.resetForm();
+    this.getFormData();
+  }
 }
 
 
