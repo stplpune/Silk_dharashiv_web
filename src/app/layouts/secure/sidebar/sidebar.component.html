@@ -1,11 +1,6 @@
 <div id="sidebar">
     <div class="sidebar-header">
-        <img src="assets/images/logo-text.svg">
-        <button mat-icon-button class="btn-icon btn-sidebar-close" (click)="onCloseSidebar()">
-            <span class="material-symbols-rounded">
-                close
-            </span>
-        </button>
+        <img src="assets/images/logo-text.svg" class="logo">
     </div>
     <div class="sidebar-body">
         <ul class="menu">
@@ -154,43 +149,43 @@
                 </div>
             </li>
             <li class="menu-item">
-              <a class="menu-link" href="#" data-bs-toggle="collapse" href="#collapseSetting" role="button"
-                  aria-expanded="false" aria-controls="collapseSetting">
-                  <div class="d-flex align-items-center">
-                      <img src="assets/images/sidebar-icons/master.svg" class="menu-icon">
-                      <span>Setting</span>
-                  </div>
-                  <span class="dropdown-toggle"></span>
-              </a>
-              <div class="collapse" id="collapseSetting">
-                <ul class="sub-menu">
-                    <li>
-                        <a class="submenu-link" href="#" data-bs-toggle="collapse" href="#collapseOfficeMaster"
-                            role="button" aria-expanded="false" aria-controls="collapseOfficeMaster">
-                            <div class="d-flex">
-                                <img src="assets/images/sidebar-icons/circle.svg">
-                                <span>Setting</span>
-                            </div>
-                            <span class="dropdown-toggle"></span>
-                        </a>
-                        <div class="collapse" id="collapseOfficeMaster">
-                            <ul class="sub-submenu">
-                                <li>
-                                    <a routerLink="page-right-access" routerLinkActive="active">
-                                        <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                        <span>Page Right Access</span>
-                                    </a>
-                                    <!-- <a routerLink="department-levels" routerLinkActive="active">
+                <a class="menu-link" href="#" data-bs-toggle="collapse" href="#collapseSetting" role="button"
+                    aria-expanded="false" aria-controls="collapseSetting">
+                    <div class="d-flex align-items-center">
+                        <img src="assets/images/sidebar-icons/setting.svg" class="menu-icon">
+                        <span>Setting</span>
+                    </div>
+                    <span class="dropdown-toggle"></span>
+                </a>
+                <div class="collapse" id="collapseSetting">
+                    <ul class="sub-menu">
+                        <li>
+                            <a class="submenu-link" href="#" data-bs-toggle="collapse" href="#collapseOfficeMaster"
+                                role="button" aria-expanded="false" aria-controls="collapseOfficeMaster">
+                                <div class="d-flex">
+                                    <img src="assets/images/sidebar-icons/circle.svg">
+                                    <span>Setting</span>
+                                </div>
+                                <span class="dropdown-toggle"></span>
+                            </a>
+                            <div class="collapse" id="collapseOfficeMaster">
+                                <ul class="sub-submenu">
+                                    <li>
+                                        <a routerLink="page-right-access" routerLinkActive="active">
+                                            <img src="assets/images/sidebar-icons/arrow-small-right.svg">
+                                            <span>Page Right Access</span>
+                                        </a>
+                                        <!-- <a routerLink="department-levels" routerLinkActive="active">
                                         <img src="assets/images/sidebar-icons/arrow-small-right.svg">
                                         <span>Department Levels</span>
                                     </a> -->
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-          </li>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
         </ul>
     </div>
 </div>
