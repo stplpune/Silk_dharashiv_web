@@ -4,9 +4,6 @@
       <div class="text-main">{{!this.data
         ?('setRule.add_rule'|translate):isViewFlag?('setRule.view_rule'|translate):('setRule.update_rule'|translate)}}
       </div>
-
-      <!-- {{!this.data ? ('designation.add_designation'|translate) :isViewFlag ?
-      ("designation.view_Designation" | translate): ('designation.update_designation'|translate)}} -->
       <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
         <span class="material-symbols-rounded">close</span>
       </button>
@@ -14,7 +11,7 @@
   </div>
 
   <div *ngIf="!isViewFlag">
-    <form [formGroup]="setRulefrm"  #formDirective="ngForm"  >
+    <form [formGroup]="setRulefrm" #formDirective="ngForm">
       <mat-dialog-content class="modal-body form-container">
         <div class="row gx-2" [class.disable]="editFlag">
           <div class="col-sm-3">
@@ -22,7 +19,7 @@
               <mat-label>{{'setRule.select_state'|translate}}</mat-label>
               <mat-select formControlName="state" [disabled]="true"
                 [class]="setRulefrm.controls['state'].disable({ onlySelf: true })">
-                <mat-option *ngFor="let data of statresponse" [value]="data.id">{{lang == 'en' ?
+                <mat-option *ngFor="let data of stateArray" [value]="data.id">{{lang == 'en' ?
                   data.textEnglish : data.textMarathi}}</mat-option>
               </mat-select>
               <mat-error *ngIf="f['state'].hasError('required')"> {{'common.Please_select_state'|translate}}</mat-error>
@@ -34,19 +31,20 @@
               <mat-label>{{'setRule.select_district'|translate}}</mat-label>
               <mat-select formControlName="district"
                 [class]="setRulefrm.controls['district'].disable({ onlySelf: true })">
-                <mat-option *ngFor="let data of districtresp" [value]="data.id">{{lang == 'en' ?
+                <mat-option *ngFor="let data of districtrArray" [value]="data.id">{{lang == 'en' ?
                   data.textEnglish : data.textMarathi}}</mat-option>
               </mat-select>
-              <mat-error *ngIf="f['district'].hasError('required')">{{'common.Please_select_district'|translate}}</mat-error>
+              <mat-error
+                *ngIf="f['district'].hasError('required')">{{'common.Please_select_district'|translate}}</mat-error>
             </mat-form-field>
           </div>
 
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'setRule.select_scheme'|translate}}</mat-label>
-              <mat-select formControlName="scheme"
+              <mat-select formControlName="scheme" (selectionChange)="f['department'].getRawValue() ? this.getAllAction() : ''"
                 [class]="editFlag ? setRulefrm.controls['scheme'].disable({ onlySelf: true }) :setRulefrm.controls['scheme'].enable({ onlySelf: true })">
-                <mat-option *ngFor="let data of schemeTyperesp" [value]="data.id">{{lang == 'en' ?
+                <mat-option *ngFor="let data of schemeTypeArray" [value]="data.id">{{lang == 'en' ?
                   data.textEnglish : data.textMarathi}}</mat-option>
               </mat-select>
               <mat-error *ngIf="f['scheme'].hasError('required')">{{'setRule.scheme_required'|translate}}</mat-error>
@@ -56,121 +54,79 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'common.department'|translate}}</mat-label>
               <mat-select formControlName="department"
-              (selectionChange)="getDesignation(setRulefrm.controls['department'].value)"
-                [class]="editFlag ? setRulefrm.controls['department'].disable({ onlySelf: true }) :setRulefrm.controls['department'].enable({ onlySelf: true })">
-                <mat-option *ngFor="let data of departmentresp" [value]="data.id">{{lang == 'en' ?
+                (selectionChange)="getDesignation();getAllAction()"
+                [class]="(editFlag || !f['scheme'].getRawValue()) ? f['department'].disable() :f['department'].enable()">
+                <mat-option *ngFor="let data of departmentArray" [value]="data.id">{{lang == 'en' ?
                   data.textEnglish : data.textMarathi}}</mat-option>
               </mat-select>
-              <mat-error *ngIf="f['department'].hasError('required')">{{'setRule.select_department'|translate}}</mat-error>
+              <mat-error
+                *ngIf="f['department'].hasError('required')">{{'setRule.select_department'|translate}}</mat-error>
             </mat-form-field>
           </div>
         </div>
 
         <!-- <div class="d-flex w-100 justify-content-between align-items-center mb-3">
           <p class="mb-0 text-main fw-bold small"></p>
-          <button mat-flat-button type="button" [class.disable]="(approvallistForm.length>0)" class="btn-main" (click)="checkPrevData()" >
-            <mat-icon
-              class="material-symbols-rounded">add</mat-icon>{{editFlag?('setRule.update_level'|translate):('setRule.add_level'|translate)}}
-          </button>
-        </div> -->
-
-         <div class="d-flex w-100 justify-content-between align-items-center mb-3">
-          <p class="mb-0 text-main fw-bold small"></p>
           <button mat-flat-button type="button" class="btn-main" (click)="checkPrevData()" >
             <mat-icon
               class="material-symbols-rounded">add</mat-icon>{{editFlag?('setRule.update_level'|translate):('setRule.add_level'|translate)}}
           </button>
-        </div>
+        </div> -->
+
+      <div class="mt-2 text-end">
+          <div class="alert alert-danger text-center py-2" *ngIf="!f['scheme'].getRawValue() || !f['department'].getRawValue()">Select Above Filter..!</div>
+          <div class="alert alert-danger text-center py-2" *ngIf="f['scheme'].getRawValue() && f['department'].getRawValue() && approvallistForm.controls?.length == 0">No Data Found..!</div>
+      </div>
 
         <div class="row gx-2 align-items-center">
           <ng-container formArrayName="approvalLevels">
             <ng-container *ngFor="let lessonForm of approvallistForm.controls; let i = index" [formGroupName]="i">
-
               <div class="row  gx-2">
+                <!-- <div class="col-sm-auto form-data"> {{i + 1}} </div> -->
                 <div class="col-sm-auto">
-                  {{i + 1}}
-                </div>
-                <div class="col-sm-auto">
-                  <div class="form-data">{{'setRule.order'|translate}}</div>
+                  <div class="form-data" *ngIf="i == 0">{{'setRule.order'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
-                    <mat-select formControlName="approvalLevel" placeholder="Select Order">
-                      <mat-option *ngFor="let data of approveLevelResp" [value]="data.id"   [disabled]="data.id == 0">{{lang == 'en' ?
-                        data.textEnglish : data.textMarathi}}</mat-option>
+                    <mat-select formControlName="approvalLevel" placeholder="Select Order"
+                    [ngClass]="lessonForm.get('approvalLevel').disable({ onlySelf: true })">
+                      <mat-option *ngFor="let data of orderLevelArray" [value]="data.id">{{lang == 'en' ? data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="col-sm-auto">
-                  <div class="form-data">{{'setRule.action'|translate}}</div>
+                  <div class="form-data" *ngIf="i == 0">{{'setRule.action'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
-                    <mat-select formControlName="actionId" placeholder="Select Action">
-                      <mat-option *ngFor="let data of actionresp" [value]="data.id"  [disabled]="data.id == 0">{{lang == 'en' ?
-                        data.actionName : data.m_ActionName}}</mat-option>
+                    <mat-select formControlName="actionId" placeholder="Select Action"
+                    [ngClass]="lessonForm.get('actionId').disable({ onlySelf: true })">
+                      <mat-option *ngFor="let data of actionArray" [value]="data?.id" [disabled]="true">
+                        {{lang == 'en' ? data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
-                    <!-- <div *ngIf="approvallistForm.controls['actionId'].hasError('required')">
-                    Pipe Diameter is Required.
-                </div> -->
                   </mat-form-field>
                 </div>
                 <div class="col-sm-auto">
-                  <div class="form-data">{{'setRule.designation_level'|translate}}</div>
+                  <div class="form-data" *ngIf="i == 0">{{'setRule.department_level'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
-                    <!-- <mat-label>Designation Level</mat-label> -->
-                    <mat-select formControlName="departmentLevelId" placeholder="Select Department Level">
-                      <mat-option *ngFor="let data of levelResp" [value]="data.id"  [disabled]="data.id == 0">{{lang == 'en' ?
-                        data.textEnglish : data.textMarathi}}</mat-option>
+                    <mat-select formControlName="departmentLevelId" placeholder="Select Department Level" (selectionChange)="checkDublicate(i,'departmentLevel')">
+                      <mat-option *ngFor="let data of departmentLevelArray" [value]="data.id" [disabled]="data.id == 0">{{lang ==
+                        'en' ? data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
-                    <!-- <mat-error *ngIf="g['departmentLevelId'].hasError('required')">Department Level Is Required</mat-error> -->
                   </mat-form-field>
                 </div>
                 <div class="col-sm-auto">
-                  <div class="form-data">{{'common.designation'|translate}}</div>
+                  <div class="form-data" *ngIf="i == 0">{{'common.designation'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
-                    <!-- <mat-label>Designation</mat-label> -->
-                    <mat-select formControlName="designationId" placeholder="Select Designation">
-                      <mat-option *ngFor="let data of designationResp" [value]="data.id"  [disabled]="data.id == 0">{{lang == 'en' ?
+                    <mat-select formControlName="designationId" placeholder="Select Designation" (selectionChange)="checkDublicate(i,'Designation')">
+                      <mat-option *ngFor="let data of designationArray" [value]="data.id"
+                        [disabled]="data.id == 0">{{lang == 'en' ?
                         data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
 
                 <div class="col-sm-auto">
-                  <div class="form-data">{{'common.designation'|translate}}</div>
+                  <div class="form-data" *ngIf="i == 0">{{'common.designation'|translate}}</div>
                   <mat-checkbox class="example-margin" (change)="selectRow($event,i)"></mat-checkbox>
                 </div>
-               
-
-                <!-- <div class="col-sm-2">
-              <button  mat-flat-button type="button"
-                class="btn-icon mt-4 text-danger bg-danger bg-opacity-10" (click)="addList()">
-                <mat-icon class="material-symbols-rounded">add</mat-icon>
-              </button>
-            </div> -->
-                <!-- <div class="col-sm-auto">
-                  <button *ngIf="approvallistForm.length >= 1" mat-flat-button type="button"
-                    class="btn-icon mt-4 text-danger bg-danger bg-opacity-10 me-2" (click)="deleteApproveLevel(i)">
-                    <mat-icon class="material-symbols-rounded">delete</mat-icon>
-                  </button>
-                  <button mat-flat-button type="button" *ngIf="(approvallistForm.length -1) == i"
-                    class="btn-icon mt-4 text-danger bg-danger bg-opacity-10" (click)="addList()">
-                    <mat-icon class="material-symbols-rounded">add</mat-icon>
-                  </button>
-                </div> -->
               </div>
-
-              <!-- <div class="col-sm-6">
-                <div class="form-data">Order</div>
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Order</mat-label>
-                  <input matInput formControlName="approvalLevel">
-                </mat-form-field>
-              </div> -->
-
-              <!-- <div class="col-sm-auto">
-          <button mat-icon-button class="btn-main rounded" type="button">
-            <span class="material-symbols-rounded">close</span>
-          </button>
-        </div> -->
-
             </ng-container>
           </ng-container>
         </div>
@@ -179,14 +135,16 @@
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-flat-button class="btn-main-light" type="button" mat-dialog-close
             (click)="clearForm()">{{'common.cancel'|translate}}</button>
-          <button mat-flat-button class="btn-main" type="submit" (click)="onSubmit()" >{{editFlag?(('blogs.update'|translate)):('villageCircle.save'|translate)}}</button>
+          <button mat-flat-button class="btn-main" type="submit" [disabled]="approvallistForm.controls?.length == 0"
+            (click)="onSubmit()">{{editFlag?(('blogs.update'|translate)):('villageCircle.save'|translate)}}</button>
         </div>
       </mat-dialog-actions>
     </form>
   </div>
 </div>
 
-<!-- *************************** -->
+<!-- *************************** View Model Code Start Here **********************************-->
+
 <div *ngIf="isViewFlag">
   <mat-dialog-content class="modal-body form-container">
     <div class="row mb-2 gx-2">
@@ -200,7 +158,7 @@
 
       <div class="col-sm-6">
         <div class="d-flex gap-2">
-          <div class="form-label">  {{'setRule.district'|translate}}</div>
+          <div class="form-label"> {{'setRule.district'|translate}}</div>
           <div class="form-data">:{{lang == 'mr-IN'?(data?.m_District):(data?.district)}}</div>
         </div>
       </div>
@@ -213,7 +171,7 @@
       </div>
       <div class="col-sm-6">
         <div class="d-flex gap-2">
-          <div class="form-label">  {{'setRule.Department'|translate}}</div>
+          <div class="form-label"> {{'setRule.Department'|translate}}</div>
           <div class="form-data">:{{lang == 'mr-IN'?(data?.m_DepartmentName):(data?.departmentName)}}</div>
         </div>
       </div>
@@ -229,7 +187,8 @@
         </ng-container>
         <ng-container matColumnDef="Order">
           <th mat-header-cell *matHeaderCellDef>{{'setRule.Order'|translate}} </th>
-          <td mat-cell *matCellDef="let element"> {{element.approvalLevel==1?('setRule.first_level'|translate):element.approvalLevel==2?('setRule.second_level'|translate):element.approvalLevel==3?
+          <td mat-cell *matCellDef="let element">
+            {{element.approvalLevel==1?('setRule.first_level'|translate):element.approvalLevel==2?('setRule.second_level'|translate):element.approvalLevel==3?
             ('setRule.third_level'|translate):element.approvalLevel==4?('setRule.four_level'|translate):('setRule.fifth_level'|translate)}}
           </td>
         </ng-container>
@@ -240,14 +199,16 @@
         </ng-container>
 
         <ng-container matColumnDef="Designation Level">
-          <th class="w-10" mat-header-cell *matHeaderCellDef> {{'setRule.designation_level'|translate}} </th>
-          <td mat-cell *matCellDef="let element"> {{this.lang == 'mr-IN'?element.m_DepartmentLevel:element.departmentLevel}}
+          <th class="w-10" mat-header-cell *matHeaderCellDef> {{'setRule.department_level'|translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{this.lang ==
+            'mr-IN'?element.m_DepartmentLevel:element.departmentLevel}}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="Designation">
           <th class="w-10" mat-header-cell *matHeaderCellDef> {{'setRule.designation'|translate}} </th>
-          <td mat-cell *matCellDef="let element">{{this.lang == 'mr-IN'?element.m_DesignationName:element.designationName}}
+          <td mat-cell *matCellDef="let element">{{this.lang ==
+            'mr-IN'?element.m_DesignationName:element.designationName}}
           </td>
         </ng-container>
 
@@ -256,7 +217,7 @@
       </table>
 
     </div>
-
-
   </mat-dialog-content>
 </div>
+
+<!-- *************************** View Model Code End Here **********************************-->
