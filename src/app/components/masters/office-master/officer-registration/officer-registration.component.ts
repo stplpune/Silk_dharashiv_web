@@ -53,7 +53,6 @@ export class OfficerRegistrationComponent implements OnDestroy {
 
   ngOnInit() {
     this.WebStorageService.getAllPageName().filter((ele: any) => { return ele.pageName == 'Officer Registration' ? this.pageAccessObject = ele : '' })
-
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -62,14 +61,11 @@ export class OfficerRegistrationComponent implements OnDestroy {
     this.getFilterFormData();
     this.getDepartment();
     this.getDepartmentLevel();
-    // this.getDesignation();
     this.getTaluka();
     this.getBlock();
     this.getCircle();
-    // this.getVillage();
     this.bindTable();
   }
-
 
   getFilterFormData() {
     this.filterForm = this.fb.group({
@@ -83,7 +79,9 @@ export class OfficerRegistrationComponent implements OnDestroy {
       searchtext: ['']
     })
   }
+
   get f() { return this.filterForm.controls; }
+
   getDepartment() {
     this.masterService.GetDepartmentDropdown().subscribe({
       next: ((res: any) => {
@@ -238,7 +236,6 @@ export class OfficerRegistrationComponent implements OnDestroy {
     dialogRef.afterClosed().subscribe((result: any) => {
       result == 'Yes' ? this.bindTable() : '';
       this.highLightedFlag = false;
-      this.setTableData();
     });
   }
 
