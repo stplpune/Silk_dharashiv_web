@@ -26,6 +26,8 @@ export class FaqComponent implements OnDestroy {
   searchDataFlag: boolean = false
   subscription!: Subscription;//used  for lang conv
   lang: string = 'English';
+  pageAccessObject: object|any;
+
   get fl() { return this.filterFrm.controls };
 
   constructor(private fb: FormBuilder,
@@ -39,7 +41,8 @@ export class FaqComponent implements OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+    this.webStorage.getAllPageName().filter((ele:any) =>{return ele.pageName == "FAQ's" ? this.pageAccessObject = ele :''})
+   this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
@@ -99,9 +102,10 @@ export class FaqComponent implements OnDestroy {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      edit: true,
-      delete: true,
-      view: true,
+      // edit: true,delete: true, view: true,
+      view: this.pageAccessObject?.readRight == true ? true: false,
+      edit: this.pageAccessObject?.writeRight == true ? true: false,
+      delete: this.pageAccessObject?.deleteRight == true ? true: false
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
