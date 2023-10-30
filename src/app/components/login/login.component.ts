@@ -96,10 +96,13 @@ export class LoginComponent {
           this.spinner.hide();
           this.commonMethods.snackBar(res.statusMessage, 0);
           sessionStorage.setItem('loggedIn', 'true');
+   
+          this.encryptInfo = encodeURIComponent((JSON.stringify(JSON.stringify(res))))
           // this.encryptInfo = encodeURIComponent((JSON.stringify(JSON.stringify(res)), 'secret key 123').toString());
           this.loginData = this.AESEncryptDecryptService.encrypt(JSON.stringify(res?.responseData));
           localStorage.setItem('loggedInData', this.loginData);
-          this.router.navigate(['/dashboard']);
+         //this.router.navigate(['/dashboard']);
+          this.router.navigate([res.responseData.pageList[0].pageURL]);//redirect to first page in array
           this.loginFlag = true;
         }
         else {
