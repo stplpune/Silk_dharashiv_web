@@ -4,7 +4,7 @@
       <mat-card-header class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
           <div class="text-main">{{lang == 'en' ? "Market List" : "मार्केट यादी"}}</div>
-          <button mat-flat-button class="btn-main"  (click)="addMarket()">
+          <button mat-flat-button class="btn-main"   *ngIf="pageAccessObject?.writeRight == true" (click)="addMarket()">
             <mat-icon class="material-symbols-rounded">
               add
             </mat-icon>{{lang == 'en' ? "Add Market List" : "मार्केट यादी जोडा"}}

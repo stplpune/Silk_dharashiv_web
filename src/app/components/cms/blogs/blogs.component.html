@@ -2,7 +2,7 @@
   <mat-card-header class="card-header">
     <div class="d-flex align-items-center justify-content-between w-100">
       <div class="text-main">{{"blogs.blogs" | translate}}</div>
-      <button mat-flat-button class="btn-main" (click)="addblogs()">
+      <button mat-flat-button class="btn-main" *ngIf="pageAccessObject?.writeRight == true" (click)="addblogs()">
         <mat-icon class="material-symbols-rounded">
           add
         </mat-icon>

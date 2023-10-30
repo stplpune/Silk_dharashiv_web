@@ -151,6 +151,7 @@
     "order": "Order",
     "action": "Action",
     "department_level": "Department Level",
+    "designation_level": "Designation Level",
     "designation": "Designation",
     "select_state": "Select State",
     "select_district": "Select District",
