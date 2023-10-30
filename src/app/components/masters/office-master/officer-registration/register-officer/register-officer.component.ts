@@ -271,7 +271,6 @@ export class RegisterOfficerComponent {
   }
 
   dropDownCall(id?: any) {
-    console.log('ididid',id);
     if (id == 1 || this.data?.departmentLevelId == 1) {
       this.getState();
       this.getDisrict();
@@ -292,9 +291,7 @@ export class RegisterOfficerComponent {
     }
   }
 
-  clearDropDown(levelId?: any) {
-    console.log('levelId',levelId);
-    
+  clearDropDown(levelId?: any) {    
     if (levelId == 1) {
       this.talukaArray = [];
       this.f['talukaId'].setValue(0);
