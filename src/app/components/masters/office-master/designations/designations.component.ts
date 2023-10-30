@@ -142,8 +142,6 @@ export class DesignationsComponent implements OnDestroy{
       view: this.pageAccessObject?.readRight == true ? true: false,
       edit: this.pageAccessObject?.writeRight == true ? true: false,
       delete: this.pageAccessObject?.deleteRight == true ? true: false
-
-
     };
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
     this.apiService.tableData.next(tableData);

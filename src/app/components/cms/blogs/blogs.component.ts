@@ -26,6 +26,8 @@ export class BlogsComponent {
   subscription!: Subscription;//used  for lang conv
   lang: string = 'English';
   searchDataFlag: boolean = false;
+  pageAccessObject: object|any;
+
   constructor(
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
@@ -38,6 +40,8 @@ export class BlogsComponent {
   ) { }
 
   ngOnInit() {
+    this.webStorage.getAllPageName().filter((ele:any) =>{return ele.pageName == "Blogs" ? this.pageAccessObject = ele :''})
+
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : (sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -89,8 +93,11 @@ export class BlogsComponent {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      delete: true, edit: true, view: true,
-    };
+      // delete: true, edit: true, view: true,
+      view: this.pageAccessObject?.readRight == true ? true: false,
+      edit: this.pageAccessObject?.writeRight == true ? true: false,
+      delete: this.pageAccessObject?.deleteRight == true ? true: false
+     };
     this.highLightRowFlag ? (getTableData.highlightedrow = true) : (getTableData.highlightedrow = false);
     this.apiService.tableData.next(getTableData);
   }
