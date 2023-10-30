@@ -219,8 +219,8 @@ export class RegisterOfficerComponent {
   onSubmitData() {
     let formData = this.officeForm.getRawValue();
     this.f['talukaId'].setValue(formData.departmentLevelId == 5 || formData.departmentLevelId == 2 ? 0 : formData.talukaId);
-    this.f['blockId'].setValue(formData.departmentLevelId == 1 ? 0 : formData.blockId);
-    this.f['circleId'].setValue(formData.departmentLevelId == 2 ? 0 : formData.circleId);
+    this.f['blockId'].setValue(formData.departmentLevelId == 1 ?formData.blockId= 0 : formData.blockId);
+    this.f['circleId'].setValue(formData.departmentLevelId == 2 ?formData.circleId= 0 : formData.circleId);
     if (this.officeForm.invalid) {
       this.spinner.hide();
       return
