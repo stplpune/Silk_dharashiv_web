@@ -219,8 +219,13 @@ export class RegisterOfficerComponent {
   onSubmitData() {
     let formData = this.officeForm.getRawValue();
     this.f['talukaId'].setValue(formData.departmentLevelId == 5 || formData.departmentLevelId == 2 ? 0 : formData.talukaId);
-    this.f['blockId'].setValue(formData.departmentLevelId == 1 ?formData.blockId= 0 : formData.blockId);
-    this.f['circleId'].setValue(formData.departmentLevelId == 2 ?formData.circleId= 0 : formData.circleId);
+    this.f['blockId'].setValue(formData.departmentLevelId == 1 || formData.departmentLevelId == 5 ? formData.blockId= 0 : formData.blockId);
+    this.f['blockId'].setValue( formData.departmentLevelId == 3 || formData.departmentLevelId == 4? formData.blockId= 0 : formData.blockId);
+    this.f['circleId'].setValue(formData.departmentLevelId == 2 || formData.departmentLevelId == 5 || formData.departmentLevelId == 3 ||  formData.departmentLevelId == 4 ?formData.circleId= 0 : formData.circleId);
+    this.f['grampanchayatId'].setValue(formData.departmentLevelId == 2 || formData.departmentLevelId == 5? 0: formData.grampanchayatId);
+    // formData.departmentLevelId == 4 ? this.f['blockId'].setValue(0) : formData.blockId;
+    // formData.departmentLevelId == 4 ? this.f['circleId'].setValue(0) : formData.circleId;
+
     if (this.officeForm.invalid) {
       this.spinner.hide();
       return

@@ -1,72 +1,70 @@
-<nav class="navbar bg-white py-1">
-    <div class="container-fluid justify-content-between gap-1">
-        <div class="d-flex justify-content-between align-items-center w-100">
+<nav class="navbar bg-white py-1 border-bottom shadow-sm">
+    <div class="container-fluid justify-content-end gap-1">
+        <div class="d-flex justify-content-end align-items-center">
             <button mat-flat-button class="btn-icon btn-sidebar-close" (click)="onClickSidebar()">
                 <span class="material-symbols-rounded">
                     menu
                 </span>
             </button>
-            <div class="d-flex justify-content-end align-items-center gap-2">
-                <div class="dropdown">
-                    <button mat-flat-button class="btn-icon" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <!-- <img [src]="selLang == 'Marathi' ? 'assets/images/marathi.svg':'assets/images/english.svg'"> -->
-                        <img src="assets/images/language.svg">
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <ng-container *ngFor="let getLag of lag">
-                            <button class="dropdown-item" (click)="changeLanguage(getLag)"
-                                [class.active]="getLag == selLang">
-                                <div class="d-flex align-items-center">
-                                    <img
-                                        [src]="getLag == 'English' ? 'assets/images/english.svg' : 'assets/images/marathi.svg'">
-                                    <span>{{getLag}}</span>
-                                </div>
-                            </button>
-                        </ng-container>
-                    </div>
-                </div>
-                <button mat-flat-button class="btn-icon">
-                    <span class="material-symbols-rounded">
-                        notifications_active
-                    </span>
+            <div class="dropdown">
+                <button mat-flat-button class="btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="assets/images/language.svg">
                 </button>
-                <div class="dropdown">
-                    <button class="btn profile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="d-flex align-items-center gap-2">
-                            <img src="assets/images/user.png" class="profile-photo">
-                            <div class="d-flex flex-column align-items-start">
-                                <p>{{userName ? userName : loginData.name}}</p>
-                                <small>{{designationName ? designationName : loginData.designationName}}</small>
-                            </div>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <button class="dropdown-item">
+                        <div class="d-flex align-items-center">
+                            <img src="assets/images/english.svg">
+                            <span>English</span>
                         </div>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item" (click)="myprofile()">
-                                <span class="material-symbols-rounded">
-                                    account_circle
-                                </span>
-                                My Profile
-                            </a>
-                        </li>
-                        <li><a class="dropdown-item" (click)="openChangePasswordDialog()">
-                                <span class="material-symbols-rounded">
-                                    lock
-                                </span>
-                                Change Password
-                            </a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" (click)="openLogOutDialog()">
-                                <span class="material-symbols-rounded">
-                                    logout
-                                </span>
-                                Logout
-                            </a></li>
-                    </ul>
+                    <button class="dropdown-item">
+                        <div class="d-flex align-items-center">
+                            <img src="assets/images/marathi.svg">
+                            <span>Marathi</span>
+                        </div>
+                    </button>
                 </div>
+            </div>
+            <button mat-flat-button class="btn-icon">
+                <mat-icon class="material-symbols-rounded">
+                    notifications_active
+                </mat-icon>
+            </button>
+            <div class="dropdown">
+                <button class="btn profile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="assets/images/user.png">
+                        <div class="d-flex flex-column align-items-start">
+                            <p>User Name</p>
+                            <small>Designation</small>
+                        </div>
+                    </div>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" href="#">
+                            <mat-icon class="material-symbols-rounded">
+                                account_circle
+                            </mat-icon>
+                            My Profile
+                        </a>
+                    </li>
+                    <li><a class="dropdown-item">
+                            <mat-icon class="material-symbols-rounded">
+                                lock
+                            </mat-icon>
+                            Change Password
+                        </a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item">
+                            <mat-icon class="material-symbols-rounded">
+                                logout
+                            </mat-icon>
+                            Logout
+                        </a></li>
+                </ul>
             </div>
         </div>
     </div>

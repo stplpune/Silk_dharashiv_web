@@ -13,7 +13,7 @@
         </div>
       </mat-card-header>
       <mat-card-header class="card-header-control">
-        <form [formGroup]="filterFrm">
+        <form [formGroup]="filterFrm" class="w-100">
           <div class="row gx-2">
             <div class="col-sm">
               <mat-form-field appearance="outline" class="w-100">
@@ -33,7 +33,7 @@
                 </mat-select>
               </mat-form-field>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>{{'designation.search_by_designation'|translate}}</mat-label>
                 <input matInput formControlName="textSearch"
