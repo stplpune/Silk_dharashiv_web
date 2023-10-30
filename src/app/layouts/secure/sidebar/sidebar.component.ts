@@ -23,22 +23,25 @@ export class SideBarComponent {
         pageList[existingIndex].pageURL = pageList[existingIndex].pageURL.concat(item.pageURL);
         pageList[existingIndex].pageName = pageList[existingIndex].pageName.concat(item.pageName);
       } else {
-         if (typeof item.pageURL  == 'string' )
+        if (typeof item.pageURL == 'string')
           item.pageURL = [item.pageURL];
-          item.pageName = [item.pageName];
-          pageList.push(item);
+        item.pageName = [item.pageName];
+        pageList.push(item);
       }
     });
-   
+
     pageList.find((ele: any) => {
+      debugger
       if (this.pageListArray.length) {
         let findIndex: any = this.pageListArray.findIndex((item: any) => { return ele.mainMenuId == item.id });
-        // findIndex != "-1" ? (this.pageListArray[findIndex].subMenu = true, this.pageListArray[findIndex]?.data?.push(ele)) : this.pageListArray.push({ id: ele.mainMenuId, data: [ele],  subMenu:ele.pageURL.length == 1 ?false:true,mainMenu:ele.mainMenu });
-        findIndex != "-1" ? (this.pageListArray[findIndex].subMenu = true, this.pageListArray[findIndex]?.data?.push(ele)) : this.pageListArray.push({ id: ele.mainMenuId, data: [ele],  subMenu:false,mainMenu:ele.mainMenu });
+        findIndex != "-1" ? (this.pageListArray[findIndex].subMenu = true, this.pageListArray[findIndex]?.data?.push(ele)) : this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: false, mainMenu: ele.mainMenu });
       } else {
-        this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu:false, mainMenu:ele.mainMenu})
+        this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: ele.pageURL.length > 1 ? true : false, mainMenu: ele.mainMenu })
       }
     });
+  }
+
+  mouseOver(_flag: boolean) {
   }
 
   onCloseSidebar() {
