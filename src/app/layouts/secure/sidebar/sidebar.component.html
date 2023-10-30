@@ -10,7 +10,7 @@
     <div class="sidebar-body scrollbar">
         <ul class="menu">
             <ng-container *ngFor="let master of pageListArray; let i = index">
-                <li *ngIf="!master?.subMenu && master?.data[0]?.pageURL?.length == 1">
+                <li *ngIf="!master?.subMenu && master?.data[0]?.pageURL?.length == 1" (click)="prevClosedDep()">
                     <a routerLinkActive="active" routerLink="{{master.data[0].pageURL[0]}}">
                         <div class="menu-item">
                             <img src="assets/images/sidebar-icons/dashboard.svg">
@@ -19,8 +19,8 @@
                     </a>
                 </li>
 
-                <li *ngIf="!master?.subMenu && master?.data[0]?.pageURL?.length != 1">
-                    <a data-bs-toggle="collapse" href="#collapseReport{{i}}" role="button" aria-expanded="false"
+                <li *ngIf="!master?.subMenu && master?.data[0]?.pageURL?.length != 1 && master?.data[0]?.pageURL?.length" (click)="prevClosedDep()">
+                    <a data-bs-toggle="collapse" href="#collapseReport{{i}}" role="button" aria-expanded="false" routerLinkActive="active"
                         aria-controls="collapseReport">
                         <div class="menu-item">
                             <img src="assets/images/sidebar-icons/cms.svg">
@@ -44,20 +44,21 @@
                     </div>
                 </li>
 
-                <li *ngIf="master?.subMenu">
-                    <a data-bs-toggle="collapse" href="#submenu{{i}}"  role="button" aria-expanded="false"
+                <li *ngIf="master?.subMenu" (click)="prevClosedDep()">
+                    <a data-bs-toggle="collapse" href="#submenu{{i}}" routerLinkActive="active"  role="button" aria-expanded="false"
                         aria-controls="collapseMaster">
                         <div class="menu-item">
                             <img src="assets/images/sidebar-icons/master.svg">
-                            {{master?.mainMenu}}
+                            {{master?.mainMenu}} 
                         </div>
                         <span class="dropdown-toggle"></span>
                     </a>
                     <div class="collapse"  id="submenu{{i}}">
                         <ul class="submenu">
-                            <li *ngFor="let menu of master.data; let j = index">
+                            <ng-container *ngFor="let menu of master.data; let j = index">
+                            <li  *ngIf="menu.pageURL?.length">
                                 <a data-bs-toggle="collapse" class="menu" href="#subLink{{j}}" role="button"
-                                    aria-expanded="false" aria-controls="collapseOfficeMaster" routerLinkActive="active"
+                                    aria-expanded="false" aria-controls="collapseOfficeMaster" 
                                     class="submenu-link" aria-current="true">
                                     <div>
                                         <img src="assets/images/sidebar-icons/circle.svg">
@@ -68,7 +69,7 @@
                                 <div class="collapse" id="subLink{{j}}">
                                     <ul class="subsubmenu">
                                         <li  *ngFor="let sublink of menu?.pageURL; let m = index">
-                                            <a   routerLinkActive="active" routerLink="{{sublink}}">
+                                            <a   routerLink="{{sublink}}" routerLinkActive="active">
                                                 <mat-icon class="material-symbols-rounded">
                                                     arrow_right_alt
                                                 </mat-icon>
@@ -78,6 +79,7 @@
                                     </ul>
                                 </div>
                             </li>
+                        </ng-container>
                         </ul>
 
                     </div>

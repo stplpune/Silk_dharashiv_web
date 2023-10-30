@@ -40,10 +40,17 @@ export class SideBarComponent {
     });
   }
 
-  mouseOver(_flag: boolean) {
+  mouseOver(flag: boolean) {
+    const div:any = document.getElementsByClassName('show')[0];
+    flag ? div?.classList.remove('d-none'):  div?.classList.add('d-none');
   }
 
   onCloseSidebar() {
     this.webStorage.setSidebarState(!this.webStorage.getSidebarState());
+  }
+
+  
+  prevClosedDep(){
+
   }
 }
