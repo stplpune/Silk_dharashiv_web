@@ -39,8 +39,6 @@ export class SideBarComponent {
         this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu:false, mainMenu:ele.mainMenu})
       }
     });
-
-    console.log( this.pageListArray);
   }
 
   onCloseSidebar() {

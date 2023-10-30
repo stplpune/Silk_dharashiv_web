@@ -33,8 +33,10 @@
                             <li *ngFor="let url of master?.data[0]?.pageName; let k= index">
                                 <a routerLink="{{master?.data[0]?.pageURL[k]}}" routerLinkActive="active" class="submenu-link"
                                     aria-current="true">
-                                    <img src="assets/images/sidebar-icons/circle.svg">
-                                    {{url}}
+                                    <div class="d-flex align-items-center">
+                                        <img src="assets/images/sidebar-icons/circle.svg">
+                                        {{url}}
+                                    </div>
                                 </a>
                             </li>
                            
@@ -54,7 +56,7 @@
                     <div class="collapse"  id="submenu{{i}}">
                         <ul class="submenu">
                             <li *ngFor="let menu of master.data; let j = index">
-                                <a data-bs-toggle="collapse" href="#subLink{{j}}" role="button"
+                                <a data-bs-toggle="collapse" class="menu" href="#subLink{{j}}" role="button"
                                     aria-expanded="false" aria-controls="collapseOfficeMaster" routerLinkActive="active"
                                     class="submenu-link" aria-current="true">
                                     <div>
