@@ -31,7 +31,6 @@ export class SideBarComponent {
     });
 
     pageList.find((ele: any) => {
-      debugger
       if (this.pageListArray.length) {
         let findIndex: any = this.pageListArray.findIndex((item: any) => { return ele.mainMenuId == item.id });
         findIndex != "-1" ? (this.pageListArray[findIndex].subMenu = true, this.pageListArray[findIndex]?.data?.push(ele)) : this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: false, mainMenu: ele.mainMenu });
