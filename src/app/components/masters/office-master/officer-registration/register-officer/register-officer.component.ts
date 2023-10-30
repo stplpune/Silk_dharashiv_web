@@ -17,7 +17,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./register-officer.component.scss']
 })
 export class RegisterOfficerComponent {
-
   officeForm!: FormGroup
   viewFlag: boolean = false;
   departmentArray = new Array();
@@ -29,23 +28,23 @@ export class RegisterOfficerComponent {
   circleArray = new Array();
   grampanchayatArray = new Array();
   designationArray = new Array();
-  @ViewChild('formDirective') private formDirective!: NgForm;
-  @ViewChild('uplodLogo') clearlogo!: any;
   tableDataArray = new Array();
-  statusArray = [{ id: 0, 'value': 'De Active', 'mr_value': 'निष्क्रिय' }, { id: 1, 'value': 'Active', 'mr_value': 'सक्रिय' }];
   showFlag: boolean = false;
   statusForm!: FormGroup;
   imageResponse: string = '';
   subscription!: Subscription;
   lang: string = 'English';
+  @ViewChild('formDirective') private formDirective!: NgForm;
+  @ViewChild('uplodLogo') clearlogo!: any;
+  statusArray = [{ id: 0, 'value': 'De Active', 'mr_value': 'निष्क्रिय' }, { id: 1, 'value': 'Active', 'mr_value': 'सक्रिय' }];
+
   constructor
     (
       private fb: FormBuilder,
       private masterService: MasterService,
       private errorHandler: ErrorHandlingService,
       private commonMethod: CommonMethodsService,
-      private dialogRef: MatDialogRef<RegisterOfficerComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: any,
+      private dialogRef: MatDialogRef<RegisterOfficerComponent>,@Inject(MAT_DIALOG_DATA) public data: any,
       private spinner: NgxSpinnerService,
       private WebStorageService: WebStorageService,
       private apiService: ApiService,
@@ -75,7 +74,7 @@ export class RegisterOfficerComponent {
       blockId: [this.data ? this.data?.blockId : '', [Validators.required]],
       talukaId: [this.data ? this.data?.talId : '', [Validators.required]],
       circleId: [this.data ? this.data?.circleId : '', [Validators.required]],
-      grampanchayatId: [this.data ? this.data?.grampanchayatId : 0, [Validators.required]],
+      grampanchayatId: [this.data ? this.data?.grampanchayatId : '', [Validators.required]],
       designationId: [this.data ? this.data?.designationId : '', [Validators.required]],
       name: [this.data ? this.data?.name : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(50)]],
       m_Name: [this.data ? this.data?.m_Name : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(50)]],
@@ -87,9 +86,9 @@ export class RegisterOfficerComponent {
       createdBy: [this.WebStorageService.getUserId()]
     })
     this.data ? this.dropDownCall() : ''
-
   }
-  get f() { return this.officeForm.controls; }
+
+  get f() { return this.officeForm.controls;}
 
   getDepartment() {
     this.masterService.GetDepartmentDropdown().subscribe({
@@ -289,7 +288,6 @@ export class RegisterOfficerComponent {
       this.getState();
       this.getDisrict();
     }
-
   }
 
   clearDropDown(levelId?: any) {
@@ -324,6 +322,7 @@ export class RegisterOfficerComponent {
       statusId: [this.data?.activeStatus == 'In Active' ? 0 : 1]
     })
   }
+
   sendData(id: any) {
     id == 1 ? (this.showFlag = false, this.statusForm.controls['remark'].setValue('')) : this.showFlag = true;
   }
@@ -400,9 +399,7 @@ export class RegisterOfficerComponent {
           this.getDataById();
         }
         else {
-          this.commonMethod.checkDataType(res.statusMessage) == false
-            ? this.errorHandler.handelError(res.statusCode)
-            : this.commonMethod.snackBar(res.statusMessage, 1);
+          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
       }),
       error: (error: any) => {
