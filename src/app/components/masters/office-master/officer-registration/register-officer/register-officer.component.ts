@@ -137,11 +137,11 @@ export class RegisterOfficerComponent {
     })
   }
 
-  getDisrict() {
+  getDisrict() {    
     this.masterService.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
         this.districtArray = res.responseData;
-        (this.officeForm.value.departmentLevelId != 2 && this.officeForm.value.departmentLevelId != 5) ? (this.f['districtId'].setValue(this.data?.districtId || 1), this.getTaluka()) : '';
+        (this.officeForm.value.departmentLevelId != 2 && this.officeForm.value.departmentLevelId != 5) ? (this.f['districtId'].setValue(this.data?.districtId || 1), this.getTaluka()) : this.f['districtId'].setValue(1);
       }), error: (() => {
         this.districtArray = [];
       })
@@ -271,21 +271,21 @@ export class RegisterOfficerComponent {
   }
 
   dropDownCall(id?: any) {
-    if (id == 1 || this.data?.departmentLevelId == 1) {
+    if(id == 1 ) {
       this.getState();
       this.getDisrict();
       this.getCircle();
-    } else if (id == 2 || this.data?.departmentLevelId == 2) {  
+    } else if(id == 2 ) { 
       this.getState();
       this.getDisrict();
       this.getBlock();
-    } else if (id == 3 || this.data?.departmentLevelId == 3) {
+    } else if(id == 3) {
       this.getState();
       this.getDisrict();
-    } else if (id == 4 || this.data?.departmentLevelId == 4) {
+    } else if(id == 4 ) {
       this.getState();
       this.getDisrict();
-    } else if (id == 5 || this.data?.departmentLevelId == 5) {
+    } else if(id == 5 ) {
       this.getState();
       this.getDisrict();
     }
@@ -315,6 +315,16 @@ export class RegisterOfficerComponent {
       this.designationArray = [];
       this.f['designationId'].setValue(0);
     }
+    // else {
+    //   this.talukaArray = [];
+    //   this.f['talukaId'].setValue(0);
+    //   this.circleArray = [];
+    //   this.f['circleId'].setValue(0);
+    //   this.blockArray = [];
+    //   this.f['blockId'].setValue(0);
+    //   this.grampanchayatArray = [];
+    //   this.f['grampanchayatId'].setValue(0);
+    // }
   }
 
   getstatusForm() {
