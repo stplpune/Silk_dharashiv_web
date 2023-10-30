@@ -54,9 +54,9 @@ export class PageRightAccessComponent {
 
   getFilterForm() {
     this.filterFrm = this.fb.group({
-      departmentId: ['', [Validators.required]],
-      designationLevelId: ['', [Validators.required]],
-      designationId: ['', [Validators.required]],
+      departmentId: [0, [Validators.required]],
+      designationLevelId: [0, [Validators.required]],
+      designationId: [1, [Validators.required]],
       moduleId: [0],
       subModuleId: [0],
       searchText: ['']
@@ -143,6 +143,7 @@ export class PageRightAccessComponent {
         if (res.statusCode == "200" && res.responseData.length) {
           this.departmentArray = res.responseData;
           this.departmentArray.unshift({ "id": 0, "textEnglish": "All Department","textMarathi": "सर्व विभाग"});
+          this.getDesignation();
         }
         else {
           this.departmentArray = [];

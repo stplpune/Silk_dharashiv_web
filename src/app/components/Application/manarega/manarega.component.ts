@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -17,11 +18,11 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 export class ManaregaComponent {
   filterFrm!: FormGroup;
   schemeFilterArr = new Array();
-  districtArr  = new Array();
-  talukaArr  = new Array();
-  grampanchayatArray  = new Array();
+  districtArr = new Array();
+  talukaArr = new Array();
+  grampanchayatArray = new Array();
   statusArr = new Array();
-  actionArr= new Array();
+  actionArr = new Array();
   tableDataArray = new Array();
   tableDatasize!: number;
   totalPages!: number;
@@ -31,7 +32,7 @@ export class ManaregaComponent {
   subscription!: Subscription;
   lang: string = 'English';
   get f() { return this.filterFrm.controls };
-  displayedColumns: string[] = ['srno', 'applicationid', 'farmername', 'mobileno','taluka','village','date','status','action'];
+  displayedColumns: string[] = ['srno', 'applicationid', 'farmername', 'mobileno', 'taluka', 'village', 'date', 'status', 'action'];
   dataSource = ELEMENT_DATA;
 
 
@@ -43,6 +44,7 @@ export class ManaregaComponent {
     private errorService: ErrorHandlingService,
     private common: CommonMethodsService,
     public webStorage: WebStorageService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -51,8 +53,8 @@ export class ManaregaComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     })
-    this.filterDefaultFrm();this.getAllScheme();
-    this.getDisrict(); this.getStatus();this.getAction();
+    this.filterDefaultFrm(); this.getTableData(); this.getAllScheme();
+    this.getDisrict(); this.getStatus(); this.getAction();
   }
 
   filterDefaultFrm() {
@@ -60,9 +62,9 @@ export class ManaregaComponent {
       schemeTypeId: [0],
       districtId: [this.webStorage.getDistrictId()],
       talukaId: [0],
-      grampanchayatId:[0],
-      statusId:[0],
-      actionId:[0],
+      grampanchayatId: [0],
+      statusId: [0],
+      actionId: [0],
       textSearch: [''],
     })
   }
@@ -84,14 +86,14 @@ export class ManaregaComponent {
     this.districtArr = [];
     this.master.GetAllDistrict(this.webStorage.getStateId()).subscribe({
       next: ((res: any) => {
-        this.districtArr= res.responseData;
+        this.districtArr = res.responseData;
         this.getTaluka();
       }), error: (() => {
         this.districtArr = [];
       })
     })
   }
- 
+
   getTaluka() {
     this.talukaArr = [];
     let distId = this.filterFrm.getRawValue().districtId;
@@ -124,7 +126,7 @@ export class ManaregaComponent {
     this.master.GetApprovalStatus().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
-          this.statusArr =res.responseData;
+          this.statusArr.unshift({ id: 0, textEnglish: "All Status", textMarathi: "सर्व स्थिती" }, ...res.responseData);
         } else {
           this.statusArr = [];
         }
@@ -137,7 +139,7 @@ export class ManaregaComponent {
     this.master.GetActionDropDown().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
-          this.actionArr =res.responseData;
+          this.actionArr.unshift({ id: 0, textEnglish: "All Action", textMarathi: "सर्व कृती" }, ...res.responseData);
         } else {
           this.actionArr = [];
         }
@@ -148,16 +150,20 @@ export class ManaregaComponent {
   getTableData(status?: any) {
     this.spinner.show();
     let formData = this.filterFrm.getRawValue();
-    status == 'filter' ? ((this.pageNumber = 1),  this.searchDataFlag = true) : '';
+    status == 'filter' ? ((this.pageNumber = 1), this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/GrainageModel/Get-Grainage-Details?Type='+ (formData?.type || 0)+'&StateId='+(formData?.stateId || 0)+'&SearchText='+(formData.textSearch.trim() || '')+str+'&lan=', false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllDesignationWiseApplications?' + str + '&SchemeTypeId=' + (formData.schemeTypeId || 0) + '&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchayatId=' + (formData.grampanchayatId || 0) +
+      '&ActionId=' + (formData.actionId || 0) + '&ApplicationStatus=' + (formData.statusId || 0) + '&UserId=' + (this.webStorage.getUserId() || 0) + '&TextSearch=' + (formData.textSearch.trim() || '') + '&lan=' + this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;
-          this.totalPages = res.responseData.responseData2?.totalPages;
-          this.tableDatasize = res.responseData.responseData2?.totalCount;
+          this.tableDataArray = res.responseData;
+          this.tableDataArray.map((ele:any)=>{
+            ele.status1 = ele.status
+          })
+          this.totalPages = res.responseData1.totalPages;
+          this.tableDatasize = res.responseData1.totalCount;
         } else {
           this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
           this.spinner.hide();
@@ -175,8 +181,8 @@ export class ManaregaComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_Type', 'm_Grainage', 'm_State', 'm_District', 'action'] : ['srNo', 'type', 'grainage', 'state', 'district', 'action'];						
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'अर्ज आयडी', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका','गाव','तारीख','स्थिती', 'कृती'] : ['Sr. No.','Application ID', 'Farmer Name', 'Mobile No.', 'Taluka','Village','Date','Status', 'Action'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'applicationNo', 'm_FullName', 'mobileNo1', 'm_Taluka', 'm_GrampanchayatName', 'applicationDate', 'm_Status', 'action'] : ['srNo', 'applicationNo', 'fullName', 'mobileNo1', 'taluka', 'grampanchayatName', 'applicationDate', 'status1', 'action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'अर्ज आयडी', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'तारीख', 'स्थिती', 'कृती'] : ['Sr. No.', 'Application ID', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Date', 'Status', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
@@ -185,12 +191,24 @@ export class ManaregaComponent {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      view:  true,
-      edit: true,
-      delete: true,
+      view: true,
+      date: 'applicationDate'
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
+  }
+
+  childCompInfo(obj?: any) {
+    switch (obj.label) {
+      case 'Pagination':
+        this.pageNumber = obj.pageNumber;
+        this.searchDataFlag ? '' : (this.f['textSearch'].setValue(''));
+        this.getTableData();
+        break;
+      case 'View':
+        this.router.navigate(['../approval-process']);
+        break;
+    }
   }
 
   clearDropdown(dropdown: string) {
@@ -209,20 +227,22 @@ export class ManaregaComponent {
     this.grampanchayatArray = [];
   }
 
-
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
 export interface PeriodicElement {
   srno: number;
   applicationid: string;
   farmername: string;
   mobileno: string;
-  taluka:string;
-  village:string;
-  date:string;
-  status:string;
-  action:any;
+  taluka: string;
+  village: string;
+  date: string;
+  status: string;
+  action: any;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {srno: 1, applicationid: 'MR0008576253', farmername: 'Jayaram Ramesh Tandale', mobileno: '8669264767', taluka:'Havelli',village:'Nagar', date:'25-10-2023', status:'Pending', action:'View' }
+  { srno: 1, applicationid: 'MR0008576253', farmername: 'Jayaram Ramesh Tandale', mobileno: '8669264767', taluka: 'Havelli', village: 'Nagar', date: '25-10-2023', status: 'Pending', action: 'View' }
 ];
