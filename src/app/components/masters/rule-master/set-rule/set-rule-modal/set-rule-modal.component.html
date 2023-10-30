@@ -41,8 +41,8 @@
 
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'setRule.select_scheme'|translate}}</mat-label>
-              <mat-select formControlName="scheme" (selectionChange)="f['department'].getRawValue() ? this.getAllAction() : ''"
+              <mat-label>{{'setRule.select_scheme'|translate}}</mat-label>  
+              <mat-select formControlName="scheme" (selectionChange)="getDepartment('select')"
                 [class]="editFlag ? setRulefrm.controls['scheme'].disable({ onlySelf: true }) :setRulefrm.controls['scheme'].enable({ onlySelf: true })">
                 <mat-option *ngFor="let data of schemeTypeArray" [value]="data.id">{{lang == 'en' ?
                   data.textEnglish : data.textMarathi}}</mat-option>
@@ -55,7 +55,7 @@
               <mat-label>{{'common.department'|translate}}</mat-label>
               <mat-select formControlName="department"
                 (selectionChange)="getDesignation();getAllAction()"
-                [class]="(editFlag || !f['scheme'].getRawValue()) ? f['department'].disable() :f['department'].enable()">
+                [class]="(editFlag || !f['scheme'].getRawValue() || !departmentArray?.length) ? f['department'].disable() :f['department'].enable()">
                 <mat-option *ngFor="let data of departmentArray" [value]="data.id">{{lang == 'en' ?
                   data.textEnglish : data.textMarathi}}</mat-option>
               </mat-select>
@@ -74,8 +74,8 @@
         </div> -->
 
       <div class="mt-2 text-end">
-          <div class="alert alert-danger text-center py-2" *ngIf="!f['scheme'].getRawValue() || !f['department'].getRawValue()">Select Above Filter..!</div>
-          <div class="alert alert-danger text-center py-2" *ngIf="f['scheme'].getRawValue() && f['department'].getRawValue() && approvallistForm.controls?.length == 0">No Data Found..!</div>
+          <!-- <div class="alert alert-danger text-center py-2" *ngIf="!f['scheme'].getRawValue() || !f['department'].getRawValue()">Select Above Filter..!</div> -->
+          <!-- <div class="alert alert-danger text-center py-2" *ngIf="f['scheme'].getRawValue() && f['department'].getRawValue() && approvallistForm.controls?.length == 0">No Data Found..!</div> -->
       </div>
 
         <div class="row gx-2 align-items-center">
@@ -88,7 +88,7 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="approvalLevel" placeholder="Select Order"
                     [ngClass]="lessonForm.get('approvalLevel').disable({ onlySelf: true })">
-                      <mat-option *ngFor="let data of orderLevelArray" [value]="data.id">{{lang == 'en' ? data.textEnglish : data.textMarathi}}</mat-option>
+                      <mat-option *ngFor="let data of getAllActionArray" [value]="data.orderLevel">{{lang == 'en' ? data.approvalLevel : data.m_ApprovalLevel}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -97,45 +97,41 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="actionId" placeholder="Select Action"
                     [ngClass]="lessonForm.get('actionId').disable({ onlySelf: true })">
-                      <mat-option *ngFor="let data of actionArray" [value]="data?.id" [disabled]="true">
-                        {{lang == 'en' ? data.textEnglish : data.textMarathi}}</mat-option>
+                      <mat-option *ngFor="let data of getAllActionArray" [value]="data?.id" [disabled]="true">
+                        {{lang == 'en' ? data.actionName : data.m_ActionName}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="col-sm-auto">
-                  <div class="form-data" *ngIf="i == 0">{{'setRule.department_level'|translate}}</div>
+                  <div class="form-data" *ngIf="i == 0">{{'setRule.designation_level'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
-                    <mat-select formControlName="departmentLevelId" placeholder="Select Department Level" (selectionChange)="checkDublicate(i,'departmentLevel')">
-                      <mat-option *ngFor="let data of departmentLevelArray" [value]="data.id" [disabled]="data.id == 0">{{lang ==
+                    <mat-select formControlName="designationLevelId" placeholder="Select Designation Level" >
+                      <mat-option *ngFor="let data of designationLevelArray" [value]="data.id" [disabled]="data.id == 0">{{lang ==
                         'en' ? data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="col-sm-auto">
-                  <div class="form-data" *ngIf="i == 0">{{'common.designation'|translate}}</div>
+                  <div class="form-data" *ngIf="i == 0">{{'setRule.designation'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
-                    <mat-select formControlName="designationId" placeholder="Select Designation" (selectionChange)="checkDublicate(i,'Designation')">
+                    <mat-select formControlName="designationId" placeholder="Select Designation">
                       <mat-option *ngFor="let data of designationArray" [value]="data.id"
                         [disabled]="data.id == 0">{{lang == 'en' ?
                         data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
-
-                <div class="col-sm-auto">
-                  <div class="form-data" *ngIf="i == 0">{{'common.designation'|translate}}</div>
-                  <mat-checkbox class="example-margin" (change)="selectRow($event,i)"></mat-checkbox>
-                </div>
               </div>
             </ng-container>
           </ng-container>
         </div>
       </mat-dialog-content>
+      <!-- [disabled]="approvallistForm.controls?.length == 0" -->
       <mat-dialog-actions class="modal-footer">
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-flat-button class="btn-main-light" type="button" mat-dialog-close
             (click)="clearForm()">{{'common.cancel'|translate}}</button>
-          <button mat-flat-button class="btn-main" type="submit" [disabled]="approvallistForm.controls?.length == 0"
+          <button mat-flat-button class="btn-main" type="submit" 
             (click)="onSubmit()">{{editFlag?(('blogs.update'|translate)):('villageCircle.save'|translate)}}</button>
         </div>
       </mat-dialog-actions>

@@ -271,60 +271,51 @@ export class RegisterOfficerComponent {
   }
 
   dropDownCall(id?: any) {
-    if(id == 1 ) {
+    console.log(id);
+    if(id == 1 || this.data?.departmentLevelId == 1) {
       this.getState();
       this.getDisrict();
       this.getCircle();
-    } else if(id == 2 ) { 
+    } else if(id == 2 || this.data?.departmentLevelId == 2) {       
       this.getState();
       this.getDisrict();
       this.getBlock();
-    } else if(id == 3) {
+    } else if(id == 3 || this.data?.departmentLevelId == 3) {
       this.getState();
       this.getDisrict();
-    } else if(id == 4 ) {
+    } else if(id == 4 || this.data?.departmentLevelId == 4) {
       this.getState();
       this.getDisrict();
-    } else if(id == 5 ) {
+    } else if(id == 5 || this.data?.departmentLevelId == 5) {
       this.getState();
       this.getDisrict();
     }
   }
 
-  clearDropDown(levelId?: any) {    
-    if (levelId == 1) {
-      this.talukaArray = [];
+  clearDropDown(levelId?: any) { 
+    if (levelId == 1 ) {
       this.f['talukaId'].setValue(0);
-      this.circleArray = [];
+      this.talukaArray = [];
       this.f['circleId'].setValue(0);
+      this.circleArray = [];
     } else if (levelId == 2) {
-      this.blockArray = [];
       this.f['blockId'].setValue(0);
+      this.blockArray = [];
     } else if (levelId == 3) {
-      this.talukaArray = [];
       this.f['talukaId'].setValue(0);
+      this.talukaArray = [];
       this.grampanchayatArray = [];
-      this.f['grampanchayatId'].setValue(0);
     } else if (levelId == 4) {
+      this.f['grampanchayatId'].setValue(0);
       this.talukaArray = [];
       this.f['talukaId'].setValue(0);
     } else if (levelId == 'village') {
-      this.grampanchayatArray = [];
       this.f['grampanchayatId'].setValue(0);
-    } else if (levelId == 'dept') {
-      this.designationArray = [];
+      this.grampanchayatArray = [];
+    } else if (levelId == 'dept') {      
       this.f['designationId'].setValue(0);
+      this.designationArray = [];
     }
-    // else {
-    //   this.talukaArray = [];
-    //   this.f['talukaId'].setValue(0);
-    //   this.circleArray = [];
-    //   this.f['circleId'].setValue(0);
-    //   this.blockArray = [];
-    //   this.f['blockId'].setValue(0);
-    //   this.grampanchayatArray = [];
-    //   this.f['grampanchayatId'].setValue(0);
-    // }
   }
 
   getstatusForm() {
