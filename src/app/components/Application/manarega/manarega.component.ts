@@ -21,6 +21,7 @@ export class ManaregaComponent {
   talukaArr  = new Array();
   grampanchayatArray  = new Array();
   statusArr = new Array();
+  actionArr= new Array();
   tableDataArray = new Array();
   tableDatasize!: number;
   totalPages!: number;
@@ -51,7 +52,7 @@ export class ManaregaComponent {
       this.setTableData();
     })
     this.filterDefaultFrm();this.getAllScheme();
-    this.getDisrict(); this.getStatus();
+    this.getDisrict(); this.getStatus();this.getAction();
   }
 
   filterDefaultFrm() {
@@ -126,6 +127,19 @@ export class ManaregaComponent {
           this.statusArr =res.responseData;
         } else {
           this.statusArr = [];
+        }
+      },
+    });
+  }
+
+  getAction() {
+    this.actionArr = [];
+    this.master.GetActionDropDown().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == '200') {
+          this.actionArr =res.responseData;
+        } else {
+          this.actionArr = [];
         }
       },
     });
