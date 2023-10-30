@@ -50,7 +50,11 @@ export class WebStorageService {
   //   const pageObj = this.getAllPageName()?.find((x:any)=>x.pageLink==pageName)
   //   return pageObj
   // }
-
+  
+  redirectTo(){ ////redirect to first page in array
+    let data = this.getLoggedInLocalstorageData()
+    return data.pageList[0].pageURL;
+   }
 
 
    
