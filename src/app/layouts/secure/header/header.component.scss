@@ -1,11 +1,11 @@
-nav.navbar {
-    border-bottom: solid 1px rgba(0, 0, 0, 0.18);
+.btn-sidebar-close {
+    display: none;
 }
 
-.dropdown button .profile-photo {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+@media only screen and (max-width: 420px) {
+    .btn-sidebar-close {
+        display: flex;
+    }
 }
 
 .profile {
@@ -38,12 +38,17 @@ nav.navbar {
     color: #555;
 }
 
-.dropdown-menu {
-    font-size: 0.85rem;
-}
-
 .dropdown button img {
     width: 20px;
+}
+
+.dropdown-menu .dropdown-item img {
+    height: 14px;
+    margin-right: 10px;
+}
+
+.dropdown-menu {
+    font-size: 0.85rem;
 }
 
 .dropdown-menu .dropdown-item {
@@ -53,18 +58,13 @@ nav.navbar {
     cursor: pointer;
 }
 
-.dropdown-menu .dropdown-item img {
-    height: 14px;
-    margin-right: 10px;
-}
-
 .dropdown-menu .dropdown-item .material-symbols-rounded {
     font-size: 1.1rem;
     margin-right: 7px;
 }
 
-.dropdown-menu .dropdown-item:active,
 .dropdown-menu .dropdown-item.active,
+.dropdown-menu .dropdown-item:active,
 .dropdown-menu .dropdown-item:hover {
     background-color: var(--main-light-color);
     color: var(--main-color);

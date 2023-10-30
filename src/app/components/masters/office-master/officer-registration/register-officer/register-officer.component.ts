@@ -163,7 +163,7 @@ export class RegisterOfficerComponent {
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
-        (this.officeForm.value.departmentLevelId != 4 && this.officeForm.value.departmentLevelId != 1) ? (this.f['talukaId'].setValue(this.data?.talukaId), this.getGrampanchayat()) : '';
+        (this.officeForm.value.departmentLevelId != 4 && this.officeForm.value.departmentLevelId != 1) ? (this.f['talukaId'].setValue(this.data?.talId), this.getGrampanchayat()) : '';
       }), error: (() => {
         this.talukaArray = [];
       })
@@ -218,9 +218,10 @@ export class RegisterOfficerComponent {
   }
   onSubmitData() {
     let formData = this.officeForm.getRawValue();
-    this.f['talukaId'].setValue(formData.departmentLevelId == 5 || formData.departmentLevelId == 2 ? 0 : formData.talukaId);
-    this.f['blockId'].setValue(formData.departmentLevelId == 1 ?formData.blockId= 0 : formData.blockId);
-    this.f['circleId'].setValue(formData.departmentLevelId == 2 ?formData.circleId= 0 : formData.circleId);
+    this.f['talukaId'].setValue(formData.departmentLevelId == 5 || formData.departmentLevelId == 2 ? formData.talukaId = 0 : formData.talukaId);
+    this.f['blockId'].setValue(formData.departmentLevelId == 1 || formData.departmentLevelId == 5 ||formData.departmentLevelId == 3 || formData.departmentLevelId == 4 ? formData.blockId = 0 : formData.blockId);
+    this.f['circleId'].setValue(formData.departmentLevelId == 2 || formData.departmentLevelId == 5 || formData.departmentLevelId == 3 ||  formData.departmentLevelId == 4 ?formData.circleId = 0 : formData.circleId);
+    this.f['grampanchayatId'].setValue(formData.departmentLevelId == 2 || formData.departmentLevelId == 5 ? formData.grampanchayatId = 0: formData.grampanchayatId);
     if (this.officeForm.invalid) {
       this.spinner.hide();
       return

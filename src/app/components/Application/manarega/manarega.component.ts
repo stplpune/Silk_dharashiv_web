@@ -213,7 +213,7 @@ export class ManaregaComponent {
 
   clearDropdown(dropdown: string) {
     if (dropdown == 'Taluka') {
-      this.f['grampanchayatId'].setValue(0);;
+      this.f['grampanchayatId'].setValue(0);
       this.grampanchayatArray = [];
     }
   }

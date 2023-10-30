@@ -1,216 +1,209 @@
 <div id="sidebar">
     <div class="sidebar-header">
-        <img src="assets/images/logo-text.svg" class="logo">
+        <img src="assets/images/logo.png">
+        <button mat-icon-button class="btn-icon btn-sidebar-close" (click)="onCloseSidebar()">
+            <span class="material-symbols-rounded">
+                close
+            </span>
+        </button>
     </div>
-    <div class="sidebar-body">
+    <div class="sidebar-body scrollbar">
         <ul class="menu">
-            <li class="menu-item">
-                <a class="menu-link" href="#">
-                    <div>
-                        <img src="assets/images/sidebar-icons/dashboard.svg" class="menu-icon">
-                        <span>Dashboard</span>
+            <li>
+                <a routerLink="dashboard" routerLinkActive="active">
+                    <div class="menu-item">
+                        <img src="assets/images/sidebar-icons/dashboard.svg">
+                        Dashboard
                     </div>
                 </a>
             </li>
-            <li class="menu-item">
-                <a class="menu-link" href="#" data-bs-toggle="collapse" href="#collapseMaster" role="button"
-                    aria-expanded="false" aria-controls="collapseMaster">
-                    <div class="d-flex align-items-center">
-                        <img src="assets/images/sidebar-icons/master.svg" class="menu-icon">
-                        <span>Masters</span>
+            <li>
+                <a data-bs-toggle="collapse" href="#collapseMaster" role="button" aria-expanded="false"
+                    aria-controls="collapseMaster">
+                    <div class="menu-item">
+                        <img src="assets/images/sidebar-icons/master.svg">
+                        Masters
                     </div>
                     <span class="dropdown-toggle"></span>
                 </a>
                 <div class="collapse" id="collapseMaster">
-                    <ul class="sub-menu">
+                    <ul class="submenu">
                         <li>
-                            <a class="submenu-link" href="#" data-bs-toggle="collapse" href="#collapseOfficeMaster"
-                                role="button" aria-expanded="false" aria-controls="collapseOfficeMaster">
-                                <div class="d-flex">
+                            <a data-bs-toggle="collapse" href="#collapseOfficeMaster" role="button"
+                                aria-expanded="false" aria-controls="collapseOfficeMaster" routerLinkActive="active"
+                                class="submenu-link" aria-current="true">
+                                <div>
                                     <img src="assets/images/sidebar-icons/circle.svg">
-                                    <span>Officer Master</span>
+                                    Office Master
                                 </div>
                                 <span class="dropdown-toggle"></span>
                             </a>
                             <div class="collapse" id="collapseOfficeMaster">
-                                <ul class="sub-submenu">
+                                <ul class="subsubmenu">
                                     <li>
-                                        <a routerLink="department" routerLinkActive="active">
-                                            <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                            <span>Department</span>
+                                        <a routerLink="" routerLinkActive="active">
+                                            <mat-icon class="material-symbols-rounded">
+                                                arrow_right_alt
+                                            </mat-icon>
+                                            Department
                                         </a>
-                                        <!-- <a routerLink="department-levels" routerLinkActive="active">
-                                            <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                            <span>Department Levels</span>
-                                        </a> -->
-                                        <a routerLink="designations" routerLinkActive="active">
-                                            <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                            <span>Designations</span>
+                                    </li>
+                                    <li>
+                                        <a routerLink="" routerLinkActive="active">
+                                            <mat-icon class="material-symbols-rounded">
+                                                arrow_right_alt
+                                            </mat-icon>
+                                            Designation
                                         </a>
-                                        <a routerLink="block" routerLinkActive="active">
-                                            <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                            <span>Block</span>
+                                    </li>
+                                    <li>
+                                        <a routerLink="" routerLinkActive="active">
+                                            <mat-icon class="material-symbols-rounded">
+                                                arrow_right_alt
+                                            </mat-icon>
+                                            Block
                                         </a>
-                                        <a routerLink="circle" routerLinkActive="active">
-                                            <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                            <span>Circle</span>
+                                    </li>
+                                    <li>
+                                        <a routerLink="" routerLinkActive="active">
+                                            <mat-icon class="material-symbols-rounded">
+                                                arrow_right_alt
+                                            </mat-icon>
+                                            Circle
                                         </a>
-                                        <a routerLink="officer-registration" routerLinkActive="active">
-                                            <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                            <span>Officer Registration</span>
+                                    </li>
+                                    <li>
+                                        <a routerLink="" routerLinkActive="active">
+                                            <mat-icon class="material-symbols-rounded">
+                                                arrow_right_alt
+                                            </mat-icon>
+                                            Officer Registration
                                         </a>
-                                        <a routerLink="grainage" routerLinkActive="active">
-                                            <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                            <span>Grainage</span>
+                                    </li>
+                                    <li>
+                                        <a routerLink="" routerLinkActive="active">
+                                            <mat-icon class="material-symbols-rounded">
+                                                arrow_right_alt
+                                            </mat-icon>
+                                            Grainage
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
                         <li>
-                            <a class="submenu-link" href="#" data-bs-toggle="collapse" href="#collapseRuleMaster"
-                                role="button" aria-expanded="false" aria-controls="collapseRuleMaster">
-                                <div class="d-flex">
+                            <a data-bs-toggle="collapse" href="#collapseRuleMaster" role="button" aria-expanded="false"
+                                aria-controls="collapseRuleMaster" routerLinkActive="active" class="submenu-link">
+                                <div>
                                     <img src="assets/images/sidebar-icons/circle.svg">
-                                    <span>Rule Master</span>
+                                    Rule Master
                                 </div>
                                 <span class="dropdown-toggle"></span>
                             </a>
                             <div class="collapse" id="collapseRuleMaster">
-                                <ul class="sub-submenu">
+                                <ul class="subsubmenu">
                                     <li>
-                                        <a routerLink="schemes">
-                                            <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                            <span>Schemes</span>
+                                        <a routerLink="" routerLinkActive="active">
+                                            <mat-icon class="material-symbols-rounded">
+                                                arrow_right_alt
+                                            </mat-icon>
+                                            Schemes
                                         </a>
-                                        <!-- <a routerLink="actions">
-                                            <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                            <span>Actions</span>
-                                        </a> -->
-                                        <a routerLink="set-rule">
-                                            <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                            <span>Set Rule</span>
+                                    </li>
+                                    <li>
+                                        <a routerLink="" routerLinkActive="active">
+                                            <mat-icon class="material-symbols-rounded">
+                                                arrow_right_alt
+                                            </mat-icon>
+                                            Set Rule
                                         </a>
-                                        <a routerLink="reject-reason">
-                                            <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                            <span>Reject Reason</span>
+                                    </li>
+                                    <li>
+                                        <a routerLink="" routerLinkActive="active">
+                                            <mat-icon class="material-symbols-rounded">
+                                                arrow_right_alt
+                                            </mat-icon>
+                                            Reject Reason
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
                         <li>
-                            <a class="submenu-link" href="#">
-                                <div class="d-flex">
+                            <a routerLink="teacher-registration" routerLinkActive="active" class="submenu-link">
+                                <div>
                                     <img src="assets/images/sidebar-icons/circle.svg">
-                                    <span>TS Master</span>
+                                    TS Master
                                 </div>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </li>
+            <li>
+                <a routerLink="dashboard" routerLinkActive="active">
+                    <div class="menu-item">
+                        <img src="assets/images/sidebar-icons/application.svg">
+                        Application
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a data-bs-toggle="collapse" href="#collapseReport" role="button" aria-expanded="false"
+                    aria-controls="collapseReport">
+                    <div class="menu-item">
+                        <img src="assets/images/sidebar-icons/cms.svg">
+                        CMS
+                    </div>
+                    <span class="dropdown-toggle"></span>
+                </a>
+                <div class="collapse" id="collapseReport">
+                    <ul class="submenu">
+                        <li>
+                            <a routerLink="student-report" routerLinkActive="active" class="submenu-link"
+                                aria-current="true">
+                                <img src="assets/images/sidebar-icons/circle.svg">
+                                Markets
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="officer-report" routerLinkActive="active" class="submenu-link">
+                                <img src="assets/images/sidebar-icons/circle.svg">
+                                Market Rate
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="school-report" routerLinkActive="active" class="submenu-link">
+                                <img src="assets/images/sidebar-icons/circle.svg">
+                                Blogs
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="#" routerLinkActive="active" class="submenu-link">
+                                <img src="assets/images/sidebar-icons/circle.svg">
+                                FAQ's
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
-            <li class="menu-item">
-                <a class="menu-link" routerLink="application">
-                    <div class="d-flex align-items-center">
-                        <img src="assets/images/sidebar-icons/application.svg" class="menu-icon">
-                        <span>Application</span>
-                    </div>
-                    <!-- <span class="dropdown-toggle"></span> -->
-                </a>
-                <!-- <div class="collapse" id="collapseCMS">
-                  <ul class="sub-menu">
-                      <li>
-                          <a class="submenu-link" routerLink="manarega">
-                              <div class="d-flex">
-                                  <img src="assets/images/sidebar-icons/circle.svg">
-                                  <span>Manarega</span>
-                              </div>
-                          </a>
-                      </li>
-                  </ul>
-              </div> -->
-            </li>
-            <li class="menu-item">
-                <a class="menu-link" href="#" data-bs-toggle="collapse" href="#collapseCMS" role="button"
-                    aria-expanded="false" aria-controls="collapseCMS">
-                    <div class="d-flex align-items-center">
-                        <img src="assets/images/sidebar-icons/cms.svg" class="menu-icon">
-                        <span>CMS</span>
+            <li>
+                <a data-bs-toggle="collapse" href="#collapseAssetMgmt" role="button" aria-expanded="false"
+                    aria-controls="collapseAssetMgmt">
+                    <div class="menu-item">
+                        <img src="assets/images/sidebar-icons/setting.svg">
+                        Setting
                     </div>
                     <span class="dropdown-toggle"></span>
                 </a>
-                <div class="collapse" id="collapseCMS">
-                    <ul class="sub-menu">
+                <div class="collapse" id="collapseAssetMgmt">
+                    <ul class="submenu">
                         <li>
-                            <a class="submenu-link" routerLink="markets">
-                                <div class="d-flex">
-                                    <img src="assets/images/sidebar-icons/circle.svg">
-                                    <span>Markets</span>
-                                </div>
+                            <a routerLink="category" routerLinkActive="active" class="submenu-link" aria-current="true">
+                                <img src="assets/images/sidebar-icons/circle.svg">
+                                Page Right Access
                             </a>
-                        </li>
-                        <li>
-                            <a class="submenu-link" routerLink="market-rate">
-                                <div class="d-flex">
-                                    <img src="assets/images/sidebar-icons/circle.svg">
-                                    <span>Market Rate</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="submenu-link" routerLink="blogs">
-                                <div class="d-flex">
-                                    <img src="assets/images/sidebar-icons/circle.svg">
-                                    <span>Blogs</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="submenu-link" routerLink="faq">
-                                <div class="d-flex">
-                                    <img src="assets/images/sidebar-icons/circle.svg">
-                                    <span>FAQ's</span>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="menu-item">
-                <a class="menu-link" href="#" data-bs-toggle="collapse" href="#collapseSetting" role="button"
-                    aria-expanded="false" aria-controls="collapseSetting">
-                    <div class="d-flex align-items-center">
-                        <img src="assets/images/sidebar-icons/master.svg" class="menu-icon">
-                        <span>Setting</span>
-                    </div>
-                    <span class="dropdown-toggle"></span>
-                </a>
-                <div class="collapse" id="collapseSetting">
-                    <ul class="sub-menu">
-                        <li>
-                            <a class="submenu-link" href="#" data-bs-toggle="collapse" href="#collapseOfficeMaster"
-                                role="button" aria-expanded="false" aria-controls="collapseOfficeMaster">
-                                <div class="d-flex">
-                                    <img src="assets/images/sidebar-icons/circle.svg">
-                                    <span>Setting</span>
-                                </div>
-                                <span class="dropdown-toggle"></span>
-                            </a>
-                            <div class="collapse" id="collapseOfficeMaster">
-                                <ul class="sub-submenu">
-                                    <li>
-                                        <a routerLink="page-right-access" routerLinkActive="active">
-                                            <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                            <span>Page Right Access</span>
-                                        </a>
-                                        <!-- <a routerLink="department-levels" routerLinkActive="active">
-                                        <img src="assets/images/sidebar-icons/arrow-small-right.svg">
-                                        <span>Department Levels</span>
-                                    </a> -->
-                                    </li>
-                                </ul>
-                            </div>
                         </li>
                     </ul>
                 </div>
