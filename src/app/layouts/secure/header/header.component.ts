@@ -8,12 +8,13 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { TranslateService } from '@ngx-translate/core'
 import { CommonModule } from '@angular/common';
 import { MyProfileComponent } from 'src/app/components/profile/my-profile/my-profile.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule,CommonModule],
+  imports: [MatDialogModule, MatButtonModule, CommonModule, MatIconModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
@@ -21,9 +22,9 @@ export class HeaderComponent {
   language: string = 'English'
   lag = ['English', 'Marathi']
   selLang!: string;
-  loginData : any;
-  userName : string = '';
-  designationName : string = '';
+  loginData: any;
+  userName: string = '';
+  designationName: string = '';
 
 
   constructor(private webStorage: WebStorageService, public dialog: MatDialog,
@@ -31,10 +32,10 @@ export class HeaderComponent {
     private translate: TranslateService) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.loginData = this.webStorage.getLoggedInLocalstorageData();
     let language: any = sessionStorage.getItem('language');
-    language = language ? language :'English';
+    language = language ? language : 'English';
     // sessionStorage.setItem('language', language)
     this.webStorage.setLanguage.next(language);
     this.translate.use(language);
@@ -42,16 +43,16 @@ export class HeaderComponent {
       this.selLang = res;
     })
 
-    this.webStorage.getProfileData().subscribe((res:any)=>{     
+    this.webStorage.getProfileData().subscribe((res: any) => {
       this.userName = res.name;
       this.designationName = res.designationName
     })
   }
 
 
-  myprofile(){
-    this.dialog.open(MyProfileComponent,{
-      width:'70%'
+  myprofile() {
+    this.dialog.open(MyProfileComponent, {
+      width: '70%'
     })
   }
 
