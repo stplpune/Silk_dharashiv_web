@@ -68,7 +68,7 @@ export class RegisterOfficerComponent {
     this.officeForm = this.fb.group({
       id: [this.data ? this.data?.id : 0],
       departmentId: [this.data ? this.data?.id : '', [Validators.required]],
-      departmentLevelId: [this.data ? this.data?.departmentId : '', [Validators.required]],
+      departmentLevelId: [this.data ? this.data?.departmentLevelId : '', [Validators.required]],
       stateId: [this.data ? this.data?.stateId : 1],
       districtId: [this.data ? this.data?.districtId : 1],
       blockId: [this.data ? this.data?.blockId : '', [Validators.required]],
@@ -275,7 +275,7 @@ export class RegisterOfficerComponent {
       this.getState();
       this.getDisrict();
       this.getCircle();
-    } else if (id == 2 || this.data?.departmentLevelId == 2) {
+    } else if (id == 2 || this.data?.departmentLevelId == 2) {  
       this.getState();
       this.getDisrict();
       this.getBlock();
@@ -291,7 +291,7 @@ export class RegisterOfficerComponent {
     }
   }
 
-  clearDropDown(levelId?: any) {
+  clearDropDown(levelId?: any) {    
     if (levelId == 1) {
       this.talukaArray = [];
       this.f['talukaId'].setValue(0);
@@ -339,7 +339,7 @@ export class RegisterOfficerComponent {
         "isActive": formData.statusId == 0 ? true : false,
         "reason": formData.statusId == 1 ? "" : formData.remark
       }
-      this.apiService.setHttp('put', ' sericulture/api/UserRegistration/User-Active-Status?lan=' + this.lang, false, obj, false, 'masterUrl');
+      this.apiService.setHttp('put', 'sericulture/api/UserRegistration/User-Active-Status?lan=' + this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
