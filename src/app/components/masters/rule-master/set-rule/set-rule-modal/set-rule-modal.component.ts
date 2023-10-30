@@ -1,7 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-// import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -14,7 +14,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
   templateUrl: './set-rule-modal.component.html',
   styleUrls: ['./set-rule-modal.component.scss']
 })
-export class SetRuleModalComponent implements OnInit {
+export class SetRuleModalComponent implements OnDestroy {
 
   setRulefrm!: FormGroup;
   stateArray = new Array();
@@ -29,6 +29,7 @@ export class SetRuleModalComponent implements OnInit {
   subscription!: Subscription;//used  for lang conv
   @ViewChild('formDirective') private formDirective!: NgForm;
   lang: any;
+  isViewFlag: boolean = false;
   editFlag: boolean = false;
   displayedColumns: string[] = ['Sr.No', 'Order', 'Action', 'Designation Level', 'Designation'];
   tableData = new Array();
@@ -37,17 +38,21 @@ export class SetRuleModalComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    // private spinner: NgxSpinnerService,
+    private master: MasterService,
+    private commonMethods: CommonMethodsService,
+    private apiService: ApiService,
+    private spinner: NgxSpinnerService,
     private error: ErrorHandlingService,
     private WebStorageService: WebStorageService,
     public dialogRef: MatDialogRef<SetRuleModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-      this.setRuleform();
+      this.defaultFrom();
     });
     this.isViewFlag = this.data?.label == 'View' ? true : false;
     this.defaultFrom();
@@ -64,21 +69,27 @@ export class SetRuleModalComponent implements OnInit {
     this.tableData = this.data?.getApprovalMaster
 
   }
-  
-  get f() { return this.setRulefrm.controls}
 
-  setRuleform() {
+  //#region ------------------------------------------------------filter drop fn start heare--------------------------------------------//
+
+  defaultFrom() {
     this.setRulefrm = this.fb.group({
       scheme: ['', [Validators.required]],
       department: ['', [Validators.required]],
-      state: [this.apiService.stateId, [Validators.required]],
-      district: [this.apiService.disId, [Validators.required]],
-      aa: ['', [Validators.required]],
+      state: [1, [Validators.required]],
+      district: [1, [Validators.required]],
       approvalLevels: this.fb.array([])
     })
   }
 
-  get g() { return this.setRulefrm.controls['approvalLevels'].value}
+  get f() {
+    return this.setRulefrm.controls;
+  }
+
+  get g() {
+    return this.setRulefrm.controls['approvalLevels'].value;
+  }
+
   get approvallistForm() { return this.setRulefrm.get('approvalLevels') as FormArray | any }
  
   getState() {
