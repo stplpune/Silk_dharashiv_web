@@ -56,11 +56,10 @@ export class SetRuleComponent implements OnDestroy{
     this.getState();
     this.getDisrict();
     this.getSchemeType();
-    this.getDepartment();
   }
 
   defaultFrom() {
-    this.filterFrm = this.fb.group({
+    this.filterFrm = this.fb.group({  
       state: [1, [Validators.required]],
       district: [1, [Validators.required]],
       scheme: ['',],
@@ -199,7 +198,7 @@ export class SetRuleComponent implements OnDestroy{
   }
 
   getDepartment() {
-    this.master.GetDepartmentDropdown().subscribe({
+    this.master.GetDepartmentDropdown(this.filterFrm.getRawValue().scheme).subscribe({
       next: ((res: any) => {
         this.departmentresp = res.responseData;
       }), error: (() => {
