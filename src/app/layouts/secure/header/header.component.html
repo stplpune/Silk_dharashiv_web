@@ -6,25 +6,26 @@
                     menu
                 </span>
             </button>
+         
             <div class="dropdown">
-                <button mat-flat-button class="btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="assets/images/language.svg">
+                <button mat-flat-button class="btn-icon" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                          <img src="assets/images/language.svg">
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <button class="dropdown-item">
-                        <div class="d-flex align-items-center">
-                            <img src="assets/images/english.svg">
-                            <span>English</span>
-                        </div>
-                    </button>
-                    <button class="dropdown-item">
-                        <div class="d-flex align-items-center">
-                            <img src="assets/images/marathi.svg">
-                            <span>Marathi</span>
-                        </div>
-                    </button>
+                    <ng-container *ngFor="let getLag of lag">
+                        <button class="dropdown-item" (click)="changeLanguage(getLag)"
+                            [class.active]="getLag == selLang">
+                            <div class="d-flex align-items-center">
+                                <img [src]="getLag == 'English' ? 'assets/images/english.svg' : 'assets/images/marathi.svg'">
+                                <span>{{getLag}}</span>
+                            </div>
+                        </button>
+                    </ng-container>
                 </div>
             </div>
+
+
             <button mat-flat-button class="btn-icon">
                 <mat-icon class="material-symbols-rounded">
                     notifications_active
@@ -35,21 +36,21 @@
                     <div class="d-flex align-items-center gap-2">
                         <img src="assets/images/user.png">
                         <div class="d-flex flex-column align-items-start">
-                            <p>User Name</p>
-                            <small>Designation</small>
+                            <p>{{userName ? userName : loginData.name}}</p>
+                            <small>{{designationName ? designationName : loginData.designationName}}</small>
                         </div>
                     </div>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" (click)="myprofile()">
                             <mat-icon class="material-symbols-rounded">
                                 account_circle
                             </mat-icon>
                             My Profile
                         </a>
                     </li>
-                    <li><a class="dropdown-item">
+                    <li><a class="dropdown-item" (click)="openChangePasswordDialog()">
                             <mat-icon class="material-symbols-rounded">
                                 lock
                             </mat-icon>
