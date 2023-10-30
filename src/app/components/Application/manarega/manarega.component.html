@@ -67,7 +67,7 @@
         </div>
         <div class="col-sm-1">
           <div class="d-flex gap-2">
-            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
+            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button" (click)="getTableData('filter')">
               <mat-icon class="material-symbols-rounded">
                 search
               </mat-icon>
@@ -84,7 +84,7 @@
     </form>
   </mat-card-header>
   <mat-card-content class="card-body">
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-sm-auto">
         <div class="d-flex gap-2 text-primary">
           <div class="form-label">Total Application </div>
@@ -115,9 +115,10 @@
           <div class="form-label">: 40</div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="table-responsive scrollbar my-3">
-      <table mat-table [dataSource]="dataSource" class="dashboard-table">
+      <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
+      <!-- <table mat-table [dataSource]="dataSource" class="dashboard-table">
 
         <ng-container matColumnDef="srno">
           <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
@@ -170,7 +171,7 @@
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+      </table> -->
 
 
     </div>
