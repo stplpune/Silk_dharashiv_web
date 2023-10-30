@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <div class="sidebar-wrapper">
+    <div class="sidebar-wrapper" [ngClass]="{'open' : getSideBarState()}">
         <app-sidebar></app-sidebar>
     </div>
     <div class="content-wrapper">
