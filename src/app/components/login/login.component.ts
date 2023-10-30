@@ -13,6 +13,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { Router } from '@angular/router';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 // import * as CryptoJS from 'crypto-js';
 
 
@@ -37,6 +38,7 @@ export class LoginComponent {
     private error: ErrorHandlingService,
     private spinner: NgxSpinnerService,
     private apiService: ApiService,
+    private WebStorageService : WebStorageService,
     private router: Router,
     private AESEncryptDecryptService:AesencryptDecryptService
   ) {
@@ -96,10 +98,15 @@ export class LoginComponent {
           this.spinner.hide();
           this.commonMethods.snackBar(res.statusMessage, 0);
           sessionStorage.setItem('loggedIn', 'true');
+   
+          this.encryptInfo = encodeURIComponent((JSON.stringify(JSON.stringify(res))))
           // this.encryptInfo = encodeURIComponent((JSON.stringify(JSON.stringify(res)), 'secret key 123').toString());
           this.loginData = this.AESEncryptDecryptService.encrypt(JSON.stringify(res?.responseData));
           localStorage.setItem('loggedInData', this.loginData);
-          this.router.navigate(['/dashboard']);
+         //this.router.navigate(['/dashboard']);
+          this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
+        //  this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
+         
           this.loginFlag = true;
         }
         else {

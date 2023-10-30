@@ -33,7 +33,7 @@
           <div class="col-sm">
             <div class="row">
               <div class="col-sm-auto form-label">{{"blogs.editortool" | translate}}</div>
-              <div class="col-sm-auto form-data">: {{this.data?.description || '-'}}</div>
+              <div class="col-sm-auto form-data" [innerHTML]="data?.description"></div>
             </div>
           </div>
         </div>
