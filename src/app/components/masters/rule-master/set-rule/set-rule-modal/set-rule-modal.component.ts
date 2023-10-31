@@ -69,8 +69,8 @@ export class SetRuleModalComponent implements OnDestroy {
     this.setRulefrm = this.fb.group({  
       scheme: ['', [Validators.required]],
       department: [''],
-      state: [1, [Validators.required]],
-      district: [1, [Validators.required]],
+      state: [this.apiService.stateId, [Validators.required]],
+      district: [this.apiService.disId, [Validators.required]],
       approvalLevels: this.fb.array([])
     })
   }
@@ -152,7 +152,7 @@ export class SetRuleModalComponent implements OnDestroy {
           id: [0],
           approvalLevel: [ele.orderLevel, [Validators.required]],
           actionId: [ele.id , [Validators.required]],
-          designationLevelId: ['', [Validators.required]],
+          departmentLevelId: ['', [Validators.required]],
           designationId: ['', [Validators.required]],
         }))
     });
@@ -180,6 +180,22 @@ export class SetRuleModalComponent implements OnDestroy {
     })
   }
 
+  // bindTable() { // check only for data available or not
+  //   let formData = this.setRulefrm.getRawValue();
+  //   this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?pageno=1&pagesize=1000'+ '&SchemeTypeId=' + (formData.scheme || 0) + '&DepartmentId=' + (formData.department || 0) + '&StateId=' + (formData.state || 1) + '&DistrictId=' + (formData.district || 1) + '&lan='+this.lang, false, false, false, 'masterUrl');
+  //   this.apiService.getHttp().subscribe({
+  //     next: (res: any) => {
+  //       this.spinner.hide();
+  //       if (res.statusCode == '200') {
+  //         this.tableresp = res.responseData;
+  //       } else {
+  //         this.tableresp = [];
+  //       }
+  //     },
+  //     error: (err: any) => {this.spinner.hide();this.error.handelError(err.status);},
+  //   });
+  // }
+
   editData() {
     this.editFlag = true;
     this.setRulefrm.patchValue({
@@ -199,7 +215,7 @@ export class SetRuleModalComponent implements OnDestroy {
           id: [x?.id],
           approvalLevel: [x?.orderLevel],
           actionId: [x?.actionId],
-          designationLevelId: [x?.departmentLevelId], // x?.departmentLevelId is a Designation Level Id
+          departmentLevelId: [x?.departmentLevelId], // x?.departmentLevelId is a Designation Level Id
           designationId: [x?.designationId],
         }
       ));
