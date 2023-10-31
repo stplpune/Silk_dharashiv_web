@@ -123,7 +123,8 @@ export class SetRuleModalComponent implements OnDestroy {
        }), error: (() => {
         this.departmentArray = [];
         this.f['department'].setValue(''); this.f['department'].clearValidators(); this.f['department'].updateValueAndValidity(); // when department Res Available
-        flag == 'select' ? this.getAllAction() : '';
+        flag == 'select' ? this.getAllApprovalMasterLevels() : '';
+        // flag == 'select' ? this.getAllAction() : '';
       })
     })
   }
@@ -170,7 +171,7 @@ export class SetRuleModalComponent implements OnDestroy {
   }
 
   getDesignation() {
-    this.master.GetDesignationDropDown(this.f['department'].getRawValue()).subscribe({
+    this.master.GetDesignationDropDown(this.f['department'].getRawValue() || 0).subscribe({
       next: ((res: any) => {
         this.designationArray = res.responseData;
         this.designationArray.unshift({ id: 0, textEnglish: 'Select Designation', textMarathi: "पदनाम निवडा" })
@@ -180,21 +181,25 @@ export class SetRuleModalComponent implements OnDestroy {
     })
   }
 
-  // bindTable() { // check only for data available or not
-  //   let formData = this.setRulefrm.getRawValue();
-  //   this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?pageno=1&pagesize=1000'+ '&SchemeTypeId=' + (formData.scheme || 0) + '&DepartmentId=' + (formData.department || 0) + '&StateId=' + (formData.state || 1) + '&DistrictId=' + (formData.district || 1) + '&lan='+this.lang, false, false, false, 'masterUrl');
-  //   this.apiService.getHttp().subscribe({
-  //     next: (res: any) => {
-  //       this.spinner.hide();
-  //       if (res.statusCode == '200') {
-  //         this.tableresp = res.responseData;
-  //       } else {
-  //         this.tableresp = [];
-  //       }
-  //     },
-  //     error: (err: any) => {this.spinner.hide();this.error.handelError(err.status);},
-  //   });
-  // }
+  getAllApprovalMasterLevels() { // check only for data available or not this is Table Api
+    let formData = this.setRulefrm.getRawValue();
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllApprovalMasterLevels?pageno=1&pagesize=1000'+ '&SchemeTypeId=' 
+    + (formData.scheme) + '&DepartmentId=' + (formData.department || 0) + '&StateId=' + (formData.state || 1) + '&DistrictId=' + (formData.district || 1) + '&lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == '200') {
+          console.log('1');
+          this.data = res.responseData[0];
+          this.editData();
+          // this.tableresp = res.responseData;
+        } else {
+          console.log('2');
+          this.getDesignation();
+          this.getAllAction();
+        }
+      },error: (err: any) => {this.error.handelError(err.status)},
+    });
+  }
 
   editData() {
     this.editFlag = true;

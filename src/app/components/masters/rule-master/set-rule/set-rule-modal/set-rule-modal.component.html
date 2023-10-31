@@ -54,7 +54,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'common.department'|translate}}</mat-label>
               <mat-select formControlName="department"
-                (selectionChange)="getDesignation();getAllAction()"
+                (selectionChange)="getAllApprovalMasterLevels()"
                 [class]="(editFlag || !f['scheme'].getRawValue() || !departmentArray?.length) ? f['department'].disable() :f['department'].enable()">
                 <mat-option *ngFor="let data of departmentArray" [value]="data.id">{{lang == 'en' ?
                   data.textEnglish : data.textMarathi}}</mat-option>
