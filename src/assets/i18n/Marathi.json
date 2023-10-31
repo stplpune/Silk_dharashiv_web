@@ -131,18 +131,19 @@
   "rejectReason":{
     "reject_reason":"नामंजूर कारणे ",
     "all_stage_action":"कृती निवडा",
-    "add_reject_reason":"नाकारण्याचे कारण जोडा",
+    "add_reject_reason":"नामंजूरची कारण जोडा",
     "reject_title":"नामंजूर शीर्षक ",
     "update_reject_reason":"कारण अद्ययावत करा",
-    "enter_rejection_title":"नकार शीर्षक प्रविष्ट करा (इंग्रजी)",
-    "enter_rejection_description":"नकार वर्णन प्रविष्ट करा",
+    "enter_rejection_title":"नामंजूर शीर्षक प्रविष्ट करा (इंग्रजी)",
+    "enter_rejection_description":"नामंजूर वर्णन प्रविष्ट करा",
     "please_select_action":"कृपया स्टेज/कृती निवडा",
-    "please_enter_rejection_title":"कृपया नकार शीर्षक प्रविष्ट करा (इंग्रजी)",
-    "please_enter_rejection_description":"कृपया नकार वर्णन प्रविष्ट करा",
-    "enter_rejection_title_marathi":"नकार शीर्षक प्रविष्ट करा (मराठी)",
-    "please_enter_rejection_title_marathi":"कृपया नकार शीर्षक प्रविष्ट करा (मराठी)",
-    "please_enter_valid_rejection_title": "कृपया वैध नकार शीर्षक प्रविष्ट करा (इंग्रजी)",
-    "search":"नामंजूर शीर्षकानुसार शोधा"
+    "please_enter_rejection_title":"कृपया नामंजूर शीर्षक प्रविष्ट करा (इंग्रजी)",
+    "please_enter_rejection_description":"कृपया नामंजूर वर्णन प्रविष्ट करा",
+    "enter_rejection_title_marathi":"नामंजूर शीर्षक प्रविष्ट करा (मराठी)",
+    "please_enter_rejection_title_marathi":"कृपया नामंजूर शीर्षक प्रविष्ट करा (मराठी)",
+    "please_enter_valid_rejection_title": "कृपया वैध नामंजूर शीर्षक प्रविष्ट करा (इंग्रजी)",
+    "search":"नामंजूर शीर्षकानुसार शोधा",
+    "view":"नामंजूरची कारणे पहा"
   },
   "setRule": {
     "set_rule": "सेट नियम",
