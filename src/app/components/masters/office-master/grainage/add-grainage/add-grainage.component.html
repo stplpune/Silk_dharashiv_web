@@ -68,16 +68,19 @@
 
 <div class="" *ngIf="!isViewFlag">
 <form [formGroup]="grainageFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
-    <mat-form-field appearance="outline" class="w-50">
-      <mat-label>{{"grainage.Type" | translate}}</mat-label>
-      <mat-select formControlName="type">
-        <mat-option *ngFor=" let grain of grainageArr" [value]="grain.id">{{lang == 'en' ? grain.textEnglish :
-          grain.textMarathi}}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="f['type']?.hasError('required')">{{'grainage.Type_reqired'|translate}}</mat-error>
-    </mat-form-field>
+
     <div class="row gx-2">
-      <div class="col-sm-6">
+      <div class="col-sm-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{"grainage.Type" | translate}}</mat-label>
+          <mat-select formControlName="type">
+            <mat-option *ngFor=" let grain of grainageArr" [value]="grain.id">{{lang == 'en' ? grain.textEnglish :
+              grain.textMarathi}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="f['type']?.hasError('required')">{{'grainage.Type_reqired'|translate}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{"grainage.grainageName_en" | translate}}</mat-label>
           <input formControlName="grainage" matInput (keypress)="validator.noFirstSpaceAllow($event);validator.englishAlphaNumeric($event)">
@@ -86,7 +89,7 @@
           <mat-error *ngIf="f['grainage']?.hasError('maxLengthExceeded')">{{'grainage.grainageName_en_limit'|translate}}</mat-error>
         </mat-form-field>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{"grainage.grainageName_mr" | translate}}</mat-label>
           <input formControlName="m_Grainage" matInput
