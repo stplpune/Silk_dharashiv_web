@@ -43,7 +43,6 @@ export class RejectReasonComponent implements OnDestroy{
 
   ngOnInit() {
     this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == "Reject Reasons" ? this.pageAccessObject = ele :''})
-console.log(this.WebStorageService.getAllPageName());
 
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
@@ -112,6 +111,9 @@ console.log(this.WebStorageService.getAllPageName());
       case 'Delete':
         this.deleteDialogOpen(obj);
         break;
+        case 'View':
+          this.addrejectreason(obj);
+          break;
     }
   }
 

@@ -20,7 +20,8 @@ export class AddRejectReasonComponent implements OnDestroy{
   rejectResonFrm!: FormGroup;
   actionResp = new Array();
   lang: any;
-  editFlag: boolean = false;
+  editFlag: boolean = false;  
+  isViewFlag: boolean = false;
   subscription!: Subscription;//used  for lang conv
   @ViewChild('formDirective') private formDirective!: NgForm;
   constructor(private master: MasterService,
@@ -41,7 +42,10 @@ export class AddRejectReasonComponent implements OnDestroy{
     })
     this.defaultForm();
     this.getAction();
+    this.isViewFlag = this.data?.label == 'View' ? true : false;
     this.data?.label == 'Edit' ? this.editData() : '';
+    console.log(this.data);
+    
   }
 
   defaultForm() {
