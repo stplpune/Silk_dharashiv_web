@@ -139,7 +139,8 @@ console.log(this.WebStorageService.getAllPageName());
     const dialogRef = this.dialog.open(AddRejectReasonComponent, {
       width: '40%',
       data:data,
-      disableClose: true
+      disableClose: true,
+      autoFocus: false
     })
     dialogRef.afterClosed().subscribe(res => {
       res == 'Yes' ? this.bindTable() : '';

@@ -29,8 +29,7 @@
       </mat-error>
       <mat-error class="text-danger" *ngIf="f['rejectionTitle'].hasError('pattern')">{{'rejectReason.please_enter_valid_rejection_title'|translate}}
       </mat-error>
-      <mat-error class="text-danger" *ngIf="f['rejectionTitle'].hasError('maxLengthExceeded')">Maximum
-        Limit is 100 Character
+      <mat-error class="text-danger" *ngIf="f['rejectionTitle'].hasError('maxLengthExceeded')">{{'grainage.address_limit'|translate}}
     </mat-error>
       </mat-form-field>
     </div>
@@ -42,8 +41,7 @@
         (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
         <mat-error class="text-danger" *ngIf="f['rejectionTitleMarathi'].hasError('required')">{{'rejectReason.please_enter_rejection_title_marathi'|translate}}
       </mat-error>
-      <mat-error class="text-danger" *ngIf="f['rejectionTitleMarathi'].hasError('maxLengthExceeded')">Maximum
-        Limit is 100 Character
+      <mat-error class="text-danger" *ngIf="f['rejectionTitleMarathi'].hasError('maxLengthExceeded')">{{'grainage.address_limit'|translate}}
     </mat-error>
       </mat-form-field>
     </div>
@@ -55,8 +53,7 @@
         (keypress)="validation.noFirstSpaceAllow($event)"></textarea>
         <mat-error class="text-danger" *ngIf="f['description'].hasError('required')">{{'rejectReason.please_enter_rejection_description'|translate}}
       </mat-error>
-      <mat-error class="text-danger" *ngIf="f['description'].hasError('maxLengthExceeded')">Maximum
-        Limit is 500 Character
+      <mat-error class="text-danger" *ngIf="f['description'].hasError('maxLengthExceeded')">{{'action.description_maxLength'|translate}}
     </mat-error>
       </mat-form-field>
     </div>
