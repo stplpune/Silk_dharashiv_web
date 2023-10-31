@@ -105,7 +105,7 @@
                 <div class="col-sm-auto">
                   <div class="form-data" *ngIf="i == 0">{{'setRule.designation_level'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
-                    <mat-select formControlName="designationLevelId" placeholder="Select Designation Level" >
+                    <mat-select formControlName="departmentLevelId" placeholder="Select Designation Level" >
                       <mat-option *ngFor="let data of designationLevelArray" [value]="data.id" [disabled]="data.id == 0">{{lang ==
                         'en' ? data.textEnglish : data.textMarathi}}</mat-option>
                     </mat-select>
