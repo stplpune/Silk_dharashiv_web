@@ -72,7 +72,7 @@ export class RegisterOfficerComponent {
       stateId: [this.data ? this.data?.stateId : 1],
       districtId: [this.data ? this.data?.districtId : 1],
       blockId: [this.data ? this.data?.blockId : '', [Validators.required]],
-      talukaId: [this.data ? this.data?.talId : '', [Validators.required]],
+      talukaId: [this.data ? this.data?.talId :  '', [Validators.required]],
       circleId: [this.data ? this.data?.circleId : '', [Validators.required]],
       grampanchayatId: [this.data ? this.data?.grampanchayatId : '', [Validators.required]],
       designationId: [this.data ? this.data?.designationId : '', [Validators.required]],
@@ -107,7 +107,7 @@ export class RegisterOfficerComponent {
       this.masterService.GetDesignationDropDown(deptId || 0).subscribe({
         next: ((res: any) => {
           this.designationArray = res.responseData;
-          this.data ? (this.f['designationId'].setValue(this.data?.designationId)) : '';
+          // this.data ? (this.f['designationId'].setValue(this.data?.designationId)) : '';
         }), error: (() => {
           this.designationArray = [];
         })
@@ -130,7 +130,7 @@ export class RegisterOfficerComponent {
     this.masterService.GetAllState().subscribe({
       next: ((res: any) => {
         this.stateArray = res.responseData;
-        this.data ? (this.f['stateId'].setValue(this.data?.stateId)) : '';
+        // this.data ? (this.f['stateId'].setValue(this.data?.stateId)) : '';
       }), error: (() => {
         this.stateArray = [];
       })
@@ -149,10 +149,12 @@ export class RegisterOfficerComponent {
   }
 
   getBlock() {
+    console.log('dropdown');
+    
     this.masterService.GetAllBlock(1, 1).subscribe({
       next: ((res: any) => {
         this.blockArray = res.responseData;
-        this.data ? (this.f['blockId'].setValue(this.data?.blockId)) : '';
+        // this.data ? (this.f['blockId'].setValue(this.data?.blockId)) : '';
       }), error: (() => {
         this.blockArray = [];
       })
@@ -176,7 +178,7 @@ export class RegisterOfficerComponent {
       this.masterService.GetGrampanchayat(talukaId).subscribe({
         next: ((res: any) => {
           this.grampanchayatArray = res.responseData;
-          this.data ? (this.f['grampanchayatId'].setValue(this.data?.grampanchayatId)) : '';
+          // this.data ? (this.f['grampanchayatId'].setValue(this.data?.grampanchayatId)) : '';
         }), error: (() => {
           this.grampanchayatArray = [];
         })
@@ -190,7 +192,7 @@ export class RegisterOfficerComponent {
     this.masterService.GetAllCircle(stateId, distId, 0).subscribe({
       next: ((res: any) => {
         this.circleArray = res.responseData;
-        this.data ? (this.f['circleId'].setValue(this.data?.circleId)) : '';
+        // this.data ? (this.f['circleId'].setValue(this.data?.circleId)) : '';
       }), error: (() => {
         this.circleArray = [];
       })
@@ -271,22 +273,27 @@ export class RegisterOfficerComponent {
   }
 
   dropDownCall(id?: any) {
-    console.log(id);
+    console.log('iddd',id);
     if(id == 1 || this.data?.departmentLevelId == 1) {
+      console.log('first'); 
       this.getState();
       this.getDisrict();
       this.getCircle();
-    } else if(id == 2 || this.data?.departmentLevelId == 2) {       
+    } else if(id == 2 || this.data?.departmentLevelId == 2) {   
+      console.log('second');    
       this.getState();
       this.getDisrict();
       this.getBlock();
     } else if(id == 3 || this.data?.departmentLevelId == 3) {
+      console.log('third');
       this.getState();
       this.getDisrict();
     } else if(id == 4 || this.data?.departmentLevelId == 4) {
+      console.log('fourth');
       this.getState();
       this.getDisrict();
     } else if(id == 5 || this.data?.departmentLevelId == 5) {
+      console.log('fifth');
       this.getState();
       this.getDisrict();
     }
@@ -302,9 +309,12 @@ export class RegisterOfficerComponent {
       this.f['blockId'].setValue(0);
       this.blockArray = [];
     } else if (levelId == 3) {
+      console.log('village');
       this.f['talukaId'].setValue(0);
       this.talukaArray = [];
       this.grampanchayatArray = [];
+       this.f['grampanchayatId'].setValue(0);
+      this.talukaArray = [];
     } else if (levelId == 4) {
       this.f['grampanchayatId'].setValue(0);
       this.talukaArray = [];
