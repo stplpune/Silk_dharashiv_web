@@ -41,7 +41,7 @@
 
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'setRule.select_scheme'|translate}}</mat-label>  
+              <mat-label>{{'setRule.select_scheme'|translate}}</mat-label>
               <mat-select formControlName="scheme" (selectionChange)="getDepartment('select')"
                 [class]="editFlag ? setRulefrm.controls['scheme'].disable({ onlySelf: true }) :setRulefrm.controls['scheme'].enable({ onlySelf: true })">
                 <mat-option *ngFor="let data of schemeTypeArray" [value]="data.id">{{lang == 'en' ?
@@ -54,7 +54,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'common.department'|translate}}</mat-label>
               <mat-select formControlName="department"
-                (selectionChange)="getDesignation();getAllAction()"
+                (selectionChange)="getAllApprovalMasterLevels()"
                 [class]="(editFlag || !f['scheme'].getRawValue() || !departmentArray?.length) ? f['department'].disable() :f['department'].enable()">
                 <mat-option *ngFor="let data of departmentArray" [value]="data.id">{{lang == 'en' ?
                   data.textEnglish : data.textMarathi}}</mat-option>
@@ -83,7 +83,7 @@
             <ng-container *ngFor="let lessonForm of approvallistForm.controls; let i = index" [formGroupName]="i">
               <div class="row  gx-2">
                 <!-- <div class="col-sm-auto form-data"> {{i + 1}} </div> -->
-                <div class="col-sm-auto">
+                <div class="col-sm-3">
                   <div class="form-data" *ngIf="i == 0">{{'setRule.order'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="approvalLevel" placeholder="Select Order"
@@ -92,7 +92,7 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="col-sm-auto">
+                <div class="col-sm-3">
                   <div class="form-data" *ngIf="i == 0">{{'setRule.action'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="actionId" placeholder="Select Action"
@@ -102,7 +102,7 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="col-sm-auto">
+                <div class="col-sm-3">
                   <div class="form-data" *ngIf="i == 0">{{'setRule.designation_level'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="departmentLevelId" placeholder="Select Designation Level" >
@@ -111,7 +111,7 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="col-sm-auto">
+                <div class="col-sm-3">
                   <div class="form-data" *ngIf="i == 0">{{'setRule.designation'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="designationId" placeholder="Select Designation">
@@ -131,7 +131,7 @@
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-flat-button class="btn-main-light" type="button" mat-dialog-close
             (click)="clearForm()">{{'common.cancel'|translate}}</button>
-          <button mat-flat-button class="btn-main" type="submit" 
+          <button mat-flat-button class="btn-main" type="submit"
             (click)="onSubmit()">{{editFlag?(('blogs.update'|translate)):('villageCircle.save'|translate)}}</button>
         </div>
       </mat-dialog-actions>

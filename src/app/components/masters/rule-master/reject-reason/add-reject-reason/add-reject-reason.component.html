@@ -1,6 +1,7 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">{{editFlag?('rejectReason.update_reject_reason'|translate):('rejectReason.add_reject_reason'|translate)}}</div>
+    <div class="text-main">{{!this.data?('rejectReason.add_reject_reason'|translate):isViewFlag?('rejectReason.view'|translate):('rejectReason.update_reject_reason'|translate)}}</div>
+    
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
     </button>

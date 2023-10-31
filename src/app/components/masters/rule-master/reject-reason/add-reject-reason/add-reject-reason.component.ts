@@ -44,8 +44,6 @@ export class AddRejectReasonComponent implements OnDestroy{
     this.getAction();
     this.isViewFlag = this.data?.label == 'View' ? true : false;
     this.data?.label == 'Edit' ? this.editData() : '';
-    console.log(this.data);
-    
   }
 
   defaultForm() {

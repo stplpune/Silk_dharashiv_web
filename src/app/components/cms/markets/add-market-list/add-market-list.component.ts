@@ -116,7 +116,7 @@ export class AddMarketListComponent {
         "villageId": 0,
         "address": data.address,
         "pincode": data.pincode,
-        "estDate":this.commonMethod.setDate(data.estDate),
+        "estDate":this.commonMethod.setDate(data.estDate) || null,
         "latitude": Number(data.latitude),
         "longitude": Number(data.longitude),
         "administratior": data.administratior,

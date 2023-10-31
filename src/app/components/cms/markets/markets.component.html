@@ -12,19 +12,19 @@
         </div>
       </mat-card-header>
       <mat-card-header class="card-header-control">
-        <form [formGroup]="filterFrm">
+        <form [formGroup]="filterFrm" class="w-100">
         <div class="row g-2">
-          <div class="col-sm">
+          <div class="col-sm-auto">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'common.state' | translate}}</mat-label>
-              <mat-select formControlName="stateId" 
+              <mat-select formControlName="stateId"
               [class]="WebStorageService.getStateId() ? filterFrm.controls['stateId'].disable({ onlySelf: true }) : filterFrm.controls['stateId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let state of stateArray"
                   [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-sm">
+          <div class="col-sm-auto">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'common.district' | translate}}</mat-label>
               <mat-select formControlName="districtId"
@@ -34,7 +34,7 @@
                 </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-sm">
+          <div class="col-sm-auto">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'common.taluka' | translate}}</mat-label>
               <mat-select formControlName="talukaId">
@@ -49,7 +49,7 @@
               <input matInput formControlName="textSearch"  (keypress)="validation.noFirstSpaceAllow($event)" maxlength="50">
             </mat-form-field>
           </div>
-          <div class="col-sm">
+          <div class="col-sm-auto">
             <div class="d-flex align-items-center gap-2">
               <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button" (click)="bindTable('filter')">
                 <mat-icon class="material-symbols-rounded">

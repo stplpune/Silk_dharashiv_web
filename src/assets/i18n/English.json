@@ -140,7 +140,8 @@
     "please_enter_rejection_description": "Please enter rejection description",
     "please_enter_rejection_title_marathi": "Please enter rejection title (marathi)",
     "please_enter_valid_rejection_title": "Please enter valid rejection title (english)",
-    "search":"Search by Reject Title"
+    "search":"Search by Reject Title",
+    "view":"View Reject Reasons"
   },
   "setRule": {
     "set_rule": "Set Rules",
