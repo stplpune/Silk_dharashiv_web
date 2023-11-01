@@ -17,11 +17,12 @@ export class ApprovalProcessComponent implements OnDestroy{
   applicationData:any;
   applicantDetails:any;
   documentList:any;
+  radioFlag:boolean=true;
   subscription!: Subscription;//used  for lang conv
   lang: any;
   routingData:any;
   encryptData:any;
-  radioArray = [{ id: true, value: 'Yes' }, { id: false, value: 'No' }];
+  //radioArray = [{ id: true, value: 'Yes' }, { id: false, value: 'No' }];
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,

@@ -184,7 +184,7 @@
         <div class="col-sm-6">
           <div class="d-flex align-items-center justify-content-between">
             <div class="form-label">Cultivation Land Survey Number:</div>
-            <div class="form-data">{{applicantDetails?.applicantFarmSurveyNo | dash}}</div>
+            <div class="form-data">{{applicantDetails?.mulberryCultivatedSurveyNo | dash}}</div>
           </div>
           <div class="d-flex align-items-center justify-content-between">
             <div class="form-label"> Land Type:</div>
@@ -199,15 +199,18 @@
       <div class="d-flex align-items-center justify-content-between">
         <div class="form-label"> Are you a joined account Holder ?</div>
         <div class="d-flex gap-2">
-          <mat-radio-group >
-          <mat-radio-button *ngFor="let ar of radioArray" [value]="ar.id" >{{ar.value}}</mat-radio-button>
+         <div class="form-data">
+          <mat-radio-group aria-label="Select an option">
+            <mat-radio-button value="yes" [checked]="applicantDetails?.isJointAccHolder == true" class="form-data">Yes</mat-radio-button>
+            <mat-radio-button value="no" [checked]="applicantDetails?.isJointAccHolder == false" class="form-data">No</mat-radio-button>
           </mat-radio-group>
+          </div>
         </div>
       </div>
       <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex gap-2">
           <div class="form-label">Land Survey No. of land to be cultivated as per applicant's share: </div>
-          <div class="form-data">1260</div>
+          <div class="form-data">{{applicantDetails?.applicantFarmSurveyNo | dash}}</div>
         </div>
         <div class="d-flex gap-2">
           <div class="form-label">Its area(Hector): </div>
@@ -217,10 +220,12 @@
 
       <div class="d-flex align-items-center justify-content-between">
         <div class="form-label"> Will take the silk industry training himself or send the candidate ?</div>
-        <mat-radio-button value="1">
-          <div class="fw-bold">Send Candidate</div>
-        </mat-radio-button>
-      </div>
+        <mat-radio-group aria-label="Select an option">
+          <mat-radio-button value="1"  [checked]="applicantDetails?.isSelfTraining == true">
+            <div class="fw-bold">Send Candidate</div>
+          </mat-radio-button>
+        </mat-radio-group>
+       </div>
 
       <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex gap-3">
@@ -237,8 +242,10 @@
         <div class="form-label"> Have you done orchards/flowers/trees before under the government schemes other than
           employement guarantee ?</div>
         <div class="form-data">
-          <mat-radio-button value="1" class="form-data">Yes</mat-radio-button>
-          <mat-radio-button value="1" class="form-data">No</mat-radio-button>
+          <mat-radio-group aria-label="Select an option">
+          <mat-radio-button value="11" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == true" class="form-data">Yes</mat-radio-button>
+          <mat-radio-button value="12" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == false" class="form-data">No</mat-radio-button>
+        </mat-radio-group>
         </div>
       </div>
       <div class="table-responsive scrollbar mb-2">
