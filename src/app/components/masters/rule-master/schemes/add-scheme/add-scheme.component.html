@@ -57,7 +57,7 @@
       </mat-form-field>
     </div>
     <div class="col-sm-12">
-      <angular-editor formControlName="schemeInfo" [config]="editorConfig" placeholder="{{'scheme.scheme_description' | translate }}">
+      <angular-editor formControlName="schemeInfo" (keypress)="validator.noFirstSpaceAllow($event)" [config]="editorConfig" placeholder="{{'scheme.scheme_description' | translate }}">
         <mat-error *ngIf="f['schemeInfo']?.hasError('required')">
           {{'scheme.please_enter_scheme_description'|translate}} </mat-error>
       </angular-editor>
@@ -129,8 +129,11 @@
   <div class="col-sm-12">
     <div class="row">
       <div class="col-sm-5 form-label">{{lang == 'en' ? "Scheme Description" : "योजनेचे वर्णन" }}</div>
-      <div class="col-sm-6 form-data"  [innerHTML]="data?.schemeInfo">:</div>
+      <div class="col-sm-6 form-data"  [innerHTML]="data?.schemeInfo"></div>
     </div>
+
+    
+
   </div>
   <div class="col-sm-12">
     <div class="row">
