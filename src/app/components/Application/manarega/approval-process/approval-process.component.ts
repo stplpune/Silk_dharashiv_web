@@ -15,11 +15,13 @@ import { ActivatedRoute} from '@angular/router';
 })
 export class ApprovalProcessComponent implements OnDestroy{
   applicationData:any;
-  applicantDetails:any
+  applicantDetails:any;
+  documentList:any;
   subscription!: Subscription;//used  for lang conv
   lang: any;
   routingData:any;
   encryptData:any;
+  radioArray = [{ id: true, value: 'Yes' }, { id: false, value: 'No' }];
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -54,11 +56,16 @@ export class ApprovalProcessComponent implements OnDestroy{
       next: (res: any) => {
        if (res.statusCode == '200') {
            this.applicationData = res.responseData;
-            this.applicantDetails = this.applicationData.applicationModel
-           console.log("this.applicationData",this.applicationData.applicationModel )     
+            this.applicantDetails = this.applicationData?.applicationModel;
+            this.documentList = this.applicationData?.allDocument;
+           console.log("this.applicationData",this.applicantDetails)     
            }
       }
     })
+  }
+
+  viewDocument(url:any){
+    window.open(url);
   }
 
   adddocuments() {
