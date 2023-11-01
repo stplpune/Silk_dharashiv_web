@@ -54,7 +54,7 @@ export class AddBlogsComponent {
       thumbnailImage: [this.data ? this.data.thumbnailImage : '',[Validators.required]],
       publishDate: [new Date()],
       status: [this.data ? this.data.status : true],
-      description: [this.data ? this.data.description : '',[Validators.required, this.validator.maxLengthValidator(5000)]],
+      description: [this.data ? this.data.description : '',[Validators.required]],
       flag: [this.data ? "u" : "i"]
     })
     this.imageResponse = this.data ? this.data.thumbnailImage : ''

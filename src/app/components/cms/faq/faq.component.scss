@@ -5,3 +5,10 @@
   text-overflow: ellipsis;
   border: 1px solid #000000;
 }
+
+.faq-table .dashboard-table th, .dashboard-table td {
+  font-family: "Public Sans", sans-serif !important;
+  font-size: clamp(0.5rem,1vw,0.85rem) !important;
+  vertical-align: middle;
+  font-size: clamp(1.8rem, 2.5vw, 2.8rem);
+}

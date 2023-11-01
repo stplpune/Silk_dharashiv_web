@@ -16,7 +16,7 @@
         <div class="col-sm-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.department' | translate}}</mat-label>
-            <mat-select formControlName="departmentId" (selectionChange)="clearDropDown('dept');getDesignation()">
+            <mat-select formControlName="departmentId" (selectionChange)="clearDropDown('dept')">
               <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang != 'en' ?
                 department.textMarathi :department.textEnglish}}
               </mat-option>
@@ -29,7 +29,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.designation_level' | translate}}</mat-label>
             <mat-select formControlName="departmentLevelId"
-              (selectionChange)="clearDropDown(officeForm.value.departmentLevelId);dropDownCall(officeForm.value.departmentLevelId)">
+              (selectionChange)="clearDropDown(officeForm.value.departmentLevelId,'clear');dropDownCall(officeForm.value.departmentLevelId, false);getDesignation()">
               <mat-option *ngFor="let level of departmentLevelArray" [value]="level.id">{{lang != 'en' ?
                 level.textMarathi : level.textEnglish}}
               </mat-option>
@@ -323,7 +323,7 @@
             </mat-form-field>
           </span>
           <div class="d-flex align-items-center justify-content-end gap-2">
-            <button mat-flat-button class="btn-main-light" type="reset">{{'common.cancel' | translate}}</button>
+            <button mat-flat-button class="btn-main-light" type="button" (click)="resetStatus()">{{'action.clear' | translate}}</button>
             <button mat-flat-button class="btn-main" type="submit">{{'talukaBlock.save' | translate}}</button>
           </div>
         </li>
