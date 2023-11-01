@@ -9,7 +9,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { MasterService } from 'src/app/core/services/master.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 @Component({
   selector: 'app-manarega',
   templateUrl: './manarega.component.html',
@@ -33,7 +33,6 @@ export class ManaregaComponent {
   lang: string = 'English';
   get f() { return this.filterFrm.controls };
   displayedColumns: string[] = ['srno', 'applicationid', 'farmername', 'mobileno', 'taluka', 'village', 'date', 'status', 'action'];
-  dataSource = ELEMENT_DATA;
 
 
   constructor(private fb: FormBuilder,
@@ -44,6 +43,7 @@ export class ManaregaComponent {
     private errorService: ErrorHandlingService,
     private common: CommonMethodsService,
     public webStorage: WebStorageService,
+    public encryptdecrypt: AesencryptDecryptService,
     private router: Router,
   ) { }
 
@@ -206,10 +206,22 @@ export class ManaregaComponent {
         this.getTableData();
         break;
       case 'View':
-        this.router.navigate(['../approval-process']);
+        this.openApplicationDetails(obj);
+        // this.router.navigate(['../approval-process']);
         break;
     }
   }
+
+  openApplicationDetails(obj: any) {
+    let Id: any = this.encryptdecrypt.encrypt(`${obj?.id}`);
+    this.router.navigate(['../approval-process'], {
+      queryParams: {
+        id: Id
+      },
+     })
+  }
+
+  
 
   clearDropdown(dropdown: string) {
     if (dropdown == 'Taluka') {
@@ -230,19 +242,6 @@ export class ManaregaComponent {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-}
-export interface PeriodicElement {
-  srno: number;
-  applicationid: string;
-  farmername: string;
-  mobileno: string;
-  taluka: string;
-  village: string;
-  date: string;
-  status: string;
-  action: any;
+
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { srno: 1, applicationid: 'MR0008576253', farmername: 'Jayaram Ramesh Tandale', mobileno: '8669264767', taluka: 'Havelli', village: 'Nagar', date: '25-10-2023', status: 'Pending', action: 'View' }
-];
