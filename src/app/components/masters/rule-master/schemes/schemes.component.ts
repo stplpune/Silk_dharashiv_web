@@ -104,7 +104,7 @@ export class SchemesComponent implements OnDestroy{
       tableSize: this.totalCount,
       tableHeaders: tableHeaders,
       displayedColumns: displayedColumns,
-      pagination: this.totalCount > 5 ? true : false,
+      pagination: this.totalCount > 10 ? true : false,
       view: this.pageAccessObject?.readRight == true ? true: false,
       edit: this.pageAccessObject?.writeRight == true ? true: false,
       delete: this.pageAccessObject?.deleteRight == true ? true: false,
