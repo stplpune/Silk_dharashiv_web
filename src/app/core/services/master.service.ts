@@ -69,7 +69,6 @@ export class MasterService {
     })
   }
   
-
   GetDesignationDropDown(deptId:number,desingLevelId?:number) { 
     return new Observable((obj) => {
       this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-DesignationDropDown?DepartmentId=' + deptId + '&DepartmentLevelId=' + desingLevelId, false, false, false, 'masterUrl')
