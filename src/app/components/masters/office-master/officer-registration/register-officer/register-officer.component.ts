@@ -72,19 +72,19 @@ export class RegisterOfficerComponent {
       id: [this.data ? this.data?.id : 0],
       departmentId: [this.data ? this.data?.id : '', [Validators.required]],
       departmentLevelId: [this.data ? this.data?.departmentLevelId : '', [Validators.required]],
-      stateId: [this.data ? this.data?.stateId : this.webService.getStateId()],
+      stateId: [this.data?.stateId || this.webService.getStateId()],
       districtId: [this.data ? this.data?.districtId :  this.webService.getDistrictId()],
-      blockId: [this.data ? this.data?.blockId : '', [Validators.required]],
-      talukaId: [this.data ? this.data?.talId :  '', [Validators.required]],
-      circleId: [this.data ? this.data?.circleId : '', [Validators.required]],
-      grampanchayatId: [this.data ? this.data?.grampanchayatId : '', [Validators.required]],
-      designationId: [this.data ? this.data?.designationId : '', [Validators.required]],
-      name: [this.data ? this.data?.name : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(50)]],
-      m_Name: [this.data ? this.data?.m_Name : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(50)]],
-      mobNo1: [this.data ? this.data?.mobNo1 : '', [Validators.required, Validators.pattern(this.validator.mobile_No)]],
-      emailId: [this.data ? this.data?.emailId : '', [Validators.required, Validators.email, this.validator.maxLengthValidator(50)]],
-      address: [this.data ? this.data?.address : '', [this.validator.maxLengthValidator(100)]],
-      m_Address: [this.data ? this.data?.m_Address : '', [this.validator.maxLengthValidator(100), Validators.pattern(this.validator.marathi)]],
+      blockId: [this.data?.blockId || '', [Validators.required]],
+      talukaId: [this.data?.talId ||  '', [Validators.required]],
+      circleId: [this.data?.circleId || '', [Validators.required]],
+      grampanchayatId: [this.data?.grampanchayatId || '', [Validators.required]],
+      designationId: [this.data?.designationId || '', [Validators.required]],
+      name: [ this.data?.name || '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(50)]],
+      m_Name: [ this.data?.m_Name || '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(50)]],
+      mobNo1: [ this.data?.mobNo1 || '', [Validators.required, Validators.pattern(this.validator.mobile_No)]],
+      emailId: [ this.data?.emailId || '', [Validators.required, Validators.email, this.validator.maxLengthValidator(50)]],
+      address: [this.data?.address || '', [this.validator.maxLengthValidator(100)]],
+      m_Address: [this.data?.m_Address || '', [this.validator.maxLengthValidator(100), Validators.pattern(this.validator.marathi)]],
       flag: [this.data ? "u" : "i"],
       createdBy: [this.WebStorageService.getUserId()]
     })
@@ -95,6 +95,7 @@ export class RegisterOfficerComponent {
   get f() { return this.officeForm.controls;}
 
   getDepartment() {
+    this.departmentArray = [];
     this.masterService.GetDepartmentDropdown().subscribe({
       next: ((res: any) => {
         this.departmentArray = res.responseData;
@@ -106,6 +107,7 @@ export class RegisterOfficerComponent {
   }
 
   getDesignation() {
+    this.designationArray = [];
     let deptId = this.officeForm.getRawValue().departmentId;
     let deptLevelId = this.officeForm.getRawValue().departmentLevelId;
     if (deptId != 0) {
@@ -121,6 +123,7 @@ export class RegisterOfficerComponent {
   }
 
   getDepartmentLevel() {
+    this.departmentLevelArray = [];
     this.masterService.GetDeptLevelDropDown().subscribe({
       next: ((res: any) => {
         this.departmentLevelArray = res.responseData;
@@ -132,6 +135,7 @@ export class RegisterOfficerComponent {
   }
 
   getState() {
+    this.stateArray = [];
     this.masterService.GetAllState().subscribe({
       next: ((res: any) => {
         this.stateArray = res.responseData;
@@ -143,10 +147,11 @@ export class RegisterOfficerComponent {
   }
 
   getDisrict() {    
+    this.districtArray = [];
     this.masterService.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
         this.districtArray = res.responseData;
-        this.officeForm.value.departmentLevelId != 2 && this.officeForm.value.departmentLevelId != 5  ? (this.f['districtId'].setValue(this.data?.districtId || 1),this.getTaluka()) : ''
+        this.officeForm.value.departmentLevelId != 2 && this.officeForm.value.departmentLevelId != 5  ||  this.data ? (this.f['districtId'].setValue(this.data?.districtId || 1),this.getTaluka()) : ''
       }), error: (() => {
         this.districtArray = [];
       })
@@ -154,6 +159,7 @@ export class RegisterOfficerComponent {
   }
 
   getBlock() {
+    this.blockArray = [];
     this.masterService.GetAllBlock(1, 1).subscribe({
       next: ((res: any) => {
         this.blockArray = res.responseData;
@@ -165,6 +171,7 @@ export class RegisterOfficerComponent {
   }
 
   getTaluka() {
+    this.talukaArray = [];
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
@@ -177,6 +184,7 @@ export class RegisterOfficerComponent {
   }
 
   getGrampanchayat() {
+    this.grampanchayatArray = [];
     let talukaId = this.officeForm.getRawValue().talukaId || 0;
     if (talukaId != 0) {
       this.masterService.GetGrampanchayat(talukaId).subscribe({
@@ -191,6 +199,7 @@ export class RegisterOfficerComponent {
   }
 
   getCircle() {
+    this.circleArray = [];
     let stateId = this.officeForm.getRawValue().stateId;
     let distId = this.officeForm.getRawValue().districtId;
     this.masterService.GetAllCircle(stateId, distId, 0).subscribe({
@@ -277,13 +286,18 @@ export class RegisterOfficerComponent {
   }
 
   dropDownCall(id?: any, flag?:any) {
-    this.getState();
-    this.getDisrict();
     if(id == 1 || flag ) {
+      this.getState();
+      this.getDisrict();
       this.getCircle();
     } else if(id == 2  || flag){ 
+      this.getState();
+      this.getDisrict();
       this.getBlock();
-    } 
+    } else if((id == 2  || flag) || (id == 3  || flag) || (id == 4  || flag)){
+      this.getState();
+      this.getDisrict();
+    }
   }
 
   clearDropDown(levelId?: any,flag?:any) { 
