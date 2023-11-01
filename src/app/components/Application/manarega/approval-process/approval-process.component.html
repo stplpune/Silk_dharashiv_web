@@ -13,37 +13,37 @@
         <div class="col-sm-4">
           <div class="d-flex gap-2">
             <div class="form-label">Application ID</div>
-            <div class="form-data">: MR20230723</div>
+            <div class="form-data">: {{applicationData?.applicationNo | dash}}</div>
           </div>
         </div>
         <div class="col-sm-4">
           <div class="d-flex gap-2">
             <div class="form-label">Process Department</div>
-            <div class="form-data">: </div>
+            <div class="form-data">:{{lang == 'en' ? (applicationData?.departmentName | dash) : (applicationData?.m_DepartmentName | dash)}} </div>
           </div>
         </div>
         <div class="col-sm-4">
           <div class="d-flex gap-2">
             <div class="form-label">Date </div>
-            <div class="form-data">: 26-10-2023</div>
+            <div class="form-data">: {{(applicationData?.applicationDate | date: 'dd-MM-yyyy') | dash}}</div>
           </div>
         </div>
         <div class="col-sm-4">
           <div class="d-flex gap-2">
             <div class="form-label">Officer </div>
-            <div class="form-data">: Agriculture Assissitant</div>
+            <div class="form-data">:{{lang == 'en' ? (applicationData?.designationName | dash) : (applicationData?.m_DesignationName | dash)}} </div>
           </div>
         </div>
         <div class="col-sm-4">
           <div class="d-flex gap-2">
             <div class="form-label">Action </div>
-            <div class="form-data">: Survey</div>
+            <div class="form-data">: {{lang == 'en' ? (applicationData?.actionName | dash ) : (applicationData?.m_ActionName | dash)}}</div>
           </div>
         </div>
         <div class="col-sm-4">
           <div class="d-flex gap-2">
             <div class="form-label">Status </div>
-            <div class="form-data text-warning">: Pending</div>
+            <div class="form-data text-warning">: {{lang == 'en' ? (applicationData?.status | dash ) : (applicationData?.m_Status | dash)}}</div>
           </div>
         </div>
       </div>
@@ -63,91 +63,91 @@
             <div class="col-sm-12">
               <div class="row gx-2">
                 <div class="col-sm-2 form-label">Applicant Name</div>
-                <div class="col-sm-7 form-data">: Jayram Ramesh Tandale</div>
+                <div class="col-sm-7 form-data">: {{lang == 'en' ? (applicantDetails?.fullName | dash ) : (applicantDetails?.m_FullName | dash)}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-5 form-label">Manarega Job Card No.</div>
-                <div class="col-sm-7 form-data">: MH_12-22-009-827-001/427</div>
+                <div class="col-sm-7 form-data">:{{applicantDetails?.mn_JobCardNo | dash}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-5 form-label">Mobile No.</div>
-                <div class="col-sm-7 form-data">: 8669264767</div>
+                <div class="col-sm-7 form-data">:{{applicantDetails?.mobileNo1 | dash}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-5 form-label">Alt Mobile No.</div>
-                <div class="col-sm-7 form-data">: 8669264767</div>
+                <div class="col-sm-7 form-data">: {{applicantDetails?.mobileNo2 | dash}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-5 form-label">Aadhar Number</div>
-                <div class="col-sm-7 form-data">: 866926476712345</div>
+                <div class="col-sm-7 form-data">: {{applicantDetails?.aadharNo | dash}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-5 form-label">Gender</div>
-                <div class="col-sm-7 form-data">: Male</div>
+                <div class="col-sm-7 form-data">:{{lang == 'en' ? (applicantDetails?.gender | dash ) : (applicantDetails?.m_gender | dash)}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-5 form-label">Date of Birth</div>
-                <div class="col-sm-7 form-data">: 26-10-2023</div>
+                <div class="col-sm-7 form-data">: {{(applicantDetails?.birthDate | date: 'dd-MM-yyyy') | dash}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-5 form-label">Education</div>
-                <div class="col-sm-7 form-data">: 12th</div>
+                <div class="col-sm-7 form-data">:{{lang == 'en' ? (applicantDetails?.qualification | dash ) : (applicantDetails?.m_Qualification | dash)}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-5 form-label">State</div>
-                <div class="col-sm-7 form-data">: Maharashtra</div>
+                <div class="col-sm-7 form-data">:{{lang == 'en' ? (applicantDetails?.state | dash ) : (applicantDetails?.m_State | dash)}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-5 form-label">District</div>
-                <div class="col-sm-7 form-data">: Dharashiv</div>
+                <div class="col-sm-7 form-data">: {{lang == 'en' ? (applicantDetails?.district | dash ) : (applicantDetails?.m_District | dash)}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-5 form-label">Taluka</div>
-                <div class="col-sm-7 form-data">: Kalamb</div>
+                <div class="col-sm-7 form-data">: {{lang == 'en' ? (applicantDetails?.taluka | dash ) : (applicantDetails?.m_Taluka | dash)}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-5 form-label">Village Committee</div>
-                <div class="col-sm-7 form-data">: Nipani</div>
+                <div class="col-sm-7 form-data">: {{lang == 'en' ? (applicantDetails?.grampanchayatName | dash ) : (applicantDetails?.m_GrampanchayatName | dash)}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-5 form-label">Village </div>
-                <div class="col-sm-7 form-data">: Nipani</div>
+                <div class="col-sm-7 form-data">:{{lang == 'en' ? (applicantDetails?.village | dash ) : (applicantDetails?.village | dash)}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-5 form-label">Pincode </div>
-                <div class="col-sm-7 form-data">: 442365</div>
+                <div class="col-sm-7 form-data">:  {{applicantDetails?.pinCode | dash}}</div>
               </div>
             </div>
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-sm-2 form-label">Address </div>
-                <div class="col-sm form-data">: Laxmi Road, Infront of Priamry</div>
+                <div class="col-sm form-data">:{{lang == 'en' ? (applicantDetails?.address | dash ) : (applicantDetails?.m_Address | dash)}}</div>
               </div>
             </div>
           </div>
@@ -170,25 +170,25 @@
           <div class="d-flex align-items-center justify-content-between">
             <div class="form-label">Total Land in Hectares(up to 2.0 hectares) in favor of beneciaries(as per 8-A):
             </div>
-            <div class="form-data">2.0</div>
+            <div class="form-data"> {{applicantDetails?.benificiaryTotalFarm | dash}}</div>
           </div>
           <div class="d-flex align-items-center justify-content-between">
             <div class="form-label">Cultivated Area in Hectares:</div>
-            <div class="form-data">2.0</div>
+            <div class="form-data">{{applicantDetails?.cultivatedFarmInHector | dash}}</div>
           </div>
           <div class="d-flex align-items-center justify-content-between">
             <div class="form-label"> Irrigation Facility :</div>
-            <div class="form-data">Well</div>
+            <div class="form-data">{{lang == 'en' ? (applicantDetails?.irrigationFacility | dash ) : (applicantDetails?.m_IrrigationFacility | dash)}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="d-flex align-items-center justify-content-between">
             <div class="form-label">Cultivation Land Survey Number:</div>
-            <div class="form-data">1202</div>
+            <div class="form-data">{{applicantDetails?.applicantFarmSurveyNo | dash}}</div>
           </div>
           <div class="d-flex align-items-center justify-content-between">
             <div class="form-label"> Land Type:</div>
-            <div class="form-data">Medium</div>
+            <div class="form-data">{{lang == 'en' ? (applicantDetails?.farmType | dash ) : (applicantDetails?.m_FarmType | dash)}}</div>
           </div>
           <!-- <div class="d-flex align-items-center justify-content-between">
             <div class="form-label"> Irrigation Facility :</div>
@@ -210,7 +210,7 @@
         </div>
         <div class="d-flex gap-2">
           <div class="form-label">Its area(Hector): </div>
-          <div class="form-data">2</div>
+          <div class="form-data">{{applicantDetails?.applicantFarmArea | dash}}</div>
         </div>
       </div>
 
@@ -224,11 +224,11 @@
       <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex gap-3">
           <div class="form-label">Candidate Name : </div>
-          <div class="form-data">Gajanan Hambirrao Mohite</div>
+          <div class="form-data">{{applicantDetails?.candidateName | dash}}</div>
         </div>
         <div class="d-flex gap-2">
           <div class="form-label">Relation : </div>
-          <div class="form-data">Son</div>
+          <div class="form-data">{{lang == 'en' ? (applicantDetails?.relationName | dash ) : (applicantDetails?.m_RelationName | dash)}}</div>
         </div>
       </div>
 
@@ -245,7 +245,7 @@
           <thead>
             <tr>
               <th>Orchard/Flower/Tree Name</th>
-              <th>Group No.</th>
+               <th>Group No.</th>
               <th>Group Area (Hectares)</th>
               <th>Cultivated Area (Hectares)</th>
               <th>Number of trees planted</th>
@@ -253,7 +253,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>Sericulture</td>
+              <td>{{lang == 'en' ? (applicantDetails?.plantName | dash ) : ('')}}</td>
               <td>52142</td>
               <td>2</td>
               <td>1</td>
