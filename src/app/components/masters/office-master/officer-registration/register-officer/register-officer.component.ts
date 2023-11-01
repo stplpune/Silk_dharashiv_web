@@ -67,10 +67,18 @@ export class RegisterOfficerComponent {
   }
 
 
-  getFormData() {
+  getFormData() { 
+    // Value Updated for setting required validation for update functionality   
+    if(this.data){
+      this.data.blockId = this.data?.blockId != 0 ? this.data?.blockId : ''
+      this.data.talId = this.data?.talId != 0 ? this.data?.talId : ''
+      this.data.circleId = this.data?.circleId != 0 ? this.data?.circleId : ''
+      this.data.grampanchayatId = this.data?.grampanchayatId != 0 ? this.data?.grampanchayatId : ''
+      this.data.designationId = this.data?.designationId != 0 ? this.data?.designationId : ''
+    }
     this.officeForm = this.fb.group({
       id: [this.data ? this.data?.id : 0],
-      departmentId: [this.data ? this.data?.id : '', [Validators.required]],
+      departmentId: [this.data ? this.data?.departmentId : '', [Validators.required]],
       departmentLevelId: [this.data ? this.data?.departmentLevelId : '', [Validators.required]],
       stateId: [this.data?.stateId || this.webService.getStateId()],
       districtId: [this.data ? this.data?.districtId :  this.webService.getDistrictId()],
@@ -88,8 +96,8 @@ export class RegisterOfficerComponent {
       flag: [this.data ? "u" : "i"],
       createdBy: [this.WebStorageService.getUserId()]
     })
-     this.dropDownCall(this.data?.departmentLevelId, true);
-     this.clearDropDown();
+    this.data ? this.dropDownCall(this.data?.departmentLevelId, true) : '';
+    //  this.clearDropDown();
   }
 
   get f() { return this.officeForm.controls;}
@@ -158,12 +166,14 @@ export class RegisterOfficerComponent {
     })
   }
 
-  getBlock() {
+  getBlock(flag?:any) {
+    console.log('hiiiiiii');
+    
     this.blockArray = [];
     this.masterService.GetAllBlock(1, 1).subscribe({
       next: ((res: any) => {
         this.blockArray = res.responseData;
-        // this.data ? (this.f['blockId'].setValue(this.data?.blockId)) : '';
+        (this.data  && flag) ? (this.f['blockId'].setValue(this.data?.blockId)) : '';
       }), error: (() => {
         this.blockArray = [];
       })
@@ -198,14 +208,14 @@ export class RegisterOfficerComponent {
     }
   }
 
-  getCircle() {
+  getCircle(flag?: any) {
     this.circleArray = [];
     let stateId = this.officeForm.getRawValue().stateId;
     let distId = this.officeForm.getRawValue().districtId;
     this.masterService.GetAllCircle(stateId, distId, 0).subscribe({
       next: ((res: any) => {
         this.circleArray = res.responseData;
-        this.data ? (this.f['circleId'].setValue(this.data?.circleId)) : '';
+        (this.data && flag) ? (this.f['circleId'].setValue(this.data?.circleId)) : '';
       }), error: (() => {
         this.circleArray = [];
       })
@@ -286,53 +296,63 @@ export class RegisterOfficerComponent {
   }
 
   dropDownCall(id?: any, flag?:any) {
-    if(id == 1 || flag ) {
-      this.getState();
-      this.getDisrict();
-      this.getCircle();
-    } else if(id == 2  || flag){ 
-      this.getState();
-      this.getDisrict();
-      this.getBlock();
-    } else if((id == 2  || flag) || (id == 3  || flag) || (id == 4  || flag)){
-      this.getState();
-      this.getDisrict();
-    }
+    console.log('idddddd',id);
+    
+    this.getState();
+    this.getDisrict();
+    (id == 1 || flag) ? this.getCircle(flag) : (id == 2  || flag) ? this.getBlock(flag) : '';
+
+    // if(id == 1 || flag ) {
+    //   this.getState();
+    //   this.getDisrict();
+    //   this.getCircle();
+    // } else if(id == 2  || flag){ 
+    //   this.getState();
+    //   this.getDisrict();
+    //   this.getBlock();
+    // } else if((id == 5  || flag) || (id == 3  || flag) || (id == 4  || flag)){
+    //   this.getState();
+    //   this.getDisrict();
+    // }
   }
 
-  clearDropDown(levelId?: any,flag?:any) { 
-    if (levelId == 1 ) {
+  clearDropDown(levelId?: any, _flag?:any) { 
+    if (levelId == 1 ) {  //Circle
       this.f['talukaId'].setValue('');
       this.talukaArray = [];
       this.f['circleId'].setValue('');
       this.circleArray = [];
-    } else if (levelId == 2) {
+    } else if (levelId == 2) {  //Block
       this.f['blockId'].setValue('');
       this.blockArray = [];
-    } else if (levelId == 3) {
+    } else if (levelId == 3) {  //Village
       this.f['talukaId'].setValue('');
       this.talukaArray = [];
       this.f['grampanchayatId'].setValue('');
       this.grampanchayatArray = [];
     }
-    else if (levelId == 'village') {
+    else if (levelId == 4) {    //Taluka
       this.f['grampanchayatId'].setValue('');
       this.grampanchayatArray = [];
-    } else if (flag == 'clear') {      
-      this.f['designationId'].setValue('');
-      this.designationArray = [];
-    }else{
-      this.f['talukaId'].setValue('');
-      this.talukaArray = [];
-      this.f['circleId'].setValue('');
-      this.circleArray = [];
-      this.f['blockId'].setValue('');
-      this.blockArray = [];
-      this.f['grampanchayatId'].setValue('');
-      this.grampanchayatArray = [];
-      this.f['designationId'].setValue('');
-      this.designationArray = [];
-    }
+    } 
+    // else if (flag == 'clear') {      
+    //   this.f['designationId'].setValue('');
+    //   this.designationArray = [];
+    // }
+    // else{
+    //   this.f['talukaId'].setValue('');
+    //   this.talukaArray = [];
+    //   this.f['circleId'].setValue('');
+    //   this.circleArray = [];
+    //   // this.f['blockId'].setValue('');
+    //   // this.blockArray = [];
+    //   this.f['grampanchayatId'].setValue('');
+    //   this.grampanchayatArray = [];
+    //   this.f['designationId'].setValue('');
+    //   this.designationArray = [];
+    // }
+    this.f['designationId'].setValue('');
+    this.designationArray = [];
   }
 
   getstatusForm() {

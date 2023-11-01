@@ -76,7 +76,7 @@
       || (officeForm.value.departmentLevelId == 1)">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.taluka' | translate}}</mat-label>
-            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('village');getGrampanchayat()">
+            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown(officeForm.value.departmentLevelId, 'village');getGrampanchayat()">
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi
                 :taluka.textEnglish}}</mat-option>
             </mat-select>
