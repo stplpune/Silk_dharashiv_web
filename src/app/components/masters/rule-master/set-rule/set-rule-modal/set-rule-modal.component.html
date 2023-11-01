@@ -1,9 +1,9 @@
 <div>
   <div mat-dialog-title class="modal-header">
     <div class="d-flex align-items-center justify-content-between w-100">
-      <div class="text-main">{{!this.data
-        ?('setRule.add_rule'|translate):isViewFlag?('setRule.view_rule'|translate):('setRule.update_rule'|translate)}}
-      </div>
+      <div class="text-main">  
+        {{data?.label == 'View' ? ('setRule.view_rule'|translate) : editFlag ? ('setRule.update_rule'|translate) : ('setRule.add_rule'|translate)}}
+      </div> 
       <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
         <span class="material-symbols-rounded">close</span>
       </button>
@@ -13,7 +13,7 @@
   <div *ngIf="!isViewFlag">
     <form [formGroup]="setRulefrm" #formDirective="ngForm">
       <mat-dialog-content class="modal-body form-container">
-        <div class="row gx-2" [class.disable]="editFlag">
+        <div class="row gx-2" >
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'setRule.select_state'|translate}}</mat-label>
@@ -43,7 +43,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'setRule.select_scheme'|translate}}</mat-label>
               <mat-select formControlName="scheme" (selectionChange)="getDepartment('select')"
-                [class]="editFlag ? setRulefrm.controls['scheme'].disable({ onlySelf: true }) :setRulefrm.controls['scheme'].enable({ onlySelf: true })">
+                [class]="data?.label == 'Edit' ? setRulefrm.controls['scheme'].disable({ onlySelf: true }) :setRulefrm.controls['scheme'].enable({ onlySelf: true })">
                 <mat-option *ngFor="let data of schemeTypeArray" [value]="data.id">{{lang == 'en' ?
                   data.textEnglish : data.textMarathi}}</mat-option>
               </mat-select>
@@ -55,7 +55,7 @@
               <mat-label>{{'common.department'|translate}}</mat-label>
               <mat-select formControlName="department"
                 (selectionChange)="getAllApprovalMasterLevels()"
-                [class]="(editFlag || !f['scheme'].getRawValue() || !departmentArray?.length) ? f['department'].disable() :f['department'].enable()">
+                [class]="(data?.label == 'Edit' || !f['scheme'].getRawValue() || !departmentArray?.length) ? f['department'].disable() :f['department'].enable()">
                 <mat-option *ngFor="let data of departmentArray" [value]="data.id">{{lang == 'en' ?
                   data.textEnglish : data.textMarathi}}</mat-option>
               </mat-select>

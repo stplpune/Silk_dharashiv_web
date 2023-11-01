@@ -59,8 +59,7 @@ export class SetRuleModalComponent implements OnDestroy {
     this.getSchemeType();
     this.getDesignationLevel();
     this.data?.label == 'Edit' ? this.editData() : '';
-    this.tableData = this.data?.getApprovalMaster
-
+    this.tableData = this.data?.getApprovalMaster;
   }
 
   //#region ------------------------------------------------------filter drop fn start heare--------------------------------------------//
@@ -119,6 +118,7 @@ export class SetRuleModalComponent implements OnDestroy {
     this.master.GetDepartmentDropdown(this.f['scheme'].getRawValue()).subscribe({
       next: ((res: any) => {
         this.departmentArray = res.responseData;
+        this.editFlag = false;
         this.f["department"].setValidators([Validators.required]); this.f["department"].updateValueAndValidity();
        }), error: (() => {
         this.departmentArray = [];
@@ -130,7 +130,7 @@ export class SetRuleModalComponent implements OnDestroy {
   }
 
   getAllAction(){
-    this.setRulefrm.controls['approvalLevels'].reset();
+    // this.setRulefrm.controls['approvalLevels'].reset();
     const arr:any = this.setRulefrm.controls['approvalLevels'] as FormArray;
     if ( arr.length > 0 ){arr.clear();}
       let formData = this.setRulefrm.getRawValue();
@@ -188,12 +188,10 @@ export class SetRuleModalComponent implements OnDestroy {
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
-          console.log('1');
           this.data = res.responseData[0];
           this.editData();
-          // this.tableresp = res.responseData;
         } else {
-          console.log('2');
+          this.editFlag = false;
           this.getDesignation();
           this.getAllAction();
         }
@@ -212,6 +210,8 @@ export class SetRuleModalComponent implements OnDestroy {
 
     this.getDepartment(); // when Scheme selected
     this.getDesignation();
+
+    const arr:any = this.setRulefrm.controls['approvalLevels'] as FormArray; if ( arr.length > 0 ){arr.clear();} //Clear Form Array
 
     let orderActionArray:any[] = []; // only For Order Action | Dropdown required Field
     this.data?.getApprovalMaster.forEach((x: any) => {
@@ -236,7 +236,6 @@ export class SetRuleModalComponent implements OnDestroy {
     if (this.setRulefrm.invalid || !this.approvallistForm.controls?.length) {
       return;
     }
-
     this.spinner.show();
     let formData = this.setRulefrm.getRawValue();
 
@@ -260,10 +259,7 @@ export class SetRuleModalComponent implements OnDestroy {
           this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
         }
       }),
-      error: (error: any) => {
-        this.spinner.hide();
-        this.error.handelError(error.statusCode);
-      }
+      error: (error: any) => {this.spinner.hide();this.error.handelError(error.statusCode)}
     });
   }
 
