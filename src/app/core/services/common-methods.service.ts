@@ -95,20 +95,16 @@ export class CommonMethodsService {
     minHeight: '5rem',
     translate: 'no',
     defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
     toolbarHiddenButtons: [
-      ['fontName', 'heading', 'fontSize', 'subscript', 'superscript', 'justifyLeft',
-        'justifyCenter',
-        'justifyRight',
-        'justifyFull',
-        'indent',
-        'outdent', 'heading',
-        'fontName', 'customClasses',
-        'insertImage',
-        'insertVideo',
-        'insertHorizontalRule', 'textColor',
-        'backgroundColor',
-        'removeFormat',
-        'toggleEditorMode']
+      ['insertVideo', 'toggleEditorMode']
+    ],
+    customClasses: [
+      {
+        name: 'image',
+        class: 'textareaimage',
+        tag: 'img',
+      },
     ],
   };
 
