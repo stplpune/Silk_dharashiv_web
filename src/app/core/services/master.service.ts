@@ -68,10 +68,20 @@ export class MasterService {
       })
     })
   }
-
-  GetDesignationDropDown(deptId: number) {
+  
+  GetDesignationDropDown(deptId:number,desingLevelId?:number) { 
     return new Observable((obj) => {
-      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-DesignationDropDown?DepartmentId=' + deptId, false, false, false, 'masterUrl')
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-DesignationDropDown?DepartmentId=' + deptId + '&DepartmentLevelId=' + desingLevelId, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  GetDesignationDropDownOnDeptLevel(deptId: number,deptLevelId:number) {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-DesignationDropDown?DepartmentId=' + deptId+'&DepartmentLevelId='+deptLevelId, false, false, false, 'masterUrl')
       this.apiService.getHttp().subscribe({
         next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
         error: (e: any) => { obj.error(e) }

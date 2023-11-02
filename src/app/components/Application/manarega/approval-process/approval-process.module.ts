@@ -15,8 +15,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AddDocumentsComponent } from './add-documents/add-documents.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
-
-
+import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
 @NgModule({
   declarations: [
     ApprovalProcessComponent,
@@ -36,6 +35,7 @@ import { ViewDetailsComponent } from './view-details/view-details.component';
     MatIconModule,
     MatTableModule,
     MatButtonModule,
+    DashPipe
   ]
 })
 export class ApprovalProcessModule { }

@@ -15,7 +15,7 @@ export class FileUploadService {
     private errorService:ErrorHandlingService,
     private commonMethodService : CommonMethodsService) { }
 
-  uploadDocuments(event?: any, folderName?: any, allowedDocTypes?: any, _minsize?: any, _maxsize?: any) {
+  uploadDocuments(event?: any, folderName?: any, allowedDocTypes?: any, _minsize?: any, _maxsize?: any, lflag?:any) {
         return new Observable(obj => {
       const selResult = event.target.value.split('.');
       const docExt = selResult.pop();
@@ -25,7 +25,7 @@ export class FileUploadService {
           const file = event.target.files[0];
           if (file.size > 1048576) {
             obj.error("Required file size should be less than " + 1 + " MB.");
-            this.commonMethodService.snackBar("Required file size should be less than " + 1 + " MB.", 1)
+            this.commonMethodService.snackBar(lflag == 'en' ? "Required file size should be less than "+ 1 + " MB." : "आवश्यक फाइल आकार "+ 1 + " MB"+" पेक्षा कमी असावा", 1)
           }
           else {
             const reader: any = new FileReader();

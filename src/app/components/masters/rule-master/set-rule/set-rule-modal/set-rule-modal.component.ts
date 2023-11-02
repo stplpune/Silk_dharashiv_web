@@ -67,7 +67,7 @@ export class SetRuleModalComponent implements OnDestroy {
   defaultFrom() {
     this.setRulefrm = this.fb.group({  
       scheme: ['', [Validators.required]],
-      department: [''],
+      department: ['', [Validators.required]],
       state: [this.apiService.stateId, [Validators.required]],
       district: [this.apiService.disId, [Validators.required]],
       approvalLevels: this.fb.array([])
@@ -114,25 +114,19 @@ export class SetRuleModalComponent implements OnDestroy {
     })
   }
 
-  getDepartment(flag?:any) {   
+  getDepartment() {   
     this.master.GetDepartmentDropdown(this.f['scheme'].getRawValue()).subscribe({
       next: ((res: any) => {
         this.departmentArray = res.responseData;
-        this.editFlag = false;
-        this.f["department"].setValidators([Validators.required]); this.f["department"].updateValueAndValidity();
        }), error: (() => {
         this.departmentArray = [];
-        this.f['department'].setValue(''); this.f['department'].clearValidators(); this.f['department'].updateValueAndValidity(); // when department Res Available
-        flag == 'select' ? this.getAllApprovalMasterLevels() : '';
-        // flag == 'select' ? this.getAllAction() : '';
       })
     })
   }
 
   getAllAction(){
     // this.setRulefrm.controls['approvalLevels'].reset();
-    const arr:any = this.setRulefrm.controls['approvalLevels'] as FormArray;
-    if ( arr.length > 0 ){arr.clear();}
+      this.formArrayClear();
       let formData = this.setRulefrm.getRawValue();
       let obj= + formData.state + '&DistrictId=' + formData.district + '&SchemeId=' + formData.scheme + '&DepartmentId=' + (formData.department || 0) + '&lan=' + this.lang
       this.apiService.setHttp('GET', 'sericulture/api/Action/get-All-Action?StateId=' + obj, false, false, false, 'masterUrl');
@@ -170,8 +164,8 @@ export class SetRuleModalComponent implements OnDestroy {
     })
   }
 
-  getDesignation() {
-    this.master.GetDesignationDropDown(this.f['department'].getRawValue() || 0).subscribe({
+  getDesignation(dep:any,designLevel:any) {
+    this.master.GetDesignationDropDown(dep,designLevel).subscribe({
       next: ((res: any) => {
         this.designationArray = res.responseData;
         this.designationArray.unshift({ id: 0, textEnglish: 'Select Designation', textMarathi: "पदनाम निवडा" })
@@ -192,7 +186,7 @@ export class SetRuleModalComponent implements OnDestroy {
           this.editData();
         } else {
           this.editFlag = false;
-          this.getDesignation();
+          // this.getDesignation();
           this.getAllAction();
         }
       },error: (err: any) => {this.error.handelError(err.status)},
@@ -209,9 +203,8 @@ export class SetRuleModalComponent implements OnDestroy {
     });
 
     this.getDepartment(); // when Scheme selected
-    this.getDesignation();
 
-    const arr:any = this.setRulefrm.controls['approvalLevels'] as FormArray; if ( arr.length > 0 ){arr.clear();} //Clear Form Array
+    this.formArrayClear();
 
     let orderActionArray:any[] = []; // only For Order Action | Dropdown required Field
     this.data?.getApprovalMaster.forEach((x: any) => {
@@ -224,6 +217,8 @@ export class SetRuleModalComponent implements OnDestroy {
           designationId: [x?.designationId],
         }
       ));
+
+      this.getDesignation(this.data.departmentId,x?.departmentLevelId);
 
       orderActionArray.push({"id": x?.actionId,"actionName": x?.actionName,"m_ActionName": x?.m_ActionName,
         "orderLevel": x?.orderLevel,"approvalLevel": x?.approvalLevel,"m_ApprovalLevel": x?.m_ApprovalLevel,})
@@ -261,6 +256,10 @@ export class SetRuleModalComponent implements OnDestroy {
       }),
       error: (error: any) => {this.spinner.hide();this.error.handelError(error.statusCode)}
     });
+  }
+
+  formArrayClear(){
+    const arr:any = this.setRulefrm.controls['approvalLevels'] as FormArray; if ( arr.length > 0 ){arr.clear();} //Clear Form Array
   }
 
   clearForm() {

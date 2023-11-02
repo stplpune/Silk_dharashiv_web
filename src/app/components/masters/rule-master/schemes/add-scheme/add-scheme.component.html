@@ -57,11 +57,11 @@
       </mat-form-field>
     </div>
     <div class="col-sm-12">
-      <angular-editor formControlName="schemeInfo" (keypress)="validator.noFirstSpaceAllow($event)" [config]="editorConfig" placeholder="{{'scheme.scheme_description' | translate }}">
+      <angular-editor formControlName="schemeInfo"  [config]="editorConfig" placeholder="{{'scheme.scheme_description' | translate }}">
         <mat-error *ngIf="f['schemeInfo']?.hasError('required')">
           {{'scheme.please_enter_scheme_description'|translate}} </mat-error>
       </angular-editor>
-      <mat-error *ngIf="f['schemeInfo']?.hasError('maxLengthExceeded')">{{lang == 'en' ? "Maximum limit is 5000 characters" : "कमाल 5000 वर्णांना अनुमती आहे"}} </mat-error>
+      <!-- <mat-error *ngIf="f['schemeInfo']?.hasError('maxLengthExceeded')">{{lang == 'en' ? "Maximum limit is 5000 characters" : "कमाल 5000 वर्णांना अनुमती आहे"}} </mat-error> -->
       <mat-error *ngIf="editorFlag && !schemeForm.value.schemeInfo">{{lang == 'en' ? "Please Add Scheme Description" : "कृपया योजनेची माहिती प्रविष्ट करा"}} </mat-error>
     </div>
     <div class="col-sm-12">
@@ -127,7 +127,7 @@
     </div>
   </div>
   <div class="col-sm-12">
-    <div class="row">
+    <div class="row upload-img-view">
       <div class="col-sm-5 form-label">{{lang == 'en' ? "Scheme Description" : "योजनेचे वर्णन" }}</div>
       <div class="col-sm-6 form-data"  [innerHTML]="data?.schemeInfo"></div>
     </div>
