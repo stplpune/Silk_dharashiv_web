@@ -102,7 +102,7 @@ export class LoginComponent {
           this.encryptInfo = encodeURIComponent((JSON.stringify(JSON.stringify(res))))
           // this.encryptInfo = encodeURIComponent((JSON.stringify(JSON.stringify(res)), 'secret key 123').toString());
           this.loginData = this.AESEncryptDecryptService.encrypt(JSON.stringify(res?.responseData));
-          localStorage.setItem('loggedInData', this.loginData);
+          localStorage.setItem('silkDharashivUserInfo', this.loginData);
          //this.router.navigate(['/dashboard']);
           this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
         //  this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
