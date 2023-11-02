@@ -11,10 +11,16 @@ export class SideBarComponent {
 
   constructor(private webStorage: WebStorageService) {
     let pageListData = this.webStorage.getAllPageName();
+  
+    let pageUrls = pageListData.filter((ele: any) => {
+      if (ele.isSideBarMenu) {
+        return ele;
+      }
+    });
 
     let pageList = new Array();
 
-    pageListData.find((item: any) => {
+    pageUrls.find((item: any) => {
       let existing: any = pageList.filter((v: any) => {
         return v.subMenu == item.subMenu;
       });
@@ -38,19 +44,41 @@ export class SideBarComponent {
         this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: ele.pageURL.length > 1 ? true : false, mainMenu: ele.mainMenu })
       }
     });
+
+    this.setDefaultCollapse();
   }
 
   mouseOver(flag: boolean) {
-    const div:any = document.getElementsByClassName('show')[0];
-    flag ? div?.classList.remove('d-none'):  div?.classList.add('d-none');
+    const div: any = document.getElementsByClassName('show')[0];
+    flag ? div?.classList.remove('d-none') : div?.classList.add('d-none');
+  }
+
+  setDefaultCollapse() {
+    this.pageListArray.map((ele: any) => {
+      ele.collapseFlag = false;
+      ele.activeFlag = false;
+      if (ele.data.length > 1 && ele.subMenu) {// submenu
+        ele.data.find((item: any) => {
+          item.collapseFlag = false;
+          item.activeFlag = false;
+        })
+      }
+    })
   }
 
   onCloseSidebar() {
     this.webStorage.setSidebarState(!this.webStorage.getSidebarState());
   }
-
-  
-  prevClosedDep(){
-
+  prevClosedDep(i: any, j?: any) {
+    this.setDefaultCollapse();
+    if (j || j == 0) {
+      this.pageListArray[i].collapseFlag = true;
+      this.pageListArray[i].activeFlag = true;
+      this.pageListArray[i].data[j].collapseFlag = true;
+      this.pageListArray[i].data[j].activeFlag = true;
+    } else {
+      this.pageListArray[i].collapseFlag = true;
+      this.pageListArray[i].activeFlag = true;
+    }
   }
 }

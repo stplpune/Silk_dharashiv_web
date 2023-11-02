@@ -15,7 +15,7 @@ export class FileUploadService {
     private errorService:ErrorHandlingService,
     private commonMethodService : CommonMethodsService) { }
 
-  uploadDocuments(event?: any, folderName?: any, allowedDocTypes?: any, _minsize?: any, _maxsize?: any) {
+  uploadDocuments(event?: any, folderName?: any, allowedDocTypes?: any, _minsize?: any, _maxsize?: any, lflag?:any) {
         return new Observable(obj => {
       const selResult = event.target.value.split('.');
       const docExt = selResult.pop();
@@ -25,7 +25,7 @@ export class FileUploadService {
           const file = event.target.files[0];
           if (file.size > 1048576) {
             obj.error("Required file size should be less than " + 1 + " MB.");
-            this.commonMethodService.snackBar("Required file size should be less than " + 1 + " MB.", 1)
+            this.commonMethodService.snackBar(lflag == 'en' ? "Required file size should be less than "+ 1 + " MB." : "आवश्यक फाइल आकार "+ 1 + " MB"+" पेक्षा कमी असावा", 1)
           }
           else {
             const reader: any = new FileReader();
@@ -34,7 +34,7 @@ export class FileUploadService {
               formData.append('FolderName', folderName);
               formData.append('DocumentType', docExt);
               formData.append('UploadDocPath', file);
-              this.apiService.setHttp('POST', 'sericulture/api/Document/UplodFile', false, formData, false, 'masterUrl');
+              this.apiService.setHttp('POST', 'sericulture/api/Document/UplodFile?lan='+lflag, false, formData, false, 'masterUrl');
               this.apiService.getHttp().subscribe({
                 next: (res: any) => {                  
                   this.spinner.hide();
@@ -57,7 +57,7 @@ export class FileUploadService {
       else {
         obj.next('error');
         obj.error("Only " + allowedDocTypes + " file format allowed.");   
-        this.commonMethodService.snackBar("Only " + allowedDocTypes + " file format allowed.", 1)
+        this.commonMethodService.snackBar(lflag == 'en' ? "Only " + allowedDocTypes + " file format allowed." : "फक्त " + allowedDocTypes + " फाइल फॉरमॅटला परवानगी आहे.", 1)
         // this.commonService.snackBar('Only Supported file Types... jpg, png, jpeg', 1)
       }
     })

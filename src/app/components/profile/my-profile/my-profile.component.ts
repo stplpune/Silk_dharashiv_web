@@ -197,7 +197,7 @@ export class MyProfileComponent {
       localData.name = res.name;
       localData.designationName = res.designationName
       encryptInfo =  this.encrypt.encrypt(JSON.stringify(localData))
-      localStorage.setItem('loggedInData',encryptInfo);
+      localStorage.setItem('silkDharashivUserInfo',encryptInfo);
     }) 
   }
 

@@ -103,9 +103,10 @@ export class OfficerRegistrationComponent implements OnDestroy {
   }
 
   getDesignation() {
-    let deptId = this.filterForm.getRawValue().departmentId
+    let deptId = this.filterForm.getRawValue().departmentId;
+    let deptLevelId = this.filterForm.getRawValue().departmentLevelId;
     if (deptId != 0) {
-      this.masterService.GetDesignationDropDown(deptId || 0).subscribe({
+      this.masterService.GetDesignationDropDownOnDeptLevel((deptId || 0),(deptLevelId||0)).subscribe({
         next: ((res: any) => {
           this.designationArray = res.responseData;
         }), error: (() => {

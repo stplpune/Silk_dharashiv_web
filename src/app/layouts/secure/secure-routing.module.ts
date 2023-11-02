@@ -35,7 +35,7 @@ const routes: Routes = [
   { path: 'page-right-access', loadChildren: () => import('../../components/setting/page-right-access/page-right-access.module').then(m => m.PageRightAccessModule), data: { breadcrumb: [{ title: 'Page Right Access', active: true }] }, canActivate: [ExpenseGuard] },
 
   //Application
-  { path: 'application', loadChildren: () => import('../../components/Application/manarega/manarega.module').then(m => m.ManaregaModule), data: { breadcrumb: [{ title: 'Manarega', active: true }] }, canActivate: [ExpenseGuard] },
+  { path: 'application', loadChildren: () => import('../../components/Application/manarega/manarega.module').then(m => m.ManaregaModule), data: { breadcrumb: [{ title: 'Application', active: true }] }, canActivate: [ExpenseGuard] },
   { path: 'access-denied', loadChildren: () => import('../../modules/error/error.module').then(m => m.ErrorModule), data: { breadcrumb: [{ title: 'Access Denied', active: true }] } },
 ];
 

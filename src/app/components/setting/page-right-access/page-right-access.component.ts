@@ -48,19 +48,20 @@ export class PageRightAccessComponent {
     this.getDepartment();
     this.getDesignationLevel();
     //this.getDesignation();
-    this.getModule();
-   this.getTableData();
+   // this.getModule();
+  
   }
 
   getFilterForm() {
     this.filterFrm = this.fb.group({
       departmentId: [0, [Validators.required]],
       designationLevelId: [0, [Validators.required]],
-      designationId: [1, [Validators.required]],
-      moduleId: [0],
-      subModuleId: [0],
+      designationId: ['', [Validators.required]],
+      // moduleId: [0],
+      // subModuleId: [0],
       searchText: ['']
     })
+    this.getDesignation();
   }
 
   get a() { return this.filterFrm.controls }
@@ -75,7 +76,7 @@ export class PageRightAccessComponent {
       this.spinner.show();
       let formData = this.filterFrm.getRawValue();
       let str = `&pageno=${this.pageNumber}&pagesize=100`;
-      this.apiService.setHttp('GET', `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId || 0}&DepartmentLevelId=${formData?.designationLevelId || 0}&DesignationId=${formData?.designationId || 0}&MainMenuId=${formData?.moduleId || 0}&SubMenuId=${formData?.subModuleId || 0}&lan=${this.lang}&TextSearch=${formData?.searchText || ''}` + str, false, false, false, 'baseUrl');
+      this.apiService.setHttp('GET', `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId || 0}&DepartmentLevelId=${formData?.designationLevelId || 0}&DesignationId=${formData?.designationId || 0}&lan=${this.lang}&TextSearch=${formData?.searchText || ''}` + str, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -143,7 +144,6 @@ export class PageRightAccessComponent {
         if (res.statusCode == "200" && res.responseData.length) {
           this.departmentArray = res.responseData;
           this.departmentArray.unshift({ "id": 0, "textEnglish": "All Department","textMarathi": "सर्व विभाग"});
-          this.getDesignation();
         }
         else {
           this.departmentArray = [];
@@ -168,10 +168,12 @@ export class PageRightAccessComponent {
 
   getDesignation() {
     let deptId =  this.filterFrm.getRawValue().departmentId;
-   this.masterService.GetDesignationDropDown(deptId).subscribe({
+    let designationLevel =  this.filterFrm.getRawValue().designationLevelId;
+   this.masterService.GetDesignationDropDown(deptId,designationLevel).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.designationArray = res.responseData;
+          (this.a['designationId'].setValue(res.responseData[0].id), this.getTableData());
         }
         else {
           this.designationArray = [];
@@ -180,45 +182,46 @@ export class PageRightAccessComponent {
     })
   }
 
-  getModule() {
-    this.masterService.GetModule().subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData.length) {
-          this.moduleArray = res.responseData;
-        }
-        else {
-          this.moduleArray = [];
-        }
-      })
-    })
-  }
+  // getModule() {
+  //   this.masterService.GetModule().subscribe({
+  //     next: ((res: any) => {
+  //       if (res.statusCode == "200" && res.responseData.length) {
+  //         this.moduleArray = res.responseData;
+  //       }
+  //       else {
+  //         this.moduleArray = [];
+  //       }
+  //     })
+  //   })
+  // }
 
-  getSubModule() {
-    let moduleId = this.filterFrm.getRawValue().moduleId
-    if (moduleId != 0) {
-      this.masterService.GetSubModule(moduleId).subscribe({
-        next: ((res: any) => {
-          if (res.statusCode == "200" && res.responseData.length) {
-            this.subModuleArray = res.responseData;
-          }
-          else {
-            this.subModuleArray = [];
-          }
-        })
-      })
-    }
-  }
+  // getSubModule() {
+  //   let moduleId = this.filterFrm.getRawValue().moduleId
+  //   if (moduleId != 0) {
+  //     this.masterService.GetSubModule(moduleId).subscribe({
+  //       next: ((res: any) => {
+  //         if (res.statusCode == "200" && res.responseData.length) {
+  //           this.subModuleArray = res.responseData;
+  //         }
+  //         else {
+  //           this.subModuleArray = [];
+  //         }
+  //       })
+  //     })
+  //   }
+  // }
   //----------------- Dropdown code end here------------------------
   //clear dropdown on dependency wise
   clearDropdown(flag: any) {
     switch (flag) {
       case 'deptId':
+        this.filterFrm.controls['designationLevelId'].setValue(0);
         this.filterFrm.controls['designationId'].setValue(0);
         break;
 
-      case 'moduleId':
-        this.filterFrm.controls['subModuleId'].setValue(0);
-        break;
+      // case 'moduleId':
+      //   this.filterFrm.controls['subModuleId'].setValue(0);
+      //   break;
     }
   }
 

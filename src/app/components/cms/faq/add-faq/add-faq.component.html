@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">{{!this.data ? ('faq.add_faq'|translate) :isViewFlag ? ("faq.view_faq" | translate): ('faq.update_faq'|translate)}} </div>
+    <div class="text-main">{{!data ? ('faq.add_faq'|translate) :isViewFlag ? ("faq.view_faq" | translate): ('faq.update_faq'|translate)}} </div>
     <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
       <mat-icon class="material-symbols-outlined">
         close
@@ -88,7 +88,7 @@
     <div class="d-flex align-items-center justify-content-end gap-2">
       <button mat-flat-button class="btn-main-light" type="button"
         (click)="clearFormData()">{{'faq.clear'|translate}}</button>
-      <button mat-flat-button class="btn-main" type="submit">{{!this.data ? ('faq.add'|translate) :
+      <button mat-flat-button class="btn-main" type="submit">{{!data ? ('faq.add'|translate) :
         ('faq.update'|translate)}}</button>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between">
-    <div class="text-main">{{!this.editFlag ? ('marketRate.add_Market_List'|translate) :isViewFlag ?
+    <div class="text-main">{{!editFlag ? ('marketRate.add_Market_List'|translate) :isViewFlag ?
       ("marketRate.view_Market_List" | translate): ('marketRate.update_Market_List'|translate)}}</div>
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded" >close</span>
@@ -150,7 +150,7 @@
         <input matInput formControlName="longitude"
         (keypress)="validation.noFirstSpaceAllow($event)">
         <mat-error *ngIf="a['longitude']?.hasError('required')">{{'marketRate.please_enter_longitude'|translate}}  </mat-error>
-        <mat-error *ngIf="a['latitude']?.hasError('pattern')">{{'marketRate.please_enter_valid_longitude'|translate}}</mat-error>
+        <mat-error *ngIf="a['longitude']?.hasError('pattern')">{{'marketRate.please_enter_valid_longitude'|translate}}</mat-error>
      </mat-form-field>
     </div>
     <div class="col-sm-12">
@@ -179,7 +179,7 @@
 <mat-dialog-actions class="modal-footer">
   <div class="d-flex align-items-center justify-content-end gap-2 w-100">
     <button mat-button class="btn-main-light" type="button" (click)="clearMainForm()">{{'department.clear'|translate}}</button>
-    <button mat-button class="btn-main" type="submit" (click)="onSubmit()">{{this.editFlag ? ('designation.update'|translate) :('designation.add'|translate)}}</button>
+    <button mat-button class="btn-main" type="submit" (click)="onSubmit()">{{editFlag ? ('designation.update'|translate) :('designation.add'|translate)}}</button>
   </div>
 </mat-dialog-actions>
 </form>

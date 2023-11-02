@@ -5,11 +5,12 @@
   <mat-card-header class="card-header-control">
     <form [formGroup]="filterFrm" class="w-100">
       <div class="row gx-2 gy-2">
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'manrega.scheme'| translate}}</mat-label>
             <mat-select formControlName="schemeTypeId">
-              <mat-option *ngFor=" let scheme of schemeFilterArr" [value]="scheme.id">{{lang == 'en' ? scheme.textEnglish : scheme.textMarathi}}</mat-option>
+              <mat-option *ngFor=" let scheme of schemeFilterArr" [value]="scheme.id">{{lang == 'en' ?
+                scheme.textEnglish : scheme.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -32,21 +33,12 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label>
-            <mat-select formControlName="grampanchayatId" >
+            <mat-select formControlName="grampanchayatId">
               <mat-option *ngFor=" let gram of grampanchayatArray" [value]="gram.id">{{lang == 'en' ? gram.textEnglish :
                 gram.textMarathi}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-sm-2">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'manrega.action'| translate}}</mat-label>
-            <mat-select formControlName="actionId">
-              <mat-option *ngFor=" let action of actionArr" [value]="action.id">{{lang == 'en' ? action.textEnglish :
-                action.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -67,7 +59,8 @@
         </div>
         <div class="col-sm-1">
           <div class="d-flex gap-2">
-            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button" (click)="getTableData('filter')">
+            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"
+              (click)="getTableData('filter')">
               <mat-icon class="material-symbols-rounded">
                 search
               </mat-icon>
@@ -83,7 +76,7 @@
       </div>
     </form>
   </mat-card-header>
-  <mat-card-content class="card-body">
+  <mat-card-content class="card-body pt-0">
     <!-- <div class="row">
       <div class="col-sm-auto">
         <div class="d-flex gap-2 text-primary">
@@ -116,7 +109,7 @@
         </div>
       </div>
     </div> -->
-    <div class="table-responsive scrollbar my-3">
+    <div class="table-responsive scrollbar">
       <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
       <!-- <table mat-table [dataSource]="dataSource" class="dashboard-table">
 
