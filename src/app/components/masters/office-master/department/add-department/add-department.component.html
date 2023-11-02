@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">{{!this.data ? ('department.add_department'|translate) :isViewFlag ?
+    <div class="text-main">{{!data ? ('department.add_department'|translate) :isViewFlag ?
       ("department.view_Department" | translate): ('department.update_department'|translate)}}</div>
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
@@ -53,7 +53,7 @@
       </mat-form-field>
       <div class="d-flex align-items-center justify-content-end gap-2">
         <button mat-flat-button class="btn-main-light" type="button" (click)="clearFormData()">{{'department.clear'|translate}}</button>
-        <button mat-flat-button class="btn-main" type="submit">{{this.data ? ('department.update'|translate) :
+        <button mat-flat-button class="btn-main" type="submit">{{data ? ('department.update'|translate) :
           ('department.add'|translate)}}</button>
       </div>
     </form>

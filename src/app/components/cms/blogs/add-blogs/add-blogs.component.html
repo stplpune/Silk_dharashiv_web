@@ -1,7 +1,7 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between">
     <div class="text-main">
-      {{!this.data ? ('blogs.add_Blogs_Article'|translate) :isViewFlag ?
+      {{!data ? ('blogs.add_Blogs_Article'|translate) :isViewFlag ?
       ("blogs.view_Blogs_Article" | translate): ('blogs.update_Blogs_Article'|translate)}}
     </div>
     <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
@@ -96,7 +96,7 @@
         <div class="d-flex align-items-center justify-content-end w-100 gap-2">
           <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">{{"blogs.clear" |
             translate}}</button>
-          <button mat-flat-button class="btn-main" type="submit">{{this.data ? ('blogs.update'|translate) :
+          <button mat-flat-button class="btn-main" type="submit">{{data ? ('blogs.update'|translate) :
             ('blogs.add'|translate)}}</button>
         </div>
       </div>
