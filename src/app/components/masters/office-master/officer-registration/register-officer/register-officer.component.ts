@@ -54,9 +54,7 @@ export class RegisterOfficerComponent {
   ) { }
 
 
-  ngOnInit() {
-    console.log('this.data',this.data);
-    
+  ngOnInit() {    
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -68,7 +66,6 @@ export class RegisterOfficerComponent {
 
 
   getFormData() { 
-    // Value Updated for setting required validation for update functionality   
     if(this.data){
       this.data.blockId = this.data?.blockId != 0 ? this.data?.blockId : ''
       this.data.talId = this.data?.talId != 0 ? this.data?.talId : ''
@@ -96,8 +93,7 @@ export class RegisterOfficerComponent {
       flag: [this.data ? "u" : "i"],
       createdBy: [this.WebStorageService.getUserId()]
     })
-    this.data ? this.dropDownCall(this.data?.departmentLevelId, true) : '';
-    //  this.clearDropDown();
+    this.dropDownCall(this.data?.departmentLevelId, true)
   }
 
   get f() { return this.officeForm.controls;}
@@ -147,7 +143,6 @@ export class RegisterOfficerComponent {
     this.masterService.GetAllState().subscribe({
       next: ((res: any) => {
         this.stateArray = res.responseData;
-        // this.data ? (this.f['stateId'].setValue(this.data?.stateId)) : '';
       }), error: (() => {
         this.stateArray = [];
       })
@@ -184,7 +179,6 @@ export class RegisterOfficerComponent {
       next: ((res: any) => {
         this.talukaArray = res.responseData;
         (this.officeForm.value.departmentLevelId != 4 && this.officeForm.value.departmentLevelId != 1 || (this.data && flag) ) ? (this.f['talukaId'].setValue(this.data?.talId), this.getGrampanchayat()) : '';
-        // this.officeForm.value.departmentLevelId != 4 || this.officeForm.value.departmentLevelId != 1 ?  this.getGrampanchayat() : '';
       }), error: (() => {
         this.talukaArray = [];
       })
@@ -251,24 +245,24 @@ export class RegisterOfficerComponent {
     } else {
       let obj = {
         ...formData,
-        crcRegNo: "string",
-        aadharNumber: "string",
+        crcRegNo: "",
+        aadharNumber: "",
         gender: 1,
         dob: new Date(),
-        mobNo2: "string",
-        pinCode: "string",
+        mobNo2: "",
+        pinCode: "",
         officeAddressId: 0,
         totalAreaForCRC: 0,
         areaUnderCRC: 0,
         chalkyCapacity: 0,
-        officerAssignArea: "string",
+        officerAssignArea: "",
         chalkyApprovedQty: 0,
         doj: new Date(),
-        crcName: "string",
-        m_CRCName: "string",
-        userName: "string",
-        password: "string",
-        profileImagePath: "string",
+        crcName: "",
+        m_CRCName: "",
+        userName: "",
+        password: "",
+        profileImagePath: "",
         userTypeId: 2,
         village: "0"
       }
@@ -293,12 +287,14 @@ export class RegisterOfficerComponent {
     }
   }
 
-  dropDownCall(id?: any, flag?:any) {
-    console.log('idddddd',id);
-    
+  dropDownCall(id?: any, flag?:any) {    
     this.getState();
     this.getDisrict(flag);
-    (id == 1 || flag) ? this.getCircle(flag) : (id == 2  || flag) ? this.getBlock(flag) : '';
+    if(id == 1){
+      this.getCircle(flag)
+    }else if(id == 2){
+      this.getBlock(flag)
+    };
 
     // if(id == 1 || flag ) {
     //   this.getState();
@@ -314,49 +310,30 @@ export class RegisterOfficerComponent {
     // }
   }
 
-  clearDropDown(levelId?: any, _flag?:any) { 
-    console.log(_flag);
-    
-    if (levelId == 1 ) {  //Circle
-      this.f['talukaId'].setValue('');
-      this.talukaArray = [];
+  clearDropDown( flag?:any) { 
+    if(flag == 'deptLevelClear'){
+      this.f['designationId'].setValue('');
+      this.designationArray = [];
       this.f['circleId'].setValue('');
       this.circleArray = [];
-    } else if (levelId == 2) {  //Block
       this.f['blockId'].setValue('');
       this.blockArray = [];
-    } else if (levelId == 3) {  //Village
       this.f['talukaId'].setValue('');
       this.talukaArray = [];
+      this.f['grampanchayatId'].setValue('');
+      this.grampanchayatArray = [];
+      // this.f['departmentId'].setValue('');
+      // this.departmentArray = [];
+    }
+    // else if(levelId == 'clearDesignation'){
+    //   this.f['designationId'].setValue('');
+    //   this.designationArray = [];
+    // }
+      else{
       this.f['grampanchayatId'].setValue('');
       this.grampanchayatArray = [];
     }
-    else if (levelId == 4) {    //Taluka
-      this.f['grampanchayatId'].setValue('');
-      this.grampanchayatArray = [];
-    } 
-    // else if (flag == 'clear') {      
-    //   this.f['designationId'].setValue('');
-    //   this.designationArray = [];
-    // }
-    // else{
-    //   this.f['talukaId'].setValue('');
-    //   this.talukaArray = [];
-    //   this.f['circleId'].setValue('');
-    //   this.circleArray = [];
-    //   // this.f['blockId'].setValue('');
-    //   // this.blockArray = [];
-    //   this.f['grampanchayatId'].setValue('');
-    //   this.grampanchayatArray = [];
-    //   this.f['designationId'].setValue('');
-    //   this.designationArray = [];
-    // }
-
-
-
     
-    // this.f['designationId'].setValue(''); 
-    // this.designationArray = [];
   }
 
   getstatusForm() {
