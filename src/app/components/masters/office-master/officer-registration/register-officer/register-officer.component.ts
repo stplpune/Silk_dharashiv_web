@@ -83,7 +83,7 @@ export class RegisterOfficerComponent {
       talukaId: [this.data?.talId ||  '', [Validators.required]],
       circleId: [this.data?.circleId || '', [Validators.required]],
       grampanchayatId: [this.data?.grampanchayatId || '', [Validators.required]],
-      designationId: [this.data?.designationId || '', [Validators.required]],
+      designationId: [this.data ? this.data?.designationId :  '', [Validators.required]],
       name: [ this.data?.name || '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(50)]],
       m_Name: [ this.data?.m_Name || '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(50)]],
       mobNo1: [ this.data?.mobNo1 || '', [Validators.required, Validators.pattern(this.validator.mobile_No)]],
@@ -118,7 +118,7 @@ export class RegisterOfficerComponent {
       this.masterService.GetDesignationDropDownOnDeptLevel(deptId,deptLevelId).subscribe({
         next: ((res: any) => {
           this.designationArray = res.responseData;
-          this.data ? (this.f['designationId'].setValue(this.data?.designationId)) : '';
+          // this.data ? (this.f['designationId'].setValue(this.data?.designationId)) : '';
         }), error: (() => {
           this.designationArray = [];
         })

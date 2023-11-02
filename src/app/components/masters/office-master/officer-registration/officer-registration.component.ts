@@ -116,8 +116,6 @@ export class OfficerRegistrationComponent implements OnDestroy {
     }
   }
 
-  
-
   getTaluka() {
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
