@@ -16,6 +16,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AddDocumentsComponent } from './add-documents/add-documents.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
 import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     ApprovalProcessComponent,
@@ -35,7 +36,9 @@ import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
     MatIconModule,
     MatTableModule,
     MatButtonModule,
-    DashPipe
+    DashPipe,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ApprovalProcessModule { }

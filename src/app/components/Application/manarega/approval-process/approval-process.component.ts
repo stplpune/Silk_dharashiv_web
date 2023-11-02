@@ -69,10 +69,18 @@ export class ApprovalProcessComponent implements OnDestroy{
     window.open(url);
   }
 
+  
+  
   adddocuments() {
-    this.dialog.open(AddDocumentsComponent, {
-      width: '40%'
+    let dialogRef =  this.dialog.open(AddDocumentsComponent, {
+      width: '40%',
+      data:this.applicationData,
+      disableClose: true,
+      autoFocus: true,
     })
+    dialogRef.afterClosed().subscribe((result: any) => {
+      result == 'Yes' ? this.getByApplicationId() : '';
+      });
   }
 
   viewdetails() {

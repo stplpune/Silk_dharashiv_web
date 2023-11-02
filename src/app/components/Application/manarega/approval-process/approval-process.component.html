@@ -347,7 +347,7 @@
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngIf="documentList.length">   
+            <ng-container *ngIf="documentList?.length">   
             <tr  *ngFor="let list of documentList; let i=index;" >
               <td>{{i+1}}</td>
               <td>{{lang == 'en' ? (list?.documentType | dash ) : (list?.m_DocumentType | dash)}}</td>
@@ -365,7 +365,7 @@
               </td>
             </tr>
             </ng-container>
-            <tr *ngIf="!documentList.length">
+            <tr *ngIf="!documentList?.length">
               <td colspan="16">
                   <div class="alert alert-danger text-center py-2 mt-1">
                       <span>Data not available</span>
