@@ -285,6 +285,11 @@ export class OfficerRegistrationComponent implements OnDestroy {
     if (flag == 'dept') {
       this.designationArray = [];
       this.f['designationId'].setValue(0);
+    }else if(flag == 'clearAll'){
+      // this.departmentArray = [];
+      // this.f['departmentId'].setValue(0);
+      this.designationArray = [];
+      this.f['designationId'].setValue(0);
     } else {
       this.grampanchayatArray = [];
       this.f['grampanchayatId'].setValue(0);

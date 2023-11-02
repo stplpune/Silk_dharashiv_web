@@ -351,6 +351,7 @@ export class RegisterOfficerComponent {
     this.spinner.show();
     let formData = this.statusForm.value;
     if (this.statusForm.invalid) {
+      this.spinner.hide();
       return
     } else {
       let obj = {

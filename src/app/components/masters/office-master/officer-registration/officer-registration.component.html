@@ -28,7 +28,7 @@
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.designation_lev_filter' | translate}}</mat-label>
-            <mat-select formControlName="departmentLevelId" (selectionChange)="getDesignation()">
+            <mat-select formControlName="departmentLevelId" (selectionChange)="clearDropDown('clearAll');getDesignation()">
               <mat-option [value]="0"> {{'officerreg.allLevel' | translate}}</mat-option>
               <mat-option *ngFor="let level of departmentLevelArray" [value]="level.id">{{lang != 'en' ?
                 level.textMarathi : level.textEnglish}}</mat-option>
