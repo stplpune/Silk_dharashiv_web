@@ -38,8 +38,7 @@
               {{'common.Please_select_designation_level'|translate}} </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 5) || (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3)
-       || (officeForm.value.departmentLevelId == 2) || (officeForm.value.departmentLevelId == 1)">
+        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId >= 5)  || (officeForm.value.departmentLevelId <= 1)">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.state' | translate}}</mat-label>
             <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
@@ -49,8 +48,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 5) || (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 2)
-      || (officeForm.value.departmentLevelId == 1)">
+        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId >= 5) || (officeForm.value.departmentLevelId <= 1)">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.district' | translate}}</mat-label>
             <mat-select formControlName="districtId"
