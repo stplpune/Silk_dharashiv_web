@@ -108,7 +108,7 @@ export class AddDocumentsComponent {
       }
       data.id = Number(data.id)
       let mainData = { ...data,...obj };
-      this.apiService.setHttp('post', 'sericulture/api/Designation/Insert-Update-Designation?lan=' + this.lang, false, mainData, false, 'masterUrl');
+      this.apiService.setHttp('post', 'sericulture/api/Application/InsertUpdateDocuments', false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
