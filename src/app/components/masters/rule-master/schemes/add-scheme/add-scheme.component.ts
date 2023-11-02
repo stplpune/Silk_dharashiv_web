@@ -96,7 +96,7 @@ export class AddSchemeComponent implements OnDestroy{
 
   imageUplod(event: any) {
     this.spinner.show();
-    this.fileUpl.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc').subscribe({
+    this.fileUpl.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc','','', this.lang).subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.spinner.hide();
