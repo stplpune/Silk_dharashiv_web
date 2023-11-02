@@ -57,7 +57,7 @@ export class FileUploadService {
       else {
         obj.next('error');
         obj.error("Only " + allowedDocTypes + " file format allowed.");   
-        this.commonMethodService.snackBar("Only " + allowedDocTypes + " file format allowed.", 1)
+        this.commonMethodService.snackBar(lflag == 'en' ? "Only " + allowedDocTypes + " file format allowed." : "फक्त " + allowedDocTypes + " फाइल फॉरमॅटला परवानगी आहे.", 1)
         // this.commonService.snackBar('Only Supported file Types... jpg, png, jpeg', 1)
       }
     })
