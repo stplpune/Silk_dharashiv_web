@@ -11,10 +11,16 @@ export class SideBarComponent {
 
   constructor(private webStorage: WebStorageService) {
     let pageListData = this.webStorage.getAllPageName();
+  
+    let pageUrls = pageListData.filter((ele: any) => {
+      if (ele.isSideBarMenu) {
+        return ele;
+      }
+    });
 
     let pageList = new Array();
 
-    pageListData.find((item: any) => {
+    pageUrls.find((item: any) => {
       let existing: any = pageList.filter((v: any) => {
         return v.subMenu == item.subMenu;
       });

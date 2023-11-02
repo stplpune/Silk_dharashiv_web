@@ -23,7 +23,7 @@ export class WebStorageService {
   }
 
   checkUserIsLoggedIn() {
-    if (localStorage.getItem('loggedInData'))
+    if (localStorage.getItem('silkDharashivUserInfo'))
       return true
     else return false
   }
@@ -31,7 +31,7 @@ export class WebStorageService {
  // Get LocalStorage Data
   getLoggedInLocalstorageData() {
     if (this.checkUserIsLoggedIn() == true) {
-      var decryptData = JSON.parse(this.AESEncryptDecryptService.decrypt(localStorage['loggedInData']));
+      var decryptData = JSON.parse(this.AESEncryptDecryptService.decrypt(localStorage['silkDharashivUserInfo']));
       let data = decryptData;
       return data;
     }
