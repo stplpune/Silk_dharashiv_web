@@ -75,5 +75,4 @@ export class SideBarComponent {
       this.pageListArray[i].activeFlag = true;
     }
   }
-
 }
