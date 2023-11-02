@@ -92,7 +92,7 @@ export class AddBlogsComponent {
 
   imageUplod(event: any) {
     this.spinner.show();
-    this.fileUpl.uploadDocuments(event, 'Upload', 'png,jpg,jpeg').subscribe({
+    this.fileUpl.uploadDocuments(event, 'Upload', 'png,jpg,jpeg','','', this.lang).subscribe({
       next: ((res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
