@@ -10,8 +10,8 @@
     <div class="sidebar-body scrollbar">
         <ul class="menu">
             <ng-container *ngFor="let master of pageListArray; let i = index">
-                <li *ngIf="!master?.subMenu && master?.data[0]?.pageURL?.length == 1" (click)="prevClosedDep()">
-                    <a routerLinkActive="active" routerLink="{{master.data[0].pageURL[0]}}">
+                <li *ngIf="!master?.subMenu && master?.data[0]?.pageURL?.length == 1" (click)="prevClosedDep(i)">
+                    <a routerLinkActive="active" class="main-menu" routerLink="{{master.data[0].pageURL[0]}}">
                         <div class="menu-item">
                             <img src="assets/images/sidebar-icons/dashboard.svg">
                             {{master?.mainMenu}}
@@ -19,73 +19,75 @@
                     </a>
                 </li>
 
-                <li *ngIf="!master?.subMenu && master?.data[0]?.pageURL?.length != 1 && master?.data[0]?.pageURL?.length" (click)="prevClosedDep()">
-                    <a data-bs-toggle="collapse" href="#collapseReport{{i}}" role="button" aria-expanded="false" routerLinkActive="active"
-                        aria-controls="collapseReport">
+                <li *ngIf="!master?.subMenu && master?.data[0]?.pageURL?.length != 1 && master?.data[0]?.pageURL?.length">
+                    <a data-bs-toggle="collapse" href="#collapseReport{{i}}" data-target="#collapseReport{{i}}"
+                        role="button" aria-expanded="false" (click)="prevClosedDep(i)" class="main-menu" routerLinkActive="active"
+                        [attr.aria-controls]="'collapseReport'+i" [class]="master.collapseFlag ? 'collapsed' : ''"
+                        [attr.aria-expanded]="master.collapseFlag ? true : false"  [ngClass]="{'active':master.activeFlag}">
                         <div class="menu-item">
                             <img src="assets/images/sidebar-icons/cms.svg">
                             {{master?.mainMenu}}
                         </div>
                         <span class="dropdown-toggle"></span>
                     </a>
-                    <div class="collapse" id="collapseReport{{i}}">
+                    <div  id="collapseReport{{i}}" [class]="master.collapseFlag ? 'show collapse ' : 'collapse'" [id]="'collapsemasters'+i">
                         <ul class="submenu">
                             <li *ngFor="let url of master?.data[0]?.pageName; let k= index">
-                                <a routerLink="{{master?.data[0]?.pageURL[k]}}" routerLinkActive="active" class="submenu-link"
-                                    aria-current="true">
+                                <a routerLink="{{master?.data[0]?.pageURL[k]}}" class="child-menu"
+                                    routerLinkActive="active" class="submenu-link" aria-current="true">
                                     <div class="d-flex align-items-center">
                                         <img src="assets/images/sidebar-icons/circle.svg">
                                         {{url}}
                                     </div>
                                 </a>
                             </li>
-                           
+
                         </ul>
                     </div>
                 </li>
 
-                <li *ngIf="master?.subMenu" (click)="prevClosedDep()">
-                    <a data-bs-toggle="collapse" href="#submenu{{i}}" routerLinkActive="active"  role="button" aria-expanded="false"
-                        aria-controls="collapseMaster">
+                <li *ngIf="master?.subMenu" routerLinkActive="active" class="sub-menu">
+                    <a data-bs-toggle="collapse" href="#submenu{{i}}" role="button" data-target="#submenu{{i}}"
+                        [attr.aria-controls]="'collapseReport'+i" [class]="master.collapseFlag ? 'collapsed' : ''"
+                        [attr.aria-expanded]="master.collapseFlag ? true : false" (click)="prevClosedDep(i)"  [ngClass]="{'active':master.activeFlag}">
                         <div class="menu-item">
                             <img src="assets/images/sidebar-icons/master.svg">
-                            {{master?.mainMenu}} 
+                            {{master?.mainMenu}}
                         </div>
                         <span class="dropdown-toggle"></span>
                     </a>
-                    <div class="collapse"  id="submenu{{i}}">
+                    <div id="submenu{{i}}" [class]="master.collapseFlag ? 'show collapse' : 'collapse'">
                         <ul class="submenu">
                             <ng-container *ngFor="let menu of master.data; let j = index">
-                            <li  *ngIf="menu.pageURL?.length">
-                                <a data-bs-toggle="collapse" class="menu" href="#subLink{{j}}" role="button"
-                                    aria-expanded="false" aria-controls="collapseOfficeMaster" 
-                                    class="submenu-link" aria-current="true">
-                                    <div>
-                                        <img src="assets/images/sidebar-icons/circle.svg">
-                                        {{menu?.subMenu}}
+                                <li *ngIf="menu.pageURL?.length" routerLinkActive="active" class="submenu-link">
+                                    <a data-bs-toggle="collapse" href="#subLink{{j}}" role="button" class="main-menu"
+                                        data-target="#subLink{{j}}" [attr.aria-controls]="'collapseReport'+j"
+                                        [class]="menu.collapseFlag ? 'collapsed' : ''"
+                                        [attr.aria-expanded]="menu.collapseFlag ? true : false"
+                                        (click)="prevClosedDep(i, j)" [ngClass]="{'active1':menu.activeFlag}">
+                                        <div>
+                                            <img src="assets/images/sidebar-icons/circle.svg">
+                                            {{menu?.subMenu}}
+                                        </div>
+                                        <span class="dropdown-toggle"></span>
+                                    </a>
+                                    <div id="subLink{{j}}" [class]="menu.collapseFlag ? 'show collapse' : 'collapse'">
+                                        <ul class="subsubmenu">
+                                            <li *ngFor="let sublink of menu?.pageURL; let m = index">
+                                                <a routerLink="{{sublink}}" routerLinkActive="active"  class="child-menu">
+                                                    <mat-icon class="material-symbols-rounded">
+                                                        arrow_right_alt
+                                                    </mat-icon>
+                                                    {{menu?.pageName[m]}}
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <span class="dropdown-toggle"></span>
-                                </a>
-                                <div class="collapse" id="subLink{{j}}">
-                                    <ul class="subsubmenu">
-                                        <li  *ngFor="let sublink of menu?.pageURL; let m = index">
-                                            <a   routerLink="{{sublink}}" routerLinkActive="active">
-                                                <mat-icon class="material-symbols-rounded">
-                                                    arrow_right_alt
-                                                </mat-icon>
-                                                {{menu?.pageName[m]}}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ng-container>
+                                </li>
+                            </ng-container>
                         </ul>
-
                     </div>
                 </li>
-
-               
             </ng-container>
         </ul>
     </div>
