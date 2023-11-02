@@ -152,6 +152,13 @@ a.text-main:hover {
     padding: 15px !important;
 }
 
+.table-height thead {
+    position: -webkit-sticky;
+    position: sticky;
+    top: -1px;
+    z-index: 9;
+}
+
 .dashboard-table .highlighted-row {
     background-color: var(--main-light-color) !important;
     color: var(--main-color) !important;
