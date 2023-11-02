@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">{{!this.editFlag? ('designation.add_designation'|translate) :isViewFlag ?
+    <div class="text-main">{{!editFlag? ('designation.add_designation'|translate) :isViewFlag ?
       ("designation.view_Designation" | translate): ('designation.update_designation'|translate)}}</div>
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
@@ -64,7 +64,7 @@
 
       <div class="d-flex align-items-center justify-content-end gap-2">
         <button mat-flat-button class="btn-main-light" type="button" (click)="clearMainForm()">{{'department.clear'|translate}}</button>
-        <button mat-flat-button class="btn-main" type="submit">{{this.editFlag ? ('designation.update'|translate) :
+        <button mat-flat-button class="btn-main" type="submit">{{editFlag ? ('designation.update'|translate) :
           ('designation.add'|translate)}}</button>
       </div>
     </form>

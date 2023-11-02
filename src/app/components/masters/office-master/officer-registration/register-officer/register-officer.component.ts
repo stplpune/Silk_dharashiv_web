@@ -154,21 +154,19 @@ export class RegisterOfficerComponent {
     })
   }
 
-  getDisrict() {    
+  getDisrict(flag?:any) {    
     this.districtArray = [];
     this.masterService.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
         this.districtArray = res.responseData;
-        this.officeForm.value.departmentLevelId != 2 && this.officeForm.value.departmentLevelId != 5  ||  this.data ? (this.f['districtId'].setValue(this.data?.districtId || 1),this.getTaluka()) : ''
+        this.officeForm.value.departmentLevelId != 2 && this.officeForm.value.departmentLevelId != 5  ||  this.data ? (this.f['districtId'].setValue(this.data?.districtId || 1),this.getTaluka(flag)) : ''
       }), error: (() => {
         this.districtArray = [];
       })
     })
   }
 
-  getBlock(flag?:any) {
-    console.log('hiiiiiii');
-    
+  getBlock(flag?:any) {    
     this.blockArray = [];
     this.masterService.GetAllBlock(1, 1).subscribe({
       next: ((res: any) => {
@@ -180,12 +178,12 @@ export class RegisterOfficerComponent {
     })
   }
 
-  getTaluka() {
+  getTaluka(flag?:any) {
     this.talukaArray = [];
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
-        (this.officeForm.value.departmentLevelId != 4 && this.officeForm.value.departmentLevelId != 1 || this.data ) ? (this.f['talukaId'].setValue(this.data?.talId), this.getGrampanchayat()) : '';
+        (this.officeForm.value.departmentLevelId != 4 && this.officeForm.value.departmentLevelId != 1 || (this.data && flag) ) ? (this.f['talukaId'].setValue(this.data?.talId), this.getGrampanchayat()) : '';
         // this.officeForm.value.departmentLevelId != 4 || this.officeForm.value.departmentLevelId != 1 ?  this.getGrampanchayat() : '';
       }), error: (() => {
         this.talukaArray = [];
@@ -299,7 +297,7 @@ export class RegisterOfficerComponent {
     console.log('idddddd',id);
     
     this.getState();
-    this.getDisrict();
+    this.getDisrict(flag);
     (id == 1 || flag) ? this.getCircle(flag) : (id == 2  || flag) ? this.getBlock(flag) : '';
 
     // if(id == 1 || flag ) {
@@ -317,6 +315,8 @@ export class RegisterOfficerComponent {
   }
 
   clearDropDown(levelId?: any, _flag?:any) { 
+    console.log(_flag);
+    
     if (levelId == 1 ) {  //Circle
       this.f['talukaId'].setValue('');
       this.talukaArray = [];
@@ -351,8 +351,12 @@ export class RegisterOfficerComponent {
     //   this.f['designationId'].setValue('');
     //   this.designationArray = [];
     // }
-    this.f['designationId'].setValue('');
-    this.designationArray = [];
+
+
+
+    
+    // this.f['designationId'].setValue(''); 
+    // this.designationArray = [];
   }
 
   getstatusForm() {
