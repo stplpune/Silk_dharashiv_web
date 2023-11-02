@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">{{!this.data ? ('grainage.add_Grainage'|translate) :isViewFlag ? ("grainage.view_Grainage" |
+    <div class="text-main">{{!data ? ('grainage.add_Grainage'|translate) :isViewFlag ? ("grainage.view_Grainage" |
       translate): ('grainage.update_Grainage'|translate)}} </div>
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
@@ -157,7 +157,7 @@
   <div mat-dialog-actions class="modal-footer">
     <div class="d-flex align-items-center justify-content-end gap-2 w-100">
       <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">{{'action.clear'|translate}} </button>
-      <button mat-flat-button  class="btn-main" type="submit">{{this.data ? ('action.update'|translate) :
+      <button mat-flat-button  class="btn-main" type="submit">{{data ? ('action.update'|translate) :
         ('action.add'|translate)}}</button>
     </div>
   </div>
