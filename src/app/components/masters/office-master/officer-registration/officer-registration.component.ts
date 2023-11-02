@@ -116,8 +116,6 @@ export class OfficerRegistrationComponent implements OnDestroy {
     }
   }
 
-  
-
   getTaluka() {
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
@@ -285,6 +283,11 @@ export class OfficerRegistrationComponent implements OnDestroy {
 
   clearDropDown(flag?: any) {
     if (flag == 'dept') {
+      this.designationArray = [];
+      this.f['designationId'].setValue(0);
+    }else if(flag == 'clearAll'){
+      // this.departmentArray = [];
+      // this.f['departmentId'].setValue(0);
       this.designationArray = [];
       this.f['designationId'].setValue(0);
     } else {

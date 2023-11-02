@@ -16,7 +16,7 @@
         <div class="col-sm-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.department' | translate}}</mat-label>
-            <mat-select formControlName="departmentId" (selectionChange)="clearDropDown('','dept')">
+            <mat-select formControlName="departmentId" (selectionChange)="clearDropDown('clearDesignation')">
               <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang != 'en' ?
                 department.textMarathi :department.textEnglish}}
               </mat-option>
@@ -29,7 +29,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.designation_level' | translate}}</mat-label>
             <mat-select formControlName="departmentLevelId"
-              (selectionChange)="clearDropDown(officeForm.value.departmentLevelId,'clear');dropDownCall(officeForm.value.departmentLevelId, false);getDesignation()">
+              (selectionChange)="clearDropDown('deptLevelClear');dropDownCall(officeForm.value.departmentLevelId, false);getDesignation()">
               <mat-option *ngFor="let level of departmentLevelArray" [value]="level.id">{{lang != 'en' ?
                 level.textMarathi : level.textEnglish}}
               </mat-option>
@@ -38,8 +38,7 @@
               {{'common.Please_select_designation_level'|translate}} </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 5) || (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3)
-       || (officeForm.value.departmentLevelId == 2) || (officeForm.value.departmentLevelId == 1)">
+        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId >= 5)  || (officeForm.value.departmentLevelId <= 1)">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.state' | translate}}</mat-label>
             <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
@@ -49,8 +48,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 5) || (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 2)
-      || (officeForm.value.departmentLevelId == 1)">
+        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId >= 5) || (officeForm.value.departmentLevelId <= 1)">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.district' | translate}}</mat-label>
             <mat-select formControlName="districtId"
@@ -76,7 +74,7 @@
       || (officeForm.value.departmentLevelId == 1)">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.taluka' | translate}}</mat-label>
-            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown(officeForm.value.departmentLevelId, 'village');getGrampanchayat()">
+            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('talukaClear');getGrampanchayat()">
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi
                 :taluka.textEnglish}}</mat-option>
             </mat-select>
@@ -219,8 +217,9 @@
     <h2 class="page-heading mb-0 fw-bold my-2">{{'officerreg.officer_Details' | translate}}</h2>
     <div class="d-flex align-items-center justify-content-center">
       <div class="profile-pic position-relative">
+        {{tableDataArray[0]?.profileImagePath}}
         <img
-          [src]="this.tableDataArray[0]?.profileImagePath !='string' ? this.tableDataArray[0]?.profileImagePath : 'assets/images/user.png'"
+          [src]="tableDataArray[0]?.profileImagePath !='string' ? tableDataArray[0]?.profileImagePath : 'assets/images/user.png'"
           class="">
         <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" #uplodLogo
           (change)="imageUplod($event)" />
