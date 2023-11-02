@@ -98,7 +98,7 @@ export class AddDocumentsComponent {
       let data = this.uploadFrm.getRawValue();
       let obj ={
         "applicationId": this.data?.actionId,
-        "docTypeId": 0,
+        "docTypeId": 1,
          "createdBy": new Date(),
         "createdDate": this.WebStorageService.getUserId() ,
         "modifiedBy": new Date(),
@@ -106,7 +106,6 @@ export class AddDocumentsComponent {
         "isDeleted": false
 
       }
-      data.id = Number(data.id)
       let mainData = { ...data,...obj };
       this.apiService.setHttp('post', 'sericulture/api/Application/InsertUpdateDocuments', false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
