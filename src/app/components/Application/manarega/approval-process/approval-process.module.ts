@@ -13,14 +13,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { AddDocumentsComponent } from './add-documents/add-documents.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
 import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+
 @NgModule({
   declarations: [
     ApprovalProcessComponent,
-    AddDocumentsComponent,
     ViewDetailsComponent,
   ],
   imports: [
@@ -38,7 +39,9 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     DashPipe,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTabsModule,
+    MatButtonToggleModule,
   ]
 })
 export class ApprovalProcessModule { }
