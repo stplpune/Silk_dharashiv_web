@@ -67,7 +67,7 @@ export class ApprovalProcessComponent implements OnDestroy {
   addApprovalFrm() {
     this.approvalFrm = this.fb.group({
       "applicationStatus": ['', Validators.required],
-      "reason": [''],
+      "reason": [0],
       "remark": ['', [Validators.pattern(this.validation.fullName), this.validation.maxLengthValidator(50)]],
       "m_remark": ['']
     })
