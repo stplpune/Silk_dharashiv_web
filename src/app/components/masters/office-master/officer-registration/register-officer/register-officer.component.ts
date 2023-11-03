@@ -179,7 +179,7 @@ export class RegisterOfficerComponent {
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
-        (this.officeForm.value.departmentLevelId != 4 && this.officeForm.value.departmentLevelId != 1 || (this.data && flag)) ? (this.f['talukaId'].setValue(this.data?.talId), this.getGrampanchayat()) : '';
+        (this.officeForm.value.departmentLevelId != 4 && this.officeForm.value.departmentLevelId != 1 || (this.data && flag)) ? (this.f['talukaId'].setValue(this.data?.talId), this.getGrampanchayat(),this.getCircle()) : '';
       }), error: (() => {
         this.talukaArray = [];
       })
@@ -201,14 +201,15 @@ export class RegisterOfficerComponent {
     }
   }
 
-  getCircle(flag?: any) {
+  getCircle() {
     this.circleArray = [];
     let stateId = this.officeForm.getRawValue().stateId;
     let distId = this.officeForm.getRawValue().districtId;
-    this.masterService.GetAllCircle(stateId, distId, 0).subscribe({
+    let talukaId = this.officeForm.getRawValue().talukaId || 0;
+    this.masterService.GetAllCircle(stateId, distId, talukaId).subscribe({
       next: ((res: any) => {
         this.circleArray = res.responseData;
-        (this.data && flag) ? (this.f['circleId'].setValue(this.data?.circleId)) : '';
+        // this.data  ? (this.f['circleId'].setValue(this.data?.circleId)) : '';
       }), error: (() => {
         this.circleArray = [];
       })
@@ -292,7 +293,7 @@ export class RegisterOfficerComponent {
     this.getState();
     this.getDisrict(flag);
     if (id == 1) {
-      this.getCircle(flag)
+      // this.getCircle(flag)
     } else if (id == 2) {
       this.getBlock(flag)
     };
@@ -316,6 +317,8 @@ export class RegisterOfficerComponent {
       this.f['designationId'].setValue('');
       this.designationArray = [];
     }else {
+      this.f['circleId'].setValue('');
+      this.circleArray = [];
       this.f['grampanchayatId'].setValue('');
       this.grampanchayatArray = [];
     }
