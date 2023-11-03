@@ -57,7 +57,7 @@
                   (+{{(talukas.value?.length || 0) - 1}} {{talukas.value?.length === 2 ? 'other' : 'others'}})
                 </span>
               </mat-select-trigger> -->
-              <mat-option *ngFor="let taluka of talukaArr" [value]="taluka.id" [disabled]="data ? !isAssigngramFlag : taluka.isSelected">{{lang == 'en' ? taluka.textEnglish : taluka.textMarathi}}</mat-option>
+              <mat-option *ngFor="let taluka of talukaArr" [value]="taluka.id" [disabled]="taluka.isSelected && !taluka.isAssigned">{{lang == 'en' ? taluka.textEnglish : taluka.textMarathi}}</mat-option>
             </mat-select>
             <mat-error *ngIf="f['talukas'].hasError('required') ">{{'talukaBlock.please_select_taluka'|translate}}</mat-error>
           </mat-form-field>

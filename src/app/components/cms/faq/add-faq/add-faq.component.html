@@ -42,8 +42,9 @@
 <form [formGroup]="faqFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
   <div *ngIf="!isViewFlag">
     <div class="mb-0">
+      <mat-label class="form-label">{{'faq.question_en' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'faq.question_en' | translate}}</mat-label>
+        <!-- <mat-label>{{'faq.question_en' | translate}}</mat-label> -->
         <input matInput formControlName="question"
           (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithQuetion($event)">
         <mat-error *ngIf="f['question']?.hasError('required')">{{'faq.question_required' | translate}} </mat-error>
@@ -53,8 +54,9 @@
       </mat-form-field>
     </div>
     <div class="mb-0">
+      <mat-label class="form-label">{{'faq.question_mr' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'faq.question_mr' | translate}}</mat-label>
+        <!-- <mat-label>{{'faq.question_mr' | translate}}</mat-label> -->
         <input matInput formControlName="m_Question"
           (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiQuetionValidation($event)">
         <mat-error *ngIf="f['m_Question']?.hasError('required')">{{'faq.question_required' | translate}} </mat-error>
@@ -64,8 +66,9 @@
       </mat-form-field>
     </div>
     <div class="col-sm-12">
+      <mat-label class="form-label">{{'faq.answer_en' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'faq.answer_en' | translate}}</mat-label>
+        <!-- <mat-label>{{'faq.answer_en' | translate}}</mat-label> -->
         <textarea matInput formControlName="answer"
           (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithQuetion($event)"></textarea>
         <mat-error *ngIf="f['answer']?.hasError('required')">{{'faq.Answer_required' | translate}} </mat-error>
@@ -75,8 +78,9 @@
       </mat-form-field>
     </div>
     <div class="col-sm-12">
+      <mat-label class="form-label">{{'faq.answer_mr' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'faq.answer_mr' | translate}}</mat-label>
+        <!-- <mat-label>{{'faq.answer_mr' | translate}}</mat-label> -->
         <textarea matInput formControlName="m_Answer"
           (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiQuetionValidation($event)"></textarea>
         <mat-error *ngIf="f['m_Answer']?.hasError('required')">{{'faq.Answer_required' | translate}} </mat-error>

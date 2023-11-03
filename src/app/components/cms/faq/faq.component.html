@@ -17,8 +17,8 @@
           <div class="row gx-2">
             <div class="col-sm-4">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>{{'faq.searchfaq' | translate}}</mat-label>
-                <input matInput formControlName="textSearch"
+                <!-- <mat-label>{{'faq.searchfaq' | translate}}</mat-label> -->
+                <input matInput formControlName="textSearch" placeholder="Search Question"
                   (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
               </mat-form-field>
             </div>

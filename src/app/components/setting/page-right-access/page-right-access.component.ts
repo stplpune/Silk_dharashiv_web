@@ -15,7 +15,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
   styleUrls: ['./page-right-access.component.scss']
 })
 export class PageRightAccessComponent {
-  displayedColumns: string[] = ['srno', 'module', 'submodule', 'pagename', 'read', 'write', 'delete','all'];
+  displayedColumns: string[] = ['srno', 'module', 'submodule', 'pagename', 'read', 'write', 'delete', 'all'];
   filterFrm !: FormGroup;
   pageNumber: number = 1;
   totalPages!: number;
@@ -46,22 +46,22 @@ export class PageRightAccessComponent {
     })
     this.getFilterForm();
     this.getDepartment();
-    this.getDesignationLevel();
+    //this.getDesignationLevel();
     //this.getDesignation();
-   // this.getModule();
-  
+    // this.getModule();
+
   }
 
   getFilterForm() {
     this.filterFrm = this.fb.group({
-      departmentId: [0, [Validators.required]],
-      designationLevelId: [0, [Validators.required]],
+      departmentId: ['', [Validators.required]],
+      designationLevelId: ['', [Validators.required]],
       designationId: ['', [Validators.required]],
       // moduleId: [0],
       // subModuleId: [0],
       searchText: ['']
     })
-    this.getDesignation();
+    // this.getDesignation();
   }
 
   get a() { return this.filterFrm.controls }
@@ -82,7 +82,7 @@ export class PageRightAccessComponent {
           this.spinner.hide();
           if (res.statusCode == '200') {
             this.dataSource = res.responseData;
-        } else {
+          } else {
             this.dataSource = [];
           }
         }),
@@ -99,7 +99,7 @@ export class PageRightAccessComponent {
     this.dataSource[i].readRight = allStatus;
     this.dataSource[i].writeRight = allStatus;
     this.dataSource[i].deleteRight = allStatus;
-   }
+  }
 
   onSubmitData() {
     this.spinner.show();
@@ -116,7 +116,7 @@ export class PageRightAccessComponent {
       }
       this.passArray.push(obj)
     })
-    this.apiService.setHttp('post', 'sericulture/api/UserPages/AddUpdatePageRights?lan='+this.lang, false, this.passArray, false, 'masterUrl');
+    this.apiService.setHttp('post', 'sericulture/api/UserPages/AddUpdatePageRights?lan=' + this.lang, false, this.passArray, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         this.spinner.hide();
@@ -143,7 +143,7 @@ export class PageRightAccessComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.departmentArray = res.responseData;
-          this.departmentArray.unshift({ "id": 0, "textEnglish": "All Department","textMarathi": "सर्व विभाग"});
+         // this.departmentArray.unshift({ "id": 0, "textEnglish": "All Department", "textMarathi": "सर्व विभाग" });
         }
         else {
           this.departmentArray = [];
@@ -153,12 +153,13 @@ export class PageRightAccessComponent {
   }
 
   getDesignationLevel() {
+    this.designationLevelArray = [];
     this.masterService.GetDeptLevelDropDown().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.designationLevelArray = res.responseData;
-          this.designationLevelArray.unshift({ "id": 0, "textEnglish": "All Designation Level","textMarathi": "सर्व पदनाम स्तर"});
-         }
+         // this.designationLevelArray.unshift({ "id": 0, "textEnglish": "All Designation Level", "textMarathi": "सर्व पदनाम स्तर" });
+        }
         else {
           this.designationLevelArray = [];
         }
@@ -167,19 +168,23 @@ export class PageRightAccessComponent {
   }
 
   getDesignation() {
-    let deptId =  this.filterFrm.getRawValue().departmentId;
-    let designationLevel =  this.filterFrm.getRawValue().designationLevelId;
-   this.masterService.GetDesignationDropDown(deptId,designationLevel).subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData.length) {
-          this.designationArray = res.responseData;
-          (this.a['designationId'].setValue(res.responseData[0].id), this.getTableData());
-        }
-        else {
-          this.designationArray = [];
-        }
+    this.designationArray = [];
+    let deptId = this.filterFrm.getRawValue().departmentId;
+    let designationLevel = this.filterFrm.getRawValue().designationLevelId;
+    if (deptId != 0 && designationLevel != 0) {
+      this.masterService.GetDesignationDropDown(deptId, designationLevel).subscribe({
+        next: ((res: any) => {
+          if (res.statusCode == "200" && res.responseData.length) {
+            this.designationArray = res.responseData;
+          //   this.getTableData();
+          }
+          else {
+            this.designationArray = [];
+          }
+        })
       })
-    })
+    }
+
   }
 
   // getModule() {
@@ -215,9 +220,15 @@ export class PageRightAccessComponent {
   clearDropdown(flag: any) {
     switch (flag) {
       case 'deptId':
-        this.filterFrm.controls['designationLevelId'].setValue(0);
-        this.filterFrm.controls['designationId'].setValue(0);
+        this.filterFrm.controls['designationLevelId'].setValue('');
+        this.designationLevelArray=[];
+        this.filterFrm.controls['designationId'].setValue('');
+        this.designationArray=[]
         break;
+        case 'deptLevelId':
+          this.filterFrm.controls['designationId'].setValue('');
+          this.designationArray=[]
+          break;
 
       // case 'moduleId':
       //   this.filterFrm.controls['subModuleId'].setValue(0);

@@ -26,7 +26,6 @@ export class AddVillageComponent implements OnDestroy{
   subscription!: Subscription;
   lang: any;
   isViewFlag: boolean = false;
-  isAssigngramFlag:boolean=false;
   constructor
     (
       private fb: FormBuilder,
@@ -42,15 +41,6 @@ export class AddVillageComponent implements OnDestroy{
     ) { }
 
   ngOnInit() {
-    console.log(' this.data?.grampanchayat,', this.data?.grampanchayat);
-    
-    this.data?.grampanchayat.filter((res:any)=>{
-      if(res.isSelected == true && res.isAssigned == true){
-        this.isAssigngramFlag = true
-      } else {
-        this.isAssigngramFlag = false
-      }
-    })
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -118,15 +108,16 @@ export class AddVillageComponent implements OnDestroy{
     this.master.GetGrampanchayat(talukaId || 0).subscribe({
       next: ((res: any) => {
         this.grampanchayatArray = res.responseData;
-        let newVillage = new Array();
-        this.data?.grampanchayat.forEach((res: any) => {
-          newVillage.push(res.id)
-        });
-        newVillage.forEach((n: any) => {
-          this.grampanchayatArray.filter((g: any) => g.id == n ? g.isAssigned = true : g.isAssigned = g.isAssigned);
-        })
-        console.log(this.grampanchayatArray)
-        this.data ? this.f['grampanchayats'].setValue(newVillage) : ''
+        if(this.data){
+          let newVillage = new Array();
+          this.data?.grampanchayat.forEach((res: any) => {
+            newVillage.push(res.id)
+          });
+          newVillage.forEach((n: any) => {
+            this.grampanchayatArray.filter((g: any) => g.id == n ? g.isAssigned = true : g.isAssigned = g.isAssigned);
+          })
+          this.f['grampanchayats'].setValue(newVillage)
+        }
       }), error: (() => {
         this.grampanchayatArray = [];
       })
