@@ -205,7 +205,8 @@
     "district": "District",
     "all_grampanchayat":"All Grampanchayat",
     "select_grampanchayat":"Select Grampanchayat",
-    "please_select_grampanchayat":"Please select grampanchayat"
+    "please_select_grampanchayat":"Please select grampanchayat",
+    "Please_enter_remark":"Please enter remark"
   },
   "marketRate": {
     "market_en": "Market Name(English)",
