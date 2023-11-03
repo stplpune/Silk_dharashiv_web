@@ -575,13 +575,11 @@
           </ol>
         </div>
 
-
-        <div class="row">
-          <form [formGroup]="approvalFrm" (ngSubmit)="onSubmitApprovalDetails()" #formDirectives="ngForm">
-
+        <form [formGroup]="approvalFrm" (ngSubmit)="onSubmitApprovalDetails()" #formDirectives="ngForm">
+          <div class="row g-2">
             <div class="col-sm-2">
+              <label class="form-label">Select Status</label>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Select Status</mat-label>
                 <mat-select formControlName="applicationStatus">
                   <mat-option *ngFor="let apporvalStatus of approvalStatusArray" [value]="apporvalStatus?.id">{{lang ==
                     "en" ? apporvalStatus?.textEnglish : apporvalStatus?.textMarathi}}</mat-option>
@@ -590,8 +588,8 @@
             </div>
             <div class="col-sm-2"
               *ngIf="approvalFrm.getRawValue()?.applicationStatus == 5 || approvalFrm.getRawValue()?.applicationStatus == 11">
+              <label class="form-label">Select Reason</label>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Select Reason</mat-label>
                 <mat-select formControlName="reason">
                   <mat-option *ngFor="let reason of reasonArray" [value]="reason?.id"
                     [disabled]="reason?.id == 0">{{lang
@@ -600,10 +598,10 @@
               </mat-form-field>
             </div>
             <div class="col-sm-8">
+              <label class="form-label">Remark</label>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Remark</mat-label>
-                <input matInput placeholder="" formControlName="remark"
-                  (keypress)="validation.noFirstSpaceAllow($event)">
+                <textarea matInput placeholder="" formControlName="remark"
+                  (keypress)="validation.noFirstSpaceAllow($event)" rows="3"></textarea>
                 <mat-error *ngIf="approvalFrm.controls['remark']?.errors">
                   <span class="text-danger"
                     *ngIf="approvalFrm.controls['remark']?.hasError('maxLengthExceeded') || approvalFrm.controls['remark'].hasError('pattern')">
@@ -617,9 +615,8 @@
               <button mat-flat-button class="btn-main-light" type="button" [mat-dialog-close]="true">Cancel</button>
               <button mat-flat-button class="btn-main" type="submit">Submit</button>
             </div>
-          </form>
-        </div>
-
+          </div>
+        </form>
       </div>
     </div>
 
@@ -917,9 +914,9 @@
               </mat-form-field>
             </div>
           </div>
-        </div>
-
       </div>
+
+    </div>
     </section>
     <div class="d-flex align-items-center justify-content-end gap-2 my-2">
       <button mat-flat-button class="btn-main-light">Cancel</button>
