@@ -165,7 +165,7 @@ export class ApprovalProcessComponent implements OnDestroy {
           this.spinner.hide();
           if (res.statusCode == "200") {
             this.commonMethod.snackBar(res.statusMessage, 0);
-            this.router.navigate(['../ application'], {relativeTo:this.route})
+            this.router.navigate(['../application'], {relativeTo:this.route})
             this.formDirective1.reset();
           }
           else {
@@ -265,6 +265,7 @@ export class ApprovalProcessComponent implements OnDestroy {
 
 
   imageUplod(event: any) {
+    console.log("hhhhh")
     this.spinner.show();
     this.fileUplService.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc').subscribe({
       next: ((res: any) => {
