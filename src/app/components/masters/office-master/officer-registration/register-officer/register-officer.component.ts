@@ -44,17 +44,17 @@ export class RegisterOfficerComponent {
       private masterService: MasterService,
       private errorHandler: ErrorHandlingService,
       private commonMethod: CommonMethodsService,
-      private dialogRef: MatDialogRef<RegisterOfficerComponent>,@Inject(MAT_DIALOG_DATA) public data: any,
+      private dialogRef: MatDialogRef<RegisterOfficerComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
       private spinner: NgxSpinnerService,
       private WebStorageService: WebStorageService,
       private apiService: ApiService,
       public validator: ValidationService,
       private fileUpl: FileUploadService,
-      private webService:WebStorageService
-  ) { }
+      private webService: WebStorageService
+    ) { }
 
 
-  ngOnInit() {    
+  ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -65,8 +65,8 @@ export class RegisterOfficerComponent {
   }
 
 
-  getFormData() { 
-    if(this.data){
+  getFormData() {
+    if (this.data) {
       this.data.blockId = this.data?.blockId != 0 ? this.data?.blockId : ''
       this.data.talId = this.data?.talId != 0 ? this.data?.talId : ''
       this.data.circleId = this.data?.circleId != 0 ? this.data?.circleId : ''
@@ -78,16 +78,16 @@ export class RegisterOfficerComponent {
       departmentId: [this.data ? this.data?.departmentId : '', [Validators.required]],
       departmentLevelId: [this.data ? this.data?.departmentLevelId : '', [Validators.required]],
       stateId: [this.data?.stateId || this.webService.getStateId()],
-      districtId: [this.data ? this.data?.districtId :  this.webService.getDistrictId()],
+      districtId: [this.data ? this.data?.districtId : this.webService.getDistrictId()],
       blockId: [this.data?.blockId || '', [Validators.required]],
-      talukaId: [this.data?.talId ||  '', [Validators.required]],
+      talukaId: [this.data?.talId || '', [Validators.required]],
       circleId: [this.data?.circleId || '', [Validators.required]],
       grampanchayatId: [this.data?.grampanchayatId || '', [Validators.required]],
-      designationId: [this.data ? this.data?.designationId :  '', [Validators.required]],
-      name: [ this.data?.name || '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(50)]],
-      m_Name: [ this.data?.m_Name || '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(50)]],
-      mobNo1: [ this.data?.mobNo1 || '', [Validators.required, Validators.pattern(this.validator.mobile_No)]],
-      emailId: [ this.data?.emailId || '', [Validators.required, Validators.email, this.validator.maxLengthValidator(50)]],
+      designationId: [this.data ? this.data?.designationId : '', [Validators.required]],
+      name: [this.data?.name || '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(50)]],
+      m_Name: [this.data?.m_Name || '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(50)]],
+      mobNo1: [this.data?.mobNo1 || '', [Validators.required, Validators.pattern(this.validator.mobile_No)]],
+      emailId: [this.data?.emailId || '', [Validators.required, Validators.email, this.validator.maxLengthValidator(50)]],
       address: [this.data?.address || '', [this.validator.maxLengthValidator(100)]],
       m_Address: [this.data?.m_Address || '', [this.validator.maxLengthValidator(100), Validators.pattern(this.validator.marathi)]],
       flag: [this.data ? "u" : "i"],
@@ -96,7 +96,7 @@ export class RegisterOfficerComponent {
     this.dropDownCall(this.data?.departmentLevelId, true)
   }
 
-  get f() { return this.officeForm.controls;}
+  get f() { return this.officeForm.controls; }
 
   getDepartment() {
     this.departmentArray = [];
@@ -115,7 +115,7 @@ export class RegisterOfficerComponent {
     let deptId = this.officeForm.getRawValue().departmentId;
     let deptLevelId = this.officeForm.getRawValue().departmentLevelId;
     if (deptId != 0) {
-      this.masterService.GetDesignationDropDownOnDeptLevel(deptId,deptLevelId).subscribe({
+      this.masterService.GetDesignationDropDownOnDeptLevel(deptId, deptLevelId).subscribe({
         next: ((res: any) => {
           this.designationArray = res.responseData;
           // this.data ? (this.f['designationId'].setValue(this.data?.designationId)) : '';
@@ -149,36 +149,36 @@ export class RegisterOfficerComponent {
     })
   }
 
-  getDisrict(flag?:any) {    
+  getDisrict(flag?: any) {
     this.districtArray = [];
     this.masterService.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
         this.districtArray = res.responseData;
-        this.officeForm.value.departmentLevelId != 2 && this.officeForm.value.departmentLevelId != 5  ||  this.data ? (this.f['districtId'].setValue(this.data?.districtId || 1),this.getTaluka(flag)) : ''
+        this.officeForm.value.departmentLevelId != 2 && this.officeForm.value.departmentLevelId != 5 || this.data ? (this.f['districtId'].setValue(this.data?.districtId || 1), this.getTaluka(flag)) : ''
       }), error: (() => {
         this.districtArray = [];
       })
     })
   }
 
-  getBlock(flag?:any) {    
+  getBlock(flag?: any) {
     this.blockArray = [];
     this.masterService.GetAllBlock(1, 1).subscribe({
       next: ((res: any) => {
         this.blockArray = res.responseData;
-        (this.data  && flag) ? (this.f['blockId'].setValue(this.data?.blockId)) : '';
+        (this.data && flag) ? (this.f['blockId'].setValue(this.data?.blockId)) : '';
       }), error: (() => {
         this.blockArray = [];
       })
     })
   }
 
-  getTaluka(flag?:any) {
+  getTaluka(flag?: any) {
     this.talukaArray = [];
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
-        (this.officeForm.value.departmentLevelId != 4 && this.officeForm.value.departmentLevelId != 1 || (this.data && flag) ) ? (this.f['talukaId'].setValue(this.data?.talId), this.getGrampanchayat()) : '';
+        (this.officeForm.value.departmentLevelId != 4 && this.officeForm.value.departmentLevelId != 1 || (this.data && flag)) ? (this.f['talukaId'].setValue(this.data?.talId), this.getGrampanchayat()) : '';
       }), error: (() => {
         this.talukaArray = [];
       })
@@ -236,9 +236,9 @@ export class RegisterOfficerComponent {
   onSubmitData() {
     let formData = this.officeForm.getRawValue();
     this.f['talukaId'].setValue(formData.departmentLevelId == 5 || formData.departmentLevelId == 2 ? formData.talukaId = 0 : formData.talukaId);
-    this.f['blockId'].setValue(formData.departmentLevelId == 1 || formData.departmentLevelId == 5 ||formData.departmentLevelId == 3 || formData.departmentLevelId == 4 ? formData.blockId = 0 : formData.blockId);
-    this.f['circleId'].setValue(formData.departmentLevelId == 2 || formData.departmentLevelId == 5 || formData.departmentLevelId == 3 ||  formData.departmentLevelId == 4 ?formData.circleId = 0 : formData.circleId);
-    this.f['grampanchayatId'].setValue(formData.departmentLevelId == 2 || formData.departmentLevelId == 5  || formData.departmentLevelId == 4  || formData.departmentLevelId == 1 ? formData.grampanchayatId = 0: formData.grampanchayatId);
+    this.f['blockId'].setValue(formData.departmentLevelId == 1 || formData.departmentLevelId == 5 || formData.departmentLevelId == 3 || formData.departmentLevelId == 4 ? formData.blockId = 0 : formData.blockId);
+    this.f['circleId'].setValue(formData.departmentLevelId == 2 || formData.departmentLevelId == 5 || formData.departmentLevelId == 3 || formData.departmentLevelId == 4 ? formData.circleId = 0 : formData.circleId);
+    this.f['grampanchayatId'].setValue(formData.departmentLevelId == 2 || formData.departmentLevelId == 5 || formData.departmentLevelId == 4 || formData.departmentLevelId == 1 ? formData.grampanchayatId = 0 : formData.grampanchayatId);
     if (this.officeForm.invalid) {
       this.spinner.hide();
       return
@@ -287,31 +287,18 @@ export class RegisterOfficerComponent {
     }
   }
 
-  dropDownCall(id?: any, flag?:any) {    
+  dropDownCall(id?: any, flag?: any) {
     this.getState();
     this.getDisrict(flag);
-    if(id == 1){
+    if (id == 1) {
       this.getCircle(flag)
-    }else if(id == 2){
+    } else if (id == 2) {
       this.getBlock(flag)
     };
-
-    // if(id == 1 || flag ) {
-    //   this.getState();
-    //   this.getDisrict();
-    //   this.getCircle();
-    // } else if(id == 2  || flag){ 
-    //   this.getState();
-    //   this.getDisrict();
-    //   this.getBlock();
-    // } else if((id == 5  || flag) || (id == 3  || flag) || (id == 4  || flag)){
-    //   this.getState();
-    //   this.getDisrict();
-    // }
   }
 
-  clearDropDown( flag?:any) { 
-    if(flag == 'deptLevelClear'){
+  clearDropDown(flag?: any) {
+    if (flag == 'deptLevelClear') {
       this.f['designationId'].setValue('');
       this.designationArray = [];
       this.f['circleId'].setValue('');
@@ -322,18 +309,10 @@ export class RegisterOfficerComponent {
       this.talukaArray = [];
       this.f['grampanchayatId'].setValue('');
       this.grampanchayatArray = [];
-      // this.f['departmentId'].setValue('');
-      // this.departmentArray = [];
-    }
-    // else if(levelId == 'clearDesignation'){
-    //   this.f['designationId'].setValue('');
-    //   this.designationArray = [];
-    // }
-      else{
+    }else {
       this.f['grampanchayatId'].setValue('');
       this.grampanchayatArray = [];
     }
-    
   }
 
   getstatusForm() {
@@ -343,13 +322,25 @@ export class RegisterOfficerComponent {
     })
   }
 
-  sendData(id: any) {
-    id == 1 ? (this.showFlag = false, this.statusForm.controls['remark'].setValue('')) : this.showFlag = true;
+  get fs() { return this.statusForm.controls; }
+
+  sendData(id?: any) {
+    id == 1 ? (this.showFlag = false, this.statusForm.controls['remark'].setValue('')) :this.showFlag = true
+    if (id == 0) {
+      this.statusForm.controls["remark"].clearValidators();
+      this.statusForm.controls['remark'].setValidators([Validators.required]);
+      this.statusForm.controls["remark"].updateValueAndValidity();
+    } else {
+      this.statusForm.controls["remark"].clearValidators();
+      this.statusForm.controls['remark'].setValidators([]);
+      this.statusForm.controls["remark"].updateValueAndValidity();
+    }
   }
 
   submitStatusData() {
     this.spinner.show();
     let formData = this.statusForm.value;
+    console.log('formData', formData);
     if (this.statusForm.invalid) {
       this.spinner.hide();
       return
@@ -381,7 +372,7 @@ export class RegisterOfficerComponent {
     }
   }
 
-  resetStatus(){
+  resetStatus() {
     this.statusForm.reset();
     this.getstatusForm();
   }
@@ -435,9 +426,9 @@ export class RegisterOfficerComponent {
     })
   }
 
-  clearFormData(){
+  clearFormData() {
     this.formDirective.resetForm();
-    this.data=null;
+    this.data = null;
     this.getFormData();
   }
 }
