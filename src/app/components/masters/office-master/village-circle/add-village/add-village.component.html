@@ -54,7 +54,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'villageCircle.select_grampanchayat' | translate}}</mat-label> -->
             <mat-select formControlName="grampanchayats" multiple >
-              <mat-option *ngFor="let vil of grampanchayatArray" [value]="vil.id"  [disabled]="data ? !isAssigngramFlag : vil.isSelected">{{lang != 'en' ? vil.textMarathi
+              <mat-option *ngFor="let vil of grampanchayatArray" [value]="vil.id"  [disabled]="vil.isSelected && !vil.isAssigned">{{lang != 'en' ? vil.textMarathi
                 :vil.textEnglish}}</mat-option>
             </mat-select>
             <mat-error *ngIf="f['grampanchayats']?.hasError('required')">{{'villageCircle.please_select_grampanchayat' |
