@@ -171,7 +171,6 @@ export class VillageCircleComponent implements OnDestroy{
         break;
     }
   }
-
   deleteDialogOpen(delObj?: any) {
     let dialogObj = {
       title: this.lang == 'en' ? 'Do You Want To Delete Selected Circle ?' : 'तुम्हाला निवडलेले मंडळ हटवायचे आहे का ?',
@@ -187,7 +186,7 @@ export class VillageCircleComponent implements OnDestroy{
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('delete', 'sericulture/api/TalukaBlocks/DeleteVillageCircle?Id=' + delObj.id, false, false, false, 'masterUrl');
+        this.apiService.setHttp('delete', 'sericulture/api/Circles/DeleteCircle?Id=' + delObj.id, false, false, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
