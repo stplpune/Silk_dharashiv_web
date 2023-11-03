@@ -90,7 +90,7 @@ export class FaqComponent implements OnDestroy {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_Question', 'status', 'action'] : ['srNo', 'question', 'status1', 'action'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_Question', 'status1', 'action'] : ['srNo', 'question', 'status1', 'action'];
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'प्रश्न', 'स्थिती', 'कृती'] : ['Sr. No.', 'Question', 'Status', 'ACTION'];
     let tableData: any;
     tableData = {
@@ -182,8 +182,8 @@ export class FaqComponent implements OnDestroy {
   globalDialogOpen(delDataObj?: any) {
     let dialogObj = {
       title: this.lang == 'mr-IN' ? 'तुम्हाला एफएक्यू हटवायचा आहे का ?' : 'Do You Want To Delete FAQ ?',
-      header: this.lang == 'mr-IN' ? 'डिलीट करा' : 'Delete',
-      okButton: this.lang == 'mr-IN' ? 'डिलीट' : 'Delete',
+      header: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
+      okButton: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {

@@ -206,7 +206,8 @@
     "district":"जिल्हा",
     "all_grampanchayat":"सर्व ग्रामपंचायत",
     "select_grampanchayat":"ग्रामपंचायत निवडा" ,
-    "please_select_grampanchayat":"कृपया ग्रामपंचायत निवडा"
+    "please_select_grampanchayat":"कृपया ग्रामपंचायत निवडा",
+    "Please_enter_remark":"कृपया टिप्पणी प्रविष्ट करा"
   },
   "marketRate": {
     "market_en": "बाजाराचे नाव(इंग्रजी)",
