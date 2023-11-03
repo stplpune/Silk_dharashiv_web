@@ -42,7 +42,7 @@
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
               <!-- <mat-label>{{'setRule.select_scheme'|translate}}</mat-label> -->
-              <mat-select formControlName="scheme" placeholder="Select Scheme" (selectionChange)="approveLevelArray = [];editFlag = false;f['department'].setValue('');getDepartment()"
+              <mat-select formControlName="scheme" placeholder="{{'setRule.select_scheme'|translate}}" (selectionChange)="approveLevelArray = [];editFlag = false;f['department'].setValue('');getDepartment()"
                 [class]="data?.label == 'Edit' ? setRulefrm.controls['scheme'].disable({ onlySelf: true }) :setRulefrm.controls['scheme'].enable({ onlySelf: true })">
                 <mat-option *ngFor="let data of schemeTypeArray" [value]="data.id">{{lang == 'en' ?
                   data.textEnglish : data.textMarathi}}</mat-option>
@@ -53,7 +53,7 @@
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
               <!-- <mat-label>{{'common.department'|translate}}</mat-label> -->
-              <mat-select formControlName="department" placeholder="Select Department"
+              <mat-select formControlName="department" placeholder="{{'common.department'|translate}}"
                 (selectionChange)="approveLevelArray = [];clearAddRuleForm();getAllApprovalMasterLevels()"
                 [class]="(data?.label == 'Edit' || !f['scheme'].getRawValue()) ? f['department'].disable() :f['department'].enable()">
                 <mat-option *ngFor="let data of departmentArray" [value]="data.id">{{lang == 'en' ?
@@ -69,54 +69,6 @@
           <!-- <div class="alert alert-danger text-center py-2" *ngIf="!f['scheme'].getRawValue() || !f['department'].getRawValue()">Select Above Filter..!</div> -->
           <!-- <div class="alert alert-danger text-center py-2" *ngIf="f['scheme'].getRawValue() && f['department'].getRawValue() && approvallistForm.controls?.length == 0">No Data Found..!</div> -->
       </div>
-
-        <!-- <div class="row gx-2 align-items-center">
-          <ng-container formArrayName="approvalLevels">
-            <ng-container *ngFor="let lessonForm of approvallistForm.controls; let i = index" [formGroupName]="i">
-              <div class="row  gx-2">
-                <div class="col-sm-3">
-                  <div class="form-data" *ngIf="i == 0">{{'setRule.order'|translate}}</div>
-                  <mat-form-field appearance="outline" class="w-100">
-                    <mat-select formControlName="approvalLevel" placeholder="Select Order"
-                    [ngClass]="lessonForm.get('approvalLevel').disable({ onlySelf: true })">
-                      <mat-option *ngFor="let data of getAllActionArray" [value]="data.orderLevel">{{lang == 'en' ? data.approvalLevel : data.m_ApprovalLevel}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col-sm-3">
-                  <div class="form-data" *ngIf="i == 0">{{'setRule.action'|translate}}</div>
-                  <mat-form-field appearance="outline" class="w-100">
-                    <mat-select formControlName="actionId" placeholder="Select Action"
-                    [ngClass]="lessonForm.get('actionId').disable({ onlySelf: true })">
-                      <mat-option *ngFor="let data of getAllActionArray" [value]="data?.id" [disabled]="true">
-                        {{lang == 'en' ? data.actionName : data.m_ActionName}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col-sm-3">
-                  <div class="form-data" *ngIf="i == 0">{{'setRule.designation_level'|translate}}</div>
-                  <mat-form-field appearance="outline" class="w-100">
-                    <mat-select formControlName="departmentLevelId" placeholder="Select Designation Level" (selectionChange)="getDesignation(f['department'].getRawValue(),lessonForm.get('departmentLevelId').getRawValue())">
-                      <mat-option *ngFor="let data of designationLevelArray" [value]="data.id" [disabled]="data.id == 0">{{lang ==
-                        'en' ? data.textEnglish : data.textMarathi}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col-sm-3">
-                  <div class="form-data" *ngIf="i == 0">{{'setRule.designation'|translate}}</div>
-                  <mat-form-field appearance="outline" class="w-100">
-                    <mat-select formControlName="designationId" placeholder="Select Designation">
-                      <mat-option *ngFor="let data of designationArray" [value]="data.id"
-                        [disabled]="data.id == 0">{{lang == 'en' ?
-                        data.textEnglish : data.textMarathi}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-            </ng-container>
-          </ng-container>
-        </div> -->
-
             <!-- ..................................  Add Rule Code Start Here ............................... -->
 
     <div class="card p-2" *ngIf="f['department'].getRawValue()">
@@ -136,7 +88,7 @@
         <div class="row  gx-2">
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="approvalLevel" placeholder="Select Order" (selectionChange)="setActionDropdown()"
+              <mat-select formControlName="approvalLevel" placeholder="{{'setRule.select_order'|translate}}" (selectionChange)="setActionDropdown()"
               [class]="addRuleEditFlag == true ? g['approvalLevel'].disable() : g['approvalLevel'].enable()">
                 <mat-option *ngFor="let data of getAllActionArray" [value]="data.orderLevel">{{lang == 'en' ? data.approvalLevel : data.m_ApprovalLevel}}</mat-option>
               </mat-select>
@@ -144,7 +96,7 @@
           </div>
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="actionId" placeholder="Select Action" [class]="g['actionId'].disable({ onlySelf: true })">
+              <mat-select formControlName="actionId" placeholder="{{'setRule.select_action'|translate}}" [class]="g['actionId'].disable({ onlySelf: true })">
                 <mat-option *ngFor="let data of getAllActionArray" [value]="data?.id">
                   {{lang == 'en' ? data.actionName : data.m_ActionName}}</mat-option>
               </mat-select>
@@ -152,7 +104,7 @@
           </div>
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="departmentLevelId" placeholder="Select Designation Level" (selectionChange)="g['designationId'].setValue('');getDesignation()">
+              <mat-select formControlName="departmentLevelId" placeholder="{{'common.designation_level'|translate}}" (selectionChange)="g['designationId'].setValue('');getDesignation()">
                 <mat-option *ngFor="let data of designationLevelArray" [value]="data.id" [disabled]="data.id == 0">
                   {{lang == 'en' ? data.textEnglish : data.textMarathi}}</mat-option>
               </mat-select>
@@ -160,15 +112,15 @@
           </div>
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="designationId" placeholder="Select Designation">
+              <mat-select formControlName="designationId" placeholder="{{'common.designation'|translate}}">
                 <mat-option *ngFor="let data of designationArray" [value]="data.id"
                   [disabled]="data.id == 0">{{lang == 'en' ? data.textEnglish : data.textMarathi}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-sm-auto">
-              <button mat-flat-button class="btn-main px-2" type="submit">{{addRuleEditFlag == true ? 'Update' : 'Add'}}</button>
-              <button mat-flat-button class="btn-main-light mx-1 px-2" type="button" (click)="clearAddRuleForm()">Clear</button>
+              <button mat-flat-button class="btn-main px-2" type="submit">{{addRuleEditFlag == true ? ('blogs.update'|translate) : ('common.add'|translate)}}</button>
+              <button mat-flat-button class="btn-main-light mx-1 px-2" type="button" (click)="clearAddRuleForm()">{{'common.clear'|translate}}</button>
           </div>
         </div>
       </form>

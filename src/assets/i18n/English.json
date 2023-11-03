@@ -32,6 +32,7 @@
     "Please_select_circle": "Please select circle",
     "cancel": "Cancel",
     "add": "Add",
+    "clear": "Clear",
     "officer_en": "Officer Name(English)",
     "officer_mr": "Officer Name(Marathi)",
     "officer_Name_en": "Please enter officer name(English)",
@@ -144,6 +145,8 @@
     "view":"View Reject Reasons"
   },
   "setRule": {
+    "select_order": "Select Order",
+    "select_action": "Select Action",
     "set_rule": "Set Rules",
     "add_rule": "Add Rule",
     "update_rule": "Update Rule",

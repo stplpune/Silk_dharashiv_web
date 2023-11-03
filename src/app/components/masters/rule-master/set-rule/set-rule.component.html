@@ -36,7 +36,7 @@
         <div class="col-sm-auto">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'setRule.select_scheme' | translate}}</mat-label> -->
-            <mat-select formControlName="scheme" placeholder="Select Scheme" (selectionChange)="filterFrm.controls['department'].setValue('');getDepartment()">
+            <mat-select formControlName="scheme" placeholder="{{'setRule.select_scheme' | translate}}" (selectionChange)="filterFrm.controls['department'].setValue('');getDepartment()">
               <mat-option *ngFor="let data of schemeTyperesp" [value]="data.id">{{lang == 'en' ?
                 data.textEnglish : data.textMarathi}}</mat-option>
             </mat-select>
@@ -45,7 +45,7 @@
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'designation.depertment'|translate}}</mat-label> -->
-            <mat-select formControlName="department" placeholder="Select Department" [class]="!filterFrm.getRawValue().scheme ? filterFrm.controls['department'].disable() : filterFrm.controls['department'].enable()">
+            <mat-select formControlName="department" placeholder="{{'designation.depertment'|translate}}" [class]="!filterFrm.getRawValue().scheme ? filterFrm.controls['department'].disable() : filterFrm.controls['department'].enable()">
               <mat-option *ngFor="let data of departmentresp" [value]="data.id">{{lang == 'en' ?
                 data.textEnglish : data.textMarathi}}</mat-option>
             </mat-select>
