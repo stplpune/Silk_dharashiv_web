@@ -74,7 +74,7 @@ export class AddVillageComponent implements OnDestroy{
     })
   }
 
-  get f() { return this.villageForm.controls };
+  get f() { return this.villageForm.controls };    
 
   getState() {
     this.master.GetAllState().subscribe({
