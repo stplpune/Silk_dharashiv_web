@@ -15,8 +15,8 @@
     <div class="row gx-2">
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>{{'common.taluka_filter' | translate}}</mat-label>
-          <mat-select formControlName="talukaId" (selectionChange)="getGrampanchayat()">
+          <!-- <mat-label>{{'common.taluka_filter' | translate}}</mat-label> -->
+          <mat-select formControlName="talukaId" placeholder="All Taluka" (selectionChange)="getGrampanchayat()">
             <mat-option [value]="0"> {{'officerreg.allTaluka' | translate}}</mat-option>
             <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi :
               taluka.textEnglish}}</mat-option>
@@ -25,8 +25,8 @@
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>{{'common.grampanchayat_filter' | translate}}</mat-label>
-          <mat-select formControlName="grampanchayatId">
+          <!-- <mat-label>{{'common.grampanchayat_filter' | translate}}</mat-label> -->
+          <mat-select formControlName="grampanchayatId" placeholder="All Grampanchayat">
             <mat-option [value]="0">{{'officerreg.all_grampanchayat' | translate}}</mat-option>
             <mat-option *ngFor="let village of grampanchayatArray" [value]="village.id">{{lang != 'en' ?
               village.textMarathi : village.textEnglish}}</mat-option>
@@ -35,8 +35,8 @@
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>{{'villageCircle.search_by_village_circle_name' | translate}}</mat-label>
-          <input matInput formControlName="textsearch"  (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
+          <!-- <mat-label>{{'villageCircle.search_by_village_circle_name' | translate}}</mat-label> -->
+          <input matInput formControlName="textsearch" placeholder="Search by Circle Name"  (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
         </mat-form-field>
       </div>
       <div class="col-sm-1">
