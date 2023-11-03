@@ -60,7 +60,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
     })
     this.getFilterFormData();
     this.getDepartment();
-    this.getDepartmentLevel();
+    // this.getDepartmentLevel();
     this.getTaluka();
     this.getBlock();
     this.getCircle();
@@ -283,6 +283,8 @@ export class OfficerRegistrationComponent implements OnDestroy {
 
   clearDropDown(flag?: any) {
     if (flag == 'dept') {
+      this.departmentLevelArray = [];
+      this.f['departmentLevelId'].setValue(0);
       this.designationArray = [];
       this.f['designationId'].setValue(0);
     }else if(flag == 'clearAll'){
