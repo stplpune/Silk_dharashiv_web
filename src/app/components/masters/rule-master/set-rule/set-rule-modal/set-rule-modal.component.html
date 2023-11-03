@@ -283,8 +283,7 @@
         <ng-container matColumnDef="Order">
           <th mat-header-cell *matHeaderCellDef>{{'setRule.Order'|translate}} </th>
           <td mat-cell *matCellDef="let element">
-            {{element.approvalLevel==1?('setRule.first_level'|translate):element.approvalLevel==2?('setRule.second_level'|translate):element.approvalLevel==3?
-            ('setRule.third_level'|translate):element.approvalLevel==4?('setRule.four_level'|translate):('setRule.fifth_level'|translate)}}
+            {{this.lang == 'mr-IN'?element.m_ApprovalLevel:element.approvalLevel}}
           </td>
         </ng-container>
 
