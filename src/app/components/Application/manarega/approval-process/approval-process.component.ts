@@ -5,7 +5,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -46,6 +46,7 @@ export class ApprovalProcessComponent implements OnDestroy {
     private apiService: ApiService,
     private WebStorageService: WebStorageService,
     public encryptdecrypt: AesencryptDecryptService,
+    private router:Router,
     private route: ActivatedRoute, public validation: ValidationService,
     private fb: FormBuilder, private spinner: NgxSpinnerService,
     private errorHandler: ErrorHandlingService,
@@ -65,9 +66,10 @@ export class ApprovalProcessComponent implements OnDestroy {
 
   addApprovalFrm() {
     this.approvalFrm = this.fb.group({
-      "applicationStatus": [''],
+      "applicationStatus": ['', Validators.required],
       "reason": [''],
-      "remark": ['', [Validators.pattern(this.validation.fullName), this.validation.maxLengthValidator(50)]]
+      "remark": ['', [Validators.pattern(this.validation.fullName), this.validation.maxLengthValidator(50)]],
+      "m_remark": ['']
     })
   }
 
@@ -130,19 +132,22 @@ export class ApprovalProcessComponent implements OnDestroy {
   }
 
   getReason() {
-    this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetRejectReasons?ActionId=' + this.applicationData?.actionId, false, false, false, 'masterUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {
-        if (res.statusCode == '200') {
-          this.reasonArray = res.responseData;
+    let approvalFrmVal = this.approvalFrm.getRawValue();
+    // this.applicationData?.actionId
+    if (approvalFrmVal.applicationStatus == 11 || approvalFrmVal.applicationStatus == 5) {
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetRejectReasons?ActionId=0', false, false, false, 'masterUrl');
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => {
+          if (res.statusCode == '200') {
+            this.reasonArray = res.responseData;
+          }
+          else {
+            this.reasonArray = [];
+          }
         }
-        else {
-          this.reasonArray = [];
-        }
-      }
-    })
+      })
+    }
   }
-
 
   onSubmitApprovalDetails() {
     if (this.approvalFrm.invalid) {
@@ -151,6 +156,8 @@ export class ApprovalProcessComponent implements OnDestroy {
     else {
       this.spinner.show();
       let data = this.approvalFrm.getRawValue();
+      this.approvalFrm.controls['m_remark'].setValue(data?.remark);
+     
       let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId() };
       this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/UpdateApprovalStatus?lan=' + this.lang, false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
@@ -158,6 +165,7 @@ export class ApprovalProcessComponent implements OnDestroy {
           this.spinner.hide();
           if (res.statusCode == "200") {
             this.commonMethod.snackBar(res.statusMessage, 0);
+            this.router.navigate(['../ application'], {relativeTo:this.route})
             this.formDirective1.reset();
           }
           else {

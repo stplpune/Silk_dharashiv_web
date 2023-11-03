@@ -580,7 +580,7 @@
             <div class="col-sm-2">
               <label class="form-label">Select Status</label>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="applicationStatus">
+                <mat-select formControlName="applicationStatus" (selectionChange)="getReason()">
                   <mat-option *ngFor="let apporvalStatus of approvalStatusArray" [value]="apporvalStatus?.id">{{lang ==
                     "en" ? apporvalStatus?.textEnglish : apporvalStatus?.textMarathi}}</mat-option>
                 </mat-select>
