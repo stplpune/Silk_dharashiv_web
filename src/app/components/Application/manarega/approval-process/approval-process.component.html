@@ -591,8 +591,7 @@
               <label class="form-label">Select Reason</label>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="reason">
-                  <mat-option *ngFor="let reason of reasonArray" [value]="reason?.id"
-                    [disabled]="reason?.id == 0">{{lang
+                  <mat-option *ngFor="let reason of reasonArray" [value]="reason?.id">{{lang
                     == "en" ? reason?.textEnglish : reason?.textMarathi}}</mat-option>
                 </mat-select>
               </mat-form-field>
