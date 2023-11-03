@@ -105,9 +105,9 @@ export class LoginComponent {
           localStorage.setItem('silkDharashivUserInfo', this.loginData);
          //this.router.navigate(['/dashboard']);
           this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
-        //  this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
-         
-          this.loginFlag = true;
+           this.loginData?.pageList?.length <= 0 ? this.commonMethods.snackBar('Please Contact To Admin',1) : ''
+         //  this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
+           this.loginFlag = true;
         }
         else {
           this.spinner.hide();
