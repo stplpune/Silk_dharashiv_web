@@ -37,10 +37,11 @@ export class AddVillageComponent implements OnDestroy{
       private apiService: ApiService,
       private commonMethodService: CommonMethodsService,
       private errorService: ErrorHandlingService,
-      public validator: ValidationService
+      public validator: ValidationService,
     ) { }
 
   ngOnInit() {
+    console.log('this.data',this.data);
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -55,8 +56,8 @@ export class AddVillageComponent implements OnDestroy{
   getFormData() {
     this.villageForm = this.fb.group({
       id: [this.data ? this.data?.id : 0],
-      stateId: [this.data ? this.data?.stateId : 1],
-      districtId: [this.data ? this.data?.districtId : 1],
+      stateId: [this.data ? this.data?.stateId : this.WebStorageService.getStateId()],
+      districtId: [this.data ? this.data?.districtId : this.WebStorageService.getDistrictId()],
       talukaId: [this.data ? this.data?.talukaId : '', [Validators.required]],
       grampanchayats: [this.data ? this.data?.grampanchayat : '', [Validators.required]],
       circleName: [this.data ? this.data?.circleName : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(30)]],
