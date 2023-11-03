@@ -1,19 +1,20 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
     <div class="text-main">{{!this.data?('rejectReason.add_reject_reason'|translate):isViewFlag?('rejectReason.view'|translate):('rejectReason.update_reject_reason'|translate)}}</div>
-    
+
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
     </button>
   </div>
 </div>
-<div mat-dialog-content class="modal-body" *ngIf="!isViewFlag">
+<div mat-dialog-content class="modal-body form-container" *ngIf="!isViewFlag">
   <form [formGroup]="rejectResonFrm" (ngSubmit)="onSubmit()" #formDirective="ngForm">
   <div class="row">
     <div class="col-sm-12">
+      <mat-label class="form-label">{{'rejectReason.all_stage_action'|translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'rejectReason.all_stage_action'|translate}}</mat-label>
-        <mat-select formControlName="actionId">
+        <!-- <mat-label>{{'rejectReason.all_stage_action'|translate}}</mat-label> -->
+        <mat-select formControlName="actionId" placeholder="All Stage/Action">
           <mat-option *ngFor="let data of actionResp" [value]="data.id">{{lang == 'en' ?
             data.textEnglish : data.textMarathi}}</mat-option>
         </mat-select>
@@ -22,8 +23,9 @@
       </mat-form-field>
     </div>
     <div class="col-sm-12">
+      <mat-label class="form-label">{{'rejectReason.enter_rejection_title'|translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'rejectReason.enter_rejection_title'|translate}}</mat-label>
+        <!-- <mat-label>{{'rejectReason.enter_rejection_title'|translate}}</mat-label> -->
         <input matInput placeholder="" formControlName="rejectionTitle"
         (keypress)="validation.noFirstSpaceAllow($event)">
         <mat-error class="text-danger" *ngIf="f['rejectionTitle'].hasError('required')">{{'rejectReason.please_enter_rejection_title'|translate}}
@@ -36,8 +38,9 @@
     </div>
 
     <div class="col-sm-12">
+      <mat-label class="form-label">{{'rejectReason.enter_rejection_title_marathi'|translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'rejectReason.enter_rejection_title_marathi'|translate}}</mat-label>
+        <!-- <mat-label>{{'rejectReason.enter_rejection_title_marathi'|translate}}</mat-label> -->
         <input matInput placeholder="" formControlName="rejectionTitleMarathi"
         (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
         <mat-error class="text-danger" *ngIf="f['rejectionTitleMarathi'].hasError('required')">{{'rejectReason.please_enter_rejection_title_marathi'|translate}}
@@ -48,8 +51,9 @@
     </div>
 
     <div class="col-sm-12">
+      <mat-label class="form-label">{{'rejectReason.enter_rejection_description'|translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'rejectReason.enter_rejection_description'|translate}}</mat-label>
+        <!-- <mat-label>{{'rejectReason.enter_rejection_description'|translate}}</mat-label> -->
         <textarea matInput placeholder="" rows="3" formControlName="description"
         (keypress)="validation.noFirstSpaceAllow($event)"></textarea>
         <mat-error class="text-danger" *ngIf="f['description'].hasError('required')">{{'rejectReason.please_enter_rejection_description'|translate}}

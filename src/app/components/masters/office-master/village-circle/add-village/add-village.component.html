@@ -14,8 +14,9 @@
         <form [formGroup]="villageForm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
       <div class="row">
         <div class="col-sm-6">
+          <mat-label class="form-label">{{'villageCircle.select_state' | translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'villageCircle.select_state' | translate}}</mat-label>
+            <!-- <mat-label>{{'villageCircle.select_state' | translate}}</mat-label> -->
             <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
               [class]="villageForm.controls['stateId'].disable({ onlySelf: true })">
               <mat-option *ngFor="let st of stateArray" [value]="st.id">{{lang != 'en' ? st.textMarathi
@@ -24,8 +25,9 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
+          <mat-label class="form-label">{{'villageCircle.select_district' | translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'villageCircle.select_district' | translate}}</mat-label>
+            <!-- <mat-label>{{'villageCircle.select_district' | translate}}</mat-label> -->
             <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
               [class]="villageForm.controls['districtId'].disable({ onlySelf: true })">
               <mat-option *ngFor="let dist of districtArray" [value]="dist.id">{{lang != 'en' ? dist.textMarathi
@@ -34,8 +36,9 @@
           </mat-form-field>
         </div>
         <div class="col-sm-12">
+          <mat-label class="form-label">{{'villageCircle.select_taluka' | translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'villageCircle.select_taluka' | translate}}</mat-label>
+            <!-- <mat-label>{{'villageCircle.select_taluka' | translate}}</mat-label> -->
             <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('village');getGrampanchayat()"
              >
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi
@@ -47,8 +50,9 @@
         </div>
         <div class="col-sm-12">
           <!-- [class]="villageForm.controls['grampanchayats'].disable({ onlySelf: true })" -->
+          <mat-label class="form-label">{{'villageCircle.select_grampanchayat' | translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'villageCircle.select_grampanchayat' | translate}}</mat-label>
+            <!-- <mat-label>{{'villageCircle.select_grampanchayat' | translate}}</mat-label> -->
             <mat-select formControlName="grampanchayats" multiple >
               <mat-option *ngFor="let vil of grampanchayatArray" [value]="vil.id"  [disabled]="data ? !isAssigngramFlag : vil.isSelected">{{lang != 'en' ? vil.textMarathi
                 :vil.textEnglish}}</mat-option>
@@ -58,8 +62,9 @@
           </mat-form-field>
         </div>
         <div class="col-sm-12">
+          <mat-label class="form-label">{{'villageCircle.circle_name_en' | translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'villageCircle.circle_name_en' | translate}}</mat-label>
+            <!-- <mat-label>{{'villageCircle.circle_name_en' | translate}}</mat-label> -->
             <input matInput formControlName="circleName"
               (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
             <mat-error *ngIf="f['circleName']?.hasError('required')">{{'villageCircle.please_enter_circle_name_en'
@@ -71,8 +76,9 @@
           </mat-form-field>
         </div>
         <div class="col-sm-12">
+          <mat-label class="form-label">{{'villageCircle.circle_name_mr' | translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'villageCircle.circle_name_mr' | translate}}</mat-label>
+            <!-- <mat-label>{{'villageCircle.circle_name_mr' | translate}}</mat-label> -->
             <input matInput formControlName="m_CircleName"
               (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
             <mat-error
