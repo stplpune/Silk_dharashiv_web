@@ -90,7 +90,7 @@ export class FaqComponent implements OnDestroy {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_Question', 'status', 'action'] : ['srNo', 'question', 'status1', 'action'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_Question', 'status1', 'action'] : ['srNo', 'question', 'status1', 'action'];
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'प्रश्न', 'स्थिती', 'कृती'] : ['Sr. No.', 'Question', 'Status', 'ACTION'];
     let tableData: any;
     tableData = {
