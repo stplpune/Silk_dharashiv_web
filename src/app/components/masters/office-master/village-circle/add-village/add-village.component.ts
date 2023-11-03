@@ -26,6 +26,7 @@ export class AddVillageComponent implements OnDestroy{
   subscription!: Subscription;
   lang: any;
   isViewFlag: boolean = false;
+  isAssigngramFlag:boolean=false;
   constructor
     (
       private fb: FormBuilder,
@@ -49,7 +50,7 @@ export class AddVillageComponent implements OnDestroy{
     if (!this.isViewFlag) {
       this.getState();
     }
-    this.getFormData();
+    this.getFormData();    
   }
 
   getFormData() {
@@ -104,7 +105,7 @@ export class AddVillageComponent implements OnDestroy{
     })
   }
 
-  getGrampanchayat() {
+  getGrampanchayat() {    
     let talukaId = this.villageForm.getRawValue().talukaId;
     this.master.GetGrampanchayat(talukaId || 0).subscribe({
       next: ((res: any) => {

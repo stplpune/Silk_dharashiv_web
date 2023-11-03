@@ -154,7 +154,7 @@ export class SetRuleComponent implements OnDestroy{
 
   addactions(obj?: any) {
     const dialogRef = this.dialog.open(SetRuleModalComponent, {
-      width: '50%',
+      width: '60%',
       data: obj,
       disableClose: true,
       autoFocus: false

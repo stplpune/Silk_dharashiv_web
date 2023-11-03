@@ -305,7 +305,7 @@ export class SetRuleModalComponent implements OnDestroy {
       return;
     }
     if (this.getAllActionArray?.length != this.approveLevelArray?.filteredData?.length) {
-      this.commonMethods.snackBar('All Order is Required', 1);
+      this.commonMethods.snackBar('All Order Level is Required', 1);
       return;
     }
     this.spinner.show();

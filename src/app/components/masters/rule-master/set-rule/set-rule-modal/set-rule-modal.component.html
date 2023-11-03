@@ -12,7 +12,7 @@
 
   <div *ngIf="!isViewFlag">
     <form [formGroup]="setRulefrm" #formDirective="ngForm">
-      <mat-dialog-content class="modal-body form-container">
+      <mat-dialog-content class="modal-body form-container scrollbar">
         <div class="row gx-2" >
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
@@ -55,7 +55,7 @@
               <mat-label>{{'common.department'|translate}}</mat-label>
               <mat-select formControlName="department"
                 (selectionChange)="approveLevelArray = [];clearAddRuleForm();getAllApprovalMasterLevels()"
-                [class]="(data?.label == 'Edit' || !f['scheme'].getRawValue() || !departmentArray?.length) ? f['department'].disable() :f['department'].enable()">
+                [class]="(data?.label == 'Edit' || !f['scheme'].getRawValue()) ? f['department'].disable() :f['department'].enable()">
                 <mat-option *ngFor="let data of departmentArray" [value]="data.id">{{lang == 'en' ?
                   data.textEnglish : data.textMarathi}}</mat-option>
               </mat-select>
@@ -120,6 +120,17 @@
             <!-- ..................................  Add Rule Code Start Here ............................... -->
 
     <div class="card p-2" *ngIf="f['department'].getRawValue()">
+      <div class="card-header">
+        <div class="row form-container">
+          <div class="col-sm-auto">
+            <span class="form-label">Total Order Level</span>
+          </div>
+          <div class="col-sm-auto">
+            <span class="form-data">: {{this.getAllActionArray?.length}}</span>
+          </div>
+        </div>
+      </div>
+     <div class="card-body px-0">
       <ng-container>
         <form [formGroup]="AddRulefrm" #addRuleformDirective="ngForm" (ngSubmit)="addRule()">
         <div class="row  gx-2">
@@ -155,16 +166,16 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-sm">
-              <button mat-flat-button class="btn-main" type="submit">{{addRuleEditFlag == true ? 'Update' : 'Add'}}</button>
-              <button mat-flat-button class="btn-main-light mx-1" type="button" (click)="clearAddRuleForm()">Clear</button>
+          <div class="col-sm-auto">
+              <button mat-flat-button class="btn-main px-2" type="submit">{{addRuleEditFlag == true ? 'Update' : 'Add'}}</button>
+              <button mat-flat-button class="btn-main-light mx-1 px-2" type="button" (click)="clearAddRuleForm()">Clear</button>
           </div>
         </div>
       </form>
       </ng-container>
  
        <!-- ..............................  Table Add Rule ............................ -->
-      <div class="table-responsive mt-4">
+      <div class="table-responsive">
         <table mat-table [dataSource]="approveLevelArray" class="w-100 dashboard-table border">
           <ng-container matColumnDef="Sr.No">
             <th mat-header-cell *matHeaderCellDef>{{'common.srNo'|translate}} </th>
@@ -209,6 +220,7 @@
           <tr mat-row *matRowDef="let row; columns: addRuledisplayedColumns;"></tr>
         </table>
       </div>
+     </div>
     </div>
 
       <!-- ............................................  Add Rule Code End Here .............................. -->
