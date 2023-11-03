@@ -12,11 +12,10 @@
           </button>
         </div>
       </mat-card-header>
-      <mat-card-header class="card-header">
-        <form [formGroup]="filterFrm" class="w-100 form-container">
-          <div class="row gx-2 align-items-center">
+      <mat-card-header class="card-header-control">
+        <form [formGroup]="filterFrm" class="w-100">
+          <div class="row gx-2">
             <div class="col-sm">
-              <label class="form-label">{{'common.department_filter'|translate}}</label>
               <mat-form-field appearance="outline" class="w-100">
                 <!-- <mat-label>{{'common.department_filter'|translate}}</mat-label> -->
                 <mat-select formControlName="deptId">
@@ -26,7 +25,6 @@
               </mat-form-field>
             </div>
             <div class="col-sm">
-              <label class="form-label">{{'common.designation_filter'|translate}}</label>
               <mat-form-field appearance="outline" class="w-100">
                 <!-- <mat-label>{{'common.designation_filter'|translate}}</mat-label> -->
                 <mat-select formControlName="deptLevelId">
@@ -36,10 +34,9 @@
               </mat-form-field>
             </div>
             <div class="col-sm-4">
-              <label class="form-label">{{'designation.search_by_designation'|translate}}</label>
               <mat-form-field appearance="outline" class="w-100">
                 <!-- <mat-label>{{'designation.search_by_designation'|translate}}</mat-label> -->
-                <input matInput formControlName="textSearch"
+                <input matInput formControlName="textSearch" placeholder="Search by Designation"
                   (keypress)="validation.noFirstSpaceAllow($event)">
               </mat-form-field>
             </div>
