@@ -182,8 +182,8 @@ export class FaqComponent implements OnDestroy {
   globalDialogOpen(delDataObj?: any) {
     let dialogObj = {
       title: this.lang == 'mr-IN' ? 'तुम्हाला एफएक्यू हटवायचा आहे का ?' : 'Do You Want To Delete FAQ ?',
-      header: this.lang == 'mr-IN' ? 'डिलीट करा' : 'Delete',
-      okButton: this.lang == 'mr-IN' ? 'डिलीट' : 'Delete',
+      header: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
+      okButton: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
