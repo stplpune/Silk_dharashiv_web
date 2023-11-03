@@ -42,6 +42,11 @@
     border-color: var(--main-color) !important;
 }
 
+/* extra padding in radio button removed */
+.mat-mdc-radio-button .mdc-radio {
+    padding: 0 !important;
+}
+
 /* border radius set to mat button toggle */
 .mat-button-toggle-group {
     border-radius: 30px !important;
