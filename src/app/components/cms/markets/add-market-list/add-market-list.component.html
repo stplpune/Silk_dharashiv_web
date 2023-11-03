@@ -10,11 +10,12 @@
 
 <div class="" *ngIf="!isViewFlag">
 <form [formGroup]="marketFrm" #formDirective="ngForm">
-<div mat-dialog-content class="modal-body">
+<div mat-dialog-content class="modal-body form-container">
   <div class="row gx-2">
     <div class="col-sm-6">
+      <mat-label class="form-label">{{'marketRate.market_en' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'marketRate.market_en' | translate}}</mat-label>
+        <!-- <mat-label>{{'marketRate.market_en' | translate}}</mat-label> -->
         <input matInput formControlName="marketName"
         (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
         <mat-error *ngIf="a['marketName'].hasError('required')">{{'marketRate.market_Name_en'|translate}}</mat-error>
@@ -27,8 +28,9 @@
       </mat-form-field>
     </div>
     <div class="col-sm-6">
+      <mat-label class="form-label">{{'marketRate.market_mr' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'marketRate.market_mr' | translate}}</mat-label>
+        <!-- <mat-label>{{'marketRate.market_mr' | translate}}</mat-label> -->
         <input matInput formControlName="m_MarketName"
         (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
         <mat-error *ngIf="a['m_MarketName'].hasError('required')">{{'marketRate.market_Name_mr'|translate}}</mat-error>
@@ -41,8 +43,9 @@
       </mat-form-field>
     </div>
     <div class="col-sm-6">
+      <mat-label class="form-label"> {{'common.mobile' | translate}} 1 </mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label> {{'common.mobile' | translate}} 1 </mat-label>
+        <!-- <mat-label> {{'common.mobile' | translate}} 1 </mat-label> -->
         <input matInput formControlName="conactNo" maxlength="10"
         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
         <mat-error *ngIf="a['conactNo'].hasError('pattern')">{{'common.please_enter_valid_mobile_number'|translate}} </mat-error>
@@ -50,24 +53,27 @@
       </mat-form-field>
     </div>
     <div class="col-sm-6">
+      <mat-label class="form-label">{{'common.mobile' | translate}} 2</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'common.mobile' | translate}} 2</mat-label>
+        <!-- <mat-label>{{'common.mobile' | translate}} 2</mat-label> -->
         <input matInput formControlName="mobileNo" maxlength="10"
         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
         <mat-error *ngIf="a['mobileNo'].hasError('pattern')">{{'common.please_enter_valid_mobile_number'|translate}} </mat-error>
    </mat-form-field>
     </div>
     <div class="col-sm-12">
+      <mat-label class="form-label">{{'common.email' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'common.email' | translate}}</mat-label>
+        <!-- <mat-label>{{'common.email' | translate}}</mat-label> -->
         <input matInput formControlName="emailId"
         (keypress)="validation.noFirstSpaceAllow($event);validation.emailRegex($event)">
         <mat-error *ngIf="a['emailId'].hasError('email')">{{'common.Please_enter_valid_email_id'|translate}}</mat-error>
         </mat-form-field>
     </div>
     <div class="col-sm-12">
+      <mat-label class="form-label">{{'marketRate.farm_goods' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'marketRate.farm_goods' | translate}}</mat-label>
+        <!-- <mat-label>{{'marketRate.farm_goods' | translate}}</mat-label> -->
         <mat-select multiple formControlName="shetMalId">
          <mat-option *ngFor="let farm of farmGoodsArray" [value]="farm.id">{{lang == 'en' ?
             farm.textEnglish : farm.textMarathi}}</mat-option>
@@ -76,8 +82,9 @@
      </mat-form-field>
     </div>
     <div class="col-sm-12">
+      <mat-label class="form-label">{{'common.state' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'common.state' | translate}}</mat-label>
+        <!-- <mat-label>{{'common.state' | translate}}</mat-label> -->
         <mat-select formControlName="stateId" (selectionChange)="getDistrict()"
         [class]="WebStorageService.getStateId() ? a['stateId'].disable({ onlySelf: true }) : a['stateId'].enable({ onlySelf: true })">
           <mat-option *ngFor="let state of stateArray" [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
@@ -85,8 +92,9 @@
       </mat-form-field>
     </div>
     <div class="col-sm-6">
+      <mat-label class="form-label">{{'common.district' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'common.district' | translate}}</mat-label>
+        <!-- <mat-label>{{'common.district' | translate}}</mat-label> -->
         <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
           [class]="WebStorageService.getDistrictId() ? a['districtId'].disable({ onlySelf: true }) : a['districtId'].enable({ onlySelf: true })">
           <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang == 'en' ? district.textEnglish : district.textMarathi }}
@@ -95,8 +103,9 @@
       </mat-form-field>
     </div>
     <div class="col-sm-6">
+      <mat-label class="forom-container">{{'common.taluka' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'common.taluka' | translate}}</mat-label>
+        <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
         <mat-select formControlName="talukaId">
           <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish : taluka.textMarathi}}</mat-option>
         </mat-select>
@@ -104,8 +113,9 @@
       </mat-form-field>
     </div>
     <div class="col-sm-12">
+      <mat-label class="form-label">{{'common.address' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'common.address' | translate}}</mat-label>
+        <!-- <mat-label>{{'common.address' | translate}}</mat-label> -->
         <textarea matInput formControlName="address"
         (keypress)="validation.noFirstSpaceAllow($event);lang == 'en' ? validation.alphaNumericWithSpacesAndSpecChars($event):validation.unicodeMarathiQuetionValidation($event)"></textarea>
         <mat-error *ngIf="a['address'].hasError('maxLengthExceeded')">{{ ('marketRate.market_Name_limit'|translate)}}
@@ -113,8 +123,9 @@
       </mat-form-field>
     </div>
     <div class="col-sm-6">
+      <mat-label class="form-label">{{'marketRate.pin_Code' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'marketRate.pin_Code' | translate}}</mat-label>
+        <!-- <mat-label>{{'marketRate.pin_Code' | translate}}</mat-label> -->
         <input matInput formControlName="pincode"
         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
         <mat-error *ngIf="a['pincode'].hasError('required')">{{'marketRate.please_enter_pinCode'|translate}}</mat-error>
@@ -127,8 +138,9 @@
       </mat-form-field>
     </div>
     <div class="col-sm-6">
+       <mat-label>{{'marketRate.establishment_Date' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'marketRate.establishment_Date' | translate}}</mat-label>
+        <!-- <mat-label>{{'marketRate.establishment_Date' | translate}}</mat-label> -->
         <input matInput [matDatepicker]="picker" formControlName="estDate"
          (click)="picker.open()" readonly [max]="maxDate">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -136,8 +148,9 @@
       </mat-form-field>
     </div>
     <div class="col-sm-6">
+      <mat-label class="form-label">{{'marketRate.latitude' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'marketRate.latitude' | translate}}</mat-label>
+        <!-- <mat-label>{{'marketRate.latitude' | translate}}</mat-label> -->
         <input matInput formControlName="latitude"
         (keypress)="validation.noFirstSpaceAllow($event)">
         <mat-error *ngIf="a['latitude']?.hasError('required')">{{'marketRate.please_enter_latitude'|translate}}</mat-error>
@@ -145,8 +158,9 @@
       </mat-form-field>
     </div>
     <div class="col-sm-6">
+      <mat-label class="form-label">{{'marketRate.longitude' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'marketRate.longitude' | translate}}</mat-label>
+        <!-- <mat-label>{{'marketRate.longitude' | translate}}</mat-label> -->
         <input matInput formControlName="longitude"
         (keypress)="validation.noFirstSpaceAllow($event)">
         <mat-error *ngIf="a['longitude']?.hasError('required')">{{'marketRate.please_enter_longitude'|translate}}  </mat-error>
@@ -154,8 +168,9 @@
      </mat-form-field>
     </div>
     <div class="col-sm-12">
+      <mat-label class="form-label">{{'marketRate.administrator' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'marketRate.administrator' | translate}}</mat-label>
+        <!-- <mat-label>{{'marketRate.administrator' | translate}}</mat-label> -->
         <input matInput formControlName="administratior"
         (keypress)="validation.noFirstSpaceAllow($event); lang == 'en' ? validation.alphabetsWithSpaces($event) : validation.unicodeMarathiValidation($event)">
         <mat-error *ngIf="a['administratior']?.errors">
@@ -167,8 +182,10 @@
       </mat-form-field>
      </div>
      <div class="col-sm-12">
+      <mat-label class="form-label">
+        {{'marketRate.working_hours' | translate}}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>{{'marketRate.working_hours' | translate}}</mat-label>
+        <!-- <mat-label>{{'marketRate.working_hours' | translate}}</mat-label> -->
         <textarea matInput formControlName="workingHours"
         (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumericWithSpacesAndSpecChars($event)"></textarea>
         <mat-error *ngIf="a['workingHours']?.hasError('required')">{{'marketRate.please_enter_hours'|translate}}  </mat-error>

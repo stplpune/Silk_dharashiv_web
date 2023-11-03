@@ -2,10 +2,10 @@
   <!-- <mat-card-header class="card-header">
     <h6 class="text-main fw-bold mb-0">{{data?.header}}</h6>
   </mat-card-header> -->
+  <mat-card-content class="card-body">
   <div id="delete">
     <div class="row">
       <div class="col-12">
-        <mat-card-content class="card-body">
           <div class="card card-body border-0 bg-danger-subtle text-center mb-3">
             <div class="py-3">
               <img src="assets/images/delete.svg" class="w-25 mx-auto">
@@ -28,8 +28,8 @@
                 (click)="closeDialog('Yes')">{{data?.okButton}}</button>
             </div>
           </div>
-        </mat-card-content>
+        </div>
       </div>
     </div>
-  </div>
+  </mat-card-content>
 </mat-card>
