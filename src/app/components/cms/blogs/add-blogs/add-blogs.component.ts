@@ -64,7 +64,7 @@ export class AddBlogsComponent {
   onSubmit() {
      let formvalue = this.blogForm.value;
      if (this.blogForm.invalid) {
-        this.viewMsgFlag=true;
+        this.viewMsgFlag = true;
        return;
      }
       else {  
@@ -107,7 +107,6 @@ export class AddBlogsComponent {
       }),
       error: (error: any) => {
         this.clearlogo.nativeElement.value = "";
-        this.imageResponse = "";
         this.spinner.hide();
         this.common.checkDataType(error.status) == false ? this.errorService.handelError(error.statusCode) : this.common.snackBar(error.statusText, 1);
       }
