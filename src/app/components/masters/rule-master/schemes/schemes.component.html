@@ -16,8 +16,8 @@
         <div class="row g-2 w-100">
           <div class="col-sm-6">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'scheme.search_by_scheme_name' | translate }}</mat-label>
-              <input matInput [formControl]="filterForm"
+              <!-- <mat-label>{{'scheme.search_by_scheme_name' | translate }}</mat-label> -->
+              <input matInput [formControl]="filterForm" placeholder="Search by Scheme Name"
                 (keypress)="validator.noFirstSpaceAllow($event)">
             </mat-form-field>
           </div>

@@ -42,6 +42,15 @@ export class AddVillageComponent implements OnDestroy{
     ) { }
 
   ngOnInit() {
+    console.log(' this.data?.grampanchayat,', this.data?.grampanchayat);
+    
+    this.data?.grampanchayat.filter((res:any)=>{
+      if(res.isSelected == true && res.isAssigned == true){
+        this.isAssigngramFlag = true
+      } else {
+        this.isAssigngramFlag = false
+      }
+    })
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -67,7 +76,7 @@ export class AddVillageComponent implements OnDestroy{
     })
   }
 
-  get f() { return this.villageForm.controls };
+  get f() { return this.villageForm.controls };    
 
   getState() {
     this.master.GetAllState().subscribe({
@@ -84,8 +93,7 @@ export class AddVillageComponent implements OnDestroy{
     this.master.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
         this.districtArray = res.responseData;
-        this.data ? (this.f['districtId'].setValue(this.data?.districtId), this.getTaluka()) : '';
-        !this.data ?  this.getTaluka() : '';
+        this.data ? (this.f['districtId'].setValue(this.data?.districtId || 1), this.getTaluka()) : this.getTaluka();
       }), error: (() => {
         this.districtArray = [];
       })
@@ -114,6 +122,10 @@ export class AddVillageComponent implements OnDestroy{
         this.data?.grampanchayat.forEach((res: any) => {
           newVillage.push(res.id)
         });
+        newVillage.forEach((n: any) => {
+          this.grampanchayatArray.filter((g: any) => g.id == n ? g.isAssigned = true : g.isAssigned = g.isAssigned);
+        })
+        console.log(this.grampanchayatArray)
         this.data ? this.f['grampanchayats'].setValue(newVillage) : ''
       }), error: (() => {
         this.grampanchayatArray = [];

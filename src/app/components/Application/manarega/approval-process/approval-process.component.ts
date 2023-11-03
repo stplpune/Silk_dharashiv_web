@@ -5,7 +5,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -21,6 +21,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./approval-process.component.scss']
 })
 export class ApprovalProcessComponent implements OnDestroy {
+  approvalFrm !: FormGroup;
   applicationData: any;
   applicantDetails: any;
   documentList: any;
@@ -36,12 +37,16 @@ export class ApprovalProcessComponent implements OnDestroy {
   displayColumnRemark: string[] = ['sr_no', 'name', 'designationName', 'status', 'modifiedDate', 'remark'];
   pushAppDocArray: any = [];
   pushOtherDocArray: any = [];
+  approvalStatusArray: any = [];
+  reasonArray: any = [];
   @ViewChild('formDirective') private formDirective!: NgForm;
+  @ViewChild('formDirectives') private formDirective1!: NgForm;
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
     private WebStorageService: WebStorageService,
     public encryptdecrypt: AesencryptDecryptService,
+    private router:Router,
     private route: ActivatedRoute, public validation: ValidationService,
     private fb: FormBuilder, private spinner: NgxSpinnerService,
     private errorHandler: ErrorHandlingService,
@@ -56,7 +61,18 @@ export class ApprovalProcessComponent implements OnDestroy {
     })
     this.getRouteParam();
     this.addDefaultFrm();
+    this.addApprovalFrm();
   }
+
+  addApprovalFrm() {
+    this.approvalFrm = this.fb.group({
+      "applicationStatus": ['', Validators.required],
+      "reason": [''],
+      "remark": ['', [Validators.pattern(this.validation.fullName), this.validation.maxLengthValidator(50)]],
+      "m_remark": ['']
+    })
+  }
+
 
   getRouteParam() {
     this.route.queryParams.subscribe((queryParams: any) => {
@@ -74,22 +90,94 @@ export class ApprovalProcessComponent implements OnDestroy {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.applicationData = res.responseData;
+          console.log("this.applicationData", this.applicationData)
           this.applicantDetails = this.applicationData?.applicationModel;
-
-          this.applicationData?.allDocument.filter((ele: any) => {
+          this.applicationData?.allDocument?.filter((ele: any) => {
             if (ele.docTypeId != 1) {
               this.pushAppDocArray.push(ele)
             } else if (ele.docTypeId == 1) {// 1 is other doc
               this.pushOtherDocArray.push(ele)
             }
           })
-          console.log(this.pushOtherDocArray);
+          this.getApprovalStatus();
+          this.getReason();
           this.dataSource = new MatTableDataSource(this.pushAppDocArray);
           this.otherDocArray = new MatTableDataSource(this.pushOtherDocArray);
           this.approvalStatus = new MatTableDataSource(this.applicationData?.allApplicationApproval);
         }
+        else {
+          this.applicationData = [];
+          this.applicantDetails = [];
+          this.dataSource = [];
+          this.otherDocArray = [];
+          this.approvalStatus = [];
+        }
       }
     })
+  }
+
+
+  getApprovalStatus() {
+    this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetApprovalStatusList?Id=' + this.applicationData?.id + '&ApplicationId=' + this.applicationData?.applicationId + '&ApprovalMasterId=' + this.applicationData?.approvalMasterId, false, false, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == '200') {
+          this.approvalStatusArray = res.responseData;
+        }
+        else {
+          this.approvalStatusArray = [];
+        }
+      }
+    })
+  }
+
+  getReason() {
+    let approvalFrmVal = this.approvalFrm.getRawValue();
+    // this.applicationData?.actionId
+    if (approvalFrmVal.applicationStatus == 11 || approvalFrmVal.applicationStatus == 5) {
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetRejectReasons?ActionId=0', false, false, false, 'masterUrl');
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => {
+          if (res.statusCode == '200') {
+            this.reasonArray = res.responseData;
+          }
+          else {
+            this.reasonArray = [];
+          }
+        }
+      })
+    }
+  }
+
+  onSubmitApprovalDetails() {
+    if (this.approvalFrm.invalid) {
+      return;
+    }
+    else {
+      this.spinner.show();
+      let data = this.approvalFrm.getRawValue();
+      this.approvalFrm.controls['m_remark'].setValue(data?.remark);
+     
+      let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId() };
+      this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/UpdateApprovalStatus?lan=' + this.lang, false, mainData, false, 'masterUrl');
+      this.apiService.getHttp().subscribe({
+        next: ((res: any) => {
+          this.spinner.hide();
+          if (res.statusCode == "200") {
+            this.commonMethod.snackBar(res.statusMessage, 0);
+            this.router.navigate(['../application'], {relativeTo:this.route})
+            this.formDirective1.reset();
+          }
+          else {
+            this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+          }
+        }),
+        error: (error: any) => {
+          this.spinner.hide();
+          this.errorHandler.handelError(error.statusCode);
+        }
+      })
+    }
   }
 
   //#region ----------------------------------------------------------applcant doc section start heare-----------------------------------//
@@ -168,7 +256,7 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.uploadFrm = this.fb.group({
       "id": [0],
       "docNo": ['', [Validators.required]],
-      "documentType": ['', [this.validation.maxLengthValidator(50), Validators.pattern(this.validation.fullName),Validators.required]],
+      "documentType": ['', [this.validation.maxLengthValidator(50), Validators.pattern(this.validation.fullName), Validators.required]],
       "docPath": ['', [Validators.required]]
     })
   }
@@ -177,6 +265,7 @@ export class ApprovalProcessComponent implements OnDestroy {
 
 
   imageUplod(event: any) {
+    console.log("hhhhh")
     this.spinner.show();
     this.fileUplService.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc').subscribe({
       next: ((res: any) => {
@@ -210,7 +299,7 @@ export class ApprovalProcessComponent implements OnDestroy {
         "docTypeId": 1, // 1 is other doc
         "documentType": otherFormData?.documentType,
         "m_DocumentType": "",
-        "docNo":otherFormData?.docNo,
+        "docNo": otherFormData?.docNo,
         "docPath": this.imageData,
         "isVerified": true
       }

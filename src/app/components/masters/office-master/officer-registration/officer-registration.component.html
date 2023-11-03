@@ -17,8 +17,8 @@
       <div class="row gx-2">
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'common.department_filter' | translate}}</mat-label>
-            <mat-select formControlName="departmentId" (selectionChange)="clearDropDown('dept')">
+            <!-- <mat-label>{{'common.department_filter' | translate}}</mat-label> -->
+            <mat-select formControlName="departmentId" placeholder="All Department" (selectionChange)="clearDropDown('dept')">
               <mat-option [value]="0">{{'officerreg.allDepartment' | translate}}</mat-option>
               <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang != 'en' ?
                 department.textMarathi :department.textEnglish}}</mat-option>
@@ -27,8 +27,8 @@
         </div>
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'common.designation_lev_filter' | translate}}</mat-label>
-            <mat-select formControlName="departmentLevelId" (selectionChange)="clearDropDown('clearAll');getDesignation()">
+            <!-- <mat-label>{{'common.designation_lev_filter' | translate}}</mat-label> -->
+            <mat-select formControlName="departmentLevelId" placeholder="All Level" (selectionChange)="clearDropDown('clearAll');getDesignation()">
               <mat-option [value]="0"> {{'officerreg.allLevel' | translate}}</mat-option>
               <mat-option *ngFor="let level of departmentLevelArray" [value]="level.id">{{lang != 'en' ?
                 level.textMarathi : level.textEnglish}}</mat-option>
@@ -37,8 +37,8 @@
         </div>
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'common.designation_filter' | translate}}</mat-label>
-            <mat-select formControlName="designationId">
+            <!-- <mat-label>{{'common.designation_filter' | translate}}</mat-label> -->
+            <mat-select formControlName="designationId"  placeholder="All Designation Level">
               <mat-option [value]="0"> {{'officerreg.allDesignation' | translate}}</mat-option>
               <mat-option *ngFor="let  designation of designationArray" [value]="designation.id">{{lang != 'en' ?
                 designation.textMarathi : designation.textEnglish}}</mat-option>
@@ -47,8 +47,8 @@
         </div>
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'common.taluka_filter' | translate}}</mat-label>
-            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('gram');getGrampanchayat()">
+            <!-- <mat-label>{{'common.taluka_filter' | translate}}</mat-label> -->
+            <mat-select formControlName="talukaId"  placeholder="Taluka Level" (selectionChange)="clearDropDown('gram');getGrampanchayat()">
               <mat-option [value]="0"> {{'officerreg.allTaluka' | translate}}</mat-option>
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi :
                 taluka.textEnglish}}</mat-option>
@@ -57,8 +57,8 @@
         </div>
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'common.block_filter' | translate}}</mat-label>
-            <mat-select formControlName="blockId">
+            <!-- <mat-label>{{'common.block_filter' | translate}}</mat-label> -->
+            <mat-select formControlName="blockId"  placeholder="All Blocks">
               <mat-option [value]="0"> {{'officerreg.allBlocks' | translate}}</mat-option>
               <mat-option *ngFor="let block of blockArray" [value]="block.id">{{lang != 'en' ? block.textMarathi :
                 block.textEnglish}}</mat-option>
@@ -67,8 +67,8 @@
         </div>
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'common.circle_filter' | translate}}</mat-label>
-            <mat-select formControlName="circleId">
+            <!-- <mat-label>{{'common.circle_filter' | translate}}</mat-label> -->
+            <mat-select formControlName="circleId" placeholder="All Circle">
               <mat-option [value]="0"> {{'officerreg.allCircle' | translate}}</mat-option>
               <mat-option *ngFor="let circle of circleArray" [value]="circle.id">{{lang != 'en' ? circle.textMarathi :
                 circle.textEnglish}}</mat-option>
@@ -77,8 +77,8 @@
         </div>
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'common.grampanchayat_filter' | translate}}</mat-label>
-            <mat-select formControlName="grampanchayatId">
+            <!-- <mat-label>{{'common.grampanchayat_filter' | translate}}</mat-label> -->
+            <mat-select formControlName="grampanchayatId"  placeholder="Grampanchayat">
               <mat-option [value]="0">{{'officerreg.all_grampanchayat' | translate}}</mat-option>
               <mat-option *ngFor="let village of grampanchayatArray" [value]="village.id">{{lang != 'en' ?
                 village.textMarathi : village.textEnglish}}</mat-option>
@@ -88,8 +88,8 @@
         <div class="col-sm">
           <div class="d-flex gap-2">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'common.searchbyMobile_email' | translate}}</mat-label>
-              <input matInput formControlName="searchtext" (keypress)="validation.noFirstSpaceAllow($event)">
+              <!-- <mat-label>{{'common.searchbyMobile_email' | translate}}</mat-label> -->
+              <input matInput formControlName="searchtext" placeholder="Search by Mobile No/Email ID" (keypress)="validation.noFirstSpaceAllow($event)">
             </mat-form-field>
             <div class="d-flex align-items-center gap-2 mb-4">
               <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit"
