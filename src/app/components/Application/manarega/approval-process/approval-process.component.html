@@ -9,6 +9,48 @@
       <!-- <hr> -->
     </div>
 
+    <div class="table-content table-responsive mb-3">
+      <table mat-table [dataSource]="approvalStatus" class="dashboard-table">
+        <ng-container matColumnDef="sr_no">
+          <th mat-header-cell *matHeaderCellDef>Sr.No.</th>
+          <td mat-cell *matCellDef="let element; let i=index" class="mxw-200">{{i+1}} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element" class="mnw-180">{{element.name ? element.name :'-'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="designationName">
+          <th mat-header-cell *matHeaderCellDef> Designation </th>
+          <td mat-cell *matCellDef="let element" class="mnw-200">{{element.designationName ? element.designationName
+            :'-'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Approval Status</th>
+          <td mat-cell *matCellDef="let element" class="mnw-200 fw-semibold"
+            [ngClass]="element.status=='Approved' ? 'text-success' : (element.status == 'Pending' || element.status == 'pending') ? 'text-warning' : 'text-danger'">
+            {{element.status ? element.status :'-'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="modifiedDate">
+          <th mat-header-cell *matHeaderCellDef> Approval Date</th>
+          <td mat-cell *matCellDef="let element">{{element.modifiedDate == '0001-01-01T00:00:00' ? '-' :
+            element.modifiedDate | date :'dd-MM-YYYY hh:mm a'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="remark">
+          <th mat-header-cell *matHeaderCellDef>Approval Remark </th>
+          <td mat-cell *matCellDef="let element">{{element.remark ? element.remark :'-'}}</td>
+        </ng-container>
+
+        <tr class="mat-row p-2 w-100" *matNoDataRow>
+          <td class="" colspan="12">
+            <div class="alert alert-danger text-center m-2 p-2" colspan="12">No Data Found </div>
+          </td>
+        </tr>
+        <tr mat-header-row *matHeaderRowDef="displayColumnRemark"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumnRemark;"></tr>
+      </table>
+    </div>
+
     <section>
       <div class="row gy-2">
         <div class="col-sm-4">
@@ -399,13 +441,13 @@
               <div class="col-sm-3">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Document Name</mat-label>
-                  <input matInput placeholder="">
+                  <input matInput placeholder="" formControlName="documentType">
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Document Number</mat-label>
-                  <input matInput placeholder="">
+                  <input matInput placeholder="" formControlName="docNo">
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
@@ -446,7 +488,7 @@
             </div>
           </form>
 
-          <table mat-table [dataSource]="dataSource" class="dashboard-table">
+          <table mat-table [dataSource]="otherDocArray" class="dashboard-table">
             <ng-container matColumnDef="srNo">
               <th mat-header-cell *matHeaderCellDef> Sr.No. </th>
               <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
@@ -668,7 +710,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> 
 
     <section>
       <div class="d-flex align-items-center justify-content-between gap-3">
@@ -796,5 +838,30 @@
       <button mat-flat-button class="btn-main-light">Cancel</button>
       <button mat-flat-button class="btn-main">Submit</button>
     </div>
+  </mat-card-content>-->
+
+    <section>
+      <div class="row">
+        <div class="col-sm-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Status</mat-label>
+            <mat-select>
+              <mat-option>Approved</mat-option>
+              <mat-option>Rejected</mat-option>
+              <mat-option>Resend Document</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-8">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Remark</mat-label>
+            <input matInput placeholder="">
+          </mat-form-field>
+        </div>
+        <div class="d-flex align-items-center justify-content-end gap-2 my-2">
+          <button mat-flat-button class="btn-main-light">Cancel</button>
+          <button mat-flat-button class="btn-main">Submit</button>
+        </div>
+      </div>
+    </section>
   </mat-card-content>
-</mat-card> -->

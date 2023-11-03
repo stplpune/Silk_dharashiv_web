@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
@@ -29,8 +29,14 @@ export class ApprovalProcessComponent implements OnDestroy {
   lang: any;
   routingData: any;
   encryptData: any;
-  dataSource:any = new Array()
+  dataSource: any = new Array()
   displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action']
+  approvalStatus: any = new Array()
+  otherDocArray: any = new Array()
+  displayColumnRemark: string[] = ['sr_no', 'name', 'designationName', 'status', 'modifiedDate', 'remark'];
+  pushAppDocArray: any = [];
+  pushOtherDocArray: any = [];
+  @ViewChild('formDirective') private formDirective!: NgForm;
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -69,9 +75,18 @@ export class ApprovalProcessComponent implements OnDestroy {
         if (res.statusCode == '200') {
           this.applicationData = res.responseData;
           this.applicantDetails = this.applicationData?.applicationModel;
-          console.log(this.applicationData?.allDocument);
-          this.applicationData?.allDocument == 'other'
-          this.dataSource = new MatTableDataSource(this.applicationData?.allDocument);
+
+          this.applicationData?.allDocument.filter((ele: any) => {
+            if (ele.docTypeId != 1) {
+              this.pushAppDocArray.push(ele)
+            } else if (ele.docTypeId == 1) {// 1 is other doc
+              this.pushOtherDocArray.push(ele)
+            }
+          })
+          console.log(this.pushOtherDocArray);
+          this.dataSource = new MatTableDataSource(this.pushAppDocArray);
+          this.otherDocArray = new MatTableDataSource(this.pushOtherDocArray);
+          this.approvalStatus = new MatTableDataSource(this.applicationData?.allApplicationApproval);
         }
       }
     })
@@ -100,7 +115,7 @@ export class ApprovalProcessComponent implements OnDestroy {
       title: 'Confirm',
       cancelButton: 'Cancel',
       okButton: 'Ok',
-      discription:true,
+      discription: true,
     }
     const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -114,7 +129,7 @@ export class ApprovalProcessComponent implements OnDestroy {
     })
   }
 
-  updateAppStatus(selObj:any){
+  updateAppStatus(selObj: any) {
     console.log(selObj);
     let obj = {
       "id": selObj?.id,
@@ -141,9 +156,6 @@ export class ApprovalProcessComponent implements OnDestroy {
       }
     });
   }
- 
-  
-
 
   //#endregion ----------------------------------------------------------applcant doc section end heare-----------------------------------//
 
@@ -155,8 +167,8 @@ export class ApprovalProcessComponent implements OnDestroy {
   addDefaultFrm() {
     this.uploadFrm = this.fb.group({
       "id": [0],
-      "docNo": [''],
-      "docname": ['', [this.validation.maxLengthValidator(50), Validators.pattern(this.validation.fullName)]],
+      "docNo": ['', [Validators.required]],
+      "documentType": ['', [this.validation.maxLengthValidator(50), Validators.pattern(this.validation.fullName),Validators.required]],
       "docPath": ['', [Validators.required]]
     })
   }
@@ -191,35 +203,21 @@ export class ApprovalProcessComponent implements OnDestroy {
       return;
     }
     else {
-      this.spinner.show();
-      let data = this.uploadFrm.getRawValue();
+      let otherFormData = this.uploadFrm.getRawValue();
       let obj = {
+        "id": 0,
         "applicationId": this.encryptData,
-        "docTypeId": 0,
-        "createdBy": new Date(),
-        "createdDate": this.WebStorageService.getUserId(),
-        "modifiedBy": new Date(),
-        "modifiedDate": this.WebStorageService.getUserId(),
-        "isDeleted": false
-
+        "docTypeId": 1, // 1 is other doc
+        "documentType": otherFormData?.documentType,
+        "m_DocumentType": "",
+        "docNo":otherFormData?.docNo,
+        "docPath": this.imageData,
+        "isVerified": true
       }
-      data.id = Number(data.id)
-      let mainData = { ...data, ...obj };
-      this.apiService.setHttp('post', 'sericulture/api/Application/InsertUpdateDocuments', false, mainData, false, 'masterUrl');
-      this.apiService.getHttp().subscribe({
-        next: ((res: any) => {
-          this.spinner.hide();
-          if (res.statusCode == "200") {
-            this.commonMethod.snackBar(res.statusMessage, 0);
-          } else {
-            this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-          }
-        }),
-        error: (error: any) => {
-          this.spinner.hide();
-          this.errorHandler.handelError(error.statusCode);
-        }
-      });
+      this.pushOtherDocArray.push(obj);
+      this.otherDocArray = new MatTableDataSource(this.pushOtherDocArray);
+      this.formDirective.reset();
+      this.deleteImage();
     }
   }
 
