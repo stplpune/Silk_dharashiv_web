@@ -1,9 +1,9 @@
 <div>
   <div mat-dialog-title class="modal-header">
     <div class="d-flex align-items-center justify-content-between w-100">
-      <div class="text-main">  
+      <div class="text-main">
         {{data?.label == 'View' ? ('setRule.view_rule'|translate) : editFlag ? ('setRule.update_rule'|translate) : ('setRule.add_rule'|translate)}}
-      </div> 
+      </div>
       <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
         <span class="material-symbols-rounded">close</span>
       </button>
@@ -41,8 +41,8 @@
 
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'setRule.select_scheme'|translate}}</mat-label>
-              <mat-select formControlName="scheme" (selectionChange)="approveLevelArray = [];editFlag = false;f['department'].setValue('');getDepartment()"
+              <!-- <mat-label>{{'setRule.select_scheme'|translate}}</mat-label> -->
+              <mat-select formControlName="scheme" placeholder="Select Scheme" (selectionChange)="approveLevelArray = [];editFlag = false;f['department'].setValue('');getDepartment()"
                 [class]="data?.label == 'Edit' ? setRulefrm.controls['scheme'].disable({ onlySelf: true }) :setRulefrm.controls['scheme'].enable({ onlySelf: true })">
                 <mat-option *ngFor="let data of schemeTypeArray" [value]="data.id">{{lang == 'en' ?
                   data.textEnglish : data.textMarathi}}</mat-option>
@@ -52,8 +52,8 @@
           </div>
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'common.department'|translate}}</mat-label>
-              <mat-select formControlName="department"
+              <!-- <mat-label>{{'common.department'|translate}}</mat-label> -->
+              <mat-select formControlName="department" placeholder="Select Department"
                 (selectionChange)="approveLevelArray = [];clearAddRuleForm();getAllApprovalMasterLevels()"
                 [class]="(data?.label == 'Edit' || !f['scheme'].getRawValue()) ? f['department'].disable() :f['department'].enable()">
                 <mat-option *ngFor="let data of departmentArray" [value]="data.id">{{lang == 'en' ?
@@ -173,7 +173,7 @@
         </div>
       </form>
       </ng-container>
- 
+
        <!-- ..............................  Table Add Rule ............................ -->
       <div class="table-responsive">
         <table mat-table [dataSource]="approveLevelArray" class="w-100 dashboard-table border">
@@ -188,19 +188,19 @@
               {{this.lang == 'mr-IN'?element.m_approvalLevel:element.approvalLevel}}
             </td>
           </ng-container>
-  
+
           <ng-container matColumnDef="Action">
             <th class="w-10" mat-header-cell *matHeaderCellDef> {{'setRule.Action'|translate}} </th>
             <td mat-cell *matCellDef="let element"> {{this.lang == 'mr-IN'?element.m_ActionName:element.actionName}} </td>
           </ng-container>
-  
+
           <ng-container matColumnDef="Designation Level">
             <th class="w-10" mat-header-cell *matHeaderCellDef> {{'setRule.department_level'|translate}} </th>
             <td mat-cell *matCellDef="let element"> {{this.lang ==
               'mr-IN'?element.m_DepartmentLevel:element.departmentLevel}}
             </td>
           </ng-container>
-  
+
           <ng-container matColumnDef="Designation">
             <th class="w-10" mat-header-cell *matHeaderCellDef> {{'setRule.designation'|translate}} </th>
             <td mat-cell *matCellDef="let element">{{this.lang ==
