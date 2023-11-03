@@ -24,6 +24,7 @@ export class AddBlogsComponent {
   lang: string = 'English';
   imageResponse: string = '';
   editorConfig = this.common.editorConfig;
+  viewMsgFlag:boolean=false;
   @ViewChild('formDirective') private formDirective!: NgForm;
   constructor(private fb: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -59,7 +60,7 @@ export class AddBlogsComponent {
     })
     this.imageResponse = this.data ? this.data.thumbnailImage : ''
   }
-  viewMsgFlag:boolean=false;
+  
   onSubmit() {
      let formvalue = this.blogForm.value;
      if (this.blogForm.invalid) {
