@@ -16,8 +16,8 @@
         <div class="row g-2">
           <div class="col-sm-auto">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'common.state' | translate}}</mat-label>
-              <mat-select formControlName="stateId"
+              <!-- <mat-label>{{'common.state' | translate}}</mat-label> -->
+              <mat-select formControlName="stateId" placeholder="State"
               [class]="WebStorageService.getStateId() ? filterFrm.controls['stateId'].disable({ onlySelf: true }) : filterFrm.controls['stateId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let state of stateArray"
                   [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
@@ -26,8 +26,8 @@
           </div>
           <div class="col-sm-auto">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'common.district' | translate}}</mat-label>
-              <mat-select formControlName="districtId"
+              <!-- <mat-label>{{'common.district' | translate}}</mat-label> -->
+              <mat-select formControlName="districtId" placeholder="District"
               [class]="WebStorageService.getDistrictId() ? filterFrm.controls['districtId'].disable({ onlySelf: true }) : filterFrm.controls['districtId'].enable({ onlySelf: true })">
                 <mat-option *ngFor="let district of districtArray"
                     [value]="district.id">{{lang == 'en' ? district.textEnglish : district.textMarathi}}</mat-option>
@@ -36,8 +36,8 @@
           </div>
           <div class="col-sm-auto">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'common.taluka' | translate}}</mat-label>
-              <mat-select formControlName="talukaId">
+              <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
+              <mat-select formControlName="talukaId" placeholder="All Talukas">
                 <mat-option *ngFor="let taluka of talukaArray"
                   [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish : taluka.textMarathi}}</mat-option>
               </mat-select>
@@ -45,8 +45,8 @@
           </div>
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'marketRate.search_by' | translate}}</mat-label>
-              <input matInput formControlName="textSearch"  (keypress)="validation.noFirstSpaceAllow($event)" maxlength="50">
+              <!-- <mat-label>{{'marketRate.search_by' | translate}}</mat-label> -->
+              <input matInput formControlName="textSearch" placeholder="Search bu Mobile No./ MArket Rate"  (keypress)="validation.noFirstSpaceAllow($event)" maxlength="50">
             </mat-form-field>
           </div>
           <div class="col-sm-auto">
