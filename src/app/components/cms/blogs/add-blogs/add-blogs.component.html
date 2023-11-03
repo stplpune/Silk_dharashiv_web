@@ -88,7 +88,7 @@
           </div>
           <div class="col-sm-12">
             <div class="form-label"> {{"blogs.editortool" | translate}}</div>
-            <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>
+            <angular-editor formControlName="description" [config]="editorConfig" (input)="setValue($event)" ></angular-editor>
             <mat-error *ngIf="viewMsgFlag && !blogForm.value.description">{{lang == 'en' ? "Please Add Blog Description" : "कृपया ब्लॉगची माहिती प्रविष्ट करा"}} </mat-error>
             <!-- <mat-error *ngIf="f['description']?.hasError('maxLengthExceeded')">{{lang == 'en' ? "Maximum limit is 5000 characters" : "कमाल 5000 वर्णांना अनुमती आहे"}} </mat-error> -->
           </div>

@@ -80,7 +80,7 @@
           <mat-label class="form-label">{{'common.taluka' | translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
-            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('talukaClear');getGrampanchayat()">
+            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('talukaClear');getGrampanchayat();getCircle()">
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi
                 :taluka.textEnglish}}</mat-option>
             </mat-select>
