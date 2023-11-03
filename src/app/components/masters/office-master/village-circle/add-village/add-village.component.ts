@@ -42,6 +42,13 @@ export class AddVillageComponent implements OnDestroy{
     ) { }
 
   ngOnInit() {
+    this.data?.grampanchayat.filter((res:any)=>{
+      if(res.isSelected == true && res.isAssigned == true){
+        this.isAssigngramFlag = true
+      } else {
+        this.isAssigngramFlag = false
+      }
+    })
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -84,8 +91,7 @@ export class AddVillageComponent implements OnDestroy{
     this.master.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
         this.districtArray = res.responseData;
-        this.data ? (this.f['districtId'].setValue(this.data?.districtId), this.getTaluka()) : '';
-        !this.data ?  this.getTaluka() : '';
+        this.data ? (this.f['districtId'].setValue(this.data?.districtId || 1), this.getTaluka()) : this.getTaluka();
       }), error: (() => {
         this.districtArray = [];
       })

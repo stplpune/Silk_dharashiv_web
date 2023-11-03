@@ -35,6 +35,7 @@ export class AddcircleComponent implements OnDestroy{
   lang:any;
   subscription!: Subscription;
   viewFlag : boolean = false;
+  isAssigngramFlag:boolean=false;
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -51,6 +52,13 @@ export class AddcircleComponent implements OnDestroy{
   get f() { return this.addBlockForm.controls }
 
   ngOnInit() {
+    this.data?.getTalukaModel.filter((res:any)=>{
+      if(res.isSelected == true && res.isAssigned == true){
+        this.isAssigngramFlag = true
+      }else {
+        this.isAssigngramFlag = false
+      }
+    })
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
