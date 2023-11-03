@@ -10,8 +10,8 @@
       <div class="row align-items-center justify-content-start g-2">
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'designation.depertment'|translate}}</mat-label>
-            <mat-select formControlName="departmentId" (selectionChange)="clearDropdown('deptId');getDesignationLevel();">
+            <!-- <mat-label>{{'designation.depertment'|translate}}</mat-label> -->
+            <mat-select formControlName="departmentId" placeholder="Select Department" (selectionChange)="clearDropdown('deptId');getDesignationLevel();">
               <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang == 'en' ?
                 department.textEnglish : department.textMarathi}}</mat-option>
             </mat-select>
@@ -19,8 +19,8 @@
         </div>
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'designation.designation_level'|translate}}</mat-label>
-            <mat-select formControlName="designationLevelId" (selectionChange)="clearDropdown('deptLevelId');getDesignation()">
+            <!-- <mat-label>{{'designation.designation_level'|translate}}</mat-label> -->
+            <mat-select formControlName="designationLevelId" placeholder="Select Designation Level" (selectionChange)="clearDropdown('deptLevelId');getDesignation()">
               <mat-option *ngFor="let level of designationLevelArray" [value]="level.id">{{lang == 'en' ?
                 level.textEnglish : level.textMarathi}}</mat-option>
             </mat-select>
@@ -28,8 +28,8 @@
         </div>
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'pageAccess.designation'|translate}}</mat-label>
-            <mat-select formControlName="designationId">
+            <!-- <mat-label>{{'pageAccess.designation'|translate}}</mat-label> -->
+            <mat-select formControlName="designationId" placeholder="Select Designation">
               <mat-option *ngFor="let  designation of designationArray" [value]="designation.id">{{lang == 'en' ?
                 designation.textEnglish : designation.textMarathi}}</mat-option>
             </mat-select>
@@ -37,8 +37,8 @@
         </div>
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'pageAccess.search_page_name'|translate}}</mat-label>
-            <input matInput formControlName="searchText" (keypress)="validation.noFirstSpaceAllow($event)">
+            <!-- <mat-label>{{'pageAccess.search_page_name'|translate}}</mat-label> -->
+            <input matInput formControlName="searchText" placeholder="Search Page Name" (keypress)="validation.noFirstSpaceAllow($event)">
           </mat-form-field>
         </div>
         <div class="col-sm-auto">
