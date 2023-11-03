@@ -25,6 +25,8 @@ export class AddBlogsComponent {
   imageResponse: string = '';
   editorConfig = this.common.editorConfig;
   viewMsgFlag:boolean=false;
+  editDisc:boolean=false;
+  discriptionArray=new Array();
   @ViewChild('formDirective') private formDirective!: NgForm;
   constructor(private fb: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -45,6 +47,7 @@ export class AddBlogsComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
     this.isViewFlag = this.data?.label == 'View' ? true : false;
+    this.editDisc=this.data?.label == 'Edit' ? true : false; 
     this.defaultFrm();
   }
 
@@ -130,6 +133,16 @@ export class AddBlogsComponent {
     this.data = null;
     this.defaultFrm();
     this.viewMsgFlag=false;
+  }
+  setValue(event:any){
+    if ((event.data == ' ' && this.discriptionArray.length==0 && !this.editDisc)) {
+      this.f['description'].reset();
+    }
+    else{
+      this.editDisc=false;
+      event.inputType=="deleteContentBackward" ? this.discriptionArray.pop() : this.discriptionArray.push(event.data);
+    }
+    return;
   }
 
   ngOnDestroy() {
