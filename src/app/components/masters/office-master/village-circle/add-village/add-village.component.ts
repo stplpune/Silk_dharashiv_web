@@ -42,6 +42,8 @@ export class AddVillageComponent implements OnDestroy{
     ) { }
 
   ngOnInit() {
+    console.log(' this.data?.grampanchayat,', this.data?.grampanchayat);
+    
     this.data?.grampanchayat.filter((res:any)=>{
       if(res.isSelected == true && res.isAssigned == true){
         this.isAssigngramFlag = true
@@ -120,6 +122,10 @@ export class AddVillageComponent implements OnDestroy{
         this.data?.grampanchayat.forEach((res: any) => {
           newVillage.push(res.id)
         });
+        newVillage.forEach((n: any) => {
+          this.grampanchayatArray.filter((g: any) => g.id == n ? g.isAssigned = true : g.isAssigned = g.isAssigned);
+        })
+        console.log(this.grampanchayatArray)
         this.data ? this.f['grampanchayats'].setValue(newVillage) : ''
       }), error: (() => {
         this.grampanchayatArray = [];
