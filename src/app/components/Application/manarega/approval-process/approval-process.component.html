@@ -577,7 +577,7 @@
           </ol>
         </div>
 
-        <form [formGroup]="approvalFrm" (ngSubmit)="onSubmitApprovalDetails()" #formDirectives="ngForm">
+        <form [formGroup]="approvalFrm" (ngSubmit)="onSubmitApprovalDetails()" #formDirectives="ngForm" [class.d-none]="applicationData?.applicationStatus != 1">
           <div class="row g-2">
             <div class="col-sm-2">
               <label class="form-label">Select Status</label>
