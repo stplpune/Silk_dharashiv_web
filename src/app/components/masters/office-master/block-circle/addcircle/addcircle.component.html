@@ -15,8 +15,9 @@
     <mat-dialog-content class="modal-body form-container">
       <div class="row">
         <div class="col-sm-12">
+          <mat-label class="form-label">{{'talukaBlock.select_state'|translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'talukaBlock.select_state'|translate}}</mat-label>
+            <!-- <mat-label>{{'talukaBlock.select_state'|translate}}</mat-label> -->
             <mat-select formControlName="stateId" (selectionChange)="getDistrict()"
             [class]="addBlockForm.controls['stateId'].disable({ onlySelf: true })">
               <mat-option *ngFor="let state of stateArr" [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
@@ -24,8 +25,9 @@
           </mat-form-field>
         </div>
         <div class="col-sm-12">
+          <mat-label class="form-label">{{'talukaBlock.select_district'|translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'talukaBlock.select_district'|translate}}</mat-label>
+            <!-- <mat-label>{{'talukaBlock.select_district'|translate}}</mat-label> -->
             <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
             [class]="addBlockForm.controls['districtId'].disable({ onlySelf: true })">
               <mat-option *ngFor="let district of districtArr" [value]="district.id">{{lang == 'en' ? district.textEnglish : district.textMarathi}}</mat-option>
@@ -45,9 +47,9 @@
               <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
             </mat-select>
           </mat-form-field> -->
-
+          <mat-label class="form-label">{{'talukaBlock.select_taluka'|translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'talukaBlock.select_taluka'|translate}}</mat-label>
+            <!-- <mat-label>{{'talukaBlock.select_taluka'|translate}}</mat-label> -->
             <mat-select formControlName="talukas" multiple>
               <!-- <mat-select-trigger>
                 {{talukas.value?.[0] || ''}}
@@ -61,6 +63,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-12">
+          <mat-label class="form-label">{{'talukaBlock.block_name_en'|translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'talukaBlock.block_name_en'|translate}}</mat-label>
             <input matInput  formControlName="blockName" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
@@ -72,6 +75,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-12">
+          <mat-label class="form-label">{{'talukaBlock.block_name_mr'|translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'talukaBlock.block_name_mr'|translate}}</mat-label>
             <input matInput  formControlName="m_BlockName" (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
