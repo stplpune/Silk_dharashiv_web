@@ -409,12 +409,13 @@
                           visibility
                         </span>
                       </button>
-                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10">
+                      <input type="file" class="d-none"  (click)="imageUplod($event)" #editImg>
+                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10"  (click)="editImg.click()">
                         <span class="material-symbols-rounded text-warning">
                           edit_square
                         </span>
                       </button>
-                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10">
+                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10" (click)="deleteImage()">
                         <span class="material-symbols-rounded text-danger">
                           delete
                         </span>
@@ -513,12 +514,13 @@
                           visibility
                         </span>
                       </button>
-                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10">
+                      <input type="file" class="d-none"  (click)="imageUplod($event)" #editImg>
+                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10" (click)="editImg.click()">
                         <span class="material-symbols-rounded text-warning">
                           edit_square
                         </span>
                       </button>
-                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10">
+                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10" (click)="deleteImage()">
                         <span class="material-symbols-rounded text-danger">
                           delete
                         </span>
@@ -580,7 +582,7 @@
             <div class="col-sm-2">
               <label class="form-label">Select Status</label>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="applicationStatus">
+                <mat-select formControlName="applicationStatus" (selectionChange)="getReason()">
                   <mat-option *ngFor="let apporvalStatus of approvalStatusArray" [value]="apporvalStatus?.id">{{lang ==
                     "en" ? apporvalStatus?.textEnglish : apporvalStatus?.textMarathi}}</mat-option>
                 </mat-select>
