@@ -18,7 +18,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'manrega.district'| translate}}</mat-label>
             <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
-              [class]="f['districtId'].disable({ onlySelf: true })">
+            [class]="webStorage.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
               <mat-option *ngFor=" let dist of districtArr" [value]="dist.id">{{lang == 'en' ? dist.textEnglish :
                 dist.textMarathi}}</mat-option>
             </mat-select>
@@ -27,7 +27,8 @@
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'manrega.taluka'| translate}}</mat-label>
-            <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('Taluka');getGrampanchayat()">
+            <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('Taluka');getGrampanchayat()"
+            [class]="webStorage.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })">
               <mat-option *ngFor=" let taluka of talukaArr" [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish :
                 taluka.textMarathi}}</mat-option>
             </mat-select>
@@ -36,7 +37,8 @@
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label>
-            <mat-select formControlName="grampanchayatId">
+            <mat-select formControlName="grampanchayatId"
+            [class]="webStorage.getGrampanchayatId() ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
               <mat-option *ngFor=" let gram of grampanchayatArray" [value]="gram.id">{{lang == 'en' ? gram.textEnglish :
                 gram.textMarathi}}</mat-option>
             </mat-select>
