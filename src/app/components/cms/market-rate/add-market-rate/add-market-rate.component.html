@@ -119,11 +119,14 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="d-flex align-items-center justify-content-end w-100 gap-2 my-3" (keypress)="validator.digitsWithDot($event)">
+
+    </mat-card-content>
+    <div mat-dialog-actions class="modal-footer">
+      <div class="d-flex align-items-center justify-content-end w-100 gap-2 my-1" (keypress)="validator.digitsWithDot($event)">
         <button mat-flat-button class="btn-main-light" type="button" (click)="clearFormData()">{{'marketPrice.Clear'|translate}}</button>
         <button mat-flat-button class="btn-main" (click)="onSubmit()">{{data ? ('marketPrice.Update'|translate) : ('marketPrice.Add'|translate)}}</button>
       </div>
-    </mat-card-content>
+    </div>
   </form>
 </ng-container>
 
