@@ -60,6 +60,7 @@ export class PageRightAccessComponent {
       designationId: [''],
       searchText: ['']
     })
+    this.filterFrm.getRawValue()?.userTypeId == 1 ? (this.getDesignationLevel(),this.getDesignation()):'';
    }
 
  get a() { return this.filterFrm.controls }
@@ -74,8 +75,8 @@ export class PageRightAccessComponent {
       this.spinner.show();
       let formData = this.filterFrm.getRawValue();
       let str = `&pageno=${this.pageNumber}&pagesize=100`;
-       let url = (formData.userTypeId == 1 ?  `sericulture/api/UserPages/GetAllPageRights?DepartmentId=0&DepartmentLevelId=0&DesignationId=1&lan=${this.lang}&TextSearch=${formData?.searchText || ''}` : `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId}&DepartmentLevelId=${formData?.designationLevelId}&DesignationId=${formData?.designationId}&lan=${this.lang}&TextSearch=${formData?.searchText || ''}`);
-      this.apiService.setHttp('GET', url + str, false, false, false, 'baseUrl');
+     //  let url = (formData.userTypeId == 1 ?  `sericulture/api/UserPages/GetAllPageRights?DepartmentId=0&DepartmentLevelId=0&DesignationId=1&lan=${this.lang}&TextSearch=${formData?.searchText || ''}` : `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId}&DepartmentLevelId=${formData?.designationLevelId}&DesignationId=${formData?.designationId}&lan=${this.lang}&TextSearch=${formData?.searchText || ''}`);
+      //this.apiService.setHttp('GET', url + str, false, false, false, 'baseUrl');
       this.apiService.setHttp('GET', `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId}&DepartmentLevelId=${formData?.designationLevelId}&DesignationId=${formData?.designationId}&lan=${this.lang}&TextSearch=${formData?.searchText || ''}` + str, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
@@ -133,7 +134,7 @@ export class PageRightAccessComponent {
   //clear filter form functionality here
   clearForm() {
     this.getFilterForm();
-    this.getTableData();
+    //this.getTableData();
   }
 
 
@@ -145,9 +146,9 @@ export class PageRightAccessComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.departmentArray = res.responseData;
-          this.filterFrm.getRawValue()?.userTypeId == 1 ? this.getDesignationLevel() :''
-         // this.departmentArray.unshift({ "id": 0, "textEnglish": "All Department", "textMarathi": "सर्व विभाग" });
-        }
+           this.departmentArray.unshift({ "id": 0, "textEnglish": "All Department", "textMarathi": "सर्व विभाग" });
+          // this.filterFrm.getRawValue()?.userTypeId == 1 ? this.getDesignationLevel() :''
+          }
         else {
           this.departmentArray = [];
         }
@@ -161,8 +162,8 @@ export class PageRightAccessComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.designationLevelArray = res.responseData;
-          this.filterFrm.getRawValue()?.userTypeId == 1 ? this.getDesignation() :''
-          //this.designationLevelArray.unshift({ "id": 0, "textEnglish": "All Designation Level", "textMarathi": "सर्व पदनाम स्तर" });
+          this.designationLevelArray.unshift({ "id": 0, "textEnglish": "All Designation Level", "textMarathi": "सर्व पदनाम स्तर" });
+         // this.filterFrm.getRawValue()?.userTypeId == 1 ? this.getDesignation() :''
         }
         else {
           this.designationLevelArray = [];
@@ -198,6 +199,12 @@ export class PageRightAccessComponent {
         this.filterFrm.controls['designationId'].setValue('');
         this.designationArray = []
         break;
+        case 'user':
+          this.filterFrm.controls['designationLevelId'].setValue('');
+          this.designationLevelArray = [];
+          this.filterFrm.controls['designationId'].setValue('');
+          this.designationArray = []
+          break;
       case 'deptLevelId':
         this.filterFrm.controls['designationId'].setValue('');
         this.designationArray = []

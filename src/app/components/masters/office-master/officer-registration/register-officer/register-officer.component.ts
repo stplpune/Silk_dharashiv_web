@@ -50,7 +50,7 @@ export class RegisterOfficerComponent {
       private apiService: ApiService,
       public validator: ValidationService,
       private fileUpl: FileUploadService,
-      private webService: WebStorageService
+      public webService: WebStorageService
     ) { }
 
 
@@ -65,7 +65,7 @@ export class RegisterOfficerComponent {
   }
 
 
-  getFormData() {
+  getFormData() {    
     if (this.data) {
       this.data.blockId = this.data?.blockId != 0 ? this.data?.blockId : ''
       this.data.talId = this.data?.talId != 0 ? this.data?.talId : ''
@@ -77,8 +77,8 @@ export class RegisterOfficerComponent {
       id: [this.data ? this.data?.id : 0],
       departmentId: [this.data ? this.data?.departmentId : '', [Validators.required]],
       departmentLevelId: [this.data ? this.data?.departmentLevelId : '', [Validators.required]],
-      stateId: [this.data?.stateId || this.webService.getStateId()],
-      districtId: [this.data ? this.data?.districtId : this.webService.getDistrictId()],
+      stateId: [this.data?.stateId || this.webService.getStateId() == '' ? 0 : this.webService.getStateId()],
+      districtId: [this.data ? this.data?.districtId : this.webService.getDistrictId() == '' ? 0 : this.webService.getDistrictId()],
       blockId: [this.data?.blockId || '', [Validators.required]],
       talukaId: [this.data?.talId || '', [Validators.required]],
       circleId: [this.data?.circleId || '', [Validators.required]],
@@ -144,6 +144,7 @@ export class RegisterOfficerComponent {
     this.masterService.GetAllState().subscribe({
       next: ((res: any) => {
         this.stateArray = res.responseData;
+        this.data ? (this.f['stateId'].setValue(this.data?.stateId)) : ''
       }), error: (() => {
         this.stateArray = [];
       })

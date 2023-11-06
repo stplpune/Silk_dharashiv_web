@@ -40,23 +40,23 @@
               {{'common.Please_select_designation_level'|translate}} </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId >= 5)  || (officeForm.value.departmentLevelId <= 1)">
+        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 5)  || (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 2) || (officeForm.value.departmentLevelId == 1)">
           <mat-label class="form-label">{{'common.state' | translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.state' | translate}}</mat-label> -->
             <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
-              [class]="officeForm.controls['stateId'].disable({ onlySelf: true })">
+            [class]="webService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let state of stateArray" [value]="state.id">{{lang != 'en' ? state.textMarathi :
                 state.textEnglish}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId >= 5) || (officeForm.value.departmentLevelId <= 1)">
+        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 5)  || (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 2) || (officeForm.value.departmentLevelId == 1)">
           <mat-label class="form-label">{{'common.district' | translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.district' | translate}}</mat-label> -->
             <mat-select formControlName="districtId"
-              [class]="officeForm.controls['districtId'].disable({ onlySelf: true })">
+            [class]="webService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
                 district.textMarathi : district.textEnglish}}
               </mat-option>

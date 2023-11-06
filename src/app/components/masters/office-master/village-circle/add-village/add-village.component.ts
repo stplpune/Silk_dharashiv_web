@@ -41,7 +41,6 @@ export class AddVillageComponent implements OnDestroy {
     ) { }
 
   ngOnInit() {
-    console.log('this.data',this.data);
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -56,8 +55,8 @@ export class AddVillageComponent implements OnDestroy {
   getFormData() {
     this.villageForm = this.fb.group({
       id: [this.data ? this.data?.id : 0],
-      stateId: [this.data ? this.data?.stateId : this.WebStorageService.getStateId()],
-      districtId: [this.data ? this.data?.districtId : this.WebStorageService.getDistrictId()],
+      stateId: [this.data ? this.data?.stateId : this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],
+      districtId: [this.data ? this.data?.districtId :  this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],
       talukaId: [this.data ? this.data?.talukaId : '', [Validators.required]],
       grampanchayats: [this.data ? this.data?.grampanchayat : '', [Validators.required]],
       circleName: [this.data ? this.data?.circleName : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(30)]],
@@ -73,7 +72,6 @@ export class AddVillageComponent implements OnDestroy {
     this.master.GetAllState().subscribe({
       next: ((res: any) => {
         this.stateArray = res.responseData;
-        //  this.data ? (this.f['stateId'].setValue(this.data?.stateId), this.getDisrict()) : this.getDisrict();
         this.data ? (this.f['stateId'].setValue(this.data?.stateId)) : '';
         this.getDisrict();
       }), error: (() => {
@@ -88,8 +86,7 @@ export class AddVillageComponent implements OnDestroy {
       next: ((res: any) => {
         this.districtArray = res.responseData;
         this.districtArray.unshift({ "id": 0, "textEnglish": "All District", "textMarathi": "सर्व जिल्हे" });
-        //this.data ? (this.f['districtId'].setValue(this.data?.districtId), this.getTaluka()) : this.getTaluka();
-        this.data ? this.f['districtId'].patchValue(this.data?.districtId) : '';
+        this.data ? this.f['districtId'].setValue(this.data?.districtId) : '';
         this.getTaluka();
       }), error: (() => {
         this.districtArray = [];
