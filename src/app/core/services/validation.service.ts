@@ -14,7 +14,6 @@ export class ValidationService {
   password =('^(?=.*[a-z0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z0-9\d@$!%*?&#]{8,20}$');
   panNumber = '[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}';
   marathi=('^[\u0900-\u0965 ]+$');
-  marathiquestion=('^[\u0900-\u0965? !-@#$%^&*0-9]+$');
   alphabetWithSpace = '^[a-zA-Z][a-zA-Z ]*$';
   alphaNumericWithSpace = '^[a-zA-Z0-9 -][a-zA-Z0-9 -]*$';
   valPinCode = '^[1-9][0-9]{5}$';
@@ -23,7 +22,8 @@ export class ValidationService {
   longValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
   marathiNumericAndspecialChar = '/^[\u0900-\u0965?~`!@#$%^&*()\[\]\-+_={}|;:\\<,>.?\/ 0-9]+$/';
   //englishNumericAndspecialChar = '^[a-zA-Z?~`!@#$%^&*()-_+={}[\]:|\\;"<,>.?\/ 0-9]*$';
-  englishNumericAndspecialChar = '^[A-Za-z0-9 /(,)&.+-_@#$]*$'
+  englishNumericAndspecialChar = '^[A-Za-z0-9 *%!/(,)&.+-_@#$]*$'
+  marathiquestion=('^[\u0900-\u0965? *%!/(,)&.+-_@#$0-9]+$');
   numericWithdecimaluptotwoDigits='^[0-9][0-9]*[.]?[0-9]{0,2}$';
   alphaNumericWithSpacesWithDashSlashs = '^([a-zA-Z0-9/-])';
   marathiAlphanumeric=('^[\u0900-\u09650-9 ][\u0900-\u09650-9 ]+$');
@@ -46,7 +46,7 @@ export class ValidationService {
   
 
   englishNumericspecialChar(event: any) {
-    const regexPattern = new RegExp('^[A-Za-z0-9 /(,)&.+-_@#$]*$','g');
+    const regexPattern = new RegExp('^[A-Za-z0-9 *%!/(,)&.+-_@#$]*$','g');
     return regexPattern.test(event);
   }
   
@@ -137,7 +137,7 @@ export class ValidationService {
   }
 
   unicodeMarathiQuetionValidation(event: any) {
-    const maskSeperator = new RegExp('[^\u0900-\u0965? !-@#$%^&*0-9]+', 'm');
+    const maskSeperator = new RegExp('[^\u0900-\u0965? *%!/(,)&.+-_@#$0-9]+', 'm');
     return !maskSeperator.test(event.key);
   }
   emailRegex(event: any) { //Email Validation

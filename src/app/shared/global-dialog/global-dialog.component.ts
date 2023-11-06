@@ -22,7 +22,8 @@ export class GlobalDialogComponent {
   constructor(public dialogRef: MatDialogRef<GlobalDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,    public commonService: CommonMethodsService, public valiService: ValidationService) { }
 
   ngOnInit(): void {
-   
+    console.log(this.data);
+    
   }
 
   closeDialog(flag: string) {
@@ -40,7 +41,6 @@ export class GlobalDialogComponent {
     } else {
       this.dialogRef.close(flag);
     }
-    // this.dialogRef.close(result);
   }
 
 }
