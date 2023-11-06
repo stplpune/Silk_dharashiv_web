@@ -131,6 +131,7 @@ export class BlogsComponent {
       title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेला ब्लॉग ' + userMara + ' करू इच्छिता ?' : 'Do You Want To ' + userEng + ' The Selected Blog ?',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
+      statusFlag:this.lang == 'en' ? 'Toggle' : 'टॉगल'
     }
     const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
