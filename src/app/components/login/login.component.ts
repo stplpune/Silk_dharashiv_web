@@ -104,8 +104,12 @@ export class LoginComponent {
           this.loginData = this.AESEncryptDecryptService.encrypt(JSON.stringify(res?.responseData));
           localStorage.setItem('silkDharashivUserInfo', this.loginData);
          //this.router.navigate(['/dashboard']);
-          this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
-           this.loginData?.pageList?.length <= 0 ? this.commonMethods.snackBar('Please Contact To Admin',1) : ''
+         console.log("page list",this.loginData?.pageList);
+         (this.loginData?.pageList == undefined || this.loginData?.pageList == null) ? this.commonMethods.snackBar('Please Contact To Admin',1) :  this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
+         
+          //console.log("page list",this.loginData?.pageList);
+          // this.loginData?.pageList == [] ? this.commonMethods.snackBar('Please Contact To Admin',1) : '';
+           //"pageList": []
          //  this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
            this.loginFlag = true;
         }

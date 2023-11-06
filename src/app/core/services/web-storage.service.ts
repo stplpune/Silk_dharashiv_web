@@ -53,7 +53,7 @@ export class WebStorageService {
   
   redirectTo(){ ////redirect to first page in array
     let data = this.getLoggedInLocalstorageData()
-    return data.pageList[0].pageURL;
+    return data.pageList[0]?.pageURL;
    }
 
   getUserId() {
