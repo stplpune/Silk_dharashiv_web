@@ -60,9 +60,9 @@ export class ManaregaComponent {
   filterDefaultFrm() {
     this.filterFrm = this.fb.group({
       schemeTypeId: [0],
-      districtId: [this.webStorage.getDistrictId()],
-      talukaId: [0],
-      grampanchayatId: [0],
+      districtId: [this.webStorage.getDistrictId() == '' ? 0 : this.webStorage.getDistrictId()],
+      talukaId: [ this.webStorage.getTalukaId() == '' ? 0 : this.webStorage.getTalukaId()],
+      grampanchayatId: [ this.webStorage.getGrampanchayatId() == '' ? 0 : this.webStorage.getGrampanchayatId()],
       statusId: [0],
       // actionId: [0],
       textSearch: [''],
@@ -237,7 +237,7 @@ export class ManaregaComponent {
     this.getTableData();
     this.pageNumber = 1;
     this.searchDataFlag = false;
-    this.grampanchayatArray = [];
+    //this.grampanchayatArray = [];
   }
 
   ngOnDestroy() {
