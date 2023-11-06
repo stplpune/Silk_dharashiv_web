@@ -75,6 +75,9 @@ export class MarketsComponent implements OnDestroy{
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData;
+          this.tableDataArray.map((ele:any)=>{
+            ele.status1 = ele.status
+          })
           this.tableDatasize = res.responseData1?.totalCount;
           this.totalPages = res.responseData1?.totalPages;
         } else {
@@ -91,12 +94,13 @@ export class MarketsComponent implements OnDestroy{
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_District', 'm_Taluka', 'm_MarketName', 'conactNo', 'status', 'action'] : ['srNo', 'district', 'taluka', 'marketName', 'conactNo', 'status', 'action']
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_District', 'm_Taluka', 'm_MarketName', 'conactNo', 'status1', 'action'] : ['srNo', 'district', 'taluka', 'marketName', 'conactNo', 'status1', 'action']
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'जिल्हा', 'तालुका', 'बाजारपेठेचे नाव', 'मोबाइल क्रमांक', 'स्थिती', 'कृती'] : ['Sr. No.', 'District', 'Taluka', 'Market Name', 'Mobile No.', 'Status', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
       highlightedrow: true,
+      isBlock: 'status1',
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
@@ -127,8 +131,47 @@ export class MarketsComponent implements OnDestroy{
       case 'View':
         this.addMarket(obj);
         break;
+       case 'Block':
+          this.openBlockDialog(obj);
     }
   }
+
+  openBlockDialog(obj?: any) {
+    let userEng = obj.status == false ? 'Publish' : 'UnPublish';
+    let userMara = obj.status == false ? 'प्रकाशित' : 'अप्रकाशित';
+    let dialoObj = {
+      header: this.lang == 'mr-IN' ? 'बाजार ' + userMara + ' करा' : userEng + ' Market',
+      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेला बाजार  ' + userMara + ' करू इच्छिता ?' : 'Do You Want To ' + userEng + ' The Selected Market ?',
+      cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
+      okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
+    }
+    const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
+      width: '320px',
+      data: dialoObj,
+      disableClose: true,
+      autoFocus: false
+    })
+    deleteDialogRef.afterClosed().subscribe((result: any) => {
+      result == 'Yes' ? this.blockAction(obj) : '';
+    })
+  }
+
+  blockAction(obj: any) {
+    let status = !obj.status
+   this.apiService.setHttp('PUT', 'sericulture/api/MarketCommittee/MarketCommittee-Status?Id=' + obj.id + '&Status=' + status+'&lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        res.statusCode == "200" ? (this.commonMethod.snackBar(res.statusMessage, 0),this.bindTable()) : this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+      },
+      error: (error: any) => {
+        this.errorHandler.handelError(error.status);
+        this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.status) : this.commonMethod.snackBar(error.status, 1);
+      }
+    })
+  }
+
+
+
 
   addMarket(obj?: any) {
     let dialogRef = this.dialog.open(AddMarketListComponent, {
