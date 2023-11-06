@@ -5,10 +5,28 @@
   </ol>
 </nav>
 <mat-card class="plain-card">
+  <!-- <div>
+    <mat-radio-group aria-label="Select an option">
+      <mat-radio-button value="admin" (change)="radiochange($event)" checked>Admin</mat-radio-button>
+      <mat-radio-button value="other" (change)="radiochange($event)">Other</mat-radio-button>
+    </mat-radio-group>
+  </div> -->
+  <!-- *ngIf="radioBtnValue == 'other'" -->
+  
+  
   <mat-card-header class="card-header-control  form-container">
     <form [formGroup]="filterFrm" #formDirective="ngForm" class="w-100">
       <div class="row align-items-center justify-content-start g-2">
-        <div class="col-sm-2">
+        <div class="col-sm-2" >
+          <mat-form-field appearance="outline" class="w-100">
+           <mat-select  placeholder="Select User Type" formControlName="userTypeId" >
+            <!-- (selectionChange)="onDropdownChange($event)" -->
+              <mat-option *ngFor="let userType of userTypeArray" [value]="userType.id">{{lang == 'en' ?
+                userType.textEnglish : userType.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-2" *ngIf="filterFrm.getRawValue()?.userTypeId == 2">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'designation.depertment'|translate}}</mat-label> -->
             <mat-select formControlName="departmentId" placeholder="Select Department" (selectionChange)="clearDropdown('deptId');getDesignationLevel();">
@@ -17,7 +35,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2" *ngIf="filterFrm.getRawValue()?.userTypeId == 2">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'designation.designation_level'|translate}}</mat-label> -->
             <mat-select formControlName="designationLevelId" placeholder="Select Designation Level" (selectionChange)="clearDropdown('deptLevelId');getDesignation()">
@@ -26,7 +44,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2" *ngIf="filterFrm.getRawValue()?.userTypeId == 2">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'pageAccess.designation'|translate}}</mat-label> -->
             <mat-select formControlName="designationId" placeholder="Select Designation">
