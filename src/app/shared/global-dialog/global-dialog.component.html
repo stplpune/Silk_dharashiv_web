@@ -6,19 +6,9 @@
   <div id="delete">
     <div class="row">
       <div class="col-12">
-          <div class="card card-body border-0 bg-danger-subtle text-center mb-3" *ngIf="(data.header == 'Delete Scheme' || data.header == 'योजना हटवा') || (data.header == 'Delete' || data.header == 'हटवा') || data.header == 'बाजार सूची हटवा'">
+          <div class="card card-body border-0 bg-danger-subtle text-center mb-3">
             <div class="py-3">
               <img src="assets/images/delete.svg" class="w-25 mx-auto">
-            </div>
-          </div>
-          <div class="card card-body border-0 bg-danger-subtle text-center mb-3" *ngIf="(data.header == 'Active Scheme' || data.header == 'योजना ब्लॉक करा' ) || (data.header == 'Publish Blog' || data.header == 'ब्लॉग प्रकाशित करा') || (data.header == 'Publish FAQ' || data.header == 'एफएक्यू प्रकाशित करा') || (data.header == 'Publish Market' || data.header == 'बाजार प्रकाशित करा')"> 
-            <div class="py-3">
-              <img src="assets/images/active_scheme@3x.png" class="w-25 mx-auto">
-            </div>
-          </div>
-          <div class="card card-body border-0 bg-danger-subtle text-center mb-3" *ngIf="(data.header == 'Deactive Scheme' || data.header == 'योजना अनब्लॉक करा') || (data.header == 'UnPublish Blog' || data.header == 'ब्लॉग अप्रकाशित करा') || (data.header == 'UnPublish FAQ' || data.header == 'एफएक्यू अप्रकाशित करा') || (data.header == 'UnPublish Market' || data.header == 'बाजार अप्रकाशित करा')">  
-            <div class="py-3">
-              <img src="assets/images/inactive_scheme/inactive_scheme@3x.png" class="w-25 mx-auto">
             </div>
           </div>
           <h6>{{data?.header}}</h6>
