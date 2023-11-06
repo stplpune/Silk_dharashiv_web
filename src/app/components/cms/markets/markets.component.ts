@@ -190,8 +190,8 @@ export class MarketsComponent implements OnDestroy{
   deleteDialogOpen(delObj?: any) {
     let dialogObj = {
       title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेले बाजार रेकॉर्ड हटवू इच्छिता?' : 'Do You Want To Delete Selected Market?',
-      header: this.lang == 'mr-IN' ? 'डिलीट करा' : 'Delete',
-      okButton: this.lang == 'mr-IN' ? 'डिलीट' : 'Delete',
+      header: this.lang == 'mr-IN' ? 'बाजार सूची हटवा' : 'Delete',
+      okButton: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
