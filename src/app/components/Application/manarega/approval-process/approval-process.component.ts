@@ -41,7 +41,8 @@ export class ApprovalProcessComponent implements OnDestroy {
   reasonArray: any = [];
   @ViewChild('formDirective') private formDirective!: NgForm;
   appDataClonedArray:any;
-
+  editOtherDocForm:boolean = false;
+  selOtherDocIndex!:number;
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -99,7 +100,6 @@ export class ApprovalProcessComponent implements OnDestroy {
           })
           this.getApprovalStatus();
           this.getReason();
-          console.log(this.pushOtherDocArray);
           this.dataSource = new MatTableDataSource(this.pushAppDocArray);
           this.otherDocArray = new MatTableDataSource(this.pushOtherDocArray);
           this.approvalStatus = new MatTableDataSource(this.applicationData?.allApplicationApproval);
@@ -266,19 +266,25 @@ export class ApprovalProcessComponent implements OnDestroy {
     }
     else {
       let otherFormData = this.uploadFrm.getRawValue();
-      let obj = {
-        "id": 0,
-        "applicationId": this.encryptData,
-        "docTypeId": 1, // 1 is other doc
-        "documentType": otherFormData?.documentType,
-        "m_DocumentType": "",
-        "docNo": otherFormData?.docNo,
-        "docPath": this.imageData,
-        "isVerified": true
+      if(!this.editOtherDocForm){
+        let obj = {
+          "id": 0,
+          "applicationId": this.encryptData,
+          "docTypeId": 1, // 1 is other doc
+          "documentType": otherFormData?.documentType,
+          "m_DocumentType": "",
+          "docNo": otherFormData?.docNo,
+          "docPath": this.imageData,
+          "isVerified": true
+        }
+        this.pushOtherDocArray.push(obj);
+      }else{
+        this.pushOtherDocArray[this.selOtherDocIndex].docPath = this.imageData;
+        this.editOtherDocForm = false;
       }
-      this.pushOtherDocArray.push(obj);
+    
       this.otherDocArray = new MatTableDataSource(this.pushOtherDocArray);
-      this.formDirective.reset();
+      this.formDirective.resetForm();
       this.deleteImage();
     }
   }
@@ -290,41 +296,42 @@ export class ApprovalProcessComponent implements OnDestroy {
   }
 
   editOtherDoc(ele:any){
+    this.editOtherDocForm = true;
+    this.selOtherDocIndex = this.commonMethod.findIndexOfArrayObject(this.pushOtherDocArray,'id',ele.id)
     this.uploadFrm = this.fb.group({
       "id": [ele.id],
       "docNo": [ele.docNo, [Validators.required]],
       "documentType": [ele.documentType, [this.validation.maxLengthValidator(50), Validators.pattern(this.validation.fullName), Validators.required]],
       "docPath": [ele.docPath, [Validators.required]]
     });
-    ele.docPath ? this.imageData =ele.docPath:'';
+    ele.docPath ? this.imageData = ele.docPath:'';
   }
 
   //#endregion-----------------------------------------------------------other doc section end heare ---------------------------------//
 
   onSubmitApprovalDetails() {
-    console.log(this.pushOtherDocArray);
     if (this.approvalFrm.invalid) {
       return;
     }
     else {
-      debugger;
+   
       let newUploadedDoc:any = [];
       let mergeArray :any;
       mergeArray = [...this.pushAppDocArray, ...this.pushOtherDocArray];
 
       mergeArray.find((ele: any) => {
         this.appDataClonedArray?.allDocument.find((item: any) => {
-          if ((item.id == ele.id && mergeArray?.docPath != item.docPath) || ele.id == 0) {
-            newUploadedDoc.push(ele)
+          if ((item.id == ele.id && ele?.docPath != item.docPath) || ele.id == 0) {
+            if(!newUploadedDoc.length ){
+              newUploadedDoc.push(ele)
+            }else{
+              let checkPrevValue = newUploadedDoc.some((i:any)=> i.id == ele.id);
+              checkPrevValue ==  '-1' || !checkPrevValue ?  newUploadedDoc.push(ele):'';
+            }
           }
         })
       })
-      this.insertUpdateDocuments(newUploadedDoc)
-      // if(newUploadedDoc.length){
-      //   this.updateApprovalStatus(newUploadedDoc);
-      // }else{
-      //   this.updateApprovalStatus();
-      // }
+      console.log(newUploadedDoc);
     }
   }
 
@@ -341,8 +348,6 @@ export class ApprovalProcessComponent implements OnDestroy {
         ele.modifiedDate =  new Date();
         ele.isDeleted =  false
     });
-
-    console.log(array);
     return
 
     this.apiService.setHttp('post', 'sericulture/api/Application/InsertUpdateDocuments', false, array, false, 'masterUrl');
