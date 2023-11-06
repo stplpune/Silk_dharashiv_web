@@ -266,7 +266,8 @@
     "update_department": "विभाग संपादित करा",
     "add_department": "विभाग जोडा",
     "view_Department": "विभाग पहा",
-    "department_required": "कृपया विभागाचे नाव प्रविष्ट करा",
+    "department_required": "कृपया विभागाचे नाव प्रविष्ट करा (इंग्रजी)",
+    "department_required_mr": "कृपया विभागाचे नाव प्रविष्ट करा (मराठी)",
     "department_pattern": "विभाग (इंग्रजी) आवश्यक आहे",
     "department_pattern_mr": "विभाग (मराठी) आवश्यक आहे",
     "department_maxLength": "कमाल 30 वर्णांना अनुमती आहे"

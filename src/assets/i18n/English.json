@@ -265,7 +265,8 @@
     "update_department": "Update Department",
     "add_department": "Add Department",
     "view_Department": "View Department",
-    "department_required": "Please enter department name",
+    "department_required": "Please enter department name (English)",
+    "department_required_mr": "Please enter department name (Marathi)",
     "department_pattern": "Department (English) is required",
     "department_pattern_mr": "Department (Marathi) is required",
     "department_maxLength": "Maximun 30 character allowed"

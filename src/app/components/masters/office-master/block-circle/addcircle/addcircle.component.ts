@@ -52,13 +52,13 @@ export class AddcircleComponent implements OnDestroy{
   get f() { return this.addBlockForm.controls }
 
   ngOnInit() {
-    this.data?.getTalukaModel.filter((res:any)=>{
-      if(res.isSelected == true && res.isAssigned == true){
-        this.isAssigngramFlag = true
-      }else {
-        this.isAssigngramFlag = false
-      }
-    })
+    // this.data?.getTalukaModel.filter((res:any)=>{
+    //   if(res.isSelected == true && res.isAssigned == true){
+    //     this.isAssigngramFlag = true
+    //   }else {
+    //     this.isAssigngramFlag = false
+    //   }
+    // })
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -107,11 +107,16 @@ export class AddcircleComponent implements OnDestroy{
     this.masterService.GetAllTaluka(stateId,districtId,0).subscribe({
       next: ((res: any) => {
         this.talukaArr = res.responseData;
-        let taluka = new Array()
-        this.data?.getTalukaModel.forEach((res:any )=> {
-          taluka.push(res.id)
-        });
-        this.data ? (this.f['talukas'].setValue(taluka)) : ''; 
+        if(this.data){
+          let taluka = new Array()
+          this.data?.getTalukaModel.forEach((res:any )=> {
+            taluka.push(res.id)
+          });
+            taluka.forEach((res:any)=>{
+            this.talukaArr.filter((tal:any)=>tal.id == res ? tal.isAssigned = true : tal.isAssigned = tal.isAssigned)
+          })
+          this.f['talukas'].setValue(taluka)
+        }
       }),
       error: () => { this.talukaArr = [];}
     })

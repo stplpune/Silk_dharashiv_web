@@ -18,7 +18,7 @@
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.department_filter' | translate}}</mat-label> -->
-            <mat-select formControlName="departmentId" placeholder="All Department" (selectionChange)="clearDropDown('dept')">
+            <mat-select formControlName="departmentId" placeholder="All Department" (selectionChange)="clearDropDown('dept');getDepartmentLevel()">
               <mat-option [value]="0">{{'officerreg.allDepartment' | translate}}</mat-option>
               <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang != 'en' ?
                 department.textMarathi :department.textEnglish}}</mat-option>
@@ -48,7 +48,7 @@
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.taluka_filter' | translate}}</mat-label> -->
-            <mat-select formControlName="talukaId"  placeholder="Taluka Level" (selectionChange)="clearDropDown('gram');getGrampanchayat()">
+            <mat-select formControlName="talukaId"  placeholder="Taluka Level" (selectionChange)="clearDropDown('gram');getGrampanchayat();getCircle()">
               <mat-option [value]="0"> {{'officerreg.allTaluka' | translate}}</mat-option>
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi :
                 taluka.textEnglish}}</mat-option>

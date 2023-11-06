@@ -61,7 +61,7 @@ export class RegisterOfficerComponent {
     })
     this.getFormData();
     this.getstatusForm();
-    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment(), this.getDepartmentLevel());
+    this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment());
   }
 
 
@@ -103,7 +103,7 @@ export class RegisterOfficerComponent {
     this.masterService.GetDepartmentDropdown().subscribe({
       next: ((res: any) => {
         this.departmentArray = res.responseData;
-        this.data ? (this.f['departmentId'].setValue(this.data?.departmentId)) : ''
+        this.data ? (this.f['departmentId'].setValue(this.data?.departmentId),this.getDepartmentLevel()) : ''
       }), error: (() => {
         this.departmentArray = [];
       })
@@ -112,9 +112,9 @@ export class RegisterOfficerComponent {
 
   getDesignation() {
     this.designationArray = [];
-    let deptId = this.officeForm.getRawValue().departmentId;
-    let deptLevelId = this.officeForm.getRawValue().departmentLevelId;
-    if (deptId != 0) {
+    let deptId = this.officeForm.getRawValue().departmentId || 0;
+    let deptLevelId = this.officeForm.getRawValue().departmentLevelId || 0;
+    if (deptId != 0 && deptLevelId!=0) {
       this.masterService.GetDesignationDropDownOnDeptLevel(deptId, deptLevelId).subscribe({
         next: ((res: any) => {
           this.designationArray = res.responseData;
@@ -131,7 +131,8 @@ export class RegisterOfficerComponent {
     this.masterService.GetDeptLevelDropDown().subscribe({
       next: ((res: any) => {
         this.departmentLevelArray = res.responseData;
-        this.data ? (this.f['departmentLevelId'].setValue(this.data?.departmentLevelId), this.getDesignation()) : ''
+        // this.data ? (this.f['departmentLevelId'].setValue(this.data?.departmentLevelId), this.getDesignation()) : ''
+        this.getDesignation()
       }), error: (() => {
         this.departmentLevelArray = [];
       })
@@ -178,7 +179,7 @@ export class RegisterOfficerComponent {
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
-        (this.officeForm.value.departmentLevelId != 4 && this.officeForm.value.departmentLevelId != 1 || (this.data && flag)) ? (this.f['talukaId'].setValue(this.data?.talId), this.getGrampanchayat()) : '';
+        (this.officeForm.value.departmentLevelId != 4 && this.officeForm.value.departmentLevelId != 1 || (this.data && flag)) ? (this.f['talukaId'].setValue(this.data?.talId), this.getGrampanchayat(),this.getCircle()) : '';
       }), error: (() => {
         this.talukaArray = [];
       })
@@ -200,14 +201,15 @@ export class RegisterOfficerComponent {
     }
   }
 
-  getCircle(flag?: any) {
+  getCircle() {
     this.circleArray = [];
     let stateId = this.officeForm.getRawValue().stateId;
     let distId = this.officeForm.getRawValue().districtId;
-    this.masterService.GetAllCircle(stateId, distId, 0).subscribe({
+    let talukaId = this.officeForm.getRawValue().talukaId || 0;
+    this.masterService.GetAllCircle(stateId, distId, talukaId).subscribe({
       next: ((res: any) => {
         this.circleArray = res.responseData;
-        (this.data && flag) ? (this.f['circleId'].setValue(this.data?.circleId)) : '';
+        // this.data  ? (this.f['circleId'].setValue(this.data?.circleId)) : '';
       }), error: (() => {
         this.circleArray = [];
       })
@@ -290,11 +292,12 @@ export class RegisterOfficerComponent {
   dropDownCall(id?: any, flag?: any) {
     this.getState();
     this.getDisrict(flag);
-    if (id == 1) {
-      this.getCircle(flag)
-    } else if (id == 2) {
+    // if (id == 1) {
+    //   // this.getCircle(flag)
+    // }
+    if (id == 2) {
       this.getBlock(flag)
-    };
+    }
   }
 
   clearDropDown(flag?: any) {
@@ -309,7 +312,14 @@ export class RegisterOfficerComponent {
       this.talukaArray = [];
       this.f['grampanchayatId'].setValue('');
       this.grampanchayatArray = [];
+    }else if(flag == 'levelclear'){
+      this.f['departmentLevelId'].setValue('');
+      this.departmentLevelArray = [];
+      this.f['designationId'].setValue('');
+      this.designationArray = [];
     }else {
+      this.f['circleId'].setValue('');
+      this.circleArray = [];
       this.f['grampanchayatId'].setValue('');
       this.grampanchayatArray = [];
     }
@@ -379,7 +389,7 @@ export class RegisterOfficerComponent {
 
   imageUplod(event: any) {
     this.spinner.show();
-    this.fileUpl.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc').subscribe({
+    this.fileUpl.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc','','',this.lang).subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.spinner.hide();

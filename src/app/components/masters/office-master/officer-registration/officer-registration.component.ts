@@ -60,10 +60,10 @@ export class OfficerRegistrationComponent implements OnDestroy {
     })
     this.getFilterFormData();
     this.getDepartment();
-    this.getDepartmentLevel();
+    // this.getDepartmentLevel();
     this.getTaluka();
     this.getBlock();
-    this.getCircle();
+    // this.getCircle();
     this.bindTable();
   }
 
@@ -137,7 +137,8 @@ export class OfficerRegistrationComponent implements OnDestroy {
   }
 
   getCircle() {
-    this.masterService.GetAllCircle(1, 1, 0).subscribe({
+    let talukaId = this.filterForm.getRawValue().talukaId || 0;
+    this.masterService.GetAllCircle(1, 1, talukaId).subscribe({
       next: ((res: any) => {
         this.circleArray = res.responseData;
       }), error: (() => {
@@ -283,14 +284,16 @@ export class OfficerRegistrationComponent implements OnDestroy {
 
   clearDropDown(flag?: any) {
     if (flag == 'dept') {
+      this.departmentLevelArray = [];
+      this.f['departmentLevelId'].setValue(0);
       this.designationArray = [];
       this.f['designationId'].setValue(0);
     }else if(flag == 'clearAll'){
-      // this.departmentArray = [];
-      // this.f['departmentId'].setValue(0);
       this.designationArray = [];
       this.f['designationId'].setValue(0);
     } else {
+      this.circleArray = [];
+      this.f['circleId'].setValue('');
       this.grampanchayatArray = [];
       this.f['grampanchayatId'].setValue(0);
     }
