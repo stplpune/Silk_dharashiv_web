@@ -40,7 +40,6 @@ export class ApprovalProcessComponent implements OnDestroy {
   approvalStatusArray: any = [];
   reasonArray: any = [];
   @ViewChild('formDirective') private formDirective!: NgForm;
-  @ViewChild('formDirectives') private formDirective1!: NgForm;
   appDataClonedArray:any;
 
 
@@ -66,6 +65,14 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.addApprovalFrm();
   }
 
+  getRouteParam() {
+    this.route.queryParams.subscribe((queryParams: any) => {
+      this.routingData = queryParams['id'];
+    });
+    this.encryptData = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
+    this.getByApplicationId();
+  }
+
   addApprovalFrm() {
     this.approvalFrm = this.fb.group({
       "applicationStatus": ['', Validators.required],
@@ -75,18 +82,8 @@ export class ApprovalProcessComponent implements OnDestroy {
     })
   }
 
-
-  getRouteParam() {
-    this.route.queryParams.subscribe((queryParams: any) => {
-      this.routingData = queryParams['id'];
-    });
-    this.encryptData = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
-    this.getByApplicationId();
-  }
-
-
   getByApplicationId() {
-    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetApplication?Id=' + (this.encryptData) + '&lan=' + this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetApplication?Id=' + (this.encryptData) +'&UserId='+this.WebStorageService.getUserId()+'&lan=' + this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
@@ -102,6 +99,7 @@ export class ApprovalProcessComponent implements OnDestroy {
           })
           this.getApprovalStatus();
           this.getReason();
+          console.log(this.pushOtherDocArray);
           this.dataSource = new MatTableDataSource(this.pushAppDocArray);
           this.otherDocArray = new MatTableDataSource(this.pushOtherDocArray);
           this.approvalStatus = new MatTableDataSource(this.applicationData?.allApplicationApproval);
@@ -116,7 +114,6 @@ export class ApprovalProcessComponent implements OnDestroy {
       }
     })
   }
-
 
   getApprovalStatus() {
     this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetApprovalStatusList?Id=' + this.applicationData?.id + '&ApplicationId=' + this.applicationData?.applicationId + '&ApprovalMasterId=' + this.applicationData?.approvalMasterId, false, false, false, 'masterUrl');
@@ -149,87 +146,6 @@ export class ApprovalProcessComponent implements OnDestroy {
       })
     }
   }
-
-  onSubmitApprovalDetails() {
-
-    if (this.approvalFrm.invalid) {
-      return;
-    }
-    else {
-      let newUploadedDoc:any = [];
-
-      this.appDataClonedArray?.allDocument.find((ele: any, i:any) => {
-          if (ele.docPath != this.applicationData?.allDocument[i].docPath) {
-            newUploadedDoc.push(ele)
-          }
-      })
-
-      if(newUploadedDoc.length){
-        this.insertUpdateDocuments(newUploadedDoc);
-      }else{
-        this.updateApprovalStatus();
-      }
-    }
-  }
-
-  insertUpdateDocuments(array:any){
-    array.map((ele:any)=>{
-        ele.id =  ele?.id || 0;
-        ele.applicationId =  ele?.applicationId || 0;
-        ele.docTypeId =  ele?.docTypeId || 0;
-        ele.docNo =  ele?.docNo || '';
-        ele.docname =  ele?.docname || '';
-        ele.docPath =  ele?.docPath || '';
-        ele.createdBy =  ele?.createdBy || this.WebStorageService.getUserId();
-        ele.modifiedBy =  ele?.id || this.WebStorageService.getUserId();
-        ele.modifiedDate =  new Date();
-        ele.isDeleted =  false
-    });
-
-    this.apiService.setHttp('post', 'sericulture/api/Application/InsertUpdateDocuments', false, array, false, 'masterUrl');
-    this.apiService.getHttp().subscribe({
-      next: ((res: any) => {
-        this.spinner.hide();
-        if (res.statusCode == "200") {
-          this.updateApprovalStatus();
-        }
-        else {
-          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      }),
-      error: (error: any) => {
-        this.spinner.hide();
-        this.errorHandler.handelError(error.statusCode);
-      }
-    })
-  }
-
-  updateApprovalStatus(){
-    this.spinner.show();
-    let data = this.approvalFrm.getRawValue();
-    this.approvalFrm.controls['m_remark'].setValue(data?.remark);
-   
-    let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId() };
-    this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/UpdateApprovalStatus?lan=' + this.lang, false, mainData, false, 'masterUrl');
-    this.apiService.getHttp().subscribe({
-      next: ((res: any) => {
-        this.spinner.hide();
-        if (res.statusCode == "200") {
-          this.commonMethod.snackBar(res.statusMessage, 0);
-          this.router.navigate(['../application'], {relativeTo:this.route})
-          this.formDirective1.reset();
-        }
-        else {
-          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      }),
-      error: (error: any) => {
-        this.spinner.hide();
-        this.errorHandler.handelError(error.statusCode);
-      }
-    })
-  }
-
   //#region ----------------------------------------------------------applcant doc section start heare-----------------------------------//
 
   viewDocument(url: any) {
@@ -382,8 +298,101 @@ export class ApprovalProcessComponent implements OnDestroy {
     });
     ele.docPath ? this.imageData =ele.docPath:'';
   }
+
   //#endregion-----------------------------------------------------------other doc section end heare ---------------------------------//
 
+  onSubmitApprovalDetails() {
+    console.log(this.pushOtherDocArray);
+    if (this.approvalFrm.invalid) {
+      return;
+    }
+    else {
+      debugger;
+      let newUploadedDoc:any = [];
+      let mergeArray :any;
+      mergeArray = [...this.pushAppDocArray, ...this.pushOtherDocArray];
+
+      mergeArray.find((ele: any) => {
+        this.appDataClonedArray?.allDocument.find((item: any) => {
+          if ((item.id == ele.id && mergeArray?.docPath != item.docPath) || ele.id == 0) {
+            newUploadedDoc.push(ele)
+          }
+        })
+      })
+      this.insertUpdateDocuments(newUploadedDoc)
+      // if(newUploadedDoc.length){
+      //   this.updateApprovalStatus(newUploadedDoc);
+      // }else{
+      //   this.updateApprovalStatus();
+      // }
+    }
+  }
+
+  insertUpdateDocuments(array:any){
+    array.map((ele:any)=>{
+        ele.id =  ele?.id || 0;
+        ele.applicationId =  ele?.applicationId || 0;
+        ele.docTypeId =   ele?.docTypeId ? ele?.docTypeId : 1;
+        ele.docNo =  ele?.docNo || '';
+        ele.docname =  ele?.docname || '';
+        ele.docPath =  ele?.docPath || '';
+        ele.createdBy =  ele?.createdBy || this.WebStorageService.getUserId();
+        ele.modifiedBy =  ele?.id || this.WebStorageService.getUserId();
+        ele.modifiedDate =  new Date();
+        ele.isDeleted =  false
+    });
+
+    console.log(array);
+    return
+
+    this.apiService.setHttp('post', 'sericulture/api/Application/InsertUpdateDocuments', false, array, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == "200") {
+          this.commonMethod.snackBar(res.statusMessage, 0);
+          this.router.navigate(['../application'], {relativeTo:this.route})
+        }
+        else {
+          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.spinner.hide();
+        this.errorHandler.handelError(error.statusCode);
+      }
+    })
+  }
+
+  updateApprovalStatus(array?:any){
+    this.spinner.show();
+    let data = this.approvalFrm.getRawValue();
+    this.approvalFrm.controls['m_remark'].setValue(data?.remark);
+   
+    let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId() };
+    this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/UpdateApprovalStatus?lan=' + this.lang, false, mainData, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == "200") {
+          if(array){
+              this.insertUpdateDocuments(array)
+          }else{
+          this.commonMethod.snackBar(res.statusMessage, 0);
+          this.router.navigate(['../application'], {relativeTo:this.route})
+          }
+          
+        }
+        else {
+          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.spinner.hide();
+        this.errorHandler.handelError(error.statusCode);
+      }
+    })
+  }
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();

@@ -575,8 +575,8 @@
               लागवड करण्यास परवानगी दिल्यास वरील अटी मला / आम्हाला मान्य राहतील.</li>
           </ol>
         </div>
-
-        <form [formGroup]="approvalFrm" (ngSubmit)="onSubmitApprovalDetails()" #formDirectives="ngForm" [class.d-none]="applicationData?.applicationStatus != 1">
+        <!-- [class.d-none]="applicationData?.applicationStatus != 1"   [class.d-none]="!applicationData?.isEdit"-->
+        <form [formGroup]="approvalFrm" (ngSubmit)="onSubmitApprovalDetails()" #formDirectives="ngForm">
           <div class="row g-2">
             <div class="col-sm-2">
               <label class="form-label">Select Status</label>
