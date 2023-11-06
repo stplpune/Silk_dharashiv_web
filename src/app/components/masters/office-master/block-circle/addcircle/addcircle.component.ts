@@ -1,5 +1,5 @@
-import { Component, Inject, OnDestroy } from '@angular/core';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
+import {FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgIf, NgFor} from '@angular/common';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';import {MatRadioModule} from '@angular/material/radio';
@@ -36,6 +36,8 @@ export class AddcircleComponent implements OnDestroy{
   subscription!: Subscription;
   viewFlag : boolean = false;
   isAssigngramFlag:boolean=false;
+  @ViewChild('formDirective') private formDirective!: NgForm;
+
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -72,8 +74,8 @@ export class AddcircleComponent implements OnDestroy{
       "id": [this.data?.id || 0],
       "blockName": [this.data?.blockName || '',[Validators.required,Validators.pattern(this.validator.fullName),this.validator.maxLengthValidator(30)]],
       "m_BlockName": [this.data?.m_BlockName || '',[Validators.required,Validators.pattern(this.validator.marathi),this.validator.maxLengthValidator(30)]],
-      "stateId": [1],
-      "districtId": [1],
+      "stateId": [this.data ? this.data?.stateId : this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],
+      "districtId": [this.data ? this.data?.districtId :  this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],
       "talukas": ['',[Validators.required]],
       "createdBy": this.WebStorageService.getUserId(),
       "flag": [this.data ? "u" : "i"]
@@ -142,6 +144,12 @@ export class AddcircleComponent implements OnDestroy{
         error: (() => { this.spinner.hide(); })
       })
     }
+  }
+
+  clearFormData(){
+    this.formDirective.resetForm();
+    this.data=null;
+    this.formData();
   }
 
   ngOnDestroy() {
