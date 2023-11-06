@@ -9,7 +9,7 @@
 
 <div class="" *ngIf="!isViewFlag">
 <form [formGroup]="schemeForm" (ngSubmit)="onSubmitData()" #formDirective="ngForm">
-  <mat-dialog-content class="modal-body form-container">
+  <mat-dialog-content class="modal-body form-container scrollbar">
     <div class="row">
     <div class="col-sm-6">
       <mat-label class="form-label">{{'scheme.select_state' | translate }}</mat-label>
@@ -110,7 +110,7 @@
 </div>
 
 <div class="" *ngIf="isViewFlag">
-<mat-dialog-content class="modal-body form-container">
+<mat-dialog-content class="modal-body form-container scrollbar">
 <div class="row">
   <div class="col-sm-12">
     <div class="row">

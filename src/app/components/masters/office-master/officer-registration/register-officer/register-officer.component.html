@@ -10,7 +10,7 @@
       </button>
     </div>
   </div>
-  <mat-dialog-content class="modal-body form-container">
+  <mat-dialog-content class="modal-body form-container scrollbar">
     <form [formGroup]="officeForm" (ngSubmit)="onSubmitData()" #formDirective="ngForm">
       <div class="row gx-2">
         <div class="col-sm-6">
@@ -232,7 +232,7 @@
     </div>
   </div>
   <!---------------------------------------------------------------------- View Data-------------------------------------------------------------------- -->
-  <mat-dialog-content class="modal-body form-container">
+  <mat-dialog-content class="modal-body form-container scrollbar">
     <h2 class="page-heading mb-0 fw-bold mb-3">{{'officerreg.officer_Details' | translate}}</h2>
     <div class="row gx-2 mb-2">
       <div class="col-sm-2">

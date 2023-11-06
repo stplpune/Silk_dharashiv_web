@@ -7,7 +7,7 @@
     </button>
   </div>
 </div>
-<div mat-dialog-content class="modal-body form-container" *ngIf="!isViewFlag">
+<div mat-dialog-content class="modal-body form-container scrollbar" *ngIf="!isViewFlag">
   <form [formGroup]="rejectResonFrm" (ngSubmit)="onSubmit()" #formDirective="ngForm">
   <div class="row">
     <div class="col-sm-12">
@@ -73,7 +73,7 @@
 </div>
 
 <div class="" *ngIf="isViewFlag">
-  <mat-dialog-content class="modal-body form-container">
+  <mat-dialog-content class="modal-body form-container scrollbar">
   <div class="row gy-2 gx-2">
       <div class="col-sm-12">
         <div class="row gx-2">

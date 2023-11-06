@@ -34,7 +34,7 @@ export class ApprovalProcessComponent implements OnDestroy {
   displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action']
   approvalStatus: any = new Array()
   otherDocArray: any = new Array()
-  displayColumnRemark: string[] = ['sr_no', 'name', 'designationName', 'status', 'modifiedDate', 'remark'];
+  displayColumnRemark: string[] = ['sr_no', 'name', 'designationName', 'status', 'modifiedDate', 'remark','action'];
   pushAppDocArray: any = [];
   pushOtherDocArray: any = [];
   approvalStatusArray: any = [];
@@ -43,6 +43,8 @@ export class ApprovalProcessComponent implements OnDestroy {
   appDataClonedArray:any;
   editOtherDocForm:boolean = false;
   selOtherDocIndex!:number;
+  actionNameLabel!:string;
+  uploadedDepDoc:any;
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -88,16 +90,31 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
+          res.responseData.allApplicationApproval.map((ele: any) => {
+            res.responseData.allApprovalDocument.find((item: any) => {
+              if (item.docTypeId == 3) {
+                ele.actionId == 2 ? (ele.documnetApprovalPath = item?.docPath, ele.documentTypeName = item?.documentType) : ''
+              }else if (item.docTypeId == 4) {
+                ele.actionId == 3 ? (ele.documnetApprovalPath = item?.docPath, ele.documentTypeName = item?.documentType) : ''
+              }else if (item.docTypeId == 5) {
+                ele.actionId == 4 ? (ele.documnetApprovalPath = item?.docPath, ele.documentTypeName = item?.documentType) : ''
+              }else if (item.docTypeId == 6) {
+                ele.actionId == 5 ? (ele.documnetApprovalPath = item?.docPath, ele.documentTypeName = item?.documentType) : ''
+              }
+            })
+          });
+
           this.appDataClonedArray = JSON.parse(JSON.stringify(res.responseData))
           this.applicationData = res.responseData;
           this.applicantDetails = this.applicationData?.applicationModel;
+
           this.applicationData?.allDocument?.filter((ele: any) => {
             if (ele.docTypeId != 1) {
               this.pushAppDocArray.push(ele)
             } else if (ele.docTypeId == 1) {// 1 is other doc
               this.pushOtherDocArray.push(ele)
             }
-          })
+          });
           this.getApprovalStatus();
           this.getReason();
           this.dataSource = new MatTableDataSource(this.pushAppDocArray);
@@ -131,6 +148,7 @@ export class ApprovalProcessComponent implements OnDestroy {
 
   getReason() {
     let approvalFrmVal = this.approvalFrm.getRawValue();
+    // this.uploadedDepDoc ='';
     // this.applicationData?.actionId
     if (approvalFrmVal.applicationStatus == 11 || approvalFrmVal.applicationStatus == 5) {
       this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetRejectReasons?ActionId=0', false, false, false, 'masterUrl');
@@ -144,6 +162,11 @@ export class ApprovalProcessComponent implements OnDestroy {
           }
         }
       })
+    } else if (approvalFrmVal.applicationStatus == 12) {
+      let actionId = this.applicationData.actionId
+      if ((actionId == 2 || this.applicationData.actionId == 3 || this.applicationData.actionId == 4 || this.applicationData.actionId == 5) && this.applicationData?.isEdit) {
+        this.actionNameLabel = this.applicationData.actionName;
+      }
     }
   }
   //#region ----------------------------------------------------------applcant doc section start heare-----------------------------------//
@@ -158,8 +181,12 @@ export class ApprovalProcessComponent implements OnDestroy {
     })
   }
 
-  viewimage() {
-    window.open(this.imageData, '_blank')
+  viewimage(label?:string) {
+    if(label == 'uplDepDoc'){
+      window.open(this.uploadedDepDoc.docPath, '_blank')
+    }else{
+      window.open(this.imageData, '_blank')
+    }
   }
 
 
@@ -214,7 +241,7 @@ export class ApprovalProcessComponent implements OnDestroy {
 
   //#endregion ----------------------------------------------------------applcant doc section end heare-----------------------------------//
 
-  //#region  ----------------------------------------------------------other doc section start heare-----------------------------------//
+//#region   ----------------------------------------------------------other doc section start heare-----------------------------------//
   uploadFrm !: FormGroup;
   imageData: string = '';
   @ViewChild('uplodLogo') clearImg!: any;
@@ -245,6 +272,20 @@ export class ApprovalProcessComponent implements OnDestroy {
             this.deleteImage();
           } else if (label == 'otherDocForm') {
             this.f['docPath'].setValue(this.imageData)
+          } else if (label == 'uplDepDoc') {
+            let obj = {
+              "id": 0,
+              "applicationId":this.applicationData.applicationId,
+              "docTypeId": this.applicationData.actionId == 2 ? 3 :
+              this.applicationData.actionId == 3 ? 4 : this.applicationData.actionId == 4 ? 5 : this.applicationData.actionId == 5 ? 6: 0,// actionId 2  // 3	Village Commitee Approval Letter
+              "documentType": "",
+              "m_DocumentType": "",
+              "docNo": "",
+              "docPath": this.imageData,
+              "isVerified": false
+            }
+            this.uploadedDepDoc = obj;
+            this.deleteImage();
           }
         }
         else {
@@ -260,6 +301,10 @@ export class ApprovalProcessComponent implements OnDestroy {
     })
   }
 
+  delDepDocument(){
+    this.uploadedDepDoc = '';
+  }
+
   onSubmit() {
     if (this.uploadFrm.invalid) {
       return;
@@ -269,7 +314,7 @@ export class ApprovalProcessComponent implements OnDestroy {
       if(!this.editOtherDocForm){
         let obj = {
           "id": 0,
-          "applicationId": this.encryptData,
+          "applicationId": this.applicationData.applicationId,
           "docTypeId": 1, // 1 is other doc
           "documentType": otherFormData?.documentType,
           "m_DocumentType": "",
@@ -307,14 +352,16 @@ export class ApprovalProcessComponent implements OnDestroy {
     ele.docPath ? this.imageData = ele.docPath:'';
   }
 
-  //#endregion-----------------------------------------------------------other doc section end heare ---------------------------------//
+//#endregion -----------------------------------------------------------other doc section end heare ---------------------------------//
 
   onSubmitApprovalDetails() {
     if (this.approvalFrm.invalid) {
       return;
+    }else if (this.actionNameLabel && !this.uploadedDepDoc && this.applicationData?.isEdit) {
+      this.commonMethod.snackBar(this.actionNameLabel  +' document is required', 1);
+      return;
     }
     else {
-   
       let newUploadedDoc:any = [];
       let mergeArray :any;
       mergeArray = [...this.pushAppDocArray, ...this.pushOtherDocArray];
@@ -330,8 +377,9 @@ export class ApprovalProcessComponent implements OnDestroy {
             }
           }
         })
-      })
-      console.log(newUploadedDoc);
+      });
+      this.actionNameLabel && this.uploadedDepDoc && this.applicationData?.isEdit ? newUploadedDoc.push(this.uploadedDepDoc):'';//uploaded  Department Document
+      this.updateApprovalStatus(newUploadedDoc); //temp
     }
   }
 
@@ -348,7 +396,7 @@ export class ApprovalProcessComponent implements OnDestroy {
         ele.modifiedDate =  new Date();
         ele.isDeleted =  false
     });
-    return
+
 
     this.apiService.setHttp('post', 'sericulture/api/Application/InsertUpdateDocuments', false, array, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
@@ -369,24 +417,24 @@ export class ApprovalProcessComponent implements OnDestroy {
     })
   }
 
-  updateApprovalStatus(array?:any){
+  updateApprovalStatus(array?: any) {
     this.spinner.show();
     let data = this.approvalFrm.getRawValue();
     this.approvalFrm.controls['m_remark'].setValue(data?.remark);
-   
+
     let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId() };
     this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/UpdateApprovalStatus?lan=' + this.lang, false, mainData, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
-          if(array){
-              this.insertUpdateDocuments(array)
-          }else{
-          this.commonMethod.snackBar(res.statusMessage, 0);
-          this.router.navigate(['../application'], {relativeTo:this.route})
+          debugger;
+          if (array.length) {
+            this.insertUpdateDocuments(array)
+          } else {
+            this.commonMethod.snackBar(res.statusMessage, 0);
+            this.router.navigate(['../application'], { relativeTo: this.route })
           }
-          
         }
         else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
