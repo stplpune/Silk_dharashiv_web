@@ -75,8 +75,8 @@ export class PageRightAccessComponent {
       this.spinner.show();
       let formData = this.filterFrm.getRawValue();
       let str = `&pageno=${this.pageNumber}&pagesize=100`;
-       let url = (formData.userTypeId == 1 ?  `sericulture/api/UserPages/GetAllPageRights?DepartmentId=0&DepartmentLevelId=0&DesignationId=1&lan=${this.lang}&TextSearch=${formData?.searchText || ''}` : `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId}&DepartmentLevelId=${formData?.designationLevelId}&DesignationId=${formData?.designationId}&lan=${this.lang}&TextSearch=${formData?.searchText || ''}`);
-      this.apiService.setHttp('GET', url + str, false, false, false, 'baseUrl');
+     //  let url = (formData.userTypeId == 1 ?  `sericulture/api/UserPages/GetAllPageRights?DepartmentId=0&DepartmentLevelId=0&DesignationId=1&lan=${this.lang}&TextSearch=${formData?.searchText || ''}` : `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId}&DepartmentLevelId=${formData?.designationLevelId}&DesignationId=${formData?.designationId}&lan=${this.lang}&TextSearch=${formData?.searchText || ''}`);
+      //this.apiService.setHttp('GET', url + str, false, false, false, 'baseUrl');
       this.apiService.setHttp('GET', `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId}&DepartmentLevelId=${formData?.designationLevelId}&DesignationId=${formData?.designationId}&lan=${this.lang}&TextSearch=${formData?.searchText || ''}` + str, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
