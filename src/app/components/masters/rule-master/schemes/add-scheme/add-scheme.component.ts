@@ -38,7 +38,7 @@ export class AddSchemeComponent implements OnDestroy{
     public validator: ValidationService,
     private spinner: NgxSpinnerService,
     private commonMethodService: CommonMethodsService,
-    private WebStorageService: WebStorageService,
+    public WebStorageService: WebStorageService,
     private errorService: ErrorHandlingService,
     private apiService: ApiService,
 
@@ -60,8 +60,8 @@ export class AddSchemeComponent implements OnDestroy{
   getFormData() {
     this.schemeForm = this.fb.group({
       schemeType: [this.data ? this.data.schemeType : '', [Validators.required, Validators.pattern(this.validator.englishNumericAndspecialChar), this.validator.maxLengthValidator(100)]],
-      stateId: [this.data ? this.data.stateId : 1],
-      districtId: [this.data ? this.data.districtId : 1],
+      stateId: [this.data ? this.data?.stateId : this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],
+      districtId: [this.data ? this.data?.districtId :  this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],
       logoPath: [this.data ? this.data.logoPath : '',[Validators.required]],
       isActive: [this.data ? this.data.isActive : true],
       schemeInfo: [this.data ? this.data.schemeInfo : '', [Validators.required]],
@@ -133,11 +133,6 @@ export class AddSchemeComponent implements OnDestroy{
       this.spinner.hide();
       return
     } 
-    // else if (!this.imageResponse) {
-    //   this.commonMethodService.snackBar("Please Scheme Uploade Logo", 1);
-    //   this.spinner.hide();
-    //   return;
-    // }
     else {
       formData.id = this.data ? this.data.id : 0;
       formData.logoPath = this.imageResponse;
