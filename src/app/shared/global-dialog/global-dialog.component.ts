@@ -21,8 +21,7 @@ export class GlobalDialogComponent {
   remark:any = new FormControl('');
   constructor(public dialogRef: MatDialogRef<GlobalDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,    public commonService: CommonMethodsService, public valiService: ValidationService) { }
 
-  ngOnInit(): void {
-   
+  ngOnInit() {
   }
 
   closeDialog(flag: string) {
@@ -40,7 +39,6 @@ export class GlobalDialogComponent {
     } else {
       this.dialogRef.close(flag);
     }
-    // this.dialogRef.close(result);
   }
 
 }

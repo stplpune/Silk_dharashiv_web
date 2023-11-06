@@ -96,19 +96,17 @@ export class LoginComponent {
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.spinner.hide();
-          this.commonMethods.snackBar(res.statusMessage, 0);
-          sessionStorage.setItem('loggedIn', 'true');
-   
-          this.encryptInfo = encodeURIComponent((JSON.stringify(JSON.stringify(res))))
-          // this.encryptInfo = encodeURIComponent((JSON.stringify(JSON.stringify(res)), 'secret key 123').toString());
-          this.loginData = this.AESEncryptDecryptService.encrypt(JSON.stringify(res?.responseData));
-          localStorage.setItem('silkDharashivUserInfo', this.loginData);
-         //this.router.navigate(['/dashboard']);
-          this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
-           this.loginData?.pageList?.length <= 0 ? this.commonMethods.snackBar('Please Contact To Admin',1) : '';
-           //"pageList": []
-         //  this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
-           this.loginFlag = true;
+          if (!res?.responseData?.pageList.length) {
+            this.commonMethods.snackBar('Please Contact To Admin', 1)
+          } else {
+            this.commonMethods.snackBar(res.statusMessage, 0);
+            sessionStorage.setItem('loggedIn', 'true');
+            this.encryptInfo = encodeURIComponent((JSON.stringify(JSON.stringify(res))))
+            this.loginData = this.AESEncryptDecryptService.encrypt(JSON.stringify(res?.responseData));
+            localStorage.setItem('silkDharashivUserInfo', this.loginData);
+            this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
+            this.loginFlag = true;
+          }
         }
         else {
           this.spinner.hide();

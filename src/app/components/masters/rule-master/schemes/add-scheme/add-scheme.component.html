@@ -9,7 +9,7 @@
 
 <div class="" *ngIf="!isViewFlag">
 <form [formGroup]="schemeForm" (ngSubmit)="onSubmitData()" #formDirective="ngForm">
-  <mat-dialog-content class="modal-body form-container">
+  <mat-dialog-content class="modal-body form-container scrollbar">
     <div class="row">
     <div class="col-sm-6">
       <mat-label class="form-label">{{'scheme.select_state' | translate }}</mat-label>
@@ -39,7 +39,7 @@
         <input matInput placeholder=""> -->
         <!-- <mat-label>{{'scheme.scheme_namee' | translate }}</mat-label> -->
         <input matInput placeholder="" formControlName="schemeType"
-        (keypress)="validator.noFirstSpaceAllow($event);">
+        (keypress)="validator.noFirstSpaceAllow($event);validator.englishNumericspecialChar($event)">
         <mat-error *ngIf="f['schemeType']?.hasError('required')">{{'scheme.please_enter_scheme_name'|translate}}
         </mat-error>
         <mat-error *ngIf="f['schemeType']?.hasError('pattern')">
@@ -110,7 +110,7 @@
 </div>
 
 <div class="" *ngIf="isViewFlag">
-<mat-dialog-content class="modal-body form-container">
+<mat-dialog-content class="modal-body form-container scrollbar">
 <div class="row">
   <div class="col-sm-12">
     <div class="row">

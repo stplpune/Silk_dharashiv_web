@@ -12,7 +12,7 @@
 </div>
 <ng-container *ngIf="!viewFlag">
   <form [formGroup]="addBlockForm" #formDirective="ngForm">
-    <mat-dialog-content class="modal-body form-container">
+    <mat-dialog-content class="modal-body form-container scrollbar">
       <div class="row">
         <div class="col-sm-12">
           <mat-label class="form-label">{{'talukaBlock.select_state'|translate}}</mat-label>
@@ -100,7 +100,7 @@
 
 
 <ng-container *ngIf="viewFlag">
-  <mat-dialog-content class="modal-body form-container">
+  <mat-dialog-content class="modal-body form-container scrollbar">
     <div class="row gy-2 gx-2">
       <div class="col-sm-12">
         <div class="row gx-2 ">

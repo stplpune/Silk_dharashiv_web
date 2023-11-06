@@ -7,8 +7,8 @@
       <div class="row gx-2 gy-2">
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'manrega.scheme'| translate}}</mat-label>
-            <mat-select formControlName="schemeTypeId">
+            <!-- <mat-label>{{'manrega.scheme'| translate}}</mat-label> -->
+            <mat-select formControlName="schemeTypeId" placeholder="All Scheme">
               <mat-option *ngFor=" let scheme of schemeFilterArr" [value]="scheme.id">{{lang == 'en' ?
                 scheme.textEnglish : scheme.textMarathi}}</mat-option>
             </mat-select>
@@ -16,8 +16,8 @@
         </div>
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'manrega.district'| translate}}</mat-label>
-            <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
+            <!-- <mat-label>{{'manrega.district'| translate}}</mat-label> -->
+            <mat-select formControlName="districtId" (selectionChange)="getTaluka()" placeholder="District"
             [class]="webStorage.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
               <mat-option *ngFor=" let dist of districtArr" [value]="dist.id">{{lang == 'en' ? dist.textEnglish :
                 dist.textMarathi}}</mat-option>
@@ -26,8 +26,8 @@
         </div>
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'manrega.taluka'| translate}}</mat-label>
-            <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('Taluka');getGrampanchayat()"
+            <!-- <mat-label>{{'manrega.taluka'| translate}}</mat-label> -->
+            <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('Taluka');getGrampanchayat()" placeholder="All Taluka"
             [class]="webStorage.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })">
               <mat-option *ngFor=" let taluka of talukaArr" [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish :
                 taluka.textMarathi}}</mat-option>
@@ -36,8 +36,8 @@
         </div>
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label>
-            <mat-select formControlName="grampanchayatId"
+            <!-- <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label> -->
+            <mat-select formControlName="grampanchayatId" placeholder="Grampanchayat"
             [class]="webStorage.getGrampanchayatId() ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
               <mat-option *ngFor=" let gram of grampanchayatArray" [value]="gram.id">{{lang == 'en' ? gram.textEnglish :
                 gram.textMarathi}}</mat-option>
@@ -46,17 +46,17 @@
         </div>
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'manrega.status'| translate}}</mat-label>
-            <mat-select formControlName="statusId">
+            <!-- <mat-label>{{'manrega.status'| translate}}</mat-label> -->
+            <mat-select formControlName="statusId" placeholder="All Status">
               <mat-option *ngFor=" let status of statusArr" [value]="status.id">{{lang == 'en' ? status.textEnglish
                 : status.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-5">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'manrega.search_by'| translate}}</mat-label>
-            <input matInput formControlName="textSearch" (keypress)="validator.noFirstSpaceAllow($event)">
+            <!-- <mat-label>{{'manrega.search_by'| translate}}</mat-label> -->
+            <input matInput formControlName="textSearch" (keypress)="validator.noFirstSpaceAllow($event)" placeholder="Application ID/ Farmer ID/ Mobile No.">
           </mat-form-field>
         </div>
         <div class="col-sm-1">
