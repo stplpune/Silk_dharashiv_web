@@ -108,4 +108,9 @@ export class CommonMethodsService {
     ],
   };
 
+  findIndexOfArrayObject(array: any, key: any, val: any) { // find index of array object  [{'id:0',:name:'john'}, {'id:1',:name:'deo'}]
+    let index = array.findIndex((x: any) => x[key] === val);
+    return index
+  }
+
 }
