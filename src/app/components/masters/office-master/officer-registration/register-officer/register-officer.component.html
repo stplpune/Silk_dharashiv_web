@@ -17,7 +17,8 @@
           <mat-label class="form-label">{{'common.department' | translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.department' | translate}}</mat-label> -->
-            <mat-select formControlName="departmentId" (selectionChange)="clearDropDown('levelclear');getDepartmentLevel()">
+            <mat-select formControlName="departmentId"
+              (selectionChange)="clearDropDown('levelclear');getDepartmentLevel()">
               <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang != 'en' ?
                 department.textMarathi :department.textEnglish}}
               </mat-option>
@@ -40,23 +41,25 @@
               {{'common.Please_select_designation_level'|translate}} </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 5)  || (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 2) || (officeForm.value.departmentLevelId == 1)">
+        <div class="col-sm-6"
+          *ngIf="(officeForm.value.departmentLevelId == 5)  || (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 2) || (officeForm.value.departmentLevelId == 1)">
           <mat-label class="form-label">{{'common.state' | translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.state' | translate}}</mat-label> -->
             <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
-            [class]="webService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
+              [class]="webService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let state of stateArray" [value]="state.id">{{lang != 'en' ? state.textMarathi :
                 state.textEnglish}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 5)  || (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 2) || (officeForm.value.departmentLevelId == 1)">
+        <div class="col-sm-6"
+          *ngIf="(officeForm.value.departmentLevelId == 5)  || (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 2) || (officeForm.value.departmentLevelId == 1)">
           <mat-label class="form-label">{{'common.district' | translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.district' | translate}}</mat-label> -->
             <mat-select formControlName="districtId"
-            [class]="webService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
+              [class]="webService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
                 district.textMarathi : district.textEnglish}}
               </mat-option>
@@ -80,7 +83,8 @@
           <mat-label class="form-label">{{'common.taluka' | translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
-            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('talukaClear');getGrampanchayat();getCircle()">
+            <mat-select formControlName="talukaId"
+              (selectionChange)="clearDropDown('talukaClear');getGrampanchayat();getCircle()">
               <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi
                 :taluka.textEnglish}}</mat-option>
             </mat-select>
@@ -229,22 +233,180 @@
   </div>
   <!---------------------------------------------------------------------- View Data-------------------------------------------------------------------- -->
   <mat-dialog-content class="modal-body form-container">
-    <h2 class="page-heading mb-0 fw-bold my-2">{{'officerreg.officer_Details' | translate}}</h2>
-    <div class="d-flex align-items-center justify-content-center">
-      <div class="profile-pic position-relative">
-        <img
-          [src]="tableDataArray[0]?.profileImagePath !='string' ? tableDataArray[0]?.profileImagePath : 'assets/images/user.png'"
-          class="">
-        <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" #uplodLogo
-          (change)="imageUplod($event)" />
-        <div class="profile-btn text-center">
-          <input type="file" class="profile-upload d-none">
-          <button type="button" mat-icon-button class="btn text-primary add-btn" (click)="uplodLogo.click()">
-            <mat-icon class="material-symbols-outlined">add</mat-icon>
-          </button>
+    <h2 class="page-heading mb-0 fw-bold mb-3">{{'officerreg.officer_Details' | translate}}</h2>
+    <div class="row gx-2 mb-2">
+      <div class="col-sm-2">
+        <div class="d-flex align-items-center justify-content-center">
+          <div class="profile-pic position-relative">
+            <img
+              [src]="tableDataArray[0]?.profileImagePath !='string' ? tableDataArray[0]?.profileImagePath : 'assets/images/user.png'"
+              class="">
+            <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" #uplodLogo
+              (change)="imageUplod($event)" />
+            <div class="profile-btn text-center">
+              <input type="file" class="profile-upload d-none">
+              <button type="button" mat-icon-button class="btn text-primary add-btn" (click)="uplodLogo.click()">
+                <mat-icon class="material-symbols-outlined">add</mat-icon>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="col-sm-10">
+        <div class="row gx-2 gy-1">
+          <div class="col-sm-6">
+            <div class="row gx-2">
+              <div class="col-sm-4 col-5">
+                <div class=" form-label">{{'officerreg.officer_name' |translate}}</div>
+              </div>
+              <div class="col-sm col-7">
+                <span class="form-data">: {{this.lang == 'en' ? tableDataArray[0]?.name : tableDataArray[0]?.m_Name||
+                  '-'}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row gx-0">
+              <div class="col-sm-5 col-5">
+                <div class="form-label">{{'officerreg.designation' |translate}}</div>
+              </div>
+              <div class="col-sm col-7">
+                <span class="form-data">: {{this.lang == 'en' ? tableDataArray[0]?.designationName :
+                  tableDataArray[0]?.m_DesignationName || '-'}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row gx-2">
+              <div class="col-sm-4 col-5">
+                <div class="form-label">{{'officerreg.mobile_no' |translate}}</div>
+              </div>
+              <div class="col-sm col-7">
+                <span class="form-data">: {{tableDataArray[0]?.mobNo1 || '-'}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row gx-0">
+              <div class="col-sm-5 col-5">
+                <div class="form-label">{{'officerreg.email_id' |translate}}</div>
+              </div>
+              <div class="col-sm col-7">
+                <span class="form-data">: {{tableDataArray[0]?.emailId || '-'}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row gx-2">
+              <div class="col-sm-4 col-5">
+                <div class="form-label">{{'officerreg.department' |translate}}</div>
+              </div>
+              <div class="col-sm col-7">
+                <span class=" form-data">: {{this.lang == 'en' ? tableDataArray[0]?.departmentName :
+                  tableDataArray[0]?.m_DepartmentName|| '-'}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row gx-0">
+              <div class="col-sm-5 col-5">
+                <div class="form-label"> {{'officerreg.department_level' |translate}}</div>
+              </div>
+              <div class="col-sm col-7">
+                <span class="form-data">: {{this.lang == 'en' ? tableDataArray[0]?.departmentLevel :
+                  tableDataArray[0]?.m_DepartmentLevel || '-'}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row gx-2">
+              <div class="col-sm-4 col-5">
+                <div class="form-label">{{'officerreg.address' |translate}}</div>
+              </div>
+              <div class="col-sm col-7">
+                <span class="form-data">: {{this.lang == 'en' ? tableDataArray[0]?.address : tableDataArray[0]?.m_Address
+                  ||
+                  '-'}}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="page-heading mb-0 fw-bold my-2">{{'officerreg.work_Area' | translate}}</div>
+        <div class="row mb-4">
+          <div class="col-sm-6">
+            <div class="row">
+              <div class="col-sm-2 col-5">
+                <div class="form-label">{{'officerreg.state' |translate}}</div>
+              </div>
+              <div class="col-sm-auto col-7">
+                <span class="form-data">: {{this.lang == 'en' ? tableDataArray[0]?.statId : tableDataArray[0]?.m_OfficeState
+                  ||
+                  '-'}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row">
+              <div class="col-sm-2 col-5">
+                <div class="form-label">{{'officerreg.district' |translate}}</div>
+              </div>
+              <div class="col-sm-auto col-7">
+                <span class="form-data">: {{this.lang == 'en' ? tableDataArray[0]?.district : tableDataArray[0]?.m_District ||
+                  '-'}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="page-heading mb-0 fw-bold mb-2">{{'officerreg.account_Info' | translate}}</div>
+        <form [formGroup]="statusForm" (ngSubmit)="submitStatusData()">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-label">
+                <mat-form-field appearance="outline" class="w-100"
+                  [class]="statusForm.value.statusId == 0 ? sendData(statusForm.value.statusId) : '' ">
+                  <mat-label>{{'officerreg.status' | translate}}</mat-label>
+                  <mat-select formControlName="statusId" (selectionChange)="sendData(statusForm.value.statusId)">
+                    <mat-option *ngFor="let st of statusArray" [value]="st.id">{{this.lang == 'en' ? st.value :
+                      st.mr_value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6" *ngIf="showFlag">
+              <span class="form-data">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>{{'officerreg.remark' | translate}}</mat-label>
+                  <input matInput formControlName="remark"
+                    (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
+                  <mat-error *ngIf="fs['remark']?.hasError('required')">
+                    {{'officerreg.Please_enter_remark'|translate}} </mat-error>
+                </mat-form-field>
+              </span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-end gap-2">
+            <button mat-flat-button class="btn-main-light" type="button" (click)="resetStatus()">{{'action.clear' |
+              translate}}</button>
+            <button mat-flat-button class="btn-main" type="submit">{{'talukaBlock.save' | translate}}</button>
+          </div>
+        </form>
+
+      </div>
     </div>
+
+
+
+
+
+
+
+    <!-- <h2 class="page-heading mb-0 fw-bold my-2">{{'officerreg.officer_Details' | translate}}</h2> -->
+<!--
     <ol class="list-group list-group-numbered">
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
@@ -333,16 +495,17 @@
               <mat-label>{{'officerreg.remark' | translate}}</mat-label>
               <input matInput formControlName="remark"
                 (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
-                <mat-error *ngIf="fs['remark']?.hasError('required')">
-                  {{'officerreg.Please_enter_remark'|translate}} </mat-error>
+              <mat-error *ngIf="fs['remark']?.hasError('required')">
+                {{'officerreg.Please_enter_remark'|translate}} </mat-error>
             </mat-form-field>
           </span>
           <div class="d-flex align-items-center justify-content-end gap-2">
-            <button mat-flat-button class="btn-main-light" type="button" (click)="resetStatus()">{{'action.clear' | translate}}</button>
+            <button mat-flat-button class="btn-main-light" type="button" (click)="resetStatus()">{{'action.clear' |
+              translate}}</button>
             <button mat-flat-button class="btn-main" type="submit">{{'talukaBlock.save' | translate}}</button>
           </div>
         </li>
       </form>
-    </ol>
+    </ol> -->
   </mat-dialog-content>
 </div>
