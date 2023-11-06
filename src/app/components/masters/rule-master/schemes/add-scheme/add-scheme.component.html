@@ -16,7 +16,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <!-- <mat-label>{{'scheme.select_state' | translate }}</mat-label> -->
         <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
-        [class]="schemeForm.controls['stateId'].disable({ onlySelf: true })">
+        [class]="WebStorageService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
           <mat-option *ngFor="let st of stateArray" [value]="st.id">{{lang != 'en' ? st.textMarathi
             :st.textEnglish}}</mat-option>
         </mat-select>
@@ -26,7 +26,7 @@
       <mat-label class="form-label">{{'scheme.select_district' | translate }}</mat-label>
       <mat-form-field appearance="outline" class="w-100">
         <!-- <mat-label>{{'scheme.select_district' | translate }}</mat-label> -->
-        <mat-select formControlName="districtId"  [class]="schemeForm.controls['districtId'].disable({ onlySelf: true })">
+        <mat-select formControlName="districtId"  [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
           <mat-option *ngFor="let dist of districtArray" [value]="dist.id">{{lang != 'en' ? dist.textMarathi
             :dist.textEnglish}}</mat-option>
         </mat-select>
