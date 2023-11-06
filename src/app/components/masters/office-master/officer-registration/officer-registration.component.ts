@@ -243,7 +243,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
 
   deleteDialogOpen(delObj?: any) {
     let dialogObj = {
-      title: this.lang == 'en' ? 'Do You Want To Delete Selected Officer ?' : 'तुम्हाला निवडलेल्या अधिकाऱ्याला हटवायचे आहे का? ?',
+      title: this.lang == 'en' ? 'Do You Want To Delete Selected Officer ?' : 'तुम्हाला निवडलेल्या अधिकाऱ्याला हटवायचे आहे का ?',
       header: this.lang == 'en' ? 'Delete Officer' : 'अधिकारी हटवा',
       okButton: this.lang == 'en' ? 'Delete' : 'हटवा',
       cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
