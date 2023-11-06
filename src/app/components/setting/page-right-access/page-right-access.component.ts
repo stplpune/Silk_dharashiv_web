@@ -145,9 +145,9 @@ export class PageRightAccessComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.departmentArray = res.responseData;
-          this.filterFrm.getRawValue()?.userTypeId == 1 ? this.getDesignationLevel() :''
-         // this.departmentArray.unshift({ "id": 0, "textEnglish": "All Department", "textMarathi": "सर्व विभाग" });
-        }
+           this.departmentArray.unshift({ "id": 0, "textEnglish": "All Department", "textMarathi": "सर्व विभाग" });
+           this.filterFrm.getRawValue()?.userTypeId == 1 ? this.getDesignationLevel() :''
+          }
         else {
           this.departmentArray = [];
         }
@@ -161,8 +161,8 @@ export class PageRightAccessComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.designationLevelArray = res.responseData;
+          this.designationLevelArray.unshift({ "id": 0, "textEnglish": "All Designation Level", "textMarathi": "सर्व पदनाम स्तर" });
           this.filterFrm.getRawValue()?.userTypeId == 1 ? this.getDesignation() :''
-          //this.designationLevelArray.unshift({ "id": 0, "textEnglish": "All Designation Level", "textMarathi": "सर्व पदनाम स्तर" });
         }
         else {
           this.designationLevelArray = [];
@@ -198,6 +198,12 @@ export class PageRightAccessComponent {
         this.filterFrm.controls['designationId'].setValue('');
         this.designationArray = []
         break;
+        case 'user':
+          this.filterFrm.controls['designationLevelId'].setValue('');
+          this.designationLevelArray = [];
+          this.filterFrm.controls['designationId'].setValue('');
+          this.designationArray = []
+          break;
       case 'deptLevelId':
         this.filterFrm.controls['designationId'].setValue('');
         this.designationArray = []
