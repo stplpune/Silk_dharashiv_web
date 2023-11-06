@@ -11,7 +11,7 @@
   </div>
 </div>
 <ng-container *ngIf="!viewFlag">
-  <form [formGroup]="addBlockForm" #FormGroupDirective="ngForm">
+  <form [formGroup]="addBlockForm" #formDirective="ngForm">
     <mat-dialog-content class="modal-body form-container">
       <div class="row">
         <div class="col-sm-12">
@@ -19,7 +19,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'talukaBlock.select_state'|translate}}</mat-label> -->
             <mat-select formControlName="stateId" (selectionChange)="getDistrict()"
-            [class]="addBlockForm.controls['stateId'].disable({ onlySelf: true })">
+            [class]="WebStorageService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let state of stateArr" [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -29,7 +29,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'talukaBlock.select_district'|translate}}</mat-label> -->
             <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
-            [class]="addBlockForm.controls['districtId'].disable({ onlySelf: true })">
+            [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let district of districtArr" [value]="district.id">{{lang == 'en' ? district.textEnglish : district.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -91,7 +91,7 @@
       <!-- view section -->
 
       <div class="d-flex align-items-center justify-content-end gap-2">
-        <button mat-flat-button mat-dialog-close type="button" class="btn-main-light">{{'talukaBlock.clear'|translate}}</button>
+        <button mat-flat-button  type="button" class="btn-main-light" (click)="clearFormData()">{{'talukaBlock.clear'|translate}}</button>
         <button mat-flat-button class="btn-main" type="submit" (click)="onSubmit()">{{data ? ('talukaBlock.update'|translate) : ('talukaBlock.save'|translate)}}</button>
       </div>
     </mat-dialog-content>
