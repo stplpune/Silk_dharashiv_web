@@ -38,4 +38,15 @@ export class ConfigService {
   };
 
   //------------------------------------------ Maps Settings  starte heare -------------------------------------------//
+
+  applicationStatus = [
+    { id: 1, textEnglish: "Application Review", textMarathi: "अर्ज स्वीकृती", isImageUpload: false },
+    { id: 2, textEnglish: "Village Committee Approval", textMarathi: "ग्रामसभा मंजूरी", isImageUpload: true },
+    { id: 3, textEnglish: "Technical Estimate", textMarathi: "अंदाजपत्रक", isImageUpload: true },
+    { id: 4, textEnglish: "Technical Santion", textMarathi: "तांत्रिक मान्यता", isImageUpload: true },
+    { id: 5, textEnglish: "Administrative Approval", textMarathi: "प्रशासकीय मान्यता", isImageUpload: true },
+    { id: 6, textEnglish: "Land Survey(After Plantation)", textMarathi: "स्थळ पाहणी (लागवडी नंतर)", isImageUpload: false },
+    { id: 7, textEnglish: "Mulberry Id", textMarathi: "मलबेरी आयडी", isImageUpload: false },
+    { id: 8, textEnglish: "Prior Approval", textMarathi: "पूर्व संमती", isImageUpload: false }
+  ]
 }
