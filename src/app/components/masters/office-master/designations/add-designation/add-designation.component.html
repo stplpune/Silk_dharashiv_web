@@ -2,7 +2,7 @@
   <div class="d-flex align-items-center justify-content-between w-100">
     <div class="text-main">{{!editFlag? ('designation.add_designation'|translate) :isViewFlag ?
       ("designation.view_Designation" | translate): ('designation.update_designation'|translate)}}</div>
-    <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
+    <button mat-icon-button class="btn-modal-close" (click)="dialogRef.close('Yes')" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
     </button>
   </div>

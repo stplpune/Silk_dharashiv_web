@@ -34,7 +34,7 @@ export class AddDesignationComponent {
     private WebStorageService: WebStorageService,
     private commonMethod: CommonMethodsService,
     public dialog: MatDialog,
-    private dialogRef: MatDialogRef<AddDesignationComponent>,
+    public dialogRef: MatDialogRef<AddDesignationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 

@@ -1,5 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -30,7 +30,7 @@ export class DesignationsComponent implements OnDestroy{
   lang: any;
   pageAccessObject: object|any;
   searchDataFlag: boolean = false
-  //@ViewChild('formDirective') private formDirective!: NgForm;
+  @ViewChild('formDirective') private formDirective!: NgForm;
 
   constructor(private fb: FormBuilder,
     private apiService: ApiService,
@@ -175,6 +175,9 @@ export class DesignationsComponent implements OnDestroy{
       autoFocus: true,
     })
     dialogRef.afterClosed().subscribe((result: any) => {
+      this.formDirective?.resetForm();
+      this.filterDefaultFrm();
+      this.pageNumber = 1;
       result == 'Yes' ? this.bindTable() : '';
       this.highLightedFlag = false;
     });
