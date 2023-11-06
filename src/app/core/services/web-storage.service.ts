@@ -56,24 +56,46 @@ export class WebStorageService {
     return data.pageList[0].pageURL;
    }
 
-
-   
-   getUserId() {
+  getUserId() {
     let data = this.getLoggedInLocalstorageData();
     return data.id ? data.id : 0;
   }
 
-  // Get State Id
-  getStateId(){
+  getStateId(){ // Get Login State Id
     let data = this.getLoggedInLocalstorageData();
     return data ? data?.stateId > 0 ? data?.stateId : '' : '';
   }
 
-  // Get District Id
-   getDistrictId(){
+  getDistrictId(){ // Get Login District Id
     let data = this.getLoggedInLocalstorageData();
     return data ? data?.districtId > 0 ? data?.districtId : '' : '';
   }
+  
+  getTalukaId(){  // Get Login  Taluka Id
+    let data = this.getLoggedInLocalstorageData();
+    return data ? data?.talukaId > 0 ? data?.talukaId : '' : '';
+ }
+
+  getCircleId(){ // Get Login Circle Id
+    let data = this.getLoggedInLocalstorageData();
+    return data ? data?.circleId > 0 ? data?.circleId : '' : '';
+  }
+
+  getBlockId(){ // Get Login Block Id
+    let data = this.getLoggedInLocalstorageData();
+    return data ? data?.blockId > 0 ? data?.blockId : '' : '';
+  }
+
+  getGrampanchayatId(){ // Get Login Grampanchayat Id
+    let data = this.getLoggedInLocalstorageData();
+    return data ? data?.grampanchayatId > 0 ? data?.grampanchayatId : '' : '';
+  }
+
+  getDesignationId(){   //Get Login Designation Id
+    let data = this.getLoggedInLocalstorageData();
+    return data ? data?.designationId > 0 ? data?.designationId : '' : '';
+  }
+
 
 
   // change language
