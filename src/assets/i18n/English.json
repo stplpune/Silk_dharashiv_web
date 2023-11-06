@@ -125,7 +125,9 @@
     "remark": "Remark",
     "add_Grainage": "Add Grainage",
     "update_Grainage": "Update Grainage",
-    "view_Grainage": "View Grainage"
+    "view_Grainage": "View Grainage",
+    "please_select_state":"Please select state",
+    "please_select_district":"Please select district"
   },
   "rejectReason": {
     "reject_reason": "Reject Reasons",

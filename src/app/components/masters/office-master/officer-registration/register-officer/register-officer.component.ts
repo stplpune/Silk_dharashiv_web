@@ -292,11 +292,12 @@ export class RegisterOfficerComponent {
   dropDownCall(id?: any, flag?: any) {
     this.getState();
     this.getDisrict(flag);
-    if (id == 1) {
-      // this.getCircle(flag)
-    } else if (id == 2) {
+    // if (id == 1) {
+    //   // this.getCircle(flag)
+    // }
+    if (id == 2) {
       this.getBlock(flag)
-    };
+    }
   }
 
   clearDropDown(flag?: any) {

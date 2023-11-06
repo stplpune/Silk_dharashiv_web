@@ -41,6 +41,8 @@ export class ApprovalProcessComponent implements OnDestroy {
   reasonArray: any = [];
   @ViewChild('formDirective') private formDirective!: NgForm;
   @ViewChild('formDirectives') private formDirective1!: NgForm;
+  appDataClonedArray:any;
+
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -79,7 +81,6 @@ export class ApprovalProcessComponent implements OnDestroy {
       this.routingData = queryParams['id'];
     });
     this.encryptData = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
-    console.log(this.encryptData);
     this.getByApplicationId();
   }
 
@@ -89,8 +90,8 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
+          this.appDataClonedArray = JSON.parse(JSON.stringify(res.responseData))
           this.applicationData = res.responseData;
-          console.log("this.applicationData", this.applicationData)
           this.applicantDetails = this.applicationData?.applicationModel;
           this.applicationData?.allDocument?.filter((ele: any) => {
             if (ele.docTypeId != 1) {
@@ -150,34 +151,83 @@ export class ApprovalProcessComponent implements OnDestroy {
   }
 
   onSubmitApprovalDetails() {
+
     if (this.approvalFrm.invalid) {
       return;
     }
     else {
-      this.spinner.show();
-      let data = this.approvalFrm.getRawValue();
-      this.approvalFrm.controls['m_remark'].setValue(data?.remark);
-     
-      let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId() };
-      this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/UpdateApprovalStatus?lan=' + this.lang, false, mainData, false, 'masterUrl');
-      this.apiService.getHttp().subscribe({
-        next: ((res: any) => {
-          this.spinner.hide();
-          if (res.statusCode == "200") {
-            this.commonMethod.snackBar(res.statusMessage, 0);
-            this.router.navigate(['../application'], {relativeTo:this.route})
-            this.formDirective1.reset();
+      let newUploadedDoc:any = [];
+
+      this.appDataClonedArray?.allDocument.find((ele: any, i:any) => {
+          if (ele.docPath != this.applicationData?.allDocument[i].docPath) {
+            newUploadedDoc.push(ele)
           }
-          else {
-            this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-          }
-        }),
-        error: (error: any) => {
-          this.spinner.hide();
-          this.errorHandler.handelError(error.statusCode);
-        }
       })
+
+      if(newUploadedDoc.length){
+        this.insertUpdateDocuments(newUploadedDoc);
+      }else{
+        this.updateApprovalStatus();
+      }
     }
+  }
+
+  insertUpdateDocuments(array:any){
+    array.map((ele:any)=>{
+        ele.id =  ele?.id || 0;
+        ele.applicationId =  ele?.applicationId || 0;
+        ele.docTypeId =  ele?.docTypeId || 0;
+        ele.docNo =  ele?.docNo || '';
+        ele.docname =  ele?.docname || '';
+        ele.docPath =  ele?.docPath || '';
+        ele.createdBy =  ele?.createdBy || this.WebStorageService.getUserId();
+        ele.modifiedBy =  ele?.id || this.WebStorageService.getUserId();
+        ele.modifiedDate =  new Date();
+        ele.isDeleted =  false
+    });
+
+    this.apiService.setHttp('post', 'sericulture/api/Application/InsertUpdateDocuments', false, array, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == "200") {
+          this.updateApprovalStatus();
+        }
+        else {
+          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.spinner.hide();
+        this.errorHandler.handelError(error.statusCode);
+      }
+    })
+  }
+
+  updateApprovalStatus(){
+    this.spinner.show();
+    let data = this.approvalFrm.getRawValue();
+    this.approvalFrm.controls['m_remark'].setValue(data?.remark);
+   
+    let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId() };
+    this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/UpdateApprovalStatus?lan=' + this.lang, false, mainData, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == "200") {
+          this.commonMethod.snackBar(res.statusMessage, 0);
+          this.router.navigate(['../application'], {relativeTo:this.route})
+          this.formDirective1.reset();
+        }
+        else {
+          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.spinner.hide();
+        this.errorHandler.handelError(error.statusCode);
+      }
+    })
   }
 
   //#region ----------------------------------------------------------applcant doc section start heare-----------------------------------//
@@ -218,7 +268,6 @@ export class ApprovalProcessComponent implements OnDestroy {
   }
 
   updateAppStatus(selObj: any) {
-    console.log(selObj);
     let obj = {
       "id": selObj?.id,
       "applicationStatus": 0,
@@ -227,6 +276,8 @@ export class ApprovalProcessComponent implements OnDestroy {
       "m_Remark": "",
       "modifiedBy": this.WebStorageService.getUserId()
     }
+
+
 
     this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/UpdateApprovalStatus', false, obj, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
@@ -264,15 +315,21 @@ export class ApprovalProcessComponent implements OnDestroy {
   get f() { return this.uploadFrm.controls }
 
 
-  imageUplod(event: any) {
-    console.log("hhhhh")
-    this.spinner.show();
+  imageUplod(event: any, label:string, i?:any) {
     this.fileUplService.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc').subscribe({
       next: ((res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.imageData = res.responseData;
-          this.f['docPath'].setValue(this.imageData)
+          if (label == 'applicantDoc') {
+            this.pushAppDocArray[i].docPath = this.imageData;
+            this.deleteImage();
+          } else if (label == 'Other') {
+            this.pushOtherDocArray[i].docPath = this.imageData;
+            this.deleteImage();
+          } else if (label == 'otherDocForm') {
+            this.f['docPath'].setValue(this.imageData)
+          }
         }
         else {
           this.clearImg.nativeElement.value = "";
@@ -310,9 +367,20 @@ export class ApprovalProcessComponent implements OnDestroy {
     }
   }
 
+
   deleteImage() {
     this.imageData = "";
     this.clearImg.nativeElement.value = "";
+  }
+
+  editOtherDoc(ele:any){
+    this.uploadFrm = this.fb.group({
+      "id": [ele.id],
+      "docNo": [ele.docNo, [Validators.required]],
+      "documentType": [ele.documentType, [this.validation.maxLengthValidator(50), Validators.pattern(this.validation.fullName), Validators.required]],
+      "docPath": [ele.docPath, [Validators.required]]
+    });
+    ele.docPath ? this.imageData =ele.docPath:'';
   }
   //#endregion-----------------------------------------------------------other doc section end heare ---------------------------------//
 

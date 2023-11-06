@@ -401,25 +401,25 @@
 
                 <ng-container matColumnDef="action">
                   <th mat-header-cell *matHeaderCellDef>Action</th>
-                  <td mat-cell *matCellDef="let element">
+                  <td mat-cell *matCellDef="let element; ; let i = index;">
                     <div class="d-flex gap-2">
-                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
+                      <button matTooltipPosition="above" mat-icon-button [disabled]="!element?.docPath" class="btn-icon bg-dark bg-opacity-10"
                         (click)="viewDocument(element.docPath)">
                         <span class="material-symbols-rounded text-dark">
                           visibility
                         </span>
                       </button>
-                      <input type="file" class="d-none"  (click)="imageUplod($event)" #editImg>
+                      <input type="file" class="d-none"  (change)="imageUplod($event,'applicantDoc', i)" #editImg>
                       <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10"  (click)="editImg.click()">
                         <span class="material-symbols-rounded text-warning">
                           edit_square
                         </span>
                       </button>
-                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10" (click)="deleteImage()">
+                      <!-- <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10" (click)="deleteImage(i,'applicantDoc')">
                         <span class="material-symbols-rounded text-danger">
                           delete
                         </span>
-                      </button>
+                      </button> -->
                     </div>
                   </td>
                 </ng-container>
@@ -458,7 +458,7 @@
                         Upload Document
                       </button>
                       <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
-                        (change)="imageUplod($event)" hidden="hidden" />
+                        (change)="imageUplod($event,'otherDocForm')" hidden="hidden" />
                       <div class="d-flex gap-2" *ngIf="imageData">
                         <button type="button" mat-flat-button (click)="viewimage()"
                           class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view">
@@ -506,25 +506,24 @@
 
                 <ng-container matColumnDef="action">
                   <th mat-header-cell *matHeaderCellDef>Action</th>
-                  <td mat-cell *matCellDef="let element">
+                  <td mat-cell *matCellDef="let element; let i = index">
                     <div class="d-flex gap-02">
-                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
+                      <button matTooltipPosition="above" mat-icon-button [disabled]="!element?.docPath" class="btn-icon bg-dark bg-opacity-10"
                         (click)="viewDocument(element.docPath)">
                         <span class="material-symbols-rounded text-dark">
                           visibility
                         </span>
                       </button>
-                      <input type="file" class="d-none"  (click)="imageUplod($event)" #editImg>
-                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10" (click)="editImg.click()">
+                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10" (click)="editOtherDoc(element)">
                         <span class="material-symbols-rounded text-warning">
                           edit_square
                         </span>
                       </button>
-                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10" (click)="deleteImage()">
+                      <!-- <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10" (click)="deleteImage(i,'other')">
                         <span class="material-symbols-rounded text-danger">
                           delete
                         </span>
-                      </button>
+                      </button> -->
                     </div>
                   </td>
                 </ng-container>

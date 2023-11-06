@@ -59,8 +59,10 @@ export class AddGrainageComponent {
       type: [this.data ? this.data.type : '',[Validators.required]],
       grainage: [this.data ? this.data.grainage : '',[Validators.required,Validators.pattern(this.validator.englishAlphanumeric), this.validator.maxLengthValidator(50)]],
       m_Grainage: [this.data ? this.data.m_Grainage : '',[Validators.required,Validators.pattern(this.validator.marathiAlphanumeric), this.validator.maxLengthValidator(50)]],
-      stateId: [this.data ? this.data.stateId : this.webStorage.getStateId() == '' ? 0 : this.webStorage.getStateId()],
-      districtId: [this.data ? this.data.districtId : this.webStorage.getDistrictId() == '' ? 0 : this.webStorage.getDistrictId()],
+      // stateId: [this.data ? this.data.stateId : this.webStorage.getStateId() == '' ? 0 : this.webStorage.getStateId()],
+      stateId: [this.data ? this.data.stateId :'' ,[Validators.required]],
+      // districtId: [this.data ? this.data.districtId : this.webStorage.getDistrictId() == '' ? 0 : this.webStorage.getDistrictId()],
+      districtId: [this.data ? this.data.districtId : '' ,[Validators.required]],
       talukaId: [this.data ? this.data.talukaId : '',[Validators.required]],
       address: [this.data ? this.data.address : '',[Validators.required, this.validator.maxLengthValidator(100)]],
       pincode: [this.data ? this.data.pincode : '',[Validators.required,Validators.pattern(this.validator.valPinCode)]],
@@ -88,7 +90,7 @@ export class AddGrainageComponent {
     this.master.GetAllState().subscribe({
       next: ((res: any) => {
         this.stateArr = res.responseData;
-        this.data ? (this.f['stateId'].setValue(this.webStorage.getStateId())) : '';
+        this.data ? (this.f['stateId'].setValue(this.data?.stateId)) : '';
         this.getDisrict();
       }), error: (() => {
         this.stateArr = [];
@@ -99,31 +101,35 @@ export class AddGrainageComponent {
 
   getDisrict() {
     this.districtArr = [];
-    let stateId = this.grainageFrm.getRawValue().stateId;
-    this.master.GetAllDistrict(stateId).subscribe({
-      next: ((res: any) => {
-        this.districtArr = res.responseData;
-        this.data ? (this.f['districtId'].setValue(this.webStorage.getDistrictId())) : '';
-        this.getTaluka();
-      }), error: (() => {
-        this.districtArr = [];
+    let stateId = this.grainageFrm.getRawValue().stateId || 0;
+    if(stateId!=0){
+      this.master.GetAllDistrict(stateId).subscribe({
+        next: ((res: any) => {
+          this.districtArr = res.responseData;
+          this.data ? (this.f['districtId'].setValue(this.data?.districtId)) : '';
+          this.getTaluka();
+        }), error: (() => {
+          this.districtArr = [];
+        })
       })
-    })
+    }
   }
 
 
   getTaluka() {
     this.talukaArr =[];
-    let stateId = this.grainageFrm.getRawValue().stateId;
-    let distId = this.grainageFrm.getRawValue().districtId;
-    this.master.GetAllTaluka(stateId, distId, 0,).subscribe({
-      next: ((res: any) => {
-        this.talukaArr = res.responseData;
-        this.data ? (this.f['talukaId'].setValue(this.data?.talukaId)) : '';
-      }), error: (() => {
-        this.talukaArr = [];
+    let stateId = this.grainageFrm.getRawValue().stateId || 0;
+    let distId = this.grainageFrm.getRawValue().districtId || 0;
+    if(stateId !=0 && distId!=0){
+      this.master.GetAllTaluka(stateId, distId, 0,).subscribe({
+        next: ((res: any) => {
+          this.talukaArr = res.responseData;
+          this.data ? (this.f['talukaId'].setValue(this.data?.talukaId)) : '';
+        }), error: (() => {
+          this.talukaArr = [];
+        })
       })
-    })
+    }
   }
 
 

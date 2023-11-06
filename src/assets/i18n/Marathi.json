@@ -126,7 +126,9 @@
     "remark":"टीप",
     "add_Grainage":"ग्रेनेज जोडा",
     "update_Grainage":"ग्रेनेज संपादित करा",
-    "view_Grainage":"ग्रेनेज पहा"
+    "view_Grainage":"ग्रेनेज पहा",
+    "please_select_state":"कृपया राज्य निवडा",
+    "please_select_district":"कृपया जिल्हा निवडा"
   },
 
   "rejectReason":{
