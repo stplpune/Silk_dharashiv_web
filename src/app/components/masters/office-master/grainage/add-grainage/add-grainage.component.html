@@ -106,22 +106,22 @@
         <mat-label class="form-label">{{"grainage.state" | translate}}</mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{"grainage.state" | translate}}</mat-label> -->
-          <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
-          [class]="f['stateId'].disable({ onlySelf: true })">
+          <mat-select formControlName="stateId" (selectionChange)="getDisrict()">
             <mat-option *ngFor=" let state of stateArr"
             [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
           </mat-select>
+          <mat-error *ngIf="f['stateId']?.hasError('required')">{{'grainage.please_select_state'|translate}}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-sm-4">
         <mat-label class="form-label">{{"grainage.district" | translate}}</mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label >{{"grainage.district" | translate}}</mat-label> -->
-          <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
-          [class]="f['districtId'].disable({ onlySelf: true })">
+          <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
             <mat-option *ngFor=" let dist of districtArr"
             [value]="dist.id">{{lang == 'en' ? dist.textEnglish : dist.textMarathi}}</mat-option>
           </mat-select>
+          <mat-error *ngIf="f['districtId']?.hasError('required')">{{'grainage.please_select_district'|translate}}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-sm-4">
