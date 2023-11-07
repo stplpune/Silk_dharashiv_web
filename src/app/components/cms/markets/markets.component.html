@@ -3,11 +3,11 @@
     <mat-card class="plain-card">
       <mat-card-header class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
-          <div class="text-main">{{lang == 'en' ? "Market List" : "मार्केट यादी"}}</div>
+          <div class="text-main">{{lang == 'en' ? "Market List" : "बाजार यादी"}}</div>
           <button mat-flat-button class="btn-main"   *ngIf="pageAccessObject?.writeRight == true" (click)="addMarket()">
             <mat-icon class="material-symbols-rounded">
               add
-            </mat-icon>{{lang == 'en' ? "Add Market " : "मार्केट जोडा"}}
+            </mat-icon>{{lang == 'en' ? "Add Market " : "बाजार जोडा"}}
             </button>
         </div>
       </mat-card-header>
