@@ -18,11 +18,13 @@ import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { GeoTaggingComponent } from './geo-tagging/geo-tagging.component';
 
 @NgModule({
   declarations: [
     ApprovalProcessComponent,
     ViewDetailsComponent,
+    GeoTaggingComponent,
   ],
   imports: [
     CommonModule,
