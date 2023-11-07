@@ -67,7 +67,6 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.getRouteParam();
     this.addDefaultFrm();
     this.addApprovalFrm();
-    this.addGeoTagging();
   }
 
   getRouteParam() {
@@ -80,7 +79,7 @@ export class ApprovalProcessComponent implements OnDestroy {
 
   addApprovalFrm() {
     this.approvalFrm = this.fb.group({
-      "applicationStatus": ['', Validators.required],
+      "applicationStatus": [''],
       "reason": [0],
       "remark": ['', [Validators.pattern(this.validation.fullName), this.validation.maxLengthValidator(50)]],
       "m_remark": ['']
@@ -160,13 +159,13 @@ export class ApprovalProcessComponent implements OnDestroy {
     }
   }
 
-  reasonfildVal(){
+  reasonFildVal(){
 
   }
   //#region ----------------------------------------------------------applcant doc section start heare-----------------------------------//
 
   viewDocument(url: any) {
-    window.open(url);
+    window.open(url, '_blank')
   }
 
   viewdetails() {
@@ -242,9 +241,9 @@ export class ApprovalProcessComponent implements OnDestroy {
   addDefaultFrm() {
     this.uploadFrm = this.fb.group({
       "id": [0],
-      "docNo": ['', [Validators.required]],
-      "documentType": ['', [this.validation.maxLengthValidator(50), Validators.pattern(this.validation.fullName), Validators.required]],
-      "docPath": ['', [Validators.required]]
+      "docNo": [''],
+      "documentType": [''],
+      "docPath": ['']
     })
   }
 
@@ -297,15 +296,22 @@ export class ApprovalProcessComponent implements OnDestroy {
   }
 
   onSubmit() {
-    if (this.uploadFrm.invalid) {
-      return;
+    let uploadFrmValue = this.uploadFrm.getRawValue();
+    if (!uploadFrmValue?.documentType) {
+      this.commonMethod.snackBar('Document name is  required', 1);
+      return
+    }else if (!uploadFrmValue?.docNo) {
+      this.commonMethod.snackBar('Document number is  required', 1);
+      return
+    }else if (!uploadFrmValue?.docPath) {
+      this.commonMethod.snackBar('Document path is  required', 1);
+      return
     }
     else {
 
       let otherFormData = this.uploadFrm.getRawValue();
-
       let obj = {
-        "id":this.editOtherDocForm ?  this.applicationData.id : 0,
+        "id":this.applicationData.id,
         "applicationId": this.applicationData.applicationId,
         "docTypeId": 1, // 1 is other doc
         "documentType": otherFormData?.documentType,
@@ -327,11 +333,20 @@ export class ApprovalProcessComponent implements OnDestroy {
     }
   }
 
+  onTabChanged(){
+    this.resetOtherDocForm();
+    this.editOtherDocForm = false;
+  }
+
   resetOtherDocForm(){
     this.formDirective.resetForm();
     this.deleteImage();
   }
 
+  deleteOtherDoc() {
+    this.pushOtherDocArray[this.selOtherDocIndex].docPath ='';
+    this.uploadFrm.controls['docPath'].setValue('');
+  }
 
   deleteImage() {
     this.imageData = "";
@@ -340,13 +355,12 @@ export class ApprovalProcessComponent implements OnDestroy {
 
   editOtherDoc(ele:any){
     this.editOtherDocForm = true;
-    debugger;
     this.selOtherDocIndex = this.commonMethod.findIndexOfArrayObject(this.pushOtherDocArray,'id',ele.id)
     this.uploadFrm = this.fb.group({
       "id": [ele.id],
-      "docNo": [ele.docNo, [Validators.required]],
-      "documentType": [ele.documentType, [this.validation.maxLengthValidator(50), Validators.pattern(this.validation.fullName), Validators.required]],
-      "docPath": [ele.docPath, [Validators.required]]
+      "docNo": [ele.docNo],
+      "documentType": [ele.documentType],
+      "docPath": [ele.docPath]
     });
     // ele.docPath ? this.imageData = ele.docPath:'';
   }
@@ -354,8 +368,13 @@ export class ApprovalProcessComponent implements OnDestroy {
 //#endregion -----------------------------------------------------------other doc section end heare ---------------------------------//
 
   onSubmitApprovalDetails() {
-    if (this.approvalFrm.invalid) {
-      return;
+    let approvalFrmVal = this.approvalFrm.getRawValue();
+    if (!approvalFrmVal?.applicationStatus) {
+      this.commonMethod.snackBar('Application status is  required', 1);
+      return
+    }else if (approvalFrmVal.applicationStatus == 11 || approvalFrmVal.applicationStatus == 5) {
+      this.commonMethod.snackBar('Application reason is  required', 1);
+      return
     }else if (this.actionNameLabel && !this.uploadedDepDoc && this.applicationData?.isEdit) {
       this.commonMethod.snackBar(this.actionNameLabel  +' document is required', 1);
       return;
