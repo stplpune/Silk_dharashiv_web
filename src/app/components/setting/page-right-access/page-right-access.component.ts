@@ -49,7 +49,7 @@ export class PageRightAccessComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
     this.getFilterForm();
-    this.getDepartment();
+    
    }
 
   getFilterForm() {
@@ -60,7 +60,8 @@ export class PageRightAccessComponent {
       designationId: [''],
       searchText: ['']
     })
-    this.filterFrm.getRawValue()?.userTypeId == 1 ? (this.getDesignationLevel(),this.getDesignation()):'';
+    this.getDepartment();
+    //this.filterFrm.getRawValue()?.userTypeId == 1 ? (this.getDesignationLevel(),this.getDesignation()):'';
    }
 
  get a() { return this.filterFrm.controls }
@@ -147,7 +148,9 @@ export class PageRightAccessComponent {
         if (res.statusCode == "200" && res.responseData.length) {
           this.departmentArray = res.responseData;
            this.departmentArray.unshift({ "id": 0, "textEnglish": "All Department", "textMarathi": "सर्व विभाग" });
-          // this.filterFrm.getRawValue()?.userTypeId == 1 ? this.getDesignationLevel() :''
+           console.log(" this.departmentArray" ,this.departmentArray)
+           this.filterFrm.getRawValue()?.userTypeId == 1 ? (this.filterFrm.controls['departmentId'].setValue(this.departmentArray[0]?.id),this.getDesignationLevel()) : '';
+           // this.filterFrm.getRawValue()?.userTypeId == 1 ? this.getDesignationLevel() :''
           }
         else {
           this.departmentArray = [];
@@ -163,7 +166,9 @@ export class PageRightAccessComponent {
         if (res.statusCode == "200" && res.responseData.length) {
           this.designationLevelArray = res.responseData;
           this.designationLevelArray.unshift({ "id": 0, "textEnglish": "All Designation Level", "textMarathi": "सर्व पदनाम स्तर" });
-         // this.filterFrm.getRawValue()?.userTypeId == 1 ? this.getDesignation() :''
+          this.filterFrm.getRawValue()?.userTypeId == 1 ? (this.filterFrm.controls['designationLevelId'].setValue(this.designationLevelArray[0]?.id),this.getDesignation()) : '';
+     
+          // this.filterFrm.getRawValue()?.userTypeId == 1 ? this.getDesignation() :''
         }
         else {
           this.designationLevelArray = [];
@@ -200,10 +205,15 @@ export class PageRightAccessComponent {
         this.designationArray = []
         break;
         case 'user':
+          if(this.filterFrm.getRawValue()?.userTypeId ==  2){
           this.filterFrm.controls['designationLevelId'].setValue('');
           this.designationLevelArray = [];
           this.filterFrm.controls['designationId'].setValue('');
-          this.designationArray = []
+          this.designationArray = [];
+           }
+          else{
+            this.getFilterForm();//when we select admin user type that time value patch 
+          }
           break;
       case 'deptLevelId':
         this.filterFrm.controls['designationId'].setValue('');
