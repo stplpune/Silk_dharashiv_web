@@ -14,6 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { GeoTaggingComponent } from './geo-tagging/geo-tagging.component';
 
 @Component({
   selector: 'app-approval-process',
@@ -66,6 +67,7 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.getRouteParam();
     this.addDefaultFrm();
     this.addApprovalFrm();
+    this.addGeoTagging();
   }
 
   getRouteParam() {
@@ -443,6 +445,17 @@ export class ApprovalProcessComponent implements OnDestroy {
     })
   }
 
+  addGeoTagging(obj?:any){
+    const dialogRef = this.dialog.open(GeoTaggingComponent,{
+      width: '60%',
+      data: obj,
+      disableClose: true,
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      res == 'Yes'? '' : '';
+     });
+  }
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
