@@ -233,99 +233,100 @@
 
 <div class="" *ngIf="isViewFlag">
   <div mat-dialog-content class="modal-body form-container">
-    <div class="row gy-2">
+    <div class="row gy-2 gx-2">
       <div class="col-sm-12">
-        <div class="d-flex gap-2">
-          <div class="form-label">{{'marketRate.market' | translate}}</div>
-          <div class=" form-data">: {{lang == 'en' ? (data?.marketName || '-') : (data?.m_MarketName || '-')}}</div>
+        <div class="row gx-2">
+          <div class="col-sm-2 form-label">{{'marketRate.market' | translate}}</div>
+          <div class=" col-sm-10 form-data">: {{lang == 'en' ? (data?.marketName || '-') : (data?.m_MarketName || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{'common.mobile' | translate}}</div>
-          <div class="col-sm-7 form-data">: {{data?.conactNo || '-'}}</div>
+          <div class="col-sm-4 form-label">{{'common.mobile' | translate}}</div>
+          <div class="col-sm-8 form-data">: {{data?.conactNo || '-'}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{'common.email' | translate}}</div>
-          <div class="col-sm-7 form-data">: {{data?.emailId || '-'}}</div>
+          <div class="col-sm-4 form-label">{{'common.email' | translate}}</div>
+          <div class="col-sm-8 form-data">: {{data?.emailId || '-'}}</div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="row gx-2">
+          <div class="col-sm-4 form-label">{{'common.state' | translate}}</div>
+          <div class="col-sm-8 form-data">: {{lang == 'en' ? (data?.state || '-') : (data?.m_State || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{'marketRate.farm_goods' | translate}}</div>
+          <div class="col-sm-4 form-label">{{'common.district' | translate}}</div>
+          <div class="col-sm-8 form-data">: {{lang == 'en' ? (data?.district || '-') : (data?.m_District || '-')}}</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row gx-2">
+          <div class="col-sm-4 form-label">{{'common.taluka' | translate}}</div>
+          <div class="col-sm-8 form-data">: {{lang == 'en' ? (data?.taluka || '-') : (data?.m_Taluka || '-')}}</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row gx-2">
+          <div class="col-sm-4 form-label">{{'marketRate.farm_goods' | translate}}</div>
           <ng-container>
-            <div class="col-sm-7 form-data">:<span *ngFor="let arr of data?.getCommitteeAssignShetmal">
+            <div class="col-sm-8 form-data">:<span *ngFor="let arr of data?.getCommitteeAssignShetmal">
                 {{lang == 'en' ? (arr?.shetmalCast|| '-') + "," : (arr?.m_ShetmalCast || '-') + ","}}
               </span></div>
           </ng-container>
         </div>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-12">
         <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{'common.state' | translate}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.state || '-') : (data?.m_State || '-')}}</div>
+          <div class="col-sm-2 form-label">{{'common.address' | translate}}</div>
+          <div class="col-sm-10 form-data">: {{data?.address || '-'}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{'common.district' | translate}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.district || '-') : (data?.m_District || '-')}}</div>
+          <div class="col-sm-4 form-label">{{'marketRate.pin_Code' | translate}}</div>
+          <div class="col-sm-8 form-data">: {{data?.pincode || '-'}}</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row gx-1">
+          <div class="col-sm-auto form-label">{{'marketRate.establishment_Date' | translate}}</div>
+          <div class="col-sm form-data">: {{data?.estDate | date:'dd/MM/YYYY'|| '-'}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{'common.taluka' | translate}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.taluka || '-') : (data?.m_Taluka || '-')}}</div>
+          <div class="col-sm-4 form-label">{{'marketRate.latitude' | translate}}</div>
+          <div class="col-sm-8 form-data">: {{data?.latitude|| '-'}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{'common.address' | translate}}</div>
-          <div class="col-sm-7 form-data">: {{data?.address || '-'}}</div>
+          <div class="col-sm-4 form-label">{{'marketRate.longitude' | translate}}</div>
+          <div class="col-sm-8 form-data">: {{data?.longitude || '-'}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{'marketRate.pin_Code' | translate}}</div>
-          <div class="col-sm-7 form-data">: {{data?.pincode || '-'}}</div>
+          <div class="col-sm-4 form-label">{{'marketRate.administrator' | translate}}</div>
+          <div class="col-sm-8 form-data">: {{data?.administratior || '-'}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{'marketRate.establishment_Date' | translate}}</div>
-          <div class="col-sm-7 form-data">: {{data?.estDate | date:'dd/MM/YYYY'|| '-'}}</div>
+          <div class="col-sm-4 form-label">{{'marketRate.administrator_mobile_no'| translate}}</div>
+          <div class="col-sm-8 form-data">: {{data?.mobileNo || '-'}}</div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{'marketRate.latitude' | translate}}</div>
-          <div class="col-sm-7 form-data">: {{data?.latitude|| '-'}}</div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{'marketRate.longitude' | translate}}</div>
-          <div class="col-sm-7 form-data">: {{data?.longitude || '-'}}</div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{'marketRate.administrator' | translate}}</div>
-          <div class="col-sm-7 form-data">: {{data?.administratior || '-'}}</div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{'marketRate.administrator_mobile_no'| translate}}</div>
-          <div class="col-sm-7 form-data">: {{data?.mobileNo || '-'}}</div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{'marketRate.working_hours' | translate}}</div>
-          <div class="col-sm-7 form-data">: {{data?.workingHours || '-'}}</div>
+          <div class="col-sm-4 form-label">{{'marketRate.working_hours' | translate}}</div>
+          <div class="col-sm-8 form-data">: {{data?.workingHours || '-'}}</div>
         </div>
       </div>
     </div>

@@ -145,7 +145,6 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
-          debugger;
         return res.responseData && flag == 'actionId' ? res?.responseData?.actionId : res?.responseData?.approvalLevel
         }
       }
