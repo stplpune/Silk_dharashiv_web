@@ -154,7 +154,9 @@ export class DepartmentComponent implements OnDestroy{
           next: (res: any) => {
             if (res.statusCode == '200') {
               this.common.snackBar(res.statusMessage, 0);
+              this.filterDefaultFrm();
               this.getTableData();
+              
             } else {
               this.common.snackBar(res.statusMessage, 1);
             }
