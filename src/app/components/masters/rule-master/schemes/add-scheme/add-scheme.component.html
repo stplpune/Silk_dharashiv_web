@@ -1,6 +1,7 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">{{!data ? ('scheme.add_scheme' | translate ): isViewFlag ? ('scheme.view_scheme' | translate) : ('scheme.update_scheme' | translate )}}</div>
+    <div class="text-main">{{!data ? ('scheme.add_scheme' | translate ): isViewFlag ? ('scheme.view_scheme' | translate)
+      : ('scheme.update_scheme' | translate )}}</div>
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
     </button>
@@ -8,156 +9,150 @@
 </div>
 
 <div class="" *ngIf="!isViewFlag">
-<form [formGroup]="schemeForm" (ngSubmit)="onSubmitData()" #formDirective="ngForm">
-  <mat-dialog-content class="modal-body form-container scrollbar">
-    <div class="row">
-    <div class="col-sm-6">
-      <mat-label class="form-label">{{'scheme.select_state' | translate }}</mat-label>
-      <mat-form-field appearance="outline" class="w-100">
-        <!-- <mat-label>{{'scheme.select_state' | translate }}</mat-label> -->
-        <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
-        [class]="WebStorageService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
-          <mat-option *ngFor="let st of stateArray" [value]="st.id">{{lang != 'en' ? st.textMarathi
-            :st.textEnglish}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-6">
-      <mat-label class="form-label">{{'scheme.select_district' | translate }}</mat-label>
-      <mat-form-field appearance="outline" class="w-100">
-        <!-- <mat-label>{{'scheme.select_district' | translate }}</mat-label> -->
-        <mat-select formControlName="districtId"  [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
-          <mat-option *ngFor="let dist of districtArray" [value]="dist.id">{{lang != 'en' ? dist.textMarathi
-            :dist.textEnglish}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="mb-0">
-      <mat-label class="form-label">{{'scheme.scheme_namee' | translate }}</mat-label>
-      <mat-form-field appearance="outline" class="w-100">
-        <!-- <mat-label>Scheme Name (English)</mat-label>
+  <form [formGroup]="schemeForm" (ngSubmit)="onSubmitData()" #formDirective="ngForm">
+    <mat-dialog-content class="modal-body form-container scrollbar">
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-label class="form-label">{{'scheme.select_state' | translate }}</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <!-- <mat-label>{{'scheme.select_state' | translate }}</mat-label> -->
+            <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
+              [class]="WebStorageService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
+              <mat-option *ngFor="let st of stateArray" [value]="st.id">{{lang != 'en' ? st.textMarathi
+                :st.textEnglish}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-label class="form-label">{{'scheme.select_district' | translate }}</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <!-- <mat-label>{{'scheme.select_district' | translate }}</mat-label> -->
+            <mat-select formControlName="districtId"
+              [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
+              <mat-option *ngFor="let dist of districtArray" [value]="dist.id">{{lang != 'en' ? dist.textMarathi
+                :dist.textEnglish}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="mb-0">
+          <mat-label class="form-label">{{'scheme.scheme_namee' | translate }}</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <!-- <mat-label>Scheme Name (English)</mat-label>
         <input matInput placeholder=""> -->
-        <!-- <mat-label>{{'scheme.scheme_namee' | translate }}</mat-label> -->
-        <input matInput placeholder="" formControlName="schemeType"
-        (keypress)="validator.noFirstSpaceAllow($event);validator.englishNumericspecialChar($event)">
-        <mat-error *ngIf="f['schemeType']?.hasError('required')">{{'scheme.please_enter_scheme_name'|translate}}
-        </mat-error>
-        <mat-error *ngIf="f['schemeType']?.hasError('pattern')">
-          {{'scheme.please_enter_valid_scheme_name'|translate}} </mat-error>
-          <mat-error *ngIf="f['schemeType']?.hasError('maxLengthExceeded')">{{'scheme.maximum_limit_100_characters'|translate}} </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-12">
-      <mat-label class="form-label">{{'scheme.scheme_namemr' | translate }}</mat-label>
-      <mat-form-field appearance="outline" class="w-100">
-        <!-- <mat-label>{{'scheme.scheme_namemr' | translate }}</mat-label> -->
-        <input matInput placeholder="" formControlName="m_SchemeType"
-          (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiQuetionValidation($event)">
-        <mat-error *ngIf="f['m_SchemeType']?.hasError('required')">
-          {{'scheme.please_enter_scheme_name_mr'|translate}} </mat-error>
-          <mat-error *ngIf="f['m_SchemeType']?.hasError('pattern')">
-            {{'scheme.please_enter_valid_scheme_name_mr'|translate}} </mat-error>
-            <mat-error *ngIf="f['m_SchemeType']?.hasError('maxLengthExceeded')">{{'scheme.maximum_limit_100_characters'|translate}} </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-12">
-      <angular-editor formControlName="schemeInfo"  [config]="editorConfig" placeholder="{{'scheme.scheme_description' | translate }}">
-        <mat-error *ngIf="f['schemeInfo']?.hasError('required')">
-          {{'scheme.please_enter_scheme_description'|translate}} </mat-error>
-      </angular-editor>
-      <!-- <mat-error *ngIf="f['schemeInfo']?.hasError('maxLengthExceeded')">{{lang == 'en' ? "Maximum limit is 5000 characters" : "कमाल 5000 वर्णांना अनुमती आहे"}} </mat-error> -->
-      <mat-error *ngIf="editorFlag && !schemeForm.value.schemeInfo">{{lang == 'en' ? "Please Add Scheme Description" : "कृपया योजनेची माहिती प्रविष्ट करा"}} </mat-error>
-    </div>
-    <div class="col-sm-12">
-      <div class="mb-0">
-        <div class="file-upload border rounded-2 p-1">
-          <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-            (click)="uplodLogo.click()" data-placement="right">
-            {{'scheme.scheme_logo' | translate }}
-          </button>
-          <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"  (change)="imageUplod($event)"  hidden="hidden"/>
-          <div class="d-flex gap-2" *ngIf="imageResponse">
-            <button type="button"  mat-flat-button (click)="viewimage()"
-              class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view" >
-              <mat-icon class="material-symbols-rounded">
-                preview
-              </mat-icon>
-            </button>
-            <button type="button" mat-flat-button  (click)="deleteImage()"
-              class="bg-danger-subtle text-danger btn-icon btn-action" matTooltip="delete">
-              <mat-icon class="material-symbols-rounded">
-                delete
-              </mat-icon>
-            </button>
+            <!-- <mat-label>{{'scheme.scheme_namee' | translate }}</mat-label> -->
+            <input matInput placeholder="" formControlName="schemeType"
+              (keypress)="validator.noFirstSpaceAllow($event);validator.englishNumericspecialChar($event)">
+            <mat-error *ngIf="f['schemeType']?.hasError('required')">{{'scheme.please_enter_scheme_name'|translate}}
+            </mat-error>
+            <mat-error *ngIf="f['schemeType']?.hasError('pattern')">
+              {{'scheme.please_enter_valid_scheme_name'|translate}} </mat-error>
+            <mat-error *ngIf="f['schemeType']?.hasError('maxLengthExceeded')">
+              {{'scheme.maximum_limit_100_characters'|translate}} </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-12">
+          <mat-label class="form-label">{{'scheme.scheme_namemr' | translate }}</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <!-- <mat-label>{{'scheme.scheme_namemr' | translate }}</mat-label> -->
+            <input matInput placeholder="" formControlName="m_SchemeType"
+              (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiQuetionValidation($event)">
+            <mat-error *ngIf="f['m_SchemeType']?.hasError('required')">
+              {{'scheme.please_enter_scheme_name_mr'|translate}} </mat-error>
+            <mat-error *ngIf="f['m_SchemeType']?.hasError('pattern')">
+              {{'scheme.please_enter_valid_scheme_name_mr'|translate}} </mat-error>
+            <mat-error *ngIf="f['m_SchemeType']?.hasError('maxLengthExceeded')">
+              {{'scheme.maximum_limit_100_characters'|translate}} </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-12">
+          <div class="mb-0">
+            <div class="file-upload border rounded-2 p-1">
+              <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                (click)="uplodLogo.click()" data-placement="right">
+                {{'scheme.scheme_logo' | translate }}
+              </button>
+              <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
+                (change)="imageUplod($event)" hidden="hidden" />
+              <div class="d-flex gap-2" *ngIf="imageResponse">
+                <button type="button" mat-flat-button (click)="viewimage()"
+                  class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view">
+                  <mat-icon class="material-symbols-rounded">
+                    preview
+                  </mat-icon>
+                </button>
+                <button type="button" mat-flat-button (click)="deleteImage()"
+                  class="bg-danger-subtle text-danger btn-icon btn-action" matTooltip="delete">
+                  <mat-icon class="material-symbols-rounded">
+                    delete
+                  </mat-icon>
+                </button>
+              </div>
+            </div>
           </div>
+          <mat-error *ngIf="editorFlag && !imageResponse">{{lang == 'en' ? "Please Add Scheme Logo" : "कृपया योजनेचा
+            लोगो जोडा"}} </mat-error>
+        </div>
+        <div class="col-sm-12">
+          <angular-editor formControlName="schemeInfo" [config]="editorConfig"
+            placeholder="{{'scheme.scheme_description' | translate }}">
+            <mat-error *ngIf="f['schemeInfo']?.hasError('required')">
+              {{'scheme.please_enter_scheme_description'|translate}} </mat-error>
+          </angular-editor>
+          <!-- <mat-error *ngIf="f['schemeInfo']?.hasError('maxLengthExceeded')">{{lang == 'en' ? "Maximum limit is 5000 characters" : "कमाल 5000 वर्णांना अनुमती आहे"}} </mat-error> -->
+          <mat-error *ngIf="editorFlag && !schemeForm.value.schemeInfo">{{lang == 'en' ? "Please Add Scheme Description"
+            : "कृपया योजनेची माहिती प्रविष्ट करा"}} </mat-error>
         </div>
       </div>
-      <mat-error *ngIf="editorFlag && !imageResponse">{{lang == 'en' ? "Please Add Scheme Logo" : "कृपया योजनेचा लोगो जोडा"}} </mat-error>
-    </div>
-  </div>
 
-  </mat-dialog-content>
+    </mat-dialog-content>
 
- <mat-dialog-actions class="modal-footer">
-    <div class="d-flex align-items-center justify-content-end w-100">
-    <button mat-flat-button class="btn-main-light" type="button" (click)="clearForm()">{{'scheme.clear' |
-              translate }}</button>
-            <button mat-flat-button class="btn-main" type="submit">{{!data ?('scheme.save' | translate )
-              :('scheme.update' | translate )}}</button>
-    </div>
-  </mat-dialog-actions>
-</form>
+    <mat-dialog-actions class="modal-footer">
+      <div class="d-flex align-items-center justify-content-end w-100">
+        <button mat-flat-button class="btn-main-light" type="button" (click)="clearForm()">{{'scheme.clear' |
+          translate }}</button>
+        <button mat-flat-button class="btn-main" type="submit">{{!data ?('scheme.save' | translate )
+          :('scheme.update' | translate )}}</button>
+      </div>
+    </mat-dialog-actions>
+  </form>
 </div>
 
 <div class="" *ngIf="isViewFlag">
-<mat-dialog-content class="modal-body form-container scrollbar">
-<div class="row">
-  <div class="col-sm-12">
+  <mat-dialog-content class="modal-body form-container scrollbar">
     <div class="row">
-      <div class="col-sm-5 form-label">{{lang == 'en' ? "Scheme Name(English)" : "योजनेचे नाव (इंग्रजी)" }}</div>
-      <div class="col-sm-6 form-data">: {{lang == 'en' ? (data?.schemeType || '-') : (data?.m_SchemeType || '-')}}</div>
-    </div>
-  </div>
-  <div class="col-sm-12">
-    <div class="row">
-      <div class="col-sm-5 form-label">{{lang == 'en' ? "State" : "राज्य" }}</div>
-      <div class="col-sm-6 form-data">: {{lang == 'en' ? (data?.state || '-') : (data?.m_State || '-')}}</div>
-    </div>
-  </div>
-  <div class="col-sm-12">
-    <div class="row">
-      <div class="col-sm-5 form-label">{{lang == 'en' ? "District" : "जिल्हा" }}</div>
-      <div class="col-sm-6 form-data">: {{lang == 'en' ? (data?.district || '-') : (data?.m_District || '-')}}</div>
-    </div>
-  </div>
-  <div class="col-sm-12">
-    <div class="row upload-img-view">
-      <div class="col-sm-5 form-label">{{lang == 'en' ? "Scheme Description" : "योजनेचे वर्णन" }}</div>
-      <div class="col-sm-7 form-data"  [innerHTML]="data?.schemeInfo"></div>
-    </div>
-
-
-
-  </div>
-  <div class="col-sm-12">
-    <div class="row">
-      <div class="col-sm-5 form-label">{{lang == 'en' ? "Scheme Logo" : "योजनेचा लोगो" }}</div>
-      <div class="col-sm-6 form-data">
-         <img src="{{data?.logoPath}}" alt="Image" width="100" height="100">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-5 form-label">{{lang == 'en' ? "Scheme Name(English)" : "योजनेचे नाव (इंग्रजी)" }}</div>
+          <div class="col-sm-6 form-data">: {{lang == 'en' ? (data?.schemeType || '-') : (data?.m_SchemeType || '-')}}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-5 form-label">{{lang == 'en' ? "State" : "राज्य" }}</div>
+          <div class="col-sm-6 form-data">: {{lang == 'en' ? (data?.state || '-') : (data?.m_State || '-')}}</div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-5 form-label">{{lang == 'en' ? "District" : "जिल्हा" }}</div>
+          <div class="col-sm-6 form-data">: {{lang == 'en' ? (data?.district || '-') : (data?.m_District || '-')}}</div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-5 form-label">{{lang == 'en' ? "Scheme Logo" : "योजनेचा लोगो" }}</div>
+          <div class="col-sm-6 form-data">
+            <img src="{{data?.logoPath}}" alt="Image" width="100" height="100">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row upload-img-view">
+          <div class="col-sm-5 form-label">{{lang == 'en' ? "Scheme Description" : "योजनेचे वर्णन" }}</div>
+          <div class="col-sm-7 form-data" [innerHTML]="data?.schemeInfo"></div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <!-- <div class="col-sm-12">
-    <div class="row">
-      <div class="col-sm-6 form-label">Scheme Logo</div>
-      <div class="col-sm-6 form-data">
-        {{lang == 'en' ? (data?.logoPath || '-') : (data?.logoPath || '-')}}
-      </div>
-    </div>
-  </div> -->
-
+  </mat-dialog-content>
 </div>
-</mat-dialog-content>
-</div>
-
