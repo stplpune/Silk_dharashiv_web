@@ -1,8 +1,8 @@
 import { Component, Inject, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Subscription } from 'rxjs';
+import { ReplaySubject, Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -26,6 +26,8 @@ export class AddGrainageComponent {
   subscription!: Subscription;
   lang: string = 'English';
   isViewFlag: boolean = false;
+  talukaCtrl: FormControl = new FormControl();
+  talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
 
   constructor(private fb: FormBuilder,
     private master: MasterService,
@@ -51,6 +53,7 @@ export class AddGrainageComponent {
       this.getGrainage();this.getState();
     }
     this.defaultFrm();
+    this.searchDataZone();
   }
 
   defaultFrm() {
@@ -69,6 +72,10 @@ export class AddGrainageComponent {
       remark: [this.data ? this.data.remark : ''],
       flag: [this.data ? "u" : "i"]
     })
+  }
+
+  searchDataZone() {
+    this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.common.filterArrayDataZone(this.talukaArr, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
   }
 
   getGrainage(){
@@ -124,6 +131,7 @@ export class AddGrainageComponent {
       this.master.GetAllTaluka(stateId, distId, 0,).subscribe({
         next: ((res: any) => {
           this.talukaArr = res.responseData;
+          this.common.filterArrayDataZone(this.talukaArr, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
           this.data ? (this.f['talukaId'].setValue(this.data?.talukaId)) : '';
         }), error: (() => {
           this.talukaArr = [];
@@ -164,6 +172,10 @@ export class AddGrainageComponent {
     this.formDirective?.resetForm();
     this.data = null;
     this.defaultFrm();
+  }
+  
+  ngOnDestroy() {
+    this.talukaSubject.unsubscribe();
   }
 
 }

@@ -4,6 +4,59 @@
   </mat-card-header>
 
   <mat-card-content class="card-body">
+    <div class="card card-body mb-3">
+      <div class="row g-2">
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Application ID :</div>
+            <div class="form-data">{{applicationData?.applicationNo | dash}}</div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Process Department :</div>
+            <div class="form-data">{{lang == 'en' ? (applicationData?.departmentName | dash) :
+              (applicationData?.m_DepartmentName | dash)}} </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Date : </div>
+            <div class="form-data">{{(applicationData?.applicationDate | date: 'dd-MM-yyyy') | dash}}</div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Officer : </div>
+            <div class="form-data">{{lang == 'en' ? (applicationData?.designationName | dash) :
+              (applicationData?.m_DesignationName | dash)}} </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Action : </div>
+            <div class="form-data">{{lang == 'en' ? (applicationData?.actionName | dash ) :
+              (applicationData?.m_ActionName | dash)}}</div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Status : </div>
+            <div class="form-data text-warning">
+              <span class="badge"
+                [ngClass]="applicationData.status=='Approved' ? 'bg-success-subtle text-success' : (applicationData.status == 'Pending' || applicationData.status == 'pending') ? 'bg-warning-subtle text-warning' : 'bg-danger-subtle text-danger'">
+                {{applicationData.status ? applicationData.status :'-'}}
+              </span>
+
+              <!-- {{lang == 'en' ? (applicationData?.status | dash ) :
+              (applicationData?.m_Status | dash)}} -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="table-content table-responsive mb-3">
       <table mat-table [dataSource]="approvalStatus" class="dashboard-table">
         <ng-container matColumnDef="sr_no">
@@ -59,59 +112,6 @@
         <tr mat-header-row *matHeaderRowDef="displayColumnRemark"></tr>
         <tr mat-row *matRowDef="let row; columns: displayColumnRemark;"></tr>
       </table>
-    </div>
-
-    <div class="card card-body mb-3">
-      <div class="row g-2">
-        <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">Application ID :</div>
-            <div class="form-data">{{applicationData?.applicationNo | dash}}</div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">Process Department :</div>
-            <div class="form-data">{{lang == 'en' ? (applicationData?.departmentName | dash) :
-              (applicationData?.m_DepartmentName | dash)}} </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">Date : </div>
-            <div class="form-data">{{(applicationData?.applicationDate | date: 'dd-MM-yyyy') | dash}}</div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">Officer : </div>
-            <div class="form-data">{{lang == 'en' ? (applicationData?.designationName | dash) :
-              (applicationData?.m_DesignationName | dash)}} </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">Action : </div>
-            <div class="form-data">{{lang == 'en' ? (applicationData?.actionName | dash ) :
-              (applicationData?.m_ActionName | dash)}}</div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">Status : </div>
-            <div class="form-data text-warning">
-              <span class="badge"
-                [ngClass]="applicationData.status=='Approved' ? 'bg-success-subtle text-success' : (applicationData.status == 'Pending' || applicationData.status == 'pending') ? 'bg-warning-subtle text-warning' : 'bg-danger-subtle text-danger'">
-                {{applicationData.status ? applicationData.status :'-'}}
-              </span>
-
-              <!-- {{lang == 'en' ? (applicationData?.status | dash ) :
-              (applicationData?.m_Status | dash)}} -->
-
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="card mb-3">
