@@ -176,7 +176,7 @@ export class DepartmentComponent implements OnDestroy{
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(res => {
-      res == 'Yes'? this.getTableData() : '';
+      res == 'Yes'? (this.filterDefaultFrm(),this.getTableData()) : '';
       this.highLightRowFlag = false;
     });
   }
