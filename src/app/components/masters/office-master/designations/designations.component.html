@@ -42,12 +42,12 @@
             </div>
             <div class="col-sm-1">
               <div class="d-flex align-items-center gap-2">
-                <button mat-flat-button class="btn-main btn-icon " matTooltip="edit" (click)="bindTable('filter')">
+  <button mat-flat-button class="btn-main btn-icon " matTooltip="edit" (click)="searchDataFlag=true;bindTable('filter')">
                   <mat-icon class="material-symbols-rounded">
                     search
                   </mat-icon>
                 </button>
-                <button mat-flat-button class="btn-main-light btn-icon " matTooltip="edit" (click)="clearForm()">
+                <button mat-flat-button class="btn-main-light btn-icon " matTooltip="edit" (click)="searchDataFlag=false;clearForm()">
                   <mat-icon class="material-symbols-rounded">
                     close
                   </mat-icon>

@@ -15,6 +15,7 @@ import { AddGrainageComponent } from './add-grainage/add-grainage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     ReactiveFormsModule,
     GlobalTableComponent,
-    TranslateModule
+    TranslateModule,
+    NgxMatSelectSearchModule
   ]
 })
 export class GrainageModule { }
