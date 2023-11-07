@@ -45,7 +45,7 @@
               <mat-option>
                 <ngx-mat-select-search [formControl]="talukaCtrl"
                   placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
-                  noEntriesFoundLabel="No Data Found"></ngx-mat-select-search>
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
               </mat-option>
               <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ?
                 taluka.textMarathi
@@ -66,7 +66,7 @@
               <mat-option>
                 <ngx-mat-select-search [formControl]="gramPCtrl"
                   placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
-                  noEntriesFoundLabel="No Data Found"></ngx-mat-select-search>
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
               </mat-option>
               <mat-option *ngFor="let vil of gramPSubject | async" [value]="vil.id"
                 [disabled]="vil.isSelected && !vil.isAssigned">{{lang != 'en' ? vil.textMarathi
