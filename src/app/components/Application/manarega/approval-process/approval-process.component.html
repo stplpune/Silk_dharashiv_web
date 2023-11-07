@@ -83,10 +83,19 @@
           <td mat-cell *matCellDef="let element">{{element.modifiedDate == '0001-01-01T00:00:00' ? '-' :
             element.modifiedDate | date :'dd-MM-YYYY hh:mm a'}}</td>
         </ng-container>
-        <!-- <ng-container matColumnDef="remark">
+        <ng-container matColumnDef="remark">
           <th mat-header-cell *matHeaderCellDef>Approval Remark </th>
-          <td mat-cell *matCellDef="let element">{{element.remark ? element.remark :'-'}}</td>
-        </ng-container> -->
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="element.remark && element.remark.length > 2; else elseBlock">
+              <button mat-raised-button color="primary" type="button" (click)="openDialog(element.remark)">
+                Show Remark
+              </button>
+            </ng-container>
+            <ng-template #elseBlock>
+              {{element.remark ? element.remark : '-'}}
+            </ng-template>
+          </td>
+        </ng-container>
 
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef>View</th>

@@ -35,7 +35,7 @@ export class ApprovalProcessComponent implements OnDestroy {
   displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action']
   approvalStatus: any = new Array()
   otherDocArray: any = new Array()
-  displayColumnRemark: string[] = ['sr_no', 'designationName','actionName', 'status', 'modifiedDate','action'];
+  displayColumnRemark: string[] = ['sr_no', 'designationName','actionName', 'status', 'modifiedDate','remark','action'];
   pushAppDocArray: any = [];
   pushOtherDocArray: any = [];
   approvalStatusArray: any = [];
@@ -84,6 +84,20 @@ export class ApprovalProcessComponent implements OnDestroy {
       "remark": ['', [Validators.pattern(this.validation.fullName), this.validation.maxLengthValidator(50)]],
       "m_remark": ['']
     })
+  }
+
+  openDialog(obj?: any) {
+    let dialoObj = {
+     header:'',statusFlag:'vi',title: obj,
+     cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
+     // okButton:''
+    }
+     this.dialog.open(GlobalDialogComponent, {
+     width: '320px',
+     data: dialoObj,
+     disableClose: true,
+     autoFocus: false
+   })
   }
 
   getByApplicationId() {
