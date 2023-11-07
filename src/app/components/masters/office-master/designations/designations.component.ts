@@ -16,7 +16,7 @@ import { AddDesignationComponent } from './add-designation/add-designation.compo
   templateUrl: './designations.component.html',
   styleUrls: ['./designations.component.scss']
 })
-export class DesignationsComponent implements OnDestroy{
+export class DesignationsComponent implements OnDestroy {
   filterFrm !: FormGroup;
 
   pageNumber: number = 1;
@@ -28,7 +28,7 @@ export class DesignationsComponent implements OnDestroy{
   departmentLevelArray = new Array();
   subscription!: Subscription;//used  for lang conv
   lang: any;
-  pageAccessObject: object|any;
+  pageAccessObject: object | any;
   searchDataFlag: boolean = false
   @ViewChild('formDirective') private formDirective!: NgForm;
 
@@ -44,7 +44,7 @@ export class DesignationsComponent implements OnDestroy{
   ) { }
 
   ngOnInit() {
-    this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == "Designation" ? this.pageAccessObject = ele :''})
+    this.WebStorageService.getAllPageName().filter((ele: any) => { return ele.pageName == "Designation" ? this.pageAccessObject = ele : '' })
 
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
@@ -77,7 +77,7 @@ export class DesignationsComponent implements OnDestroy{
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentArray = res.responseData;
-          this.departmentArray.unshift({ "id": 0, "textEnglish": "All Department","textMarathi": "सर्व विभाग"});
+          this.departmentArray.unshift({ "id": 0, "textEnglish": "All Department", "textMarathi": "सर्व विभाग" });
         }
         else {
           this.departmentArray = [];
@@ -92,7 +92,7 @@ export class DesignationsComponent implements OnDestroy{
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentLevelArray = res.responseData;
-          this.departmentLevelArray.unshift({ "id": 0, "textEnglish": "All Designation Level","textMarathi": "सर्व पदनाम स्तर"});
+          this.departmentLevelArray.unshift({ "id": 0, "textEnglish": "All Designation Level", "textMarathi": "सर्व पदनाम स्तर" });
         }
         else {
           this.departmentLevelArray = [];
@@ -103,7 +103,7 @@ export class DesignationsComponent implements OnDestroy{
   //#endregion-----------dropdown code end here-----------------
   bindTable(flag?: any) {
     this.spinner.show();
-    flag == 'filter' ? (this.searchDataFlag = true,this.pageNumber = 1) : '';
+    flag == 'filter' ? (this.searchDataFlag = true, this.pageNumber = 1) : '';
     let formData = this.filterFrm?.getRawValue();
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
     this.apiService.setHttp('GET', `sericulture/api/Designation/get-All-Designation?DeptId=${formData?.deptId || 0}&Deptlevel=${formData?.deptLevelId || 0}&lan=${this.lang}&TextSearch=${formData?.textSearch || ''}` + str, false, false, false, 'masterUrl');
@@ -139,9 +139,9 @@ export class DesignationsComponent implements OnDestroy{
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
       // delete: true, view: true, edit: true,
-      view: this.pageAccessObject?.readRight == true ? true: false,
-      edit: this.pageAccessObject?.writeRight == true ? true: false,
-      delete: this.pageAccessObject?.deleteRight == true ? true: false
+      view: this.pageAccessObject?.readRight == true ? true : false,
+      edit: this.pageAccessObject?.writeRight == true ? true : false,
+      delete: this.pageAccessObject?.deleteRight == true ? true : false
     };
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
     this.apiService.tableData.next(tableData);
@@ -151,7 +151,7 @@ export class DesignationsComponent implements OnDestroy{
   childCompInfo(obj: any) {
     switch (obj.label) {
       case 'Pagination':
-        this.searchDataFlag ? '' : (this.filterFrm.controls['deptId'].setValue(''),this.filterFrm.controls['deptLevelId'].setValue(''), this.filterFrm.controls['textSearch'].setValue(''));
+        this.searchDataFlag ? '' : (this.filterFrm.controls['deptId'].setValue(''), this.filterFrm.controls['deptLevelId'].setValue(''), this.filterFrm.controls['textSearch'].setValue(''));
         this.pageNumber = obj.pageNumber;
         this.bindTable();
         break;
@@ -168,6 +168,7 @@ export class DesignationsComponent implements OnDestroy{
   }
 
   addDesignation(obj?: any) {
+    console.log('obj', obj);
     let dialogRef = this.dialog.open(AddDesignationComponent, {
       width: '35%',
       data: obj,
@@ -175,11 +176,14 @@ export class DesignationsComponent implements OnDestroy{
       autoFocus: true,
     })
     dialogRef.afterClosed().subscribe((result: any) => {
-      this.formDirective?.resetForm();
-      this.filterDefaultFrm();
-      this.pageNumber = 1;
-      result == 'Yes' ? this.bindTable() : '';
-      this.highLightedFlag = false;
+      if (!this.searchDataFlag) {
+        this.formDirective?.resetForm();
+        this.filterDefaultFrm();
+        this.pageNumber = 1;
+        result == 'Yes' ? this.bindTable() : '';
+        this.highLightedFlag = false;
+      }
+
     });
   }
 
