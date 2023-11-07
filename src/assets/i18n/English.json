@@ -231,6 +231,7 @@
     "latitude": "Latitude",
     "longitude": "Longitude",
     "administrator": "Administrator",
+    "administrator_mobile_no":"Administrator Contact No.",
     "working_hours": "Working Hours",
     "add_Market_List": "Add Market ",
     "update_Market_List": "Update Market List",

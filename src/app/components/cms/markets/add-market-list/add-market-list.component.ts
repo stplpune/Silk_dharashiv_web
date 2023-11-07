@@ -71,7 +71,7 @@ export class AddMarketListComponent {
       "conactNo": [data ? data?.conactNo : '', [Validators.pattern(this.validation.mobile_No)]],
       "emailId": [data ? data?.emailId : '', [Validators.email, this.validation.maxLengthValidator(50)]],
       "stateId": [data ? data?.stateId : this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],
-      "districtId": [data ? data?.districtId :  this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId(), [Validators.required]],
+      "districtId": [data ? data?.districtId : this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId(), [Validators.required]],
       "talukaId": [data ? data?.talukaId : '', [Validators.required]],
       "villageId": [data ? data?.villageId : ''],
       "address": [data ? data?.address : ''],
@@ -87,14 +87,14 @@ export class AddMarketListComponent {
       "shetMalId": ['', [Validators.required]],
       "committeeAssignShetmal": []
     })
-    this.addValidation();
+    //this.addValidation();
   }
 
   onEdit(edata?: any) {
     this.editFlag = true;
     this.editObj = edata
     this.formData(edata);
-   this.addValidation();
+    // this.addValidation();
   }
 
   onSubmit() {
@@ -116,7 +116,7 @@ export class AddMarketListComponent {
         "villageId": 0,
         "address": data.address,
         "pincode": data.pincode,
-        "estDate":this.commonMethod.setDate(data.estDate) || null,
+        "estDate": this.commonMethod.setDate(data.estDate) || null,
         "latitude": Number(data.latitude),
         "longitude": Number(data.longitude),
         "administratior": data.administratior,
@@ -154,25 +154,25 @@ export class AddMarketListComponent {
   }
 
 
-  addValidation() {
-    if (this.lang == 'en') {
-      this.marketFrm.controls["address"].clearValidators();
-      this.marketFrm.controls['address'].setValidators([this.validation.maxLengthValidator(100), Validators.pattern(this.validation.alphabetsWithSpecChar)]);
-      this.marketFrm.controls["address"].updateValueAndValidity();
+  // addValidation() {
+  //   if (this.lang == 'en') {
+  //     this.marketFrm.controls["address"].clearValidators();
+  //     this.marketFrm.controls['address'].setValidators([this.validation.maxLengthValidator(100), Validators.pattern(this.validation.alphabetsWithSpecChar)]);
+  //     this.marketFrm.controls["address"].updateValueAndValidity();
 
-      this.marketFrm.controls["administratior"].clearValidators();
-      this.marketFrm.controls['administratior'].setValidators([this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]);
-      this.marketFrm.controls["administratior"].updateValueAndValidity();
-    } else {
-      this.marketFrm.controls["address"].clearValidators();
-      this.marketFrm.controls['address'].setValidators([this.validation.maxLengthValidator(100), Validators.pattern(this.validation.marathiquestion)]);
-      this.marketFrm.controls["address"].updateValueAndValidity();
+  //     this.marketFrm.controls["administratior"].clearValidators();
+  //     this.marketFrm.controls['administratior'].setValidators([this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]);
+  //     this.marketFrm.controls["administratior"].updateValueAndValidity();
+  //   } else {
+  //     this.marketFrm.controls["address"].clearValidators();
+  //     this.marketFrm.controls['address'].setValidators([this.validation.maxLengthValidator(100), Validators.pattern(this.validation.marathiquestion)]);
+  //     this.marketFrm.controls["address"].updateValueAndValidity();
 
-      this.marketFrm.controls["administratior"].clearValidators();
-      this.marketFrm.controls['administratior'].setValidators([this.validation.maxLengthValidator(30), Validators.pattern(this.validation.marathi)]);
-      this.marketFrm.controls["administratior"].updateValueAndValidity();
-    }
-  }
+  //     this.marketFrm.controls["administratior"].clearValidators();
+  //     this.marketFrm.controls['administratior'].setValidators([this.validation.maxLengthValidator(30), Validators.pattern(this.validation.marathi)]);
+  //     this.marketFrm.controls["administratior"].updateValueAndValidity();
+  //   }
+  // }
 
   //#region ------------------Dropdown code start here--------------------------------------------
   getState() {
@@ -195,41 +195,41 @@ export class AddMarketListComponent {
     this.districtArray = [];
     let stateId = this.marketFrm.getRawValue()?.stateId;
     //console.log("stateId",stateId)
-    if(stateId != 0){
-    this.masterService.GetAllDistrict(stateId).subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.districtArray = res.responseData;
-          this.districtArray.unshift({ "id": 0, "textEnglish": "All District","textMarathi": "सर्व जिल्हे"});
-    
-          this.editFlag ? this.a['districtId'].setValue(this.editObj?.districtId) : '';
-          this.getTaluka();
-        }
-        else {
-          this.districtArray = [];
-        }
+    if (stateId != 0) {
+      this.masterService.GetAllDistrict(stateId).subscribe({
+        next: ((res: any) => {
+          if (res.statusCode == "200" && res.responseData?.length) {
+            this.districtArray = res.responseData;
+            this.districtArray.unshift({ "id": 0, "textEnglish": "All District", "textMarathi": "सर्व जिल्हे" });
+
+            this.editFlag ? this.a['districtId'].setValue(this.editObj?.districtId) : '';
+            this.getTaluka();
+          }
+          else {
+            this.districtArray = [];
+          }
+        })
       })
-    })
-  }
+    }
   }
 
   getTaluka() {
     this.talukaArray = [];
     let stateId = this.marketFrm.getRawValue()?.stateId
     let disId = this.marketFrm.getRawValue()?.districtId
-    if(disId != 0){
-    this.masterService.GetAllTaluka(stateId, disId, 0).subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.talukaArray = res.responseData;
-          this.editFlag ? this.a['talukaId'].setValue(this.editObj?.talukaId) : '';
-        }
-        else {
-          this.talukaArray = [];
-        }
+    if (disId != 0) {
+      this.masterService.GetAllTaluka(stateId, disId, 0).subscribe({
+        next: ((res: any) => {
+          if (res.statusCode == "200" && res.responseData?.length) {
+            this.talukaArray = res.responseData;
+            this.editFlag ? this.a['talukaId'].setValue(this.editObj?.talukaId) : '';
+          }
+          else {
+            this.talukaArray = [];
+          }
+        })
       })
-    })
-  }
+    }
   }
 
   getFarmGoods() {
