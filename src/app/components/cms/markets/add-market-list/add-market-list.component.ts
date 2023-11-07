@@ -1,6 +1,6 @@
 import { Component, Inject, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ReplaySubject, Subscription } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -29,7 +29,8 @@ export class AddMarketListComponent {
   maxDate = new Date();
   isViewFlag: boolean = false;
   @ViewChild('formDirective') private formDirective!: NgForm;
-
+  talukaCtrl: FormControl = new FormControl();
+  talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   get a() { return this.marketFrm.controls }
 
   constructor(
@@ -59,6 +60,7 @@ export class AddMarketListComponent {
       this.getState();
       this.getFarmGoods();
     }
+    this.searchDataZone();
   }
 
 
@@ -90,6 +92,9 @@ export class AddMarketListComponent {
     this.addValidation();
   }
 
+  searchDataZone() {
+    this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
+  }
   onEdit(edata?: any) {
     this.editFlag = true;
     this.editObj = edata
@@ -222,6 +227,7 @@ export class AddMarketListComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.talukaArray = res.responseData;
+          this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
           this.editFlag ? this.a['talukaId'].setValue(this.editObj?.talukaId) : '';
         }
         else {
@@ -268,7 +274,9 @@ export class AddMarketListComponent {
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
+    this.talukaSubject.unsubscribe();
   }
+ 
 }
 
 
