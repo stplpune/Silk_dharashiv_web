@@ -51,7 +51,7 @@
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
               <!-- <mat-label>{{'marketRate.search_by' | translate}}</mat-label> -->
-              <input matInput formControlName="textSearch" placeholder="Search by Mobile No./ Market Rate"  (keypress)="validation.noFirstSpaceAllow($event)" maxlength="50">
+              <input matInput formControlName="textSearch" placeholder="{{lang == 'en' ? 'Search by Mobile No./ Market Name' : 'मोबाईल नंबर/ मार्केटच्या नावाने शोधा'}}"  (keypress)="validation.noFirstSpaceAllow($event)" maxlength="50">
             </mat-form-field>
           </div>
           <div class="col-sm-auto">
