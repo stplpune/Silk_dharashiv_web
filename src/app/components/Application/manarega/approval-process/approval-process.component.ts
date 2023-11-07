@@ -90,10 +90,19 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
+
+          this.appDataClonedArray = JSON.parse(JSON.stringify(res.responseData))
+          this.applicationData = res.responseData;
+          this.applicantDetails = this.applicationData?.applicationModel;
+
+       
+          // this.getOrderWiseAction(3,'actionId');
+
           res.responseData.allApplicationApproval.map((ele: any) => {
             res.responseData.allApprovalDocument.find((item: any) => {
               if (item.docTypeId == 3) {
-                ele.actionId == 2 ? (ele.documnetApprovalPath = item?.docPath, ele.documentTypeName = item?.documentType) : ''
+                //  ele.actionId == 2 ? (ele.documnetApprovalPath = item?.docPath, ele.documentTypeName = item?.documentType) : ''
+                 ele.actionId == this.getOrderWiseAction(item.docTypeId,'actionId') ? (ele.documnetApprovalPath = item?.docPath, ele.documentTypeName = item?.documentType) : ''
               }else if (item.docTypeId == 4) {
                 ele.actionId == 3 ? (ele.documnetApprovalPath = item?.docPath, ele.documentTypeName = item?.documentType) : ''
               }else if (item.docTypeId == 5) {
@@ -104,9 +113,6 @@ export class ApprovalProcessComponent implements OnDestroy {
             })
           });
 
-          this.appDataClonedArray = JSON.parse(JSON.stringify(res.responseData))
-          this.applicationData = res.responseData;
-          this.applicantDetails = this.applicationData?.applicationModel;
 
           this.applicationData?.allDocument?.filter((ele: any) => {
             if (ele.docTypeId != 1) {
@@ -132,6 +138,20 @@ export class ApprovalProcessComponent implements OnDestroy {
     })
   }
 
+  
+  getOrderWiseAction(id:any, flag:string){
+    let quar:any = flag =='actionId' ? '&ActionId='+id:'&ApprovalLevel='+id;
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetOrderWiseAction?StateId='+this.WebStorageService.getStateId()+'&DistrictId='+this.WebStorageService.getDistrictId()+'&SchemeTypeId='+this.applicantDetails?.schemeTypeId+'&DepartmentId='+this.applicantDetails?.mn_DepartmentId+quar+'&lan=' + this.lang, false, false, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == '200') {
+          debugger;
+        return res.responseData && flag == 'actionId' ? res?.responseData?.actionId : res?.responseData?.approvalLevel
+        }
+      }
+    })
+  }
+
   getApprovalStatus() {
     this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetApprovalStatusList?Id=' + this.applicationData?.id + '&ApplicationId=' + this.applicationData?.applicationId + '&ApprovalMasterId=' + this.applicationData?.approvalMasterId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
@@ -149,7 +169,6 @@ export class ApprovalProcessComponent implements OnDestroy {
   getReason() {
     let approvalFrmVal = this.approvalFrm.getRawValue();
     // this.uploadedDepDoc ='';
-    // this.applicationData?.actionId
     if (approvalFrmVal.applicationStatus == 11 || approvalFrmVal.applicationStatus == 5) {
       this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetRejectReasons?ActionId=0', false, false, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
@@ -273,11 +292,12 @@ export class ApprovalProcessComponent implements OnDestroy {
           } else if (label == 'otherDocForm') {
             this.f['docPath'].setValue(this.imageData)
           } else if (label == 'uplDepDoc') {
+            
             let obj = {
               "id": 0,
               "applicationId":this.applicationData.applicationId,
-              "docTypeId": this.applicationData.actionId == 2 ? 3 :
-              this.applicationData.actionId == 3 ? 4 : this.applicationData.actionId == 4 ? 5 : this.applicationData.actionId == 5 ? 6: 0,// actionId 2  // 3	Village Commitee Approval Letter
+              // "docTypeId": this.applicationData.actionId == 2 ? 3 : this.applicationData.actionId == 3 ? 4 : this.applicationData.actionId == 4 ? 5 : this.applicationData.actionId == 5 ? 6: 0,// actionId 2  // 3	Village Commitee Approval Letter
+              "docTypeId": this.getOrderWiseAction(this.applicationData.actionId,'docTypeId'),
               "documentType": "",
               "m_DocumentType": "",
               "docNo": "",
@@ -428,7 +448,6 @@ export class ApprovalProcessComponent implements OnDestroy {
       next: ((res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
-          debugger;
           if (array.length) {
             this.insertUpdateDocuments(array)
           } else {
