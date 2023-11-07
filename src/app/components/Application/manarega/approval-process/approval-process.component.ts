@@ -327,7 +327,7 @@ export class ApprovalProcessComponent implements OnDestroy {
         this.pushOtherDocArray[this.selOtherDocIndex] = obj;
         this.editOtherDocForm = false;
       }
-    
+
       this.otherDocArray = new MatTableDataSource(this.pushOtherDocArray);
       this.resetOtherDocForm();
     }
@@ -398,7 +398,7 @@ export class ApprovalProcessComponent implements OnDestroy {
       });
       this.actionNameLabel && this.uploadedDepDoc && this.applicationData?.isEdit ? newUploadedDoc.push(this.uploadedDepDoc):'';//uploaded  Department Document
       this.updateApprovalStatus(newUploadedDoc);
- 
+
     }
   }
 
@@ -466,7 +466,7 @@ export class ApprovalProcessComponent implements OnDestroy {
 
   addGeoTagging(obj?:any){
     const dialogRef = this.dialog.open(GeoTaggingComponent,{
-      width: '60%',
+      width: '80%',
       data: obj,
       disableClose: true,
       autoFocus: false
