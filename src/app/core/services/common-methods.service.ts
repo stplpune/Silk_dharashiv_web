@@ -113,4 +113,18 @@ export class CommonMethodsService {
     return index
   }
 
+  //.......................... filter ngx-mat-select-search dropdown common code Start Here...........................//
+  filterArrayDataZone(array: any, formControl: any, keyName: any, subjectName: any) {
+    if (!array) { return; }
+    let search = formControl.value;
+    if (!search) {
+      subjectName.next(array.slice());
+      return;
+    } else { search = search.toLowerCase(); }
+
+    subjectName.next(array.filter( // filter the array data
+      (ele: any) => ele[keyName]?.toLowerCase().indexOf(search) > -1));
+  }
+  //.......................... filter ngx-mat-select-search dropdown common code End Here...........................//
+
 }
