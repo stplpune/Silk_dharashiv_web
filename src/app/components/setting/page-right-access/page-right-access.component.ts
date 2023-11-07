@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MasterService } from 'src/app/core/services/master.service';
 import { ApiService } from 'src/app/core/services/api.service';
-import {FormBuilder,FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -28,8 +28,8 @@ export class PageRightAccessComponent {
   passArray: any[] = [];
   subscription!: Subscription;//used  for lang conv
   lang: any;
-  userTypeArray:any[]=[{"id": 1,"textEnglish": "Admin","textMarathi": "प्रशासक"},
-  {"id": 2,"textEnglish": "Other","textMarathi": "इतर"}]
+  userTypeArray: any[] = [{ "id": 1, "textEnglish": "Admin", "textMarathi": "प्रशासक" },
+  { "id": 2, "textEnglish": "Other", "textMarathi": "इतर" }]
   // radioBtnValue:string = 'admin'
   //selectedText : string = 'admin'
 
@@ -44,55 +44,68 @@ export class PageRightAccessComponent {
     private errorHandler: ErrorHandlingService) { }
 
   ngOnInit() {
-   this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
     this.getFilterForm();
-    
-   }
+    this.filterFrm.getRawValue()?.userTypeId == 1 ? this.getTableData() : '';
+  }
 
   getFilterForm() {
     this.filterFrm = this.fb.group({
-      userTypeId:[1],
-      departmentId: [0],
-      designationLevelId: [0],
+      userTypeId: [1],
+      departmentId: [''],
+      designationLevelId: [''],
       designationId: [''],
       searchText: ['']
     })
     this.getDepartment();
-    //this.filterFrm.getRawValue()?.userTypeId == 1 ? (this.getDesignationLevel(),this.getDesignation()):'';
-   }
+  }
 
- get a() { return this.filterFrm.controls }
+  get a() { return this.filterFrm.controls }
 
   getTableData() {
     this.dataSource = [];
     let formData = this.filterFrm.getRawValue();
-    if (this.filterFrm.invalid && !formData.departmentId && !formData.designationLevelId && !formData.designationId) {
-      return;
+    // if (this.filterFrm.invalid && !formData.departmentId && !formData.designationLevelId && !formData.designationId) {
+    //   return;
+    // }
+    // else {
+    this.spinner.show();
+    let str = `&pageno=${this.pageNumber}&pagesize=100`;
+    let url = (formData.userTypeId == 1 ? `sericulture/api/UserPages/GetAllPageRights?DepartmentId=0&DepartmentLevelId=0&DesignationId=1&lan=${this.lang}&TextSearch=${formData?.searchText || ''}` : `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId}&DepartmentLevelId=${formData?.designationLevelId}&DesignationId=${formData?.designationId}&lan=${this.lang}&TextSearch=${formData?.searchText || ''}`);
+    this.apiService.setHttp('GET', url + str, false, false, false, 'baseUrl');
+    //this.apiService.setHttp('GET', `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId}&DepartmentLevelId=${formData?.designationLevelId}&DesignationId=${formData?.designationId}&lan=${this.lang}&TextSearch=${formData?.searchText || ''}` + str, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == '200') {
+          this.dataSource = res.responseData;
+        } else {
+          this.dataSource = [];
+        }
+      }),
+      error: (err: any) => {
+        this.spinner.hide();
+        this.errorHandler.handelError(err.status)
+      }
+    })
+    //}
+  }
+
+  searchData() {
+    let formData = this.filterFrm.getRawValue();
+    if (formData?.userTypeId == 2) {
+      if (formData.departmentId != "" && formData.designationLevelId != "" && formData.designationId != "") {
+        this.getTableData();
+      }
+      else {
+        this.snackBarMsg();
+      }
     }
     else {
-      this.spinner.show();
-      let formData = this.filterFrm.getRawValue();
-      let str = `&pageno=${this.pageNumber}&pagesize=100`;
-     //  let url = (formData.userTypeId == 1 ?  `sericulture/api/UserPages/GetAllPageRights?DepartmentId=0&DepartmentLevelId=0&DesignationId=1&lan=${this.lang}&TextSearch=${formData?.searchText || ''}` : `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId}&DepartmentLevelId=${formData?.designationLevelId}&DesignationId=${formData?.designationId}&lan=${this.lang}&TextSearch=${formData?.searchText || ''}`);
-      //this.apiService.setHttp('GET', url + str, false, false, false, 'baseUrl');
-      this.apiService.setHttp('GET', `sericulture/api/UserPages/GetAllPageRights?DepartmentId=${formData?.departmentId}&DepartmentLevelId=${formData?.designationLevelId}&DesignationId=${formData?.designationId}&lan=${this.lang}&TextSearch=${formData?.searchText || ''}` + str, false, false, false, 'baseUrl');
-      this.apiService.getHttp().subscribe({
-        next: ((res: any) => {
-          this.spinner.hide();
-          if (res.statusCode == '200') {
-            this.dataSource = res.responseData;
-          } else {
-            this.dataSource = [];
-          }
-        }),
-        error: (err: any) => {
-          this.spinner.hide();
-          this.errorHandler.handelError(err.status)
-        }
-      })
+      this.getTableData();
     }
   }
 
@@ -135,23 +148,19 @@ export class PageRightAccessComponent {
   //clear filter form functionality here
   clearForm() {
     this.getFilterForm();
-    //this.getTableData();
+    this.getTableData();
   }
 
 
   //----------------- Dropdown code start here------------------------
   getDepartment() {
-    let userType= this.filterFrm.getRawValue()?.userTypeId;
-    console.log("userType",userType)
+    let userType = this.filterFrm.getRawValue()?.userTypeId;
+    console.log("userType", userType)
     this.masterService.GetDepartmentDropdown().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.departmentArray = res.responseData;
-           this.departmentArray.unshift({ "id": 0, "textEnglish": "All Department", "textMarathi": "सर्व विभाग" });
-           console.log(" this.departmentArray" ,this.departmentArray)
-           this.filterFrm.getRawValue()?.userTypeId == 1 ? (this.filterFrm.controls['departmentId'].setValue(this.departmentArray[0]?.id),this.getDesignationLevel()) : '';
-           // this.filterFrm.getRawValue()?.userTypeId == 1 ? this.getDesignationLevel() :''
-          }
+        }
         else {
           this.departmentArray = [];
         }
@@ -165,11 +174,7 @@ export class PageRightAccessComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.designationLevelArray = res.responseData;
-          this.designationLevelArray.unshift({ "id": 0, "textEnglish": "All Designation Level", "textMarathi": "सर्व पदनाम स्तर" });
-          this.filterFrm.getRawValue()?.userTypeId == 1 ? (this.filterFrm.controls['designationLevelId'].setValue(this.designationLevelArray[0]?.id),this.getDesignation()) : '';
-     
-          // this.filterFrm.getRawValue()?.userTypeId == 1 ? this.getDesignation() :''
-        }
+             }
         else {
           this.designationLevelArray = [];
         }
@@ -181,20 +186,20 @@ export class PageRightAccessComponent {
     this.designationArray = [];
     let deptId = this.filterFrm.getRawValue().departmentId;
     let designationLevel = this.filterFrm.getRawValue().designationLevelId;
-   this.masterService.GetDesignationDropDown(deptId, designationLevel).subscribe({
-        next: ((res: any) => {
-          if (res.statusCode == "200" && res.responseData.length) {
-            this.designationArray = res.responseData;
-            this.a['designationId'].setValue(this.designationArray[0].id)
-             this.getTableData();
-          }
-          else {
-            this.designationArray = [];
-          }
-        })
+    this.masterService.GetDesignationDropDown(deptId, designationLevel).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData.length) {
+          this.designationArray = res.responseData;
+          this.a['designationId'].setValue(this.designationArray[0].id)
+          this.getTableData();
+        }
+        else {
+          this.designationArray = [];
+        }
       })
-     }
- //----------------- Dropdown code end here------------------------
+    })
+  }
+  //----------------- Dropdown code end here------------------------
   //clear dropdown on dependency wise
   clearDropdown(flag: any) {
     switch (flag) {
@@ -204,26 +209,42 @@ export class PageRightAccessComponent {
         this.filterFrm.controls['designationId'].setValue('');
         this.designationArray = []
         break;
-        case 'user':
-          if(this.filterFrm.getRawValue()?.userTypeId ==  2){
+      case 'user':
+        if (this.filterFrm.getRawValue()?.userTypeId == 2) {
           this.filterFrm.controls['designationLevelId'].setValue('');
           this.designationLevelArray = [];
           this.filterFrm.controls['designationId'].setValue('');
           this.designationArray = [];
-           }
-          else{
-            this.getFilterForm();//when we select admin user type that time value patch 
-          }
-          break;
+        }
+        else {
+          this.getFilterForm();//when we select admin user type that time value patch 
+        }
+        break;
       case 'deptLevelId':
         this.filterFrm.controls['designationId'].setValue('');
         this.designationArray = []
         break;
-     }
+    }
   }
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
+  }
+
+  snackBarMsg(){
+    let formData = this.filterFrm.getRawValue();
+    if(formData.departmentId != "" && formData.designationLevelId == "" && formData.designationId == ""){
+      this.commonMethod.snackBar('Please Select Designation Level And Designation', 1);
+      return;
+      }
+      else if(formData.departmentId != "" && formData.designationLevelId != "" && formData.designationId == ""){
+        this.commonMethod.snackBar('Please Select Designation', 1);
+        return;
+      }
+      else{
+        this.commonMethod.snackBar('Please Select Department ,Designation Level And Designation', 1);
+        return;
+      }
   }
 
 }
