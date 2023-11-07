@@ -173,5 +173,9 @@ export class AddGrainageComponent {
     this.data = null;
     this.defaultFrm();
   }
+  
+  ngOnDestroy() {
+    this.talukaSubject.unsubscribe();
+  }
 
 }
