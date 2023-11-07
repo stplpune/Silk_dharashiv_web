@@ -207,7 +207,7 @@
   <div class="row gy-2">
     <div class="col-sm-12">
       <div class="d-flex gap-2">
-        <div class="form-label">{{'marketRate.market_en' | translate}}</div>
+        <div class="form-label">{{'marketRate.market' | translate}}</div>
         <div class=" form-data">: {{lang == 'en' ? (data?.marketName || '-') : (data?.m_MarketName || '-')}}</div>
       </div>
     </div>
@@ -272,13 +272,13 @@
     <div class="col-sm-6">
       <div class="row gx-2">
         <div class="col-sm-5 form-label">{{'marketRate.establishment_Date' | translate}}</div>
-        <div class="col-sm-7 form-data">:{{data?.estDate | date:'dd/MM/YYYY'|| '-'}}</div>
+        <div class="col-sm-7 form-data">: {{data?.estDate | date:'dd/MM/YYYY'|| '-'}}</div>
       </div>
     </div>
     <div class="col-sm-6">
       <div class="row gx-2">
         <div class="col-sm-5 form-label">{{'marketRate.latitude' | translate}}</div>
-        <div class="col-sm-7 form-data">:{{data?.latitude|| '-'}}</div>
+        <div class="col-sm-7 form-data">: {{data?.latitude|| '-'}}</div>
       </div>
     </div>
     <div class="col-sm-6">
