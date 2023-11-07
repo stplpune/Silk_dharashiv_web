@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
-import {FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators} from '@angular/forms';
-import {NgIf, NgFor} from '@angular/common';
+import {FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators} from '@angular/forms';
+import {NgIf, NgFor, AsyncPipe} from '@angular/common';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';import {MatRadioModule} from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,8 +15,9 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { BlockCircleComponent } from '../block-circle.component';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { Subscription } from 'rxjs';
+import { ReplaySubject, Subscription } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @Component({
@@ -24,7 +25,7 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './addcircle.component.html',
   styleUrls: ['./addcircle.component.scss'],
   standalone: true,
-  imports: [MatFormFieldModule,MatButtonModule, MatSelectModule, FormsModule, ReactiveFormsModule, NgIf,MatInputModule, NgFor,MatRadioModule,MatIconModule,MatDialogModule,TranslateModule],
+  imports: [MatFormFieldModule,MatButtonModule, MatSelectModule, FormsModule, ReactiveFormsModule, NgIf,MatInputModule, NgFor,MatRadioModule,MatIconModule,MatDialogModule,TranslateModule,NgxMatSelectSearchModule,AsyncPipe],
 })
 export class AddcircleComponent implements OnDestroy{
   addBlockForm !: FormGroup;
@@ -37,7 +38,8 @@ export class AddcircleComponent implements OnDestroy{
   viewFlag : boolean = false;
   isAssigngramFlag:boolean=false;
   @ViewChild('formDirective') private formDirective!: NgForm;
-
+  talukaCtrl: FormControl = new FormControl();
+  talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -60,6 +62,7 @@ export class AddcircleComponent implements OnDestroy{
     })
     this.viewFlag = this.data?.label == "View" ? true : false;
     !this.viewFlag ? (this.formData(),this.getState()) : ''
+    this.searchDataZone();
   }
 
   formData(){
@@ -74,7 +77,9 @@ export class AddcircleComponent implements OnDestroy{
       "flag": [this.data ? "u" : "i"]
     })
   }
-
+  searchDataZone() {
+    this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.talukaArr, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
+  }
   getState() {
     this.masterService.GetAllState().subscribe({
       next: ((res: any) => {
@@ -102,6 +107,7 @@ export class AddcircleComponent implements OnDestroy{
     this.masterService.GetAllTaluka(stateId,districtId,0).subscribe({
       next: ((res: any) => {
         this.talukaArr = res.responseData;
+        this.commonMethod.filterArrayDataZone(this.talukaArr, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
         if(this.data){
           let taluka = new Array()
           this.data?.getTalukaModel.forEach((res:any )=> {
@@ -146,6 +152,7 @@ export class AddcircleComponent implements OnDestroy{
   }
 
   ngOnDestroy() {
+    this.talukaSubject.unsubscribe();
     this.subscription?.unsubscribe();
   }
 }
