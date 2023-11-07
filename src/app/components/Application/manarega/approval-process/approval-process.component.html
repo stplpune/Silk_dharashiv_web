@@ -1,6 +1,6 @@
 <mat-card class="plain-card form-container">
   <mat-card-header class="card-header">
-    <div class="text-main fw-bold">Application Status</div>
+    <div class="text-main fw-bold">Application / {{applicantDetails?.schemeType}} / View Application </div>
   </mat-card-header>
 
   <mat-card-content class="card-body">
@@ -63,15 +63,17 @@
           <th mat-header-cell *matHeaderCellDef>Sr.No.</th>
           <td mat-cell *matCellDef="let element; let i=index" class="mxw-200">{{i+1}} </td>
         </ng-container>
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
-          <td mat-cell *matCellDef="let element" class="mnw-180">{{element.name ? element.name :'-'}}</td>
-        </ng-container>
+       
         <ng-container matColumnDef="designationName">
           <th mat-header-cell *matHeaderCellDef> Designation </th>
           <td mat-cell *matCellDef="let element" class="mnw-200">{{element.designationName ? element.designationName
             :'-'}}</td>
         </ng-container>
+        <ng-container matColumnDef="actionName">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element" class="mnw-200">{{element.actionName ? element.actionName  :'-'}}</td>
+        </ng-container>
+        
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef>Approval Status</th>
           <td mat-cell *matCellDef="let element">
@@ -86,17 +88,21 @@
           <td mat-cell *matCellDef="let element">{{element.modifiedDate == '0001-01-01T00:00:00' ? '-' :
             element.modifiedDate | date :'dd-MM-YYYY hh:mm a'}}</td>
         </ng-container>
-        <ng-container matColumnDef="remark">
+        <!-- <ng-container matColumnDef="remark">
           <th mat-header-cell *matHeaderCellDef>Approval Remark </th>
           <td mat-cell *matCellDef="let element">{{element.remark ? element.remark :'-'}}</td>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef>View</th>
           <td mat-cell *matCellDef="let element">
-            <ng-container *ngIf="element?.documentTypeName else elseBlock">
-              <button mat-raised-button color="primary" type="button"
-                (click)="viewDocument(element?.documnetApprovalPath)">{{element?.documentTypeName}}</button>
+            <ng-container *ngIf="element?.documnetApprovalPath else elseBlock">
+              <button matTooltipPosition="above" mat-icon-button 
+              class="btn-icon bg-dark bg-opacity-10" (click)="viewDocument(element?.documnetApprovalPath)">
+              <span class="material-symbols-rounded text-dark">
+                visibility
+              </span>
+            </button>
             </ng-container>
             <ng-template #elseBlock>
               -
@@ -481,7 +487,7 @@
                       </button>
                       <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
                         (change)="imageUplod($event,'otherDocForm')" hidden="hidden" />
-                      <div class="d-flex gap-2" *ngIf="imageData">
+                      <div class="d-flex gap-2" *ngIf="uploadFrm.value.docPath">
                         <button type="button" mat-flat-button (click)="viewimage()"
                           class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view">
                           <mat-icon class="material-symbols-rounded">
@@ -601,10 +607,10 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" [class.d-none]="!applicationData?.isEdit">
       <div class="card-body">
-        <!-- [class.d-none]="applicationData?.applicationStatus != 1"   [class.d-none]="!applicationData?.isEdit" -->
-        <form [formGroup]="approvalFrm" (ngSubmit)="onSubmitApprovalDetails()" #formDirectives="ngForm">
+        <!-- [class.d-none]="applicationData?.applicationStatus != 1"    -->
+        <form [formGroup]="approvalFrm" (ngSubmit)="onSubmitApprovalDetails()" #formDirectives="ngForm" >
           <div class="row g-2">
             <div class="col-sm-auto">
               <div class="d-flex gap-2">
@@ -613,8 +619,7 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="applicationStatus" (selectionChange)="getReason()">
                       <mat-option *ngFor="let apporvalStatus of approvalStatusArray" [value]="apporvalStatus?.id">{{lang
-                        ==
-                        "en" ? apporvalStatus?.textEnglish : apporvalStatus?.textMarathi}}</mat-option>
+                        =="en" ? apporvalStatus?.textEnglish : apporvalStatus?.textMarathi}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -629,10 +634,10 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="file-upload border rounded-2 p-1">
+              <div class="file-upload border rounded-2 p-1" *ngIf="this.applicationData?.uploadDocTypeId !=0">
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
                   data-placement="right" (click)="uploadDepDocument.click()">
-                  {{actionNameLabel}}
+                  Upload Document
                 </button>
                 <input type="file" class="d-none" #uploadDepDocument (change)="imageUplod($event,'uplDepDoc')">
                 <div class="d-flex gap-2" *ngIf="uploadedDepDoc?.docPath">
@@ -668,6 +673,10 @@
             </div>
 
           </div>
+          <div class="d-flex align-items-center justify-content-end gap-2 my-2">
+            <button mat-flat-button class="btn-main-light" type="button" [mat-dialog-close]="true">Cancel</button>
+            <button mat-flat-button class="btn-main" type="submit">Submit</button>
+          </div>
         </form>
 
 
@@ -693,10 +702,7 @@
             </mat-icon>
           </button>
         </div> -->
-        <div class="d-flex align-items-center justify-content-end gap-2 my-2">
-          <button mat-flat-button class="btn-main-light" type="button" [mat-dialog-close]="true">Cancel</button>
-          <button mat-flat-button class="btn-main" type="submit">Submit</button>
-        </div>
+       
       </div>
     </div>
 
