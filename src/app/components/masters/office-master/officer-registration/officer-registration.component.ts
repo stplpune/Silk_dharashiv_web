@@ -8,8 +8,8 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
-import { Subscription } from 'rxjs';
-import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { ReplaySubject, Subscription } from 'rxjs';
+import { FormBuilder, FormControl, FormGroup, NgForm } from '@angular/forms';
 import { MasterService } from 'src/app/core/services/master.service';
 
 @Component({
@@ -32,12 +32,33 @@ export class OfficerRegistrationComponent implements OnDestroy {
   talukaArray = new Array();
   blockArray = new Array();
   circleArray = new Array();
-  // villageArray = new Array();
   @ViewChild('formDirective') private formDirective!: NgForm;
   filterFlag: boolean = false;
   objId: any;
   pageAccessObject: object | any;
   grampanchayatArray = new Array();
+
+  departmentctrl: FormControl = new FormControl();
+  departmentLevelSubject: ReplaySubject<any> = new ReplaySubject<any>();
+
+  departmentLevelCtrl: FormControl = new FormControl();
+  departmentSubject: ReplaySubject<any> = new ReplaySubject<any>();
+
+  designationCtrl: FormControl = new FormControl();
+  designationSubject: ReplaySubject<any> = new ReplaySubject<any>();
+
+  talukaCtrl: FormControl = new FormControl();
+  talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
+
+  blockCtrl: FormControl = new FormControl();
+  blockSubject: ReplaySubject<any> = new ReplaySubject<any>();
+
+  circleCtrl: FormControl = new FormControl();
+  circleSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  
+  gramPCtrl: FormControl = new FormControl();
+  gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
+
   constructor(
     public dialog: MatDialog,
     private apiService: ApiService,
@@ -60,10 +81,9 @@ export class OfficerRegistrationComponent implements OnDestroy {
     })
     this.getFilterFormData();
     this.getDepartment();
-    // this.getDepartmentLevel();
     this.getTaluka();
     this.getBlock();
-    // this.getCircle();
+    this.searchDataZone();
     this.bindTable();
   }
 
@@ -82,10 +102,22 @@ export class OfficerRegistrationComponent implements OnDestroy {
 
   get f() { return this.filterForm.controls; }
 
+  searchDataZone() {
+    this.departmentctrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.departmentArray, this.departmentctrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentSubject) });
+    this.departmentLevelCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.departmentLevelArray, this.departmentLevelCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentLevelSubject) });
+    this.designationCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.designationArray, this.designationCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.designationSubject) });
+    this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
+    this.blockCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.blockArray, this.blockCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.blockSubject) });
+    this.circleCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.circleArray, this.circleCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.circleSubject) });
+    this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject) });
+  }
+
   getDepartment() {
     this.masterService.GetDepartmentDropdown().subscribe({
       next: ((res: any) => {
         this.departmentArray = res.responseData;
+        this.departmentArray.unshift({ id: 0,textEnglish:'All Department' ,textMarathi:'सर्व विभाग'} ),
+        this.commonMethod.filterArrayDataZone(this.departmentArray, this.departmentctrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentSubject);
       }), error: (() => {
         this.departmentArray = [];
       })
@@ -96,6 +128,8 @@ export class OfficerRegistrationComponent implements OnDestroy {
     this.masterService.GetDeptLevelDropDown().subscribe({
       next: ((res: any) => {
         this.departmentLevelArray = res.responseData;
+        this.departmentLevelArray.unshift({ id: 0,textEnglish:'All Level' ,textMarathi:'सर्व स्तर'} ),
+        this.commonMethod.filterArrayDataZone(this.departmentLevelArray, this.departmentLevelCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentLevelSubject);
       }), error: (() => {
         this.departmentLevelArray = [];
       })
@@ -109,6 +143,8 @@ export class OfficerRegistrationComponent implements OnDestroy {
       this.masterService.GetDesignationDropDownOnDeptLevel((deptId || 0),(deptLevelId||0)).subscribe({
         next: ((res: any) => {
           this.designationArray = res.responseData;
+          this.designationArray.unshift({ id: 0,textEnglish:'All Designation' ,textMarathi:'सर्व पदनाम'} ),
+          this.commonMethod.filterArrayDataZone(this.designationArray, this.designationCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.designationSubject);
         }), error: (() => {
           this.designationArray = [];
         })
@@ -120,6 +156,8 @@ export class OfficerRegistrationComponent implements OnDestroy {
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
+        this.talukaArray.unshift( { id: 0,textEnglish:'All Taluka',textMarathi:'सर्व तालुका'} ),
+        this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
       }), error: (() => {
         this.talukaArray = [];
       })
@@ -130,6 +168,8 @@ export class OfficerRegistrationComponent implements OnDestroy {
     this.masterService.GetAllBlock(1, 1).subscribe({
       next: ((res: any) => {
         this.blockArray = res.responseData;
+        this.blockArray.unshift( { id: 0,textEnglish:'All Block' ,textMarathi:'सर्व ब्लॉक'});
+        this.commonMethod.filterArrayDataZone(this.blockArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.blockSubject);
       }), error: (() => {
         this.blockArray = [];
       })
@@ -141,6 +181,8 @@ export class OfficerRegistrationComponent implements OnDestroy {
     this.masterService.GetAllCircle(1, 1, talukaId).subscribe({
       next: ((res: any) => {
         this.circleArray = res.responseData;
+        this.circleArray.unshift( { id: 0,textEnglish:'All Circle' ,textMarathi:'सर्व मंडळ'});
+        this.commonMethod.filterArrayDataZone(this.circleArray, this.circleCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.circleSubject);
       }), error: (() => {
         this.circleArray = [];
       })
@@ -152,6 +194,8 @@ export class OfficerRegistrationComponent implements OnDestroy {
     this.masterService.GetGrampanchayat(talukaId || 0).subscribe({
       next: ((res: any) => {
         this.grampanchayatArray = res.responseData;
+        this.grampanchayatArray.unshift( { id: 0,textEnglish:'All Grampanchayat' ,textMarathi:'सर्व ग्रामपंचायत'});
+        this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
       }), error: (() => {
         this.grampanchayatArray = [];
       })
