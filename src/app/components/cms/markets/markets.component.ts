@@ -137,8 +137,8 @@ export class MarketsComponent implements OnDestroy{
   }
 
   openBlockDialog(obj?: any) {
-    let userEng = obj.status == false ? 'Publish' : 'UnPublish';
-    let userMara = obj.status == false ? 'प्रकाशित' : 'अप्रकाशित';
+    let userEng = obj.status == false ? 'Active' : 'Deactive';
+    let userMara = obj.status == false ? 'सक्रिय' : 'निष्क्रिय';
     let dialoObj = {
       header: this.lang == 'mr-IN' ? 'बाजार ' + userMara + ' करा' : userEng + ' Market',
       title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेला बाजार  ' + userMara + ' करू इच्छिता ?' : 'Do You Want To ' + userEng + ' The Selected Market ?',
