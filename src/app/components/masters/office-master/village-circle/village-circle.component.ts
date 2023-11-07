@@ -1,8 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
-import {  FormBuilder, FormGroup } from '@angular/forms';
+import {  FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Subscription } from 'rxjs';
+import { ReplaySubject, Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -31,6 +31,10 @@ export class VillageCircleComponent implements OnDestroy{
   pageAccessObject: object|any;
   talukaArray = new Array();
   grampanchayatArray = new Array();
+  talukaCtrl: FormControl = new FormControl();
+  talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  gramPCtrl: FormControl = new FormControl();
+  gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
   constructor
     (
       public dialog: MatDialog,
@@ -53,6 +57,7 @@ export class VillageCircleComponent implements OnDestroy{
     });
     this.getTaluka();
     this.getFilterFormData();
+    this.searchDataZone();
     this.getTableData();
   }
 
@@ -63,6 +68,11 @@ export class VillageCircleComponent implements OnDestroy{
       talukaId:[0],
       grampanchayatId:[0]
     })
+  }
+
+  searchDataZone() {
+    this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethodService.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
+    this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.commonMethodService.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject) });
   }
 
   AddVillage(data?: any) {
@@ -80,6 +90,8 @@ export class VillageCircleComponent implements OnDestroy{
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
+        this.talukaArray.unshift(this.lang == 'en' ? { id: 0,textEnglish:'All Taluka'} :  { id: 0,textMarathi:'सर्व तालुका'} ),
+        this.commonMethodService.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
       }), error: (() => {
         this.talukaArray = [];
       })
@@ -92,6 +104,8 @@ export class VillageCircleComponent implements OnDestroy{
     this.masterService.GetGrampanchayat(talukaId || 0).subscribe({
       next: ((res: any) => {
         this.grampanchayatArray = res.responseData;
+        this.grampanchayatArray.unshift(this.lang == 'en' ? { id: 0,textEnglish:'All Grampanchayat'} :  { id: 0,textMarathi:'सर्व ग्रामपंचायत'} ),
+        this.commonMethodService.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
       }), error: (() => {
         this.grampanchayatArray = [];
       })

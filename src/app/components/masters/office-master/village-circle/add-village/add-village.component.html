@@ -33,8 +33,6 @@
               [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let dist of districtArray" [value]="dist.id">{{lang != 'en' ? dist.textMarathi
                 :dist.textEnglish}}</mat-option>
-              <!-- [class]="villageForm.controls['districtId'].disable({ onlySelf: true })"> -->
-
             </mat-select>
           </mat-form-field>
         </div>
@@ -42,11 +40,20 @@
           <mat-label class="form-label">{{'villageCircle.select_taluka' | translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'villageCircle.select_taluka' | translate}}</mat-label> -->
-            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('village');getGrampanchayat()">
-              <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi
+            <mat-select formControlName="talukaId"
+              (selectionChange)="clearvillageFlag=true;clearDropDown('village');getGrampanchayat()">
+              <mat-option>
+                <ngx-mat-select-search [formControl]="talukaCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
+                  noEntriesFoundLabel="No Data Found"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ?
+                taluka.textMarathi
                 :taluka.textEnglish}}</mat-option>
             </mat-select>
             <mat-error *ngIf="f['talukaId']?.hasError('required')">{{'villageCircle.please_select_taluka'|translate}}
+            </mat-error>
+            <mat-error *ngIf="this.clearvillageFlag">{{'villageCircle.please_select_taluka'|translate}}
             </mat-error>
           </mat-form-field>
         </div>
@@ -56,11 +63,17 @@
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'villageCircle.select_grampanchayat' | translate}}</mat-label> -->
             <mat-select formControlName="grampanchayats" multiple>
-              <mat-option *ngFor="let vil of grampanchayatArray" [value]="vil.id"
+              <mat-option>
+                <ngx-mat-select-search [formControl]="gramPCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                  noEntriesFoundLabel="No Data Found"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let vil of gramPSubject | async" [value]="vil.id"
                 [disabled]="vil.isSelected && !vil.isAssigned">{{lang != 'en' ? vil.textMarathi
                 :vil.textEnglish}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="f['grampanchayats']?.hasError('required')">{{'villageCircle.please_select_grampanchayat' |
+            <mat-error *ngIf="f['grampanchayats']?.hasError('required') ||  clearvillageFlag">
+              {{'villageCircle.please_select_grampanchayat' |
               translate}}</mat-error>
           </mat-form-field>
         </div>
@@ -74,8 +87,8 @@
               | translate}}</mat-error>
             <mat-error *ngIf="f['circleName']?.hasError('pattern')">{{'villageCircle.please_enter_valid_circle_name_en'
               | translate}}</mat-error>
-            <mat-error
-              *ngIf="f['circleName']?.hasError('maxLengthExceeded')">{{'villageCircle.maximum_limit_30_characters' |
+            <mat-error *ngIf="f['circleName']?.hasError('maxLengthExceeded')">
+              {{'villageCircle.maximum_limit_30_characters' |
               translate}}</mat-error>
           </mat-form-field>
         </div>
@@ -87,11 +100,11 @@
               (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
             <mat-error *ngIf="f['m_CircleName']?.hasError('required')">{{'villageCircle.please_enter_circle_name_mr'
               | translate}}</mat-error>
-            <mat-error
-              *ngIf="f['m_CircleName']?.hasError('pattern')">{{'villageCircle.please_enter_valid_circle_name_mr' |
+            <mat-error *ngIf="f['m_CircleName']?.hasError('pattern')">
+              {{'villageCircle.please_enter_valid_circle_name_mr' |
               translate}}</mat-error>
-            <mat-error
-              *ngIf="f['m_CircleName']?.hasError('maxLengthExceeded')">{{'villageCircle.maximum_limit_30_characters' |
+            <mat-error *ngIf="f['m_CircleName']?.hasError('maxLengthExceeded')">
+              {{'villageCircle.maximum_limit_30_characters' |
               translate}}</mat-error>
           </mat-form-field>
         </div>
@@ -126,15 +139,6 @@
         </div>
       </div>
       <div class="col-sm-12">
-
-
-        <!-- <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Village' : 'गाव'}}</div>
-          <span *ngFor="let villahes of data.villages">
-            {{lang == 'en' ? (villahes?.village || '-'): (villahes?.m_Village || '-')}},
-          </span>
-        </div> -->
-
         <div class="col-sm-12">
           <div class="row gx-2">
             <div class="col-sm-5 form-label">{{lang == 'en' ? 'Grampanchayat' : 'ग्रामपंचायत'}}</div>
@@ -145,8 +149,6 @@
             </div>
           </div>
         </div>
-
-
       </div>
       <div class="col-sm-12">
         <div class="row gx-2">

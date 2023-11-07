@@ -190,8 +190,6 @@ export class PageRightAccessComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {
           this.designationArray = res.responseData;
-          this.a['designationId'].setValue(this.designationArray[0].id)
-          this.getTableData();
         }
         else {
           this.designationArray = [];
