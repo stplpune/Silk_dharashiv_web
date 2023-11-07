@@ -44,8 +44,8 @@
             <div class="form-label mb-0">Status : </div>
             <div class="form-data text-warning">
               <span class="badge"
-                [ngClass]="applicationData.status=='Approved' ? 'bg-success-subtle text-success' : (applicationData.status == 'Pending' || applicationData.status == 'pending') ? 'bg-warning-subtle text-warning' : 'bg-danger-subtle text-danger'">
-                {{applicationData.status ? applicationData.status :'-'}}
+                [ngClass]="applicationData?.status=='Approved' ? 'bg-success-subtle text-success' : (applicationData?.status == 'Pending' || applicationData?.status == 'pending') ? 'bg-warning-subtle text-warning' : 'bg-danger-subtle text-danger'">
+                {{applicationData?.status ? applicationData?.status :'-'}}
               </span>
 
               <!-- {{lang == 'en' ? (applicationData?.status | dash ) :
