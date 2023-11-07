@@ -227,6 +227,7 @@ export class AddMarketListComponent {
         next: ((res: any) => {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.talukaArray = res.responseData;
+            this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
             this.editFlag ? this.a['talukaId'].setValue(this.editObj?.talukaId) : '';
           }
           else {
