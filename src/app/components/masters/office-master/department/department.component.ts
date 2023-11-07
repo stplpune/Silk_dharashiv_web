@@ -154,7 +154,9 @@ export class DepartmentComponent implements OnDestroy{
           next: (res: any) => {
             if (res.statusCode == '200') {
               this.common.snackBar(res.statusMessage, 0);
+              this.filterDefaultFrm();
               this.getTableData();
+              
             } else {
               this.common.snackBar(res.statusMessage, 1);
             }
@@ -176,7 +178,7 @@ export class DepartmentComponent implements OnDestroy{
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(res => {
-      res == 'Yes'? this.getTableData() : '';
+      res == 'Yes'? (this.filterDefaultFrm(),this.getTableData()) : '';
       this.highLightRowFlag = false;
     });
   }
