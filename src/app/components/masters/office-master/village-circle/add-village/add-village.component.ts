@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MasterService } from 'src/app/core/services/master.service';
@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
-import { Subscription } from 'rxjs';
+import { ReplaySubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-village',
@@ -26,6 +26,11 @@ export class AddVillageComponent implements OnDestroy {
   subscription!: Subscription;
   lang: any;
   isViewFlag: boolean = false;
+  clearvillageFlag:boolean=false;
+  talukaCtrl: FormControl = new FormControl();
+  talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  gramPCtrl: FormControl = new FormControl();
+  gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
   constructor
     (
       private fb: FormBuilder,
@@ -50,6 +55,7 @@ export class AddVillageComponent implements OnDestroy {
       this.getState();
     }
     this.getFormData();
+    this.searchDataZone();
   }
 
   getFormData() {
@@ -58,7 +64,7 @@ export class AddVillageComponent implements OnDestroy {
       stateId: [this.data ? this.data?.stateId : this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],
       districtId: [this.data ? this.data?.districtId :  this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],
       talukaId: [this.data ? this.data?.talukaId : '', [Validators.required]],
-      grampanchayats: [this.data ? this.data?.grampanchayat : '', [Validators.required]],
+      grampanchayats: [this.data ? this.data?.grampanchayat : '',[Validators.required]],
       circleName: [this.data ? this.data?.circleName : '', [Validators.required, Validators.pattern(this.validator.fullName), this.validator.maxLengthValidator(30)]],
       m_CircleName: [this.data ? this.data?.m_CircleName : '', [Validators.required, Validators.pattern(this.validator.marathi), this.validator.maxLengthValidator(30)]],
       flag: [this.data ? "u" : "i"],
@@ -67,6 +73,11 @@ export class AddVillageComponent implements OnDestroy {
   }
 
   get f() { return this.villageForm.controls };
+
+  searchDataZone() {
+    this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethodService.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
+    this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.commonMethodService.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject) });
+  }
 
   getState() {
     this.master.GetAllState().subscribe({
@@ -100,6 +111,7 @@ export class AddVillageComponent implements OnDestroy {
     this.master.GetAllTaluka(stateId, distId, 0,).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
+        this.commonMethodService.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
         this.data ? (this.f['talukaId'].setValue(this.data?.talukaId), this.getGrampanchayat()) : '';
       }), error: (() => {
         this.talukaArray = [];
@@ -112,6 +124,7 @@ export class AddVillageComponent implements OnDestroy {
     this.master.GetGrampanchayat(talukaId || 0).subscribe({
       next: ((res: any) => {
         this.grampanchayatArray = res.responseData;
+        this.commonMethodService.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
         if (this.data) {
           let newVillage = new Array();
           this.data?.grampanchayat.forEach((res: any) => {
@@ -131,11 +144,11 @@ export class AddVillageComponent implements OnDestroy {
   onSubmitData() {
     this.spinner.show();
     let formData = this.villageForm.getRawValue();
-    if (this.villageForm.invalid) {
+    formData.grampanchayats = !this.clearvillageFlag ?  this.villageForm.value.grampanchayats.toString() : '';
+    if (this.villageForm.invalid ) {
       this.spinner.hide();
       return;
     } else {
-      formData.grampanchayats = this.villageForm.value.grampanchayats.toString();
       this.apiService.setHttp('post', 'sericulture/api/Circles/AddUpdateCircles?lan=' + this.lang, false, formData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
@@ -156,7 +169,7 @@ export class AddVillageComponent implements OnDestroy {
     }
   }
 
-  clearDropDown(flag?: any) {
+  clearDropDown(flag?: any) {    
     if (flag == 'village') {
       this.f['grampanchayats'].setValue('');
       this.grampanchayatArray = [];
@@ -171,6 +184,9 @@ export class AddVillageComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
+    this.talukaSubject.unsubscribe();
+    this.gramPSubject.unsubscribe();
+
   }
 
 
