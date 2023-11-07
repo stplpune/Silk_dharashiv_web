@@ -17,6 +17,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { GlobalTableComponent } from 'src/app/shared/global-table/global-table.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 @NgModule({
   declarations: [
     MarketsComponent,
@@ -38,7 +39,8 @@ import { ReactiveFormsModule,FormsModule } from '@angular/forms';
     MatDatepickerModule,
     TranslateModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgxMatSelectSearchModule
   ]
 })
 export class MarketsModule { }

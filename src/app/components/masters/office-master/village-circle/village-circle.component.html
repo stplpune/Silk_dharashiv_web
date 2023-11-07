@@ -16,9 +16,14 @@
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{'common.taluka_filter' | translate}}</mat-label> -->
-          <mat-select formControlName="talukaId" placeholder="All Taluka" (selectionChange)="getGrampanchayat()">
-            <mat-option [value]="0"> {{'officerreg.allTaluka' | translate}}</mat-option>
-            <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi :
+          <mat-select formControlName="talukaId"(selectionChange)="getGrampanchayat()">
+            <mat-option>
+              <ngx-mat-select-search [formControl]="talukaCtrl"
+                placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
+                noEntriesFoundLabel="No Data Found"></ngx-mat-select-search>
+            </mat-option>
+            <!-- <mat-option [value]="0"> {{'officerreg.allTaluka' | translate}}</mat-option> -->
+            <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi :
               taluka.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -26,9 +31,14 @@
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{'common.grampanchayat_filter' | translate}}</mat-label> -->
-          <mat-select formControlName="grampanchayatId" placeholder="All Grampanchayat">
-            <mat-option [value]="0">{{'officerreg.all_grampanchayat' | translate}}</mat-option>
-            <mat-option *ngFor="let village of grampanchayatArray" [value]="village.id">{{lang != 'en' ?
+          <mat-select formControlName="grampanchayatId">
+            <mat-option>
+              <ngx-mat-select-search [formControl]="gramPCtrl"
+                placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                noEntriesFoundLabel="No Data Found"></ngx-mat-select-search>
+            </mat-option>
+            <!-- <mat-option [value]="0">{{'officerreg.all_grampanchayat' | translate}}</mat-option> -->
+            <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?
               village.textMarathi : village.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>

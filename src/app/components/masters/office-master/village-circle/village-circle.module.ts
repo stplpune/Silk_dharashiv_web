@@ -15,6 +15,7 @@ import { MatTableModule } from '@angular/material/table';
 import { AddVillageComponent } from './add-village/add-village.component';
 import { GlobalTableComponent } from "../../../../shared/global-table/global-table.component";
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { TranslateModule } from '@ngx-translate/core';
         MatIconModule,
         MatDialogModule,
         GlobalTableComponent,
-        TranslateModule
+        TranslateModule,
+        NgxMatSelectSearchModule
     ]
 })
 export class VillageCircleModule { }

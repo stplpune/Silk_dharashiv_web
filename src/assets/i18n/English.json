@@ -216,6 +216,7 @@
   "marketRate": {
     "market_en": "Market Name(English)",
     "market_mr": "Market Name(Marathi)",
+    "market": "Market Name",
     "contact_1": "Contact No 1",
     "contact_2": "Contact No 2",
     "farm_goods": "Farm Goods",
@@ -230,6 +231,7 @@
     "latitude": "Latitude",
     "longitude": "Longitude",
     "administrator": "Administrator",
+    "administrator_mobile_no":"Administrator Contact No.",
     "working_hours": "Working Hours",
     "add_Market_List": "Add Market ",
     "update_Market_List": "Update Market List",

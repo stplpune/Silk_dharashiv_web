@@ -29,7 +29,12 @@
             <!-- <mat-label>{{'manrega.taluka'| translate}}</mat-label> -->
             <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('Taluka');getGrampanchayat()" placeholder="All Taluka"
             [class]="webStorage.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })">
-              <mat-option *ngFor=" let taluka of talukaArr" [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish :
+            <mat-option>
+              <ngx-mat-select-search [formControl]="talukaCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती आढळली नाही'}}"></ngx-mat-select-search>
+          </mat-option>
+            <mat-option *ngFor=" let taluka of talukaSubject | async" [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish :
                 taluka.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -39,7 +44,12 @@
             <!-- <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label> -->
             <mat-select formControlName="grampanchayatId" placeholder="Grampanchayat"
             [class]="webStorage.getGrampanchayatId() ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
-              <mat-option *ngFor=" let gram of grampanchayatArray" [value]="gram.id">{{lang == 'en' ? gram.textEnglish :
+            <mat-option>
+              <ngx-mat-select-search [formControl]="gramPCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती आढळली नाही'}}"></ngx-mat-select-search>
+          </mat-option>
+              <mat-option *ngFor=" let gram of gramPSubject | async" [value]="gram.id">{{lang == 'en' ? gram.textEnglish :
                 gram.textMarathi}}</mat-option>
             </mat-select>
           </mat-form-field>

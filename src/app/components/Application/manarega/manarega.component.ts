@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Subscription } from 'rxjs';
+import { ReplaySubject, Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -32,8 +32,10 @@ export class ManaregaComponent {
   subscription!: Subscription;
   lang: string = 'English';
   get f() { return this.filterFrm.controls };
-  displayedColumns: string[] = ['srno', 'applicationid', 'farmername', 'mobileno', 'taluka', 'village', 'date', 'status', 'action'];
-
+  talukaCtrl: FormControl = new FormControl();
+  talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  gramPCtrl: FormControl = new FormControl();
+  gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
 
   constructor(private fb: FormBuilder,
     private master: MasterService,
@@ -54,7 +56,8 @@ export class ManaregaComponent {
       this.setTableData();
     })
     this.filterDefaultFrm(); this.getTableData(); this.getAllScheme();
-    this.getDisrict(); this.getStatus(); this.getAction();
+    this.getDisrict(); this.getStatus(); this.getAction(); 
+    this.searchDataZone();
   }
 
   filterDefaultFrm() {
@@ -67,6 +70,11 @@ export class ManaregaComponent {
       // actionId: [0],
       textSearch: [''],
     })
+  }
+
+  searchDataZone() {
+    this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.common.filterArrayDataZone(this.talukaArr, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
+    this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.common.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject) });
   }
 
   getAllScheme() {
@@ -100,6 +108,7 @@ export class ManaregaComponent {
     this.master.GetAllTaluka(this.webStorage.getStateId(), distId, 0,).subscribe({
       next: ((res: any) => {
         this.talukaArr.unshift({ id: 0, textEnglish: "All Taluka", textMarathi: "सर्व तालुका" }, ...res.responseData);
+        this.common.filterArrayDataZone(this.talukaArr, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
         this.getGrampanchayat();
       }), error: (() => {
         this.talukaArr = [];
@@ -114,6 +123,7 @@ export class ManaregaComponent {
       this.master.GetGrampanchayat(talukaId || 0).subscribe({
         next: ((res: any) => {
           this.grampanchayatArray.unshift({ id: 0, textEnglish: "All Grampanchayat", textMarathi: "सर्व ग्रामपंचायत" }, ...res.responseData);
+          this.common.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
         }), error: (() => {
           this.grampanchayatArray = [];
         })
@@ -242,6 +252,8 @@ export class ManaregaComponent {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.gramPSubject.unsubscribe();
+    this.talukaSubject.unsubscribe();
   }
 
 }
