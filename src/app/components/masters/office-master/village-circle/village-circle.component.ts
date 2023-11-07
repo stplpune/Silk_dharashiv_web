@@ -86,11 +86,11 @@ export class VillageCircleComponent implements OnDestroy{
     })
   }
 
-  getTaluka() {
+  getTaluka() {    
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
-        this.talukaArray.unshift(this.lang == 'en' ? { id: 0,textEnglish:'All Taluka'} :  { id: 0,textMarathi:'सर्व तालुका'} ),
+        this.talukaArray.unshift( { id: 0,textEnglish:'All Taluka',textMarathi:'सर्व तालुका'} ),
         this.commonMethodService.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
       }), error: (() => {
         this.talukaArray = [];
@@ -104,7 +104,7 @@ export class VillageCircleComponent implements OnDestroy{
     this.masterService.GetGrampanchayat(talukaId || 0).subscribe({
       next: ((res: any) => {
         this.grampanchayatArray = res.responseData;
-        this.grampanchayatArray.unshift(this.lang == 'en' ? { id: 0,textEnglish:'All Grampanchayat'} :  { id: 0,textMarathi:'सर्व ग्रामपंचायत'} ),
+        this.grampanchayatArray.unshift( { id: 0,textEnglish:'All Grampanchayat' ,textMarathi:'सर्व ग्रामपंचायत'});
         this.commonMethodService.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
       }), error: (() => {
         this.grampanchayatArray = [];
@@ -236,6 +236,8 @@ export class VillageCircleComponent implements OnDestroy{
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
+    this.talukaSubject?.unsubscribe();
+    this.gramPSubject?.unsubscribe();
   }
 
 }
