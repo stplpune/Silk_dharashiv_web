@@ -15,6 +15,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { GlobalTableComponent } from "../../../../shared/global-table/global-table.component";
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { TranslateModule } from '@ngx-translate/core';
         MatButtonModule,
         GlobalTableComponent,
         ReactiveFormsModule,FormsModule,
-        TranslateModule
+        TranslateModule,
+        NgxMatSelectSearchModule
     ]
 })
 export class OfficerRegistrationModule { }

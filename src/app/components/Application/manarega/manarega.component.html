@@ -32,7 +32,7 @@
             <mat-option>
               <ngx-mat-select-search [formControl]="talukaCtrl"
                   placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
-                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती आढळली नाही'}}"></ngx-mat-select-search>
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
           </mat-option>
             <mat-option *ngFor=" let taluka of talukaSubject | async" [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish :
                 taluka.textMarathi}}</mat-option>
@@ -42,12 +42,12 @@
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label> -->
-            <mat-select formControlName="grampanchayatId" placeholder="Grampanchayat"
+            <mat-select formControlName="grampanchayatId" placeholder="{{lang == 'en' ? 'Grampanchayat' :'ग्रामपंचायत'}}"
             [class]="webStorage.getGrampanchayatId() ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
             <mat-option>
               <ngx-mat-select-search [formControl]="gramPCtrl"
                   placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
-                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती आढळली नाही'}}"></ngx-mat-select-search>
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
           </mat-option>
               <mat-option *ngFor=" let gram of gramPSubject | async" [value]="gram.id">{{lang == 'en' ? gram.textEnglish :
                 gram.textMarathi}}</mat-option>

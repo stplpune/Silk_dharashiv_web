@@ -6,9 +6,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { MasterService } from 'src/app/core/services/master.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { Subscription } from 'rxjs';
+import { ReplaySubject, Subscription } from 'rxjs';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 import { ValidationService } from 'src/app/core/services/validation.service';
 
@@ -31,7 +31,8 @@ export class MarketsComponent implements OnDestroy{
   lang: any;
   searchDataFlag: boolean = false
   pageAccessObject: object|any;
-
+  talukaCtrl: FormControl = new FormControl();
+  talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   constructor(public dialog: MatDialog,
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -52,7 +53,7 @@ export class MarketsComponent implements OnDestroy{
     })
     this.formData();
     this.getState();
-    this.bindTable();
+    this.bindTable();this.searchDataZone();
   }
 
   formData() {
@@ -62,6 +63,10 @@ export class MarketsComponent implements OnDestroy{
       talukaId: [0],
       textSearch: ['']
     })
+  }
+
+  searchDataZone() {
+    this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
   }
 
   bindTable(flag?: any) {
@@ -272,6 +277,7 @@ export class MarketsComponent implements OnDestroy{
         next: ((res: any) => {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.talukaArray = res.responseData;
+            this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
             this.talukaArray.unshift({ "id": 0, "textEnglish": "All Talukas","textMarathi": "सर्व तालुके"});
           }
           else {
@@ -284,6 +290,7 @@ export class MarketsComponent implements OnDestroy{
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
+    this.talukaSubject.unsubscribe();
   }
 
 

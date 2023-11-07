@@ -19,7 +19,12 @@
             <!-- <mat-label>{{'common.department' | translate}}</mat-label> -->
             <mat-select formControlName="departmentId"
               (selectionChange)="clearDropDown('levelclear');getDepartmentLevel()">
-              <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang != 'en' ?
+              <mat-option>
+                <ngx-mat-select-search [formControl]="departmentctrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Department Name' : 'विभागाचे नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let department of departmentSubject | async" [value]="department.id">{{lang != 'en' ?
                 department.textMarathi :department.textEnglish}}
               </mat-option>
             </mat-select>
@@ -33,7 +38,12 @@
             <!-- <mat-label>{{'common.designation_level' | translate}}</mat-label> -->
             <mat-select formControlName="departmentLevelId"
               (selectionChange)="clearDropDown('deptLevelClear');dropDownCall(officeForm.value.departmentLevelId, false);getDesignation()">
-              <mat-option *ngFor="let level of departmentLevelArray" [value]="level.id">{{lang != 'en' ?
+              <mat-option>
+                <ngx-mat-select-search [formControl]="departmentLevelCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Level Name' : 'स्तराचे नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let level of departmentLevelSubject | async" [value]="level.id">{{lang != 'en' ?
                 level.textMarathi : level.textEnglish}}
               </mat-option>
             </mat-select>
@@ -71,7 +81,12 @@
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.block' | translate}}</mat-label> -->
             <mat-select formControlName="blockId">
-              <mat-option *ngFor="let block of blockArray" [value]="block.id">{{lang != 'en' ? block.textMarathi :
+              <mat-option>
+                <ngx-mat-select-search [formControl]="blockCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Block Name' : 'ब्लॉक नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let block of blockSubject | async" [value]="block.id">{{lang != 'en' ? block.textMarathi :
                 block.textEnglish}}</mat-option>
             </mat-select>
             <mat-error *ngIf="f['blockId']?.hasError('required')">{{'common.Please_select_block'|translate}}
@@ -85,7 +100,12 @@
             <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
             <mat-select formControlName="talukaId"
               (selectionChange)="clearDropDown('talukaClear');getGrampanchayat();getCircle()">
-              <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi
+              <mat-option>
+                <ngx-mat-select-search [formControl]="talukaCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi
                 :taluka.textEnglish}}</mat-option>
             </mat-select>
             <mat-error *ngIf="f['talukaId']?.hasError('required')">{{'common.Please_select_taluka'|translate}}
@@ -97,7 +117,12 @@
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.circle' | translate}}</mat-label> -->
             <mat-select formControlName="circleId">
-              <mat-option *ngFor="let circle of circleArray" [value]="circle.id">{{lang != 'en' ? circle.textMarathi
+              <mat-option>
+                <ngx-mat-select-search [formControl]="circleCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Circle Name' : 'मंडळाचे नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let circle of circleSubject | async" [value]="circle.id">{{lang != 'en' ? circle.textMarathi
                 :circle.textEnglish}}</mat-option>
             </mat-select>
             <mat-error *ngIf="f['circleId']?.hasError('required')">{{'common.Please_select_circle'|translate}}
@@ -109,7 +134,12 @@
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'officerreg.select_grampanchayat' | translate}}</mat-label> -->
             <mat-select formControlName="grampanchayatId">
-              <mat-option *ngFor="let village of grampanchayatArray" [value]="village.id">{{lang != 'en' ?
+              <mat-option>
+                <ngx-mat-select-search [formControl]="gramPCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?
                 village.textMarathi : village.textEnglish}}</mat-option>
             </mat-select>
             <mat-error *ngIf="f['grampanchayatId']?.hasError('required')">
@@ -121,7 +151,12 @@
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.designation' | translate}}</mat-label> -->
             <mat-select formControlName="designationId">
-              <mat-option *ngFor="let  designation of designationArray" [value]="designation.id">
+              <mat-option>
+                <ngx-mat-select-search [formControl]="designationCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Designation Name' : 'पदनाम नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let  designation of designationSubject | async" [value]="designation.id">
                 {{lang != 'en' ? designation.textMarathi : designation.textEnglish}}</mat-option>
             </mat-select>
             <mat-error *ngIf="f['designationId']?.hasError('required')">{{'common.Please_select_designation'|translate}}

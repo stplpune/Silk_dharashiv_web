@@ -60,7 +60,7 @@
               <mat-option>
                 <ngx-mat-select-search [formControl]="talukaCtrl"
                     placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
-                    noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती आढळली नाही'}}"></ngx-mat-select-search>
+                    noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
             </mat-option>
               <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id" [disabled]="taluka.isSelected && !taluka.isAssigned">{{lang == 'en' ? taluka.textEnglish : taluka.textMarathi}}</mat-option>
             </mat-select>
