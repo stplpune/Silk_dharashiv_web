@@ -338,8 +338,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
     this.getFilterFormData();
     this.bindTable();
   }
-  // this.unitSubject = new ReplaySubject<any>();
-  //       this.materialTypeSubject = new ReplaySubject<any>();
+ 
   clearDropDown(flag?: any) {
     if (flag == 'dept') {
       this.departmentLevelSubject = new ReplaySubject<any>();
