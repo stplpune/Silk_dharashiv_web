@@ -1,6 +1,5 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ViewDetailsComponent } from './view-details/view-details.component';
 import { ApiService } from 'src/app/core/services/api.service';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
@@ -68,7 +67,6 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.getRouteParam();
     this.addDefaultFrm();
     this.addApprovalFrm();
-    this.addGeoTagging();
   }
 
   getRouteParam() {
@@ -185,18 +183,8 @@ export class ApprovalProcessComponent implements OnDestroy {
     window.open(url, '_blank')
   }
 
-  viewdetails() {
-    this.dialog.open(ViewDetailsComponent, {
-      width: '80%'
-    })
-  }
-
   viewimage(label?:string) {
-    if(label == 'uplDepDoc'){
-      window.open(this.uploadedDepDoc.docPath, '_blank')
-    }else{
-      window.open(this.imageData, '_blank')
-    }
+    window.open(label == 'uplDepDoc' ? this.uploadedDepDoc.docPath :this.imageData, '_blank')
   }
 
   openGlobalDialog(obj?: any) {
@@ -486,11 +474,11 @@ export class ApprovalProcessComponent implements OnDestroy {
     })
   }
 
-  addGeoTagging(obj?:any){
+  addGeoTagging(_obj?:any){
     const dialogRef = this.dialog.open(GeoTaggingComponent,{
       width: '90%',
       height:'90%',
-      data: obj,
+      data: this.applicationData?.getSiteInspectionDataModel,
       disableClose: true,
       autoFocus: false
     });
