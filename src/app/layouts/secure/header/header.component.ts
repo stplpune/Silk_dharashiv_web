@@ -98,7 +98,8 @@ export class HeaderComponent {
       header:this.lang == 'en' ? 'Logout' : 'बाहेर पडणे',
       title: this.lang == 'en' ?  'Do You Want To Logout?' : 'आपण लॉगआउट करू इच्छिता',
       cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
-      okButton:this.lang == 'en' ? 'Logout' : 'बाहेर पडणे'
+      okButton:this.lang == 'en' ? 'Logout' : 'बाहेर पडणे',
+      headerImage:'assets/images/logout/logout@3x.png'
     }
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '300px',
