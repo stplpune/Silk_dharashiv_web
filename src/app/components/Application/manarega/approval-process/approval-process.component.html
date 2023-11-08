@@ -8,15 +8,15 @@
       <div class="row g-2">
         <div class="col-sm-4">
           <div class="d-flex gap-2">
-            <div class="form-label mb-0">Application ID(Date):</div>
-            <div class="form-data">{{(applicationData?.applicationNo +'('+(applicationData?.applicationDate | date:'dd-MM-yyyy')+')') | dash }}</div>
+            <div class="form-label mb-0">Application ID (Date):</div>
+            <div class="form-data">{{(applicationData?.applicationNo +' ( '+(applicationData?.applicationDate | date:'dd-MM-yyyy')+')') | dash }}</div>
          </div>
         </div>
         <div class="col-sm-4">
           <div class="d-flex gap-2">
-            <div class="form-label mb-0">Applicant Name(Mobile No.):</div>
+            <div class="form-label mb-0">Applicant Name (Mobile No.):</div>
             <div class="form-data">{{(lang == 'en' ? (applicantDetails?.fullName | dash ) :
-              (applicantDetails?.m_FullName | dash))+'('+(applicantDetails?.mobileNo1 | dash)+')'}} </div>
+              (applicantDetails?.m_FullName | dash))+' ('+(applicantDetails?.mobileNo1 | dash)+')'}} </div>
           </div>
         </div>
         <div class="col-sm-4">
@@ -45,7 +45,7 @@
         <div class="col-sm-4">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">Address :</div>
-            <div class="form-data">{{applicantDetails?.state +'/'+applicantDetails?.taluka+'/'+applicantDetails?.village}}</div>
+            <div class="form-data">{{applicantDetails?.state +', '+applicantDetails?.taluka+', '+applicantDetails?.village}}</div>
           </div>
         </div>
 
@@ -73,7 +73,7 @@
           <th mat-header-cell *matHeaderCellDef>Approval Status</th>
           <td mat-cell *matCellDef="let element">
             <h6 class="mb-0"><span class="badge"
-                [ngClass]="element.status=='Approved' ? 'bg-success-subtle text-success' : (element.status == 'Pending' || element.status == 'pending') ? 'bg-warning-subtle text-warning' : 'bg-danger-subtle text-danger'">
+                [ngClass]="element.status=='Approved' ? 'text-bg-success' : (element.status == 'Pending' || element.status == 'pending') ? 'bg-warning-subtle text-warning' : 'bg-danger-subtle text-danger'">
                 {{element.status ? element.status :'-'}}
               </span></h6>
           </td>
@@ -412,7 +412,7 @@
       </div>
     </div>
 
-    <div class="d-flex align-items-center mb-2">
+    <!-- <div class="d-flex align-items-center mb-2">
       <mat-checkbox checked disabled></mat-checkbox>
       <div class="form-label text-justify">
         will plant the above mentioned trees as per the rules and conditions prescribed by the Government and also
@@ -420,7 +420,7 @@
         Rural Employment Guarantee Scheme. Proper care and protection of seedlings after planting. So let me
         participate in this plan. 7/12 excerpt ond 8-A are attached
       </div>
-    </div>
+    </div> -->
 
     <div class="card mb-3">
       <div class="card-body">
@@ -592,11 +592,10 @@
       </div>
     </div>
 
-    <div class="card mb-3">
+    <!-- <div class="card mb-3">
       <div class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
           <div class="form-data text-main">Declaration</div>
-          <!-- <a class="form-label" (click)="viewdetails()">View Details</a> -->
         </div>
       </div>
       <div class="card-body">
@@ -625,7 +624,7 @@
           </ol>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="card" [class.d-none]="!applicationData?.isEdit">
       <div class="card-body">
         <form [formGroup]="approvalFrm" (ngSubmit)="onSubmitApprovalDetails()" #formDirectives="ngForm">

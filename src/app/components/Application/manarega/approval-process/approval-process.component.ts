@@ -35,7 +35,7 @@ export class ApprovalProcessComponent implements OnDestroy {
   displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action']
   approvalStatus: any = new Array()
   otherDocArray: any = new Array()
-  displayColumnRemark: string[] = ['sr_no', 'designationName','actionName', 'status', 'modifiedDate','remark','action'];
+  displayColumnRemark: string[] = ['sr_no','actionName', 'designationName', 'status', 'modifiedDate','remark','action'];
   pushAppDocArray: any = [];
   pushOtherDocArray: any = [];
   approvalStatusArray: any = [];
@@ -67,6 +67,7 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.getRouteParam();
     this.addDefaultFrm();
     this.addApprovalFrm();
+    this.addGeoTagging();
   }
 
   getRouteParam() {
