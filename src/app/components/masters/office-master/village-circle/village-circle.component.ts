@@ -198,6 +198,7 @@ export class VillageCircleComponent implements OnDestroy{
       header: this.lang == 'en' ? 'Delete Village Circle' : 'मंडळ हटवा',
       okButton: this.lang == 'en' ? 'Delete' : 'हटवा',
       cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
+      headerImage:'assets/images/delete.svg'
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '30%',
