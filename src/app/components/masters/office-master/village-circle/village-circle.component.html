@@ -16,7 +16,7 @@
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{'common.taluka_filter' | translate}}</mat-label> -->
-          <mat-select formControlName="talukaId"(selectionChange)="getGrampanchayat()">
+          <mat-select formControlName="talukaId"(selectionChange)="getGrampanchayat()"  placeholder="{{lang == 'en' ?'All Taluka' : 'सर्व तालुका'}}">
             <mat-option>
               <ngx-mat-select-search [formControl]="talukaCtrl"
                 placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
@@ -31,7 +31,7 @@
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{'common.grampanchayat_filter' | translate}}</mat-label> -->
-          <mat-select formControlName="grampanchayatId">
+          <mat-select formControlName="grampanchayatId" placeholder="{{lang == 'en' ?'All Grampanchayat' : 'सर्व ग्रामपंचायत'}}"> 
             <mat-option>
               <ngx-mat-select-search [formControl]="gramPCtrl"
                 placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"

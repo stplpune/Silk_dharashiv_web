@@ -35,7 +35,7 @@ export class ApprovalProcessComponent implements OnDestroy {
   displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action']
   approvalStatus: any = new Array()
   otherDocArray: any = new Array()
-  displayColumnRemark: string[] = ['sr_no', 'designationName','actionName', 'status', 'modifiedDate','action'];
+  displayColumnRemark: string[] = ['sr_no','actionName', 'designationName', 'status', 'modifiedDate','remark','action'];
   pushAppDocArray: any = [];
   pushOtherDocArray: any = [];
   approvalStatusArray: any = [];
@@ -66,7 +66,9 @@ export class ApprovalProcessComponent implements OnDestroy {
     })
     this.getRouteParam();
     this.addDefaultFrm();
+    this.addGeoTagging();
     this.addApprovalFrm();
+    this.addGeoTagging();
   }
 
   getRouteParam() {
@@ -84,6 +86,20 @@ export class ApprovalProcessComponent implements OnDestroy {
       "remark": ['', [Validators.pattern(this.validation.fullName), this.validation.maxLengthValidator(50)]],
       "m_remark": ['']
     })
+  }
+
+  openDialog(obj?: any) {
+    let dialoObj = {
+     header:'',statusFlag:'vi',title: obj,
+     cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
+     // okButton:''
+    }
+     this.dialog.open(GlobalDialogComponent, {
+     width: '320px',
+     data: dialoObj,
+     disableClose: true,
+     autoFocus: false
+   })
   }
 
   getByApplicationId() {
@@ -327,7 +343,7 @@ export class ApprovalProcessComponent implements OnDestroy {
         this.pushOtherDocArray[this.selOtherDocIndex] = obj;
         this.editOtherDocForm = false;
       }
-    
+
       this.otherDocArray = new MatTableDataSource(this.pushOtherDocArray);
       this.resetOtherDocForm();
     }
@@ -398,7 +414,7 @@ export class ApprovalProcessComponent implements OnDestroy {
       });
       this.actionNameLabel && this.uploadedDepDoc && this.applicationData?.isEdit ? newUploadedDoc.push(this.uploadedDepDoc):'';//uploaded  Department Document
       this.updateApprovalStatus(newUploadedDoc);
- 
+
     }
   }
 
@@ -466,7 +482,7 @@ export class ApprovalProcessComponent implements OnDestroy {
 
   addGeoTagging(obj?:any){
     const dialogRef = this.dialog.open(GeoTaggingComponent,{
-      width: '60%',
+      width: '80%',
       data: obj,
       disableClose: true,
       autoFocus: false

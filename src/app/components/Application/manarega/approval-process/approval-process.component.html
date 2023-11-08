@@ -8,10 +8,25 @@
       <div class="row g-2">
         <div class="col-sm-4">
           <div class="d-flex gap-2">
-            <div class="form-label mb-0">Application ID :</div>
-            <div class="form-data">{{applicationData?.applicationNo | dash}}</div>
+            <div class="form-label mb-0">Application ID (Date):</div>
+            <div class="form-data">{{(applicationData?.applicationNo +' ( '+(applicationData?.applicationDate | date:'dd-MM-yyyy')+')') | dash }}</div>
+         </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Applicant Name (Mobile No.):</div>
+            <div class="form-data">{{(lang == 'en' ? (applicantDetails?.fullName | dash ) :
+              (applicantDetails?.m_FullName | dash))+' ('+(applicantDetails?.mobileNo1 | dash)+')'}} </div>
           </div>
         </div>
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Scheme:</div>
+            <div class="form-data">{{lang == 'en' ? (applicationData?.schemeType | dash) :
+              (applicationData?.m_SchemeType | dash)}} </div>
+          </div>
+        </div>
+
         <div class="col-sm-4">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">Process Department :</div>
@@ -19,42 +34,22 @@
               (applicationData?.m_DepartmentName | dash)}} </div>
           </div>
         </div>
-        <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">Date : </div>
-            <div class="form-data">{{(applicationData?.applicationDate | date: 'dd-MM-yyyy') | dash}}</div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">Officer : </div>
-            <div class="form-data">{{lang == 'en' ? (applicationData?.designationName | dash) :
-              (applicationData?.m_DesignationName | dash)}} </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">Action : </div>
-            <div class="form-data">{{lang == 'en' ? (applicationData?.actionName | dash ) :
-              (applicationData?.m_ActionName | dash)}}</div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">Status : </div>
-            <div class="form-data text-warning">
-              <span class="badge"
-                [ngClass]="applicationData?.status=='Approved' ? 'bg-success-subtle text-success' : (applicationData?.status == 'Pending' || applicationData?.status == 'pending') ? 'bg-warning-subtle text-warning' : 'bg-danger-subtle text-danger'">
-                {{applicationData?.status ? applicationData?.status :'-'}}
-              </span>
 
-              <!-- {{lang == 'en' ? (applicationData?.status | dash ) :
-              (applicationData?.m_Status | dash)}} -->
-
-            </div>
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Plantation Area :</div>
+            <div class="form-data">{{applicationData?.mulberryCultivationArea | dash}} </div>
           </div>
         </div>
-      </div>
+
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Address :</div>
+            <div class="form-data">{{applicantDetails?.state +', '+applicantDetails?.taluka+', '+applicantDetails?.village}}</div>
+          </div>
+        </div>
+
+       </div>
     </div>
 
     <div class="table-content table-responsive mb-3">
@@ -78,7 +73,7 @@
           <th mat-header-cell *matHeaderCellDef>Approval Status</th>
           <td mat-cell *matCellDef="let element">
             <h6 class="mb-0"><span class="badge"
-                [ngClass]="element.status=='Approved' ? 'bg-success-subtle text-success' : (element.status == 'Pending' || element.status == 'pending') ? 'bg-warning-subtle text-warning' : 'bg-danger-subtle text-danger'">
+                [ngClass]="element.status=='Approved' ? 'text-bg-success' : (element.status == 'Pending' || element.status == 'pending') ? 'bg-warning-subtle text-warning' : 'bg-danger-subtle text-danger'">
                 {{element.status ? element.status :'-'}}
               </span></h6>
           </td>
@@ -88,9 +83,26 @@
           <td mat-cell *matCellDef="let element">{{element.modifiedDate == '0001-01-01T00:00:00' ? '-' :
             element.modifiedDate | date :'dd-MM-YYYY hh:mm a'}}</td>
         </ng-container>
+
+        <ng-container matColumnDef="remark">
+          <th mat-header-cell *matHeaderCellDef> Approval Remark</th>
+          <td mat-cell *matCellDef="let element">
+            {{element.remark ? element.remark : '-'}}
+          </td>
+        </ng-container>
+
         <!-- <ng-container matColumnDef="remark">
           <th mat-header-cell *matHeaderCellDef>Approval Remark </th>
-          <td mat-cell *matCellDef="let element">{{element.remark ? element.remark :'-'}}</td>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="element.remark && element.remark.length > 2; else elseBlock">
+              <button mat-raised-button color="primary" type="button" (click)="openDialog(element.remark)">
+                Show Remark
+              </button>
+            </ng-container>
+            <ng-template #elseBlock>
+              {{element.remark ? element.remark : '-'}}
+            </ng-template>
+          </td>
         </ng-container> -->
 
         <ng-container matColumnDef="action">
@@ -137,6 +149,12 @@
               <div class="col-sm-4 col-8">
                 <div class="form-data">: {{lang == 'en' ? (applicantDetails?.fullName | dash ) :
                   (applicantDetails?.m_FullName | dash)}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label">Manarega Job Card No.</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{applicantDetails?.mn_JobCardNo | dash}}</div>
               </div>
               <div class="col-sm-2 col-4">
                 <div class="form-label">Mobile No.</div>
@@ -284,7 +302,7 @@
         <ul class="list-group list-group-flush mb-3">
           <li class=" list-group-item d-flex justify-content-between align-items-center">
             <div class="form-label"> Are you a joined account Holder ?</div>
-            <mat-radio-group aria-label="Select an option" class="d-flex gap-2">
+            <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
               <mat-radio-button value="yes" [checked]="applicantDetails?.isJointAccHolder == true"
                 class="form-data">Yes</mat-radio-button>
               <mat-radio-button value="no" [checked]="applicantDetails?.isJointAccHolder == false"
@@ -303,7 +321,7 @@
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <div class="form-label"> Will take the silk industry training himself or send the candidate ?</div>
-            <mat-radio-group aria-label="Select an option" class="d-flex gap-2">
+            <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
               <mat-radio-button value="1" [checked]="applicantDetails?.isSelfTraining == true">
                 <div class="fw-bold">Send Candidate</div>
               </mat-radio-button>
@@ -324,7 +342,7 @@
             <div class="form-label"> Have you done orchards/flowers/trees before under the government schemes other than
               employement guarantee ?</div>
             <div class="form-data">
-              <mat-radio-group aria-label="Select an option" class="d-flex gap-2">
+              <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
                 <mat-radio-button value="11" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == true"
                   class="form-data">Yes</mat-radio-button>
                 <mat-radio-button value="12" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == false"
@@ -394,7 +412,7 @@
       </div>
     </div>
 
-    <div class="d-flex align-items-center mb-2">
+    <!-- <div class="d-flex align-items-center mb-2">
       <mat-checkbox checked disabled></mat-checkbox>
       <div class="form-label text-justify">
         will plant the above mentioned trees as per the rules and conditions prescribed by the Government and also
@@ -402,7 +420,7 @@
         Rural Employment Guarantee Scheme. Proper care and protection of seedlings after planting. So let me
         participate in this plan. 7/12 excerpt ond 8-A are attached
       </div>
-    </div>
+    </div> -->
 
     <div class="card mb-3">
       <div class="card-body">
@@ -438,7 +456,7 @@
                       </button>
                       <input type="file" class="d-none" (change)="imageUplod($event,'applicantDoc', i)" #editImg>
                       <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10"
-                        (click)="editImg.click()">
+                        (click)="editImg.click()" [class.disable]="!applicationData?.isEdit">
                         <span class="material-symbols-rounded text-warning">
                           edit_square
                         </span>
@@ -465,7 +483,7 @@
           </mat-tab>
           <mat-tab label="Other Document">
             <div class="container-fluid">
-              <form [formGroup]="uploadFrm" #formDirective="ngForm" (ngSubmit)="onSubmit()" class="w-100 mt-2">
+              <form [formGroup]="uploadFrm" #formDirective="ngForm" (ngSubmit)="onSubmit()" [class.disable]="!applicationData?.isEdit"  class="w-100 mt-2">
                 <div class="row g-2">
                   <div class="col-sm">
                     <mat-form-field appearance="outline" class="w-100">
@@ -544,7 +562,7 @@
                           visibility
                         </span>
                       </button>
-                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10"
+                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10" [class.disable]="!applicationData?.isEdit"
                         (click)="editOtherDoc(element)">
                         <span class="material-symbols-rounded text-warning">
                           edit_square
@@ -574,11 +592,10 @@
       </div>
     </div>
 
-    <div class="card mb-3">
+    <!-- <div class="card mb-3">
       <div class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
           <div class="form-data text-main">Declaration</div>
-          <!-- <a class="form-label" (click)="viewdetails()">View Details</a> -->
         </div>
       </div>
       <div class="card-body">
@@ -607,7 +624,7 @@
           </ol>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="card" [class.d-none]="!applicationData?.isEdit">
       <div class="card-body">
         <form [formGroup]="approvalFrm" (ngSubmit)="onSubmitApprovalDetails()" #formDirectives="ngForm">
