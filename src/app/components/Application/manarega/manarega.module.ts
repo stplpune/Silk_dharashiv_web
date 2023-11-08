@@ -17,6 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
+
 @NgModule({
   declarations: [
     ManaregaComponent,
@@ -36,7 +37,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     ReactiveFormsModule,
     GlobalTableComponent,
     TranslateModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+
   ]
 })
 export class ManaregaModule { }
