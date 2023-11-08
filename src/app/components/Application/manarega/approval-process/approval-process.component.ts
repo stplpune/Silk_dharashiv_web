@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
@@ -15,6 +15,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { GeoTaggingComponent } from './geo-tagging/geo-tagging.component';
+import { ConfigService } from 'src/app/core/services/config.service';
 
 @Component({
   selector: 'app-approval-process',
@@ -51,7 +52,7 @@ export class ApprovalProcessComponent implements OnDestroy {
     private apiService: ApiService,
     private WebStorageService: WebStorageService,
     public encryptdecrypt: AesencryptDecryptService,
-    private router:Router,
+    private router:Router,private configService:ConfigService,
     private route: ActivatedRoute, public validation: ValidationService,
     private fb: FormBuilder, private spinner: NgxSpinnerService,
     private errorHandler: ErrorHandlingService,
@@ -66,9 +67,7 @@ export class ApprovalProcessComponent implements OnDestroy {
     })
     this.getRouteParam();
     this.addDefaultFrm();
-    this.addGeoTagging();
     this.addApprovalFrm();
-    this.addGeoTagging();
   }
 
   getRouteParam() {
@@ -83,15 +82,16 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.approvalFrm = this.fb.group({
       "applicationStatus": [''],
       "reason": [0],
-      "remark": ['', [Validators.pattern(this.validation.fullName), this.validation.maxLengthValidator(50)]],
+      "remark": [''],
       "m_remark": ['']
     })
   }
 
-  openDialog(obj?: any) {
+  remarkDialogBox(obj?: any) {
     let dialoObj = {
-     header:'',statusFlag:'vi',title: obj,
-     cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
+     header:'Approval Remark',statusFlag:'vi',title: obj,
+     cancelButton: this.lang == 'mr-IN' ? '' : '',
+     okButton: 'Close',
      // okButton:''
     }
      this.dialog.open(GlobalDialogComponent, {
@@ -103,7 +103,7 @@ export class ApprovalProcessComponent implements OnDestroy {
   }
 
   getByApplicationId() {
-    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetApplication?Id=' + (this.encryptData) +'&UserId='+this.WebStorageService.getUserId()+'&lan=' + this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetApplication?Id=' + (this.encryptData) +'&UserId='+this.WebStorageService.getUserId()+'&lan=' + this.lang+'&LoginFlag='+this.configService.loginFlag, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
@@ -388,10 +388,10 @@ export class ApprovalProcessComponent implements OnDestroy {
     if (!approvalFrmVal?.applicationStatus) {
       this.commonMethod.snackBar('Application status is  required', 1);
       return
-    }else if (approvalFrmVal.applicationStatus == 11 || approvalFrmVal.applicationStatus == 5) {
+    }else if ((approvalFrmVal.applicationStatus == 11 || approvalFrmVal.applicationStatus == 5) && !approvalFrmVal?.reason) {
       this.commonMethod.snackBar('Application reason is  required', 1);
       return
-    }else if (this.actionNameLabel && !this.uploadedDepDoc && this.applicationData?.isEdit) {
+    }else if (this.actionNameLabel && !this.uploadedDepDoc && this.applicationData?.isEdit && approvalFrmVal.applicationStatus == 12) {
       this.commonMethod.snackBar(this.actionNameLabel  +' document is required', 1);
       return;
     }
@@ -413,8 +413,7 @@ export class ApprovalProcessComponent implements OnDestroy {
         })
       });
       this.actionNameLabel && this.uploadedDepDoc && this.applicationData?.isEdit ? newUploadedDoc.push(this.uploadedDepDoc):'';//uploaded  Department Document
-      this.updateApprovalStatus(newUploadedDoc);
-
+      // this.updateApprovalStatus(newUploadedDoc);
     }
   }
 

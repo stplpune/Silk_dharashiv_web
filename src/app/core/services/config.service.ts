@@ -8,6 +8,8 @@ export class ConfigService {
 
   baseUrl = environment.baseUrl;
 
+  loginFlag:string = 'web';
+
   //--------------------------------------------------Api Path url----------------------------------------------------------------//
 
   dialogBoxWidth = ['320px', '800px', '700px', '1024px'];  // Set angular material dialog box width
