@@ -302,7 +302,7 @@
         <ul class="list-group list-group-flush mb-3">
           <li class=" list-group-item d-flex justify-content-between align-items-center">
             <div class="form-label"> Are you a joined account Holder ?</div>
-            <mat-radio-group aria-label="Select an option" class="d-flex gap-2">
+            <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
               <mat-radio-button value="yes" [checked]="applicantDetails?.isJointAccHolder == true"
                 class="form-data">Yes</mat-radio-button>
               <mat-radio-button value="no" [checked]="applicantDetails?.isJointAccHolder == false"
@@ -321,7 +321,7 @@
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <div class="form-label"> Will take the silk industry training himself or send the candidate ?</div>
-            <mat-radio-group aria-label="Select an option" class="d-flex gap-2">
+            <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
               <mat-radio-button value="1" [checked]="applicantDetails?.isSelfTraining == true">
                 <div class="fw-bold">Send Candidate</div>
               </mat-radio-button>
@@ -342,7 +342,7 @@
             <div class="form-label"> Have you done orchards/flowers/trees before under the government schemes other than
               employement guarantee ?</div>
             <div class="form-data">
-              <mat-radio-group aria-label="Select an option" class="d-flex gap-2">
+              <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
                 <mat-radio-button value="11" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == true"
                   class="form-data">Yes</mat-radio-button>
                 <mat-radio-button value="12" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == false"
