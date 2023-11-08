@@ -202,6 +202,7 @@ export class DesignationsComponent implements OnDestroy {
       header: this.lang == 'mr-IN' ? 'डिलीट करा' : 'Delete',
       okButton: this.lang == 'mr-IN' ? 'डिलीट' : 'Delete',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
+      headerImage:'assets/images/delete.svg'
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '30%',
