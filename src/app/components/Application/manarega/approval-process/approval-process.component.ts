@@ -482,7 +482,7 @@ export class ApprovalProcessComponent implements OnDestroy {
 
   addGeoTagging(obj?:any){
     const dialogRef = this.dialog.open(GeoTaggingComponent,{
-      width: '80%',
+      width: '90%',
       data: obj,
       disableClose: true,
       autoFocus: false
