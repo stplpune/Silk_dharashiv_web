@@ -109,7 +109,7 @@ export class ManaregaComponent {
       next: ((res: any) => {
         this.talukaArr.unshift({ id: 0, textEnglish: "All Taluka", textMarathi: "सर्व तालुका" }, ...res.responseData);
         this.common.filterArrayDataZone(this.talukaArr, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
-        // this.getGrampanchayat();
+        this.getGrampanchayat();
       }), error: (() => {
         this.talukaArr = [];
       })
@@ -117,8 +117,6 @@ export class ManaregaComponent {
   }
 
   getGrampanchayat() {
-    console.log(this.filterFrm.getRawValue().talukaId);
-    
     this.grampanchayatArray = [];
     let talukaId = this.filterFrm.getRawValue().talukaId;
     if (talukaId != 0) {

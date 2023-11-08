@@ -144,8 +144,6 @@ export class AddGrainageComponent {
 
   onSubmitData() {
     let formvalue = this.grainageFrm.getRawValue();
-    console.log(formvalue);
-    
     if (this.grainageFrm.invalid) {
       return;
     } else {
