@@ -120,26 +120,30 @@ export class OfficerRegistrationComponent implements OnDestroy {
         this.commonMethod.filterArrayDataZone(this.departmentArray, this.departmentctrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentSubject);
       }), error: (() => {
         this.departmentArray = [];
+        this.departmentSubject.next(null);
       })
     })
   }
-
+  // error: (error: any) => { if (error.statusCode == '404') { this.organationArray = []; this.orgSubject.next(null); }; }
   getDepartmentLevel() {
-    this.masterService.GetDeptLevelDropDown().subscribe({
-      next: ((res: any) => {
-        this.departmentLevelArray = res.responseData;
-        this.departmentLevelArray.unshift({ id: 0,textEnglish:'All Level' ,textMarathi:'सर्व स्तर'} ),
-        this.commonMethod.filterArrayDataZone(this.departmentLevelArray, this.departmentLevelCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentLevelSubject);
-      }), error: (() => {
-        this.departmentLevelArray = [];
+    if(this.filterForm.value.departmentId !=0){
+      this.masterService.GetDeptLevelDropDown().subscribe({
+        next: ((res: any) => {
+          this.departmentLevelArray = res.responseData;
+          this.departmentLevelArray.unshift({ id: 0,textEnglish:'All Level' ,textMarathi:'सर्व स्तर'} ),
+          this.commonMethod.filterArrayDataZone(this.departmentLevelArray, this.departmentLevelCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentLevelSubject);
+        }), error: (() => {
+          this.departmentLevelArray = [];
+          this.departmentLevelSubject.next(null);
+        })
       })
-    })
+    }
   }
 
   getDesignation() {
     let deptId = this.filterForm.getRawValue().departmentId;
     let deptLevelId = this.filterForm.getRawValue().departmentLevelId;
-    if (deptId != 0) {
+    if (deptId != 0 && deptLevelId!=0) {
       this.masterService.GetDesignationDropDownOnDeptLevel((deptId || 0),(deptLevelId||0)).subscribe({
         next: ((res: any) => {
           this.designationArray = res.responseData;
@@ -147,6 +151,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
           this.commonMethod.filterArrayDataZone(this.designationArray, this.designationCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.designationSubject);
         }), error: (() => {
           this.designationArray = [];
+          this.designationSubject.next(null);
         })
       })
     }
@@ -160,6 +165,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
         this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
       }), error: (() => {
         this.talukaArray = [];
+        this.talukaSubject.next(null);
       })
     })
   }
@@ -172,34 +178,41 @@ export class OfficerRegistrationComponent implements OnDestroy {
         this.commonMethod.filterArrayDataZone(this.blockArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.blockSubject);
       }), error: (() => {
         this.blockArray = [];
+        this.blockSubject.next(null);
       })
     })
   }
 
   getCircle() {
     let talukaId = this.filterForm.getRawValue().talukaId || 0;
-    this.masterService.GetAllCircle(1, 1, talukaId).subscribe({
-      next: ((res: any) => {
-        this.circleArray = res.responseData;
-        this.circleArray.unshift( { id: 0,textEnglish:'All Circle' ,textMarathi:'सर्व मंडळ'});
-        this.commonMethod.filterArrayDataZone(this.circleArray, this.circleCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.circleSubject);
-      }), error: (() => {
-        this.circleArray = [];
+    if(talukaId!=0){
+      this.masterService.GetAllCircle(1, 1, talukaId).subscribe({
+        next: ((res: any) => {
+          this.circleArray = res.responseData;
+          this.circleArray.unshift( { id: 0,textEnglish:'All Circle' ,textMarathi:'सर्व मंडळ'});
+          this.commonMethod.filterArrayDataZone(this.circleArray, this.circleCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.circleSubject);
+        }), error: (() => {
+          this.circleArray = [];
+          this.circleSubject.next(null);
+        })
       })
-    })
+    }
   }
 
   getGrampanchayat() {
     let talukaId = this.filterForm.getRawValue().talukaId;
-    this.masterService.GetGrampanchayat(talukaId || 0).subscribe({
-      next: ((res: any) => {
-        this.grampanchayatArray = res.responseData;
-        this.grampanchayatArray.unshift( { id: 0,textEnglish:'All Grampanchayat' ,textMarathi:'सर्व ग्रामपंचायत'});
-        this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
-      }), error: (() => {
-        this.grampanchayatArray = [];
+    if(talukaId!=0){
+      this.masterService.GetGrampanchayat(talukaId || 0).subscribe({
+        next: ((res: any) => {
+          this.grampanchayatArray = res.responseData;
+          this.grampanchayatArray.unshift( { id: 0,textEnglish:'All Grampanchayat' ,textMarathi:'सर्व ग्रामपंचायत'});
+          this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
+        }), error: (() => {
+          this.grampanchayatArray = [];
+          this.gramPSubject.next(null);
+        })
       })
-    })
+    }   
   }
 
   bindTable(flag?: any) {
@@ -325,26 +338,39 @@ export class OfficerRegistrationComponent implements OnDestroy {
     this.getFilterFormData();
     this.bindTable();
   }
-
+  // this.unitSubject = new ReplaySubject<any>();
+  //       this.materialTypeSubject = new ReplaySubject<any>();
   clearDropDown(flag?: any) {
     if (flag == 'dept') {
+      this.departmentLevelSubject = new ReplaySubject<any>();
       this.departmentLevelArray = [];
-      this.f['departmentLevelId'].setValue(0);
+      this.f['departmentLevelId'].setValue('');
+      this.designationSubject = new ReplaySubject<any>();
       this.designationArray = [];
-      this.f['designationId'].setValue(0);
+      this.f['designationId'].setValue('');
     }else if(flag == 'clearAll'){
+      this.designationSubject = new ReplaySubject<any>();
       this.designationArray = [];
-      this.f['designationId'].setValue(0);
+      this.f['designationId'].setValue('');
     } else {
+      this.circleSubject = new ReplaySubject<any>();
       this.circleArray = [];
       this.f['circleId'].setValue('');
+      this.gramPSubject = new ReplaySubject<any>();
       this.grampanchayatArray = [];
-      this.f['grampanchayatId'].setValue(0);
+      this.f['grampanchayatId'].setValue('');
     }
   }
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
+    this.departmentSubject?.unsubscribe();
+    this.departmentLevelSubject?.unsubscribe();
+    this.designationSubject?.unsubscribe();
+    this.talukaSubject?.unsubscribe();
+    this.blockSubject?.unsubscribe();
+    this.circleSubject?.unsubscribe();
+    this.gramPSubject?.unsubscribe();
   }
 
 }

@@ -126,6 +126,7 @@ export class ManaregaComponent {
           this.common.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
         }), error: (() => {
           this.grampanchayatArray = [];
+          this.gramPSubject.next(null);
         })
       })
     }
@@ -238,6 +239,7 @@ export class ManaregaComponent {
     if (dropdown == 'Taluka') {
       this.f['grampanchayatId'].setValue(0);
       this.grampanchayatArray = [];
+      this.gramPSubject = new ReplaySubject<any>();
     }
   }
 

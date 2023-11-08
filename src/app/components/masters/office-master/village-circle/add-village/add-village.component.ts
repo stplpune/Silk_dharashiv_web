@@ -144,7 +144,7 @@ export class AddVillageComponent implements OnDestroy {
   onSubmitData() {
     this.spinner.show();
     let formData = this.villageForm.getRawValue();
-    formData.grampanchayats = !this.clearvillageFlag ?  this.villageForm.value.grampanchayats.toString() : '';
+    formData.grampanchayats =  this.villageForm.value.grampanchayats.toString();
     if (this.villageForm.invalid ) {
       this.spinner.hide();
       return;

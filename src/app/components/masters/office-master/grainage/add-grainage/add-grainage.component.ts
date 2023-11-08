@@ -127,7 +127,7 @@ export class AddGrainageComponent {
     this.talukaArr =[];
     let stateId = this.grainageFrm.getRawValue().stateId || 0;
     let distId = this.grainageFrm.getRawValue().districtId || 0;
-    if(stateId !=0 && distId!=0){
+    if(stateId !=0 && distId !=0){
       this.master.GetAllTaluka(stateId, distId, 0,).subscribe({
         next: ((res: any) => {
           this.talukaArr = res.responseData;
@@ -135,6 +135,7 @@ export class AddGrainageComponent {
           this.data ? (this.f['talukaId'].setValue(this.data?.talukaId)) : '';
         }), error: (() => {
           this.talukaArr = [];
+          this.talukaSubject.next(null);
         })
       })
     }
@@ -167,11 +168,26 @@ export class AddGrainageComponent {
       })
     }
   }
+
+  clearDropdown(dropdown: string) {
+    if (dropdown == 'state') {
+      this.talukaSubject = new ReplaySubject<any>();
+      this.f['districtId'].setValue('');
+      this.districtArr = [];
+      this.f['talukaId'].setValue('')
+    }else if (dropdown == 'district') {
+      this.talukaSubject = new ReplaySubject<any>();
+      this.f['talukaId'].setValue('');
+      
+    }
+  }
   
   clearFormData() { // for clear Form field
     this.formDirective?.resetForm();
     this.data = null;
     this.defaultFrm();
+    this.districtArr = [];
+    this.talukaSubject = new ReplaySubject<any>();
   }
   
   ngOnDestroy() {
