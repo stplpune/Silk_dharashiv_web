@@ -248,7 +248,10 @@
     "please_enter_valid_marketName": "कृपया वैध बाजाराचे नाव(इंग्रजी) प्रविष्ट करा",
     "please_enter_valid_marketName_mr": "कृपया वैध बाजाराचे नाव(मराठी) प्रविष्ट करा",
     "please_enter_valid_latitude": "कृपया वैध अक्षांश प्रविष्ट करा",
-    "please_enter_valid_longitude": "कृपया वैध रेखांश प्रविष्ट करा"
+    "please_enter_valid_longitude": "कृपया वैध रेखांश प्रविष्ट करा",
+    "Please_enter_maximum_rate_greater_than_minimum_rate":"कृपया किमान दरापेक्षा कमाल दर प्रविष्ट करा",
+    "Average_rate_should_be_greater_tham_minimum_rate_and_less_than_maximum_rate":"सरासरी दर हा किमान दरापेक्षा जास्त आणि कमाल दरापेक्षा कमी असावा"
+
   },
   "pageAccess": {
     "designation": "पदनाम निवडा",

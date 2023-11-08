@@ -62,13 +62,13 @@
           <mat-label class="form-label">{{'marketPrice.Min_Rate'|translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100" >
             <!-- <mat-label>{{'marketPrice.Min_Rate'|translate}}</mat-label> -->
-            <input matInput placeholder="Enter min rate" formControlName="minRate" (keypress)="validator.digitsWithDot($event)">
+            <input matInput placeholder="Enter min rate" formControlName="minRate" (keypress)="validator.digitsWithDot($event)" (blur)="checkrate()">
             <mat-error *ngIf="f['minRate'].hasError('required') ">{{'marketPrice.Please_enter_Min_Rate/Kg'|translate}}</mat-error>
             <!-- <mat-error *ngIf="f['minRate'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error>  -->
             <mat-error *ngIf="f['minRate']?.errors">
               <span class="text-danger"
-                  *ngIf="f['minRate']?.hasError('maxLengthExceeded') || f['minRate']?.hasError('pattern')">
-                  {{f['minRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate) : ('marketPrice.Please_enter_valid_Min_Rate/Kg'|translate)}}
+                  *ngIf="f['minRate']?.hasError('maxLengthExceeded') || f['minRate']?.hasError('pattern') ">
+                  {{f['minRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate)  :('marketPrice.Please_enter_valid_Min_Rate/Kg'|translate)}}
               </span>
           </mat-error>
           </mat-form-field>
@@ -77,13 +77,13 @@
           <mat-label class="form-label">{{'marketPrice.Max_Rate'|translate}}</mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'marketPrice.Max_Rate'|translate}}</mat-label> -->
-            <input matInput placeholder="Enter max rate " formControlName="maxRate" (keypress)="validator.digitsWithDot($event)">
+            <input matInput placeholder="Enter max rate " formControlName="maxRate" (keypress)="validator.digitsWithDot($event)" (blur)="checkrate()">
             <mat-error *ngIf="f['maxRate'].hasError('required') ">{{'marketPrice.Please_enter_Max_Rate/Kg'|translate}}</mat-error>
             <!-- <mat-error *ngIf="f['maxRate'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error> -->
             <mat-error *ngIf="f['maxRate']?.errors">
               <span class="text-danger"
-                  *ngIf="f['maxRate']?.hasError('maxLengthExceeded') || f['maxRate']?.hasError('pattern')">
-                  {{f['maxRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate) : ('marketPrice.Please_enter_valid_Max_Rate/Kg'|translate)}}
+                  *ngIf="f['maxRate']?.hasError('maxLengthExceeded') || f['maxRate']?.hasError('pattern') || f['maxRate']?.hasError('min')">
+                  {{f['maxRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate) : f['maxRate']?.hasError('min') ?('marketRate.Please_enter_maximum_rate_greater_than_minimum_rate'|translate): ('marketPrice.Please_enter_valid_Max_Rate/Kg'|translate)}}
               </span>
           </mat-error>
           </mat-form-field>
@@ -97,8 +97,8 @@
             <!-- <mat-error *ngIf="f['averageRate'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error> -->
             <mat-error *ngIf="f['averageRate']?.errors">
               <span class="text-danger"
-                  *ngIf="f['averageRate']?.hasError('maxLengthExceeded') || f['averageRate']?.hasError('pattern')">
-                  {{f['averageRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate) : ('marketPrice.Please_enter_valid_average_Rate/Kg'|translate)}}
+                  *ngIf="f['averageRate']?.hasError('maxLengthExceeded') || f['averageRate']?.hasError('pattern') || f['averageRate']?.hasError('min')  || f['averageRate']?.hasError('max')">
+                  {{f['averageRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate) : f['averageRate']?.hasError('min')  || f['averageRate']?.hasError('max') ? ('marketRate.Average_rate_should_be_greater_tham_minimum_rate_and_less_than_maximum_rate'|translate) : ('marketPrice.Please_enter_valid_average_Rate/Kg'|translate)}}
               </span>
           </mat-error>
           </mat-form-field>

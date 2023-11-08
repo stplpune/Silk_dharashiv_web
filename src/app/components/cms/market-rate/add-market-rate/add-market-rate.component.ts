@@ -122,6 +122,12 @@ export class AddMarketRateComponent implements OnDestroy{
     });
   }
 
+  checkrate(){
+    const formdata=this.marketForm.getRawValue()
+    this.f['maxRate'].setValidators([Validators.required,Validators.min(formdata?.minRate)])
+    this.f['averageRate'].setValidators([Validators.required,Validators.min(formdata?.minRate),Validators.max(formdata?.maxRate)])
+  }
+
   onSubmit() {
     let formvalue = this.marketForm.getRawValue();
     if (this.marketForm.invalid) {
@@ -145,6 +151,7 @@ export class AddMarketRateComponent implements OnDestroy{
       })
     }
   }
+
 
   clearFormData() { 
     this.formDirective?.resetForm();
