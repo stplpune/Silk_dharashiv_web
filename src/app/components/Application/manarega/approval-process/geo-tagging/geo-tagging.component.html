@@ -1,14 +1,13 @@
 <div mat-dialog-title class="modal-header">
-  <div class="d-flex align-items-center gap-2 align-items-center justify-content-between w-100">
-    <div class="text-main">Place Details</div>
+  <div class="d-flex align-items-center gap-2 justify-content-between w-100">
+    <div class="text-main">स्थळ पाहणी ( लगावडिंनंतर )</div>
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
     </button>
   </div>
 </div>
 <mat-dialog-content class="modal-content form-container scrollbar">
-  <div class="form-data py-2 mb-1 border-bottom">स्थळ पाहणी ( लगावडिंनंतर )</div>
-  <div class="d-flex align-items-center justify-content-between border-bottom py-2 mb-2">
+  <div class="d-flex align-items-center justify-content-between py-2">
     <div class="d-flex align-items-center gap-2">
       <div class="form-label mb-0">View Place Details Date</div>
       <div class="form-data">: 07-11-2023</div>
@@ -19,71 +18,120 @@
     </div>
   </div>
 
-  <div class="row gx-2 py-4 mb-2 border-bottom afterplantation-imgs">
-    <div class="col-sm-6">
-      <div class="form-data mb-3">शेतीचे सिमांकन (लागवदिंनंतर)</div>
-      <div class="graph">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15134.99377551796!2d73.85374869459956!3d18.495050392127943!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c01c0b5fc97f%3A0xb68adb697c096dcd!2sShaurya%20Technosoft%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1699361825948!5m2!1sen!2sin"
-          width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
+  <div class="row">
+    <div class="col-sm-6 border-end">
+      <mat-tab-group>
+        <mat-tab label="शेतीचे सिमांकन (लागवदिंनंतर)">
+          <div class="container-fluid mt-2 p-0">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15134.99377551796!2d73.85374869459956!3d18.495050392127943!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c01c0b5fc97f%3A0xb68adb697c096dcd!2sShaurya%20Technosoft%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1699361825948!5m2!1sen!2sin"
+              width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </mat-tab>
+        <mat-tab label="तुति बागेचे शेकर्‍यांसामवेत फोटो">
+          <div class="container-fluid mt-2">
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <img src="../../../../../../assets/images/login-bg.jpg" alt="" class="img-fluid rounded">
+              </div>
+              <div class="col-sm-6">
+                <img src="../../../../../../assets/images/login-bg.jpg" alt="" class="img-fluid rounded">
+              </div>
+              <div class="col-sm-6">
+                <img src="../../../../../../assets/images/login-bg.jpg" alt="" class="img-fluid rounded">
+              </div>
+              <div class="col-sm-6">
+                <img src="../../../../../../assets/images/login-bg.jpg" alt="" class="img-fluid rounded">
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
+
     </div>
     <div class="col-sm-6">
-      <div class="row gy-2 gx-2">
-        <div class="form-data mb-2">तुति बागेचे शेकर्‍यांसामवेत फोटो</div>
-        <div class="col-sm-6">
-          <img src="../../../../../../assets/images/login-bg.jpg" alt="" class="img-fluid">
-        </div>
-        <div class="col-sm-6">
-          <img src="../../../../../../assets/images/login-bg.jpg" alt="" class="img-fluid">
-        </div>
-        <div class="col-sm-6">
-          <img src="../../../../../../assets/images/login-bg.jpg" alt="" class="img-fluid">
-        </div>
-        <div class="col-sm-6">
-          <img src="../../../../../../assets/images/login-bg.jpg" alt="" class="img-fluid">
-        </div>
-      </div>
+      <mat-tab-group>
+        <mat-tab label="तुति लागवडीचा तपशील 1">
+          <div class="table-responsive scrollbar mt-2">
+            <table class="dashboard-table table table-sm table-bordered w-100 mb-0">
+              <tbody>
+                <tr>
+                  <td class="form-label">तुति लागवड दिनांक</td>
+                  <td class="form-data">07-11-2023</td>
+                </tr>
+                <tr>
+                  <td class="form-label">तुति लागवड क्षेत्र (हेक्टर)</td>
+                  <td class="form-data">1</td>
+                </tr>
+                <tr>
+                  <td class="form-label">तुति लागवडचा प्रकार</td>
+                  <td class="form-data">रोपद्वारे</td>
+                </tr>
+                <tr>
+                  <td class="form-label">तुति लागवडची जात</td>
+                  <td class="form-data">D. H.</td>
+                </tr>
+                <tr>
+                  <td class="form-label">तुति लागवडचे आंतर</td>
+                  <td class="form-data">1 फुट</td>
+                </tr>
+                <tr>
+                  <td class="form-label">तुति लागवड क्षेत्राची (लंबी व रुंदी) फुट </td>
+                  <td class="form-data">60 * 40 फुट</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </mat-tab>
+        <mat-tab label="तुति लागवडीचा तपशील 2">
+          <div class="table-responsive scrollbar mt-2">
+            <table class="dashboard-table table table-sm table-bordered w-100 mb-0">
+              <tbody>
+                <tr>
+                  <td class="form-label">एकूणतुति रांग/ ओळींची संख्या</td>
+                  <td class="form-data">226</td>
+                </tr>
+                <tr>
+                  <td class="form-label">एका तुति रांगेतील / ओळीत झाडांची संख्या</td>
+                  <td class="form-data">26</td>
+                </tr>
+                <tr>
+                  <td class="form-label">तुति लागवडचा प्रकार</td>
+                  <td class="form-data">रोपद्वारे</td>
+                </tr>
+                <tr>
+                  <td class="form-label">एका तुति रांगेतील / ओळीतिल हयात झाडांची संख्या </td>
+                  <td class="form-data">221</td>
+                </tr>
+                <tr>
+                  <td class="form-label">एकूण तुति झाडांची संख्या </td>
+                  <td class="form-data">5876</td>
+                </tr>
+                <tr>
+                  <td class="form-label">एकूण हयात तुति झाडांची संख्या</td>
+                  <td class="form-data">5746</td>
+                </tr>
+                <tr>
+                  <td class="form-label"> हयात तुति झाडांची टक्केवारी</td>
+                  <td class="form-data">98%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
     </div>
   </div>
 
-  <div class="form-data mb-2">तुति लागवडीचा तपशील</div>
   <div class="row gx-2">
     <div class="col-sm-6">
-      <div class="table-responsive scrollbar">
-        <table class="dashboard-table table table-bordered w-100 mb-0">
-          <tbody>
-            <tr>
-              <td class="form-label">तुति लागवड दिनांक</td>
-              <td class="form-data">07-11-2023</td>
-            </tr>
-            <tr>
-              <td class="form-label">तुति लागवड क्षेत्र (हेक्टर)</td>
-              <td class="form-data">1</td>
-            </tr>
-            <tr>
-              <td class="form-label">तुति लागवडचा प्रकार</td>
-              <td class="form-data">रोपद्वारे</td>
-            </tr>
-            <tr>
-              <td class="form-label">तुति लागवडची जात</td>
-              <td class="form-data">D. H.</td>
-            </tr>
-            <tr>
-              <td class="form-label">तुति लागवडचे आंतर</td>
-              <td class="form-data">1 फुट</td>
-            </tr>
-            <tr>
-              <td class="form-label">तुति लागवड क्षेत्राची (लंबी व रुंदी) फुट </td>
-              <td class="form-data">60 * 40 फुट</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+
     </div>
     <div class="col-sm-6">
-      <div class="table-responsive scrollbar">
+      <!-- <div class="table-responsive scrollbar">
         <table class="dashboard-table table table-bordered w-100 mb-0">
           <tbody>
             <tr>
@@ -116,11 +164,11 @@
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> -->
     </div>
   </div>
 
-  <div class="row align-items-center my-3 gx-2">
+  <!-- <div class="row align-items-center my-3 gx-2">
     <div class="col-sm-6">
       <mat-label class="form-label">Select Status</mat-label>
       <mat-form-field appearance="outline" class="w-100">
@@ -137,7 +185,7 @@
         <input matInput placeholder="Enter your remark">
       </mat-form-field>
     </div>
-  </div>
+  </div> -->
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <div class="d-flex align-items-center justify-content-end gap-2">
