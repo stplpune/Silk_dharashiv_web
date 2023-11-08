@@ -19,7 +19,8 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { GeoTaggingComponent } from './geo-tagging/geo-tagging.component';
-
+import { ConfigService } from 'src/app/core/services/config.service';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { GeoTaggingComponent } from './geo-tagging/geo-tagging.component';
     ReactiveFormsModule,
     MatTabsModule,
     MatButtonToggleModule,
+    AgmCoreModule.forRoot(ConfigService.googleApiObj),
   ]
 })
 export class ApprovalProcessModule { }
