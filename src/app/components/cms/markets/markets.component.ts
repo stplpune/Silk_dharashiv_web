@@ -149,7 +149,7 @@ export class MarketsComponent implements OnDestroy{
       title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेला बाजार  ' + userMara + ' करू इच्छिता?' : 'Do You Want To ' + userEng + ' The Selected Market?',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
-      statusFlag:this.lang == 'en' ? 'Toggle' : 'टॉगल'
+      headerImage: obj.status == false ?'assets/images/active_scheme@3x.png' : 'assets/images/inactive_scheme/inactive_scheme@3x.png'
     }
     const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -199,6 +199,7 @@ export class MarketsComponent implements OnDestroy{
       header: this.lang == 'mr-IN' ? 'बाजार सूची हटवा' : 'Delete',
       okButton: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
+      headerImage:'assets/images/delete.svg'
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '30%',
