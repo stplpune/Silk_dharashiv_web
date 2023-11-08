@@ -335,7 +335,8 @@ export class ApprovalProcessComponent implements OnDestroy {
         "m_DocumentType": "",
         "docNo": otherFormData?.docNo,
         "docPath": otherFormData?.docPath,
-        "isVerified": false
+        "isVerified": false,
+        "isDeleteAction":true
       }
 
       if(!this.editOtherDocForm){
@@ -382,6 +383,11 @@ export class ApprovalProcessComponent implements OnDestroy {
     // ele.docPath ? this.imageData = ele.docPath:'';
   }
 
+  deleteOtherDocument(i:any){
+    this.pushOtherDocArray.splice(0,i)
+    this.otherDocArray = new MatTableDataSource(this.pushOtherDocArray);
+  }
+
 //#endregion -----------------------------------------------------------other doc section end heare ---------------------------------//
 
   onSubmitApprovalDetails() {
@@ -414,7 +420,7 @@ export class ApprovalProcessComponent implements OnDestroy {
         })
       });
       this.actionNameLabel && this.uploadedDepDoc && this.applicationData?.isEdit ? newUploadedDoc.push(this.uploadedDepDoc):'';//uploaded  Department Document
-      // this.updateApprovalStatus(newUploadedDoc);
+      this.updateApprovalStatus(newUploadedDoc);
     }
   }
 
@@ -483,6 +489,7 @@ export class ApprovalProcessComponent implements OnDestroy {
   addGeoTagging(obj?:any){
     const dialogRef = this.dialog.open(GeoTaggingComponent,{
       width: '90%',
+      height:'90%',
       data: obj,
       disableClose: true,
       autoFocus: false

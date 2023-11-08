@@ -2,15 +2,16 @@
   <mat-card-header class="card-header">
     <div class="text-main fw-bold">Application / {{applicantDetails?.schemeType}} / View Application </div>
   </mat-card-header>
-
+<!-- <a (click)="addGeoTagging()">Geo fance</a> -->
   <mat-card-content class="card-body">
     <div class="card card-body mb-3">
       <div class="row g-2">
         <div class="col-sm-4">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">Application ID (Date):</div>
-            <div class="form-data">{{(applicationData?.applicationNo +' ( '+(applicationData?.applicationDate | date:'dd-MM-yyyy')+')') | dash }}</div>
-         </div>
+            <div class="form-data">{{(applicationData?.applicationNo +' ( '+(applicationData?.applicationDate |
+              date:'dd-MM-yyyy')+')') | dash }}</div>
+          </div>
         </div>
         <div class="col-sm-4">
           <div class="d-flex gap-2">
@@ -45,11 +46,12 @@
         <div class="col-sm-4">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">Address :</div>
-            <div class="form-data">{{applicantDetails?.state +', '+applicantDetails?.taluka+', '+applicantDetails?.village}}</div>
+            <div class="form-data">{{applicantDetails?.state +', '+applicantDetails?.taluka+',
+              '+applicantDetails?.village}}</div>
           </div>
         </div>
 
-       </div>
+      </div>
     </div>
 
     <div class="table-content table-responsive mb-3">
@@ -484,7 +486,8 @@
           </mat-tab>
           <mat-tab label="Other Document">
             <div class="container-fluid">
-              <form [formGroup]="uploadFrm" #formDirective="ngForm" (ngSubmit)="onSubmit()" [class.disable]="!applicationData?.isEdit"  class="w-100 mt-2">
+              <!--  -->
+              <form [formGroup]="uploadFrm" #formDirective="ngForm" (ngSubmit)="onSubmit()" class="w-100 mt-2" [class.disable]="!applicationData?.isEdit">
                 <div class="row g-2">
                   <div class="col-sm">
                     <mat-form-field appearance="outline" class="w-100">
@@ -563,17 +566,19 @@
                           visibility
                         </span>
                       </button>
-                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10" [class.disable]="!applicationData?.isEdit"
-                        (click)="editOtherDoc(element)">
+                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10"
+                        [class.disable]="!applicationData?.isEdit" (click)="editOtherDoc(element)">
                         <span class="material-symbols-rounded text-warning">
                           edit_square
                         </span>
                       </button>
-                      <!-- <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10" (click)="deleteImage(i,'other')">
+                      <!--  -->
+                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
+                        (click)="deleteOtherDocument(i)" [disabled]="!element?.isDeleteAction">
                         <span class="material-symbols-rounded text-danger">
                           delete
                         </span>
-                      </button> -->
+                      </button>
                     </div>
                   </td>
                 </ng-container>
@@ -652,7 +657,8 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="file-upload border rounded-2 p-1" *ngIf="this.applicationData?.uploadDocTypeId !=0 && approvalFrm.value.applicationStatus == 12">
+              <div class="file-upload border rounded-2 p-1"
+                *ngIf="this.applicationData?.uploadDocTypeId !=0 && approvalFrm.value.applicationStatus == 12">
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
                   data-placement="right" (click)="uploadDepDocument.click()">
                   Upload Document

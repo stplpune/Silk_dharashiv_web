@@ -146,7 +146,7 @@ export class MarketsComponent implements OnDestroy{
     let userMara = obj.status == false ? 'सक्रिय' : 'निष्क्रिय';
     let dialoObj = {
       header: this.lang == 'mr-IN' ? 'बाजार ' + userMara + ' करा' : userEng + ' Market',
-      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेला बाजार  ' + userMara + ' करू इच्छिता ?' : 'Do You Want To ' + userEng + ' The Selected Market ?',
+      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेला बाजार  ' + userMara + ' करू इच्छिता?' : 'Do You Want To ' + userEng + ' The Selected Market?',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
       statusFlag:this.lang == 'en' ? 'Toggle' : 'टॉगल'
