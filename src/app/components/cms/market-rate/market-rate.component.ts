@@ -200,7 +200,7 @@ export class MarketRateComponent implements OnDestroy{
 
   addMarket(obj?: any) {
     const dialogRef = this.dialog.open(AddMarketRateComponent, {
-      width: '30%',
+      width: '45%',
       data: obj,
       disableClose: true
     });
