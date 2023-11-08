@@ -12,7 +12,7 @@
         </div>
       </mat-card-header>
       <mat-card-header class="card-header-control">
-        <form [formGroup]="filterFrm" class="w-100">
+        <form [formGroup]="filterFrm" class="w-100" #formDirective="ngForm">
         <div class="row g-2">
           <div class="col-sm-auto">
             <mat-form-field appearance="outline" class="w-100">

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { AddMarketListComponent } from './add-market-list/add-market-list.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -6,7 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { MasterService } from 'src/app/core/services/master.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm } from '@angular/forms';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
@@ -33,6 +33,8 @@ export class MarketsComponent implements OnDestroy{
   pageAccessObject: object|any;
   talukaCtrl: FormControl = new FormControl();
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  @ViewChild('formDirective') private formDirective!: NgForm;
+  
   constructor(public dialog: MatDialog,
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -187,6 +189,9 @@ export class MarketsComponent implements OnDestroy{
       autoFocus: true,
     })
     dialogRef.afterClosed().subscribe((result: any) => {
+      this.formDirective?.resetForm();
+      this.formData();
+      this.pageNumber = 1;
       result == 'Yes' ? this.bindTable() : '';
       this.highLightedFlag = false;
       // this.setTableData();

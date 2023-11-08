@@ -176,15 +176,12 @@ export class DesignationsComponent implements OnDestroy {
       autoFocus: true,
     })
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (!this.searchDataFlag) {
         this.formDirective?.resetForm();
         this.filterDefaultFrm();
         this.pageNumber = 1;
         result == 'Yes' ? this.bindTable() : '';
         this.highLightedFlag = false;
-      }
-
-    });
+     });
   }
 
 
