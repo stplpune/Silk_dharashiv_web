@@ -55,27 +55,28 @@
                   <tbody>
                     <tr>
                       <td class="form-label">तुति लागवड दिनांक</td>
-                      <td class="form-data">07-11-2023</td>
+                      <td class="form-data">{{(data?.mulberryCultivationDate | date:"dd-MM-yyyy") | dash}}</td>
                     </tr>
                     <tr>
                       <td class="form-label">तुति लागवड क्षेत्र (हेक्टर)</td>
-                      <td class="form-data">1</td>
+                      <td class="form-data">{{data?.mulberryCultivationArea | dash}}</td>
                     </tr>
                     <tr>
                       <td class="form-label">तुति लागवडचा प्रकार</td>
-                      <td class="form-data">रोपद्वारे</td>
+                      <td class="form-data">{{data?.cultiverType| dash}}</td>
+                        <!-- m_CultiverType  -->
                     </tr>
                     <tr>
                       <td class="form-label">तुति लागवडची जात</td>
-                      <td class="form-data">D. H.</td>
+                      <td class="form-data">{{data?.shetmalCast | dash}}</td>
                     </tr>
                     <tr>
                       <td class="form-label">तुति लागवडचे आंतर</td>
-                      <td class="form-data">1 फुट</td>
+                      <td class="form-data">{{data?.mulberryCultivationSpacing | dash}}</td>
                     </tr>
                     <tr>
                       <td class="form-label">तुति लागवड क्षेत्राची (लंबी व रुंदी) फुट </td>
-                      <td class="form-data">60 * 40 फुट</td>
+                      <td class="form-data">{{(data?.mulberryCultivationLength + '*' + data?.mulberryCultivationWidth)  | dash}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -88,31 +89,27 @@
                   <tbody>
                     <tr>
                       <td class="form-label">एकूणतुति रांग/ ओळींची संख्या</td>
-                      <td class="form-data">226</td>
+                      <td class="form-data">{{data?.totalCultiverLines  | dash}}</td>
                     </tr>
                     <tr>
                       <td class="form-label">एका तुति रांगेतील / ओळीत झाडांची संख्या</td>
-                      <td class="form-data">26</td>
+                      <td class="form-data">{{data?.totalServingMulberryTreesOneLine | dash}}</td>
                     </tr>
-                    <tr>
-                      <td class="form-label">तुति लागवडचा प्रकार</td>
-                      <td class="form-data">रोपद्वारे</td>
-                    </tr>
-                    <tr>
+                   <tr>
                       <td class="form-label">एका तुति रांगेतील / ओळीतिल हयात झाडांची संख्या </td>
-                      <td class="form-data">221</td>
+                      <td class="form-data">{{data?.totalServingMulberryTreesOneLine   | dash}}</td>
                     </tr>
                     <tr>
                       <td class="form-label">एकूण तुति झाडांची संख्या </td>
-                      <td class="form-data">5876</td>
+                      <td class="form-data">{{data?.totalMulberryTrees  | dash}}</td>
                     </tr>
                     <tr>
                       <td class="form-label">एकूण हयात तुति झाडांची संख्या</td>
-                      <td class="form-data">5746</td>
+                      <td class="form-data">{{data?.totalMulberryTreesAverage | dash}}</td>
                     </tr>
                     <tr>
                       <td class="form-label"> हयात तुति झाडांची टक्केवारी</td>
-                      <td class="form-data">98%</td>
+                      <td class="form-data">{{data?.totalMulberryTreesPercentage | dash}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -122,6 +119,9 @@
         </div>
       </div>
     </div>
+
+
+
 
 
 
