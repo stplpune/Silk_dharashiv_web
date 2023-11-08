@@ -15,7 +15,7 @@ export class GeoTaggingComponent {
   lng = 76.0420;
   map!: any;
   polygon: any;
-  
+
 
   onMapReady(map: any) {
     this.map = map;
@@ -36,8 +36,6 @@ export class GeoTaggingComponent {
 
     this.polygon = new google.maps.Polygon({
       paths: paths,
-      editable: true,
-      draggable: true,
       strokeColor: '#FF0000',
       strokeWeight: 2,
     });
