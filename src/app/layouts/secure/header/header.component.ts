@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core'
 import { CommonModule } from '@angular/common';
 import { MyProfileComponent } from 'src/app/components/profile/my-profile/my-profile.component';
 import { MatIconModule } from '@angular/material/icon';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -25,6 +26,8 @@ export class HeaderComponent {
   loginData: any;
   userName: string = '';
   designationName: string = '';
+  subscription!: Subscription;
+  lang: string = 'English';
 
 
   constructor(private webStorage: WebStorageService, public dialog: MatDialog,
@@ -41,6 +44,10 @@ export class HeaderComponent {
     this.translate.use(language);
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.selLang = res;
+    })
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
 
     this.webStorage.getProfileData().subscribe((res: any) => {
@@ -62,10 +69,10 @@ export class HeaderComponent {
 
   openChangePasswordDialog() {
     let dialoObj = {
-      header: 'Change Password',
-      title: 'Do You Really Want To Change Password?',
-      cancelButton: 'Cancel',
-      okButton: 'Change Password'
+      header:this.lang == 'en' ?  'Change Password' : 'पासवर्ड बदला',
+      title:this.lang == 'en' ?  'Do You Really Want To Change Password?' : 'तुम्हाला खरच पासवर्ड बदलायचा आहे का?',
+      cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
+      okButton:this.lang == 'en' ?  'Change Password' : 'पासवर्ड बदला',
     }
     const dialogRef = this.dialog.open(ChangePasswordComponent, {
       width: '50%',
@@ -88,10 +95,10 @@ export class HeaderComponent {
 
   openLogOutDialog() {    //open logout dialog
     let dialoObj = {
-      header: 'Logout',
-      title: 'Do You Want To Logout ?',
-      cancelButton: 'Cancel',
-      okButton: 'Logout'
+      header:this.lang == 'en' ? 'Logout' : 'बाहेर पडणे',
+      title: this.lang == 'en' ?  'Do You Want To Logout?' : 'आपण लॉगआउट करू इच्छिता',
+      cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
+      okButton:this.lang == 'en' ? 'Logout' : 'बाहेर पडणे'
     }
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '300px',

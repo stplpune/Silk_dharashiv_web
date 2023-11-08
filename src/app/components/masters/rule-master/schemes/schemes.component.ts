@@ -145,8 +145,10 @@ export class SchemesComponent implements OnDestroy{
       title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेली योजना ' + userMara + ' करू इच्छिता ?' : 'Do You Want To ' + userEng + ' The Selected Scheme ?',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
-      statusFlag:this.lang == 'en' ? 'Toggle' : 'टॉगल'
+      // statusFlag:this.lang == 'en' ? 'Toggle' : 'टॉगल'
+      headerImage: obj.isActive == false ?'assets/images/active_scheme@3x.png' : 'assets/images/inactive_scheme/inactive_scheme@3x.png'
     }
+    
     const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
       data: dialoObj,
@@ -178,6 +180,7 @@ export class SchemesComponent implements OnDestroy{
       header: this.lang == 'en' ?  'Delete Scheme' : 'योजना हटवा',
       okButton: this.lang == 'en' ?  'Delete' : 'हटवा',
       cancelButton:this.lang == 'en' ?  'Cancel' : 'रद्द करा',
+      headerImage:'assets/images/delete.svg'
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '30%',
