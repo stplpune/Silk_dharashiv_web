@@ -55,7 +55,7 @@ export class RegisterOfficerComponent {
 
   circleCtrl: FormControl = new FormControl();
   circleSubject: ReplaySubject<any> = new ReplaySubject<any>();
-  
+
   gramPCtrl: FormControl = new FormControl();
   gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
   constructor
@@ -86,7 +86,7 @@ export class RegisterOfficerComponent {
   }
 
 
-  getFormData() {    
+  getFormData() {
     if (this.data) {
       this.data.blockId = this.data?.blockId != 0 ? this.data?.blockId : ''
       this.data.talId = this.data?.talId != 0 ? this.data?.talId : ''
@@ -119,6 +119,7 @@ export class RegisterOfficerComponent {
 
   get f() { return this.officeForm.controls; }
 
+
   searchDataZone() {
     this.departmentctrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.departmentArray, this.departmentctrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentSubject) });
     this.departmentLevelCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.departmentLevelArray, this.departmentLevelCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentLevelSubject) });
@@ -136,18 +137,39 @@ export class RegisterOfficerComponent {
         this.departmentArray = res.responseData;
         // this.departmentArray.unshift({ id: 0,textEnglish:'All Department' ,textMarathi:'सर्व विभाग'} ),
         this.commonMethod.filterArrayDataZone(this.departmentArray, this.departmentctrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentSubject);
-        this.data ? (this.f['departmentId'].setValue(this.data?.departmentId),this.getDepartmentLevel()) : ''
+        this.data ? (this.f['departmentId'].setValue(this.data?.departmentId), this.getDepartmentLevel()) : ''
       }), error: (() => {
         this.departmentArray = [];
+        this.departmentSubject.next(null);
       })
     })
+  }
+
+  getDepartmentLevel() {
+    this.departmentLevelArray = [];
+    let deptId = this.officeForm.getRawValue().departmentId || 0;
+    if (deptId != 0) {
+      this.masterService.GetDeptLevelDropDown().subscribe({
+        next: ((res: any) => {
+          this.departmentLevelArray = res.responseData;
+          // this.departmentLevelArray.unshift({ id: 0,textEnglish:'All Level' ,textMarathi:'सर्व स्तर'} ),
+          this.commonMethod.filterArrayDataZone(this.departmentLevelArray, this.departmentLevelCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentLevelSubject);
+          // this.data ? (this.f['departmentLevelId'].setValue(this.data?.departmentLevelId), this.getDesignation()) : ''
+          this.getDesignation()
+        }), error: (() => {
+          this.departmentLevelArray = [];
+          this.departmentLevelSubject.next(null);
+        })
+      })
+    }
+
   }
 
   getDesignation() {
     this.designationArray = [];
     let deptId = this.officeForm.getRawValue().departmentId || 0;
     let deptLevelId = this.officeForm.getRawValue().departmentLevelId || 0;
-    if (deptId != 0 && deptLevelId!=0) {
+    if (deptId != 0 && deptLevelId != 0) {
       this.masterService.GetDesignationDropDownOnDeptLevel(deptId, deptLevelId).subscribe({
         next: ((res: any) => {
           this.designationArray = res.responseData;
@@ -156,26 +178,13 @@ export class RegisterOfficerComponent {
           // this.data ? (this.f['designationId'].setValue(this.data?.designationId)) : '';
         }), error: (() => {
           this.designationArray = [];
+          this.designationSubject.next(null);
         })
       })
     }
   }
 
-  getDepartmentLevel() {
-    this.departmentLevelArray = [];
-    this.masterService.GetDeptLevelDropDown().subscribe({
-      next: ((res: any) => {
-        this.departmentLevelArray = res.responseData;
-        // this.departmentLevelArray.unshift({ id: 0,textEnglish:'All Level' ,textMarathi:'सर्व स्तर'} ),
-        this.commonMethod.filterArrayDataZone(this.departmentLevelArray, this.departmentLevelCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentLevelSubject);
-        // this.data ? (this.f['departmentLevelId'].setValue(this.data?.departmentLevelId), this.getDesignation()) : ''
-        this.getDesignation()
-      }), error: (() => {
-        this.departmentLevelArray = [];
-      })
-    })
-  }
-
+  
   getState() {
     this.stateArray = [];
     this.masterService.GetAllState().subscribe({
@@ -210,6 +219,7 @@ export class RegisterOfficerComponent {
         (this.data && flag) ? (this.f['blockId'].setValue(this.data?.blockId)) : '';
       }), error: (() => {
         this.blockArray = [];
+        this.blockSubject.next(null);
       })
     })
   }
@@ -221,9 +231,10 @@ export class RegisterOfficerComponent {
         this.talukaArray = res.responseData;
         // this.talukaArray.unshift( { id: 0,textEnglish:'All Taluka',textMarathi:'सर्व तालुका'} ),
         this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
-        (this.officeForm.value.departmentLevelId != 4 && this.officeForm.value.departmentLevelId != 1 || (this.data && flag)) ? (this.f['talukaId'].setValue(this.data?.talId), this.getGrampanchayat(),this.getCircle()) : '';
+        (this.officeForm.value.departmentLevelId != 4 && this.officeForm.value.departmentLevelId != 1 || (this.data && flag)) ? (this.f['talukaId'].setValue(this.data?.talId), this.getGrampanchayat(), this.getCircle()) : '';
       }), error: (() => {
         this.talukaArray = [];
+        this.talukaSubject.next(null);
       })
     })
   }
@@ -240,6 +251,7 @@ export class RegisterOfficerComponent {
           // this.data ? (this.f['grampanchayatId'].setValue(this.data?.grampanchayatId)) : '';
         }), error: (() => {
           this.grampanchayatArray = [];
+          this.gramPSubject.next(null);
         })
       })
     }
@@ -258,6 +270,7 @@ export class RegisterOfficerComponent {
         // this.data  ? (this.f['circleId'].setValue(this.data?.circleId)) : '';
       }), error: (() => {
         this.circleArray = [];
+        this.circleSubject.next(null);
       })
     })
   }
@@ -348,26 +361,35 @@ export class RegisterOfficerComponent {
 
   clearDropDown(flag?: any) {
     if (flag == 'deptLevelClear') {
-      this.f['designationId'].setValue('');
+      this.designationSubject = new ReplaySubject<any>();
       this.designationArray = [];
-      this.f['circleId'].setValue('');
+      this.f['designationId'].setValue('');
+      this.circleSubject = new ReplaySubject<any>();
       this.circleArray = [];
-      this.f['blockId'].setValue('');
+      this.f['circleId'].setValue('');
+      this.blockSubject = new ReplaySubject<any>();
       this.blockArray = [];
-      this.f['talukaId'].setValue('');
+      this.f['blockId'].setValue('');
+      this.talukaSubject = new ReplaySubject<any>();
       this.talukaArray = [];
-      this.f['grampanchayatId'].setValue('');
+      this.f['talukaId'].setValue('');
+      this.gramPSubject = new ReplaySubject<any>();
       this.grampanchayatArray = [];
-    }else if(flag == 'levelclear'){
+      this.f['grampanchayatId'].setValue('');
+    } else if (flag == 'levelclear') {
       this.f['departmentLevelId'].setValue('');
+      this.departmentLevelSubject = new ReplaySubject<any>();
       this.departmentLevelArray = [];
-      this.f['designationId'].setValue('');
+      this.designationSubject = new ReplaySubject<any>();
       this.designationArray = [];
-    }else {
-      this.f['circleId'].setValue('');
+      this.f['designationId'].setValue('');
+    } else {
+      this.circleSubject = new ReplaySubject<any>();
       this.circleArray = [];
-      this.f['grampanchayatId'].setValue('');
+      this.f['circleId'].setValue('');
+      this.gramPSubject = new ReplaySubject<any>();
       this.grampanchayatArray = [];
+      this.f['grampanchayatId'].setValue('');
     }
   }
 
@@ -381,7 +403,7 @@ export class RegisterOfficerComponent {
   get fs() { return this.statusForm.controls; }
 
   sendData(id?: any) {
-    id == 1 ? (this.showFlag = false, this.statusForm.controls['remark'].setValue('')) :this.showFlag = true
+    id == 1 ? (this.showFlag = false, this.statusForm.controls['remark'].setValue('')) : this.showFlag = true
     if (id == 0) {
       this.statusForm.controls["remark"].clearValidators();
       this.statusForm.controls['remark'].setValidators([Validators.required]);
@@ -435,7 +457,7 @@ export class RegisterOfficerComponent {
 
   imageUplod(event: any) {
     this.spinner.show();
-    this.fileUpl.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc','','',this.lang).subscribe({
+    this.fileUpl.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc', '', '', this.lang).subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.spinner.hide();
@@ -486,7 +508,18 @@ export class RegisterOfficerComponent {
     this.formDirective.resetForm();
     this.data = null;
     this.getFormData();
+    this.designationArray = [];
+    this.departmentLevelArray = [];
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+    this.departmentSubject?.unsubscribe();
+    this.departmentLevelSubject?.unsubscribe();
+    this.designationSubject?.unsubscribe();
+    this.talukaSubject?.unsubscribe();
+    this.blockSubject?.unsubscribe();
+    this.circleSubject?.unsubscribe();
+    this.gramPSubject?.unsubscribe();
   }
 }
-
-
