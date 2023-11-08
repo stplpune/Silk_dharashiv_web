@@ -6,7 +6,7 @@
   <div id="delete">
     <div class="row">
       <div class="col-12">
-          <div class="card card-body border-0 bg-danger-subtle text-center mb-3" *ngIf="!data.statusFlag">
+          <!-- <div class="card card-body border-0 bg-danger-subtle text-center mb-3" *ngIf="!data.statusFlag">
             <div class="py-3">
               <img src="assets/images/delete.svg" class="w-25 mx-auto">
             </div>
@@ -14,6 +14,16 @@
           <div class="card card-body border-0 bg-danger-subtle text-center mb-3" *ngIf="data.statusFlag == 'Toggle' || data.statusFlag == 'टॉगल'"> 
             <div class="py-3">
               <img src="assets/images/active_scheme@3x.png" class="w-25 mx-auto">
+            </div>
+          </div>
+          <div class="card card-body border-0 bg-danger-subtle text-center mb-3" *ngIf="data.header == 'Logout' || data.statusFlag == 'बाहेर पडणे'"> 
+            <div class="py-3">
+              <img src="assets/images/logout/logout@3x.png" class="w-25 mx-auto"> 
+            </div>
+          </div> -->
+          <div class="card card-body border-0 bg-danger-subtle text-center mb-3" *ngIf="!data.statusFlag">
+            <div class="py-3">
+              <img [src]=data.headerImage class="w-25 mx-auto" >
             </div>
           </div>
           <h6>{{data?.header}}</h6>
