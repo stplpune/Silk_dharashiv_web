@@ -26,7 +26,6 @@ export class AddVillageComponent implements OnDestroy {
   subscription!: Subscription;
   lang: any;
   isViewFlag: boolean = false;
-  clearvillageFlag:boolean=false;
   talukaCtrl: FormControl = new FormControl();
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   gramPCtrl: FormControl = new FormControl();

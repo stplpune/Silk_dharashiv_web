@@ -70,6 +70,9 @@ export class VillageCircleComponent implements OnDestroy{
     })
   }
 
+  get f() { return this.filterForm.controls; }
+
+
   searchDataZone() {
     this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethodService.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
     this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.commonMethodService.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject) });
@@ -94,6 +97,7 @@ export class VillageCircleComponent implements OnDestroy{
         this.commonMethodService.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
       }), error: (() => {
         this.talukaArray = [];
+        this.talukaSubject.next(null);
       })
     })
   }
@@ -101,15 +105,18 @@ export class VillageCircleComponent implements OnDestroy{
 
   getGrampanchayat() {
     let talukaId = this.filterForm.value.talukaId;
-    this.masterService.GetGrampanchayat(talukaId || 0).subscribe({
-      next: ((res: any) => {
-        this.grampanchayatArray = res.responseData;
-        this.grampanchayatArray.unshift( { id: 0,textEnglish:'All Grampanchayat' ,textMarathi:'सर्व ग्रामपंचायत'});
-        this.commonMethodService.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
-      }), error: (() => {
-        this.grampanchayatArray = [];
+    if(talukaId!=0){
+      this.masterService.GetGrampanchayat(talukaId || 0).subscribe({
+        next: ((res: any) => {
+          this.grampanchayatArray = res.responseData;
+          this.grampanchayatArray.unshift( { id: 0,textEnglish:'All Grampanchayat' ,textMarathi:'सर्व ग्रामपंचायत'});
+          this.commonMethodService.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
+        }), error: (() => {
+          this.grampanchayatArray = [];
+          this.gramPSubject.next(null);
+        })
       })
-    })
+    }
   }
   //sericulture/api/Circles/GetAllCircles?TalukaId=1&GrapanchyatId=1&pageno=1&pagesize=10&TextSearch=tt&lan=en
   getTableData(flag?: any) {
@@ -222,16 +229,20 @@ export class VillageCircleComponent implements OnDestroy{
   clearFilter() {
     this.filterForm.reset();
     this.pageNumber = 1;
-    this.getFilterFormData();
+    // this.getFilterFormData();
+    this.gramPSubject = new ReplaySubject<any>();
+    this.grampanchayatArray = [];
+    this.f['grampanchayatId'].setValue('');
+    this.f['textsearch'].setValue('');
     this.getTableData();
   }
 
   clearDropDown(flag?:any){    
     if(flag == 'gram'){
+      this.gramPSubject = new ReplaySubject<any>();
       this.grampanchayatArray = [];
-      this.filterForm.controls['grampanchayatId'].setValue(0);
     }
-    this.getFilterFormData();
+    // this.getFilterFormData();
   }
 
   ngOnDestroy() {
