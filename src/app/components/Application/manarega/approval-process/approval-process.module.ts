@@ -20,6 +20,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { GeoTaggingComponent } from './geo-tagging/geo-tagging.component';
 
+
 @NgModule({
   declarations: [
     ApprovalProcessComponent,
