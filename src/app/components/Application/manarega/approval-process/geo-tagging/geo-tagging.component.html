@@ -6,8 +6,8 @@
     </button>
   </div>
 </div>
-<mat-dialog-content class="modal-content form-container scrollbar">
-  <div class="d-flex align-items-center justify-content-between py-2 border-bottom">
+<mat-dialog-content class="modal-content form-container scrollbar pb-0">
+  <div class="d-flex align-items-center justify-content-between py-1 border-bottom">
     <div class="d-flex align-items-center gap-2">
       <div class="form-label mb-0">View Place Details Date</div>
       <div class="form-data">: 07-11-2023</div>
@@ -20,9 +20,9 @@
 
   <div class="row">
     <div class="col-sm-5 border-end">
-      <div class="container-flud mt-2">
+      <div class="container-flud">
 
-        <div class="form-data">शेतीचे सिमांकन (लागवदिंनंतर)</div>
+        <div class="form-label mb-0">शेतीचे सिमांकन (लागवदिंनंतर)</div>
         <div class="container-fluid mt-2 p-0">
           <agm-map [latitude]="lat" [longitude]="lng" (mapReady)="onMapReady($event)">
           </agm-map>
@@ -31,8 +31,8 @@
     </div>
     <div class="col-sm-7">
       <div class="row">
-        <div class="container-fluid mt-2">
-          <div class="form-data">तुति बागेचे शेकर्‍यांसामवेत फोटो</div>
+        <div class="container-fluid afterplantation-imgs">
+          <div class="form-label mb-0">तुति बागेचे शेकर्‍यांसामवेत फोटो</div>
           <div class="row gx-2 pb-2 border-bottom">
             <div class="col-sm-3">
               <img src="../../../../../../assets/images/login-bg.jpg" alt="" class="img-fluid rounded">
@@ -50,7 +50,7 @@
           <div class="row gx-2">
             <div class="col-sm-6">
               <div class="form-label">तुति लागवडीचा तपशील</div>
-              <div class="table-responsive scrollbar mt-2">
+              <div class="table-responsive scrollbar mt-1">
                 <table class="dashboard-table table table-sm table-bordered w-100 mb-0">
                   <tbody>
                     <tr>
@@ -83,7 +83,7 @@
             </div>
             <div class="col-sm-6">
               <div class="form-label">तुति लागवडीचा तपशील</div>
-              <div class="table-responsive scrollbar mt-2">
+              <div class="table-responsive scrollbar mt-1">
                 <table class="dashboard-table table table-sm table-bordered w-100 mb-0">
                   <tbody>
                     <tr>
