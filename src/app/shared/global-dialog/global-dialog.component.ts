@@ -22,7 +22,6 @@ export class GlobalDialogComponent {
   constructor(public dialogRef: MatDialogRef<GlobalDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,    public commonService: CommonMethodsService, public valiService: ValidationService) { }
 
   ngOnInit() {
-    console.log(this.data);
     
   }
 

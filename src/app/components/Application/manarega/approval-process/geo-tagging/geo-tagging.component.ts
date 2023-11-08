@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 declare var google: any;
 @Component({
   selector: 'app-geo-tagging',
@@ -7,22 +8,31 @@ declare var google: any;
 })
 export class GeoTaggingComponent {
 
-  lat = 11.3821188;
-  lng = 77.89472419999993;
+  constructor(public dialogRef: MatDialogRef<GeoTaggingComponent>, @Inject(MAT_DIALOG_DATA) public data: any){
+  }
+
+  lat = 18.1853;
+  lng = 76.0420;
   map!: any;
   polygon: any;
+  
 
   onMapReady(map: any) {
     this.map = map;
-    this.drawPolygon();
+    this.data?.polygonText ?   this.drawPolygon():'';
   }
 
   drawPolygon() {
-    const paths = [
-      { lat: 12.3175489124641, lng: 78.48798591874993 },
-      { lat: 8.210490392434776, lng: 77.38935310624993 },
-      { lat: 10.59482777210473, lng: 79.58661873124993 },
-    ];
+    let bounds: any = new google.maps.LatLngBounds();
+    let polygonData = this.data?.polygonText;
+    let splitLatLong = polygonData.split(',');
+    const paths: any = [];
+
+    splitLatLong.find((ele: any) => {
+      let split = ele.split(' ');
+      paths.push({ lat: +split[1], lng: +split[0] })
+      bounds.extend(new google.maps.LatLng(+split[1], +split[0]));
+    })
 
     this.polygon = new google.maps.Polygon({
       paths: paths,
@@ -33,6 +43,7 @@ export class GeoTaggingComponent {
     });
 
     this.polygon.setMap(this.map);
+    this.map?.fitBounds(bounds);
   }
 
   set() {
