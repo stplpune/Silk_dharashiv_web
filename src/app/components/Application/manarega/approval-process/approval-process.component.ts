@@ -316,7 +316,7 @@ export class ApprovalProcessComponent implements OnDestroy {
 
       let otherFormData = this.uploadFrm.getRawValue();
       let obj = {
-        "id":this.applicationData.id,
+        "id":0,
         "applicationId": this.applicationData.applicationId,
         "docTypeId": 1, // 1 is other doc
         "documentType": otherFormData?.documentType,
@@ -433,14 +433,14 @@ export class ApprovalProcessComponent implements OnDestroy {
         ele.createdBy = ele?.createdBy || this.WebStorageService.getUserId();
         ele.modifiedBy = ele?.id || this.WebStorageService.getUserId();
         ele.modifiedDate = new Date();
-        ele.isDeleted = false
+        ele.isDeleted = ele.isDeleted || false
       });
     }
     this.spinner.show();
     let data = this.approvalFrm.getRawValue();
     this.approvalFrm.controls['m_remark'].setValue(data?.remark);
     let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId(),};
-    array.length ? mainData.applicationDocument = array : '';
+    array.length ? mainData.applicationDocument = array : mainData.applicationDocument = [];
     this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/UpdateApprovalStatus?lan=' + this.lang, false, mainData, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
