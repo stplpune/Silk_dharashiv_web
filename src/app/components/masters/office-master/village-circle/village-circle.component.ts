@@ -80,7 +80,7 @@ export class VillageCircleComponent implements OnDestroy{
 
   AddVillage(data?: any) {
     const dialogRef = this.dialog.open(AddVillageComponent, {
-      width: '30%',
+      width: '45%',
       data: data,
       disableClose: true
     });
@@ -89,7 +89,7 @@ export class VillageCircleComponent implements OnDestroy{
     })
   }
 
-  getTaluka() {    
+  getTaluka() {
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
@@ -238,7 +238,7 @@ export class VillageCircleComponent implements OnDestroy{
     this.getTableData();
   }
 
-  clearDropDown(flag?:any){    
+  clearDropDown(flag?:any){
     if(flag == 'gram'){
       this.gramPSubject = new ReplaySubject<any>();
       this.grampanchayatArray = [];

@@ -60,7 +60,7 @@
   },
   "manrega": {
     "manrega": "अर्ज",
-    "scheme": "योजना",
+    "scheme": "योजना यादी",
     "action": "कृती",
     "district": "जिल्हा",
     "taluka": "तालुका",
@@ -234,7 +234,7 @@
     "administrator_mobile_no":"प्रशासक संपर्क क्रमांक",
     "working_hours": "कामाचे तास",
     "add_Market_List": "बाजार जोडा",
-    "update_Market_List": "बाजार अपडेट करा",
+    "update_Market_List": "बाजार अद्यावत करा",
     "view_Market_List": "बाजार पहा",
     "establishment_Date": "स्थापना दिवस",
     "please_enter_latitude": "कृपया अक्षांश प्रविष्ट करा",

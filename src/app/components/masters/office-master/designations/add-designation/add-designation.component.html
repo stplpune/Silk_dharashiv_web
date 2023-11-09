@@ -13,7 +13,7 @@
 
     <form [formGroup]="designationFrm" (ngSubmit)=" onSubmit()" #formDirective="ngForm">
       <div class="mb-0">
-        <mat-label class="form-label">{{'designation.depertment'|translate}}</mat-label>
+        <mat-label class="form-label">{{'designation.depertment'|translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{'designation.depertment'|translate}}</mat-label> -->
           <mat-select formControlName="departmentId">
@@ -25,7 +25,7 @@
         </mat-form-field>
       </div>
       <div class="mb-0">
-        <mat-label class="form-label">{{'designation.designation_level'|translate}}</mat-label>
+        <mat-label class="form-label">{{'designation.designation_level'|translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{'designation.designation_level'|translate}}</mat-label> -->
           <mat-select formControlName="departmentLevelId">
@@ -36,7 +36,7 @@
         </mat-form-field>
       </div>
       <div class="mb-0">
-        <mat-label class="form-label">{{'designation.designation_en'|translate}}</mat-label>
+        <mat-label class="form-label">{{'designation.designation_en'|translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{'designation.designation_en'|translate}}</mat-label> -->
           <input matInput formControlName="designationName"
@@ -51,7 +51,7 @@
         </mat-form-field>
       </div>
       <div class="mb-0">
-        <mat-label class="form-label">{{'designation.designation_mr'|translate}}</mat-label>
+        <mat-label class="form-label">{{'designation.designation_mr'|translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{'designation.designation_mr'|translate}}</mat-label> -->
           <input matInput formControlName="m_DesignationName"
