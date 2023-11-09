@@ -451,12 +451,12 @@
                         </span>
                       </button>
                       <input type="file" class="d-none" (change)="imageUplod($event,'applicantDoc', i)" #editImg>
-                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10"
+                      <!-- <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10"
                         (click)="editImg.click()" [class.disable]="!applicationData?.isEdit">
                         <span class="material-symbols-rounded text-warning">
                           edit_square
                         </span>
-                      </button>
+                      </button> -->
                       <!-- <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10" (click)="deleteImage(i,'applicantDoc')">
                         <span class="material-symbols-rounded text-danger">
                           delete
@@ -559,15 +559,15 @@
                           visibility
                         </span>
                       </button>
-                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10"
+                      <!-- <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10"
                         [class.disable]="!applicationData?.isEdit" (click)="editOtherDoc(element)">
                         <span class="material-symbols-rounded text-warning">
                           edit_square
                         </span>
-                      </button>
-                      <!--  -->
+                      </button> -->
+                      <!-- [disabled]="!element?.isDeleteAction" -->
                       <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
-                        (click)="deleteOtherDocument(i)" [disabled]="!element?.isDeleteAction">
+                        (click)="deleteOtherDocument(i)" >
                         <span class="material-symbols-rounded text-danger">
                           delete
                         </span>

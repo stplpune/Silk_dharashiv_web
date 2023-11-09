@@ -373,8 +373,15 @@ export class ApprovalProcessComponent implements OnDestroy {
   }
 
   deleteOtherDocument(i:any){
-    this.pushOtherDocArray.splice(0,i)
-    this.otherDocArray = new MatTableDataSource(this.pushOtherDocArray);
+    this.pushOtherDocArray[i].isDeleted = true;
+    let array:any=[];
+    this.pushOtherDocArray.find((ele:any)=>{
+      if(!ele.isDeleted){
+        array.push(ele)
+      }
+    });
+
+    this.otherDocArray = new MatTableDataSource(array);
   }
 
 //#endregion -----------------------------------------------------------other doc section end heare ---------------------------------//
@@ -398,7 +405,7 @@ export class ApprovalProcessComponent implements OnDestroy {
 
       mergeArray.find((ele: any) => {
         this.appDataClonedArray?.allDocument.find((item: any) => {
-          if ((item.id == ele.id && ele?.docPath != item.docPath) || ele.id == 0) {
+          if ((item.id == ele.id && ele?.docPath != item.docPath) || ele.id == 0 || ele.isDeleted) {
             if(!newUploadedDoc.length ){
               newUploadedDoc.push(ele)
             }else{
@@ -434,7 +441,8 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.approvalFrm.controls['m_remark'].setValue(data?.remark);
     let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId(),};
     array.length ? mainData.applicationDocument = array : '';
- 
+    console.log(mainData)
+    return
     this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/UpdateApprovalStatus?lan=' + this.lang, false, mainData, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
