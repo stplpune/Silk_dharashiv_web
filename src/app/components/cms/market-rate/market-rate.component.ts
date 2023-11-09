@@ -138,7 +138,7 @@ export class MarketRateComponent implements OnDestroy{
       date: 'marketRateDate',
       view: this.pageAccessObject?.readRight == true ? true : false,
       edit: this.pageAccessObject?.writeRight == true ? true : false,
-      delete: this.pageAccessObject?.deleteRight == true ? true : false
+      delete: this.pageAccessObject?.deleteRight == true ? true : false,
     };
     this.highLightRowFlag ? (getTableData.highlightedrow = true) : (getTableData.highlightedrow = false);
     this.apiService.tableData.next(getTableData);
@@ -200,7 +200,7 @@ export class MarketRateComponent implements OnDestroy{
 
   addMarket(obj?: any) {
     const dialogRef = this.dialog.open(AddMarketRateComponent, {
-      width: '30%',
+      width: '45%',
       data: obj,
       disableClose: true
     });

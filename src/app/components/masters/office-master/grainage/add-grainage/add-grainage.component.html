@@ -71,7 +71,7 @@
 
     <div class="row gx-2 form-container">
       <div class="col-sm-4">
-        <mat-label class="form-label">{{"grainage.Type" | translate}}</mat-label>
+        <mat-label class="form-label">{{"grainage.Type" | translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{"grainage.Type" | translate}}</mat-label> -->
           <mat-select formControlName="type">
@@ -82,7 +82,7 @@
         </mat-form-field>
       </div>
       <div class="col-sm-4">
-        <mat-label class="form-label">{{"grainage.grainageName_en" | translate}}</mat-label>
+        <mat-label class="form-label">{{"grainage.grainageName_en" | translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{"grainage.grainageName_en" | translate}}</mat-label> -->
           <input formControlName="grainage" matInput (keypress)="validator.noFirstSpaceAllow($event);validator.englishAlphaNumeric($event)">
@@ -92,7 +92,7 @@
         </mat-form-field>
       </div>
       <div class="col-sm-4">
-        <mat-label class="form-label">{{"grainage.grainageName_mr" | translate}}</mat-label>
+        <mat-label class="form-label">{{"grainage.grainageName_mr" | translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{"grainage.grainageName_mr" | translate}}</mat-label> -->
           <input formControlName="m_Grainage" matInput
@@ -103,7 +103,7 @@
         </mat-form-field>
       </div>
       <div class="col-sm-4">
-        <mat-label class="form-label">{{"grainage.state" | translate}}</mat-label>
+        <mat-label class="form-label">{{"grainage.state" | translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{"grainage.state" | translate}}</mat-label> -->
           <mat-select formControlName="stateId" (selectionChange)="clearDropdown('state');getDisrict()">
@@ -114,7 +114,7 @@
         </mat-form-field>
       </div>
       <div class="col-sm-4">
-        <mat-label class="form-label">{{"grainage.district" | translate}}</mat-label>
+        <mat-label class="form-label">{{"grainage.district" | translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label >{{"grainage.district" | translate}}</mat-label> -->
           <mat-select formControlName="districtId" (selectionChange)="clearDropdown('district');getTaluka()">
@@ -125,7 +125,7 @@
         </mat-form-field>
       </div>
       <div class="col-sm-4">
-        <mat-label class="form-label">{{"grainage.taluka" | translate}}</mat-label>
+        <mat-label class="form-label">{{"grainage.taluka" | translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{"grainage.taluka" | translate}}</mat-label> -->
           <mat-select formControlName="talukaId">
@@ -141,7 +141,7 @@
         </mat-form-field>
       </div>
       <div class="col-sm-4">
-        <mat-label class="form-label">{{"grainage.pincode" | translate}}</mat-label>
+        <mat-label class="form-label">{{"grainage.pincode" | translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{"grainage.pincode" | translate}}</mat-label> -->
           <input formControlName="pincode" matInput  maxlength="6"
@@ -151,7 +151,7 @@
         </mat-form-field>
       </div>
       <div class="col-sm-4">
-        <mat-label class="form-label">{{"grainage.address" | translate}}</mat-label>
+        <mat-label class="form-label">{{"grainage.address" | translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{"grainage.address" | translate}}</mat-label> -->
           <textarea formControlName="address" matInput (keypress)="validator.noFirstSpaceAllow($event)"></textarea>
@@ -161,7 +161,7 @@
       </div>
 
       <div class="col-sm-4">
-        <mat-label class="form-label">{{"grainage.remark" | translate}}</mat-label>
+        <mat-label class="form-label">{{"grainage.remark" | translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{"grainage.remark" | translate}}</mat-label> -->
           <textarea formControlName="remark" matInput (keypress)="validator.noFirstSpaceAllow($event)"></textarea>

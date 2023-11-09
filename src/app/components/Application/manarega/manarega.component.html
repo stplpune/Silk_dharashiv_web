@@ -5,7 +5,7 @@
   <mat-card-header class="card-header-control">
     <form [formGroup]="filterFrm" class="w-100">
       <div class="row gx-2 gy-2">
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'manrega.scheme'| translate}}</mat-label> -->
             <mat-select formControlName="schemeTypeId" placeholder="All Scheme">
@@ -14,7 +14,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'manrega.district'| translate}}</mat-label> -->
             <mat-select formControlName="districtId" (selectionChange)="getTaluka()" placeholder="District"
@@ -24,7 +24,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'manrega.taluka'| translate}}</mat-label> -->
             <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('Taluka');getGrampanchayat()" placeholder="All Taluka"
@@ -39,7 +39,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label> -->
             <mat-select formControlName="grampanchayatId" placeholder="{{lang == 'en' ? 'Grampanchayat' :'ग्रामपंचायत'}}"
@@ -54,7 +54,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'manrega.status'| translate}}</mat-label> -->
             <mat-select formControlName="statusId" placeholder="All Status">
@@ -63,10 +63,10 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'manrega.search_by'| translate}}</mat-label> -->
-            <input matInput formControlName="textSearch" (keypress)="validator.noFirstSpaceAllow($event)" placeholder="Application ID/ Farmer ID/ Mobile No.">
+            <input matInput formControlName="textSearch" (keypress)="validator.noFirstSpaceAllow($event)" placeholder="Application ID/ Farmer Name/ Mobile No.">
           </mat-form-field>
         </div>
         <div class="col-sm-1">

@@ -13,7 +13,7 @@
     <mat-dialog-content class="modal-body form-container scrollbar">
       <div class="row">
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'scheme.select_state' | translate }}</mat-label>
+          <mat-label class="form-label">{{'scheme.select_state' | translate }} <span class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'scheme.select_state' | translate }}</mat-label> -->
             <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
@@ -24,7 +24,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'scheme.select_district' | translate }}</mat-label>
+          <mat-label class="form-label">{{'scheme.select_district' | translate }} <span class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'scheme.select_district' | translate }}</mat-label> -->
             <mat-select formControlName="districtId"
@@ -35,7 +35,7 @@
           </mat-form-field>
         </div>
         <div class="mb-0">
-          <mat-label class="form-label">{{'scheme.scheme_namee' | translate }}</mat-label>
+          <mat-label class="form-label">{{'scheme.scheme_namee' | translate }} <span class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>Scheme Name (English)</mat-label>
         <input matInput placeholder=""> -->
@@ -51,7 +51,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-12">
-          <mat-label class="form-label">{{'scheme.scheme_namemr' | translate }}</mat-label>
+          <mat-label class="form-label">{{'scheme.scheme_namemr' | translate }} <span class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'scheme.scheme_namemr' | translate }}</mat-label> -->
             <input matInput placeholder="" formControlName="m_SchemeType"
@@ -69,7 +69,7 @@
             <div class="file-upload border rounded-2 p-1">
               <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
                 (click)="uplodLogo.click()" data-placement="right">
-                {{'scheme.scheme_logo' | translate }}
+                {{'scheme.scheme_logo' | translate }} <span class="text-danger fs-6">*</span>
               </button>
               <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
                 (change)="imageUplod($event)" hidden="hidden" />

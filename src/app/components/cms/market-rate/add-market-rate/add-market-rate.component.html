@@ -17,30 +17,30 @@
     <mat-card-content class="card-body form-container">
       <div class="row gx-2">
         <div class="col-sm-12">
-          <mat-label  class="form-label">{{'marketPrice.Select_Market'|translate}}</mat-label>
+          <mat-label  class="form-label">{{'marketPrice.Select_Market'|translate}}<span class="text-danger">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'marketPrice.Select_Market'|translate}}</mat-label> -->
-            <mat-select formControlName="marketCommitteeId" placeholder="Select Market">
+            <mat-select formControlName="marketCommitteeId" placeholder="{{lang == 'en' ? 'Select Market' : 'मार्केट निवडा'}}">
               <mat-option *ngFor="let market of marketArr" [value]="market.id">{{lang == 'en' ? market.textEnglish : market.textMarathi}}</mat-option>
             </mat-select>
             <mat-error *ngIf="f['marketCommitteeId'].hasError('required') ">{{'marketPrice.Please_select_market'|translate}}</mat-error>
           </mat-form-field>
         </div>
         <div class="col-sm-12">
-          <mat-label class="form-label"> {{'marketPrice.Select_Farm_Goods'|translate}}</mat-label>
+          <mat-label class="form-label"> {{'marketPrice.Select_Farm_Goods'|translate}}<span class="text-danger">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label> {{'marketPrice.Select_Farm_Goods'|translate}}</mat-label> -->
-            <mat-select formControlName="shetmalCastId" placeholder="Select Farm Goods">
+            <mat-select formControlName="shetmalCastId" placeholder="{{lang == 'en' ? 'Select Farm Goods' : 'शेतातील वस्तू निवडा'}}">
               <mat-option *ngFor="let goods of goodsArr" [value]="goods.id">{{lang == 'en' ? goods.textEnglish : goods.textMarathi}}</mat-option>
             </mat-select>
             <mat-error *ngIf="f['shetmalCastId'].hasError('required') ">{{'marketPrice.Please_elect_Farm_Goods'|translate}}</mat-error>
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'marketPrice.Select_Date'|translate}}</mat-label>
-          <mat-form-field appearance="outline" class="w-100" placeholder="Select Date">
+          <mat-label class="form-label">{{'marketPrice.Select_Date'|translate}}<span class="text-danger">*</span></mat-label>
+          <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'marketPrice.Select_Date'|translate}}</mat-label> -->
-            <input matInput [matDatepicker]="picker" formControlName="marketRateDate" (click)="picker.open()"
+            <input matInput [matDatepicker]="picker" formControlName="marketRateDate" (click)="picker.open()"  placeholder="{{lang == 'en' ? 'Select Date' : 'तारीख निवडा'}}"
             [max]="maxDate">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
@@ -48,10 +48,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'marketPrice.Unit'|translate}}</mat-label>
+          <mat-label class="form-label">{{'marketPrice.Unit'|translate}}<span class="text-danger">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'marketPrice.Unit'|translate}}</mat-label> -->
-            <mat-select formControlName="unitId" placeholder="Unit">
+            <mat-select formControlName="unitId" placeholder="{{lang == 'en' ? 'Select Unit ' : 'युनिट निवडा'}}">
               <mat-option *ngFor="let unit of unitArr" [value]="unit.id">{{lang == 'en' ? unit.textEnglish : unit.textMarathi}}</mat-option>
             </mat-select>
             <mat-error *ngIf="f['unitId'].hasError('required') ">{{'marketPrice.Please_select_unit'|translate}}</mat-error>
@@ -59,10 +59,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'marketPrice.Min_Rate'|translate}}</mat-label>
+          <mat-label class="form-label">{{'marketPrice.Min_Rate'|translate}}<span class="text-danger">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100" >
             <!-- <mat-label>{{'marketPrice.Min_Rate'|translate}}</mat-label> -->
-            <input matInput placeholder="Enter min rate" formControlName="minRate" (keypress)="validator.digitsWithDot($event)" (blur)="checkrate()">
+            <input matInput placeholder="{{lang == 'en' ? 'Enter Min Rate' : 'किमान दर प्रविष्ट करा'}}" formControlName="minRate" (keypress)="validator.digitsWithDot($event)" (blur)="checkrate()">
             <mat-error *ngIf="f['minRate'].hasError('required') ">{{'marketPrice.Please_enter_Min_Rate/Kg'|translate}}</mat-error>
             <!-- <mat-error *ngIf="f['minRate'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error>  -->
             <mat-error *ngIf="f['minRate']?.errors">
@@ -74,10 +74,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'marketPrice.Max_Rate'|translate}}</mat-label>
+          <mat-label class="form-label">{{'marketPrice.Max_Rate'|translate}}<span class="text-danger">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'marketPrice.Max_Rate'|translate}}</mat-label> -->
-            <input matInput placeholder="Enter max rate " formControlName="maxRate" (keypress)="validator.digitsWithDot($event)" (blur)="checkrate()">
+            <input matInput placeholder="{{lang == 'en' ? 'Enter Max Rate' : 'कमाल दर प्रविष्ट करा'}}" formControlName="maxRate" (keypress)="validator.digitsWithDot($event)" (blur)="checkrate()">
             <mat-error *ngIf="f['maxRate'].hasError('required') ">{{'marketPrice.Please_enter_Max_Rate/Kg'|translate}}</mat-error>
             <!-- <mat-error *ngIf="f['maxRate'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error> -->
             <mat-error *ngIf="f['maxRate']?.errors">
@@ -89,10 +89,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'marketPrice.Average_Rate'|translate}}</mat-label>
+          <mat-label class="form-label">{{'marketPrice.Average_Rate'|translate}}<span class="text-danger">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'marketPrice.Average_Rate'|translate}}</mat-label> -->
-            <input matInput placeholder="avg rate " formControlName="averageRate" (keypress)="validator.digitsWithDot($event)">
+            <input matInput placeholder=" {{lang == 'en' ? 'Enter Avg Rate' : 'सरासरी दर प्रविष्ट करा'}}" formControlName="averageRate" (keypress)="validator.digitsWithDot($event)">
             <mat-error *ngIf="f['averageRate'].hasError('required') ">{{'marketPrice.Please_enter_average_Rate/Kg'|translate}}</mat-error>
             <!-- <mat-error *ngIf="f['averageRate'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error> -->
             <mat-error *ngIf="f['averageRate']?.errors">
@@ -104,10 +104,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'marketPrice.Income_Quantity'|translate}}</mat-label>
+          <mat-label class="form-label">{{'marketPrice.Income_Quantity'|translate}}<span class="text-danger">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'marketPrice.Income_Quantity'|translate}}</mat-label> -->
-            <input matInput placeholder="Income " formControlName="income" (keypress)="validator.digitsWithDot($event)">
+            <input matInput placeholder=" {{lang == 'en' ? 'Enter Income' : 'उत्पन्न प्रविष्ट करा'}}" formControlName="income" (keypress)="validator.digitsWithDot($event)">
             <mat-error *ngIf="f['income'].hasError('required') ">{{'marketPrice.Please_enter_income_quantity_per_qwintal'|translate}}</mat-error>
             <!-- <mat-error *ngIf="f['income'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error> -->
             <mat-error *ngIf="f['income']?.errors">
