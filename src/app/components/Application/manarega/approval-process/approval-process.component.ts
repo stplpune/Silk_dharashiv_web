@@ -463,16 +463,16 @@ export class ApprovalProcessComponent implements OnDestroy {
   }
 
   addGeoTagging(_obj?:any){
-    const dialogRef = this.dialog.open(GeoTaggingComponent,{
+   this.dialog.open(GeoTaggingComponent,{
       width: '90%',
       // height:'90%',
       data: this.applicationData?.getSiteInspectionDataModel,
       disableClose: true,
       autoFocus: false
     });
-    dialogRef.afterClosed().subscribe(res => {
-      res == 'Yes'? '' : '';
-     });
+    // dialogRef.afterClosed().subscribe(res => {
+    //   res == 'Yes'? '' : '';
+    //  });
   }
 
   ngOnDestroy() {
