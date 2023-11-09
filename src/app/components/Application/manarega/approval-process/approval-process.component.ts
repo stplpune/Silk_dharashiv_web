@@ -67,6 +67,7 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.getRouteParam();
     this.addDefaultFrm();
     this.addApprovalFrm();
+    this.addGeoTagging();
   }
 
   getRouteParam() {
@@ -422,7 +423,7 @@ export class ApprovalProcessComponent implements OnDestroy {
   }
 
   updateApprovalStatus(array?: any) {
-    
+
     if (array.length) {
       array.map((ele: any) => {
         ele.id = ele?.id || 0;
@@ -464,7 +465,7 @@ export class ApprovalProcessComponent implements OnDestroy {
   addGeoTagging(_obj?:any){
     const dialogRef = this.dialog.open(GeoTaggingComponent,{
       width: '90%',
-      height:'90%',
+      // height:'90%',
       data: this.applicationData?.getSiteInspectionDataModel,
       disableClose: true,
       autoFocus: false
