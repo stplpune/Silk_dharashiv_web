@@ -324,7 +324,8 @@ export class ApprovalProcessComponent implements OnDestroy {
         "docNo": otherFormData?.docNo,
         "docPath": otherFormData?.docPath,
         "isVerified": false,
-        "isDeleteAction":true
+        "isDeleted":false,
+        "createdBy":this.WebStorageService.getUserId()
       }
 
       if(!this.editOtherDocForm){
@@ -412,56 +413,35 @@ export class ApprovalProcessComponent implements OnDestroy {
     }
   }
 
-  insertUpdateDocuments(array:any){
-    array.map((ele:any)=>{
-        ele.id =  ele?.id || 0;
-        ele.applicationId =  ele?.applicationId || 0;
-        ele.docTypeId =   ele?.docTypeId ? ele?.docTypeId : 1;
-        ele.docNo =  ele?.docNo || '';
-        ele.docname =  ele?.documentType || '';
-        ele.docPath =  ele?.docPath || '';
-        ele.createdBy =  ele?.createdBy || this.WebStorageService.getUserId();
-        ele.modifiedBy =  ele?.id || this.WebStorageService.getUserId();
-        ele.modifiedDate =  new Date();
-        ele.isDeleted =  false
-    });
-
-    this.apiService.setHttp('post', 'sericulture/api/Application/InsertUpdateDocuments', false, array, false, 'masterUrl');
-    this.apiService.getHttp().subscribe({
-      next: ((res: any) => {
-        this.spinner.hide();
-        if (res.statusCode == "200") {
-          this.commonMethod.snackBar(res.statusMessage, 0);
-          this.router.navigate(['../application'], {relativeTo:this.route})
-        }
-        else {
-          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      }),
-      error: (error: any) => {
-        this.spinner.hide();
-        this.errorHandler.handelError(error.statusCode);
-      }
-    })
-  }
-
   updateApprovalStatus(array?: any) {
+    
+    if (array.length) {
+      array.map((ele: any) => {
+        ele.id = ele?.id || 0;
+        ele.applicationId = ele?.applicationId || 0;
+        ele.docTypeId = ele?.docTypeId ? ele?.docTypeId : 1;
+        ele.docNo = ele?.docNo || '';
+        ele.docname = ele?.documentType || '';
+        ele.docPath = ele?.docPath || '';
+        ele.createdBy = ele?.createdBy || this.WebStorageService.getUserId();
+        ele.modifiedBy = ele?.id || this.WebStorageService.getUserId();
+        ele.modifiedDate = new Date();
+        ele.isDeleted = false
+      });
+    }
     this.spinner.show();
     let data = this.approvalFrm.getRawValue();
     this.approvalFrm.controls['m_remark'].setValue(data?.remark);
-
-    let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId() };
+    let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId(),};
+    array.length ? mainData.applicationDocument = array : '';
+ 
     this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/UpdateApprovalStatus?lan=' + this.lang, false, mainData, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
-          if (array.length) {
-            this.insertUpdateDocuments(array)
-          } else {
-            this.commonMethod.snackBar(res.statusMessage, 0);
-            this.router.navigate(['../application'], { relativeTo: this.route })
-          }
+          this.commonMethod.snackBar(res.statusMessage, 0);
+          this.router.navigate(['../application'], { relativeTo: this.route })
         }
         else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);

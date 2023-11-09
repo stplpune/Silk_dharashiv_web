@@ -9,6 +9,7 @@ declare var google: any;
 export class GeoTaggingComponent {
 
   constructor(public dialogRef: MatDialogRef<GeoTaggingComponent>, @Inject(MAT_DIALOG_DATA) public data: any){
+
   }
 
   lat = 18.1853;
@@ -19,6 +20,7 @@ export class GeoTaggingComponent {
 
   onMapReady(map: any) {
     this.map = map;
+  
     this.data?.polygonText ?   this.drawPolygon():'';
   }
 
