@@ -82,7 +82,8 @@ export class ApprovalProcessComponent implements OnDestroy {
       "applicationStatus": [''],
       "reason": [0],
       "remark": [''],
-      "m_remark": ['']
+      "m_remark": [''],
+      "modifiedBy":this.WebStorageService.getUserId()
     })
   }
 
@@ -431,7 +432,7 @@ export class ApprovalProcessComponent implements OnDestroy {
         ele.docname = ele?.documentType || '';
         ele.docPath = ele?.docPath || '';
         ele.createdBy = ele?.createdBy || this.WebStorageService.getUserId();
-        ele.modifiedBy = ele?.id || this.WebStorageService.getUserId();
+        ele.modifiedBy =  this.WebStorageService.getUserId();
         ele.modifiedDate = new Date();
         ele.isDeleted = ele.isDeleted || false
       });
