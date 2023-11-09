@@ -441,8 +441,6 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.approvalFrm.controls['m_remark'].setValue(data?.remark);
     let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId(),};
     array.length ? mainData.applicationDocument = array : '';
-    console.log(mainData)
-    return
     this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/UpdateApprovalStatus?lan=' + this.lang, false, mainData, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {

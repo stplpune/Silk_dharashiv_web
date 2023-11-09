@@ -2,7 +2,7 @@
   <mat-card-header class="card-header">
     <div class="text-main fw-bold">Application / {{applicantDetails?.schemeType}} / View Application </div>
   </mat-card-header>
-<a (click)="addGeoTagging()">Geo fance</a>
+
   <mat-card-content class="card-body">
     <div class="card card-body mb-3">
       <div class="row g-2">
@@ -108,7 +108,7 @@
         </ng-container> -->
 
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef>View</th>
+          <th mat-header-cell *matHeaderCellDef>View </th>
           <td mat-cell *matCellDef="let element">
             <ng-container *ngIf="element?.documnetApprovalPath else elseBlock">
               <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
@@ -119,7 +119,16 @@
               </button>
             </ng-container>
             <ng-template #elseBlock>
-              -
+              <div *ngIf="applicationData.getSiteInspectionDataModel.isSiteInspectionDone && applicationData?.isLastLevel; else elseBlockSec">
+                <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10" (click)="addGeoTagging()">
+                  <span class="material-symbols-rounded text-dark">
+                    visibility
+                  </span>
+                </button>
+              </div>
+              <ng-template #elseBlockSec>
+                -
+              </ng-template>
             </ng-template>
           </td>
         </ng-container>
