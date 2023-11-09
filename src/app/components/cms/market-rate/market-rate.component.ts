@@ -166,7 +166,7 @@ export class MarketRateComponent implements OnDestroy{
   globalDialogOpen(delDataObj?: any) {
     let dialogObj = {
       title: this.lang == 'mr-IN' ? 'तुम्हाला मार्केट रेट हटवायचा आहे का?' : 'Do You Want To Delete Market Rate?',
-      header: this.lang == 'mr-IN' ? 'डिलीट करा' : 'Delete',
+      header: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       okButton: this.lang == 'mr-IN' ? ' हटवा' : 'Delete',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       headerImage:'assets/images/delete.svg'
