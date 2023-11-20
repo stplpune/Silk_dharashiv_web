@@ -255,10 +255,13 @@
               </div>
             </div>
             <div class="form-label">Beneficiary Category (Selected Options)</div>
-            <ol class="form-data mb-0">
+            <div class="form-data mb-0" *ngFor="let data of applicationData?.categoryofBenificiaryModel;let i=index">
+              {{(i+1)+">"+data?.categoryOfBeneficiary}}
+            </div>
+            <!-- <ol class="form-data mb-0">
               <li>Scheduled Caste</li>
               <li>Beneficiaries of Land Reform</li>
-            </ol>
+            </ol> -->
           </div>
         </div>
       </div>

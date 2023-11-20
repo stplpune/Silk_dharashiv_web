@@ -67,7 +67,7 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.getRouteParam();
     this.addDefaultFrm();
     this.addApprovalFrm();
-    this.addGeoTagging();
+   // this.addGeoTagging();
   }
 
   getRouteParam() {
