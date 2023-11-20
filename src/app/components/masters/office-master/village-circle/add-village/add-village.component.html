@@ -41,7 +41,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'villageCircle.select_taluka' | translate}}</mat-label> -->
             <mat-select formControlName="talukaId"
-              (selectionChange)="clearDropDown('village');getGrampanchayat()">
+              (selectionChange)="clearDropDown('village');getGrampanchayat(true)">
               <mat-option>
                 <ngx-mat-select-search [formControl]="talukaCtrl"
                   placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
