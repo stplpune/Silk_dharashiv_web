@@ -84,7 +84,7 @@ export class AddRejectReasonComponent implements OnDestroy{
       "createdBy": this.webStorage.getUserId(),
       "flag": this.editFlag?"u":"i"
     }
-    this.apiService.setHttp('post', 'sericulture/api/ Reject Reasons/Insert-Update-Reject-Reasons', false, obj, false, 'masterUrl');
+    this.apiService.setHttp('post', 'sericulture/api/Reasons/Insert-Update-Reject-Reasons', false, obj, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         this.spinner.hide();
