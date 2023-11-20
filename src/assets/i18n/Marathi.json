@@ -65,8 +65,9 @@
     "select_state": "राज्य निवडा"
   },
   "approvalProcess"  : {
-    "applicant_id":"अर्जदार आयडी(तारीख)",
-    "applicant_name_mob":"अर्जदाराचे नाव(मोबाइल क्रमांक.)",
+    "applicant_id":"अर्जदार आयडी",
+    "date":"तारीख",
+    "applicant_name_mob":"अर्जदाराचे नाव",
     "process_department":"प्रक्रिया विभाग",
     "sr_no":"अनुक्रमांक",
     "approval_status":"मंजुरीची स्थिती",
@@ -74,7 +75,6 @@
     "approval_remark":"मंजूरी टिप्पणी",
     "no_data_found":"माहिती आढळली नाही",
     "applicant_details":"अर्जदाराचे तपशील",
-    "applicant_name":"अर्जदाराचे नाव",
     "manarega_job_card_no.":"मनरेगा जॉब कार्ड क्रमांक.",
     "aadhar_number":"आधार क्रमांक",
     "Date of Birth":"जन्मतारीख",

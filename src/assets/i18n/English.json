@@ -66,8 +66,9 @@
   },
 
   "approvalProcess"  : {
-  "applicant_id":"Applicant ID(Date)",
-  "applicant_name_mob":"Applicant Name(Mobile No.)",
+  "applicant_id":"Applicant ID",
+  "date":"Date",
+  "applicant_name_mob":"Applicant Name",
   "process_department":"Process Department",
   "sr_no":"Sr. No.",
   "approval_status":"Approval Status",
@@ -75,10 +76,9 @@
   "approval_remark":"Approval Remark",
   "no_data_found":"No Data Found",
   "applicant_details":"Applicant Details",
-  "applicant_name":"Applicant Name",
   "manarega_job_card_no.":"Manarega Job Card No.",
   "aadhar_number":"Aadhar Number",
-  "Date of Birth":"Date of Birth",
+  "date_of_birth":"Date of Birth",
   "alternate_mobile_number.":"Alternate Mobile Number.",
   "gender":"Gender",
   "education":"Education",
