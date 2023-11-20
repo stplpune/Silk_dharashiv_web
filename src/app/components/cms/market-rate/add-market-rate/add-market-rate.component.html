@@ -62,7 +62,7 @@
           <mat-label class="form-label">{{'marketPrice.Min_Rate'|translate}}<span class="text-danger">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100" >
             <!-- <mat-label>{{'marketPrice.Min_Rate'|translate}}</mat-label> -->
-            <input matInput placeholder="{{lang == 'en' ? 'Enter Min Rate' : 'किमान दर प्रविष्ट करा'}}" formControlName="minRate" (keypress)="validator.digitsWithDot($event)" (blur)="checkrate()">
+            <input matInput placeholder="{{lang == 'en' ? 'Enter Min Rate (₹)' : 'किमान दर प्रविष्ट करा (₹)'}}" formControlName="minRate" (keypress)="validator.digitsWithDot($event)" (blur)="checkrate()">
             <mat-error *ngIf="f['minRate'].hasError('required') ">{{'marketPrice.Please_enter_Min_Rate/Kg'|translate}}</mat-error>
             <!-- <mat-error *ngIf="f['minRate'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error>  -->
             <mat-error *ngIf="f['minRate']?.errors">
@@ -77,13 +77,13 @@
           <mat-label class="form-label">{{'marketPrice.Max_Rate'|translate}}<span class="text-danger">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'marketPrice.Max_Rate'|translate}}</mat-label> -->
-            <input matInput placeholder="{{lang == 'en' ? 'Enter Max Rate' : 'कमाल दर प्रविष्ट करा'}}" formControlName="maxRate" (keypress)="validator.digitsWithDot($event)" (blur)="checkrate()">
+            <input matInput placeholder="{{lang == 'en' ? 'Enter Max Rate (₹)' : 'कमाल दर प्रविष्ट करा (₹)'}}" formControlName="maxRate" (keypress)="validator.digitsWithDot($event)" (blur)="checkrate()">
             <mat-error *ngIf="f['maxRate'].hasError('required') ">{{'marketPrice.Please_enter_Max_Rate/Kg'|translate}}</mat-error>
             <!-- <mat-error *ngIf="f['maxRate'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error> -->
             <mat-error *ngIf="f['maxRate']?.errors">
               <span class="text-danger"
                   *ngIf="f['maxRate']?.hasError('maxLengthExceeded') || f['maxRate']?.hasError('pattern') || f['maxRate']?.hasError('min')">
-                  {{f['maxRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate) : f['maxRate']?.hasError('min') ?('marketRate.Please_enter_maximum_rate_greater_than_minimum_rate'|translate): ('marketPrice.Please_enter_valid_Max_Rate/Kg'|translate)}}
+                  {{f['maxRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate) : f['maxRate'].hasError('min') ?('marketRate.Please_enter_maximum_rate_greater_than_minimum_rate'|translate): ('marketPrice.Please_enter_valid_Max_Rate/Kg'|translate)}}
               </span>
           </mat-error>
           </mat-form-field>
@@ -92,13 +92,13 @@
           <mat-label class="form-label">{{'marketPrice.Average_Rate'|translate}}<span class="text-danger">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'marketPrice.Average_Rate'|translate}}</mat-label> -->
-            <input matInput placeholder=" {{lang == 'en' ? 'Enter Avg Rate' : 'सरासरी दर प्रविष्ट करा'}}" formControlName="averageRate" (keypress)="validator.digitsWithDot($event)">
+            <input matInput placeholder=" {{lang == 'en' ? 'Enter Avg Rate (₹)' : 'सरासरी दर प्रविष्ट करा (₹)'}}" formControlName="averageRate" (keypress)="validator.digitsWithDot($event)">
             <mat-error *ngIf="f['averageRate'].hasError('required') ">{{'marketPrice.Please_enter_average_Rate/Kg'|translate}}</mat-error>
             <!-- <mat-error *ngIf="f['averageRate'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error> -->
             <mat-error *ngIf="f['averageRate']?.errors">
               <span class="text-danger"
                   *ngIf="f['averageRate']?.hasError('maxLengthExceeded') || f['averageRate']?.hasError('pattern') || f['averageRate']?.hasError('min')  || f['averageRate']?.hasError('max')">
-                  {{f['averageRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate) : f['averageRate']?.hasError('min')  || f['averageRate']?.hasError('max') ? ('marketRate.Average_rate_should_be_greater_tham_minimum_rate_and_less_than_maximum_rate'|translate) : ('marketPrice.Please_enter_valid_average_Rate/Kg'|translate)}}
+                  {{f['averageRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate) : f['averageRate'].hasError('min')  || f['averageRate'].hasError('max') ? ('marketRate.Average_rate_should_be_greater_tham_minimum_rate_and_less_than_maximum_rate'|translate) : ('marketPrice.Please_enter_valid_average_Rate/Kg'|translate)}}
               </span>
           </mat-error>
           </mat-form-field>
@@ -107,7 +107,7 @@
           <mat-label class="form-label">{{'marketPrice.Income_Quantity'|translate}}<span class="text-danger">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'marketPrice.Income_Quantity'|translate}}</mat-label> -->
-            <input matInput placeholder=" {{lang == 'en' ? 'Enter Income' : 'उत्पन्न प्रविष्ट करा'}}" formControlName="income" (keypress)="validator.digitsWithDot($event)">
+            <input matInput placeholder=" {{lang == 'en' ? 'Enter Income (₹)' : 'उत्पन्न प्रविष्ट करा (₹)'}}" formControlName="income" (keypress)="validator.digitsWithDot($event)">
             <mat-error *ngIf="f['income'].hasError('required') ">{{'marketPrice.Please_enter_income_quantity_per_qwintal'|translate}}</mat-error>
             <!-- <mat-error *ngIf="f['income'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error> -->
             <mat-error *ngIf="f['income']?.errors">
@@ -160,27 +160,27 @@
       </div>
       <div class="col-sm-12">
         <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketPrice.Min_Rate'|translate}}</div>
+          <div class="col-sm-4 form-label">{{'marketPrice.Min_Rate'|translate}} (₹)</div>
           <div class="col-sm-8 form-data">: {{(data?.minRate || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-12">
         <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketPrice.Max_Rate'|translate}}</div>
+          <div class="col-sm-4 form-label">{{'marketPrice.Max_Rate'|translate}} (₹)</div>
           <div class="col-sm-8 form-data">: {{(data?.maxRate || '-')}}</div>
         </div>
       </div>
 
       <div class="col-sm-12">
         <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketPrice.Average_Rate'|translate}}</div>
+          <div class="col-sm-4 form-label">{{'marketPrice.Average_Rate'|translate}} (₹)</div>
           <div class="col-sm-8 form-data">: {{(data?.averageRate || '-')}}</div>
         </div>
       </div>
 
       <div class="col-sm-12">
         <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketPrice.Income_Quantity'|translate}}</div>
+          <div class="col-sm-4 form-label">{{'marketPrice.Income_Quantity'|translate}} (₹)</div>
           <div class="col-sm-8 form-data">: {{(data?.income || '-')}}</div>
         </div>
       </div>
