@@ -7,9 +7,18 @@ table tbody tr td{
 }
 
 agm-map{
-  height: 280px;
+  height: 400px !important;
   width: 100%;
 }
-.sebm-google-map-container{
-  height: 370px !important;
+
+.mat-mdc-dialog-content {
+  max-height: 100vh;
+}
+.form-container .form-data {
+  font-family: "Public Sans", sans-serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+}
+.line-height-update table tbody td{
+  line-height: 20px !important;
 }
