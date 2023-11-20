@@ -56,7 +56,8 @@
     "taluka_filter":"Taluka",
     "block_filter":"Block",
     "circle_filter":"Circle",
-    "grampanchayat_filter":"Grampanchayat"
+    "grampanchayat_filter":"Grampanchayat",
+    "select_state": "Select State"
   },
   "manrega": {
     "manrega": "Application",
@@ -111,11 +112,7 @@
     "grainageName_mr_require": "Please enter grainage name (Marathi)",
     "grainageName_mr_pattern": "Grainage (Marathi) is required",
     "grainageName_mr_limit": "Maximum limit 50 character",
-    "state": "Select State",
     "State": "State",
-    "district": "Select District",
-    "taluka": "Select Taluka",
-    "taluka_reuired": "Please select taluka",
     "address": "Address",
     "address_require": "Please enter address",
     "address_limit": "Maximum limit 100 character",
@@ -125,9 +122,7 @@
     "remark": "Remark",
     "add_Grainage": "Add Grainage",
     "update_Grainage": "Update Grainage",
-    "view_Grainage": "View Grainage",
-    "please_select_state":"Please select state",
-    "please_select_district":"Please select district"
+    "view_Grainage": "View Grainage"
   },
   "rejectReason": {
     "reject_reason": "Reject Reasons",
