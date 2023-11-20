@@ -35,23 +35,23 @@ export class ApprovalProcessComponent implements OnDestroy {
   displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action']
   approvalStatus: any = new Array()
   otherDocArray: any = new Array()
-  displayColumnRemark: string[] = ['sr_no','actionName', 'designationName', 'status', 'modifiedDate','remark','action'];
+  displayColumnRemark: string[] = ['sr_no', 'actionName', 'designationName', 'status', 'modifiedDate', 'remark', 'action'];
   pushAppDocArray: any = [];
   pushOtherDocArray: any = [];
   approvalStatusArray: any = [];
   reasonArray: any = [];
   @ViewChild('formDirective') private formDirective!: NgForm;
-  appDataClonedArray:any;
-  editOtherDocForm:boolean = false;
-  selOtherDocIndex!:number;
-  actionNameLabel!:string;
-  uploadedDepDoc:any;
+  appDataClonedArray: any;
+  editOtherDocForm: boolean = false;
+  selOtherDocIndex!: number;
+  actionNameLabel!: string;
+  uploadedDepDoc: any;
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
     private WebStorageService: WebStorageService,
     public encryptdecrypt: AesencryptDecryptService,
-    private router:Router,private configService:ConfigService,
+    private router: Router, private configService: ConfigService,
     private route: ActivatedRoute, public validation: ValidationService,
     private fb: FormBuilder, private spinner: NgxSpinnerService,
     private errorHandler: ErrorHandlingService,
@@ -67,7 +67,7 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.getRouteParam();
     this.addDefaultFrm();
     this.addApprovalFrm();
-   // this.addGeoTagging();
+    // this.addGeoTagging();
   }
 
   getRouteParam() {
@@ -84,27 +84,27 @@ export class ApprovalProcessComponent implements OnDestroy {
       "reason": [0],
       "remark": [''],
       "m_remark": [''],
-      "modifiedBy":this.WebStorageService.getUserId()
+      "modifiedBy": this.WebStorageService.getUserId()
     })
   }
 
   remarkDialogBox(obj?: any) {
     let dialoObj = {
-     header:'Approval Remark',statusFlag:'vi',title: obj,
-     cancelButton: this.lang == 'mr-IN' ? '' : '',
-     okButton: 'Close',
-     // okButton:''
+      header: 'Approval Remark', statusFlag: 'vi', title: obj,
+      cancelButton: this.lang == 'mr-IN' ? '' : '',
+      okButton: '',
+      // okButton:''
     }
-     this.dialog.open(GlobalDialogComponent, {
-     width: '60%',
-     data: dialoObj,
-     disableClose: true,
-     autoFocus: false
-   })
+    this.dialog.open(GlobalDialogComponent, {
+      width: '60%',
+      data: dialoObj,
+      disableClose: true,
+      autoFocus: false
+    })
   }
 
   getByApplicationId() {
-    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetApplication?Id=' + (this.encryptData) +'&UserId='+this.WebStorageService.getUserId()+'&lan=' + this.lang+'&LoginFlag='+this.configService.loginFlag, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetApplication?Id=' + (this.encryptData) + '&UserId=' + this.WebStorageService.getUserId() + '&lan=' + this.lang + '&LoginFlag=' + this.configService.loginFlag, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
@@ -171,12 +171,12 @@ export class ApprovalProcessComponent implements OnDestroy {
           }
         }
       })
-    } else if (approvalFrmVal.applicationStatus == 12 && this.applicationData.uploadDocTypeId !=0) {
+    } else if (approvalFrmVal.applicationStatus == 12 && this.applicationData.uploadDocTypeId != 0) {
       this.actionNameLabel = this.applicationData.actionName;
     }
   }
 
-  reasonFildVal(){
+  reasonFildVal() {
 
   }
   //#region ----------------------------------------------------------applcant doc section start heare-----------------------------------//
@@ -185,8 +185,8 @@ export class ApprovalProcessComponent implements OnDestroy {
     window.open(url, '_blank')
   }
 
-  viewimage(label?:string) {
-    window.open(label == 'uplDepDoc' ? this.uploadedDepDoc.docPath :this.imageData, '_blank')
+  viewimage(label?: string) {
+    window.open(label == 'uplDepDoc' ? this.uploadedDepDoc.docPath : this.imageData, '_blank')
   }
 
   openGlobalDialog(obj?: any) {
@@ -240,7 +240,7 @@ export class ApprovalProcessComponent implements OnDestroy {
 
   //#endregion ----------------------------------------------------------applcant doc section end heare-----------------------------------//
 
-//#region   ----------------------------------------------------------other doc section start heare-----------------------------------//
+  //#region   ----------------------------------------------------------other doc section start heare-----------------------------------//
   uploadFrm !: FormGroup;
   imageData: string = '';
   @ViewChild('uplodLogo') clearImg!: any;
@@ -257,7 +257,7 @@ export class ApprovalProcessComponent implements OnDestroy {
   get f() { return this.uploadFrm.controls }
 
 
-  imageUplod(event: any, label:string, i?:any) {
+  imageUplod(event: any, label: string, i?: any) {
     this.fileUplService.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc').subscribe({
       next: ((res: any) => {
         this.spinner.hide();
@@ -271,10 +271,10 @@ export class ApprovalProcessComponent implements OnDestroy {
             this.deleteImage();
           } else if (label == 'otherDocForm') {
             this.f['docPath'].setValue(this.imageData)
-          } else if (label == 'uplDepDoc' && this.applicationData.uploadDocTypeId !=0) {
+          } else if (label == 'uplDepDoc' && this.applicationData.uploadDocTypeId != 0) {
             let obj = {
               "id": 0,
-              "applicationId":this.applicationData.applicationId,
+              "applicationId": this.applicationData.applicationId,
               "docTypeId": this.applicationData.uploadDocTypeId,
               "documentType": "",
               "docNo": "",
@@ -298,7 +298,7 @@ export class ApprovalProcessComponent implements OnDestroy {
     })
   }
 
-  delDepDocument(){
+  delDepDocument() {
     this.uploadedDepDoc = '';
   }
 
@@ -307,10 +307,10 @@ export class ApprovalProcessComponent implements OnDestroy {
     if (!uploadFrmValue?.documentType) {
       this.commonMethod.snackBar('Document name is  required', 1);
       return
-    }else if (!uploadFrmValue?.docNo) {
+    } else if (!uploadFrmValue?.docNo) {
       this.commonMethod.snackBar('Document number is  required', 1);
       return
-    }else if (!uploadFrmValue?.docPath) {
+    } else if (!uploadFrmValue?.docPath) {
       this.commonMethod.snackBar('Document path is  required', 1);
       return
     }
@@ -318,7 +318,7 @@ export class ApprovalProcessComponent implements OnDestroy {
 
       let otherFormData = this.uploadFrm.getRawValue();
       let obj = {
-        "id":0,
+        "id": 0,
         "applicationId": this.applicationData.applicationId,
         "docTypeId": 1, // 1 is other doc
         "documentType": otherFormData?.documentType,
@@ -326,13 +326,13 @@ export class ApprovalProcessComponent implements OnDestroy {
         "docNo": otherFormData?.docNo,
         "docPath": otherFormData?.docPath,
         "isVerified": false,
-        "isDeleted":false,
-        "createdBy":this.WebStorageService.getUserId()
+        "isDeleted": false,
+        "createdBy": this.WebStorageService.getUserId()
       }
 
-      if(!this.editOtherDocForm){
+      if (!this.editOtherDocForm) {
         this.pushOtherDocArray.push(obj);
-      }else{
+      } else {
         this.pushOtherDocArray[this.selOtherDocIndex] = obj;
         this.editOtherDocForm = false;
       }
@@ -342,18 +342,18 @@ export class ApprovalProcessComponent implements OnDestroy {
     }
   }
 
-  onTabChanged(){
+  onTabChanged() {
     this.resetOtherDocForm();
     this.editOtherDocForm = false;
   }
 
-  resetOtherDocForm(){
+  resetOtherDocForm() {
     this.formDirective.resetForm();
     this.deleteImage();
   }
 
   deleteOtherDoc() {
-    this.pushOtherDocArray[this.selOtherDocIndex].docPath ='';
+    this.pushOtherDocArray[this.selOtherDocIndex].docPath = '';
     this.uploadFrm.controls['docPath'].setValue('');
   }
 
@@ -362,9 +362,9 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.clearImg.nativeElement.value = "";
   }
 
-  editOtherDoc(ele:any){
+  editOtherDoc(ele: any) {
     this.editOtherDocForm = true;
-    this.selOtherDocIndex = this.commonMethod.findIndexOfArrayObject(this.pushOtherDocArray,'id',ele.id)
+    this.selOtherDocIndex = this.commonMethod.findIndexOfArrayObject(this.pushOtherDocArray, 'id', ele.id)
     this.uploadFrm = this.fb.group({
       "id": [ele.id],
       "docNo": [ele.docNo],
@@ -374,11 +374,11 @@ export class ApprovalProcessComponent implements OnDestroy {
     // ele.docPath ? this.imageData = ele.docPath:'';
   }
 
-  deleteOtherDocument(i:any){
+  deleteOtherDocument(i: any) {
     this.pushOtherDocArray[i].isDeleted = true;
-    let array:any=[];
-    this.pushOtherDocArray.find((ele:any)=>{
-      if(!ele.isDeleted){
+    let array: any = [];
+    this.pushOtherDocArray.find((ele: any) => {
+      if (!ele.isDeleted) {
         array.push(ele)
       }
     });
@@ -386,38 +386,38 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.otherDocArray = new MatTableDataSource(array);
   }
 
-//#endregion -----------------------------------------------------------other doc section end heare ---------------------------------//
+  //#endregion -----------------------------------------------------------other doc section end heare ---------------------------------//
 
   onSubmitApprovalDetails() {
     let approvalFrmVal = this.approvalFrm.getRawValue();
     if (!approvalFrmVal?.applicationStatus) {
       this.commonMethod.snackBar('Application status is  required', 1);
       return
-    }else if ((approvalFrmVal.applicationStatus == 11 || approvalFrmVal.applicationStatus == 5) && !approvalFrmVal?.reason) {
+    } else if ((approvalFrmVal.applicationStatus == 11 || approvalFrmVal.applicationStatus == 5) && !approvalFrmVal?.reason) {
       this.commonMethod.snackBar('Application reason is  required', 1);
       return
-    }else if (this.actionNameLabel && !this.uploadedDepDoc && this.applicationData?.isEdit && approvalFrmVal.applicationStatus == 12) {
-      this.commonMethod.snackBar(this.actionNameLabel  +' document is required', 1);
+    } else if (this.actionNameLabel && !this.uploadedDepDoc && this.applicationData?.isEdit && approvalFrmVal.applicationStatus == 12) {
+      this.commonMethod.snackBar(this.actionNameLabel + ' document is required', 1);
       return;
     }
     else {
-      let newUploadedDoc:any = [];
-      let mergeArray :any;
+      let newUploadedDoc: any = [];
+      let mergeArray: any;
       mergeArray = [...this.pushAppDocArray, ...this.pushOtherDocArray];
 
       mergeArray.find((ele: any) => {
         this.appDataClonedArray?.allDocument.find((item: any) => {
           if ((item.id == ele.id && ele?.docPath != item.docPath) || ele.id == 0 || ele.isDeleted) {
-            if(!newUploadedDoc.length ){
+            if (!newUploadedDoc.length) {
               newUploadedDoc.push(ele)
-            }else{
-              let checkPrevValue = newUploadedDoc.some((i:any)=> i.id == ele.id);
-              checkPrevValue ==  '-1' || !checkPrevValue ?  newUploadedDoc.push(ele):'';
+            } else {
+              let checkPrevValue = newUploadedDoc.some((i: any) => i.id == ele.id);
+              checkPrevValue == '-1' || !checkPrevValue ? newUploadedDoc.push(ele) : '';
             }
           }
         })
       });
-      this.actionNameLabel && this.uploadedDepDoc && this.applicationData?.isEdit ? newUploadedDoc.push(this.uploadedDepDoc):'';//uploaded  Department Document
+      this.actionNameLabel && this.uploadedDepDoc && this.applicationData?.isEdit ? newUploadedDoc.push(this.uploadedDepDoc) : '';//uploaded  Department Document
       this.updateApprovalStatus(newUploadedDoc);
     }
   }
@@ -433,7 +433,7 @@ export class ApprovalProcessComponent implements OnDestroy {
         ele.docname = ele?.documentType || '';
         ele.docPath = ele?.docPath || '';
         ele.createdBy = ele?.createdBy || this.WebStorageService.getUserId();
-        ele.modifiedBy =  this.WebStorageService.getUserId();
+        ele.modifiedBy = this.WebStorageService.getUserId();
         ele.modifiedDate = new Date();
         ele.isDeleted = ele.isDeleted || false
       });
@@ -441,7 +441,7 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.spinner.show();
     let data = this.approvalFrm.getRawValue();
     this.approvalFrm.controls['m_remark'].setValue(data?.remark);
-    let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId(),};
+    let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId(), };
     array.length ? mainData.applicationDocument = array : mainData.applicationDocument = [];
     this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/UpdateApprovalStatus?lan=' + this.lang, false, mainData, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
@@ -462,8 +462,8 @@ export class ApprovalProcessComponent implements OnDestroy {
     })
   }
 
-  addGeoTagging(_obj?:any){
-   this.dialog.open(GeoTaggingComponent,{
+  addGeoTagging(_obj?: any) {
+    this.dialog.open(GeoTaggingComponent, {
       width: '90%',
       // height:'90%',
       data: this.applicationData?.getSiteInspectionDataModel,

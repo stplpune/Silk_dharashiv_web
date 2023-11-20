@@ -6,21 +6,33 @@
   <mat-card-content class="card-body">
     <div class="card card-body mb-3">
       <div class="row g-2">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="d-flex gap-2">
-            <div class="form-label mb-0">Application ID (Date):</div>
-            <div class="form-data">{{(applicationData?.applicationNo +' ( '+(applicationData?.applicationDate |
-              date:'dd-MM-yyyy')+')') | dash }}</div>
+            <div class="form-label mb-0">Application ID:</div>
+            <div class="form-data">{{(applicationData?.applicationNo) | dash }}</div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="d-flex gap-2">
-            <div class="form-label mb-0">Applicant Name (Mobile No.):</div>
+            <div class="form-label mb-0">Date:</div>
+            <div class="form-data">{{applicationData?.applicationDate |
+              date:'dd-MM-yyyy'}}</div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Applicant Name:</div>
             <div class="form-data">{{(lang == 'en' ? (applicantDetails?.fullName | dash ) :
-              (applicantDetails?.m_FullName | dash))+' ('+(applicantDetails?.mobileNo1 | dash)+')'}} </div>
+              (applicantDetails?.m_FullName | dash))}} </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Mobile No.:</div>
+            <div class="form-data">{{applicantDetails?.mobileNo1 | dash}} </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">Scheme:</div>
             <div class="form-data">{{lang == 'en' ? (applicationData?.schemeType | dash) :
@@ -28,7 +40,7 @@
           </div>
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">Process Department :</div>
             <div class="form-data">{{lang == 'en' ? (applicationData?.departmentName | dash) :
@@ -36,7 +48,7 @@
           </div>
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">Plantation Area :</div>
             <div class="form-data">{{applicationData?.mulberryCultivationArea | dash}} </div>
@@ -89,7 +101,7 @@
           <th mat-header-cell *matHeaderCellDef> Approval Remark</th>
           <td mat-cell *matCellDef="let element">
             <span>{{element?.remark?.length > 10 ? (element?.remark?.slice(0 , 10))+'...' : element?.remark}} </span>
-            <a *ngIf="element?.remark?.length > 10" (click)="remarkDialogBox(element.remark)">More</a>
+            <a *ngIf="element?.remark?.length > 10" (click)="remarkDialogBox(element.remark)" >More</a>
           </td>
         </ng-container>
 
@@ -256,7 +268,7 @@
             </div>
             <div class="form-label">Beneficiary Category (Selected Options)</div>
             <div class="form-data mb-0" *ngFor="let data of applicationData?.categoryofBenificiaryModel;let i=index">
-              {{(i+1)+">"+data?.categoryOfBeneficiary}}
+              {{(i+1)+". "+data?.categoryOfBeneficiary}}
             </div>
             <!-- <ol class="form-data mb-0">
               <li>Scheduled Caste</li>

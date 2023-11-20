@@ -103,29 +103,29 @@
         </mat-form-field>
       </div>
       <div class="col-sm-4">
-        <mat-label class="form-label">{{"grainage.state" | translate}} <span class="text-danger fs-6">*</span></mat-label>
+        <mat-label class="form-label">{{"common.state" | translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{"grainage.state" | translate}}</mat-label> -->
           <mat-select formControlName="stateId" (selectionChange)="clearDropdown('state');getDisrict()">
             <mat-option *ngFor=" let state of stateArr"
             [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
           </mat-select>
-          <mat-error *ngIf="f['stateId']?.hasError('required')">{{'grainage.please_select_state'|translate}}</mat-error>
+          <mat-error *ngIf="f['stateId']?.hasError('required')">{{'common.Please_select_state'|translate}}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-sm-4">
-        <mat-label class="form-label">{{"grainage.district" | translate}} <span class="text-danger fs-6">*</span></mat-label>
+        <mat-label class="form-label">{{"common.district" | translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label >{{"grainage.district" | translate}}</mat-label> -->
           <mat-select formControlName="districtId" (selectionChange)="clearDropdown('district');getTaluka()">
             <mat-option *ngFor=" let dist of districtArr"
             [value]="dist.id">{{lang == 'en' ? dist.textEnglish : dist.textMarathi}}</mat-option>
           </mat-select>
-          <mat-error *ngIf="f['districtId']?.hasError('required')">{{'grainage.please_select_district'|translate}}</mat-error>
+          <mat-error *ngIf="f['districtId']?.hasError('required')">{{'common.Please_select_district'|translate}}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-sm-4">
-        <mat-label class="form-label">{{"grainage.taluka" | translate}} <span class="text-danger fs-6">*</span></mat-label>
+        <mat-label class="form-label">{{"common.taluka" | translate}} <span class="text-danger fs-6">*</span></mat-label>
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{"grainage.taluka" | translate}}</mat-label> -->
           <mat-select formControlName="talukaId">
@@ -137,7 +137,7 @@
             <mat-option *ngFor=" let taluka of talukaSubject | async"
             [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish : taluka.textMarathi}}</mat-option>
           </mat-select>
-          <mat-error *ngIf="f['talukaId']?.hasError('required')">{{'grainage.taluka_reuired'|translate}}</mat-error>
+          <mat-error *ngIf="f['talukaId']?.hasError('required')">{{'common.Please_select_taluka'|translate}}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-sm-4">
