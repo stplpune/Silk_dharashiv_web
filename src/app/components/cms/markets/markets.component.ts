@@ -82,9 +82,9 @@ export class MarketsComponent implements OnDestroy{
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData;
-          this.tableDataArray.map((ele:any)=>{
-            ele.status1 = ele.status
-          })
+          // this.tableDataArray.map((ele:any)=>{
+          //   ele.status1 = ele.status
+          // })
           this.tableDatasize = res.responseData1?.totalCount;
           this.totalPages = res.responseData1?.totalPages;
         } else {
@@ -101,13 +101,13 @@ export class MarketsComponent implements OnDestroy{
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_District', 'm_Taluka', 'm_MarketName', 'conactNo', 'status1', 'action'] : ['srNo', 'district', 'taluka', 'marketName', 'conactNo', 'status1', 'action']
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_District', 'm_Taluka', 'm_MarketName', 'conactNo', 'status', 'action'] : ['srNo', 'district', 'taluka', 'marketName', 'conactNo', 'status', 'action']
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'जिल्हा', 'तालुका', 'बाजारपेठेचे नाव', 'मोबाइल क्रमांक', 'स्थिती', 'कृती'] : ['Sr. No.', 'District', 'Taluka', 'Market Name', 'Mobile No.', 'Status', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
       highlightedrow: true,
-      isBlock: 'status1',
+      isBlock: 'status',
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,

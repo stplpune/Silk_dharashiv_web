@@ -20,7 +20,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { GeoTaggingComponent } from './geo-tagging/geo-tagging.component';
 import { ConfigService } from 'src/app/core/services/config.service';
 import { AgmCoreModule } from '@agm/core';
-
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   declarations: [
     ApprovalProcessComponent,
@@ -44,6 +44,7 @@ import { AgmCoreModule } from '@agm/core';
     ReactiveFormsModule,
     MatTabsModule,
     MatButtonToggleModule,
+    TranslateModule,
     AgmCoreModule.forRoot(ConfigService.googleApiObj),
   ]
 })
