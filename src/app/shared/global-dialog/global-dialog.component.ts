@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @Component({
@@ -15,14 +16,14 @@ import { ValidationService } from 'src/app/core/services/validation.service';
   templateUrl: './global-dialog.component.html',
   styleUrls: ['./global-dialog.component.scss'],
   standalone: true,
-  imports: [ CommonModule,MatButtonModule, MatCardModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule]
+  imports: [ CommonModule,MatButtonModule, MatCardModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule,MatDialogModule]
 })
 export class GlobalDialogComponent {
   remark:any = new FormControl('');
   constructor(public dialogRef: MatDialogRef<GlobalDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,    public commonService: CommonMethodsService, public valiService: ValidationService) { }
 
   ngOnInit() {
-    
+
   }
 
   closeDialog(flag: string) {
