@@ -193,8 +193,8 @@ export class ManaregaComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'applicationNo', 'm_FullName', 'mobileNo1', 'm_Taluka', 'm_GrampanchayatName', 'applicationDate', 'm_Status', 'action'] : ['srNo', 'applicationNo', 'fullName', 'mobileNo1', 'taluka', 'grampanchayatName', 'applicationDate', 'status1', 'action'];
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'अर्ज आयडी', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'तारीख', 'स्थिती', 'कृती'] : ['Sr. No.', 'Application ID', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Date', 'Status', 'Action'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'applicationNo','m_SchemeType', 'm_FullName', 'mobileNo1', 'm_Taluka', 'm_GrampanchayatName', 'applicationDate', 'm_Status', 'action'] : ['srNo', 'applicationNo','schemeType', 'fullName', 'mobileNo1', 'taluka', 'grampanchayatName', 'applicationDate', 'status1', 'action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'अर्ज आयडी','योजनेचे नाव', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'तारीख', 'स्थिती', 'कृती'] : ['Sr. No.', 'Application ID','Scheme Name', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Date', 'Status', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
