@@ -6,21 +6,33 @@
   <mat-card-content class="card-body">
     <div class="card card-body mb-3">
       <div class="row g-2">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="d-flex gap-2">
-            <div class="form-label mb-0">Application ID (Date):</div>
-            <div class="form-data">{{(applicationData?.applicationNo +' ( '+(applicationData?.applicationDate |
-              date:'dd-MM-yyyy')+')') | dash }}</div>
+            <div class="form-label mb-0">Application ID:</div>
+            <div class="form-data">{{(applicationData?.applicationNo) | dash }}</div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="d-flex gap-2">
-            <div class="form-label mb-0">Applicant Name (Mobile No.):</div>
+            <div class="form-label mb-0">Date:</div>
+            <div class="form-data">{{applicationData?.applicationDate |
+              date:'dd-MM-yyyy'}}</div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Applicant Name:</div>
             <div class="form-data">{{(lang == 'en' ? (applicantDetails?.fullName | dash ) :
-              (applicantDetails?.m_FullName | dash))+' ('+(applicantDetails?.mobileNo1 | dash)+')'}} </div>
+              (applicantDetails?.m_FullName | dash))}} </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Mobile No.:</div>
+            <div class="form-data">{{applicantDetails?.mobileNo1 | dash}} </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">Scheme:</div>
             <div class="form-data">{{lang == 'en' ? (applicationData?.schemeType | dash) :
@@ -28,7 +40,7 @@
           </div>
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">Process Department :</div>
             <div class="form-data">{{lang == 'en' ? (applicationData?.departmentName | dash) :
@@ -36,7 +48,7 @@
           </div>
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">Plantation Area :</div>
             <div class="form-data">{{applicationData?.mulberryCultivationArea | dash}} </div>
@@ -89,7 +101,7 @@
           <th mat-header-cell *matHeaderCellDef> Approval Remark</th>
           <td mat-cell *matCellDef="let element">
             <span>{{element?.remark?.length > 10 ? (element?.remark?.slice(0 , 10))+'...' : element?.remark}} </span>
-            <a *ngIf="element?.remark?.length > 10" (click)="remarkDialogBox(element.remark)">More</a>
+            <a *ngIf="element?.remark?.length > 10" (click)="remarkDialogBox(element.remark)" >More</a>
           </td>
         </ng-container>
 
@@ -256,7 +268,7 @@
             </div>
             <div class="form-label">Beneficiary Category (Selected Options)</div>
             <div class="form-data mb-0" *ngFor="let data of applicationData?.categoryofBenificiaryModel;let i=index">
-              {{(i+1)+">"+data?.categoryOfBeneficiary}}
+              {{(i+1)+". "+data?.categoryOfBeneficiary}}
             </div>
             <!-- <ol class="form-data mb-0">
               <li>Scheduled Caste</li>
@@ -272,9 +284,39 @@
         <div class="text-main fw-bold">Land Details</div>
       </div>
       <div class="card-body">
-        <div class="row">
+        <div class="row gx-2">
           <div class="col-sm-6">
-            <ul class="list-group list-group-flush">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="form-label">Total Land in Hectares(up to 2.0 hectares) in favor of beneciaries(as per 8-A):
+                    </div>
+                  </td>
+                  <td>{{applicantDetails?.benificiaryTotalFarm | dash}}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">Cultivated Area in Hectares </div>
+                  </td>
+                  <td>{{applicantDetails?.cultivatedFarmInHector | dash}}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">Irrigation Facility : </div>
+                  </td>
+                  <td>
+                    <div class="form-data">{{lang == 'en' ? (applicantDetails?.irrigationFacility | dash ) :
+                      (applicantDetails?.m_IrrigationFacility | dash)}}
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+
+
+            <!-- <ul class="list-group list-group-flush">
               <li class="list-group-item d-flex align-items-center justify-content-between">
                 <div class="form-label">Total Land in Hectares(up to 2.0 hectares) in favor of beneciaries(as per 8-A):
                 </div>
@@ -289,10 +331,38 @@
                 <div class="form-data">{{lang == 'en' ? (applicantDetails?.irrigationFacility | dash ) :
                   (applicantDetails?.m_IrrigationFacility | dash)}}</div>
               </li>
-            </ul>
+            </ul> -->
           </div>
           <div class="col-sm-6">
-            <ul class="list-group list-group-flush">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="form-label">Cultivation Land Survey Number:</div>
+                  </td>
+                  <td>
+                    <div class="form-data">{{applicantDetails?.mulberryCultivatedSurveyNo | dash}}</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label"> Land Type:</div>
+                  </td>
+                  <td>
+                    <div class="form-data">{{lang == 'en' ? (applicantDetails?.farmType | dash ) :
+                      (applicantDetails?.m_FarmType
+                      | dash)}}
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+
+
+
+
+            <!-- <ul class="list-group list-group-flush">
               <li class="list-group-item d-flex align-items-center justify-content-between">
                 <div class="form-label">Cultivation Land Survey Number:</div>
                 <div class="form-data">{{applicantDetails?.mulberryCultivatedSurveyNo | dash}}</div>
@@ -303,7 +373,7 @@
                   (applicantDetails?.m_FarmType
                   | dash)}}</div>
               </li>
-            </ul>
+            </ul> -->
           </div>
         </div>
 
@@ -366,7 +436,7 @@
             </div>
           </li>
         </ul>
-     
+
         <div class="table-responsive scrollbar" *ngIf="applicantDetails?.isAnyPlantedBeforeGovScheme == true">
           <table class="dashboard-table table table-bordered w-100 mb-0">
             <thead>
@@ -389,7 +459,7 @@
             </tbody>
           </table>
         </div>
-       
+
       </div>
     </div>
 
@@ -879,7 +949,7 @@
     <section class="">
       <div class="d-flex align-items-center justify-content-between">
         <div class="form-data text-main">Land Survey (After Plantation)</div>
-     
+
       </div>
       <div class="d-flex align-items-center justify-content-between gap-3 w-100">
         <div class="d-flex gap-2">
@@ -917,7 +987,7 @@
           </div>
         </div>
       </div>
-    </section> 
+    </section>
 
     <section>
       <div class="d-flex align-items-center justify-content-between gap-3">

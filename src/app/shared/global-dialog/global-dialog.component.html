@@ -1,34 +1,41 @@
-<mat-card class="plain-card">
+<div mat-dialog-title class="modal-header">
   <!-- <mat-card-header class="card-header">
     <h6 class="text-main fw-bold mb-0">{{data?.header}}</h6>
   </mat-card-header> -->
-  <mat-card-content class="card-body">
-  <div id="delete">
-    <div class="row">
-      <div class="col-12">
+  <div class="d-flex align-items-center justify-content-between w-100">
+    <div class="text-main" *ngIf="data?.header">{{data?.header}}</div>
+    <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
+      <span class="material-symbols-rounded">close</span>
+    </button>
+  </div>
+</div>
+  <mat-dialog-content class="modal-body">
+    <div id="delete">
+      <div class="row">
+        <div class="col-12">
           <!-- <div class="card card-body border-0 bg-danger-subtle text-center mb-3" *ngIf="!data.statusFlag">
-            <div class="py-3">
-              <img src="assets/images/delete.svg" class="w-25 mx-auto">
+              <div class="py-3">
+                <img src="assets/images/delete.svg" class="w-25 mx-auto">
+              </div>
             </div>
-          </div>
-          <div class="card card-body border-0 bg-danger-subtle text-center mb-3" *ngIf="data.statusFlag == 'Toggle' || data.statusFlag == 'टॉगल'"> 
-            <div class="py-3">
-              <img src="assets/images/active_scheme@3x.png" class="w-25 mx-auto">
+            <div class="card card-body border-0 bg-danger-subtle text-center mb-3" *ngIf="data.statusFlag == 'Toggle' || data.statusFlag == 'टॉगल'">
+              <div class="py-3">
+                <img src="assets/images/active_scheme@3x.png" class="w-25 mx-auto">
+              </div>
             </div>
-          </div>
-          <div class="card card-body border-0 bg-danger-subtle text-center mb-3" *ngIf="data.header == 'Logout' || data.statusFlag == 'बाहेर पडणे'"> 
-            <div class="py-3">
-              <img src="assets/images/logout/logout@3x.png" class="w-25 mx-auto"> 
-            </div>
-          </div> -->
+            <div class="card card-body border-0 bg-danger-subtle text-center mb-3" *ngIf="data.header == 'Logout' || data.statusFlag == 'बाहेर पडणे'">
+              <div class="py-3">
+                <img src="assets/images/logout/logout@3x.png" class="w-25 mx-auto">
+              </div>
+            </div> -->
           <div class="card card-body border-0 bg-danger-subtle text-center mb-3" *ngIf="!data.statusFlag">
             <div class="py-3">
-              <img *ngIf="data?.headerImage" [src]=data.headerImage class="w-25 mx-auto" >
+              <img *ngIf="data?.headerImage" [src]=data.headerImage class="w-25 mx-auto">
             </div>
           </div>
-          <h6 *ngIf="data?.header">{{data?.header}}</h6>
+          <!-- <h6 *ngIf="data?.header">{{data?.header}}</h6> -->
           <p class="fs-main text-secondary" *ngIf="data?.title">{{data?.title}}</p>
-          <div mat-dialog-actions align="end">
+          <div mat-dialog-actions align="end" class="px-0">
             <div *ngIf="data.discription">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Remark</mat-label>
@@ -37,15 +44,14 @@
               </mat-form-field>
             </div>
             <!-- *ngIf="data?.okButton && data?.cancelButton" -->
-            <div class="d-flex gap-2" >
-              <button mat-flat-button mat-dialog-close class="btn-default bg-secondary-subtle w-50"
+            <div class="d-flex justify-content-end gap-2 px-0">
+              <button mat-flat-button mat-dialog-close class="btn-default bg-secondary-subtle w-100"
                 (click)="closeDialog('No')" *ngIf="data?.cancelButton">{{data?.cancelButton}}</button>
-              <button mat-flat-button cdkFocusInitial  *ngIf="data?.okButton" type="submit" class="btn-default bg-danger w-50 text-white"
-                (click)="closeDialog('Yes')">{{data?.okButton}}</button>
+              <button mat-flat-button cdkFocusInitial *ngIf="data?.okButton" type="submit"
+                class="btn-default bg-danger w-100 text-white" (click)="closeDialog('Yes')">{{data?.okButton}}</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </mat-card-content>
-</mat-card>
+  </mat-dialog-content>

@@ -111,20 +111,20 @@ export class AddVillageComponent implements OnDestroy {
       next: ((res: any) => {
         this.talukaArray = res.responseData;
         this.commonMethodService.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
-        this.data ? (this.f['talukaId'].setValue(this.data?.talukaId), this.getGrampanchayat()) : '';
+        this.data ? (this.f['talukaId'].setValue(this.data?.talukaId), this.getGrampanchayat(false)) : '';
       }), error: (() => {
         this.talukaArray = [];
       })
     })
   }
 
-  getGrampanchayat() {
+  getGrampanchayat(flag?:boolean) {
     let talukaId = this.villageForm.getRawValue().talukaId;
     this.master.GetGrampanchayat(talukaId || 0).subscribe({
       next: ((res: any) => {
         this.grampanchayatArray = res.responseData;
         this.commonMethodService.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
-        if (this.data) {
+        if (this.data && !flag) {
           let newVillage = new Array();
           this.data?.grampanchayat.forEach((res: any) => {
             newVillage.push(res.id)
