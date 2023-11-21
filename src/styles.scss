@@ -208,12 +208,14 @@ a.text-main:hover {
     font-family: 'Public Sans', sans-serif !important;
     font-size: 0.8rem;
     margin-bottom: 3px;
+    letter-spacing: normal;
 }
 
 .form-container .form-data {
     font-family: 'Public Sans', sans-serif !important;
     font-size: 0.85rem;
     font-weight: bold;
+    letter-spacing: normal;
 }
 
 .modal-header {
@@ -240,7 +242,7 @@ a.text-main:hover {
 
 button.btn-modal-close {
     @include mat.all-component-densities(-3);
-    padding: 2px !important;
+    padding: 5px 7px !important;
 }
 
 .btn-modal-close .material-symbols-rounded {
@@ -397,9 +399,10 @@ button.btn-modal-close {
     width: 150px !important;
 }
 
-.mat-select-search-input{
-  background-color: #fff !important;
+.mat-select-search-input {
+    background-color: #fff !important;
 }
-a{
+
+a {
     cursor: pointer;
 }

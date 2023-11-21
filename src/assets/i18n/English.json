@@ -120,7 +120,8 @@
   "upload_document":"Upload Document",
   "add_document": "Add Document",
   "update_document": "Update Document",
-
+   "applicant_document":"Applicant Document",
+   "other_document":"Other Document",
   "select_status":"Select Status",
   "select_reason":"Select Reason",
   "remark":"Remark"

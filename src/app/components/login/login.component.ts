@@ -29,18 +29,17 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 export class LoginComponent {
   hide = true;
   loginForm!: FormGroup;
-  loginFlag: boolean = true;
   encryptInfo: any;
   loginData: any;
+
   constructor(private fb: FormBuilder,
     public validation: ValidationService,
     private commonMethods: CommonMethodsService,
     private error: ErrorHandlingService,
     private spinner: NgxSpinnerService,
     private apiService: ApiService,
-    private WebStorageService : WebStorageService,
-    private router: Router,
-    private AESEncryptDecryptService:AesencryptDecryptService
+    private router: Router,private WebStorageService:WebStorageService,
+    private AESEncryptDecryptService: AesencryptDecryptService,
   ) {
 
   }
@@ -57,7 +56,7 @@ export class LoginComponent {
 
   defaultForm() {
     this.loginForm = this.fb.group({
-      userName: ['', [Validators.required, Validators.pattern(this.validation.mobile_No),(this.validation.maxLengthValidator(30))]],
+      userName: ['', [Validators.required, Validators.pattern(this.validation.mobile_No), (this.validation.maxLengthValidator(30))]],
       password: ['', [Validators.required, Validators.pattern(this.validation.password)]],
       captcha: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]]
     })
@@ -72,16 +71,13 @@ export class LoginComponent {
   }
 
   onLoginSubmit() {
-    this.loginFlag = false;
     this.spinner.show();
     if (this.loginForm.invalid) {
-      this.loginFlag = true;
       this.spinner.hide();
       return
     } else if (this.loginForm.value.captcha != this.commonMethods.checkvalidateCaptcha()) {
       this.spinner.hide();
       this.refreshCaptcha()
-      this.loginFlag = true;
       this.commonMethods.snackBar("Please Enter Valid Capcha", 1)
       return;
     }
@@ -92,30 +88,26 @@ export class LoginComponent {
         "userName": formData.userName,
         "password": formData.password
       }
-      this.apiService.setHttp('post', 'sericulture/api/Login/CheckLogin', false, obj, false, 'baseUrl');
-      this.apiService.getHttp().subscribe((res: any) => {
+      this.apiService?.setHttp('post', 'sericulture/api/Login/CheckLogin', false, obj, false, 'baseUrl');
+      this.apiService?.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.spinner.hide();
           if (!res?.responseData?.pageList.length) {
             this.commonMethods.snackBar('Please Contact To Admin', 1)
           } else {
-            this.commonMethods.snackBar(res.statusMessage, 0);
-            sessionStorage.setItem('loggedIn', 'true');
+            // this.commonMethods.snackBar(res.statusMessage, 0);
             this.loginData = this.AESEncryptDecryptService.encrypt(JSON.stringify(res));
             localStorage.setItem('silkDharashivUserInfo', this.loginData);
             this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
-            this.loginFlag = true;
           }
         }
         else {
           this.spinner.hide();
-          this.loginFlag = true;
           this.refreshCaptcha();
           this.commonMethods.snackBar(res.statusMessage, 1)
         }
       }, (error: any) => {
         this.spinner.hide();
-        this.loginFlag = true;
         this.error.handelError(error.status);
       })
     }
