@@ -1,1 +1,1159 @@
 <p>silk-samgra works!</p>
+
+<mat-card class="plain-card form-container">
+  <mat-card-header class="card-header">
+    <div class="text-main fw-bold">View Silk Samagra Application </div>
+  </mat-card-header>
+
+  <mat-card-content class="card-body">
+    <div class="card card-body mb-3">
+      <div class="row g-2">
+        <!-- <div class="col-sm-3" *ngIf="!applicationData?.getSiteInspectionDataModel?.isSiteInspectionDone">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">{{'approvalProcess.applicant_id'| translate}} ({{'approvalProcess.date'| translate}}):</div>
+            <div class="form-data">{{(applicationData?.applicationNo) | dash }} ({{applicationData?.applicationDate |
+              date:'dd-MM-yyyy'}})</div>
+          </div>
+        </div>
+        <div class="col-sm-4" *ngIf="applicationData?.getSiteInspectionDataModel?.isSiteInspectionDone">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">{{'approvalProcess.mulberry_id'| translate}}:</div>
+            <div class="form-data">{{applicantDetails?.mulberryId}}({{(applicantDetails?.mulberryIdGeneratedDate|
+              date:'dd-MM-yyyy') | dash}})</div>
+          </div>
+        </div> -->
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">{{'approvalProcess.applicant_name_mob'| translate}}:</div>
+            <div class="form-data">{{(lang == 'en' ? (applicantDetails?.fullName | dash ) :
+              (applicantDetails?.m_FullName | dash))}} </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">{{'common.mobile'| translate}}:</div>
+            <div class="form-data">{{applicantDetails?.mobileNo1 | dash}} </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">{{'manrega.scheme'| translate}}:</div>
+            <div class="form-data">Silk Samagra -2 </div>
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">{{'approvalProcess.process_department'| translate}}:</div>
+            <div class="form-data">{{lang == 'en' ? (applicationData?.departmentName | dash) :
+              (applicationData?.m_DepartmentName | dash)}} </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Category:</div>
+            <div class="form-data">Scheduled Caste </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">{{'approvalProcess.plantation_area'| translate}}:</div>
+            <div class="form-data">{{applicationData?.mulberryCultivationArea | dash}} </div>
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">{{'grainage.address'| translate}}:</div>
+            <div class="form-data">{{lang == 'en' ? (applicantDetails?.state +',
+              '+applicantDetails?.taluka+','+applicantDetails?.village) : (applicantDetails?.m_State
+              +', '+applicantDetails?.m_Taluka+','+applicantDetails?.village)}}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="text-main">Application Status</div>
+    <div class="table-content table-responsive mb-3">
+      <table mat-table [dataSource]="approvalStatus" class="dashboard-table">
+        <ng-container matColumnDef="sr_no">
+          <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.sr_no'| translate}}</th>
+          <td mat-cell *matCellDef="let element; let i=index" class="mxw-200">{{i+1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="designationName">
+          <th mat-header-cell *matHeaderCellDef>{{'setRule.designation'| translate}}</th>
+          <td mat-cell *matCellDef="let element" class="mnw-200">{{element.designationName ? element.designationName
+            :'-'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="actionName">
+          <th mat-header-cell *matHeaderCellDef>{{'setRule.action'| translate}}</th>
+          <td mat-cell *matCellDef="let element" class="mnw-200">{{element.actionName ? element.actionName :'-'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.approval_status'| translate}}</th>
+          <td mat-cell *matCellDef="let element">
+            <h6 class="mb-0"><span class="badge"
+                [ngClass]="element.status=='Approved' ? 'text-bg-success' : (element.status == 'Pending' || element.status == 'pending') ? 'text-bg-warning' : 'bg-danger-subtle text-danger'">
+                {{element.status ? element.status :'-'}}
+              </span></h6>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="modifiedDate">
+          <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.approval_date'| translate}}</th>
+          <td mat-cell *matCellDef="let element">{{element.modifiedDate == '0001-01-01T00:00:00' ? '-' :
+            element.modifiedDate | date :'dd-MM-YYYY hh:mm a'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="remark">
+          <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.approval_remark'| translate}}</th>
+          <td mat-cell *matCellDef="let element">
+            <span>{{element?.remark?.length > 10 ? (element?.remark?.slice(0 , 10))+'...' : element?.remark}} </span>
+            <a *ngIf="element?.remark?.length > 10" (click)="remarkDialogBox(element.remark)">{{lang == 'en' ? 'More' :
+              'अधिक'}}</a>
+          </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="remark">
+          <th mat-header-cell *matHeaderCellDef>Approval Remark </th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="element.remark && element.remark.length > 2; else elseBlock">
+              <button mat-raised-button color="primary" type="button" (click)="openDialog(element.remark)">
+                Show Remark
+              </button>
+            </ng-container>
+            <ng-template #elseBlock>
+              {{element.remark ? element.remark : '-'}}
+            </ng-template>
+          </td>
+        </ng-container> -->
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>{{'common.view'| translate}}</th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="element?.documnetApprovalPath else elseBlock">
+              <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
+                (click)="viewDocument(element?.documnetApprovalPath)">
+                <span class="material-symbols-rounded text-dark">
+                  visibility
+                </span>
+              </button>
+            </ng-container>
+            <ng-template #elseBlock>
+              <div *ngIf="applicationData.getSiteInspectionDataModel.isSiteInspectionDone; else elseBlockSec">
+                <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
+                  (click)="addGeoTagging()">
+                  <span class="material-symbols-rounded text-dark">
+                    visibility
+                  </span>
+                </button>
+              </div>
+              <ng-template #elseBlockSec>
+                -
+              </ng-template>
+            </ng-template>
+          </td>
+        </ng-container>
+
+        <tr class="mat-row p-2 w-100" *matNoDataRow>
+          <td class="" colspan="12">
+            <div class="alert alert-danger text-center m-2 p-2" colspan="12">{{'approvalProcess.no_data_found'|
+              translate}}</div>
+          </td>
+        </tr>
+        <tr mat-header-row *matHeaderRowDef="displayColumnRemark"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumnRemark;"></tr>
+      </table>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header">
+        <div class="form-data text-main">Application Details</div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="d-flex gap-2">
+              <div class="form-label">Application ID</div>
+              <div class="form-label">: 2202315265292</div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="d-flex gap-2">
+              <div class="form-label">Date</div>
+              <div class="form-label">: 2202315265292</div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="d-flex gap-2">
+              <div class="form-label">Aadhar No.</div>
+              <div class="form-label">: 55491059968</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header">
+        <!-- <div class="form-data text-main">{{'approvalProcess.applicant_details'| translate}}</div> -->
+        <div class="form-data text-main">अर्जदारचा तपशील</div>
+      </div>
+      <div class="card-body">
+        <div class="row application-details">
+          <div class="col-sm-3">
+            <img src="{{applicantDetails?.profilePhotoPath}}" alt="view Application Image">
+          </div>
+          <div class="col-sm-9">
+            <div class="row g-2 mb-2 pb-2 border-bottom">
+              <div class="col-sm-2 col-4">
+                <div class="form-label">{{'approvalProcess.applicant_name_mob'| translate}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? (applicantDetails?.fullName | dash ) :
+                  (applicantDetails?.m_FullName | dash)}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <!-- <div class="form-label">{{'approvalProcess.manarega_job_card_no.'| translate}}</div> -->
+                <div class="form-label">Election Id No</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{applicantDetails?.mn_JobCardNo | dash}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label">{{'common.mobile'| translate}}:</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{applicantDetails?.mobileNo1 | dash}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label">{{'approvalProcess.aadhar_number'| translate}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data"> : {{applicantDetails?.aadharNo | dash}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label">{{'approvalProcess.date_of_birth'| translate}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{(applicantDetails?.birthDate | date: 'dd-MM-yyyy') | dash}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label">{{'common.State'| translate}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? (applicantDetails?.state | dash ) :
+                  (applicantDetails?.m_State | dash)}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label">{{'common.Taluka'| translate}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? (applicantDetails?.taluka | dash ) :
+                  (applicantDetails?.m_Taluka | dash)}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label">{{'common.Village'| translate}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? (applicantDetails?.village | dash ) :
+                  (applicantDetails?.village | dash)}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label">{{'common.pin_Code'| translate}} </div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{applicantDetails?.pinCode | dash}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label">{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data"> : {{applicantDetails?.mobileNo2 | dash}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label">{{'approvalProcess.gender'| translate}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? (applicantDetails?.gender | dash ) :
+                  (applicantDetails?.m_gender | dash)}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label">{{'approvalProcess.education'| translate}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? (applicantDetails?.qualification | dash ) :
+                  (applicantDetails?.m_Qualification | dash)}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label">{{'common.District'| translate}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? (applicantDetails?.district | dash ) :
+                  (applicantDetails?.m_District | dash)}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label">{{'approvalProcess.village_committee'| translate}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data"> : {{lang == 'en' ? (applicantDetails?.grampanchayatName | dash ) :
+                  (applicantDetails?.m_GrampanchayatName | dash)}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label">{{'common.address'| translate}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? (applicantDetails?.address | dash ) :
+                  (applicantDetails?.m_Address | dash)}}</div>
+              </div>
+            </div>
+            <div class="d-flex gap-2">
+
+              <div class="form-label">{{'approvalProcess.beneficiary_category'| translate}}</div>
+              <!-- <div class="form-data mb-0" *ngFor="let data of applicationData?.categoryofBenificiaryModel;let i=index">
+                          {{(i+1)+". "+data?.categoryOfBeneficiary}}
+                        </div> -->
+              <div class="form-data mb-0">: Scheduled Caste </div>
+              <!-- <ol class="form-data mb-0">
+                          <li>Scheduled Caste</li>
+                          <li>Beneficiaries of Land Reform</li>
+                        </ol> -->
+            </div>
+            <div class="d-flex gap-2">
+
+              <div class="form-label">Is Beneficiary below poverty line ?</div>
+              <!-- <div class="form-data mb-0" *ngFor="let data of applicationData?.categoryofBenificiaryModel;let i=index">
+                          {{(i+1)+". "+data?.categoryOfBeneficiary}}
+                        </div> -->
+              <div class="form-data mb-0">: Yes </div>
+              <!-- <ol class="form-data mb-0">
+                          <li>Scheduled Caste</li>
+                          <li>Beneficiaries of Land Reform</li>
+                        </ol> -->
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header">
+        <div class="text-main fw-bold">{{'approvalProcess.land_details'| translate}}</div>
+      </div>
+      <div class="card-body">
+        <div class="row gx-2">
+          <div class="col-sm-6">
+            <div class="fw-bold text-main">Land Details</div>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="form-label">{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'|
+                      translate}}
+                    </div>
+                  </td>
+                  <td>{{applicantDetails?.benificiaryTotalFarm | dash}}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">Landholding Category</div>
+                  </td>
+                  <td>Medium</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">Land Type</div>
+                  </td>
+                  <td>
+                    <div class="form-data">Light</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">Irrigation Facility</div>
+                  </td>
+                  <td>
+                    <div class="form-data">Borewell</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">Irrigation Period</div>
+                  </td>
+                  <td>
+                    <div class="form-data">Perennial</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+
+
+            <!-- <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex align-items-center justify-content-between">
+                <div class="form-label">Total Land in Hectares(up to 2.0 hectares) in favor of beneciaries(as per 8-A):
+                </div>
+                <div class="form-data"> {{applicantDetails?.benificiaryTotalFarm | dash}}</div>
+              </li>
+              <li class="list-group-item d-flex align-items-center justify-content-between">
+                <div class="form-label">Cultivated Area in Hectares:</div>
+                <div class="form-data">{{applicantDetails?.cultivatedFarmInHector | dash}}</div>
+              </li>
+              <li class="list-group-item d-flex align-items-center justify-content-between">
+                <div class="form-label"> Irrigation Facility :</div>
+                <div class="form-data">{{lang == 'en' ? (applicantDetails?.irrigationFacility | dash ) :
+                  (applicantDetails?.m_IrrigationFacility | dash)}}</div>
+              </li>
+            </ul> -->
+          </div>
+          <div class="col-sm-6">
+            <div class="fw-bold text-main">Mulberry planting details </div>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="form-label">An improved breed of Mulberry</div>
+                  </td>
+                  <td>
+                    <div class="form-data">V1</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">Mulberry Planting Distance (feet) </div>
+                  </td>
+                  <td>
+                    <div class="form-data">2 </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">Mulberry Planting Land Group No./ Survey No </div>
+                  </td>
+                  <td>
+                    <div class="form-data">1260 </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">Mulberry Plantation Area (Acres) </div>
+                  </td>
+                  <td>
+                    <div class="form-data">2 </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">Mulberry Plantation Method </div>
+                  </td>
+                  <td>
+                    <div class="form-data">Through Plant </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+
+
+
+
+            <!-- <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex align-items-center justify-content-between">
+                <div class="form-label">Cultivation Land Survey Number:</div>
+                <div class="form-data">{{applicantDetails?.mulberryCultivatedSurveyNo | dash}}</div>
+              </li>
+              <li class="list-group-item d-flex align-items-center justify-content-between">
+                <div class="form-label"> Land Type:</div>
+                <div class="form-data">{{lang == 'en' ? (applicantDetails?.farmType | dash ) :
+                  (applicantDetails?.m_FarmType
+                  | dash)}}</div>
+              </li>
+            </ul> -->
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <div class="form-label">Have you planted mulberry earlier under the government scheme ?</div>
+          <div class="form-data">: Yes</div>
+        </div>
+        <table mat-table [dataSource]="dataSourcelandetails" class="dashboard-table mb-4">
+
+          <ng-container matColumnDef="year">
+            <th mat-header-cell *matHeaderCellDef> Year </th>
+            <td mat-cell *matCellDef="let element"> {{element.year}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cultivatedarea">
+            <th mat-header-cell *matHeaderCellDef> Cultivated Area (Acres ) </th>
+            <td mat-cell *matCellDef="let element"> {{element.cultivatedarea}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="landsurvey">
+            <th mat-header-cell *matHeaderCellDef> Land Survey No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.landsurvey}} </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnslandetails"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnslandetails;"></tr>
+        </table>
+
+
+
+
+
+        <div class="d-flex gap-2 my-1">
+          <div class="form-data">Details of current crop and production:</div>
+          <!-- <div class="form-data">: Yes</div> -->
+        </div>
+
+        <table mat-table [dataSource]="dataSourcecropProduction" class="dashboard-table mb-4">
+
+          <ng-container matColumnDef="srno">
+            <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.srno}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cropname">
+            <th mat-header-cell *matHeaderCellDef> Crop Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.cropname}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="areaacres">
+            <th mat-header-cell *matHeaderCellDef> Area Acres </th>
+            <td mat-cell *matCellDef="let element"> {{element.areaacres}} </td>
+          </ng-container>
+          <ng-container matColumnDef="producedquintal">
+            <th mat-header-cell *matHeaderCellDef> Produced Quintal </th>
+            <td mat-cell *matCellDef="let element"> {{element.producedquintal}} </td>
+          </ng-container>
+          <ng-container matColumnDef="avgrateperquintal">
+            <th mat-header-cell *matHeaderCellDef> The average rate obtained per quintal </th>
+            <td mat-cell *matCellDef="let element"> {{element.avgrateperquintal}} </td>
+          </ng-container>
+          <ng-container matColumnDef="finishedproduct">
+            <th mat-header-cell *matHeaderCellDef> Finished Prod </th>
+            <td mat-cell *matCellDef="let element"> {{element.finishedproduct}} </td>
+          </ng-container>
+          <ng-container matColumnDef="expenditureincurred">
+            <th mat-header-cell *matHeaderCellDef> The expenditure incurred  </th>
+            <td mat-cell *matCellDef="let element"> {{element.expenditureincurred}} </td>
+          </ng-container>
+          <ng-container matColumnDef="netincome">
+            <th mat-header-cell *matHeaderCellDef> Net income </th>
+            <td mat-cell *matCellDef="let element"> {{element.netincome}} </td>
+          </ng-container>
+          <ng-container matColumnDef="netincomeperacre">
+            <th mat-header-cell *matHeaderCellDef>  Net income per acre </th>
+            <td mat-cell *matCellDef="let element"> {{element.netincomeperacre}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnscropProduction"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnscropProduction;"></tr>
+        </table>
+
+
+
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="row">
+              <div class="col-sm-8 form-label">Do you have experience in the silk industry ?</div>
+              <div class="col-sm-4 form-data">: Yes</div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="d-flex justify-content-end gap-3">
+              <div class="form-label">How many years ?</div>
+              <div class="form-data">: 5</div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row">
+              <div class="col-sm-8 form-label">Have you done training in silk industry ?</div>
+              <div class="col-sm-4 form-data">: Yes</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-main fw-bold mt-4">Details </div>
+        <div class="d-flex gap-2">
+          <div class="form-label">Have you gone directly to the silk industry farmer and taken the information ?</div>
+          <div class="form-data"> Yes</div>
+        </div>
+
+        <div class="card mb-2">
+          <div class="card-header">
+            <div class="d-flex gap-2">
+              <div class="form-label">Have you benefited from any scheme under Silk Directorate before this ?</div>
+              <div class="form-data"> Yes</div>
+            </div>
+          </div>
+          <div class="card-body px-0">
+            <table mat-table [dataSource]="dataSourcedetails" class="dashboard-table">
+
+              <ng-container matColumnDef="srno">
+                <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.srno}} </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="schemename">
+                <th mat-header-cell *matHeaderCellDef> Scheme Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.schemename}} </td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="benefityear">
+                <th mat-header-cell *matHeaderCellDef> Benefit Year </th>
+                <td mat-cell *matCellDef="let element"> {{element.benefityear}} </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="benefitamount">
+                <th mat-header-cell *matHeaderCellDef> Benefit Amount </th>
+                <td mat-cell *matCellDef="let element"> {{element.benefitamount}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsdetails"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsdetails;"></tr>
+            </table>
+
+
+          </div>
+        </div>
+
+        <!-- <ul class="list-group list-group-flush mb-3">
+          <li class=" list-group-item d-flex justify-content-between align-items-center">
+            <div class="form-label">{{'approvalProcess.are_you_a_joined_account_Holder'| translate}}</div>
+            <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+              <mat-radio-button value="yes" [checked]="applicantDetails?.isJointAccHolder == true"
+                class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+              <mat-radio-button value="no" [checked]="applicantDetails?.isJointAccHolder == false"
+                class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+            </mat-radio-group>
+          </li>
+          <ng-container *ngIf="applicantDetails?.isJointAccHolder">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="d-flex gap-2">
+              <div class="form-label">{{'approvalProcess.land_survey_no._of_land'| translate}}:</div>
+              <div class="form-data">{{applicantDetails?.applicantFarmSurveyNo | dash}}</div>
+            </div>
+            <div class="d-flex gap-2">
+              <div class="form-label">{{'approvalProcess.its_area'| translate}}:</div>
+              <div class="form-data">{{applicantDetails?.applicantFarmArea | dash}}</div>
+            </div>
+          </li>
+        </ng-container>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="form-label">{{'approvalProcess.will_take_the_silk_industry_training'| translate}}</div>
+            <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+              <mat-radio-button value="1" [checked]="applicantDetails?.isSelfTraining == true">
+                <div class="fw-bold">{{'approvalProcess.send_candidate'| translate}}</div>
+              </mat-radio-button>
+              <mat-radio-button value="2" [checked]="applicantDetails?.isSelfTraining == false">
+                <div class="fw-bold">{{'approvalProcess.mySelf'| translate}}</div>
+              </mat-radio-button>
+            </mat-radio-group>
+          </li>
+          <ng-container *ngIf="applicantDetails?.isSelfTraining">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="d-flex gap-3">
+              <div class="form-label">{{'approvalProcess.candidate_name'| translate}}: </div>
+              <div class="form-data">{{applicantDetails?.candidateName | dash}}</div>
+            </div>
+            <div class="d-flex gap-2">
+              <div class="form-label">{{'approvalProcess.relation'| translate}}: </div>
+              <div class="form-data">{{lang == 'en' ? (applicantDetails?.relationName | dash ) :
+                (applicantDetails?.m_RelationName | dash)}}</div>
+            </div>
+          </li>
+        </ng-container>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="form-label">{{'approvalProcess.have_you_done_orchards'| translate}}</div>
+            <div class="form-data">
+              <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+                <mat-radio-button value="11" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == true"
+                  class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+                <mat-radio-button value="12" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == false"
+                  class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </li>
+        </ul> -->
+
+        <div class="table-responsive scrollbar" *ngIf="applicantDetails?.isAnyPlantedBeforeGovScheme == true">
+          <table class="dashboard-table table table-bordered w-100 mb-0">
+            <thead>
+              <tr>
+                <th>{{'approvalProcess.orchard_flower_tree'| translate}}</th>
+                <th>{{'approvalProcess.group_no.'| translate}}</th>
+                <th>{{'approvalProcess.group_area'| translate}}</th>
+                <th>{{'approvalProcess.cultivated_area'| translate}}</th>
+                <th>{{'approvalProcess.number_of_trees_planted'| translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{lang == 'en' ? (applicantDetails?.plantName | dash ) : ('')}}</td>
+                <td>{{applicantDetails?.gutNo | dash}}</td>
+                <td>{{applicantDetails?.gutArea | dash}}</td>
+                <td>{{applicantDetails?.plantCultivatedArea | dash}}</td>
+                <td>{{applicantDetails?.noOfPlant | dash}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card mb-2">
+      <div class="card-header">
+        <div class="text-main fw-bold">{{'approvalProcess.bank_details'| translate}}</div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="d-flex gap-2">
+              <div class="form-label mb-0">{{'approvalProcess.bank_name'| translate}}:</div>
+              <div class="form-data"> {{lang == 'en' ? (applicantDetails?.bankName | dash ) :
+                (applicantDetails?.m_BankName | dash)}}</div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="d-flex gap-2">
+              <div class="form-label mb-0">{{'approvalProcess.branch'| translate}}:</div>
+              <div class="form-data">{{lang == 'en' ? (applicantDetails?.branchName | dash ) :
+                (applicantDetails?.m_BranchName | dash)}}</div>
+            </div>
+          </div>
+          <div class="col-sm-auto">
+            <div class="d-flex gap-2">
+              <div class="form-label mb-0">{{'approvalProcess.IFSC_Code'| translate}}:</div>
+              <div class="form-data">{{applicantDetails?.bankIFSCCode | dash}} </div>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="d-flex gap-2">
+              <div class="form-label mb-0">{{'approvalProcess.bank_account_no'| translate}}:</div>
+              <div class="form-data">{{applicantDetails?.bankAccountNo | dash}} </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="d-flex align-items-center mb-2">
+      <mat-checkbox checked disabled></mat-checkbox>
+      <div class="form-label text-justify">
+        will plant the above mentioned trees as per the rules and conditions prescribed by the Government and also
+        declare myself / efficient person of my family as a certified laborer under the Mahatma Gandhi National
+        Rural Employment Guarantee Scheme. Proper care and protection of seedlings after planting. So let me
+        participate in this plan. 7/12 excerpt ond 8-A are attached
+      </div>
+    </div> -->
+
+    <div class="card mb-3">
+      <div class="card-body">
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" (selectedTabChange)="onTabChanged();">
+          <mat-tab label="Applicant Document">
+            <div class="table-responsive mt-2">
+              <table mat-table [dataSource]="dataSource" class="dashboard-table mb-0">
+                <ng-container matColumnDef="srNo">
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.sr_no'| translate}} Sr.No. </th>
+                  <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="documentType">
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_name'| translate}} Document Name
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.documentType}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="docNo">
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_number'| translate}}Document No
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.docNo}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.branch'| translate}}Action</th>
+                  <td mat-cell *matCellDef="let element; ; let i = index;">
+                    <div class="d-flex gap-2">
+                      <button matTooltipPosition="above" mat-icon-button [disabled]="!element?.docPath"
+                        class="btn-icon bg-dark bg-opacity-10" (click)="viewDocument(element.docPath)">
+                        <span class="material-symbols-rounded text-dark">
+                          visibility
+                        </span>
+                      </button>
+                      <input type="file" class="d-none" (change)="imageUplod($event,'applicantDoc', i)" #editImg>
+                      <!-- <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10"
+                        (click)="editImg.click()" [class.disable]="!applicationData?.isEdit">
+                        <span class="material-symbols-rounded text-warning">
+                          edit_square
+                        </span>
+                      </button> -->
+                      <!-- <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10" (click)="deleteImage(i,'applicantDoc')">
+                        <span class="material-symbols-rounded text-danger">
+                          delete
+                        </span>
+                      </button> -->
+                    </div>
+                  </td>
+                </ng-container>
+                <tr class="mat-row p-2 w-100" *matNoDataRow col>
+                  <td colspan="12">
+                    <div class="alert alert-danger text-center m-2 p-2" colspan="12">
+                      No Data Found
+                    </div>
+                  </td>
+                </tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </div>
+          </mat-tab>
+          <mat-tab label="Other Document">
+            <div class="container-fluid">
+              <!--  -->
+              <form [formGroup]="uploadFrm" #formDirective="ngForm" (ngSubmit)="onSubmit()" class="w-100 mt-2"
+                [class.disable]="!applicationData?.isEdit">
+                <div class="row g-2">
+                  <div class="col-sm">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Document Name</mat-label>
+                      <input matInput placeholder="" formControlName="documentType"
+                        (keypress)="validation.noSpacesAtStart($event)">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Document Number</mat-label>
+                      <input matInput placeholder="" formControlName="docNo"
+                        (keypress)="validation.noSpacesAtStart($event)">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="file-upload border rounded-2 p-1">
+                      <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                        (click)="uplodLogo.click()" data-placement="right">
+                        Upload Document
+                      </button>
+                      <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
+                        (change)="imageUplod($event,'otherDocForm')" hidden="hidden" />
+                      <div class="d-flex gap-2" *ngIf="uploadFrm.value.docPath">
+                        <button type="button" mat-flat-button (click)="viewDocument(uploadFrm.value.docPath)"
+                          class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view">
+                          <mat-icon class="material-symbols-rounded">
+                            preview
+                          </mat-icon>
+                        </button>
+                        <button type="button" mat-flat-button (click)="deleteOtherDoc()"
+                          class="bg-danger-subtle text-danger btn-icon btn-action" matTooltip="delete">
+                          <mat-icon class="material-symbols-rounded">
+                            delete
+                          </mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-auto">
+                    <button mat-flat-button class="btn-main">
+                      <mat-icon class="material-symbols-rounded">
+                        add
+                      </mat-icon>
+                      {{editOtherDocForm ? 'Update':'Add'}} Document
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="table-responsive">
+              <table mat-table  class="dashboard-table mb-0">
+                <ng-container matColumnDef="srNo">
+                  <th mat-header-cell *matHeaderCellDef> Sr.No. </th>
+                  <td mat-cell *matCellDef="let element;let i=index"> 1 </td>
+                </ng-container>
+
+                <ng-container matColumnDef="documentType">
+                  <th mat-header-cell *matHeaderCellDef> Document Name </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.documentType}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="docNo">
+                  <th mat-header-cell *matHeaderCellDef>Document No
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.docNo}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef>Action</th>
+                  <td mat-cell *matCellDef="let element; let i = index">
+                    <div class="d-flex gap-02">
+                      <button matTooltipPosition="above" mat-icon-button [disabled]="!element?.docPath"
+                        class="btn-icon bg-dark bg-opacity-10" (click)="viewDocument(element.docPath)">
+                        <span class="material-symbols-rounded text-dark">
+                          visibility
+                        </span>
+                      </button>
+                      <!-- <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10"
+                        [class.disable]="!applicationData?.isEdit" (click)="editOtherDoc(element)">
+                        <span class="material-symbols-rounded text-warning">
+                          edit_square
+                        </span>
+                      </button> -->
+                      <!-- [disabled]="!element?.isDeleteAction" -->
+                      <button matTooltipPosition="above" *ngIf="applicationData?.isEdit" mat-icon-button
+                        class="btn-icon bg-danger bg-opacity-10" (click)="deleteOtherDocument(i)">
+                        <span class="material-symbols-rounded text-danger">
+                          delete
+                        </span>
+                      </button>
+                    </div>
+                  </td>
+                </ng-container>
+                <tr class="mat-row p-2 w-100" *matNoDataRow col>
+                  <td colspan="12">
+                    <div class="alert alert-danger text-center m-2 p-2" colspan="12">
+                      No Data Found
+                    </div>
+                  </td>
+                </tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+
+    <!-- <div class="card mb-3">
+      <div class="card-header">
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <div class="form-data text-main">Declaration</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="form-label">
+          <p>वरील प्रमाणे महात्मा गांधी रोजगार हमी योजनेशी निगडित रेशीम उद्योग विकास /तुती लागवड योजनेअंतर्गत मी अर्ज
+            केला आहे. त्यास मंजुरी मिळाल्यास त्याकरिता माझ्या / आमच्या मालकीच्या /जमिनीवर हि योजना राबविण्यास संमती देत
+            आहे / आहोत.</p>
+          <ol class="mb-0">
+            <li>सदर ची योजना राबविण्याकरिता मी स्वतः /माझे कुटुंबातील कार्यक्षम व्यक्ती महात्मा गांधी राष्ट्रीय ग्रामीण
+              रोजगार हमी योजनेतील प्रामाणिक मजूर म्हणून घोषित करीत आहे / आहोत. या योजनेकरिता होणारी सर्व कामे
+              प्रामुख्याने पूर्ण करण्याची जबाबदारी माझी किंव्हा जॉबकार्ड धारक मजुरांकडून करून घेण्याची जबाबदारी माझी /
+              आमची राहील.</li>
+            <li>योजनेअंतर्गत आवश्यक कलमे /रोपांची वाहतूक मला स्वतः करावी लागेल याची मला कल्पना देण्यात आलेली असून मला ते
+              मान्य आहे.</li>
+            <li>झाडांची लागवड केल्यानंतर हप्ता रक्कम मिळण्यासाठीचे पात्रता निकष मला अवगत</li>
+            <li>या योजनेचे नियम व अटी मला बंधनकारक आहे व त्यानुसार मी कलाम / रोपांची लागवड / संगोपन / संरक्षण करीन.</li>
+            <li>सदर योजनेअंतर्गत एकूण क्षेत्राप्रमाणे व नमुन्याप्रमाणे शासनाने प्रतिवर्षी मंजूर केलेल्या मर्यादेच्या
+              प्रमाणकापेक्षा जास्त खर्च झाल्यास तो खर्च मी / स्वतः करील</li>
+            <li>महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजनेशी निगडित रेशीम उद्योग विकास / तुती लागवड योजनेची माहिती
+              मला / आम्हाला मान्य असल्याचे काबुल करून त्याप्रमाणे करार पत्रावर सह्या केल्या आहेत.</li>
+            <li>या योजनेअंतर्गत शासन वेळोवेळी जे बदल करेल अथवा अटी घालेल त्या अटी / बदल मला / आम्हाला मान्य राहतील.</li>
+            <li>महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजनेअंतर्गत रेशीम उद्योग विकास / तुती लागवड योजनेमध्ये
+              समाविष्ठ करून / घ्या करीता मी / आम्ही दिलेला तपशील ७/१२ चे उताऱ्याप्रमाणे बरोबर आहे.</li>
+            <li>मी / आम्ही संयुक्त खातेदार असून माझ्या / आमच्या हिश्याच्या भूमापन क्र. १२६० मध्ये १ हेक्टर क्षेत्रावर
+              लागवड करण्यास परवानगी दिल्यास वरील अटी मला / आम्हाला मान्य राहतील.</li>
+          </ol>
+        </div>
+      </div>
+    </div> -->
+    <div class="card" [class.d-none]="!applicationData?.isEdit">
+      <div class="card-body">
+        <form [formGroup]="approvalFrm" (ngSubmit)="onSubmitApprovalDetails()" #formDirectives="ngForm">
+          <div class="row g-2">
+            <div class="col-sm-auto">
+              <div class="d-flex gap-2">
+                <div>
+                  <label class="form-label">Select Status</label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="applicationStatus" (selectionChange)="getReason()">
+                      <mat-option *ngFor="let apporvalStatus of approvalStatusArray" [value]="apporvalStatus?.id">{{lang
+                        =="en" ? apporvalStatus?.textEnglish : apporvalStatus?.textMarathi}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div
+                  *ngIf="approvalFrm.getRawValue()?.applicationStatus == 5 || approvalFrm.getRawValue()?.applicationStatus == 11">
+                  <label class="form-label">Select Reason</label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="reason">
+                      <mat-option *ngFor="let reason of reasonArray" [value]="reason?.id">{{lang
+                        == "en" ? reason?.textEnglish : reason?.textMarathi}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="file-upload border rounded-2 p-1"
+                *ngIf="this.applicationData?.uploadDocTypeId !=0 && approvalFrm.value.applicationStatus == 12">
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                  data-placement="right" (click)="uploadDepDocument.click()">
+                  Upload Document
+                </button>
+                <input type="file" class="d-none" #uploadDepDocument (change)="imageUplod($event,'uplDepDoc')">
+                <div class="d-flex gap-2" *ngIf="uploadedDepDoc?.docPath">
+                  <button type="button" (click)="viewimage('uplDepDoc')" mat-flat-button
+                    class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view">
+                    <mat-icon class="material-symbols-rounded">
+                      preview
+                    </mat-icon>
+                  </button>
+                  <button type="button" (click)="delDepDocument()" mat-flat-button
+                    class="bg-danger-subtle text-danger btn-icon btn-action" matTooltip="delete">
+                    <mat-icon class="material-symbols-rounded">
+                      delete
+                    </mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm">
+              <label class="form-label">Remark</label>
+              <mat-form-field appearance="outline" class="w-100">
+                <textarea matInput placeholder="" formControlName="remark"
+                  (keypress)="validation.noFirstSpaceAllow($event)" style="height: 83px;"></textarea>
+                <!-- <mat-error *ngIf="approvalFrm.controls['remark']?.errors">
+                  <span class="text-danger"
+                    *ngIf="approvalFrm.controls['remark']?.hasError('maxLengthExceeded') || approvalFrm.controls['remark'].hasError('pattern')">
+                    {{approvalFrm.controls['remark'].hasError('maxLengthExceeded') ? "Maximum limit 50 character" :
+                    "Please Enter Valid Remark"}}
+                  </span>
+                </mat-error> -->
+              </mat-form-field>
+            </div>
+
+          </div>
+          <div class="d-flex align-items-center justify-content-end gap-2 my-2">
+            <button mat-flat-button class="btn-main-light" type="button" [mat-dialog-close]="true">Cancel</button>
+            <button mat-flat-button class="btn-main" type="submit">Submit</button>
+          </div>
+        </form>
+
+
+
+
+
+        <!-- <div class="example-button-row" *ngIf="actionNameLabel">
+          <button mat-raised-button color="primary" type="button"
+            (click)="uploadDepDocument.click()">{{actionNameLabel}}</button>
+        </div>
+        <div *ngIf="uploadedDepDoc?.docPath">
+
+          <button type="button" mat-flat-button (click)="viewimage('uplDepDoc')"
+            class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view">
+            <mat-icon class="material-symbols-rounded">
+              preview
+            </mat-icon>
+          </button>
+          <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+            (click)="delDepDocument()" matTooltip="delete">
+            <mat-icon class="material-symbols-rounded">
+              delete
+            </mat-icon>
+          </button>
+        </div> -->
+
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header">
+        <div class="text-main">Action</div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Status</mat-label>
+              <mat-select>
+                <mat-option>Approved</mat-option>
+                <mat-option>Pending</mat-option>
+                <mat-option>Rejected</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-8">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Remark</mat-label>
+              <textarea matInput placeholder="" rows="3"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-end gap-2">
+          <button mat-flat-button class="btn-main-light" type="button" [mat-dialog-close]="true">Cancel</button>
+          <button mat-flat-button class="btn-main" type="submit">Processed</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select Status</mat-label>
+              <mat-select>
+                <mat-option seleted>Rejected</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select Reason</mat-label>
+              <mat-select>
+                <mat-option seleted>Select Reason</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Remark</mat-label>
+              <textarea matInput placeholder="" rows="3"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-end gap-2">
+          <button mat-flat-button class="btn-main-light" type="button" [mat-dialog-close]="true">Cancel</button>
+          <button mat-flat-button class="btn-main" type="submit">Processed</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select Status</mat-label>
+              <mat-select>
+                <mat-option seleted>Re-send</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select Reason</mat-label>
+              <mat-select>
+                <mat-option seleted>Select Reason</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Remark</mat-label>
+              <textarea matInput placeholder="" rows="3"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-end gap-2">
+          <button mat-flat-button class="btn-main-light" type="button" [mat-dialog-close]="true">Cancel</button>
+          <button mat-flat-button class="btn-main" type="submit">Processed</button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>

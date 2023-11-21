@@ -81,3 +81,9 @@
     font-size: 1.2rem;
     height: 19px;
 }
+
+/* pagination default font changed */
+.mat-mdc-paginator-container {
+    font-family: 'Public Sans', sans-serif !important;
+    letter-spacing: normal;
+}

@@ -81,7 +81,7 @@
     "applicant_details":"अर्जदाराचे तपशील",
     "manarega_job_card_no.":"मनरेगा जॉब कार्ड क्रमांक.",
     "aadhar_number":"आधार क्रमांक",
-    "Date of Birth":"जन्मतारीख",
+    "date_of_birth":"जन्मतारीख",
     "alternate_mobile_number.":"पर्यायी मोबाईल क्रमांक.",
     "gender":"लिंग",
     "education":"शिक्षण",
@@ -119,9 +119,11 @@
     "upload_document":"दस्तऐवज अपलोड करा",
     "add_document": "दस्तऐवज जोडा",
     "update_document": "दस्तऐवज अपडेट करा",
+    "applicant_document":"अर्जदार दस्तऐवज",
+    "other_document":"इतर दस्तऐवज",
     "select_status":"स्थिती निवडा",
     "select_reason":"कारण निवडा",
-    "remark":"टिप"
+    "remark":"टिप्पणी"
   },
   "manrega": {
     "manrega": "अर्ज",
