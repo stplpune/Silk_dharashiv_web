@@ -172,7 +172,7 @@ export class ManaregaComponent {
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData;
           this.tableDataArray.map((ele:any)=>{
-            ele.status1 = ele.status
+            ele.status1 = (this.lang == 'en' ? ele.status : ele.m_Status)
           })
           this.totalPages = res.responseData1.totalPages;
           this.tableDatasize = res.responseData1.totalCount;
@@ -190,11 +190,11 @@ export class ManaregaComponent {
       },
     });
   }
-
+  
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'applicationNo','m_SchemeType', 'm_FullName', 'mobileNo1', 'm_Taluka', 'm_GrampanchayatName', 'applicationDate', 'm_Status', 'action'] : ['srNo', 'applicationNo','schemeType', 'fullName', 'mobileNo1', 'taluka', 'grampanchayatName', 'applicationDate', 'status1', 'action'];
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'अर्ज आयडी','योजनेचे नाव', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'तारीख', 'स्थिती', 'कृती'] : ['Sr. No.', 'Application ID','Scheme Name', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Date', 'Status', 'Action'];
+    let displayedColumns = ['srNo', 'applicationNo', this.lang == 'en' ?'schemeType':'m_SchemeType', this.lang == 'en' ?'fullName': 'm_FullName', 'mobileNo1', this.lang == 'en' ?'taluka':'m_Taluka', this.lang == 'en' ?'grampanchayatName':'m_GrampanchayatName', 'applicationDate', 'status1', 'action'] 
+    let displayedheaders = this.lang == 'en' ? ['Sr.No.', 'Application ID','Scheme Name', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Date', 'Status', 'Action'] : ['अनुक्रमांक', 'अर्ज आयडी','योजनेचे नाव', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'तारीख', 'स्थिती', 'कृती'] ;
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
@@ -208,6 +208,7 @@ export class ManaregaComponent {
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
+    
   }
 
   childCompInfo(obj?: any) {
