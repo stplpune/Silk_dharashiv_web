@@ -62,7 +62,8 @@
     "block_filter":"ब्लॉक",
     "circle_filter":"मंडळ",
     "grampanchayat_filter":"ग्रामपंचायत",
-    "select_state": "राज्य निवडा"
+    "select_state": "राज्य निवडा",
+    "action": "कृती"
   },
   "approvalProcess"  : {
     "applicant_id":"अर्जदार आयडी",
@@ -120,7 +121,6 @@
   "manrega": {
     "manrega": "अर्ज",
     "scheme": "योजना यादी",
-    "action": "कृती",
     "district": "जिल्हा",
     "taluka": "तालुका",
     "village": "गाव",
@@ -211,7 +211,6 @@
     "add_level": "स्तर जोडा",
     "update_level": "स्तर अपडेट करा",
     "order": "ऑर्डर",
-    "action": "कृती",
     "department_level": "विभाग स्तर निवडा",
     "designation_level": "पदनाम स्तर निवडा",
     "designation": "पदनाम",
@@ -226,7 +225,6 @@
     "Scheme": "योजना",
     "Department": "विभाग",
     "Order": "ऑर्डर ",
-    "Action": "कृती",
     "first_level": "प्रथम स्तर",
     "second_level": "दुसरी पातळी",
     "third_level": "तिसरा स्तर",
