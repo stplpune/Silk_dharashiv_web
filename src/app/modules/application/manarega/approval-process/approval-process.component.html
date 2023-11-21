@@ -15,7 +15,7 @@
         </div>
         <div class="col-sm-4" *ngIf="applicationData?.getSiteInspectionDataModel?.isSiteInspectionDone">
           <div class="d-flex gap-2">
-            <div class="form-label mb-0">Mulberry Id(Date):</div>
+            <div class="form-label mb-0">{{'approvalProcess.mulberry_id'| translate}}:</div>
             <div class="form-data">{{applicantDetails?.mulberryId}}({{(applicantDetails?.mulberryIdGeneratedDate|
               date:'dd-MM-yyyy') | dash}})</div>
           </div>
@@ -51,7 +51,7 @@
 
         <div class="col-sm-4">
           <div class="d-flex gap-2">
-            <div class="form-label mb-0">Plantation Area :</div>
+            <div class="form-label mb-0">{{'approvalProcess.plantation_area'| translate}}:</div>
             <div class="form-data">{{applicationData?.mulberryCultivationArea | dash}} </div>
           </div>
         </div>
@@ -200,34 +200,34 @@
                 <div class="form-data">: {{(applicantDetails?.birthDate | date: 'dd-MM-yyyy') | dash}}</div>
               </div>
               <div class="col-sm-2 col-4">
-                <div class="form-label">{{'approvalProcess.date_of_birth'| translate}}</div>
+                <div class="form-label">{{'common.State'| translate}}</div>
               </div>
               <div class="col-sm-4 col-8">
                 <div class="form-data">: {{lang == 'en' ? (applicantDetails?.state | dash ) :
                   (applicantDetails?.m_State | dash)}}</div>
               </div>
               <div class="col-sm-2 col-4">
-                <div class="form-label">Taluka</div>
+                <div class="form-label">{{'common.Taluka'| translate}}</div>
               </div>
               <div class="col-sm-4 col-8">
                 <div class="form-data">: {{lang == 'en' ? (applicantDetails?.taluka | dash ) :
                   (applicantDetails?.m_Taluka | dash)}}</div>
               </div>
               <div class="col-sm-2 col-4">
-                <div class="form-label">Village </div>
+                <div class="form-label">{{'common.Village'| translate}}</div>
               </div>
               <div class="col-sm-4 col-8">
                 <div class="form-data">: {{lang == 'en' ? (applicantDetails?.village | dash ) :
                   (applicantDetails?.village | dash)}}</div>
               </div>
               <div class="col-sm-2 col-4">
-                <div class="form-label">Pincode </div>
+                <div class="form-label">{{'common.pin_Code'| translate}} </div>
               </div>
               <div class="col-sm-4 col-8">
                 <div class="form-data">: {{applicantDetails?.pinCode | dash}}</div>
               </div>
               <div class="col-sm-2 col-4">
-                <div class="form-label">Alt. Mobile No.</div>
+                <div class="form-label">{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
               </div>
               <div class="col-sm-4 col-8">
                 <div class="form-data"> : {{applicantDetails?.mobileNo2 | dash}}</div>
