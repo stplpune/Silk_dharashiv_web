@@ -13,6 +13,7 @@ const routes: Routes = [
   // { path: 'ref', component: ReferanceComponent },// For Testing purpose
   { path: '', canActivate: [CheckLoggedInGuard], component: PublicComponent, loadChildren: () => import('./layouts/public/public.module').then(m => m.PublicModule) },
   { path: '', canActivate: [AuthGuard], component: SecureComponent, loadChildren: () => import('./layouts/secure/secure.module').then(m => m.SecureModule) },
+  { path: 'create-manarega-app', loadChildren: () => import('./modules/application/manarega/create-manarega-app/create-manarega-app.module').then(m => m.CreateManaregaAppModule) },
   { path: '**', component: ErrorComponent }
 ];
 

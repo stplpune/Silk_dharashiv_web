@@ -3,7 +3,7 @@ import { ChangePasswordComponent } from 'src/app/components/profile/change-passw
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { GlobalDialogComponent } from 'src/app/shared/global-dialog/global-dialog.component';
+import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { TranslateService } from '@ngx-translate/core'
 import { CommonModule } from '@angular/common';
