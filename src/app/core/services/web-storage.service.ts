@@ -23,15 +23,25 @@ export class WebStorageService {
   }
 
   checkUserIsLoggedIn() {
-    if (localStorage.getItem('silkDharashivUserInfo'))
+    if (localStorage.getItem('silkDharashivUserInfo')){
       return true
-    else return false
+    }else{
+      return false
+    }
+  }
+
+  getLocalstorageData() {
+    if (this.checkUserIsLoggedIn() == true) {
+      var decryptData =JSON.parse(this.AESEncryptDecryptService.decrypt(localStorage['silkDharashivUserInfo']));
+      let data = decryptData;
+      return data;
+    }
   }
 
   // Get LocalStorage Data
   getLoggedInLocalstorageData() {
     if (this.checkUserIsLoggedIn() == true) {
-      var decryptData = JSON.parse(this.AESEncryptDecryptService.decrypt(localStorage['silkDharashivUserInfo']));
+      var decryptData =JSON.parse(this.AESEncryptDecryptService.decrypt(localStorage['silkDharashivUserInfo']));
       let data = decryptData?.responseData;
       return data;
     }
@@ -60,8 +70,8 @@ export class WebStorageService {
   // }
 
   redirectTo() { ////redirect to first page in array
-    let data = this.getLoggedInLocalstorageData()
-    return data.pageList[0]?.pageURL;
+    let data = this.getLoggedInLocalstorageData();
+    return  data.pageList[0]?.pageURL;
   }
 
   getUserId() {
@@ -103,8 +113,6 @@ export class WebStorageService {
     let data = this.getLoggedInLocalstorageData();
     return data ? data?.designationId > 0 ? data?.designationId : '' : '';
   }
-
-
 
   // change language
   setLanguage = new BehaviorSubject('');
