@@ -191,7 +191,7 @@
   },
   "rejectReason": {
     "reject_reason": "Reject Reasons",
-    "all_stage_action": "All Stage/Action",
+    "all_stage_action": "Select Stage/Action",
     "add_reject_reason": "Add Reject Reason",
     "reject_title": "Search by Reject Title",
     "update_reject_reason": "Update Reject Reason",
