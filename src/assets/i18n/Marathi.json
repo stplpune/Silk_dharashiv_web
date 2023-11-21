@@ -66,6 +66,7 @@
   },
   "approvalProcess"  : {
     "applicant_id":"अर्जदार आयडी",
+    "mulberry_id":"तुती आयडी(तारीख)",
     "date":"तारीख",
     "applicant_name_mob":"अर्जदाराचे नाव",
     "process_department":"प्रक्रिया विभाग",
