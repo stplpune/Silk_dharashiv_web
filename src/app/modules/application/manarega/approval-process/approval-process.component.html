@@ -6,7 +6,7 @@
   <mat-card-content class="card-body">
     <div class="card card-body mb-3">
       <div class="row g-2">
-        <div class="col-sm-3" *ngIf="!applicationData?.getSiteInspectionDataModel?.isSiteInspectionDone">
+        <div class="col-sm-3">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">{{'approvalProcess.applicant_id'| translate}} ({{'approvalProcess.date'| translate}}):</div>
             <div class="form-data">{{(applicationData?.applicationNo) | dash }} ({{applicationData?.applicationDate |
