@@ -101,8 +101,7 @@ export class LoginComponent {
           } else {
             this.commonMethods.snackBar(res.statusMessage, 0);
             sessionStorage.setItem('loggedIn', 'true');
-            this.encryptInfo = encodeURIComponent((JSON.stringify(JSON.stringify(res))))
-            this.loginData = this.AESEncryptDecryptService.encrypt(JSON.stringify(res?.responseData));
+            this.loginData = this.AESEncryptDecryptService.encrypt(JSON.stringify(res));
             localStorage.setItem('silkDharashivUserInfo', this.loginData);
             this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
             this.loginFlag = true;

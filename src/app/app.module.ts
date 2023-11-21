@@ -8,9 +8,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DatePipe } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { ApiService } from './core/services/api.service';
 
 export function httpTranslateLoaderFactory(http: HttpClient) {
   // export HttpLoaderFactory function that allows NGX-Translate to dynamically load translation files from a server or 
@@ -38,7 +40,12 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,
+    ApiService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true // option. This is required and tells Angular that HTTP_INTERCEPTORS is an array of values, rather than a single value.
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
