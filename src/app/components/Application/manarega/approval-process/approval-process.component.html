@@ -13,21 +13,21 @@
               date:'dd-MM-yyyy'}})</div>
           </div>
         </div>
-        <div class="col-sm-3" *ngIf="applicationData?.getSiteInspectionDataModel?.isSiteInspectionDone">
+        <div class="col-sm-4" *ngIf="applicationData?.getSiteInspectionDataModel?.isSiteInspectionDone">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">Mulberry Id(Date):</div>
             <div class="form-data">{{applicantDetails?.mulberryId}}({{(applicantDetails?.mulberryIdGeneratedDate|
               date:'dd-MM-yyyy') | dash}})</div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">{{'approvalProcess.applicant_name_mob'| translate}}:</div>
             <div class="form-data">{{(lang == 'en' ? (applicantDetails?.fullName | dash ) :
               (applicantDetails?.m_FullName | dash))}} </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">{{'common.mobile'| translate}}:</div>
             <div class="form-data">{{applicantDetails?.mobileNo1 | dash}} </div>
@@ -49,7 +49,7 @@
           </div>
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">Plantation Area :</div>
             <div class="form-data">{{applicationData?.mulberryCultivationArea | dash}} </div>
