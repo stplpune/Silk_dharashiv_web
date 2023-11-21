@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
+import { CommonMethodsService } from './common-methods.service';
+import { Router } from '@angular/router';
+import { WebStorageService } from './web-storage.service';
+import { AesencryptDecryptService } from './aesencrypt-decrypt.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MasterService {
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private commonMethodsService: CommonMethodsService, private router: Router,
+    private webstorageService: WebStorageService, private AESEncryptDecryptService: AesencryptDecryptService) { }
 
   GetAllSchemeType() {
     return new Observable((obj) => {
@@ -19,7 +24,7 @@ export class MasterService {
     })
   }
 
-  GetDepartmentDropdown(SchemeId?:any) {
+  GetDepartmentDropdown(SchemeId?: any) {
     return new Observable((obj) => {
       this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-DepartmentDropdown?SchemeId=' + (SchemeId || 0), false, false, false, 'masterUrl')
       this.apiService.getHttp().subscribe({
@@ -59,7 +64,7 @@ export class MasterService {
     })
   }
 
-  getOrderLevel(lan:any) {
+  getOrderLevel(lan: any) {
     return new Observable((obj) => {
       this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-MasterLevelApproval?lan=' + lan, false, false, false, 'masterUrl')
       this.apiService.getHttp().subscribe({
@@ -68,8 +73,8 @@ export class MasterService {
       })
     })
   }
-  
-  GetDesignationDropDown(deptId:number,desingLevelId?:number) { 
+
+  GetDesignationDropDown(deptId: number, desingLevelId?: number) {
     return new Observable((obj) => {
       this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-DesignationDropDown?DepartmentId=' + deptId + '&DepartmentLevelId=' + desingLevelId, false, false, false, 'masterUrl')
       this.apiService.getHttp().subscribe({
@@ -79,9 +84,9 @@ export class MasterService {
     })
   }
 
-  GetDesignationDropDownOnDeptLevel(deptId: number,deptLevelId:number) {
+  GetDesignationDropDownOnDeptLevel(deptId: number, deptLevelId: number) {
     return new Observable((obj) => {
-      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-DesignationDropDown?DepartmentId=' + deptId+'&DepartmentLevelId='+deptLevelId, false, false, false, 'masterUrl')
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-DesignationDropDown?DepartmentId=' + deptId + '&DepartmentLevelId=' + deptLevelId, false, false, false, 'masterUrl')
       this.apiService.getHttp().subscribe({
         next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
         error: (e: any) => { obj.error(e) }
@@ -301,5 +306,37 @@ export class MasterService {
     })
   }
 
+  getServerDateTime() {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'sericulture/api/Login/Get-Current-Date-Time', false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  refreshTokenJWT(obj: any) {
+    this.apiService.setHttp('POST', 'sericulture/api/Login/refresh-token', false, obj, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == "200") {
+          let loginObj: any = this.webstorageService.getLocalstorageData();
+          loginObj.responseData1 = res.responseData;
+          let loginData = this.AESEncryptDecryptService.encrypt(JSON.stringify(loginObj));
+          localStorage.setItem('silkDharashivUserInfo', loginData);
+        } else {
+          localStorage.removeItem('silkDharashivUserInfo');
+          this.router.navigate(['/login']);
+          this.commonMethodsService.snackBar('Your Session Has Expired. Please Re-Login Again.', 1);
+        }
+      },
+      error: () => {
+        localStorage.removeItem('silkDharashivUserInfo');
+        this.router.navigate(['/login']);
+        this.commonMethodsService.snackBar('Your Session Has Expired. Please Re Login Again.', 1);
+      }
+    });
+  }
 }
 

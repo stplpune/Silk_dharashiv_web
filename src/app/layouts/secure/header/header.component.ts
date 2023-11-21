@@ -89,7 +89,7 @@ export class HeaderComponent {
 
   clearLocalStorage() {
     localStorage.clear();
-    sessionStorage.removeItem('loggedIn');
+    localStorage.removeItem('silkDharashivUserInfo');
     this.commonMethods.routerLinkRedirect('/login');
   }
 
