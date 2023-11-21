@@ -83,7 +83,7 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.approvalFrm = this.fb.group({
       "applicationStatus": [''],
       "reason": [0],
-      "remark": [''],
+      "remark": ['', this.validation.maxLengthValidator(100)],
       "m_remark": [''],
       "modifiedBy": this.WebStorageService.getUserId()
     })
@@ -251,8 +251,8 @@ export class ApprovalProcessComponent implements OnDestroy {
   addDefaultFrm() {
     this.uploadFrm = this.fb.group({
       "id": [0],
-      "docNo": [''],
-      "documentType": [''],
+      "docNo": ['',this.validation.maxLengthValidator(50)],
+      "documentType": ['',this.validation.maxLengthValidator(50)],
       "docPath": ['']
     })
   }
