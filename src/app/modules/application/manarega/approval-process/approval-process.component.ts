@@ -41,6 +41,7 @@ export class ApprovalProcessComponent implements OnDestroy {
   approvalStatusArray: any = [];
   reasonArray: any = [];
   @ViewChild('formDirective') private formDirective!: NgForm;
+  @ViewChild('formDirectives') private formDirectives!: NgForm;
   appDataClonedArray: any;
   editOtherDocForm: boolean = false;
   selOtherDocIndex!: number;
@@ -82,7 +83,7 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.approvalFrm = this.fb.group({
       "applicationStatus": [''],
       "reason": [0],
-      "remark": [''],
+      "remark": ['', this.validation.maxLengthValidator(100)],
       "m_remark": [''],
       "modifiedBy": this.WebStorageService.getUserId()
     })
@@ -104,6 +105,8 @@ export class ApprovalProcessComponent implements OnDestroy {
   }
 
   getByApplicationId() {
+    this.pushOtherDocArray = [];
+    this.pushAppDocArray = [];
     this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetApplication?Id=' + (this.encryptData) + '&UserId=' + this.WebStorageService.getUserId() + '&lan=' + this.lang + '&LoginFlag=' + this.configService.loginFlag, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -111,7 +114,6 @@ export class ApprovalProcessComponent implements OnDestroy {
           this.appDataClonedArray = JSON.parse(JSON.stringify(res.responseData))
           this.applicationData = res.responseData;
           this.applicantDetails = this.applicationData?.applicationModel;
-          console.log("this.applicantDetails",this.applicantDetails)
 
           res.responseData.allApplicationApproval.map((ele: any) => {
             res.responseData.allApprovalDocument.find((item: any) => {
@@ -249,8 +251,8 @@ export class ApprovalProcessComponent implements OnDestroy {
   addDefaultFrm() {
     this.uploadFrm = this.fb.group({
       "id": [0],
-      "docNo": [''],
-      "documentType": [''],
+      "docNo": ['',this.validation.maxLengthValidator(50)],
+      "documentType": ['',this.validation.maxLengthValidator(50)],
       "docPath": ['']
     })
   }
@@ -478,6 +480,12 @@ export class ApprovalProcessComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
+  }
+
+  clearForm(){
+    this.getByApplicationId();
+    this.formDirective.resetForm();
+    this.formDirectives.resetForm();
   }
 }
 

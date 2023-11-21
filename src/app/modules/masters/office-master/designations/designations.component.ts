@@ -176,7 +176,7 @@ export class DesignationsComponent implements OnDestroy {
       autoFocus: true,
     })
     dialogRef.afterClosed().subscribe((result: any) => {
-      debugger
+      
       if(result == 'Yes'){
         this.formDirective?.resetForm();
         this.filterDefaultFrm();
