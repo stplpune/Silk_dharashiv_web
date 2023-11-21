@@ -77,7 +77,7 @@ export class RejectReasonComponent implements OnDestroy{
     flag == 'filter' ? (this.filterFlag = true, (this.pageNumber = 1)) :'';
     let formData = this.filterFrm.getRawValue();
     let str='PageNo='+this.pageNumber+'&PageSize=10';
-    this.apiService.setHttp('GET', 'sericulture/api/ Reject Reasons/GetAllRejectReasons?'+str+'&ActionId='+(formData.actionId || 0)+'&TextSearch='+(formData.textSearch.trim() || "")+'&lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Reasons/GetAllRejectReasons?'+str+'&ActionId='+(formData.actionId || 0)+'&TextSearch='+(formData.textSearch.trim() || "")+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();

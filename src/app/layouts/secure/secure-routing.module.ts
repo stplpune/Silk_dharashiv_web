@@ -20,6 +20,8 @@ const routes: Routes = [
   // applications
   { path: 'approval-process', loadChildren: () => import('../../modules/application/manarega/approval-process/approval-process.module').then(m => m.ApprovalProcessModule), data: { breadcrumb: [{ title: 'Approval Process', active: true }] }, canActivate: [ExpenseGuard] },
   //{ path: 'approval-process', loadChildren: () => import('./components/Application/manarega/approval-process/approval-process.module').then(m => m.ApprovalProcessModule) },
+  { path: 'SilkSamgra', loadChildren: () => import('../../modules/application/manarega/silk-samgra/silk-samgra.module').then(m => m.SilkSamgraModule) },
+
 
 
   // CMS section files routing

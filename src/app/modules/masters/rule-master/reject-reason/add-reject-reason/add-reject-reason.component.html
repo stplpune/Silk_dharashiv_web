@@ -77,14 +77,14 @@
   <div class="row gy-2 gx-2">
       <div class="col-sm-12">
         <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Action Name' : 'कृतीचे नाव'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.actionName || '-') : (data?.m_DepartmentName || '-')}}</div>
+          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Action/Stage name' : 'कृतीचे नाव'}}</div>
+          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.actionName || '-') : (data?.m_ActionName || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-12">
         <div class="row gx-2">
           <div class="col-sm-5 form-label">{{lang == 'en' ? 'Rejection title(English)' : 'नामंजूर शीर्षक(इंग्रजी)'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.rejectionTitle || '-') : (data?.m_RejectionTitle || '-')}}</div>
+          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.rejectionTitle || '-') : (data?.rejectionTitle || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-12">
