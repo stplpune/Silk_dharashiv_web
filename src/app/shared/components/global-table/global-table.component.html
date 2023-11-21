@@ -25,8 +25,9 @@
                         {{ (tableInfo?.time ? (element[columns] | date:'dd-MM-yyyy hh:mm a'):(element[columns] | date:'dd-MM-yyyy')) }}</ng-container>
                      <!-- add badge with color for status -->
                      <ng-container *ngIf="'status1' == columns">
-                        <span class="badge p-2"  [ngClass]="element.status=='Approved' ? 'text-bg-success' : (element.status == 'Pending' || element.status == 'pending') ? 'text-bg-warning' : 'bg-danger-subtle text-danger'">
-                            {{element.status ? element.status :'-'}}
+                        <span class="badge p-2"  [ngClass]=" lang =='en' ? (element.status=='Approved' ? 'text-bg-success' : (element.status == 'Pending') ? 'text-bg-warning' : 'bg-danger-subtle text-danger') :
+                        (element.m_Status=='मान्यता प्राप्त' ? 'text-bg-success' : (element.m_Status == 'प्रलंबित') ? 'text-bg-warning' : 'bg-danger-subtle text-danger')">
+                            {{lang =='en' ? (element.status ? element.status :'-') : (element.m_Status ? element.m_Status :'-')}}
                         </span>
                     </ng-container>
 
