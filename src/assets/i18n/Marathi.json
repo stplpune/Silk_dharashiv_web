@@ -36,6 +36,7 @@
     "Please_select_block": "कृपया ब्लॉक (तालुक्यांचा समूह) निवडा",
     "Please_select_circle": "कृपया मंडळ निवडा (गावांचा समूह)",
     "cancel": "रद्द करा",
+    "submit":"प्रस्तुत करणे",
     "add": "जतन करा",
     "clear": "रद्द करा",
     "officer_en": "अधिकार्‍याचे नाव(इंग्रजी)",
@@ -117,7 +118,10 @@
     "document_number":"दस्तऐवज क्रमांक",
     "upload_document":"दस्तऐवज अपलोड करा",
     "add_document": "दस्तऐवज जोडा",
-    "update_document": "दस्तऐवज अपडेट करा"
+    "update_document": "दस्तऐवज अपडेट करा",
+    "select_status":"स्थिती निवडा",
+    "select_reason":"कारण निवडा",
+    "remark":"टिप"
   },
   "manrega": {
     "manrega": "अर्ज",
