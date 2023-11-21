@@ -233,42 +233,42 @@
                 <div class="form-data"> : {{applicantDetails?.mobileNo2 | dash}}</div>
               </div>
               <div class="col-sm-2 col-4">
-                <div class="form-label">Gender</div>
+                <div class="form-label">{{'approvalProcess.gender'| translate}}</div>
               </div>
               <div class="col-sm-4 col-8">
                 <div class="form-data">: {{lang == 'en' ? (applicantDetails?.gender | dash ) :
                   (applicantDetails?.m_gender | dash)}}</div>
               </div>
               <div class="col-sm-2 col-4">
-                <div class="form-label">Education</div>
+                <div class="form-label">{{'approvalProcess.education'| translate}}</div>
               </div>
               <div class="col-sm-4 col-8">
                 <div class="form-data">: {{lang == 'en' ? (applicantDetails?.qualification | dash ) :
                   (applicantDetails?.m_Qualification | dash)}}</div>
               </div>
               <div class="col-sm-2 col-4">
-                <div class="form-label">District</div>
+                <div class="form-label">{{'common.District'| translate}}</div>
               </div>
               <div class="col-sm-4 col-8">
                 <div class="form-data">: {{lang == 'en' ? (applicantDetails?.district | dash ) :
                   (applicantDetails?.m_District | dash)}}</div>
               </div>
               <div class="col-sm-2 col-4">
-                <div class="form-label">Village Committee</div>
+                <div class="form-label">{{'approvalProcess.village_committee'| translate}}</div>
               </div>
               <div class="col-sm-4 col-8">
                 <div class="form-data"> : {{lang == 'en' ? (applicantDetails?.grampanchayatName | dash ) :
                   (applicantDetails?.m_GrampanchayatName | dash)}}</div>
               </div>
               <div class="col-sm-2 col-4">
-                <div class="form-label">Address </div>
+                <div class="form-label">{{'common.address'| translate}}</div>
               </div>
               <div class="col-sm-4 col-8">
                 <div class="form-data">: {{lang == 'en' ? (applicantDetails?.address | dash ) :
                   (applicantDetails?.m_Address | dash)}}</div>
               </div>
             </div>
-            <div class="form-label">Beneficiary Category (Selected Options)</div>
+            <div class="form-label">{{'approvalProcess.beneficiary_category'| translate}}</div>
             <div class="form-data mb-0" *ngFor="let data of applicationData?.categoryofBenificiaryModel;let i=index">
               {{(i+1)+". "+data?.categoryOfBeneficiary}}
             </div>
@@ -283,7 +283,7 @@
 
     <div class="card mb-3">
       <div class="card-header">
-        <div class="text-main fw-bold">Land Details</div>
+        <div class="text-main fw-bold">{{'approvalProcess.land_details'| translate}}</div>
       </div>
       <div class="card-body">
         <div class="row gx-2">
@@ -292,20 +292,20 @@
               <tbody>
                 <tr>
                   <td>
-                    <div class="form-label">Total Land in Hectares(up to 2.0 hectares) in favor of beneciaries(as per 8-A):
+                    <div class="form-label">{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'| translate}}
                     </div>
                   </td>
                   <td>{{applicantDetails?.benificiaryTotalFarm | dash}}</td>
                 </tr>
                 <tr>
                   <td>
-                    <div class="form-label">Cultivated Area in Hectares </div>
+                    <div class="form-label">{{'approvalProcess.cultivated_area_in_hectaes'| translate}}</div>
                   </td>
                   <td>{{applicantDetails?.cultivatedFarmInHector | dash}}</td>
                 </tr>
                 <tr>
                   <td>
-                    <div class="form-label">Irrigation Facility : </div>
+                    <div class="form-label">{{'approvalProcess.irrigation_facility'| translate}}</div>
                   </td>
                   <td>
                     <div class="form-data">{{lang == 'en' ? (applicantDetails?.irrigationFacility | dash ) :
@@ -340,7 +340,7 @@
               <tbody>
                 <tr>
                   <td>
-                    <div class="form-label">Cultivation Land Survey Number:</div>
+                    <div class="form-label">{{'approvalProcess.cultivation_land_survey_number'| translate}}</div>
                   </td>
                   <td>
                     <div class="form-data">{{applicantDetails?.mulberryCultivatedSurveyNo | dash}}</div>
@@ -348,7 +348,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <div class="form-label"> Land Type:</div>
+                    <div class="form-label">{{'approvalProcess.land_type'| translate}}</div>
                   </td>
                   <td>
                     <div class="form-data">{{lang == 'en' ? (applicantDetails?.farmType | dash ) :
@@ -381,59 +381,58 @@
 
         <ul class="list-group list-group-flush mb-3">
           <li class=" list-group-item d-flex justify-content-between align-items-center">
-            <div class="form-label"> Are you a joined account Holder ?</div>
+            <div class="form-label">{{'approvalProcess.are_you_a_joined_account_Holder'| translate}}</div>
             <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
               <mat-radio-button value="yes" [checked]="applicantDetails?.isJointAccHolder == true"
-                class="form-data">Yes</mat-radio-button>
+                class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
               <mat-radio-button value="no" [checked]="applicantDetails?.isJointAccHolder == false"
-                class="form-data">No</mat-radio-button>
+                class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
             </mat-radio-group>
           </li>
           <ng-container *ngIf="applicantDetails?.isJointAccHolder">
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <div class="d-flex gap-2">
-              <div class="form-label">Land Survey No. of land to be cultivated as per applicant's share: </div>
+              <div class="form-label">{{'approvalProcess.land_survey_no._of_land'| translate}}:</div>
               <div class="form-data">{{applicantDetails?.applicantFarmSurveyNo | dash}}</div>
             </div>
             <div class="d-flex gap-2">
-              <div class="form-label">Its area(Hector): </div>
+              <div class="form-label">{{'approvalProcess.its_area'| translate}}:</div>
               <div class="form-data">{{applicantDetails?.applicantFarmArea | dash}}</div>
             </div>
           </li>
         </ng-container>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div class="form-label"> Will take the silk industry training himself or send the candidate ?</div>
+            <div class="form-label">{{'approvalProcess.will_take_the_silk_industry_training'| translate}}</div>
             <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
               <mat-radio-button value="1" [checked]="applicantDetails?.isSelfTraining == true">
-                <div class="fw-bold">Send Candidate</div>
+                <div class="fw-bold">{{'approvalProcess.send_candidate'| translate}}</div>
               </mat-radio-button>
               <mat-radio-button value="2" [checked]="applicantDetails?.isSelfTraining == false">
-                <div class="fw-bold">MySelf</div>
+                <div class="fw-bold">{{'approvalProcess.mySelf'| translate}}</div>
               </mat-radio-button>
             </mat-radio-group>
           </li>
           <ng-container *ngIf="applicantDetails?.isSelfTraining">
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <div class="d-flex gap-3">
-              <div class="form-label">Candidate Name : </div>
+              <div class="form-label">{{'approvalProcess.candidate_name'| translate}}: </div>
               <div class="form-data">{{applicantDetails?.candidateName | dash}}</div>
             </div>
             <div class="d-flex gap-2">
-              <div class="form-label">Relation : </div>
+              <div class="form-label">{{'approvalProcess.relation'| translate}}: </div>
               <div class="form-data">{{lang == 'en' ? (applicantDetails?.relationName | dash ) :
                 (applicantDetails?.m_RelationName | dash)}}</div>
             </div>
           </li>
         </ng-container>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div class="form-label"> Have you done orchards/flowers/trees before under the government schemes other than
-              employement guarantee ?</div>
+            <div class="form-label">{{'approvalProcess.have_you_done_orchards'| translate}}</div>
             <div class="form-data">
               <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
                 <mat-radio-button value="11" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == true"
-                  class="form-data">Yes</mat-radio-button>
+                  class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
                 <mat-radio-button value="12" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == false"
-                  class="form-data">No</mat-radio-button>
+                  class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
               </mat-radio-group>
             </div>
           </li>
@@ -443,11 +442,11 @@
           <table class="dashboard-table table table-bordered w-100 mb-0">
             <thead>
               <tr>
-                <th>Orchard/Flower/Tree Name</th>
-                <th>Group No.</th>
-                <th>Group Area (Hectares)</th>
-                <th>Cultivated Area (Hectares)</th>
-                <th>Number of trees planted</th>
+                <th>{{'approvalProcess.orchard_flower_tree'| translate}}</th>
+                <th>{{'approvalProcess.group_no.'| translate}}</th>
+                <th>{{'approvalProcess.group_area'| translate}}</th>
+                <th>{{'approvalProcess.cultivated_area'| translate}}</th>
+                <th>{{'approvalProcess.number_of_trees_planted'| translate}}</th>
               </tr>
             </thead>
             <tbody>
@@ -467,33 +466,33 @@
 
     <div class="card mb-2">
       <div class="card-header">
-        <div class="text-main fw-bold">Bank Details</div>
+        <div class="text-main fw-bold">{{'approvalProcess.bank_details'| translate}}</div>
       </div>
       <div class="card-body">
         <div class="row">
           <div class="col-sm-3">
             <div class="d-flex gap-2">
-              <div class="form-label mb-0">Bank Name :</div>
+              <div class="form-label mb-0">{{'approvalProcess.bank_name'| translate}}:</div>
               <div class="form-data"> {{lang == 'en' ? (applicantDetails?.bankName | dash ) :
                 (applicantDetails?.m_BankName | dash)}}</div>
             </div>
           </div>
           <div class="col-sm-3">
             <div class="d-flex gap-2">
-              <div class="form-label mb-0">Branch :</div>
+              <div class="form-label mb-0">{{'approvalProcess.branch'| translate}}:</div>
               <div class="form-data">{{lang == 'en' ? (applicantDetails?.branchName | dash ) :
                 (applicantDetails?.m_BranchName | dash)}}</div>
             </div>
           </div>
           <div class="col-sm-auto">
             <div class="d-flex gap-2">
-              <div class="form-label mb-0">IFSC Code :</div>
+              <div class="form-label mb-0">{{'approvalProcess.IFSC_Code'| translate}}:</div>
               <div class="form-data">{{applicantDetails?.bankIFSCCode | dash}} </div>
             </div>
           </div>
           <div class="col-sm">
             <div class="d-flex gap-2">
-              <div class="form-label mb-0">Bank Account No :</div>
+              <div class="form-label mb-0">{{'approvalProcess.bank_account_no'| translate}}:</div>
               <div class="form-data">{{applicantDetails?.bankAccountNo | dash}} </div>
             </div>
           </div>
@@ -518,23 +517,23 @@
             <div class="table-responsive mt-2">
               <table mat-table [dataSource]="dataSource" class="dashboard-table mb-0">
                 <ng-container matColumnDef="srNo">
-                  <th mat-header-cell *matHeaderCellDef> Sr.No. </th>
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.sr_no'| translate}} Sr.No. </th>
                   <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="documentType">
-                  <th mat-header-cell *matHeaderCellDef> Document Name </th>
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_name'| translate}} Document Name </th>
                   <td mat-cell *matCellDef="let element"> {{element?.documentType}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="docNo">
-                  <th mat-header-cell *matHeaderCellDef>Document No
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_number'| translate}}Document No
                   </th>
                   <td mat-cell *matCellDef="let element"> {{element?.docNo}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="action">
-                  <th mat-header-cell *matHeaderCellDef>Action</th>
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.branch'| translate}}Action</th>
                   <td mat-cell *matCellDef="let element; ; let i = index;">
                     <div class="d-flex gap-2">
                       <button matTooltipPosition="above" mat-icon-button [disabled]="!element?.docPath"
