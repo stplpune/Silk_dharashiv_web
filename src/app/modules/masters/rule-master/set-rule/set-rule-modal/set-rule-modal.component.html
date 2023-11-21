@@ -142,7 +142,7 @@
           </ng-container>
 
           <ng-container matColumnDef="Action">
-            <th class="w-10" mat-header-cell *matHeaderCellDef> {{'setRule.Action'|translate}} </th>
+            <th class="w-10" mat-header-cell *matHeaderCellDef> {{'common.action'|translate}} </th>
             <td mat-cell *matCellDef="let element"> {{this.lang == 'mr-IN'?element.m_ActionName:element.actionName}} </td>
           </ng-container>
 
@@ -218,7 +218,7 @@
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-3 form-label"> {{'setRule.Department'|translate}}</div>
+          <div class="col-sm-3 form-label"> {{'department.department'|translate}}</div>
           <div class="col-sm-9 form-data">: {{lang == 'mr-IN'?(data?.m_DepartmentName):(data?.departmentName)}}</div>
         </div>
       </div>
@@ -240,7 +240,7 @@
         </ng-container>
 
         <ng-container matColumnDef="Action">
-          <th class="w-10" mat-header-cell *matHeaderCellDef> {{'setRule.Action'|translate}} </th>
+          <th class="w-10" mat-header-cell *matHeaderCellDef> {{'common.action'|translate}} </th>
           <td mat-cell *matCellDef="let element"> {{this.lang == 'mr-IN'?element.m_ActionName:element.actionName}} </td>
         </ng-container>
 

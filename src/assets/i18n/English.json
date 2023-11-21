@@ -62,7 +62,8 @@
     "block_filter":"Block",
     "circle_filter":"Circle",
     "grampanchayat_filter":"Grampanchayat",
-    "select_state": "Select State"
+    "select_state": "Select State",
+    "action": "Action"
   },
 
   "approvalProcess"  : {
@@ -123,7 +124,6 @@
   "manrega": {
     "manrega": "Application",
     "scheme": "Scheme",
-    "action": "Action",
     "district": "District",
     "taluka": "Taluka",
     "village": "Village",
@@ -216,7 +216,6 @@
     "add_level": "Add Level",
     "update_level": "Update Lavel",
     "order": "Order",
-    "action": "Action",
     "department_level": "Department Level",
     "designation_level": "Designation Level",
     "designation": "Designation",
@@ -229,9 +228,7 @@
     "state": "State",
     "district": "District",
     "Scheme": "Scheme",
-    "Department": "Department",
     "Order": "Order",
-    "Action": "Action",
     "first_level": "First Level",
     "second_level": "Second Level",
     "third_level": "Third Level",
@@ -263,7 +260,6 @@
     "designation": "Designation",
     "mobile_no": "Mobile No",
     "email_id": "Email Id",
-    "department": "Department",
     "department_level": "Department Level",
     "address": "Address",
     "state": "State",
@@ -338,7 +334,6 @@
     "department_maxLength": "Maximun 30 character allowed"
   },
   "action": {
-    "action": "Actions",
     "add": "Add",
     "update": "Update",
     "clear": "Clear",
@@ -543,7 +538,6 @@
     "Name_M": "Name(Marathi)",
     "Mobile_No": "Mobile No",
     "Designation": "Designation",
-    "Department": "Department",
     "Email_ID": "Email ID",
     "Level": "Level",
     "Address": "Address",
