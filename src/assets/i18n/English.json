@@ -36,6 +36,7 @@
     "Please_select_block": "Please select block",
     "Please_select_circle": "Please select circle",
     "cancel": "Cancel",
+    "submit":"Submit",
     "add": "Add",
     "clear": "Clear",
     "officer_en": "Officer Name(English)",
@@ -112,13 +113,18 @@
   "bank_details":"Bank Details",
   "bank_name":"Bank Name",
    "branch":"Branch",
-  "IFSC_Code": "IFcC Code",
+  "IFSC_Code": "IFSC Code",
   "bank_account_no":"Bank Account No",
   "document_name": "Document Name",
   "document_number":"Document Number",
   "upload_document":"Upload Document",
   "add_document": "Add Document",
-  "update_document": "Update Document"
+  "update_document": "Update Document",
+
+  "select_status":"Select Status",
+  "select_reason":"Select Reason",
+  "remark":"Remark"
+
 },
 
   "manrega": {
