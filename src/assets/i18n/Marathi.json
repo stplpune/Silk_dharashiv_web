@@ -264,8 +264,6 @@
     "email_id":"ई - मेल आयडी",
     "department_level":"विभाग स्तर",
     "address":"पत्ता",
-    "state":"राज्य",
-    "district":"जिल्हा",
     "all_grampanchayat":"सर्व ग्रामपंचायत",
     "select_grampanchayat":"ग्रामपंचायत निवडा" ,
     "please_select_grampanchayat":"कृपया ग्रामपंचायत निवडा",

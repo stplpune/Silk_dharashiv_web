@@ -270,8 +270,6 @@
     "email_id": "Email Id",
     "department_level": "Department Level",
     "address": "Address",
-    "state": "State",
-    "district": "District",
     "all_grampanchayat":"All Grampanchayat",
     "select_grampanchayat":"Select Grampanchayat",
     "please_select_grampanchayat":"Please select grampanchayat",
