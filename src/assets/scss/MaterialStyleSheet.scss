@@ -87,3 +87,15 @@
     font-family: 'Public Sans', sans-serif !important;
     letter-spacing: normal;
 }
+
+/* form control disabled background color set */
+.mdc-text-field--disabled {
+    background-color: #eee;
+}
+
+/* form control disabled border color set */
+.mdc-text-field--disabled .mdc-notched-outline__leading,
+.mdc-text-field--disabled .mdc-notched-outline__notch,
+.mdc-text-field--disabled .mdc-notched-outline__trailing {
+    border-color: rgba(0, 0, 0, 0.38) !important;
+}
