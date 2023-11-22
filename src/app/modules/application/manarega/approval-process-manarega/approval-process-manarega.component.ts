@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -31,7 +31,7 @@ export class ApprovalProcessManaregaComponent {
   subscription!: Subscription;//used  for lang conv
   lang: any;
   routingData: any;
-  encryptData: any;
+  applicationId: any;
   dataSource: any = new Array()
   displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action']
   approvalStatus: any = new Array()
@@ -65,20 +65,26 @@ export class ApprovalProcessManaregaComponent {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-    })
-    this.getRouteParam();
-    this.addDefaultFrm();
-    this.addApprovalFrm();
-    // this.addGeoTagging();
-  }
+    });
 
-  getRouteParam() {
     this.route.queryParams.subscribe((queryParams: any) => {
       this.routingData = queryParams['id'];
     });
-    this.encryptData = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
+
+    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+    let url = this.router.url;
+    let appProVal = (spliteUrl[1] == 'm') && (url.split('?')[0] == '/approval-process-manarega');
+    if (!appProVal) {
+      this.router.navigate(['../application']);
+      this.commonMethod.snackBar('Something went wrong please try again', 1);
+    }
+
+    this.applicationId = spliteUrl[0];
     this.getByApplicationId();
+    this.addDefaultFrm();
+    this.addApprovalFrm();
   }
+
 
   addApprovalFrm() {
     this.approvalFrm = this.fb.group({
@@ -108,7 +114,7 @@ export class ApprovalProcessManaregaComponent {
   getByApplicationId() {
     this.pushOtherDocArray = [];
     this.pushAppDocArray = [];
-    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetApplication?Id=' + (this.encryptData) + '&UserId=' + this.WebStorageService.getUserId() + '&lan=' + this.lang + '&LoginFlag=' + this.configService.loginFlag, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetApplication?Id=' + (this.applicationId) + '&UserId=' + this.WebStorageService.getUserId() + '&lan=' + this.lang + '&LoginFlag=' + this.configService.loginFlag, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
@@ -442,9 +448,9 @@ export class ApprovalProcessManaregaComponent {
         ele.modifiedDate = new Date();
         ele.isDeleted = ele.isDeleted || false
       });
-    } 
+    }
 
-   
+
     let data = this.approvalFrm.getRawValue();
 
     this.spinner.show();
