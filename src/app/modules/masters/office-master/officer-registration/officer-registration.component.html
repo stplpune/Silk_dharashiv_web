@@ -123,7 +123,7 @@
           <div class="d-flex gap-2">
             <mat-form-field appearance="outline" class="w-100">
               <!-- <mat-label>{{'common.searchbyMobile_email' | translate}}</mat-label> -->
-              <input matInput formControlName="searchtext" placeholder="Search by Mobile No/Email ID" (keypress)="validation.noFirstSpaceAllow($event)">
+              <input matInput formControlName="searchtext" placeholder="{{lang == 'en' ? 'Search by Mobile No/Email ID' : 'मोबाईल नंबर/ईमेल आयडी द्वारे शोधा'}}" (keypress)="validation.noFirstSpaceAllow($event)">
             </mat-form-field>
             <div class="d-flex align-items-center gap-2 mb-4">
               <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit"

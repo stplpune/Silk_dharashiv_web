@@ -72,7 +72,7 @@
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
               <!-- <mat-label>{{'manrega.search_by'| translate}}</mat-label> -->
-              <input matInput formControlName="textSearch" (keypress)="validator.noFirstSpaceAllow($event)" placeholder="Application ID/ Farmer Name/ Mobile No.">
+              <input matInput formControlName="textSearch" (keypress)="validator.noFirstSpaceAllow($event)" placeholder="{{lang == 'en' ? 'Application ID/ Farmer Name/ Mobile No.' : 'अर्ज आयडी/ शेतकऱ्याचे नाव/ मोबाईल क्र.'}}">
             </mat-form-field>
           </div>
           <div class="col-sm-1">

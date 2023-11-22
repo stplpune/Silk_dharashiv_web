@@ -19,7 +19,7 @@
       <div class="row align-items-center justify-content-start g-2">
         <div class="col-sm-2" >
           <mat-form-field appearance="outline" class="w-100">
-           <mat-select  placeholder="Select User Type" formControlName="userTypeId" (selectionChange)="clearDropdown('user')">
+           <mat-select  placeholder="{{lang == 'en' ? 'Select User Type' : 'वापरकर्ता प्रकार निवडा'}}" formControlName="userTypeId" (selectionChange)="clearDropdown('user')">
             <!-- (selectionChange)="onDropdownChange($event)" -->
               <mat-option *ngFor="let userType of userTypeArray" [value]="userType.id">{{lang == 'en' ?
                 userType.textEnglish : userType.textMarathi}}</mat-option>
@@ -29,7 +29,7 @@
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'designation.depertment'|translate}}</mat-label> -->
-            <mat-select formControlName="departmentId" placeholder="Select Department" (selectionChange)="clearDropdown('deptId');getDesignationLevel();"
+            <mat-select formControlName="departmentId" placeholder="{{lang == 'en' ? 'Select Department' : 'विभाग निवडा'}}" (selectionChange)="clearDropdown('deptId');getDesignationLevel();"
             [class]="filterFrm.getRawValue()?.userTypeId == 1 ? a['departmentId'].disable({ onlySelf: true }) : a['departmentId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang == 'en' ?
                 department.textEnglish : department.textMarathi}}</mat-option>
@@ -39,7 +39,7 @@
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'designation.designation_level'|translate}}</mat-label> -->
-            <mat-select formControlName="designationLevelId" placeholder="Select Designation Level" (selectionChange)="clearDropdown('deptLevelId');getDesignation()"
+            <mat-select formControlName="designationLevelId" placeholder="{{lang == 'en' ? 'Select Designation Level' : 'पदनाम स्तर निवडा'}}" (selectionChange)="clearDropdown('deptLevelId');getDesignation()"
             [class]="filterFrm.getRawValue()?.userTypeId == 1 ? a['designationLevelId'].disable({ onlySelf: true }) : a['designationLevelId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let level of designationLevelArray" [value]="level.id">{{lang == 'en' ?
                 level.textEnglish : level.textMarathi}}</mat-option>
@@ -49,7 +49,7 @@
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'pageAccess.designation'|translate}}</mat-label> -->
-            <mat-select formControlName="designationId" placeholder="Select Designation"
+            <mat-select formControlName="designationId" placeholder="{{lang == 'en' ? 'Select Designation' : 'पदनाम निवडा'}}"
             [class]="filterFrm.getRawValue()?.userTypeId == 1 ? a['designationId'].disable({ onlySelf: true }) : a['designationId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let  designation of designationArray" [value]="designation.id">{{lang == 'en' ?
                 designation.textEnglish : designation.textMarathi}}</mat-option>
@@ -59,7 +59,7 @@
         <div class="col-sm">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'pageAccess.search_page_name'|translate}}</mat-label> -->
-            <input matInput formControlName="searchText" placeholder="Search Page Name" (keypress)="validation.noFirstSpaceAllow($event)">
+            <input matInput formControlName="searchText" placeholder="{{lang == 'en' ? 'Search Page Name' : 'पृष्ठाचे नाव शोधा'}}" (keypress)="validation.noFirstSpaceAllow($event)">
           </mat-form-field>
         </div>
         <div class="col-sm-auto">
