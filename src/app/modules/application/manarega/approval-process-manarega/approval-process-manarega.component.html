@@ -603,7 +603,7 @@
                     <div class="col-sm-3">
                       <div class="file-upload border rounded-2 p-1">
                         <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                          (click)="uplodLogo.click()" data-placement="right">
+                          (click)="uplodLogo.value='';uplodLogo.click()" data-placement="right">
                          {{'approvalProcess.upload_document'| translate}}
                         </button>
                         <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
@@ -669,8 +669,8 @@
                             edit_square
                           </span>
                         </button> -->
-                        <!-- [disabled]="!element?.isDeleteAction" -->
-                        <button matTooltipPosition="above" *ngIf="applicationData?.isEdit" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
+                        <!-- [disabled]="!element?.isDeleteAction"   *ngIf="applicationData?.isEdit" -->
+                        <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
                           (click)="deleteOtherDocument(i)" >
                           <span class="material-symbols-rounded text-danger">
                             delete
@@ -757,7 +757,7 @@
                 <div class="file-upload border rounded-2 p-1"
                   *ngIf="this.applicationData?.uploadDocTypeId !=0 && approvalFrm.value.applicationStatus == 12">
                   <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                    data-placement="right" (click)="uploadDepDocument.click()">
+                    data-placement="right" (click)="uploadDepDocument.value=''; uploadDepDocument.click()">
                     {{'approvalProcess.upload_document'| translate}}
                   </button>
                   <input type="file" class="d-none" #uploadDepDocument (change)="imageUplod($event,'uplDepDoc')">
