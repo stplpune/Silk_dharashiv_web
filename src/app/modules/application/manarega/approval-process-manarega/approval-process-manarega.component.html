@@ -16,7 +16,7 @@
           <div class="col-sm-4" *ngIf="applicationData?.getSiteInspectionDataModel?.isSiteInspectionDone">
             <div class="d-flex gap-2">
               <div class="form-label mb-0">{{'approvalProcess.mulberry_id'| translate}}:</div>
-              <div class="form-data">{{applicantDetails?.mulberryId}}({{(applicantDetails?.mulberryIdGeneratedDate|
+              <div class="form-data">{{applicantDetails?.mulberryId}} ({{(applicantDetails?.mulberryIdGeneratedDate|
                 date:'dd-MM-yyyy') | dash}})</div>
             </div>
           </div>
@@ -133,7 +133,7 @@
                 </button>
               </ng-container>
               <ng-template #elseBlock>
-                <div *ngIf="applicationData.getSiteInspectionDataModel.isSiteInspectionDone; else elseBlockSec">
+                <div *ngIf="applicationData.getSiteInspectionDataModel.isSiteInspectionDone && element?.actionId == 6; else elseBlockSec">
                   <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10" (click)="addGeoTagging()">
                     <span class="material-symbols-rounded text-dark">
                       visibility
