@@ -102,7 +102,7 @@ export class MarketsComponent implements OnDestroy{
   setTableData() {
     this.highLightedFlag = true;
     let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_District', 'm_Taluka', 'm_MarketName', 'conactNo', 'status', 'action'] : ['srNo', 'district', 'taluka', 'marketName', 'conactNo', 'status', 'action']
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'जिल्हा', 'तालुका', 'बाजारपेठेचे नाव', 'मोबाइल क्रमांक', 'स्थिती', 'कृती'] : ['Sr. No.', 'District', 'Taluka', 'Market Name', 'Mobile No.', 'Status', 'Action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'जिल्हा', 'तालुका', 'बाजारपेठेचे नाव', 'मोबाईल क्रमांक', 'स्थिती', 'कृती'] : ['Sr. No.', 'District', 'Taluka', 'Market Name', 'Mobile No.', 'Status', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,

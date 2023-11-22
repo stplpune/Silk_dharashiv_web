@@ -36,7 +36,7 @@
             <div class="col-sm-4">
               <mat-form-field appearance="outline" class="w-100">
                 <!-- <mat-label>{{'designation.search_by_designation'|translate}}</mat-label> -->
-                <input matInput formControlName="textSearch" placeholder="Search by Designation"
+                <input matInput formControlName="textSearch" placeholder="{{lang == 'en' ? 'Search by Designation' : 'पदनामनुसार शोधा'}}"
                   (keypress)="validation.noFirstSpaceAllow($event)">
               </mat-form-field>
             </div>

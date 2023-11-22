@@ -46,7 +46,7 @@
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <!-- <mat-label>{{'villageCircle.search_by_village_circle_name' | translate}}</mat-label> -->
-          <input matInput formControlName="textsearch" placeholder="Search by Circle Name"  (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
+          <input matInput formControlName="textsearch" placeholder="{{lang == 'en' ? 'Search by Circle Name' : 'मंडळाच्या नावाने शोधा'}}"  (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
         </mat-form-field>
       </div>
       <div class="col-sm-1">

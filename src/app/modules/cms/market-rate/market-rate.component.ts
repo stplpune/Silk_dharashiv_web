@@ -126,7 +126,7 @@ export class MarketRateComponent implements OnDestroy{
   setTableData() {
     this.highLightRowFlag = true;
     let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'marketRateDate', 'm_ShetmalCast', 'm_Unit', 'm_MarketName', 'minRate', 'maxRate', 'averageRate', 'income', 'action'] : ['srNo', 'marketRateDate', 'shetmalCast', 'unit', 'marketName', 'minRate', 'maxRate', 'averageRate', 'income', 'action']
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'तारीख', 'माल', 'एकक', 'बाजार', 'किमान दर (₹)', 'कमाल दर (₹)', 'सरासरी दर (₹)', 'आवक (₹)', 'कृती'] : ['Sr.No', 'Date', 'Goods', 'Unit', 'Market', 'Min. Rate (₹)', 'Max. Rate (₹)', 'Avg. Rate (₹)', 'Income (₹)', 'Action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'तारीख', 'माल', 'एकक', 'बाजार', 'किमान दर (₹)', 'कमाल दर (₹)', 'सरासरी दर (₹)', 'आवक (₹)', 'कृती'] : ['Sr.No', 'Date', 'Goods', 'Unit', 'Market', 'Min. Rate (₹)', 'Max. Rate (₹)', 'Avg. Rate (₹)', 'Income (₹)', 'Action'];
     let getTableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
