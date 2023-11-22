@@ -384,9 +384,17 @@ button.btn-modal-close {
 // toggle button css end
 
 
+.mat-form-field-disabled,
 .disable {
-    opacity: 0.9;
-    pointer-events: none;
+    opacity: 0.95 !important;
+    pointer-events: none !important;
+}
+
+button.mat-form-field-disabled,
+button.disable,
+button[disabled="true"] {
+    background-color: #ebebeb !important;
+    color: #6b6b6b !important;
 }
 
 .angular-editor-textarea img {
