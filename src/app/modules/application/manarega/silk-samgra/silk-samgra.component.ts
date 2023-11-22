@@ -33,7 +33,6 @@ export class SilkSamgraComponent implements OnDestroy {
     encryptData: any;
     dataSource: any = new Array()
     displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action'];
-    displayedColumn: string[] = ['srNo', 'documentType', 'docNo', 'action'];
 
 
 
