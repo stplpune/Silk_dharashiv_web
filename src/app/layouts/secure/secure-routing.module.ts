@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'approval-process', loadChildren: () => import('../../modules/application/manarega/approval-process/approval-process.module').then(m => m.ApprovalProcessModule), data: { breadcrumb: [{ title: 'Approval Process', active: true }] }, canActivate: [ExpenseGuard] },
   //{ path: 'approval-process', loadChildren: () => import('./components/Application/manarega/approval-process/approval-process.module').then(m => m.ApprovalProcessModule) },
   { path: 'SilkSamgra', loadChildren: () => import('../../modules/application/manarega/silk-samgra/silk-samgra.module').then(m => m.SilkSamgraModule) },
+  { path: 'create-manarega-app', loadChildren: () => import('../../modules/application/manarega/create-manarega-app/create-manarega-app.module').then(m => m.CreateManaregaAppModule) },
 
 
 
