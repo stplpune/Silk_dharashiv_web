@@ -199,9 +199,10 @@ a.text-main:hover {
 
 // for blogs table img
 .blogs-table table tbody tr td img {
-    width: 50px !important;
-    height: 50px !important;
+    width: 40px !important;
+    height: 40px !important;
     border-radius: 50% !important;
+    border: solid 1px #ddd;
 }
 
 .form-container .form-label {
