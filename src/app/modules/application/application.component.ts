@@ -228,7 +228,7 @@ export class ApplicationComponent {
 
   openApplicationDetails(obj: any) {
     let Id: any = this.encryptdecrypt.encrypt(`${obj?.id}`);
-    this.router.navigate(['../approval-process-manarega'], {
+    this.router.navigate([obj.schemeTypeId==1 ? '../approval-process-manarega':'../approval-process-silk-samgra'], {
       queryParams: {
         id: Id
       },
