@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormGroup, NgForm, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
@@ -14,6 +14,7 @@ import { FileUploadService } from 'src/app/core/services/file-upload.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { GeoTaggingComponent } from '../../manarega/approval-process-manarega/geo-tagging/geo-tagging.component';
 // import { GeoTaggingComponent } from '../../manarega/approval-process-manarega/geo-tagging/geo-tagging.component';
 
 @Component({
@@ -30,12 +31,9 @@ export class ApprovalProcessSilkSamgraComponent {
   subscription!: Subscription;//used  for lang conv
   lang: any;
   routingData: any;
-  encryptData: any;
+  applicationId: any;
   dataSource: any = new Array()
-  displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action'];
-
-
-
+  displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action']
   approvalStatus: any = new Array()
   otherDocArray: any = new Array()
   displayColumnRemark: string[] = ['sr_no', 'actionName', 'designationName', 'status', 'modifiedDate', 'remark', 'action'];
@@ -44,11 +42,21 @@ export class ApprovalProcessSilkSamgraComponent {
   approvalStatusArray: any = [];
   reasonArray: any = [];
   @ViewChild('formDirective') private formDirective!: NgForm;
+  @ViewChild('formDirectives') private formDirectives!: NgForm;
   appDataClonedArray: any;
   editOtherDocForm: boolean = false;
   selOtherDocIndex!: number;
   actionNameLabel!: string;
   uploadedDepDoc: any;
+
+  displayedColumnsdetails: string[] = ['srno', 'schemename', 'benefityear', 'benefitamount'];
+  dataSourcedetails:any;
+
+  displayedColumnslandetails: string[] = ['year', 'cultivatedarea', 'landsurvey'];
+  dataSourcelandetails:any;
+
+  displayedColumnscropProduction: string[] = ['srno', 'cropname', 'areaacres', 'producedquintal', 'avgrateperquintal', 'finishedproduct', 'expenditureincurred', 'netincome', 'netincomeperacre'];
+  dataSourcecropProduction:any;
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -59,33 +67,39 @@ export class ApprovalProcessSilkSamgraComponent {
     private fb: FormBuilder, private spinner: NgxSpinnerService,
     private errorHandler: ErrorHandlingService,
     private fileUplService: FileUploadService,
-    private commonMethod: CommonMethodsService,
+    public commonMethod: CommonMethodsService,
   ) { }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-    })
-    this.getRouteParam();
-    this.addDefaultFrm();
-    this.addApprovalFrm();
-    // this.addGeoTagging();
-  }
+    });
 
-  getRouteParam() {
     this.route.queryParams.subscribe((queryParams: any) => {
       this.routingData = queryParams['id'];
     });
-    this.encryptData = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
+
+    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+    let url = this.router.url;
+    let appProVal = (spliteUrl[1] == 's') && (url.split('?')[0] == '/approval-process-silk-samgra');
+    if (!appProVal) {
+      this.router.navigate(['../application']);
+      this.commonMethod.snackBar('Something went wrong please try again', 1);
+    }
+
+    this.applicationId = spliteUrl[0];
     this.getByApplicationId();
+    this.addDefaultFrm();
+    this.addApprovalFrm();
   }
+
 
   addApprovalFrm() {
     this.approvalFrm = this.fb.group({
       "applicationStatus": [''],
       "reason": [0],
-      "remark": [''],
+      "remark": ['', this.validation.maxLengthValidator(100)],
       "m_remark": [''],
       "modifiedBy": this.WebStorageService.getUserId()
     })
@@ -107,14 +121,15 @@ export class ApprovalProcessSilkSamgraComponent {
   }
 
   getByApplicationId() {
-    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetApplication?Id=' + (this.encryptData) + '&UserId=' + this.WebStorageService.getUserId() + '&lan=' + this.lang + '&LoginFlag=' + this.configService.loginFlag, false, false, false, 'masterUrl');
+    this.pushOtherDocArray = [];
+    this.pushAppDocArray = [];
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetApplication?Id=' + (this.applicationId) + '&UserId=' + this.WebStorageService.getUserId() + '&lan=' + this.lang + '&LoginFlag=' + this.configService.loginFlag, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.appDataClonedArray = JSON.parse(JSON.stringify(res.responseData))
           this.applicationData = res.responseData;
           this.applicantDetails = this.applicationData?.applicationModel;
-          console.log("this.applicantDetails", this.applicantDetails)
 
           res.responseData.allApplicationApproval.map((ele: any) => {
             res.responseData.allApprovalDocument.find((item: any) => {
@@ -252,8 +267,8 @@ export class ApprovalProcessSilkSamgraComponent {
   addDefaultFrm() {
     this.uploadFrm = this.fb.group({
       "id": [0],
-      "docNo": [''],
-      "documentType": [''],
+      "docNo": ['', this.validation.maxLengthValidator(50)],
+      "documentType": ['', this.validation.maxLengthValidator(50)],
       "docPath": ['']
     })
   }
@@ -357,7 +372,8 @@ export class ApprovalProcessSilkSamgraComponent {
   }
 
   deleteOtherDoc() {
-    this.pushOtherDocArray[this.selOtherDocIndex].docPath = '';
+    this.clearImg.nativeElement.value = '';
+    // this.pushOtherDocArray[this.selOtherDocIndex].docPath = '';
     this.uploadFrm.controls['docPath'].setValue('');
   }
 
@@ -410,8 +426,8 @@ export class ApprovalProcessSilkSamgraComponent {
       mergeArray = [...this.pushAppDocArray, ...this.pushOtherDocArray];
 
       mergeArray.find((ele: any) => {
-        this.appDataClonedArray?.allDocument.find((item: any) => {
-          if ((item.id == ele.id && ele?.docPath != item.docPath) || ele.id == 0 || ele.isDeleted) {
+        this.appDataClonedArray?.allDocument.find((item: any) => { //1 is other doc
+          if (ele.docTypeId == 1 && ((item.id == ele.id && ele?.docPath != item.docPath) || (ele.id != 0 && ele.isDeleted) || (ele.id == 0 && !ele.isDeleted))) {
             if (!newUploadedDoc.length) {
               newUploadedDoc.push(ele)
             } else {
@@ -442,8 +458,11 @@ export class ApprovalProcessSilkSamgraComponent {
         ele.isDeleted = ele.isDeleted || false
       });
     }
-    this.spinner.show();
+
+
     let data = this.approvalFrm.getRawValue();
+
+    this.spinner.show();
     this.approvalFrm.controls['m_remark'].setValue(data?.remark);
     let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId(), };
     array.length ? mainData.applicationDocument = array : mainData.applicationDocument = [];
@@ -467,86 +486,22 @@ export class ApprovalProcessSilkSamgraComponent {
   }
 
   addGeoTagging(_obj?: any) {
-    // this.dialog.open(GeoTaggingComponent, {
-    //   width: '100%',
-    //   height: '90%',
-    //   data: this.applicationData?.getSiteInspectionDataModel,
-    //   disableClose: true,
-    //   autoFocus: false
-    // });
-    // dialogRef.afterClosed().subscribe(res => {
-    //   res == 'Yes'? '' : '';
-    //  });
+    this.dialog.open(GeoTaggingComponent, {
+      width: '100%',
+      height: '90%',
+      data: this.applicationData?.getSiteInspectionDataModel,
+      disableClose: true,
+      autoFocus: false
+    });
   }
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
   }
 
-  displayedColumnsdetails: string[] = ['srno', 'schemename', 'benefityear', 'benefitamount'];
-  dataSourcedetails = ELEMENT_DATA;
-
-  // gov scheme mulberry table
-  displayedColumnslandetails: string[] = ['year', 'cultivatedarea', 'landsurvey'];
-  dataSourcelandetails = ELEMENT_DATA1;
-
-  // *******************
-
-
-  // land details section crop & production table
-
-  displayedColumnscropProduction: string[] = ['srno', 'cropname', 'areaacres', 'producedquintal', 'avgrateperquintal', 'finishedproduct', 'expenditureincurred', 'netincome', 'netincomeperacre'];
-  dataSourcecropProduction = ELEMENT_DATA2;
-
-  // *******************
-
-
+  clearForm() {
+    this.getByApplicationId();
+    this.formDirective.resetForm();
+    this.formDirectives.resetForm();
+  }
 }
-
-
-// Details table
-export interface PeriodicElement {
-  srno: number;
-  schemename: string;
-  benefityear: string;
-  benefitamount: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { srno: 1, schemename: 'Silk Samagra', benefityear: '2022', benefitamount: '3000000' }
-];
-// *************
-
-
-
-
-// land details mulberry table
-export interface PeriodicElement1 {
-  year: string;
-  cultivatedarea: string;
-  landsurvey: string;
-}
-
-const ELEMENT_DATA1: PeriodicElement1[] = [
-  { year: '2022', cultivatedarea: '1', landsurvey: '180' }
-];
-
-
-// land details crop & production table
-export interface PeriodicElement2 {
-  srno: number;
-  cropname: string;
-  areaacres: string;
-  producedquintal: string;
-  avgrateperquintal: string;
-  finishedproduct: string;
-  expenditureincurred: string;
-  netincome: string;
-  netincomeperacre: string;
-}
-
-const ELEMENT_DATA2: PeriodicElement2[] = [
-  { srno: 1, cropname: 'Hydrogen', areaacres: '2', producedquintal: '8', avgrateperquintal: '120', finishedproduct: '96000', expenditureincurred: '15000', netincome: '81000', netincomeperacre: '40500' }
-
-]
-

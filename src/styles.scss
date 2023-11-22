@@ -199,9 +199,10 @@ a.text-main:hover {
 
 // for blogs table img
 .blogs-table table tbody tr td img {
-    width: 50px !important;
-    height: 50px !important;
+    width: 40px !important;
+    height: 40px !important;
     border-radius: 50% !important;
+    border: solid 1px #ddd;
 }
 
 .form-container .form-label {
@@ -381,12 +382,24 @@ button.btn-modal-close {
 }
 
 // toggle button css end
-// toggle button css end
 
-
+.mat-form-field-disabled,
 .disable {
-    opacity: 0.9;
-    pointer-events: none;
+    opacity: 0.95 !important;
+    pointer-events: none !important;
+}
+
+button.mat-form-field-disabled,
+button.disable,
+button[disabled="true"] {
+    background-color: #ebebeb !important;
+    color: #6b6b6b !important;
+}
+
+.mat-mdc-paginator button.mat-form-field-disabled,
+.mat-mdc-paginator button.disabled,
+.mat-mdc-paginator button[disabled="true"] {
+    background-color: transparent !important;
 }
 
 .angular-editor-textarea img {

@@ -1,13 +1,18 @@
+import { AgmCoreModule } from '@agm/core';
+import { DatePipe } from '@angular/common';
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
+
 declare var google: any;
+
 @Component({
   standalone:true,
   selector: 'app-geo-tagging',
   templateUrl: './geo-tagging.component.html',
   styleUrls: ['./geo-tagging.component.scss'],
-  imports: [DashPipe]
+  imports: [DashPipe, MatDialogModule, AgmCoreModule, DatePipe, MatButtonModule]
 })
 export class GeoTaggingComponent {
 

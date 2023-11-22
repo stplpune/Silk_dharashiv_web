@@ -118,6 +118,7 @@ export class ApplicationComponent {
   }
 
   getGrampanchayat() {
+     this.gramPSubject = new ReplaySubject<any>();
     this.grampanchayatArray = [];
     let talukaId = this.filterFrm.getRawValue().talukaId;
     if (talukaId != 0) {
@@ -227,7 +228,7 @@ export class ApplicationComponent {
   }
 
   openApplicationDetails(obj: any) {
-    let Id: any = this.encryptdecrypt.encrypt(`${obj?.id}`);
+    let Id: any = this.encryptdecrypt.encrypt(`${obj?.id}`+'.'+`${obj.schemeTypeId==1 ? 'm':'s'}`);
     this.router.navigate([obj.schemeTypeId==1 ? '../approval-process-manarega':'../approval-process-silk-samgra'], {
       queryParams: {
         id: Id
@@ -251,8 +252,9 @@ export class ApplicationComponent {
     this.getTableData();
     this.pageNumber = 1;
     this.searchDataFlag = false;
-    this.gramPSubject = new ReplaySubject<any>();
-    this.grampanchayatArray = [];
+   // this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.common.filterArrayDataZone([], this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject) });
+   // this.gramPSubject = new ReplaySubject<any>();
+    // this.grampanchayatArray = [];
   }
 
   ngOnDestroy() {
