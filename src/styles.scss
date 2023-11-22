@@ -395,6 +395,12 @@ button[disabled="true"] {
     color: #6b6b6b !important;
 }
 
+.mat-mdc-paginator button.mat-form-field-disabled,
+.mat-mdc-paginator button.disabled,
+.mat-mdc-paginator button[disabled="true"] {
+    background-color: transparent !important;
+}
+
 .angular-editor-textarea img {
     height: 200px !important;
     width: 200px !important;
