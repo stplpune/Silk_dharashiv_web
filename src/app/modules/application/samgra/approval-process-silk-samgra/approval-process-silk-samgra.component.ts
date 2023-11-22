@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormGroup, NgForm, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
@@ -30,7 +30,7 @@ export class ApprovalProcessSilkSamgraComponent {
   subscription!: Subscription;//used  for lang conv
   lang: any;
   routingData: any;
-  encryptData: any;
+  applicationId: any;
   dataSource: any = new Array()
   displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action'];
 
@@ -67,19 +67,27 @@ export class ApprovalProcessSilkSamgraComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-    this.getRouteParam();
+
+    this.route.queryParams.subscribe((queryParams: any) => {
+      this.routingData = queryParams['id'];
+    });
+
+    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+    let url = this.router.url;
+    let appProVal = (spliteUrl[1] == 's') && (url.split('?')[0] == '/approval-process-silk-samgra');
+
+    if (!appProVal) {
+      this.router.navigate(['../application']);
+      this.commonMethod.snackBar('Something went wrong please try again', 1);
+    }
+
+    this.applicationId = spliteUrl[0];
+    this.getByApplicationId();
     this.addDefaultFrm();
     this.addApprovalFrm();
     // this.addGeoTagging();
   }
 
-  getRouteParam() {
-    this.route.queryParams.subscribe((queryParams: any) => {
-      this.routingData = queryParams['id'];
-    });
-    this.encryptData = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
-    this.getByApplicationId();
-  }
 
   addApprovalFrm() {
     this.approvalFrm = this.fb.group({
@@ -107,7 +115,7 @@ export class ApprovalProcessSilkSamgraComponent {
   }
 
   getByApplicationId() {
-    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetApplication?Id=' + (this.encryptData) + '&UserId=' + this.WebStorageService.getUserId() + '&lan=' + this.lang + '&LoginFlag=' + this.configService.loginFlag, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetApplication?Id=' + (this.applicationId) + '&UserId=' + this.WebStorageService.getUserId() + '&lan=' + this.lang + '&LoginFlag=' + this.configService.loginFlag, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
