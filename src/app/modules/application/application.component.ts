@@ -251,7 +251,8 @@ export class ApplicationComponent {
     this.getTableData();
     this.pageNumber = 1;
     this.searchDataFlag = false;
-    //this.grampanchayatArray = [];
+    this.gramPSubject = new ReplaySubject<any>();
+    this.grampanchayatArray = [];
   }
 
   ngOnDestroy() {
