@@ -1,4 +1,4 @@
-<p>create-manarega-app works!</p>
+<!-- <p>create-manarega-app works!</p> -->
 <!-- <p>create-manarega-app works!</p> -->
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
@@ -19,47 +19,83 @@
         <ng-template matStepLabel>मूळ तपशील</ng-template>
         <div class="container-fluid">
           <!-- <div class="container"> -->
-          <div class="row gx-2 mb-4">
-            <div class="col-sm-2">
+          <div class="row gx-2 mb-2">
+            <!-- <div class="col-sm-2">
               <img src="https://demosilkapi.mahamining.com/Upload/profilePhoto/Farmer.png" alt="Applicant image"
                 class="img-fluid">
+            </div> -->
+            <div class="col-sm-2">
+              <mat-label class="form-label">Applicant Image</mat-label>
+              <div class="file-upload border rounded-2 p-1">
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                  data-placement="right" (click)="uplodLogo.click()">
+                  Applicant Image Upload
+                </button>
+                <input type="file" #uplodLogo accept=".jpg,.jpeg,.png" id="real-file" hidden="hidden"
+                  (change)="imageUplod($event)" />
+                <div class="d-flex gap-2" *ngIf="imageResponse">
+                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+                    matTooltip="view" (click)="viewimage()">
+                    <mat-icon class="material-symbols-rounded">
+                      preview
+                    </mat-icon>
+                  </button>
+                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                    matTooltip="delete" (click)="deleteImage()">
+                    <mat-icon class="material-symbols-rounded">
+                      delete
+                    </mat-icon>
+                  </button>
+                </div>
+              </div>
+              <mat-error *ngIf="viewMsgFlag && !imageResponse">{{lang == 'en' ? "Please Add  Applicant Image" : "कृपया अर्जदाराची प्रतिमा जोडा"}} </mat-error>
             </div>
             <div class="col-sm">
 
               <div class="row gy-2 gx-2 align-items-center ">
                 <div class="col-sm-6">
-                  <div class="d-flex gap-2">
                     <div class="form-label">Mobile Number</div>
-                    <div class="form-data">: 8669264767</div>
-                  </div>
+                    <div class="form-label">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <!-- <mat-label>Favorite food</mat-label> -->
+                        <input matInput placeholder="" formControlName="mobileNo1">
+                      </mat-form-field>
+                    </div>
                 </div>
                 <div class="col-sm-6">
-                  <div class="d-flex gap-2">
                     <div class="form-label">Aadhar Number</div>
-                    <div class="form-data">: 8669 2647 6774</div>
-                  </div>
+                    <div class="form-label">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <!-- <mat-label>Favorite food</mat-label> -->
+                        <input matInput placeholder="" formControlName="aadharNo">
+                      </mat-form-field>
+                    </div>
                 </div>
-                <div class="col-sm-12">
-                  <div class="form-label"> 1. Applicant Name</div>
-                  <div class="form-label">
-                    <mat-form-field appearance="outline" class="w-100">
-                      <!-- <mat-label>Favorite food</mat-label> -->
-                      <input matInput placeholder="">
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="col-sm-12">
-                  <div class="form-label">2. माझ्या शेतीवर रेशीम विकास योजने अंतर्गत तुति लागवड विभाग मार्फत करण्यात
-                    यावी
-                    (कोणतेही १ निवडा )</div>
+                
+              </div>
+             
+            </div>
+            <div class="row gx-2 p-0 align-items-center">
+              <div class="col-sm-6">
+                <div class="form-label"> 1. Applicant Name</div>
+                <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <mat-select>
-                      <mat-option>रेशीम संचालनाय</mat-option>
-                      <mat-option>कृषि व फलौत्पादन</mat-option>
-                      <mat-option>पंचायत समिती</mat-option>
-                    </mat-select>
+                    <!-- <mat-label>Favorite food</mat-label> -->
+                    <input matInput placeholder="" formControlName="fullName">
                   </mat-form-field>
                 </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-label">2. माझ्या शेतीवर रेशीम विकास योजने अंतर्गत तुति लागवड विभाग मार्फत करण्यात
+                  यावी
+                  (कोणतेही १ निवडा )</div>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select formControlName="mn_DepartmentId">
+                    <mat-option>रेशीम संचालनाय</mat-option>
+                    <mat-option>कृषि व फलौत्पादन</mat-option>
+                    <mat-option>पंचायत समिती</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
             </div>
           </div>
@@ -69,14 +105,14 @@
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>Favorite food</mat-label> -->
-                  <input matInput placeholder="">
+                  <input matInput placeholder="" formControlName="mobileNo2">
                 </mat-form-field>
               </div>
             </div>
             <div class="col-sm-3">
               <mat-label class="form-label">4. जन्मतारीख</mat-label>
               <mat-form-field appearance="outline" class="w-100">
-                <input matInput [matDatepicker]="picker">
+                <input matInput [matDatepicker]="picker" formControlName="birthDate">
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -84,16 +120,17 @@
             <div class="col-sm-3">
               <div class="d-flex align-items-center gap-3">
                 <mat-label class="form-label">5. लिंग निवडा</mat-label>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1">Male</mat-radio-button>
-                  <mat-radio-button value="2">Female</mat-radio-button>
-                </mat-radio-group>
+               <mat-radio-group aria-label="Select an option" formControlName="gender">
+                <mat-radio-button *ngFor="let gen of genderArray"
+                    [value]="gen.id">{{gen.name }}
+                </mat-radio-button>
+            </mat-radio-group>
               </div>
             </div>
             <div class="col-sm-3">
               <div class="form-label">6. शिक्षण</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
+                <mat-select formControlName="qualificationId">
                   <mat-option>अशिक्षित</mat-option>
                   <mat-option>10 वी</mat-option>
                   <mat-option>12 वी</mat-option>
@@ -107,7 +144,7 @@
             <div class="col-sm-3">
               <div class="form-label">7. राज्य</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
+                <mat-select formControlName="stateId">
                   <mat-option>महाराष्ट्र</mat-option>
                   <mat-option>गुजरात</mat-option>
                   <mat-option>बिहार</mat-option>
@@ -117,7 +154,7 @@
             <div class="col-sm-3">
               <div class="form-label">8. जिल्हा</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
+                <mat-select formControlName="districtId">
                   <mat-option>धारशीव</mat-option>
                   <mat-option>गुजरात</mat-option>
                   <mat-option>बिहार</mat-option>
@@ -127,7 +164,7 @@
             <div class="col-sm-3">
               <div class="form-label">9. तालुका</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
+                <mat-select formControlName="talukaId">
                   <mat-option>कळंब</mat-option>
                   <mat-option>गुजरात</mat-option>
                   <mat-option>बिहार</mat-option>
@@ -137,7 +174,7 @@
             <div class="col-sm-3">
               <div class="form-label">10. ग्रामपंचायत</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
+                <mat-select formControlName="grampanchayatId">
                   <mat-option>निपाणी</mat-option>
                   <mat-option>गुजरात</mat-option>
                   <mat-option>बिहार</mat-option>
@@ -147,11 +184,8 @@
             <div class="col-sm-3">
               <div class="form-label">11. गाव</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>निपाणी</mat-option>
-                  <mat-option>गुजरात</mat-option>
-                  <mat-option>बिहार</mat-option>
-                </mat-select>
+                <!-- <mat-label>Favorite food</mat-label> -->
+                <input matInput placeholder="" formControlName="village">
               </mat-form-field>
             </div>
 
@@ -160,7 +194,7 @@
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>Favorite food</mat-label> -->
-                  <input matInput placeholder="">
+                  <input matInput placeholder="" formControlName="pinCode">
                 </mat-form-field>
               </div>
             </div>
@@ -169,19 +203,19 @@
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>Favorite food</mat-label> -->
-                  <input matInput placeholder="MH-12-345--678-901/122-40">
+                  <input matInput placeholder="" formControlName="mn_JobCardNo">
                 </mat-form-field>
               </div>
             </div>
             <div class="col-sm-3">
               <mat-label>14. पत्ता</mat-label>
               <mat-form-field appearance="outline" class="w-100">
-                <textarea matInput placeholder="लक्ष्मी रोड प्राथमिक शाळेसमोर वर्ड क्रमांक १"></textarea>
+                <textarea matInput placeholder="" formControlName="address"></textarea>
               </mat-form-field>
             </div>
             <div class="col-sm-6">
               <div class="form-label">15. लाभर्त्याची वर्गवारी</div>
-              <mat-form-field appearance="outline" class="w-100">
+              <mat-form-field appearance="outline" class="w-100" formControlName="categoryId">
                 <mat-select>
                   <mat-option>
                     <mat-radio-button value="1">अनीसीचीत जाती</mat-radio-button>
@@ -230,6 +264,9 @@
             </div>
           </div>
           <!-- </div> -->
+        </div>
+        <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+          <button mat-button matStepperNext class="btn-main">Next</button>
         </div>
       </mat-step>
       <mat-step >
