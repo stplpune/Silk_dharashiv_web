@@ -357,7 +357,8 @@ export class ApprovalProcessManaregaComponent {
   }
 
   deleteOtherDoc() {
-    this.pushOtherDocArray[this.selOtherDocIndex].docPath = '';
+    this.clearImg.nativeElement.value = '';
+    // this.pushOtherDocArray[this.selOtherDocIndex].docPath = '';
     this.uploadFrm.controls['docPath'].setValue('');
   }
 
@@ -410,8 +411,8 @@ export class ApprovalProcessManaregaComponent {
       mergeArray = [...this.pushAppDocArray, ...this.pushOtherDocArray];
 
       mergeArray.find((ele: any) => {
-        this.appDataClonedArray?.allDocument.find((item: any) => {
-          if ((item.id == ele.id && ele?.docPath != item.docPath) || ele.id == 0 || ele.isDeleted) {
+        this.appDataClonedArray?.allDocument.find((item: any) => { //1 is other doc
+          if (ele.docTypeId == 1 && ((item.id == ele.id && ele?.docPath != item.docPath) || (ele.id != 0 && ele.isDeleted) || (ele.id == 0 && !ele.isDeleted))) {
             if (!newUploadedDoc.length) {
               newUploadedDoc.push(ele)
             } else {
@@ -441,9 +442,12 @@ export class ApprovalProcessManaregaComponent {
         ele.modifiedDate = new Date();
         ele.isDeleted = ele.isDeleted || false
       });
-    }
-    this.spinner.show();
+    } 
+
+   
     let data = this.approvalFrm.getRawValue();
+
+    this.spinner.show();
     this.approvalFrm.controls['m_remark'].setValue(data?.remark);
     let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId(), };
     array.length ? mainData.applicationDocument = array : mainData.applicationDocument = [];

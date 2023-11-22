@@ -122,7 +122,7 @@ export class PageRightAccessComponent {
     tableResponse.map((res: any) => {
       let obj = {
         "id": res.id || 0,
-        "designationId": this.filterFrm.getRawValue().designationId || 1,
+        "designationId":this.filterFrm.getRawValue()?.userTypeId == 1 ?  1 : this.filterFrm.getRawValue().designationId,
         "pageId": res.pageId,
         "readRight": res.readRight,
         "writeRight": res.writeRight,

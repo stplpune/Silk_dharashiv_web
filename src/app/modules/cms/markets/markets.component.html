@@ -37,7 +37,7 @@
           <div class="col-sm-auto">
             <mat-form-field appearance="outline" class="w-100">
               <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
-              <mat-select formControlName="talukaId" placeholder="All Talukas">
+              <mat-select formControlName="talukaId" placeholder="{{lang == 'en' ?'All Taluka' : 'सर्व तालुका'}}">
                 <mat-option>
                   <ngx-mat-select-search [formControl]="talukaCtrl"
                       placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
