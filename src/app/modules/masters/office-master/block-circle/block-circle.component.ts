@@ -75,7 +75,7 @@ export class BlockCircleComponent implements OnDestroy{
   setTableData() {
     this.highLightRowFlag = true;
     let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_BlockName','action'] : ['srNo', 'blockName','action']
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमणिका', 'ब्लॉकचे नाव','कृती'] : ['Sr. No.', 'Block Name','Action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'ब्लॉकचे नाव','कृती'] : ['Sr. No.', 'Block Name','Action'];
 
     let getTableData = {
       pageNumber: this.pageNumber,
