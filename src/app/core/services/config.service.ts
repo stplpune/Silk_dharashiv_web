@@ -51,4 +51,5 @@ export class ConfigService {
     { id: 7, textEnglish: "Mulberry Id", textMarathi: "मलबेरी आयडी", isImageUpload: false },
     { id: 8, textEnglish: "Prior Approval", textMarathi: "पूर्व संमती", isImageUpload: false }
   ]
+
 }

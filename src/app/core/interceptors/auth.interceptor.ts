@@ -62,7 +62,6 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(request);
     } else {
       let logInData = this.webstorageService.getJWTTokenData();
-      console.log(logInData);
       const authHeader = logInData?.accessToken
       const authReq = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + authHeader) });
       return next.handle(authReq)
