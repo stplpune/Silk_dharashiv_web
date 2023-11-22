@@ -69,7 +69,7 @@
   },
 
   "approvalProcess"  : {
-  "applicant_id":"Applicant ID",
+  "applicant_id":"Application ID",
   "mulberry_id":"Mulberry Id (Date)",
   "date":"Date",
   "applicant_name_mob":"Applicant Name",
