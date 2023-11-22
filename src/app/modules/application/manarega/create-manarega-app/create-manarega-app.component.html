@@ -1,1 +1,245 @@
 <p>create-manarega-app works!</p>
+<!-- <p>create-manarega-app works!</p> -->
+<mat-card class="plain-card">
+  <mat-card-header class="card-header">
+    <div class="text-main">Manarega Application</div>
+  </mat-card-header>
+  <mat-card-content class=" card-body form-container">
+    <!-- <mat-tab-group>
+      <mat-tab label="मूळ तपशील">
+
+
+      </mat-tab>
+
+
+    </mat-tab-group> -->
+
+    <mat-stepper  #stepper>
+      <mat-step>
+        <ng-template matStepLabel>मूळ तपशील</ng-template>
+        <div class="container-fluid">
+          <!-- <div class="container"> -->
+          <div class="row gx-2 mb-4">
+            <div class="col-sm-2">
+              <img src="https://demosilkapi.mahamining.com/Upload/profilePhoto/Farmer.png" alt="Applicant image"
+                class="img-fluid">
+            </div>
+            <div class="col-sm">
+
+              <div class="row gy-2 gx-2 align-items-center ">
+                <div class="col-sm-6">
+                  <div class="d-flex gap-2">
+                    <div class="form-label">Mobile Number</div>
+                    <div class="form-data">: 8669264767</div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="d-flex gap-2">
+                    <div class="form-label">Aadhar Number</div>
+                    <div class="form-data">: 8669 2647 6774</div>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-label"> 1. Applicant Name</div>
+                  <div class="form-label">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <!-- <mat-label>Favorite food</mat-label> -->
+                      <input matInput placeholder="">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-label">2. माझ्या शेतीवर रेशीम विकास योजने अंतर्गत तुति लागवड विभाग मार्फत करण्यात
+                    यावी
+                    (कोणतेही १ निवडा )</div>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select>
+                      <mat-option>रेशीम संचालनाय</mat-option>
+                      <mat-option>कृषि व फलौत्पादन</mat-option>
+                      <mat-option>पंचायत समिती</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row gx-2 align-items-center">
+            <div class="col-sm-3">
+              <div class="form-label">3. पर्यायी मोबाइल क्रमांक</div>
+              <div class="form-label">
+                <mat-form-field appearance="outline" class="w-100">
+                  <!-- <mat-label>Favorite food</mat-label> -->
+                  <input matInput placeholder="">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <mat-label class="form-label">4. जन्मतारीख</mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+              <div class="d-flex align-items-center gap-3">
+                <mat-label class="form-label">5. लिंग निवडा</mat-label>
+                <mat-radio-group aria-label="Select an option">
+                  <mat-radio-button value="1">Male</mat-radio-button>
+                  <mat-radio-button value="2">Female</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-label">6. शिक्षण</div>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select>
+                  <mat-option>अशिक्षित</mat-option>
+                  <mat-option>10 वी</mat-option>
+                  <mat-option>12 वी</mat-option>
+                  <mat-option>डिप्लोमा</mat-option>
+                  <mat-option>पदवीधर</mat-option>
+                  <mat-option>उछपद्विधार</mat-option>
+                  <mat-option>इतर</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-label">7. राज्य</div>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select>
+                  <mat-option>महाराष्ट्र</mat-option>
+                  <mat-option>गुजरात</mat-option>
+                  <mat-option>बिहार</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-label">8. जिल्हा</div>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select>
+                  <mat-option>धारशीव</mat-option>
+                  <mat-option>गुजरात</mat-option>
+                  <mat-option>बिहार</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-label">9. तालुका</div>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select>
+                  <mat-option>कळंब</mat-option>
+                  <mat-option>गुजरात</mat-option>
+                  <mat-option>बिहार</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-label">10. ग्रामपंचायत</div>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select>
+                  <mat-option>निपाणी</mat-option>
+                  <mat-option>गुजरात</mat-option>
+                  <mat-option>बिहार</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-label">11. गाव</div>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select>
+                  <mat-option>निपाणी</mat-option>
+                  <mat-option>गुजरात</mat-option>
+                  <mat-option>बिहार</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-sm-3">
+              <div class="form-label">12. पिन कोड </div>
+              <div class="form-label">
+                <mat-form-field appearance="outline" class="w-100">
+                  <!-- <mat-label>Favorite food</mat-label> -->
+                  <input matInput placeholder="">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-label">13. मनरेगा जॉब कार्ड क्र</div>
+              <div class="form-label">
+                <mat-form-field appearance="outline" class="w-100">
+                  <!-- <mat-label>Favorite food</mat-label> -->
+                  <input matInput placeholder="MH-12-345--678-901/122-40">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <mat-label>14. पत्ता</mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <textarea matInput placeholder="लक्ष्मी रोड प्राथमिक शाळेसमोर वर्ड क्रमांक १"></textarea>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-label">15. लाभर्त्याची वर्गवारी</div>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select>
+                  <mat-option>
+                    <mat-radio-button value="1">अनीसीचीत जाती</mat-radio-button>
+                  </mat-option>
+                  <mat-option>
+                    <mat-radio-button value="1">अनीसीचीत जमाती</mat-radio-button>
+                  </mat-option>
+                  <mat-option>
+                    <mat-radio-button value="1">भटक्या जमाती</mat-radio-button>
+                  </mat-option>
+                  <mat-option>
+                    <mat-radio-button value="1">निरधिसूचित जमाती</mat-radio-button>
+                  </mat-option>
+                  <mat-option>
+                    <mat-radio-button value="1">इतर मागसवर्ग</mat-radio-button>
+                  </mat-option>
+                  <mat-option>
+                    <mat-radio-button value="1">सर्वसाधारण</mat-radio-button>
+                  </mat-option>
+                  <mat-option>
+                    <mat-checkbox class="example-margin">दारिद्र्य रेषेखालील कुटुंबे </mat-checkbox>
+                  </mat-option>
+                  <mat-option>
+                    <mat-checkbox class="example-margin">स्त्री कुटुंब प्रमुख असेलेले कुटुंबे </mat-checkbox>
+                  </mat-option>
+                  <mat-option>
+                    <mat-checkbox class="example-margin">दिव्यांग व्यक्ति प्रमुख असेलेले कुटुंबे </mat-checkbox>
+                  </mat-option>
+                  <mat-option>
+                    <mat-checkbox class="example-margin">जमीन सुधरणांचे लाभार्थी </mat-checkbox>
+                  </mat-option>
+                  <mat-option>
+                    <mat-checkbox class="example-margin">प्रधानमंत्री आवास योजना - ग्रामीण योजनेखालील लाभार्थी
+                    </mat-checkbox>
+                  </mat-option>
+                  <mat-option>
+                    <mat-checkbox class="example-margin">अनिसूचित जमाती व इतर पारंपरिक वानवशि (वनहक्क मान्य करणे );
+                      आधिनियम २००६(2007) च 2 खलील पात्रलाभार्थी </mat-checkbox>
+                  </mat-option>
+                  <mat-option>
+                    <mat-checkbox class="example-margin">कृषि कर्ज माफी योजना सान 2008 नुसार अल्पभूधारक (1हेक्टर
+                      )पेक्स्गा कमी क्षेत्र. </mat-checkbox>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- </div> -->
+        </div>
+      </mat-step>
+      <mat-step >
+        step 2
+      </mat-step>
+
+    </mat-stepper>
+
+
+
+
+  </mat-card-content>
+</mat-card>
