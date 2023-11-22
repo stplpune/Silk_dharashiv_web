@@ -5,11 +5,11 @@
     <mat-card-header class="card-header">
       <div class="d-flex align-items-center justify-content-between w-100">
         <!-- <div class="text-main fw-bold">Application / {{applicantDetails?.schemeType}} / View Application </div> -->
-        <div class="text-main fw-bold">Application Details</div>
-        <button mat-flat-button class="btn-main-light" (click)="commonMethod.locationBack()">
+      <div class="text-main fw-bold">{{lang == 'en' ? 'Manarega Details' : 'मनरेगा तपशील'}}</div>
+      <button mat-flat-button class="btn-main-light" (click)="commonMethod.locationBack()">
           <mat-icon class="material-symbols-rounded">
             chevron_left
-          </mat-icon>Back
+          </mat-icon>{{lang == 'en' ? 'Back' :'मागे'}}
         </button>
       </div>
     </mat-card-header>
