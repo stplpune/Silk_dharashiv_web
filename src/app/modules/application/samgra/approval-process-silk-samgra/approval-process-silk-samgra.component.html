@@ -175,7 +175,7 @@
         <div class="row application-details">
           <div class="col-sm-3">
             <!-- <img src="{{applicantDetails?.profilePhotoPath}}" alt="view Application Image"> -->
-            <img src="{{applicantDetails?.profilePhotoPath}}" alt="view Application Image">
+            <img src="{{applicantDetails?.profilePhotoPath}}" alt="view Application Image" class="w-100">
           </div>
           <div class="col-sm-9">
             <div class="row g-2 mb-2 pb-2 border-bottom">
@@ -271,45 +271,13 @@
                 <div class="form-data">: </div>
               </div> -->
               <div class="col-sm-2 col-4">
+                <div class="form-label">{{'common.pin_Code'| translate}} </div>
+              </div>
+              <div class="col-sm-4 col-8">
                 <div class="form-data">: {{applicantDetails?.pinCode | dash}}</div>
               </div>
-              <div class="col-sm-4 col-8">
-                <div class="form-label">{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
-              </div>
-              <!-- <div class="col-sm-2 col-4">
-                <div class="form-label">{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
-              </div>
-              <div class="col-sm-4 col-8">
-                <div class="form-data"> : {{applicantDetails?.mobileNo2 | dash}}</div>
-              </div>
-              <div class="col-sm-2 col-4">
-                <div class="form-label">{{'approvalProcess.gender'| translate}}</div>
-              </div>
-              <div class="col-sm-4 col-8">
-                <div class="form-data">: {{lang == 'en' ? (applicantDetails?.gender | dash ) :
-                  (applicantDetails?.m_gender | dash)}}</div>
-              </div>
-              <div class="col-sm-2 col-4">
-                <div class="form-label">{{'approvalProcess.education'| translate}}</div>
-              </div>
-              <div class="col-sm-4 col-8">
-                <div class="form-data">: {{lang == 'en' ? (applicantDetails?.qualification | dash ) :
-                  (applicantDetails?.m_Qualification | dash)}}</div>
-              </div>
-              <div class="col-sm-2 col-4">
-                <div class="form-label">{{'common.District'| translate}}</div>
-              </div>
-              <div class="col-sm-4 col-8">
-                <div class="form-data">: {{lang == 'en' ? (applicantDetails?.district | dash ) :
-                  (applicantDetails?.m_District | dash)}}</div>
-              </div>
-              <div class="col-sm-2 col-4">
-                <div class="form-label">{{'approvalProcess.village_committee'| translate}}</div>
-              </div>
-              <div class="col-sm-4 col-8">
-                <div class="form-data"> : {{lang == 'en' ? (applicantDetails?.grampanchayatName | dash ) :
-                  (applicantDetails?.m_GrampanchayatName | dash)}}</div>
-              </div> -->
+
+            
               <div class="col-sm-12">
                 <div class="row">
                   <div class="col-sm-2 col-4">
@@ -323,10 +291,10 @@
               </div>
 
             </div>
-            <div class="d-flex gap-2">
-              <div class="form-label">Category</div>
-              <div class="form-data mb-0">: Scheduled Caste </div>
-            </div>
+            <div class="form-label">{{'approvalProcess.beneficiary_category'| translate}}</div>
+              <div class="form-data mb-0" *ngFor="let data of applicationData?.categoryofBenificiaryModel;let i=index">
+                {{(i+1)+". "+(lang == 'en' ? data?.categoryOfBeneficiary : data?.m_CategoryOfBeneficiary)}}
+              </div>
             <div class="d-flex gap-2">
 
               <div class="form-label">Is Beneficiary below poverty line ?</div>
@@ -597,32 +565,34 @@
 
         <div class="card mb-2">
           <div class="card-header">
-            <div class="text-main fw-bold">Bank Details</div>
+            <div class="text-main fw-bold">{{'approvalProcess.bank_details'| translate}}</div>
           </div>
           <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
                 <div class="d-flex gap-2">
-                  <div class="form-label mb-0">Bank Name:</div>
-                  <div class="form-data">State Bank of India</div>
+                  <div class="form-label mb-0">{{'approvalProcess.bank_name'| translate}}:</div>
+                  <div class="form-data"> {{lang == 'en' ? (applicantDetails?.bankName | dash ) :
+                    (applicantDetails?.m_BankName | dash)}}</div>
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="d-flex gap-2">
-                  <div class="form-label mb-0">Branch:</div>
-                  <div class="form-data">Kalamb</div>
+                  <div class="form-label mb-0">{{'approvalProcess.branch'| translate}}:</div>
+                  <div class="form-data">{{lang == 'en' ? (applicantDetails?.branchName | dash ) :
+                    (applicantDetails?.m_BranchName | dash)}}</div>
                 </div>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-auto">
                 <div class="d-flex gap-2">
-                  <div class="form-label mb-0">IFSC Code:</div>
-                  <div class="form-data">SBIN0003900 </div>
+                  <div class="form-label mb-0">{{'approvalProcess.IFSC_Code'| translate}}:</div>
+                  <div class="form-data">{{applicantDetails?.bankIFSCCode | dash}} </div>
                 </div>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm">
                 <div class="d-flex gap-2">
-                  <div class="form-label mb-0"> Account No:</div>
-                  <div class="form-data">12345678901234 </div>
+                  <div class="form-label mb-0">{{'approvalProcess.bank_account_no'| translate}}:</div>
+                  <div class="form-data">{{applicantDetails?.bankAccountNo | dash}} </div>
                 </div>
               </div>
             </div>
@@ -644,147 +614,110 @@
     <div class="card mb-3">
       <div class="card-body">
         <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" (selectedTabChange)="onTabChanged();">
-          <mat-tab label="Applicant Document">
+          <mat-tab label="{{'approvalProcess.applicant_document'| translate}}">
             <div class="table-responsive mt-2">
-              <table class="table table-bordered dashboard-table">
-                <thead>
-                  <tr>
-                    <th>
-                      <div class="form-label">
-                        Sr. No.
-                      </div>
-                    </th>
-                    <th>
-                      <div class="form-label">Document Name</div>
-                    </th>
-                    <th>
-                      <div class="form-label">Document No.</div>
-                    </th>
-                    <th>
-                      <div class="form-label">Action</div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class="form-label">1</div>
-                    </td>
-                    <td>
-                      <div class="form-label">Aadhaar Card</div>
-                    </td>
-                    <td>
-                      <div class="form-label">5549 1203 9963 </div>
-                    </td>
-                    <td> </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-label">2</div>
-                    </td>
-                    <td>
-                      <div class="form-label">7/12 mulberry certificate of land or Talathi Certificate </div>
-                    </td>
-                    <td> </td>
-                    <td> </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-label">3</div>
-                    </td>
-                    <td>
-                      <div class="form-label">8-A tract of land </div>
-                    </td>
-                    <td> </td>
-                    <td> </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-label">3 </div>
-                    </td>
-                    <td>
-                      <div class="form-label">Boundary map of land </div>
-                    </td>
-                    <td> </td>
-                    <td> </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-label">4</div>
-                    </td>
-                    <td>
-                      <div class="form-label">First Page Photocopy of nationalized bank passbook which is Aadhaar linked
-                      </div>
-                    </td>
-                    <td> </td>
-                    <td> </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-label">5</div>
-                    </td>
-                    <td>
-                      <div class="form-label">Caste Certificate (For caste/tribe farmers)</div>
-                    </td>
-                    <td> </td>
-                    <td> </td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td>
-                      <div class="form-label">Water Availability Certificate</div>
-                    </td>
-                    <td> </td>
-                    <td> </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-label">6</div>
-                    </td>
-                    <td>
-                      <div class="form-label">Payment Receipt</div>
-                    </td>
-                    <td> </td>
-                    <td> </td>
-                  </tr>
+              <table mat-table [dataSource]="dataSource" class="dashboard-table mb-0">
+                <ng-container matColumnDef="srNo">
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.sr_no'| translate}}</th>
+                  <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
+                </ng-container>
 
-                </tbody>
+                <ng-container matColumnDef="documentType">
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_name'| translate}}</th>
+                  <td mat-cell *matCellDef="let element"> {{element?.documentType}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="docNo">
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_number'| translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.docNo ? element?.docNo :'-'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
+                  <td mat-cell *matCellDef="let element; ; let i = index;">
+                    <div class="d-flex gap-2">
+                      <button matTooltipPosition="above" mat-icon-button [disabled]="!element?.docPath"
+                        class="btn-icon bg-dark bg-opacity-10" (click)="viewDocument(element.docPath)">
+                        <span class="material-symbols-rounded text-dark">
+                          visibility
+                        </span>
+                      </button>
+                      <input type="file" class="d-none" (change)="imageUplod($event,'applicantDoc', i)" #editImg>
+                      <!-- <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10"
+                        (click)="editImg.click()" [class.disable]="!applicationData?.isEdit">
+                        <span class="material-symbols-rounded text-warning">
+                          edit_square
+                        </span>
+                      </button> -->
+                      <!-- <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10" (click)="deleteImage(i,'applicantDoc')">
+                        <span class="material-symbols-rounded text-danger">
+                          delete
+                        </span>
+                      </button> -->
+                    </div>
+                  </td>
+                </ng-container>
+                <tr class="mat-row p-2 w-100" *matNoDataRow col>
+                  <td colspan="12">
+                    <div class="alert alert-danger text-center m-2 p-2" colspan="12">
+                      {{'approvalProcess.no_data_found'| translate}}
+                     </div>
+                  </td>
+                </tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
             </div>
           </mat-tab>
-          <mat-tab label="Other Document">
+          <mat-tab label="{{'approvalProcess.other_document'| translate}}">
             <div class="container-fluid">
               <!--  -->
-              <form class="w-100 mt-2">
+              <form [formGroup]="uploadFrm" #formDirective="ngForm" (ngSubmit)="onSubmit()" class="w-100 mt-2" [class.disable]="!applicationData?.isEdit">
                 <div class="row g-2">
                   <div class="col-sm">
                     <mat-form-field appearance="outline" class="w-100">
-                      <mat-label>Document Name</mat-label>
-                      <input matInput placeholder="">
+                      <mat-label>{{'approvalProcess.document_name'| translate}}</mat-label>
+                      <input matInput placeholder="" formControlName="documentType" maxlength="50"
+                        (keypress)="validation.noSpacesAtStart($event)">
+                        <mat-error *ngIf="uploadFrm.controls['documentType']?.errors">
+                          <span class="text-danger"
+                              *ngIf="uploadFrm.controls['documentType']?.hasError('maxLengthExceeded')">
+                              {{'designation.designation_maxLength'|translate}}
+                          </span>
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-sm-3">
                     <mat-form-field appearance="outline" class="w-100">
-                      <mat-label>Document Number</mat-label>
-                      <input matInput placeholder="">
+                      <mat-label>{{'approvalProcess.document_number'| translate}}</mat-label>
+                      <input matInput placeholder="" formControlName="docNo"
+                        (keypress)="validation.noSpacesAtStart($event)">
+                        <mat-error *ngIf="uploadFrm.controls['docNo']?.errors">
+                          <span class="text-danger"
+                              *ngIf="uploadFrm.controls['docNo']?.hasError('maxLengthExceeded')">
+                              {{'designation.designation_maxLength'|translate}}
+                          </span>
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-sm-3">
                     <div class="file-upload border rounded-2 p-1">
                       <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                        data-placement="right">
-                        Upload Document
+                        (click)="uplodLogo.value='';uplodLogo.click()" data-placement="right">
+                       {{'approvalProcess.upload_document'| translate}}
                       </button>
-                      <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                      <div class="d-flex gap-2">
-                        <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                          matTooltip="view">
+                      <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
+                        (change)="imageUplod($event,'otherDocForm')" hidden="hidden" />
+                      <div class="d-flex gap-2" *ngIf="uploadFrm.value.docPath">
+                        <button type="button" mat-flat-button (click)="viewDocument(uploadFrm.value.docPath)"
+                          class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view">
                           <mat-icon class="material-symbols-rounded">
                             preview
                           </mat-icon>
                         </button>
-                        <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                          matTooltip="delete">
+                        <button type="button" mat-flat-button (click)="deleteOtherDoc()"
+                          class="bg-danger-subtle text-danger btn-icon btn-action" matTooltip="delete">
                           <mat-icon class="material-symbols-rounded">
                             delete
                           </mat-icon>
@@ -797,40 +730,49 @@
                       <mat-icon class="material-symbols-rounded">
                         add
                       </mat-icon>
-                      Document
+                      {{editOtherDocForm ? ('approvalProcess.update_document'| translate): ('approvalProcess.add_document'| translate)}}
                     </button>
                   </div>
                 </div>
               </form>
             </div>
             <div class="table-responsive">
-              <table mat-table class="dashboard-table mb-0">
+              <table mat-table [dataSource]="otherDocArray" class="dashboard-table mb-0">
                 <ng-container matColumnDef="srNo">
-                  <th mat-header-cell *matHeaderCellDef> Sr.No. </th>
-                  <td mat-cell *matCellDef=""> 1 </td>
+                  <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
+                  <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="documentType">
-                  <th mat-header-cell *matHeaderCellDef> Document Name </th>
-                  <td mat-cell *matCellDef="let element"> Aadhar Card </td>
+                  <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.document_name'| translate}} </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.documentType}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="docNo">
-                  <th mat-header-cell *matHeaderCellDef>Document No
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_number'| translate}}
                   </th>
-                  <td mat-cell *matCellDef="let element"> 55480105803369 </td>
+                  <td mat-cell *matCellDef="let element"> {{element?.docNo}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="action">
-                  <th mat-header-cell *matHeaderCellDef>Action</th>
+                  <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
                   <td mat-cell *matCellDef="let element; let i = index">
                     <div class="d-flex gap-02">
-                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10">
+                      <button matTooltipPosition="above" mat-icon-button [disabled]="!element?.docPath"
+                        class="btn-icon bg-dark bg-opacity-10" (click)="viewDocument(element.docPath)">
                         <span class="material-symbols-rounded text-dark">
                           visibility
                         </span>
                       </button>
-                      <button matTooltipPosition="above" class="btn-icon bg-danger bg-opacity-10">
+                      <!-- <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-warning bg-opacity-10"
+                        [class.disable]="!applicationData?.isEdit" (click)="editOtherDoc(element)">
+                        <span class="material-symbols-rounded text-warning">
+                          edit_square
+                        </span>
+                      </button> -->
+                      <!-- [disabled]="!element?.isDeleteAction"   *ngIf="applicationData?.isEdit" -->
+                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
+                        (click)="deleteOtherDocument(i)" >
                         <span class="material-symbols-rounded text-danger">
                           delete
                         </span>
@@ -841,7 +783,7 @@
                 <tr class="mat-row p-2 w-100" *matNoDataRow col>
                   <td colspan="12">
                     <div class="alert alert-danger text-center m-2 p-2" colspan="12">
-                      No Data Found
+                      {{'approvalProcess.no_data_found'| translate}}
                     </div>
                   </td>
                 </tr>
@@ -853,7 +795,6 @@
         </mat-tab-group>
       </div>
     </div>
-
     <!-- <div class="card mb-3">
       <div class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
@@ -961,93 +902,101 @@
       </div>
     </div> -->
 
-    <div class="card mb-3">
-      <div class="card-header">
-        <div class="text-main">Action</div>
-      </div>
+    <div class="card" [class.d-none]="!applicationData?.isEdit">
       <div class="card-body">
-        <div class="row">
-          <div class="col-sm-4">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Status</mat-label>
-              <mat-select>
-                <mat-option>Approved</mat-option>
-                <mat-option>Pending</mat-option>
-                <mat-option>Rejected</mat-option>
-              </mat-select>
-            </mat-form-field>
+        <form [formGroup]="approvalFrm" (ngSubmit)="onSubmitApprovalDetails()" #formDirectives="ngForm">
+          <div class="row g-2">
+            <div class="col-sm-auto">
+              <div class="d-flex gap-2">
+                <div>
+                  <label class="form-label">{{'approvalProcess.select_status'| translate}}</label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="applicationStatus" (selectionChange)="getReason()">
+                      <mat-option *ngFor="let apporvalStatus of approvalStatusArray" [value]="apporvalStatus?.id">{{lang
+                        =="en" ? apporvalStatus?.textEnglish : apporvalStatus?.textMarathi}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div
+                  *ngIf="approvalFrm.getRawValue()?.applicationStatus == 5 || approvalFrm.getRawValue()?.applicationStatus == 11">
+                  <label class="form-label">{{'approvalProcess.select_reason'| translate}}Select Reason</label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-select formControlName="reason">
+                      <mat-option *ngFor="let reason of reasonArray" [value]="reason?.id">{{lang
+                        == "en" ? reason?.textEnglish : reason?.textMarathi}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="file-upload border rounded-2 p-1"
+                *ngIf="this.applicationData?.uploadDocTypeId !=0 && approvalFrm.value.applicationStatus == 12">
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                  data-placement="right" (click)="uploadDepDocument.value=''; uploadDepDocument.click()">
+                  {{'approvalProcess.upload_document'| translate}}
+                </button>
+                <input type="file" class="d-none" #uploadDepDocument (change)="imageUplod($event,'uplDepDoc')">
+                <div class="d-flex gap-2" *ngIf="uploadedDepDoc?.docPath">
+                  <button type="button" (click)="viewimage('uplDepDoc')" mat-flat-button
+                    class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view">
+                    <mat-icon class="material-symbols-rounded">
+                      preview
+                    </mat-icon>
+                  </button>
+                  <button type="button" (click)="delDepDocument()" mat-flat-button
+                    class="bg-danger-subtle text-danger btn-icon btn-action" matTooltip="delete">
+                    <mat-icon class="material-symbols-rounded">
+                      delete
+                    </mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm">
+              <label class="form-label"> {{'approvalProcess.remark'| translate}}</label>
+              <mat-form-field appearance="outline" class="w-100">
+                <textarea matInput placeholder="" formControlName="remark"
+                  (keypress)="validation.noFirstSpaceAllow($event)" style="height: 83px;"></textarea>
+                <mat-error *ngIf="approvalFrm.controls['remark']?.errors">
+                  <span class="text-danger"
+                    *ngIf="approvalFrm.controls['remark']?.hasError('maxLengthExceeded')">
+                    {{'common.address_maximum 100 character_allowed' | translate }}
+                  </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
           </div>
-          <div class="col-sm-8">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Remark</mat-label>
-              <textarea matInput placeholder="" rows="3"></textarea>
-            </mat-form-field>
+          <div class="d-flex align-items-center justify-content-end gap-2 my-2">
+            <button mat-flat-button class="btn-main-light" type="button" [mat-dialog-close]="true" (click)="clearForm()">{{'common.cancel'| translate}}</button>
+            <button mat-flat-button class="btn-main" type="submit">{{'common.submit'| translate}}</button>
           </div>
+        </form>
+
+
+
+
+
+        <!-- <div class="example-button-row" *ngIf="actionNameLabel">
+          <button mat-raised-button color="primary" type="button"
+            (click)="uploadDepDocument.click()">{{actionNameLabel}}</button>
         </div>
-        <div class="d-flex align-items-center justify-content-end gap-2">
-          <button mat-flat-button class="btn-main-light" type="button" [mat-dialog-close]="true">Cancel</button>
-          <button mat-flat-button class="btn-main" type="submit">Processed</button>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-sm-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Select Status</mat-label>
-              <mat-select>
-                <mat-option seleted>Rejected</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Select Reason</mat-label>
-              <mat-select>
-                <mat-option seleted>Select Reason</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-12">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Remark</mat-label>
-              <textarea matInput placeholder="" rows="3"></textarea>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-end gap-2">
-          <button mat-flat-button class="btn-main-light" type="button" [mat-dialog-close]="true">Cancel</button>
-          <button mat-flat-button class="btn-main" type="submit">Processed</button>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-sm-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Select Status</mat-label>
-              <mat-select>
-                <mat-option seleted>Re-send</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Select Reason</mat-label>
-              <mat-select>
-                <mat-option seleted>Select Reason</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-12">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Remark</mat-label>
-              <textarea matInput placeholder="" rows="3"></textarea>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-end gap-2">
-          <button mat-flat-button class="btn-main-light" type="button" [mat-dialog-close]="true">Cancel</button>
-          <button mat-flat-button class="btn-main" type="submit">Processed</button>
-        </div>
+        <div *ngIf="uploadedDepDoc?.docPath">
+
+          <button type="button" mat-flat-button (click)="viewimage('uplDepDoc')"
+            class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view">
+            <mat-icon class="material-symbols-rounded">
+              preview
+            </mat-icon>
+          </button>
+          <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+            (click)="delDepDocument()" matTooltip="delete">
+            <mat-icon class="material-symbols-rounded">
+              delete
+            </mat-icon>
+          </button>
+        </div> -->
+
       </div>
     </div>
   </mat-card-content>
