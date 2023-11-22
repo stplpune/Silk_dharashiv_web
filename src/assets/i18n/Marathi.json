@@ -4,7 +4,7 @@
     "edit": "संपादित",
     "view": "पहा",
     "delete": "हटवा",
-    "srNo": "अनुक्रमणिका",
+    "srNo": "अनुक्रमांक",
     "department": "विभाग निवडा", 
     "designation_level": "पदनाम स्तर निवडा",
     "designation": "पदनाम निवडा",
@@ -68,8 +68,8 @@
     "action": "कृती"
   },
   "approvalProcess"  : {
-    "applicant_id":"अर्जदार आयडी",
-    "mulberry_id":"तुती आयडी(तारीख)",
+    "applicant_id":"अर्ज क्रमांक",
+    "mulberry_id":"तुती क्रमांक (तारीख)",
     "date":"तारीख",
     "applicant_name_mob":"अर्जदाराचे नाव",
     "process_department":"प्रक्रिया विभाग",
@@ -264,8 +264,6 @@
     "email_id":"ई - मेल आयडी",
     "department_level":"विभाग स्तर",
     "address":"पत्ता",
-    "state":"राज्य",
-    "district":"जिल्हा",
     "all_grampanchayat":"सर्व ग्रामपंचायत",
     "select_grampanchayat":"ग्रामपंचायत निवडा" ,
     "please_select_grampanchayat":"कृपया ग्रामपंचायत निवडा",

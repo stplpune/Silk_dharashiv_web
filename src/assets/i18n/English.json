@@ -69,8 +69,8 @@
   },
 
   "approvalProcess"  : {
-  "applicant_id":"Applicant ID",
-  "mulberry_id":"Mulberry Id(Date)",
+  "applicant_id":"Application ID",
+  "mulberry_id":"Mulberry Id (Date)",
   "date":"Date",
   "applicant_name_mob":"Applicant Name",
   "process_department":"Process Department",
@@ -270,8 +270,6 @@
     "email_id": "Email Id",
     "department_level": "Department Level",
     "address": "Address",
-    "state": "State",
-    "district": "District",
     "all_grampanchayat":"All Grampanchayat",
     "select_grampanchayat":"Select Grampanchayat",
     "please_select_grampanchayat":"Please select grampanchayat",

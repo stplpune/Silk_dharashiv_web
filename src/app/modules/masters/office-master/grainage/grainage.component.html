@@ -34,7 +34,7 @@
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{"grainage.search" | translate}}</mat-label> -->
-            <input matInput formControlName="textSearch"  placeholder="Search Grainage Name" (keypress)="validator.noFirstSpaceAllow($event)">
+            <input matInput formControlName="textSearch"  placeholder="{{lang == 'en' ? 'Search Grainage Name' : 'ग्रेनेजनुसार शोधा'}}" (keypress)="validator.noFirstSpaceAllow($event)">
           </mat-form-field>
         </div>
         <div class="col-sm-3">

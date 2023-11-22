@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -15,7 +15,7 @@ import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/g
 import { MatTableDataSource } from '@angular/material/table';
 
 import { ConfigService } from 'src/app/core/services/config.service';
-// import { GeoTaggingComponent } from './geo-tagging/geo-tagging.component';
+import { GeoTaggingComponent } from './geo-tagging/geo-tagging.component';
 
 @Component({
   selector: 'app-approval-process-manarega',
@@ -31,7 +31,7 @@ export class ApprovalProcessManaregaComponent {
   subscription!: Subscription;//used  for lang conv
   lang: any;
   routingData: any;
-  encryptData: any;
+  applicationId: any;
   dataSource: any = new Array()
   displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action']
   approvalStatus: any = new Array()
@@ -58,27 +58,33 @@ export class ApprovalProcessManaregaComponent {
     private fb: FormBuilder, private spinner: NgxSpinnerService,
     private errorHandler: ErrorHandlingService,
     private fileUplService: FileUploadService,
-    private commonMethod: CommonMethodsService,
+    public commonMethod: CommonMethodsService,
   ) { }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-    })
-    this.getRouteParam();
-    this.addDefaultFrm();
-    this.addApprovalFrm();
-    // this.addGeoTagging();
-  }
+    });
 
-  getRouteParam() {
     this.route.queryParams.subscribe((queryParams: any) => {
       this.routingData = queryParams['id'];
     });
-    this.encryptData = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
+
+    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+    let url = this.router.url;
+    let appProVal = (spliteUrl[1] == 'm') && (url.split('?')[0] == '/approval-process-manarega');
+    if (!appProVal) {
+      this.router.navigate(['../application']);
+      this.commonMethod.snackBar('Something went wrong please try again', 1);
+    }
+
+    this.applicationId = spliteUrl[0];
     this.getByApplicationId();
+    this.addDefaultFrm();
+    this.addApprovalFrm();
   }
+
 
   addApprovalFrm() {
     this.approvalFrm = this.fb.group({
@@ -108,7 +114,7 @@ export class ApprovalProcessManaregaComponent {
   getByApplicationId() {
     this.pushOtherDocArray = [];
     this.pushAppDocArray = [];
-    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetApplication?Id=' + (this.encryptData) + '&UserId=' + this.WebStorageService.getUserId() + '&lan=' + this.lang + '&LoginFlag=' + this.configService.loginFlag, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetApplication?Id=' + (this.applicationId) + '&UserId=' + this.WebStorageService.getUserId() + '&lan=' + this.lang + '&LoginFlag=' + this.configService.loginFlag, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
@@ -357,7 +363,8 @@ export class ApprovalProcessManaregaComponent {
   }
 
   deleteOtherDoc() {
-    this.pushOtherDocArray[this.selOtherDocIndex].docPath = '';
+    this.clearImg.nativeElement.value = '';
+    // this.pushOtherDocArray[this.selOtherDocIndex].docPath = '';
     this.uploadFrm.controls['docPath'].setValue('');
   }
 
@@ -410,8 +417,8 @@ export class ApprovalProcessManaregaComponent {
       mergeArray = [...this.pushAppDocArray, ...this.pushOtherDocArray];
 
       mergeArray.find((ele: any) => {
-        this.appDataClonedArray?.allDocument.find((item: any) => {
-          if ((item.id == ele.id && ele?.docPath != item.docPath) || ele.id == 0 || ele.isDeleted) {
+        this.appDataClonedArray?.allDocument.find((item: any) => { //1 is other doc
+          if (ele.docTypeId == 1 && ((item.id == ele.id && ele?.docPath != item.docPath) || (ele.id != 0 && ele.isDeleted) || (ele.id == 0 && !ele.isDeleted))) {
             if (!newUploadedDoc.length) {
               newUploadedDoc.push(ele)
             } else {
@@ -442,8 +449,11 @@ export class ApprovalProcessManaregaComponent {
         ele.isDeleted = ele.isDeleted || false
       });
     }
-    this.spinner.show();
+
+
     let data = this.approvalFrm.getRawValue();
+
+    this.spinner.show();
     this.approvalFrm.controls['m_remark'].setValue(data?.remark);
     let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId(), };
     array.length ? mainData.applicationDocument = array : mainData.applicationDocument = [];
@@ -467,16 +477,13 @@ export class ApprovalProcessManaregaComponent {
   }
 
   addGeoTagging(_obj?: any) {
-    // this.dialog.open(GeoTaggingComponent, {
-    //   width: '100%',
-    //   height: '90%',
-    //   data: this.applicationData?.getSiteInspectionDataModel,
-    //   disableClose: true,
-    //   autoFocus: false
-    // });
-    // dialogRef.afterClosed().subscribe(res => {
-    //   res == 'Yes'? '' : '';
-    //  });
+    this.dialog.open(GeoTaggingComponent, {
+      width: '100%',
+      height: '90%',
+      data: this.applicationData?.getSiteInspectionDataModel,
+      disableClose: true,
+      autoFocus: false
+    });
   }
 
   ngOnDestroy() {

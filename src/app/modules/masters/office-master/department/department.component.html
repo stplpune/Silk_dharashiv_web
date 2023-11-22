@@ -18,7 +18,7 @@
             <div class="col-sm-4">
               <mat-form-field appearance="outline" class="w-100">
                 <!-- <mat-label>{{"department.searchDepartment" | translate}}</mat-label> -->
-                <input matInput formControlName="textSearch" placeholder="Search Department"
+                <input matInput formControlName="textSearch" placeholder="{{lang == 'en' ? 'Search Department' : 'विभागानुसार शोधा '}}"
                   (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsMarathiWithSpaces($event)">
               </mat-form-field>
             </div>

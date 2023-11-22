@@ -11,7 +11,7 @@ export class SideBarComponent {
 
   constructor(private webStorage: WebStorageService) {
     let pageListData = this.webStorage.getAllPageName();
-    console.log(pageListData)
+
     let pageUrls = pageListData.filter((ele: any) => {
       if (ele.isSideBarMenu) {
         return ele;

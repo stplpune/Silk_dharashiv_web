@@ -16,7 +16,7 @@
         <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'rejectReason.all_stage_action'|translate}}</mat-label> -->
-            <mat-select formControlName="actionId" placeholder="All Stage/Action">
+            <mat-select formControlName="actionId" placeholder="{{lang == 'en' ? 'All Stage/Action' : 'सर्व स्टेज/कृती'}}">
               <mat-option *ngFor="let data of actionResp" [value]="data.id">{{lang == 'en' ?
                 data.textEnglish : data.textMarathi}}</mat-option>
             </mat-select>
@@ -25,7 +25,7 @@
         <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'rejectReason.search'|translate}}</mat-label> -->
-            <input matInput placeholder="Search by Reject Title" formControlName="textSearch"
+            <input matInput placeholder="{{lang == 'en' ? 'Search by Reject Title' : 'नामंजूर शीर्षकानुसार शोधा'}}" formControlName="textSearch"
             (keypress)="validation.noFirstSpaceAllow($event)">
           </mat-form-field>
         </div>
