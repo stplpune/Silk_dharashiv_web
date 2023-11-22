@@ -15,7 +15,7 @@ import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/g
 import { MatTableDataSource } from '@angular/material/table';
 
 import { ConfigService } from 'src/app/core/services/config.service';
-// import { GeoTaggingComponent } from './geo-tagging/geo-tagging.component';
+import { GeoTaggingComponent } from './geo-tagging/geo-tagging.component';
 
 @Component({
   selector: 'app-approval-process-manarega',
@@ -477,16 +477,13 @@ export class ApprovalProcessManaregaComponent {
   }
 
   addGeoTagging(_obj?: any) {
-    // this.dialog.open(GeoTaggingComponent, {
-    //   width: '100%',
-    //   height: '90%',
-    //   data: this.applicationData?.getSiteInspectionDataModel,
-    //   disableClose: true,
-    //   autoFocus: false
-    // });
-    // dialogRef.afterClosed().subscribe(res => {
-    //   res == 'Yes'? '' : '';
-    //  });
+    this.dialog.open(GeoTaggingComponent, {
+      width: '100%',
+      height: '90%',
+      data: this.applicationData?.getSiteInspectionDataModel,
+      disableClose: true,
+      autoFocus: false
+    });
   }
 
   ngOnDestroy() {
