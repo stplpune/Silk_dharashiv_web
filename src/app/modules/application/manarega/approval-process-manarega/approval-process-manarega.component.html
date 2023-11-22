@@ -1,6 +1,17 @@
 <mat-card class="plain-card form-container">
-    <mat-card-header class="card-header">
+    <!-- <mat-card-header class="card-header">
       <div class="text-main fw-bold">Application / {{applicantDetails?.schemeType}} / View Application </div>
+    </mat-card-header> -->
+    <mat-card-header class="card-header">
+      <div class="d-flex align-items-center justify-content-between w-100">
+        <!-- <div class="text-main fw-bold">Application / {{applicantDetails?.schemeType}} / View Application </div> -->
+        <div class="text-main fw-bold">Application Details</div>
+        <button mat-flat-button class="btn-main-light" (click)="commonMethod.locationBack()">
+          <mat-icon class="material-symbols-rounded">
+            chevron_left
+          </mat-icon>Back
+        </button>
+      </div>
     </mat-card-header>
   
     <mat-card-content class="card-body">

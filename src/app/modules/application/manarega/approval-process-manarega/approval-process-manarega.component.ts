@@ -58,7 +58,7 @@ export class ApprovalProcessManaregaComponent {
     private fb: FormBuilder, private spinner: NgxSpinnerService,
     private errorHandler: ErrorHandlingService,
     private fileUplService: FileUploadService,
-    private commonMethod: CommonMethodsService,
+    public commonMethod: CommonMethodsService,
   ) { }
 
   ngOnInit() {
