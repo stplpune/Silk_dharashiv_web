@@ -15,9 +15,8 @@
     <mat-dialog-content class="modal-body form-container scrollbar">
       <div class="row">
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'talukaBlock.select_state'|translate}} <span class="text-danger fs-6">*</span></mat-label>
+          <mat-label class="form-label">{{'common.state'|translate}} <span class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'talukaBlock.select_state'|translate}}</mat-label> -->
             <mat-select formControlName="stateId" (selectionChange)="getDistrict()"
             [class]="WebStorageService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let state of stateArr" [value]="state.id">{{lang == 'en' ? state.textEnglish : state.textMarathi}}</mat-option>
@@ -25,9 +24,8 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'talukaBlock.select_district'|translate}} <span class="text-danger fs-6">*</span></mat-label>
+          <mat-label class="form-label">{{'common.district'|translate}} <span class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'talukaBlock.select_district'|translate}}</mat-label> -->
             <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
             [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let district of districtArr" [value]="district.id">{{lang == 'en' ? district.textEnglish : district.textMarathi}}</mat-option>
@@ -47,9 +45,8 @@
               <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
             </mat-select>
           </mat-form-field> -->
-          <mat-label class="form-label">{{'talukaBlock.select_taluka'|translate}} <span class="text-danger fs-6">*</span></mat-label>
+          <mat-label class="form-label">{{'common.taluka'|translate}} <span class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'talukaBlock.select_taluka'|translate}}</mat-label> -->
             <mat-select formControlName="talukas" multiple>
               <!-- <mat-select-trigger>
                 {{talukas.value?.[0] || ''}}
