@@ -19,9 +19,9 @@ const routes: Routes = [
 
   // applications
   { path: 'application', loadChildren: () => import('../../modules/application/application.module').then(m => m.ApplicationModule) , data: { breadcrumb: [{ title: 'Application', active: true }] }, canActivate: [ExpenseGuard] },
-  { path: 'approval-process-manarega', loadChildren: () => import('../../modules/application/manarega/approval-process-manarega/approval-process-manarega.module').then(m => m.ApprovalProcessManaregaModule) , data: { breadcrumb: [{ title: 'Application', active: true }] }, canActivate: [ExpenseGuard] },
-  { path: 'approval-process-silk-samgra', loadChildren: () => import('../../modules/application/samgra/approval-process-silk-samgra/approval-process-silk-samgra.module').then(m => m.ApprovalProcessSilkSamgraModule) , data: { breadcrumb: [{ title: 'Application', active: true }] }, canActivate: [ExpenseGuard] },
-  { path: 'create-manarega-app', loadChildren: () => import('../../modules/application/manarega/create-manarega-app/create-manarega-app.module').then(m => m.CreateManaregaAppModule) , data: { breadcrumb: [{ title: 'Application', active: true }] }, canActivate: [ExpenseGuard] },
+  { path: 'approval-process-manarega', loadChildren: () => import('../../modules/application/manarega/approval-process-manarega/approval-process-manarega.module').then(m => m.ApprovalProcessManaregaModule) , data: { breadcrumb: [{ title: 'Approval Process Manarga', active: true }] }, canActivate: [ExpenseGuard] },
+  { path: 'approval-process-silk-samgra', loadChildren: () => import('../../modules/application/samgra/approval-process-silk-samgra/approval-process-silk-samgra.module').then(m => m.ApprovalProcessSilkSamgraModule) , data: { breadcrumb: [{ title: 'Approval Process Silk Samgra', active: true }] }, canActivate: [ExpenseGuard] },
+  { path: 'create-manarega-app', loadChildren: () => import('../../modules/application/manarega/create-manarega-app/create-manarega-app.module').then(m => m.CreateManaregaAppModule) , data: { breadcrumb: [{ title: 'Create Manarega App', active: true }] }, canActivate: [ExpenseGuard] },
 
 
   // CMS section files routing
