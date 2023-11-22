@@ -119,7 +119,7 @@
             </mat-form-field>
           </div>
           <div class="col-sm-auto">
-              <button mat-flat-button class="btn-main px-2" type="submit">{{addRuleEditFlag == true ? ('blogs.update'|translate) : ('common.add'|translate)}}</button>
+              <button mat-flat-button class="btn-main px-2" type="submit">{{addRuleEditFlag == true ? ('common.update'|translate) : ('common.add'|translate)}}</button>
               <button mat-flat-button class="btn-main-light mx-1 px-2" type="button" (click)="clearAddRuleForm()">{{'common.clear'|translate}}</button>
           </div>
         </div>
@@ -183,7 +183,7 @@
           <button mat-flat-button class="btn-main-light" type="button" mat-dialog-close
             (click)="clearForm()">{{'common.cancel'|translate}}</button>
           <button mat-flat-button class="btn-main" type="submit"
-            (click)="onSubmit()">{{editFlag?(('blogs.update'|translate)):('villageCircle.save'|translate)}}</button>
+            (click)="onSubmit()">{{editFlag?(('common.update'|translate)):('villageCircle.save'|translate)}}</button>
         </div>
       </mat-dialog-actions>
     </form>
