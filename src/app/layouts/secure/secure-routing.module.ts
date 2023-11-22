@@ -18,10 +18,10 @@ const routes: Routes = [
   { path: 'reject-reason', loadChildren: () => import('../../modules/masters/rule-master/reject-reason/reject-reason.module').then(m => m.RejectReasonModule), data: { breadcrumb: [{ title: 'Reject Reason', active: true }] }, canActivate: [ExpenseGuard] },
 
   // applications
-  { path: 'approval-process', loadChildren: () => import('../../modules/application/manarega/approval-process/approval-process.module').then(m => m.ApprovalProcessModule), data: { breadcrumb: [{ title: 'Approval Process', active: true }] }, canActivate: [ExpenseGuard] },
-  //{ path: 'approval-process', loadChildren: () => import('./components/Application/manarega/approval-process/approval-process.module').then(m => m.ApprovalProcessModule) },
-  { path: 'SilkSamgra', loadChildren: () => import('../../modules/application/manarega/silk-samgra/silk-samgra.module').then(m => m.SilkSamgraModule) },
-
+  { path: 'application', loadChildren: () => import('../../modules/application/application.module').then(m => m.ApplicationModule) , data: { breadcrumb: [{ title: 'Application', active: true }] }, canActivate: [ExpenseGuard] },
+  { path: 'approval-process-manarega', loadChildren: () => import('../../modules/application/manarega/approval-process-manarega/approval-process-manarega.module').then(m => m.ApprovalProcessManaregaModule) , data: { breadcrumb: [{ title: 'Application', active: true }] }, canActivate: [ExpenseGuard] },
+  { path: 'approval-process-silk-samgra', loadChildren: () => import('../../modules/application/samgra/approval-process-silk-samgra/approval-process-silk-samgra.module').then(m => m.ApprovalProcessSilkSamgraModule) , data: { breadcrumb: [{ title: 'Application', active: true }] }, canActivate: [ExpenseGuard] },
+  { path: 'create-manarega-app', loadChildren: () => import('../../modules/application/manarega/create-manarega-app/create-manarega-app.module').then(m => m.CreateManaregaAppModule) , data: { breadcrumb: [{ title: 'Application', active: true }] }, canActivate: [ExpenseGuard] },
 
 
   // CMS section files routing
@@ -37,7 +37,6 @@ const routes: Routes = [
   { path: 'page-right-access', loadChildren: () => import('../../modules/setting/page-right-access/page-right-access.module').then(m => m.PageRightAccessModule), data: { breadcrumb: [{ title: 'Page Right Access', active: true }] }, canActivate: [ExpenseGuard] },
 
   //Application
-  { path: 'application', loadChildren: () => import('../../modules/application/manarega/manarega.module').then(m => m.ManaregaModule), data: { breadcrumb: [{ title: 'Application', active: true }] }, canActivate: [ExpenseGuard] },
   { path: 'access-denied', loadChildren: () => import('../../modules/error/error.module').then(m => m.ErrorModule), data: { breadcrumb: [{ title: 'Access Denied', active: true }] } },
 ];
 

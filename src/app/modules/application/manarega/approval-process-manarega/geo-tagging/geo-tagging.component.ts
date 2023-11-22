@@ -1,10 +1,13 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
 declare var google: any;
 @Component({
+  standalone:true,
   selector: 'app-geo-tagging',
   templateUrl: './geo-tagging.component.html',
-  styleUrls: ['./geo-tagging.component.scss']
+  styleUrls: ['./geo-tagging.component.scss'],
+  imports: [DashPipe]
 })
 export class GeoTaggingComponent {
 

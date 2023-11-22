@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { Subscription } from 'rxjs';
@@ -13,15 +13,16 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
-import { GeoTaggingComponent } from './geo-tagging/geo-tagging.component';
+
 import { ConfigService } from 'src/app/core/services/config.service';
+// import { GeoTaggingComponent } from './geo-tagging/geo-tagging.component';
 
 @Component({
-  selector: 'app-approval-process',
-  templateUrl: './approval-process.component.html',
-  styleUrls: ['./approval-process.component.scss']
+  selector: 'app-approval-process-manarega',
+  templateUrl: './approval-process-manarega.component.html',
+  styleUrls: ['./approval-process-manarega.component.scss']
 })
-export class ApprovalProcessComponent implements OnDestroy {
+export class ApprovalProcessManaregaComponent {
   approvalFrm !: FormGroup;
   applicationData: any;
   applicantDetails: any;
@@ -251,8 +252,8 @@ export class ApprovalProcessComponent implements OnDestroy {
   addDefaultFrm() {
     this.uploadFrm = this.fb.group({
       "id": [0],
-      "docNo": ['',this.validation.maxLengthValidator(50)],
-      "documentType": ['',this.validation.maxLengthValidator(50)],
+      "docNo": ['', this.validation.maxLengthValidator(50)],
+      "documentType": ['', this.validation.maxLengthValidator(50)],
       "docPath": ['']
     })
   }
@@ -466,13 +467,13 @@ export class ApprovalProcessComponent implements OnDestroy {
   }
 
   addGeoTagging(_obj?: any) {
-    this.dialog.open(GeoTaggingComponent, {
-      width: '100%',
-      height:'90%',
-      data: this.applicationData?.getSiteInspectionDataModel,
-      disableClose: true,
-      autoFocus: false
-    });
+    // this.dialog.open(GeoTaggingComponent, {
+    //   width: '100%',
+    //   height: '90%',
+    //   data: this.applicationData?.getSiteInspectionDataModel,
+    //   disableClose: true,
+    //   autoFocus: false
+    // });
     // dialogRef.afterClosed().subscribe(res => {
     //   res == 'Yes'? '' : '';
     //  });
@@ -482,10 +483,9 @@ export class ApprovalProcessComponent implements OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  clearForm(){
+  clearForm() {
     this.getByApplicationId();
     this.formDirective.resetForm();
     this.formDirectives.resetForm();
   }
 }
-

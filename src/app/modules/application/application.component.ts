@@ -10,12 +10,13 @@ import { MasterService } from 'src/app/core/services/master.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
+
 @Component({
-  selector: 'app-manarega',
-  templateUrl: './manarega.component.html',
-  styleUrls: ['./manarega.component.scss']
+  selector: 'app-application',
+  templateUrl: './application.component.html',
+  styleUrls: ['./application.component.scss']
 })
-export class ManaregaComponent {
+export class ApplicationComponent {
   filterFrm!: FormGroup;
   schemeFilterArr = new Array();
   districtArr = new Array();
@@ -227,7 +228,7 @@ export class ManaregaComponent {
 
   openApplicationDetails(obj: any) {
     let Id: any = this.encryptdecrypt.encrypt(`${obj?.id}`);
-    this.router.navigate(['../approval-process'], {
+    this.router.navigate(['../approval-process-manarega'], {
       queryParams: {
         id: Id
       },
@@ -260,4 +261,3 @@ export class ManaregaComponent {
   }
 
 }
-

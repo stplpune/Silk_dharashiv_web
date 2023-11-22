@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ManaregaComponent } from './manarega.component';
+import { ApplicationComponent } from './application.component';
 
-const routes: Routes = [{ path: '', component: ManaregaComponent }];
+const routes: Routes = [{ path: '', component: ApplicationComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ManaregaRoutingModule { }
+export class ApplicationRoutingModule { }
