@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, } from '@angular/material/snack-bar';
-import { DatePipe } from '@angular/common';
+import { DatePipe,Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 @Injectable({
@@ -9,7 +9,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 export class CommonMethodsService {
   codecareerPage: any;
   constructor(private _SnackBar: MatSnackBar,private datePipe: DatePipe,
-    private router:Router,
+    private router:Router, public location: Location,
     private activatedRoute:ActivatedRoute,) { }
 
   snackBar(data: string, status: number) {
@@ -20,6 +20,10 @@ export class CommonMethodsService {
       verticalPosition: 'top', // 'top' | 'bottom'
       horizontalPosition: 'right', //'start' | 'center' | 'end' | 'left' | 'right'
     })
+  }
+
+  locationBack() {
+    this.location.back();
   }
 
 
