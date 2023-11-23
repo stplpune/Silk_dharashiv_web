@@ -10,9 +10,17 @@ export class WebStorageService {
   lang: string = 'English';
   data: any;
   private profileInfo = new BehaviorSubject('');
+  verifyOtpFlag : boolean = false;
 
   constructor(private AESEncryptDecryptService: AesencryptDecryptService) { }
 
+  getVerifyOtp(){
+    return this.verifyOtpFlag 
+  }
+  
+  setVerifyOtp(value: boolean) {
+    this.verifyOtpFlag = value;
+  }
 
   getSidebarState() {
     return this.toggled;
