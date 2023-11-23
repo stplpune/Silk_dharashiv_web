@@ -17,8 +17,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatStepperModule} from '@angular/material/stepper';
-
-
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   declarations: [
     CreateManaregaAppComponent
@@ -39,7 +40,11 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatRadioModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    MatStepperModule
+    MatStepperModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgxMatSelectSearchModule,
+    TranslateModule
   ]
 })
 export class CreateManaregaAppModule { }
