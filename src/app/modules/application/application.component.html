@@ -1,12 +1,14 @@
 <mat-card class="plain-card form-container">
     <mat-card-header class="card-header">
-      <div class="text-main">{{'manrega.manrega'| translate}}</div>
-      <!-- <button mat-flat-button class="btn-main" [routerLink]="">
-        <mat-icon class="material-symbols-rounded">
-          add
-        </mat-icon>
-        Add Manarega
-      </button> -->
+      <div class="d-flex align-items-center justify-content-between w-100">
+        <div class="text-main">{{'manrega.manrega'| translate}}</div>
+        <button mat-flat-button class="btn-main" [routerLink]="['/create-manarega-app']">
+          <mat-icon class="material-symbols-rounded">
+            add
+          </mat-icon>
+          Add Manarega
+        </button>
+      </div>
     </mat-card-header>
     <mat-card-header class="card-header-control">
       <form [formGroup]="filterFrm" class="w-100">
