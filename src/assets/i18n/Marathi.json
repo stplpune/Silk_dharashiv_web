@@ -310,15 +310,13 @@
     "module": "मॉड्यूल निवडा",
     "submodule": "सबमॉड्यूल निवडा",
     "search_page_name": "पृष्ठाचे नाव शोधा",
-    "search": "शोधा",
-    "add": "जतन करा"
+    "search": "शोधा"
   },
   "department": {
     "department": "विभाग",
     "searchDepartment": "विभागानुसार शोधा",
     "departmentName_en": "विभागाचे नाव (इंग्रजी)",
     "departmentName_mr": "विभागाचे नाव (मराठी)",
-    "add": "जतन करा",
     "update_department": "विभाग संपादित करा",
     "add_department": "विभाग जोडा",
     "view_Department": "विभाग पहा",
@@ -464,9 +462,6 @@
     "please_select_taluka": "कृपया तालुका निवडा",
     "block_name_en": "ब्लॉकचे नाव (इंग्रजी)",
     "block_name_mr": "ब्लॉकचे नाव(मराठी)",
-    "state": "राज्य",
-    "district": "जिल्हा",
-    "taluka": "तालुका",
     "block_name": "ब्लॉक नाव",
     "block_circle": "ब्लॉक/सर्कल"
   },

@@ -315,15 +315,13 @@
     "module": "Select Module",
     "submodule": "Select SubModule",
     "search_page_name": "Search Page Name",
-    "search": "Search",
-    "add": "Add"
+    "search": "Search"
   },
   "department": {
     "department": "Department",
     "searchDepartment": "Search Department",
     "departmentName_en": "Department Name(English)",
     "departmentName_mr": "Department Name(Marathi)",
-    "add": "Add",
     "update_department": "Update Department",
     "add_department": "Add Department",
     "view_Department": "View Department",
@@ -469,9 +467,6 @@
     "please_select_taluka": "Please select taluka",
     "block_name_en": "Block Name(English)",
     "block_name_mr": "Block Name(Marathi)",
-    "state": "State",
-    "district": "District",
-    "taluka": "Taluka",
     "block_name": "Block Name",
     "block_circle": "Block/Circle"
   },
