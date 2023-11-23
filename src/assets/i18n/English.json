@@ -66,7 +66,8 @@
     "grampanchayat_filter":"Grampanchayat",
     "select_state": "Select State",
     "action": "Action",
-    "remark": "Remark"
+    "remark": "Remark",
+    "select_grampanchayat": "Select Grampanchayat"
   },
 
   "approvalProcess"  : {
@@ -267,7 +268,6 @@
     "department_level": "Department Level",
     "address": "Address",
     "all_grampanchayat":"All Grampanchayat",
-    "select_grampanchayat":"Select Grampanchayat",
     "please_select_grampanchayat":"Please select grampanchayat",
     "Please_enter_remark":"Please enter remark"
   },
@@ -417,10 +417,6 @@
     "add_village": "Add Circle",
     "update_village": "Update Circle",
     "view_village": "View Circle",
-    "select_state": "Select State",
-    "select_district": "Select District",
-    "select_taluka": "Select Taluka",
-    "select_village": "Select Village",
     "save": "Save",
     "maximum_limit_30_characters": "Maximum limit is 30 characters",
     "please_enter_valid_circle_name_mr": "Please enter valid circle name(Marathi)",
@@ -430,8 +426,7 @@
     "please_select_taluka": "Please select taluka",
     "please_select_grampanchayat": "Please select grampanchayat",
     "circle_name_en": "Circle name(English)",
-    "circle_name_mr": "Circle name(Marathi)",
-    "select_grampanchayat": "Select Grampanchayat"
+    "circle_name_mr": "Circle name(Marathi)"
   },
   "blogs": {
     "blogs": "Blogs",
