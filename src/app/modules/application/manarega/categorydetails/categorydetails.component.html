@@ -1,0 +1,25 @@
+<!-- <p>categorydetails works!</p> -->
+<div mat-dialog-title class="modal-header">
+    <div class="d-flex align-items-center justify-content-between">
+       <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
+        <mat-icon class="material-symbols-outlined">
+          close
+        </mat-icon>
+      </button>
+    </div>
+</div>
+<mat-dialog-content class="modal-body form-container scrollbar">
+    <div *ngFor="let option of radioButtonData">
+        <label>
+          <input type="radio" name="options" [value]="option" [(ngModel)]="selectedOption" (change)="onOptionChange(option)">
+          {{ option.textEnglish }}
+        </label>
+    </div>
+
+    <div *ngFor="let item of checkBoxData">
+        <input type="checkbox" (change)="onCheckboxChange(item)">
+        {{ item.textEnglish }}
+    </div>
+    <button (click)="getSelectedItems()">Get Selected Items</button>
+</mat-dialog-content>
+
