@@ -3,7 +3,6 @@ import { MasterService } from 'src/app/core/services/master.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OtpSendReceiveComponent } from 'src/app/shared/components/otp-send-receive/otp-send-receive.component';
-import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 
 @Component({
@@ -22,7 +21,6 @@ export class FarmersignupComponent {
     private master: MasterService,
     private fb: FormBuilder,
     public dialog: MatDialog,
-    private webStrorge: WebStorageService,
     public validator: ValidationService
   ) { }
 
@@ -80,10 +78,10 @@ export class FarmersignupComponent {
       return;
     } else {
       let dialogObj = {
-        header : "Sign UP OTP",
-        button : "Verify OTP",
-        pageName: "farmerSignUp",
-        mobileNo: this.signUpForm.value.mobileNo
+        header: "Sign UP OTP",
+        button: "Verify OTP",
+        pageName: "farmer-signUp",
+        mobileNo: this.signUpForm.getRawValue().mobileNo
       };
       const dialogRef = this.dialog.open(OtpSendReceiveComponent, {
         width: '50%',
@@ -93,10 +91,11 @@ export class FarmersignupComponent {
       });
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result == 'Yes') {
-          let value = this.webStrorge.getVerifyOtp();
-          if (value == true) {
-            //call signUp submit data api
-          }
+          console.log(this.signUpForm.getRawValue())
+          // let value = this.webStrorge.getVerifyOtp();
+          // if (value == true) {
+          //call signUp submit data api
+          // }
         }
       });
     }

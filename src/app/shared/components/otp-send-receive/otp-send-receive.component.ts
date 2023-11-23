@@ -9,7 +9,6 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Router } from '@angular/router';
 import { ValidationService } from 'src/app/core/services/validation.service';
 
@@ -31,7 +30,6 @@ export class OtpSendReceiveComponent {
     private commonMethods: CommonMethodsService,
     private apiService: ApiService,
     private error: ErrorHandlingService, 
-    private webStorage: WebStorageService,
     private router: Router,
     public validator: ValidationService,
     public dialogRef: MatDialogRef<OtpSendReceiveComponent>,
@@ -46,14 +44,14 @@ export class OtpSendReceiveComponent {
     let obj = {
       "mobileNo": this.data.mobileNo,
       "otp": "",
-      "pageName": "forgotpassword",
+      "pageName": this.data.pageName,
       "createdBy": 0
     }
 
     this.apiService.setHttp('post', 'sericulture/api/OtpTran/GenerateOTP', false, obj, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
-        this.commonMethods.snackBar(res.statusMessage, 0);
+        // this.commonMethods.snackBar(res.statusMessage, 0);
         this.setOtpTimer();
       }
       else {
@@ -72,15 +70,15 @@ export class OtpSendReceiveComponent {
       let obj = {
         "MobileNo": this.data.mobileNo,
         "OTP": this.otpFormControl.value,
-        "PageName": "farmerSignUp",
+        "PageName":  this.data.pageName,
         "CreatedBy": 0
       }
 
-      this.apiService.setHttp('get', 'sericulture/api/OtpTran/VerifyOTP?MobileNo=' + obj.MobileNo + '&OTP=' + obj.OTP + '&PageName=forgotpassword', false, false, false, 'baseUrl');
+      this.apiService.setHttp('get', 'sericulture/api/OtpTran/VerifyOTP?MobileNo=' + obj.MobileNo + '&OTP=' + obj.OTP + '&PageName='+obj.PageName, false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.commonMethods.snackBar(res.statusMessage, 0);
-          this.webStorage.setVerifyOtp(true)
+          // this.webStorage.setVerifyOtp(true)
           this.otpFormControl.setValue('');
           this.dialogRef.close('Yes');
         }
