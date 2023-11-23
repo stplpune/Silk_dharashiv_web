@@ -65,7 +65,8 @@
     "circle_filter":"मंडळ",
     "grampanchayat_filter":"ग्रामपंचायत",
     "select_state": "राज्य निवडा",
-    "action": "कृती"
+    "action": "कृती",
+    "remark": " टिप्पणी"
   },
   "approvalProcess"  : {
     "applicant_id":"अर्ज क्रमांक",
@@ -123,8 +124,7 @@
     "applicant_document":"अर्जदार दस्तऐवज",
     "other_document":"इतर दस्तऐवज",
     "select_status":"स्थिती निवडा",
-    "select_reason":"कारण निवडा",
-    "remark":"टिप्पणी"
+    "select_reason":"कारण निवडा"
   },
   "manrega": {
     "manrega": "अर्ज",
@@ -252,7 +252,6 @@
     "officer_Details": "अधिकारी तपशील",
     "view_Officer": "अधिकारी पहा",
     "inactive": "निष्क्रिय",
-    "remark": " टिप्पणी",
     "active": "सक्रिय",
     "status": "स्थिती",
     "officer_name":"अधिकाऱ्याचे नाव",

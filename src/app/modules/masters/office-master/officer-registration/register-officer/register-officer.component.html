@@ -415,7 +415,7 @@
             <div class="col-sm-6" *ngIf="showFlag">
               <span class="form-data">
                 <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>{{'officerreg.remark' | translate}}</mat-label>
+                  <mat-label>{{'common.remark' | translate}}</mat-label>
                   <input matInput formControlName="remark"
                     (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
                   <mat-error *ngIf="fs['remark']?.hasError('required')">
