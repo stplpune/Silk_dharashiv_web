@@ -201,7 +201,7 @@
                 <div class="form-label">Election Id No</div>
               </div>
               <div class="col-sm-4 col-8">
-                <div class="form-data">: {{applicantDetails?.mn_JobCardNo | dash}}</div>
+                <div class="form-data">: {{applicantDetails?.sm_VoterRegistrationNo | dash}}</div>
               </div>
               <div class="col-sm-2 col-4">
                 <div class="form-label">{{'approvalProcess.gender'| translate}}</div>
@@ -296,17 +296,19 @@
                 {{(i+1)+". "+(lang == 'en' ? data?.categoryOfBeneficiary : data?.m_CategoryOfBeneficiary)}}
               </div>
             <div class="d-flex gap-2">
-
               <div class="form-label">Is Beneficiary below poverty line ?</div>
-
-              <div class="form-data mb-0">: Yes </div>
-
-            </div>
-
-          </div>
-
-
+              <!-- <div class="form-data mb-0">: Yes </div> -->
+              <div class="form-data">
+                <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+                  <mat-radio-button value="11" [checked]="applicantDetails?.sm_IsBelowPovertyLine == true"
+                    class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+                  <mat-radio-button value="12" [checked]="applicantDetails?.sm_IsBelowPovertyLine == false"
+                    class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
+           </div>
         </div>
+      </div>
       </div>
     </div>
 
@@ -325,7 +327,7 @@
                     <div class="form-label">Total land in hectares in favor of beneficiaries (as per 8-A) </div>
                   </td>
                   <td>
-                    <div class="form-data">2</div>
+                    <div class="form-data">{{applicantDetails?.benificiaryTotalFarm}}</div>
                   </td>
                 </tr>
                 <tr>
@@ -333,23 +335,29 @@
                     <div class="form-label">Landholding Category</div>
                   </td>
                   <td>
-                    <div class="form-data">Medium</div>
+                    <div class="form-data">{{applicantDetails?.sm_LandTenureCategories}}</div>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <div class="form-label">Land Type</div>
+                    <div class="form-label">{{'approvalProcess.land_type'| translate}}</div>
                   </td>
                   <td>
-                    <div class="form-data">Light</div>
+                    <div class="form-data">{{lang == 'en' ? (applicantDetails?.farmType | dash ) :
+                      (applicantDetails?.m_FarmType
+                      | dash)}}
+                    </div>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <div class="form-label">Irrigation Facility</div>
+                    <div class="form-label">{{'approvalProcess.irrigation_facility'| translate}}</div>
                   </td>
                   <td>
-                    <div class="form-data">Borewell</div>
+                    <!-- <div class="form-data">Borewell</div> -->
+                    <div class="form-data">{{lang == 'en' ? (applicantDetails?.irrigationFacility | dash ) :
+                      (applicantDetails?.m_IrrigationFacility | dash)}}
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -357,7 +365,8 @@
                     <div class="form-label">Irrigation Period</div>
                   </td>
                   <td>
-                    <div class="form-data">Perennial</div>
+                    <div class="form-data">{{lang == 'en' ? (applicantDetails?.irrigationPeriod | dash ) :
+                      (applicantDetails?.m_IrrigationPeriod | dash)}}</div>
                   </td>
                 </tr>
               </tbody>
@@ -373,7 +382,8 @@
                     <div class="form-label">An improved breed of Mulberry</div>
                   </td>
                   <td>
-                    <div class="form-data">V1</div>
+                    <div class="form-data">{{lang == 'en' ? (applicantDetails?.irrigationPeriod | dash ) :
+                      (applicantDetails?.m_IrrigationPeriod | dash)}}{{applicantDetails?.improvedMulberryCast}}</div>
                   </td>
                 </tr>
                 <tr>
@@ -381,7 +391,7 @@
                     <div class="form-label">Mulberry Planting Distance (feet) </div>
                   </td>
                   <td>
-                    <div class="form-data">2 </div>
+                    <div class="form-data">{{applicantDetails?.sm_MulberryPlantingDistance}} </div>
                   </td>
                 </tr>
                 <tr>
@@ -389,7 +399,7 @@
                     <div class="form-label">Mulberry Planting Land Group No./ Survey No </div>
                   </td>
                   <td>
-                    <div class="form-data">1260 </div>
+                    <div class="form-data">{{applicantDetails?.sm_PlantationSurveyNo}}</div>
                   </td>
                 </tr>
                 <tr>
@@ -397,7 +407,8 @@
                     <div class="form-label">Mulberry Plantation Area (Acres) </div>
                   </td>
                   <td>
-                    <div class="form-data">2 </div>
+                    <div class="form-data">{{lang == 'en' ? (applicantDetails?.mulberryCultivationArea | dash ) :
+                      (applicantDetails?.m_MulberryCultivationArea | dash)}}</div>
                   </td>
                 </tr>
                 <tr>
@@ -405,7 +416,8 @@
                     <div class="form-label">Mulberry Plantation Method </div>
                   </td>
                   <td>
-                    <div class="form-data">Through Plant </div>
+                    <div class="form-data">{{lang == 'en' ? (applicantDetails?.plantationMethod | dash ) :
+                      (applicantDetails?.m_PlantationMethod | dash)}}</div>
                   </td>
                 </tr>
               </tbody>
@@ -415,29 +427,31 @@
 
         <div class="d-flex gap-2">
           <div class="form-label">Have you planted mulberry earlier under the government scheme ?</div>
-          <div class="form-data">: Yes</div>
+          <!-- <div class="form-data">: Yes</div> -->
+          <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+            <mat-radio-button value="1" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == true"
+              class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+            <mat-radio-button value="2" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == false"
+              class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+          </mat-radio-group>
         </div>
-        <table mat-table [dataSource]="dataSourcelandetails" class="dashboard-table mb-4">
-
-          <ng-container matColumnDef="year">
-            <th mat-header-cell *matHeaderCellDef> Year of planting </th>
-            <td mat-cell *matCellDef="let element"> {{element.year}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="cultivatedarea">
-            <th mat-header-cell *matHeaderCellDef> Cultivated Area (Acres) </th>
-            <td mat-cell *matCellDef="let element"> {{element.cultivatedarea}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="landsurvey">
-            <th mat-header-cell *matHeaderCellDef> Land Survey No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.landsurvey}} </td>
-          </ng-container>
-
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumnslandetails"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumnslandetails;"></tr>
-        </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Year of planting</th>
+              <th scope="col"> Cultivated Area (Acres) </th>
+              <th scope="col">Land Survey No.</th>
+            
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{applicantDetails?.sm_YearOfPlanting | date:'dd-MM-yyyy'}}</td>
+              <td>{{applicantDetails?.sm_CultivatedArea | dash}}</td>
+              <td>{{applicantDetails?.sm_LandSurveyNo | dash}}</td>
+            </tr>
+            </tbody>
+          </table>
 
 
 
@@ -498,19 +512,33 @@
           <div class="col-sm-6">
             <div class="row">
               <div class="col-sm-8 form-label">Do you have experience in the silk industry ?</div>
-              <div class="col-sm-4 form-data">: Yes</div>
+              <div class="col-sm-4 form-data">
+              <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+                <mat-radio-button value="1" [checked]="applicantDetails?.sm_IsExperienceSilkIndustry == true"
+                  class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+                <mat-radio-button value="2" [checked]="applicantDetails?.sm_IsExperienceSilkIndustry == false"
+                  class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+              </mat-radio-group>
+            </div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="d-flex justify-content-end gap-3">
               <div class="form-label">How many years ?</div>
-              <div class="form-data">: 5</div>
+              <div class="form-data">:{{applicantDetails?.sm_ExperienceYears}}</div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="row">
               <div class="col-sm-8 form-label">Have you done training in silk industry ?</div>
-              <div class="col-sm-4 form-data">: Yes</div>
+              <div class="col-sm-4 form-data">
+                <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+                  <mat-radio-button value="1" [checked]="applicantDetails?.sm_IsSilkIndustrtyTrainingReceived == true"
+                    class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+                  <mat-radio-button value="2" [checked]="applicantDetails?.sm_IsSilkIndustrtyTrainingReceived == false"
+                    class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
             </div>
           </div>
         </div>
@@ -518,48 +546,57 @@
         <div class="text-main fw-bold mt-4">Details </div>
         <div class="d-flex gap-2">
           <div class="form-label">Have you gone directly to the silk industry farmer and taken the information ?</div>
-          <div class="form-data"> Yes</div>
+          <div class="form-data">
+            <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+              <mat-radio-button value="1" [checked]="applicantDetails?.sm_IsSilkIndustrtyTrainingReceived == true"
+                class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+              <mat-radio-button value="2" [checked]="applicantDetails?.sm_IsSilkIndustrtyTrainingReceived == false"
+                class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="col-sm-2 col-4">
+            <div class="form-label">Deatils </div>
+          </div>
+          <div class="col-sm-4 col-8">
+            <div class="form-data">: {{applicantDetails?.sm_SilkIndustrtyTrainingDetails | dash}}</div>
+          </div>
+
         </div>
 
         <div class="card mb-2">
           <div class="card-header">
             <div class="d-flex gap-2">
               <div class="form-label">Have you benefited from any scheme under Silk Directorate before this ?</div>
-              <div class="form-data"> Yes</div>
+              <div class="form-data">
+                <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+                  <mat-radio-button value="1" [checked]="applicantDetails?.sm_IsTakenBenefitOfInternalScheme == true"
+                    class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+                  <mat-radio-button value="2" [checked]="applicantDetails?.sm_IsTakenBenefitOfInternalScheme == false"
+                    class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
             </div>
           </div>
           <div class="card-body px-0">
-            <table mat-table [dataSource]="dataSourcedetails" class="dashboard-table">
-
-              <ng-container matColumnDef="srno">
-                <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
-                <td mat-cell *matCellDef="let element"> {{element.srno}} </td>
-              </ng-container>
-
-              <!-- Name Column -->
-              <ng-container matColumnDef="schemename">
-                <th mat-header-cell *matHeaderCellDef> Scheme Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.schemename}} </td>
-              </ng-container>
-
-              <!-- Weight Column -->
-              <ng-container matColumnDef="benefityear">
-                <th mat-header-cell *matHeaderCellDef> Benefit Year </th>
-                <td mat-cell *matCellDef="let element"> {{element.benefityear}} </td>
-              </ng-container>
-
-              <!-- Symbol Column -->
-              <ng-container matColumnDef="benefitamount">
-                <th mat-header-cell *matHeaderCellDef> Benefit Amount </th>
-                <td mat-cell *matCellDef="let element"> {{element.benefitamount}} </td>
-              </ng-container>
-
-              <tr mat-header-row *matHeaderRowDef="displayedColumnsdetails"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumnsdetails;"></tr>
-            </table>
-
-
-          </div>
+           <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Sr. No.</th>
+                  <th scope="col">Scheme Name</th>
+                  <th scope="col">Benefit Year</th>
+                  <th scope="col">Benefit Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>{{applicantDetails?.sm_NameOfPlan | dash}}</td>
+                  <td>{{applicantDetails?.sm_PlanTakenDate | date:'dd-MM-yyyy'}}</td>
+                  <td>{{applicantDetails?.sm_TakenPlanBenefit | dash}}</td>
+                </tr>
+                </tbody>
+              </table>
+              </div>
         </div>
 
 
