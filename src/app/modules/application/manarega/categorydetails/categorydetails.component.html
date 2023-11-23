@@ -1,25 +1,19 @@
 <!-- <p>categorydetails works!</p> -->
 <div mat-dialog-title class="modal-header">
-    <div class="d-flex align-items-center justify-content-between">
-       <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
-        <mat-icon class="material-symbols-outlined">
-          close
-        </mat-icon>
-      </button>
-    </div>
+  <div class="d-flex align-items-center justify-content-between">
+    <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
+      <mat-icon class="material-symbols-outlined">
+        close
+      </mat-icon>
+    </button>
+  </div>
 </div>
 <mat-dialog-content class="modal-body form-container scrollbar">
-    <div *ngFor="let option of radioButtonData">
-        <label>
-          <input type="radio" name="options" [value]="option" [(ngModel)]="selectedOption" (change)="onOptionChange(option)">
-          {{ option.textEnglish }}
-        </label>
-    </div>
+  <ng-container *ngFor="let list of data; let i = index">
+    <p class="mb-2">
+       <mat-radio-button [value]="list.textEnglish" *ngIf="list?.isRadioButton" class="ms-2" (change)="onOptionChange($event,i,'radio')">{{list.textEnglish}}</mat-radio-button></p>
+    <p class="mb-0"><mat-checkbox class="example-margin" *ngIf="list?.isCheckBox" (change)="onOptionChange($event,i,'checkbox')"> {{list.textEnglish}}</mat-checkbox></p>
+  </ng-container>
 
-    <div *ngFor="let item of checkBoxData">
-        <input type="checkbox" (change)="onCheckboxChange(item)">
-        {{ item.textEnglish }}
-    </div>
-    <button (click)="getSelectedItems()">Get Selected Items</button>
+  <button (click)="getSelectedItems()">Selected</button>
 </mat-dialog-content>
-
