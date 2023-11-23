@@ -27,33 +27,37 @@
   </div>
   <div class="form-container" *ngIf="!isViewFlag">
     <form [formGroup]="departmentFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
-      <mat-label class="form-label">{{"department.departmentName_en" | translate}} <span
-          class="text-danger fs-6">*</span></mat-label>
-      <mat-form-field appearance="outline" class="w-100">
-        <!-- <mat-label>{{"department.departmentName_en" | translate}}</mat-label> -->
-        <input matInput formControlName="departmentName" placeholder="Department Name (English)"
-          (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
-        <mat-error
-          *ngIf="f['departmentName']?.hasError('required')">{{'department.department_required'|translate}}</mat-error>
-        <mat-error
-          *ngIf="f['departmentName']?.hasError('pattern')">{{'department.department_pattern'|translate}}</mat-error>
-        <mat-error
-          *ngIf="f['departmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}}</mat-error>
-      </mat-form-field>
-      <mat-label class="form-label">{{"department.departmentName_mr" | translate}} <span
-          class="text-danger fs-6">*</span></mat-label>
-      <mat-form-field appearance="outline" class="w-100">
-        <!-- <mat-label>{{"department.departmentName_mr" | translate}}</mat-label> -->
-        <input matInput formControlName="m_DepartmentName" placeholder="Department Name (Marathi)"
-          (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
-        <mat-error
-          *ngIf="f['m_DepartmentName']?.hasError('required')">{{'department.department_required_mr'|translate}}</mat-error>
-        <mat-error
-          *ngIf="f['m_DepartmentName']?.hasError('pattern')">{{'department.department_pattern_mr'|translate}}</mat-error>
-        <mat-error
-          *ngIf="f['m_DepartmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}}
-        </mat-error>
-      </mat-form-field>
+      <div class="mb-0">
+        <mat-label class="form-label">{{"department.departmentName_en" | translate}} <span
+            class="text-danger fs-6">*</span></mat-label>
+        <mat-form-field appearance="outline" class="w-100">
+          <!-- <mat-label>{{"department.departmentName_en" | translate}}</mat-label> -->
+          <input matInput formControlName="departmentName" placeholder="Department Name (English)"
+            (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
+          <mat-error
+            *ngIf="f['departmentName']?.hasError('required')">{{'department.department_required'|translate}}</mat-error>
+          <mat-error
+            *ngIf="f['departmentName']?.hasError('pattern')">{{'department.department_pattern'|translate}}</mat-error>
+          <mat-error
+            *ngIf="f['departmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-3">
+        <mat-label class="form-label">{{"department.departmentName_mr" | translate}} <span
+            class="text-danger fs-6">*</span></mat-label>
+        <mat-form-field appearance="outline" class="w-100">
+          <!-- <mat-label>{{"department.departmentName_mr" | translate}}</mat-label> -->
+          <input matInput formControlName="m_DepartmentName" placeholder="Department Name (Marathi)"
+            (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
+          <mat-error
+            *ngIf="f['m_DepartmentName']?.hasError('required')">{{'department.department_required_mr'|translate}}</mat-error>
+          <mat-error
+            *ngIf="f['m_DepartmentName']?.hasError('pattern')">{{'department.department_pattern_mr'|translate}}</mat-error>
+          <mat-error
+            *ngIf="f['m_DepartmentName']?.hasError('maxLengthExceeded')">{{'department.department_maxLength'|translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
       <div class="d-flex align-items-center justify-content-end gap-2">
         <button mat-flat-button class="btn-main-light" type="button"
           (click)="clearFormData()">{{'common.clear'|translate}}</button>

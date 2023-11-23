@@ -10,65 +10,70 @@
       </button>
     </div>
   </mat-card-header>
-  <mat-card-content class="card-body">
-    <form [formGroup]="filterForm">
-    <div class="row gx-2">
-      <div class="col-sm-3">
-        <mat-form-field appearance="outline" class="w-100">
-          <!-- <mat-label>{{'common.taluka_filter' | translate}}</mat-label> -->
-          <mat-select formControlName="talukaId"(selectionChange)="clearDropDown('gram');getGrampanchayat()"  placeholder="{{lang == 'en' ?'All Taluka' : 'सर्व तालुका'}}">
-            <mat-option>
-              <ngx-mat-select-search [formControl]="talukaCtrl"
-                placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
-                noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
-            </mat-option>
-            <!-- <mat-option [value]="0"> {{'officerreg.allTaluka' | translate}}</mat-option> -->
-            <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi :
-              taluka.textEnglish}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-3">
-        <mat-form-field appearance="outline" class="w-100">
-          <!-- <mat-label>{{'common.grampanchayat_filter' | translate}}</mat-label> -->
-          <mat-select formControlName="grampanchayatId" placeholder="{{lang == 'en' ?'All Grampanchayat' : 'सर्व ग्रामपंचायत'}}"> 
-            <mat-option>
-              <ngx-mat-select-search [formControl]="gramPCtrl"
-                placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
-                noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
-            </mat-option>
-            <!-- <mat-option [value]="0">{{'officerreg.all_grampanchayat' | translate}}</mat-option> -->
-            <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?
-              village.textMarathi : village.textEnglish}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-3">
-        <mat-form-field appearance="outline" class="w-100">
-          <!-- <mat-label>{{'villageCircle.search_by_village_circle_name' | translate}}</mat-label> -->
-          <input matInput formControlName="textsearch" placeholder="{{lang == 'en' ? 'Search by Circle Name' : 'मंडळाच्या नावाने शोधा'}}"  (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
-        </mat-form-field>
-      </div>
-      <div class="col-sm-1">
-        <div class="d-flex align-items-center gap-2">
-          <button mat-flat-button class="btn-main btn-icon " type="button" matTooltip="edit"
-            (click)="filterFlag = true;getTableData('filter')">
-            <mat-icon class="material-symbols-rounded">
-              search
-            </mat-icon>
-          </button>
-          <button mat-flat-button class="btn-main-light btn-icon" type="button" matTooltip="edit"
-            (click)="filterFlag = false;clearFilter()">
-            <mat-icon class="material-symbols-rounded">
-              close
-            </mat-icon>
-          </button>
+  <mat-card-header class="card-header-control">
+    <form [formGroup]="filterForm" class="w-100">
+      <div class="row gx-2 w-100">
+        <div class="col-sm-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <!-- <mat-label>{{'common.taluka_filter' | translate}}</mat-label> -->
+            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('gram');getGrampanchayat()"
+              placeholder="{{lang == 'en' ?'All Taluka' : 'सर्व तालुका'}}">
+              <mat-option>
+                <ngx-mat-select-search [formControl]="talukaCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+              </mat-option>
+              <!-- <mat-option [value]="0"> {{'officerreg.allTaluka' | translate}}</mat-option> -->
+              <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ?
+                taluka.textMarathi :
+                taluka.textEnglish}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <!-- <mat-label>{{'common.grampanchayat_filter' | translate}}</mat-label> -->
+            <mat-select formControlName="grampanchayatId"
+              placeholder="{{lang == 'en' ?'All Grampanchayat' : 'सर्व ग्रामपंचायत'}}">
+              <mat-option>
+                <ngx-mat-select-search [formControl]="gramPCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+              </mat-option>
+              <!-- <mat-option [value]="0">{{'officerreg.all_grampanchayat' | translate}}</mat-option> -->
+              <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?
+                village.textMarathi : village.textEnglish}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <!-- <mat-label>{{'villageCircle.search_by_village_circle_name' | translate}}</mat-label> -->
+            <input matInput formControlName="textsearch"
+              placeholder="{{lang == 'en' ? 'Search by Circle Name' : 'मंडळाच्या नावाने शोधा'}}"
+              (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
+          </mat-form-field>
+        </div>
+        <div class="col-sm-auto">
+          <div class="d-flex align-items-center gap-2">
+            <button mat-flat-button class="btn-main btn-icon " type="button" matTooltip="edit"
+              (click)="filterFlag = true;getTableData('filter')">
+              <mat-icon class="material-symbols-rounded">
+                search
+              </mat-icon>
+            </button>
+            <button mat-flat-button class="btn-main-light btn-icon" type="button" matTooltip="edit"
+              (click)="filterFlag = false;clearFilter()">
+              <mat-icon class="material-symbols-rounded">
+                close
+              </mat-icon>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="col-sm text-end">
-      </div>
-    </div>
-  </form>
+    </form>
+  </mat-card-header>
+  <mat-card-content class="card-body">
     <div class="table-responsive scrollbar">
       <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
     </div>
