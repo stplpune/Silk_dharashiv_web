@@ -10,11 +10,12 @@
   </div>
 </div>
 <mat-dialog-content class="modal-body form-container scrollbar">
-  <div class="" *ngIf="!isViewFlag">
+  <div *ngIf="!isViewFlag">
     <form [formGroup]="villageForm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
-      <div class="row gx-2">
+      <div class="row gx-2 mb-3">
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'common.state' | translate}} <span class="text-danger fs-6">*</span></mat-label>
+          <mat-label class="form-label">{{'common.state' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'villageCircle.select_state' | translate}}</mat-label> -->
             <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
@@ -26,7 +27,8 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'common.district' | translate}} <span class="text-danger fs-6">*</span></mat-label>
+          <mat-label class="form-label">{{'common.district' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'villageCircle.select_district' | translate}}</mat-label> -->
             <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
@@ -37,11 +39,11 @@
           </mat-form-field>
         </div>
         <div class="col-sm-12">
-          <mat-label class="form-label">{{'common.taluka' | translate}} <span class="text-danger fs-6">*</span></mat-label>
+          <mat-label class="form-label">{{'common.taluka' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'villageCircle.select_taluka' | translate}}</mat-label> -->
-            <mat-select formControlName="talukaId"
-              (selectionChange)="clearDropDown('village');getGrampanchayat(true)">
+            <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('village');getGrampanchayat(true)">
               <mat-option>
                 <ngx-mat-select-search [formControl]="talukaCtrl"
                   placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
@@ -58,7 +60,8 @@
         </div>
         <div class="col-sm-12">
           <!-- [class]="villageForm.controls['grampanchayats'].disable({ onlySelf: true })" -->
-          <mat-label class="form-label">{{'common.select_grampanchayat' | translate}} <span class="text-danger fs-6">*</span></mat-label>
+          <mat-label class="form-label">{{'common.select_grampanchayat' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'villageCircle.select_grampanchayat' | translate}}</mat-label> -->
             <mat-select formControlName="grampanchayats" multiple>
@@ -77,7 +80,8 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'villageCircle.circle_name_en' | translate}} <span class="text-danger fs-6">*</span></mat-label>
+          <mat-label class="form-label">{{'villageCircle.circle_name_en' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'villageCircle.circle_name_en' | translate}}</mat-label> -->
             <input matInput formControlName="circleName"
@@ -92,7 +96,8 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'villageCircle.circle_name_mr' | translate}} <span class="text-danger fs-6">*</span></mat-label>
+          <mat-label class="form-label">{{'villageCircle.circle_name_mr' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'villageCircle.circle_name_mr' | translate}}</mat-label> -->
             <input matInput formControlName="m_CircleName"
@@ -117,52 +122,38 @@
     </form>
   </div>
 
-  <div class="" *ngIf="isViewFlag">
-    <div class="row gy-2 gx-2">
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{lang == 'en' ? 'State' : 'राज्य'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.state || '-') : (data?.m_State || '-')}}</div>
+  <div *ngIf="isViewFlag">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
+        <div class="form-label mb-0">{{lang == 'en' ? 'State' : 'राज्य'}}</div>
+        <div class="form-data"> {{lang == 'en' ? (data?.state || '-') : (data?.m_State || '-')}}</div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
+        <div class="form-label mb-0">{{lang == 'en' ? 'District' : 'जिल्हा'}}</div>
+        <div class="form-data"> {{lang == 'en' ? (data?.district || '-') : (data?.m_District || '-')}}</div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
+        <div class="form-label mb-0">{{lang == 'en' ? 'Taluka' : 'तालुका'}}</div>
+        <div class="form-data"> {{lang == 'en' ? (data?.taluka || '-') : (data?.m_Taluka || '-')}}</div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
+        <div class="form-label mb-0">{{lang == 'en' ? 'Grampanchayat' : 'ग्रामपंचायत'}}</div>
+        <div class="form-data">
+          <span *ngFor="let villahes of data.grampanchayat">
+            {{lang == 'en' ? (villahes?.grampanchayatName || '-'): (villahes?.m_GrampanchayatName || '-')}},
+          </span>
         </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{lang == 'en' ? 'District' : 'जिल्हा'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.district || '-') : (data?.m_District || '-')}}</div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
+        <div class="form-label mb-0">{{lang == 'en' ? 'Circle Name(English)' : 'मंडळाचे नाव(इंग्रजी)'}}</div>
+        <div class="form-data"> {{lang == 'en' ? (data?.circleName || '-') : (data?.circleName || '-')}}
         </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Taluka' : 'तालुका'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.taluka || '-') : (data?.m_Taluka || '-')}}</div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
+        <div class="form-label mb-0">{{lang == 'en' ? 'Circle Name(Marathi)' : 'मंडळाचे नाव(मराठी)'}}</div>
+        <div class="form-data"> {{lang == 'en' ? (data?.m_CircleName || '-') : (data?.m_CircleName || '-')}}
         </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="col-sm-12">
-          <div class="row gx-2">
-            <div class="col-sm-5 form-label">{{lang == 'en' ? 'Grampanchayat' : 'ग्रामपंचायत'}}</div>
-            <div class="col-sm-7 form-data">:
-              <span *ngFor="let villahes of data.grampanchayat">
-                {{lang == 'en' ? (villahes?.grampanchayatName || '-'): (villahes?.m_GrampanchayatName || '-')}},
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Circle Name(English)' : 'मंडळाचे नाव(इंग्रजी)'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.circleName || '-') : (data?.circleName || '-')}}
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Circle Name(Marathi)' : 'मंडळाचे नाव(मराठी)'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.m_CircleName || '-') : (data?.m_CircleName || '-')}}
-          </div>
-        </div>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </mat-dialog-content>
