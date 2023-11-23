@@ -413,7 +413,6 @@
     "Answer_pattern": "Enter a valid Answer"
   },
   "villageCircle": {
-    "village_circle": "Circle",
     "search_by_village_circle_name": "Search By Circle Name",
     "add_village": "Add Circle",
     "update_village": "Update Circle",
