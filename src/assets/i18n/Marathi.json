@@ -66,7 +66,8 @@
     "grampanchayat_filter":"ग्रामपंचायत",
     "select_state": "राज्य निवडा",
     "action": "कृती",
-    "remark": " टिप्पणी"
+    "remark": " टिप्पणी",
+    "select_grampanchayat":"ग्रामपंचायत निवडा"
   },
   "approvalProcess"  : {
     "applicant_id":"अर्ज क्रमांक",
@@ -261,7 +262,6 @@
     "department_level":"विभाग स्तर",
     "address":"पत्ता",
     "all_grampanchayat":"सर्व ग्रामपंचायत",
-    "select_grampanchayat":"ग्रामपंचायत निवडा" ,
     "please_select_grampanchayat":"कृपया ग्रामपंचायत निवडा",
     "Please_enter_remark":"कृपया टिप्पणी प्रविष्ट करा"
   },
@@ -374,8 +374,6 @@
     "view_scheme": "योजना पहा",
     "scheme_description": "योजनेची माहिती ",
     "scheme_name": "योजनेचे नाव",
-    "select_district": "जिल्हा निवडा",
-    "select_state": "राज्य निवडा",
     "save": "जतन करा",
     "scheme_namee": "योजनेचे नाव (इंग्रजी)",
     "scheme_namemr": "योजनेचे नाव (मराठी)",
@@ -408,15 +406,10 @@
     "Answer_pattern": "वैध उत्तर प्रविष्ट करा"
   },
   "villageCircle": {
-    "village_circle": "मंडळ",
     "search_by_village_circle_name": "मंडळाच्या नावाने शोधा",
     "add_village": "मंडळ जोडा",
     "update_village": "अपडेट मंडळ",
     "view_village": "मंडळ पहा",
-    "select_state": "राज्य निवडा",
-    "select_district": "जिल्हा निवडा",
-    "select_taluka": "तालुका निवडा",
-    "select_village": "गाव निवडा",
     "save": "जतन करा",
     "maximum_limit_30_characters": "कमाल 30 वर्णांना अनुमती आहे",
     "please_enter_valid_circle_name_mr": "कृपया वैध मंडळाचे नाव(मराठी) टाका",
@@ -426,8 +419,7 @@
     "please_select_taluka": "कृपया तालुका निवडा",
     "please_select_grampanchayat":"कृपया ग्रामपंचायत निवडा",
     "circle_name_en": "मंडळाचे नाव(इंग्रजी)",
-    "circle_name_mr": "मंडळाचे नाव(मराठी)",
-    "select_grampanchayat":"ग्रामपंचायत निवडा"
+    "circle_name_mr": "मंडळाचे नाव(मराठी)"
   },
   "blogs": {
     "blogs": "ब्लॉग",

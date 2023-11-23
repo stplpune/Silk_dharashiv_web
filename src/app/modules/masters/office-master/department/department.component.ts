@@ -17,7 +17,7 @@ import { AddDepartmentComponent } from './add-department/add-department.componen
   templateUrl: './department.component.html',
   styleUrls: ['./department.component.scss']
 })
-export class DepartmentComponent implements OnDestroy{
+export class DepartmentComponent implements OnDestroy {
   departmentFrm!: FormGroup;
   filterFrm!: FormGroup;
   tableDataArray = new Array();
@@ -28,33 +28,33 @@ export class DepartmentComponent implements OnDestroy{
   searchDataFlag: boolean = false
   subscription!: Subscription;//used  for lang conv
   lang: string = 'English';
-  pageAccessObject: object|any;
-  loginData:any;
+  pageAccessObject: object | any;
+  loginData: any;
   pageDetailsObj: any;//page right access obj
 
   get fl() { return this.filterFrm.controls };
 
   constructor(private fb: FormBuilder,
     private spinner: NgxSpinnerService,
-      public validator: ValidationService,
-      private apiService: ApiService,
-      private errorService: ErrorHandlingService,
-      private common: CommonMethodsService,
-      public dialog: MatDialog,
-      // private router: Router,
-      public webStorage: WebStorageService
-      ) {
-        // const routerlink = (this.router.url).slice(1);
-        // this.pageDetailsObj = this.webStorage.getPageDetailsObj(routerlink);
-      }
+    public validator: ValidationService,
+    private apiService: ApiService,
+    private errorService: ErrorHandlingService,
+    private common: CommonMethodsService,
+    public dialog: MatDialog,
+    // private router: Router,
+    public webStorage: WebStorageService
+  ) {
+    // const routerlink = (this.router.url).slice(1);
+    // this.pageDetailsObj = this.webStorage.getPageDetailsObj(routerlink);
+  }
 
 
   ngOnInit() {
-     this.webStorage.getAllPageName().filter((ele:any) =>{return ele.pageName == 'Department'? this.pageAccessObject = ele :''})
-     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+    this.webStorage.getAllPageName().filter((ele: any) => { return ele.pageName == 'Department' ? this.pageAccessObject = ele : '' })
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-       this.setTableData();
+      this.setTableData();
     })
 
     this.filterDefaultFrm();
@@ -69,10 +69,10 @@ export class DepartmentComponent implements OnDestroy{
 
   getTableData(status?: any) {
     this.spinner.show();
-    status == 'filter' ? ((this.pageNumber = 1),this.searchDataFlag = true) : '';
+    status == 'filter' ? ((this.pageNumber = 1), this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     let searchValue = this.filterFrm?.value || '';
-    this.apiService.setHttp('GET', 'sericulture/api/Department/get-All-Department?'+str+'&TextSearch=' + (searchValue.textSearch || '')+'&lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Department/get-All-Department?' + str + '&TextSearch=' + (searchValue.textSearch || '') + '&lan=' + this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -80,7 +80,7 @@ export class DepartmentComponent implements OnDestroy{
           this.tableDataArray = res.responseData;
           this.totalPages = res.responseData1?.totalPages;
           this.tableDatasize = res.responseData1?.totalCount;
-     } else {
+        } else {
           this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
           this.spinner.hide();
           this.tableDataArray = [];
@@ -97,8 +97,8 @@ export class DepartmentComponent implements OnDestroy{
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'departmentName', 'm_DepartmentName', 'action'] : ['srNo', 'departmentName','m_DepartmentName', 'action'];
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'विभाग(इंग्रजी)', 'विभाग(मराठी)','कृती'] : ['Sr. No.', 'Department(English)','Department(Marathi)','ACTION'];
+    let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'departmentName', 'm_DepartmentName', 'action'] : ['srNo', 'departmentName', 'm_DepartmentName', 'action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'विभाग(इंग्रजी)', 'विभाग(मराठी)', 'कृती'] : ['Sr. No.', 'Department(English)', 'Department(Marathi)', 'ACTION'];
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
@@ -107,9 +107,9 @@ export class DepartmentComponent implements OnDestroy{
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      view: this.pageAccessObject?.readRight == true ? true: false,
-      edit: this.pageAccessObject?.writeRight == true ? true: false,
-      delete: this.pageAccessObject?.deleteRight == true ? true: false
+      view: this.pageAccessObject?.readRight == true ? true : false,
+      edit: this.pageAccessObject?.writeRight == true ? true : false,
+      delete: this.pageAccessObject?.deleteRight == true ? true : false
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
@@ -138,9 +138,9 @@ export class DepartmentComponent implements OnDestroy{
     let dialogObj = {
       title: this.lang == 'mr-IN' ? 'तुम्हाला विभाग हटवायचा आहे का ?' : 'Do You Want To Delete Department ?',
       header: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
-      okButton:  this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
+      okButton: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
-      headerImage:'assets/images/delete.svg'
+      headerImage: 'assets/images/delete.svg'
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -150,14 +150,14 @@ export class DepartmentComponent implements OnDestroy{
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('DELETE', 'sericulture/api/Department/DeleteDepartment?Id=' + (delDataObj.id || 0)+'&lan='+this.lang, false, delDataObj, false, 'masterUrl');
+        this.apiService.setHttp('DELETE', 'sericulture/api/Department/DeleteDepartment?Id=' + (delDataObj.id || 0) + '&lan=' + this.lang, false, delDataObj, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
               this.common.snackBar(res.statusMessage, 0);
               this.filterDefaultFrm();
               this.getTableData();
-              
+
             } else {
               this.common.snackBar(res.statusMessage, 1);
             }
@@ -171,15 +171,15 @@ export class DepartmentComponent implements OnDestroy{
     });
   }
 
-  adddepartment(obj?:any){
-    const dialogRef = this.dialog.open(AddDepartmentComponent,{
-      width: '40%',
+  adddepartment(obj?: any) {
+    const dialogRef = this.dialog.open(AddDepartmentComponent, {
+      width: '350px',
       data: obj,
       disableClose: true,
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(res => {
-      res == 'Yes'? (this.filterDefaultFrm(),this.getTableData()) : '';
+      res == 'Yes' ? (this.filterDefaultFrm(), this.getTableData()) : '';
       this.highLightRowFlag = false;
     });
   }
@@ -188,7 +188,7 @@ export class DepartmentComponent implements OnDestroy{
     this.filterFrm.reset();
     this.filterDefaultFrm();
     this.getTableData();
-    this.pageNumber=1;
+    this.pageNumber = 1;
     this.searchDataFlag = false;
   }
 
