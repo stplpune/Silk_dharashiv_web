@@ -315,8 +315,7 @@
     "module": "Select Module",
     "submodule": "Select SubModule",
     "search_page_name": "Search Page Name",
-    "search": "Search",
-    "add": "Add"
+    "search": "Search"
   },
   "department": {
     "department": "Department",
