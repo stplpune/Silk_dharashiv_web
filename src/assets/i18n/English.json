@@ -65,7 +65,8 @@
     "circle_filter":"Circle",
     "grampanchayat_filter":"Grampanchayat",
     "select_state": "Select State",
-    "action": "Action"
+    "action": "Action",
+    "remark": "Remark"
   },
 
   "approvalProcess"  : {
@@ -124,8 +125,7 @@
    "applicant_document":"Applicant Document",
    "other_document":"Other Document",
   "select_status":"Select Status",
-  "select_reason":"Select Reason",
-  "remark":"Remark"
+  "select_reason":"Select Reason"
 
 },
 
@@ -258,7 +258,6 @@
     "officer_Details": "Officer Details",
     "view_Officer": "View Officer",
     "inactive": "Inactive",
-    "remark": "Remark",
     "active": "Active",
     "status": "Status",
     "officer_name": "Officer Name",
