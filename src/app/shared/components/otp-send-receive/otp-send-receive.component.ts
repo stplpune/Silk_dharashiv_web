@@ -107,8 +107,7 @@ export class OtpSendReceiveComponent {
   }
 
   getlogin() {
-    this.router.navigate(['/login']);
-    this.dialogRef.close();
+    this.router.navigate(['/login']); 
   }
 }
 
