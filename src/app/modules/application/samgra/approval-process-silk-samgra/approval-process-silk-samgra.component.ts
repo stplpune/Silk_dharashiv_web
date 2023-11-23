@@ -394,8 +394,12 @@ export class ApprovalProcessSilkSamgraComponent {
     // ele.docPath ? this.imageData = ele.docPath:'';
   }
 
-  deleteOtherDocument(i: any) {
-    this.pushOtherDocArray[i].isDeleted = true;
+  deleteOtherDocument(i: any, element:any) {
+    if(element.id == 0){
+      this.pushOtherDocArray.splice(i,1)
+    }else{
+      this.pushOtherDocArray[i].isDeleted = true;
+    }
     let array: any = [];
     this.pushOtherDocArray.find((ele: any) => {
       if (!ele.isDeleted) {
