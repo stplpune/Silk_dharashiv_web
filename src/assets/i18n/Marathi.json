@@ -327,7 +327,6 @@
     "department_maxLength": "कमाल 30 वर्णांना अनुमती आहे"
   },
   "action": {
-    "add": "जतन करा",
     "scheme": "योजना",
     "select_scheme": "योजना निवडा",
     "action_en": "कृतीचे नाव (इंग्रजी)",

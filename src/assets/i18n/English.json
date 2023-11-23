@@ -332,7 +332,6 @@
     "department_maxLength": "Maximun 30 character allowed"
   },
   "action": {
-    "add": "Add",
     "scheme": "Scheme List",
     "select_scheme": "Select Scheme",
     "action_en": "Action Name(English)",
