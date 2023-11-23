@@ -233,8 +233,6 @@
     "select_department": "Please select department",
     "scheme_required": "Please select scheme",
     "designation_level_required": "Please select designation level",
-    "state": "State",
-    "district": "District",
     "Order": "Order",
     "first_level": "First Level",
     "second_level": "Second Level",
