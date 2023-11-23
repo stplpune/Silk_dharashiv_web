@@ -430,16 +430,20 @@ export class ApprovalProcessSilkSamgraComponent {
       mergeArray = [...this.pushAppDocArray, ...this.pushOtherDocArray];
 
       mergeArray.find((ele: any) => {
-        this.appDataClonedArray?.allDocument.find((item: any) => { //1 is other doc
-          if (ele.docTypeId == 1 && ((item.id == ele.id && ele?.docPath != item.docPath) || (ele.id != 0 && ele.isDeleted) || (ele.id == 0 && !ele.isDeleted))) {
-            if (!newUploadedDoc.length) {
-              newUploadedDoc.push(ele)
-            } else {
-              let checkPrevValue = newUploadedDoc.some((i: any) => i.id == ele.id);
-              checkPrevValue == '-1' || !checkPrevValue ? newUploadedDoc.push(ele) : '';
+        if (this.appDataClonedArray?.allDocument.length) {
+          this.appDataClonedArray?.allDocument.find((item: any) => { //1 is other doc
+            if (ele.docTypeId == 1 && ((item.id == ele.id && ele?.docPath != item.docPath) || (ele.id != 0 && ele.isDeleted) || (ele.id == 0 && !ele.isDeleted))) {
+              if (!newUploadedDoc.length) {
+                newUploadedDoc.push(ele)
+              } else {
+                let checkPrevValue = newUploadedDoc.some((i: any) => i.id == ele.id);
+                checkPrevValue == '-1' || !checkPrevValue ? newUploadedDoc.push(ele) : '';
+              }
             }
-          }
-        })
+          })
+        }else{
+          newUploadedDoc.push(ele) 
+        }
       });
       this.actionNameLabel && this.uploadedDepDoc && this.applicationData?.isEdit ? newUploadedDoc.push(this.uploadedDepDoc) : '';//uploaded  Department Document
       this.updateApprovalStatus(newUploadedDoc);
