@@ -427,7 +427,7 @@
 
         <div class="d-flex gap-2">
           <div class="form-label">Have you planted mulberry earlier under the government scheme ?</div>
-          <!-- <div class="form-data">: Yes</div> -->
+        <div class="form-data">
           <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
             <mat-radio-button value="1" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == true"
               class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
@@ -435,7 +435,8 @@
               class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
           </mat-radio-group>
         </div>
-        <table class="table table-bordered">
+        </div>
+        <table class="table table-bordered" *ngIf="applicantDetails?.isAnyPlantedBeforeGovScheme">
           <thead>
             <tr>
               <th scope="col">Year of planting</th>
@@ -540,10 +541,14 @@
                 </mat-radio-group>
               </div>
             </div>
+            <div class="row" *ngIf="applicantDetails?.sm_IsSilkIndustrtyTrainingReceived">
+              <div class="col-sm-8 form-label">Details</div>
+              <div class="col-sm-4 form-data">:{{applicantDetails?.sm_SilkIndustrtyTrainingDetails | dash}}</div>
+            </div>
           </div>
         </div>
 
-        <div class="text-main fw-bold mt-4">Details </div>
+        <!-- <div class="text-main fw-bold mt-4">Details </div> -->
         <div class="d-flex gap-2">
           <div class="form-label">Have you gone directly to the silk industry farmer and taken the information ?</div>
           <div class="form-data">
@@ -554,15 +559,16 @@
                 class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
             </mat-radio-group>
           </div>
-          <div class="col-sm-2 col-4">
+
+          
+
+        </div>
+<!-- <div class="col-sm-2 col-4">
             <div class="form-label">Deatils </div>
           </div>
           <div class="col-sm-4 col-8">
             <div class="form-data">: {{applicantDetails?.sm_SilkIndustrtyTrainingDetails | dash}}</div>
-          </div>
-
-        </div>
-
+          </div> -->
         <div class="card mb-2">
           <div class="card-header">
             <div class="d-flex gap-2">
@@ -577,7 +583,7 @@
               </div>
             </div>
           </div>
-          <div class="card-body px-0">
+          <div class="card-body px-0" *ngIf="applicantDetails?.sm_IsTakenBenefitOfInternalScheme">
            <table class="table table-bordered">
               <thead>
                 <tr>
