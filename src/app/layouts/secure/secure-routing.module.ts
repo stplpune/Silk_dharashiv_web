@@ -23,6 +23,9 @@ const routes: Routes = [
   { path: 'approval-process-silk-samgra', loadChildren: () => import('../../modules/application/samgra/approval-process-silk-samgra/approval-process-silk-samgra.module').then(m => m.ApprovalProcessSilkSamgraModule) , data: { breadcrumb: [{ title: 'Approval Process Silk Samgra', active: true }] }, canActivate: [ExpenseGuard] },
   { path: 'create-manarega-app', loadChildren: () => import('../../modules/application/manarega/create-manarega-app/create-manarega-app.module').then(m => m.CreateManaregaAppModule) , data: { breadcrumb: [{ title: 'Create Manarega App', active: true }] }, canActivate: [ExpenseGuard] },
 
+  //farmer
+  { path: 'farmersignup', loadChildren: () => import('../../modules/farmer/farmersignup/farmersignup.module').then(m => m.FarmersignupModule), data: { breadcrumb: [{ title: 'Farmer Sign Up', active: true }] }, canActivate: [ExpenseGuard]  },
+
 
   // CMS section files routing
   { path: 'markets', loadChildren: () => import('../../modules/cms/markets/markets.module').then(m => m.MarketsModule), data: { breadcrumb: [{ title: 'Markets', active: true }] }, canActivate: [ExpenseGuard] },
