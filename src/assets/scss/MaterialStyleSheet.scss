@@ -99,3 +99,14 @@
 .mdc-text-field--disabled .mdc-notched-outline__trailing {
     border-color: rgba(0, 0, 0, 0.38) !important;
 }
+
+/* error message adjusted */
+.mat-mdc-form-field-hint-wrapper,
+.mat-mdc-form-field-error-wrapper {
+    padding: 0 5px !important;
+}
+
+/* error message wrapper height adjusted */
+.mat-mdc-form-field-subscript-wrapper {
+    height: 14px;
+}

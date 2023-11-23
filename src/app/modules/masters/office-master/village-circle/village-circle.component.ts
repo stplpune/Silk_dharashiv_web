@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import {  FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ReplaySubject, Subscription } from 'rxjs';
@@ -17,18 +17,18 @@ import { ValidationService } from 'src/app/core/services/validation.service';
   templateUrl: './village-circle.component.html',
   styleUrls: ['./village-circle.component.scss']
 })
-export class VillageCircleComponent implements OnDestroy{
+export class VillageCircleComponent implements OnDestroy {
 
   totalCount: number | any;
   tableDataArray = new Array();
   tableObj: object | any;
   highLightedFlag: boolean = true;
   pageNumber: number = 1;
-  filterForm!:FormGroup;
+  filterForm!: FormGroup;
   subscription!: Subscription;
   lang: string = 'English';
   filterFlag: boolean = false;
-  pageAccessObject: object|any;
+  pageAccessObject: object | any;
   talukaArray = new Array();
   grampanchayatArray = new Array();
   talukaCtrl: FormControl = new FormControl();
@@ -44,12 +44,12 @@ export class VillageCircleComponent implements OnDestroy{
       private commonMethodService: CommonMethodsService,
       private WebStorageService: WebStorageService,
       private masterService: MasterService,
-      private fb:FormBuilder,
-      public validation:ValidationService
+      private fb: FormBuilder,
+      public validation: ValidationService
     ) { }
 
   ngOnInit() {
-    this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == 'Circle'? this.pageAccessObject = ele :''})
+    this.WebStorageService.getAllPageName().filter((ele: any) => { return ele.pageName == 'Circle' ? this.pageAccessObject = ele : '' })
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -62,11 +62,11 @@ export class VillageCircleComponent implements OnDestroy{
   }
 
 
-  getFilterFormData(){
-    this.filterForm=this.fb.group({
-      textsearch:[''],
-      talukaId:[0],
-      grampanchayatId:[0]
+  getFilterFormData() {
+    this.filterForm = this.fb.group({
+      textsearch: [''],
+      talukaId: [0],
+      grampanchayatId: [0]
     })
   }
 
@@ -80,7 +80,7 @@ export class VillageCircleComponent implements OnDestroy{
 
   AddVillage(data?: any) {
     const dialogRef = this.dialog.open(AddVillageComponent, {
-      width: '45%',
+      width: '500px',
       data: data,
       disableClose: true
     });
@@ -93,8 +93,8 @@ export class VillageCircleComponent implements OnDestroy{
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
-        this.talukaArray.unshift( { id: 0,textEnglish:'All Taluka',textMarathi:'सर्व तालुका'} ),
-        this.commonMethodService.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
+        this.talukaArray.unshift({ id: 0, textEnglish: 'All Taluka', textMarathi: 'सर्व तालुका' }),
+          this.commonMethodService.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
       }), error: (() => {
         this.talukaArray = [];
         this.talukaSubject.next(null);
@@ -105,11 +105,11 @@ export class VillageCircleComponent implements OnDestroy{
 
   getGrampanchayat() {
     let talukaId = this.filterForm.value.talukaId;
-    if(talukaId!=0){
+    if (talukaId != 0) {
       this.masterService.GetGrampanchayat(talukaId || 0).subscribe({
         next: ((res: any) => {
           this.grampanchayatArray = res.responseData;
-          this.grampanchayatArray.unshift( { id: 0,textEnglish:'All Grampanchayat' ,textMarathi:'सर्व ग्रामपंचायत'});
+          this.grampanchayatArray.unshift({ id: 0, textEnglish: 'All Grampanchayat', textMarathi: 'सर्व ग्रामपंचायत' });
           this.commonMethodService.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
         }), error: (() => {
           this.grampanchayatArray = [];
@@ -123,14 +123,14 @@ export class VillageCircleComponent implements OnDestroy{
     let formValue = this.filterForm.value || ''
     this.spinner.show();
     flag == 'filter' ? this.pageNumber = 1 : ''
-    this.apiService.setHttp('GET', 'sericulture/api/Circles/GetAllCircles?TalukaId='+(formValue.talukaId || 0)+'&GrapanchyatId='+(formValue.grampanchayatId || 0)+'&pageno='+(this.pageNumber) +'&pagesize=10&TextSearch='+formValue.textsearch || '', false, false, false, 'baseUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Circles/GetAllCircles?TalukaId=' + (formValue.talukaId || 0) + '&GrapanchyatId=' + (formValue.grampanchayatId || 0) + '&pageno=' + (this.pageNumber) + '&pagesize=10&TextSearch=' + formValue.textsearch || '', false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.spinner.hide();
           this.tableDataArray = res.responseData;
           this.totalCount = res.responseData1.totalCount;
-          this.filterFlag=false;
+          this.filterFlag = false;
         } else {
           this.spinner.hide();
           this.tableDataArray = [];
@@ -150,8 +150,8 @@ export class VillageCircleComponent implements OnDestroy{
 
   setTableData() {
     this.highLightedFlag = true;
-    let tableHeaders = this.lang == 'en' ? ['Sr. No.','Taluka','Circle', 'Action'] : ['अनुक्रमांक', 'तालुका','मंडळाचे नाव', 'क्रिया'],
-      displayedColumns = this.lang == 'en' ? ['srNo', 'taluka','circleName', 'action'] : ['srNo', 'm_Taluka','m_CircleName', 'action']
+    let tableHeaders = this.lang == 'en' ? ['Sr. No.', 'Taluka', 'Circle', 'Action'] : ['अनुक्रमांक', 'तालुका', 'मंडळाचे नाव', 'क्रिया'],
+      displayedColumns = this.lang == 'en' ? ['srNo', 'taluka', 'circleName', 'action'] : ['srNo', 'm_Taluka', 'm_CircleName', 'action']
     this.tableObj = {
       pageNumber: this.pageNumber,
       isBlock: '',
@@ -164,9 +164,9 @@ export class VillageCircleComponent implements OnDestroy{
       // view: true,
       // edit: true,
       // delete: true,
-      view: this.pageAccessObject?.readRight == true ? true: false,
-      edit: this.pageAccessObject?.writeRight == true ? true: false,
-      delete: this.pageAccessObject?.deleteRight == true ? true: false,
+      view: this.pageAccessObject?.readRight == true ? true : false,
+      edit: this.pageAccessObject?.writeRight == true ? true : false,
+      delete: this.pageAccessObject?.deleteRight == true ? true : false,
       reset: false
     }
     this.highLightedFlag ? this.tableObj.highlightedrow = true : this.tableObj.highlightedrow = false;
@@ -178,15 +178,15 @@ export class VillageCircleComponent implements OnDestroy{
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
-        !this.filterFlag ? (this.filterForm.reset(),this.getFilterFormData()) : '';
+        !this.filterFlag ? (this.filterForm.reset(), this.getFilterFormData()) : '';
         this.getTableData();
         break;
       case 'Edit':
         this.AddVillage(obj);
         break;
       case 'View':
-          this.AddVillage(obj);
-          break;
+        this.AddVillage(obj);
+        break;
       case 'Delete':
         this.deleteDialogOpen(obj);
         break;
@@ -198,7 +198,7 @@ export class VillageCircleComponent implements OnDestroy{
       header: this.lang == 'en' ? 'Delete Village Circle' : 'मंडळ हटवा',
       okButton: this.lang == 'en' ? 'Delete' : 'हटवा',
       cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
-      headerImage:'assets/images/delete.svg'
+      headerImage: 'assets/images/delete.svg'
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '30%',
@@ -238,8 +238,8 @@ export class VillageCircleComponent implements OnDestroy{
     this.getTableData();
   }
 
-  clearDropDown(flag?:any){
-    if(flag == 'gram'){
+  clearDropDown(flag?: any) {
+    if (flag == 'gram') {
       this.gramPSubject = new ReplaySubject<any>();
       this.grampanchayatArray = [];
     }

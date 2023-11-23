@@ -18,7 +18,7 @@ import { GlobalTableComponent } from 'src/app/shared/components/global-table/glo
 
 @NgModule({
   declarations: [
-    ApplicationComponent
+    ApplicationComponent,
   ],
   imports: [
     CommonModule,

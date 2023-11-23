@@ -170,21 +170,21 @@ export class DesignationsComponent implements OnDestroy {
   addDesignation(obj?: any) {
     console.log('obj', obj);
     let dialogRef = this.dialog.open(AddDesignationComponent, {
-      width: '35%',
+      width: '400px',
       data: obj,
       disableClose: true,
       autoFocus: true,
     })
     dialogRef.afterClosed().subscribe((result: any) => {
-      
-      if(result == 'Yes'){
+
+      if (result == 'Yes') {
         this.formDirective?.resetForm();
         this.filterDefaultFrm();
         this.pageNumber = 1;
         this.bindTable()
       }
-        this.highLightedFlag = false;
-     });
+      this.highLightedFlag = false;
+    });
   }
 
 
@@ -202,7 +202,7 @@ export class DesignationsComponent implements OnDestroy {
       header: this.lang == 'mr-IN' ? 'डिलीट करा' : 'Delete',
       okButton: this.lang == 'mr-IN' ? 'डिलीट' : 'Delete',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
-      headerImage:'assets/images/delete.svg'
+      headerImage: 'assets/images/delete.svg'
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '30%',

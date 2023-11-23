@@ -2,23 +2,22 @@
   <mat-card-header class="card-header">
     <div class="d-flex align-items-center justify-content-between w-100">
       <div class="text-main">{{'officerreg.register_Officer' | translate}}</div>
-      <div class="col-sm-auto">
-        <button mat-flat-button class="btn-main" (click)="registerofficer()">
-          <mat-icon class="material-symbols-rounded">
-            add
-          </mat-icon>
-          {{'officerreg.add_registered_officer' | translate}}
-        </button>
-      </div>
+      <button mat-flat-button class="btn-main" (click)="registerofficer()">
+        <mat-icon class="material-symbols-rounded">
+          add
+        </mat-icon>
+        {{'officerreg.add_registered_officer' | translate}}
+      </button>
     </div>
   </mat-card-header>
-  <mat-card-content class="card-body">
+  <mat-card-header class="card-header-control">
     <form [formGroup]="filterForm" #formDirective="ngForm">
-      <div class="row gx-2">
-        <div class="col-sm">
+      <div class="row g-2">
+        <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.department_filter' | translate}}</mat-label> -->
-            <mat-select formControlName="departmentId"  placeholder="{{lang == 'en' ?'All Department' : 'सर्व विभाग'}}" (selectionChange)="clearDropDown('dept');getDepartmentLevel()">
+            <mat-select formControlName="departmentId" placeholder="{{lang == 'en' ?'All Department' : 'सर्व विभाग'}}"
+              (selectionChange)="clearDropDown('dept');getDepartmentLevel()">
               <!-- <mat-option [value]="0">{{'officerreg.allDepartment' | translate}}</mat-option> -->
               <mat-option>
                 <ngx-mat-select-search [formControl]="departmentctrl"
@@ -30,10 +29,11 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm">
-          <mat-form-field appearance="outline" class="w-100"> 
+        <div class="col-sm-2">
+          <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.designation_lev_filter' | translate}}</mat-label> -->
-            <mat-select formControlName="departmentLevelId" placeholder="{{lang == 'en' ?'All Level' : 'सर्व स्तर'}}" (selectionChange)="clearDropDown('clearAll');getDesignation()">
+            <mat-select formControlName="departmentLevelId" placeholder="{{lang == 'en' ?'All Level' : 'सर्व स्तर'}}"
+              (selectionChange)="clearDropDown('clearAll');getDesignation()">
               <!-- <mat-option [value]="0"> {{'officerreg.allLevel' | translate}}</mat-option> -->
               <mat-option>
                 <ngx-mat-select-search [formControl]="departmentLevelCtrl"
@@ -45,69 +45,77 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm">
+        <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.designation_filter' | translate}}</mat-label> -->
-            <mat-select formControlName="designationId"   placeholder="{{lang == 'en' ?'All Designation' : 'सर्व पदनाम'}}">
+            <mat-select formControlName="designationId"
+              placeholder="{{lang == 'en' ?'All Designation' : 'सर्व पदनाम'}}">
               <!-- <mat-option [value]="0"> {{'officerreg.allDesignation' | translate}}</mat-option> -->
               <mat-option>
                 <ngx-mat-select-search [formControl]="designationCtrl"
                   placeholderLabel="{{lang == 'en' ? 'Search Designation Name' : 'पदनाम नाव शोधा'}}"
                   noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
               </mat-option>
-              <mat-option *ngFor="let  designation of designationSubject | async" [value]="designation.id">{{lang != 'en' ?
+              <mat-option *ngFor="let  designation of designationSubject | async" [value]="designation.id">{{lang !=
+                'en' ?
                 designation.textMarathi : designation.textEnglish}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm">
+        <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.taluka_filter' | translate}}</mat-label> -->
-            <mat-select formControlName="talukaId"  (selectionChange)="clearDropDown('gram');getGrampanchayat();getCircle()"
-            placeholder="{{lang == 'en' ?'All Taluka' : 'सर्व तालुका'}}">
+            <mat-select formControlName="talukaId"
+              (selectionChange)="clearDropDown('gram');getGrampanchayat();getCircle()"
+              placeholder="{{lang == 'en' ?'All Taluka' : 'सर्व तालुका'}}">
               <mat-option>
                 <ngx-mat-select-search [formControl]="talukaCtrl"
                   placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
                   noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
               </mat-option>
-              <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi :
+              <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ?
+                taluka.textMarathi :
                 taluka.textEnglish}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm">
+        <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.block_filter' | translate}}</mat-label> -->
-            <mat-select formControlName="blockId"  placeholder="{{lang == 'en' ?'All Block' : 'सर्व ब्लॉक'}}">
+            <mat-select formControlName="blockId" placeholder="{{lang == 'en' ?'All Block' : 'सर्व ब्लॉक'}}">
               <mat-option>
                 <ngx-mat-select-search [formControl]="blockCtrl"
                   placeholderLabel="{{lang == 'en' ? 'Search Block Name' : 'ब्लॉक नाव शोधा'}}"
                   noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
               </mat-option>
-              <mat-option *ngFor="let block of blockSubject | async" [value]="block.id">{{lang != 'en' ? block.textMarathi :
+              <mat-option *ngFor="let block of blockSubject | async" [value]="block.id">{{lang != 'en' ?
+                block.textMarathi :
                 block.textEnglish}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm">
+        <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.circle_filter' | translate}}</mat-label> -->
-            <mat-select formControlName="circleId" placeholder="All Circle"  placeholder="{{lang == 'en' ?'All Circle' : 'सर्व मंडळ'}}">
+            <mat-select formControlName="circleId" placeholder="All Circle"
+              placeholder="{{lang == 'en' ?'All Circle' : 'सर्व मंडळ'}}">
               <!-- <mat-option [value]="0"> {{'officerreg.allCircle' | translate}}</mat-option> -->
               <mat-option>
                 <ngx-mat-select-search [formControl]="circleCtrl"
                   placeholderLabel="{{lang == 'en' ? 'Search Circle Name' : 'मंडळाचे नाव शोधा'}}"
                   noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
               </mat-option>
-              <mat-option *ngFor="let circle of circleSubject | async" [value]="circle.id">{{lang != 'en' ? circle.textMarathi :
+              <mat-option *ngFor="let circle of circleSubject | async" [value]="circle.id">{{lang != 'en' ?
+                circle.textMarathi :
                 circle.textEnglish}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm">
+        <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>{{'common.grampanchayat_filter' | translate}}</mat-label> -->
-            <mat-select formControlName="grampanchayatId"   placeholder="{{lang == 'en' ?'All Grampanchayat' : 'सर्व ग्रामपंचायत'}}">
+            <mat-select formControlName="grampanchayatId"
+              placeholder="{{lang == 'en' ?'All Grampanchayat' : 'सर्व ग्रामपंचायत'}}">
               <!-- <mat-option [value]="0">{{'officerreg.all_grampanchayat' | translate}}</mat-option> -->
               <mat-option>
                 <ngx-mat-select-search [formControl]="gramPCtrl"
@@ -119,30 +127,34 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm">
-          <div class="d-flex gap-2">
-            <mat-form-field appearance="outline" class="w-100">
-              <!-- <mat-label>{{'common.searchbyMobile_email' | translate}}</mat-label> -->
-              <input matInput formControlName="searchtext" placeholder="{{lang == 'en' ? 'Search by Mobile No/Email ID' : 'मोबाईल नंबर/ईमेल आयडी द्वारे शोधा'}}" (keypress)="validation.noFirstSpaceAllow($event)">
-            </mat-form-field>
-            <div class="d-flex align-items-center gap-2 mb-4">
-              <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit"
-                (click)="filterFlag=true;bindTable('filter')">
-                <mat-icon class="material-symbols-rounded">
-                  search
-                </mat-icon>
-              </button>
-              <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit"
-                (click)="filterFlag=false;clearFilter()">
-                <mat-icon class="material-symbols-rounded">
-                  close
-                </mat-icon>
-              </button>
-            </div>
+        <div class="col-sm-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <!-- <mat-label>{{'common.searchbyMobile_email' | translate}}</mat-label> -->
+            <input matInput formControlName="searchtext"
+              placeholder="{{lang == 'en' ? 'Search by Mobile No/Email ID' : 'मोबाईल नंबर/ईमेल आयडी द्वारे शोधा'}}"
+              (keypress)="validation.noFirstSpaceAllow($event)">
+          </mat-form-field>
+        </div>
+        <div class="col-sm-auto">
+          <div class="d-flex align-items-center gap-2">
+            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit"
+              (click)="filterFlag=true;bindTable('filter')">
+              <mat-icon class="material-symbols-rounded">
+                search
+              </mat-icon>
+            </button>
+            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit"
+              (click)="filterFlag=false;clearFilter()">
+              <mat-icon class="material-symbols-rounded">
+                close
+              </mat-icon>
+            </button>
           </div>
         </div>
       </div>
     </form>
+  </mat-card-header>
+  <mat-card-content class="card-body">
     <div class="table-responsive scrollbar">
       <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
     </div>

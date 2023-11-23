@@ -4,7 +4,8 @@
       <mat-card-header class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
           <div class="text-main">{{'designation.designation'|translate}}</div>
-          <button mat-flat-button class="btn-main" *ngIf="pageAccessObject?.writeRight == true" (click)="addDesignation()">
+          <button mat-flat-button class="btn-main" *ngIf="pageAccessObject?.writeRight == true"
+            (click)="addDesignation()">
             <mat-icon class="material-symbols-rounded">
               add
             </mat-icon>
@@ -15,7 +16,7 @@
       <mat-card-header class="card-header-control">
         <form [formGroup]="filterFrm" class="w-100" #formDirective="ngForm">
           <div class="row gx-2">
-            <div class="col-sm">
+            <div class="col-sm-2">
               <mat-form-field appearance="outline" class="w-100">
                 <!-- <mat-label>{{'common.department_filter'|translate}}</mat-label> -->
                 <mat-select formControlName="deptId">
@@ -24,7 +25,7 @@
                 </mat-select>
               </mat-form-field>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-2">
               <mat-form-field appearance="outline" class="w-100">
                 <!-- <mat-label>{{'common.designation_filter'|translate}}</mat-label> -->
                 <mat-select formControlName="deptLevelId">
@@ -36,18 +37,21 @@
             <div class="col-sm-4">
               <mat-form-field appearance="outline" class="w-100">
                 <!-- <mat-label>{{'designation.search_by_designation'|translate}}</mat-label> -->
-                <input matInput formControlName="textSearch" placeholder="{{lang == 'en' ? 'Search by Designation' : 'पदनामनुसार शोधा'}}"
+                <input matInput formControlName="textSearch"
+                  placeholder="{{lang == 'en' ? 'Search by Designation' : 'पदनामनुसार शोधा'}}"
                   (keypress)="validation.noFirstSpaceAllow($event)">
               </mat-form-field>
             </div>
-            <div class="col-sm-1">
+            <div class="col-sm-auto">
               <div class="d-flex align-items-center gap-2">
-  <button mat-flat-button class="btn-main btn-icon " matTooltip="edit" (click)="searchDataFlag=true;bindTable('filter')">
+                <button mat-flat-button class="btn-main btn-icon " matTooltip="edit"
+                  (click)="searchDataFlag=true;bindTable('filter')">
                   <mat-icon class="material-symbols-rounded">
                     search
                   </mat-icon>
                 </button>
-                <button mat-flat-button class="btn-main-light btn-icon " matTooltip="edit" (click)="searchDataFlag=false;clearForm()">
+                <button mat-flat-button class="btn-main-light btn-icon " matTooltip="edit"
+                  (click)="searchDataFlag=false;clearForm()">
                   <mat-icon class="material-symbols-rounded">
                     close
                   </mat-icon>
@@ -58,12 +62,10 @@
         </form>
       </mat-card-header>
       <mat-card-content class="card-body">
-
         <div class="table-responsive scrollbar">
           <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
         </div>
       </mat-card-content>
     </mat-card>
   </div>
-
 </div>

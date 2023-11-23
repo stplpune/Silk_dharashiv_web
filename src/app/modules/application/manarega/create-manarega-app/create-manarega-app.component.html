@@ -146,18 +146,21 @@
             </div>
             <div class="col-sm-3">
               <div class="form-label">8. जिल्हा</div>
+              <mat-form-field appearance="outline" class="w-100">
               <mat-select formControlName="districtId"
               [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
                 district.textMarathi : district.textEnglish}}
               </mat-option>
             </mat-select>
+            </mat-form-field>
             </div>
             <div class="col-sm-3">
               <div class="form-label">9. तालुका</div>
               <mat-form-field appearance="outline" class="w-100">
                 <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
                 <mat-select formControlName="talukaId"
+                [class]="WebStorageService.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })"
                   (selectionChange)="clearDropdown('taluka');getGrampanchayat()">
                   <mat-option>
                     <ngx-mat-select-search [formControl]="talukaCtrl"
@@ -175,7 +178,8 @@
               <div class="form-label">10. ग्रामपंचायत</div>
               <mat-form-field appearance="outline" class="w-100">
                 <!-- <mat-label>{{'officerreg.select_grampanchayat' | translate}}</mat-label> -->
-                <mat-select formControlName="grampanchayatId">
+                <mat-select formControlName="grampanchayatId"
+                [class]="WebStorageService.getGrampanchayatId() || !manaregaFrm.getRawValue()?.talukaId ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
                   <mat-option>
                     <ngx-mat-select-search [formControl]="gramPCtrl"
                       placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
@@ -223,8 +227,9 @@
             <div class="col-sm-6">
               <div class="form-label">15. लाभर्त्याची वर्गवारी</div>
               <mat-form-field appearance="outline" class="w-100" formControlName="categoryId">
-                <mat-select>
-                  <mat-option>
+                <mat-select (click)="categoryDialogBox()">
+                  
+                  <!-- <mat-option>
                     <mat-radio-button value="1">अनीसीचीत जाती</mat-radio-button>
                   </mat-option>
                   <mat-option>
@@ -265,7 +270,7 @@
                   <mat-option>
                     <mat-checkbox class="example-margin">कृषि कर्ज माफी योजना सान 2008 नुसार अल्पभूधारक (1हेक्टर
                       )पेक्स्गा कमी क्षेत्र. </mat-checkbox>
-                  </mat-option>
+                  </mat-option> -->
                 </mat-select>
               </mat-form-field>
             </div>
