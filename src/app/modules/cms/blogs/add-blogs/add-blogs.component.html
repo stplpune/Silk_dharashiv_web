@@ -32,7 +32,7 @@
           </div>
           <div class="col-sm">
             <div class="row">
-              <div class="col-sm-2 form-label">{{"blogs.editortool" | translate}}</div>
+              <div class="col-sm-2 form-label">{{"action.description" | translate}}</div>
               <div class="col-sm-10 form-data upload-img-view">:
                 <span class=" form-data" [innerHTML]="data?.description"></span>
               </div>
@@ -86,7 +86,7 @@
             <mat-error *ngIf="viewMsgFlag && !imageResponse">{{lang == 'en' ? "Please Add Blog Feature Image" : "कृपया ब्लॉग प्रतिमा जोडा"}} </mat-error>
           </div>
           <div class="col-sm-12">
-            <div class="form-label"> {{"blogs.editortool" | translate}}</div>
+            <div class="form-label"> {{"action.description" | translate}}</div>
             <angular-editor formControlName="description" [config]="editorConfig" (input)="setValue($event)" ></angular-editor>
             <mat-error *ngIf="viewMsgFlag && !blogForm.value.description">{{lang == 'en' ? "Please Add Blog Description" : "कृपया ब्लॉगची माहिती प्रविष्ट करा"}} </mat-error>
             <!-- <mat-error *ngIf="f['description']?.hasError('maxLengthExceeded')">{{lang == 'en' ? "Maximum limit is 5000 characters" : "कमाल 5000 वर्णांना अनुमती आहे"}} </mat-error> -->
