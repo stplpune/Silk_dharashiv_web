@@ -7,7 +7,7 @@
             <img src="assets/images/login.jpg" class="login-img">
         </div>
         <div class="col-sm-6">
-            <form>
+            <form [formGroup]="signUpForm" >
                 <div class="login form-container">
                     <div class="mb-2 text-center">
                         <img src="assets/images/logo-text.svg" class="w-75">
@@ -16,39 +16,33 @@
                     <div class="mb-0">
                         <label class="form-label">Full Name</label>
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Full Name</mat-label>
-                            <input matInput placeholder="Full Name">
+                            <!-- <mat-label>Full Name</mat-label> -->
+                            <input matInput placeholder="Full Name" formControlName="name" (keypress)="validator.noFirstSpaceAllow($event)" maxlength="20">
                         </mat-form-field>
                     </div>
                     <div class="row gx-2">
                         <div class="col-sm-6">
                             <label class="form-label">Mobile No.</label>
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Mobile No.</mat-label>
-                                <input matInput placeholder="Mobile No.">
+                                <!-- <mat-label>Mobile No.</mat-label> -->
+                                <input matInput placeholder="Mobile No." maxlength="10" formControlName="mobileNo" (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
                             <label class="form-label">District</label>
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>District</mat-label>
-                                <mat-select>
-                                    <mat-option value="volvo">Volvo</mat-option>
-                                    <mat-option value="saab">Saab</mat-option>
-                                    <mat-option value="mercedes">Mercedes</mat-option>
-                                    <mat-option value="audi">Audi</mat-option>
+                                <!-- <mat-label>District</mat-label> -->
+                                <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
+                                    <mat-option *ngFor="let district of districtArray" [value]="district.id">{{district.textEnglish}}</mat-option>                             
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
                             <label class="form-label">Taluka</label>
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Taluka</mat-label>
-                                <mat-select>
-                                    <mat-option value="volvo">Volvo</mat-option>
-                                    <mat-option value="saab">Saab</mat-option>
-                                    <mat-option value="mercedes">Mercedes</mat-option>
-                                    <mat-option value="audi">Audi</mat-option>
+                                <!-- <mat-label>Taluka</mat-label> -->
+                                <mat-select formControlName="talukaId"  (selectionChange)="getVillage()">
+                                    <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.textEnglish}}</mat-option>                              
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -56,16 +50,13 @@
                             <label class="form-label">Village</label>
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>Village</mat-label>
-                                <mat-select>
-                                    <mat-option value="volvo">Volvo</mat-option>
-                                    <mat-option value="saab">Saab</mat-option>
-                                    <mat-option value="mercedes">Mercedes</mat-option>
-                                    <mat-option value="audi">Audi</mat-option>
+                                <mat-select formControlName="villageId">
+                                    <mat-option *ngFor="let village of villageArray" [value]="village.id">{{village.textEnglish}}</mat-option>                       
                                 </mat-select>
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="row align-items-start g-2">
+                    <!-- <div class="row align-items-start g-2">
                         <div class="col-sm">
                             <div id="captcha"></div>
                         </div>
@@ -81,15 +72,16 @@
                                 <input matInput placeholder="Captcha">
                             </mat-form-field>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row align-items-center">
+                       
                         <div class="col-sm-6">
-                            <button mat-flat-button class="btn-main w-100">
+                            <a class="text-main" href="../login">Back to Login</a>
+                        </div>
+                        <div class="col-sm-6">
+                            <button mat-flat-button class="btn-main w-100" (click)="openSendOtpComponent()">
                                 SIGN UP
                             </button>
-                        </div>
-                        <div class="col-sm-6 text-end">
-                            <a class="text-main" href="../login">Back to Login</a>
                         </div>
                     </div>
                 </div>
