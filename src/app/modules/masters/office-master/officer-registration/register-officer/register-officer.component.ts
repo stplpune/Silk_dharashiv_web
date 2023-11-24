@@ -36,7 +36,7 @@ export class RegisterOfficerComponent {
   lang: string = 'English';
   @ViewChild('formDirective') private formDirective!: NgForm;
   @ViewChild('uplodLogo') clearlogo!: any;
-  statusArray = [{ id: 0, 'value': 'De Active', 'mr_value': 'निष्क्रिय' }, { id: 1, 'value': 'Active', 'mr_value': 'सक्रिय' }];
+  statusArray = [{ id: 0, 'value': 'InActive', 'mr_value': 'निष्क्रिय' }, { id: 1, 'value': 'Active', 'mr_value': 'सक्रिय' }];
 
   departmentctrl: FormControl = new FormControl();
   departmentLevelSubject: ReplaySubject<any> = new ReplaySubject<any>();
@@ -184,7 +184,7 @@ export class RegisterOfficerComponent {
     }
   }
 
-  
+
   getState() {
     this.stateArray = [];
     this.masterService.GetAllState().subscribe({
