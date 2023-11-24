@@ -98,7 +98,7 @@ export class DepartmentComponent implements OnDestroy {
   setTableData() {
     this.highLightRowFlag = true;
     let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'departmentName', 'm_DepartmentName', 'action'] : ['srNo', 'departmentName', 'm_DepartmentName', 'action'];
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'विभाग(इंग्रजी)', 'विभाग(मराठी)', 'कृती'] : ['Sr. No.', 'Department(English)', 'Department(Marathi)', 'ACTION'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'विभाग (इंग्रजी)', 'विभाग (मराठी)', 'कृती'] : ['Sr. No.', 'Department (English)', 'Department (Marathi)', 'ACTION'];
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
