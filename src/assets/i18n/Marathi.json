@@ -5,7 +5,7 @@
     "view": "पहा",
     "delete": "हटवा",
     "srNo": "अनुक्रमांक",
-    "department": "विभाग निवडा", 
+    "department": "विभाग निवडा",
     "designation_level": "पदनाम स्तर निवडा",
     "designation": "पदनाम निवडा",
     "designation_n":"पद",
@@ -26,7 +26,7 @@
     "please_enter_mobile_number": "कृपया मोबाईल क्रमांक प्रविष्ट करा",
     "please_enter_valid_mobile_number": "कृपया वैध 10 अंकी मोबाईल नंबर प्रविष्ट करा",
     "address": "पत्ता",
-    "address_maximum 100 character_allowed": "कमाल 100 वर्णांना अनुमती आहे",
+    "address_maximum_100_character_allowed": "कमाल 100 वर्णांना अनुमती आहे",
     "Please_select_department": "कृपया विभाग निवडा",
     "Please_select_designation_level": "कृपया पदनाम स्तर निवडा",
     "Please_select_designation": "कृपया पदनाम निवडा",
@@ -488,8 +488,8 @@
     "Market_Rate_Date": "बाजार दर तारीख"
   },
 
-  "myProfile":{  
-    "Profile" : "प्रोफाइल", 
+  "myProfile":{
+    "Profile" : "प्रोफाइल",
     "label_Name" : "नाव",
     "Name" : "नाव (इंग्रजी)",
     "Name_M" : "नाव (मराठी)",
@@ -502,6 +502,6 @@
     "Name_mr": "कृपया नाव प्रविष्ट करा (मराठी)",
     "Name_en": "कृपया नाव प्रविष्ट करा (इंग्रजी)",
     "Name_en_valid": "कृपया वैध नाव प्रविष्ट करा (इंग्रजी)",
-    "Name_mr_valid": "कृपया वैध नाव प्रविष्ट करा (मराठी)"    
+    "Name_mr_valid": "कृपया वैध नाव प्रविष्ट करा (मराठी)"
   }
 }
