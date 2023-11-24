@@ -33,7 +33,8 @@ export class ApprovalProcessManaregaComponent {
   routingData: any;
   applicationId: any;
   dataSource: any = new Array()
-  displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action']
+  displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action'];
+  displayedColumn: string[] = ['srNo','plantName', 'gutNo', 'gutArea', 'plantCultivatedArea','noOfPlant'];
   approvalStatus: any = new Array()
   otherDocArray: any = new Array()
   displayColumnRemark: string[] = ['sr_no', 'actionName', 'designationName', 'status', 'modifiedDate', 'remark', 'action'];
