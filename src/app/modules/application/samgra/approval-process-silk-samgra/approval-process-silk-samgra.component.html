@@ -224,19 +224,7 @@
                   (applicantDetails?.m_Qualification | dash)}}</div>
               </div>
 
-              <!-- <div class="col-sm-2 col-4">
-                <div class="form-label">Aadhar Card</div>
-              </div>
-              <div class="col-sm-4 col-8">
-                <div class="form-data"> : 554922369985</div>
-              </div>
-              <div class="col-sm-2 col-4">
-                <div class="form-label">{{'approvalProcess.date_of_birth'| translate}}</div>
-              </div>
-              <div class="col-sm-4 col-8">
-                <div class="form-data">: {{(applicantDetails?.birthDate | date: 'dd-MM-yyyy') | dash}}</div>
-              </div> -->
-              <div class="col-sm-2 col-4">
+             <div class="col-sm-2 col-4">
                 <div class="form-label">{{'common.State'| translate}}</div>
               </div>
               <div class="col-sm-4 col-8">
@@ -264,12 +252,7 @@
                 <div class="form-data"> : {{lang == 'en' ? (applicantDetails?.grampanchayatName | dash ) :
                   (applicantDetails?.m_GrampanchayatName | dash)}}</div>
               </div>
-              <!-- <div class="col-sm-2 col-4">
-                <div class="form-label">Village</div>
-              </div>
-              <div class="col-sm-4 col-8">
-                <div class="form-data">: </div>
-              </div> -->
+           
               <div class="col-sm-2 col-4">
                 <div class="form-label">{{'common.pin_Code'| translate}} </div>
               </div>
@@ -297,8 +280,7 @@
               </div>
             <div class="d-flex gap-2">
               <div class="form-label">Is Beneficiary below poverty line ?</div>
-              <!-- <div class="form-data mb-0">: Yes </div> -->
-              <div class="form-data">
+             <div class="form-data">
                 <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
                   <mat-radio-button value="11" [checked]="applicantDetails?.sm_IsBelowPovertyLine == true"
                     class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
@@ -453,7 +435,7 @@
             </tr>
             </tbody>
           </table>
-
+          
 
 
 
@@ -463,45 +445,46 @@
           <!-- <div class="form-data">: Yes</div> -->
         </div>
 
-        <table mat-table [dataSource]="dataSourcecropProduction" class="dashboard-table mb-4">
+        <table mat-table [dataSource]="applicantDetails?.currentProductDetailModel" class="dashboard-table mb-4">
 
           <ng-container matColumnDef="srno">
             <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.srno}} </td>
+            <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
           </ng-container>
 
           <ng-container matColumnDef="cropname">
             <th mat-header-cell *matHeaderCellDef> Crop Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.cropname}} </td>
+            <td mat-cell *matCellDef="let element">{{lang == 'en' ? (element?.ShetmalCast | dash ) :
+              (element?.M_ShetmalCast | dash)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="areaacres">
             <th mat-header-cell *matHeaderCellDef> Area Acres </th>
-            <td mat-cell *matCellDef="let element"> {{element.areaacres}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.area}} </td>
           </ng-container>
           <ng-container matColumnDef="producedquintal">
             <th mat-header-cell *matHeaderCellDef> Produced Quintal </th>
-            <td mat-cell *matCellDef="let element"> {{element.producedquintal}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.totalProduction}} </td>
           </ng-container>
           <ng-container matColumnDef="avgrateperquintal">
             <th mat-header-cell *matHeaderCellDef> The average rate obtained per quintal </th>
-            <td mat-cell *matCellDef="let element"> {{element.avgrateperquintal}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.averageRate}} </td>
           </ng-container>
           <ng-container matColumnDef="finishedproduct">
             <th mat-header-cell *matHeaderCellDef> Finished Prod </th>
-            <td mat-cell *matCellDef="let element"> {{element.finishedproduct}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.totalProductionAmt}} </td>
           </ng-container>
           <ng-container matColumnDef="expenditureincurred">
             <th mat-header-cell *matHeaderCellDef> The expenditure incurred </th>
-            <td mat-cell *matCellDef="let element"> {{element.expenditureincurred}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.totalExpenses}} </td>
           </ng-container>
           <ng-container matColumnDef="netincome">
             <th mat-header-cell *matHeaderCellDef> Net income </th>
-            <td mat-cell *matCellDef="let element"> {{element.netincome}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.netIncome}} </td>
           </ng-container>
           <ng-container matColumnDef="netincomeperacre">
             <th mat-header-cell *matHeaderCellDef> Net income per acre </th>
-            <td mat-cell *matCellDef="let element"> {{element.netincomeperacre}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.acreNetIncome}} </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumnscropProduction"></tr>
@@ -584,25 +567,31 @@
             </div>
           </div>
           <div class="card-body px-0" *ngIf="applicantDetails?.sm_IsTakenBenefitOfInternalScheme">
-           <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th scope="col">Sr. No.</th>
-                  <th scope="col">Scheme Name</th>
-                  <th scope="col">Benefit Year</th>
-                  <th scope="col">Benefit Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>{{applicantDetails?.sm_NameOfPlan | dash}}</td>
-                  <td>{{applicantDetails?.sm_PlanTakenDate | date:'dd-MM-yyyy'}}</td>
-                  <td>{{applicantDetails?.sm_TakenPlanBenefit | dash}}</td>
-                </tr>
-                </tbody>
-              </table>
-              </div>
+            <table mat-table [dataSource]="applicantDetails?.benefitOfInternalSchemeModel" class="mat-elevation-z8">
+                 <ng-container matColumnDef="srNo">
+                    <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
+                    <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
+                  </ng-container>
+      
+                  <ng-container matColumnDef="sm_NameOfPlan">
+                    <th mat-header-cell *matHeaderCellDef>Scheme Name</th>
+                    <td mat-cell *matCellDef="let element"> {{element.internalSchemeName | dash}} </td>
+                  </ng-container>
+                
+                  <ng-container matColumnDef="sm_PlanTakenDate">
+                    <th mat-header-cell *matHeaderCellDef> Benefit Year </th>
+                    <td mat-cell *matCellDef="let element"> {{element.schemeTakenDate | date:'dd-MM-yyyy'}} </td>
+                  </ng-container>
+                
+                 <ng-container matColumnDef="sm_TakenPlanBenefit">
+                    <th mat-header-cell *matHeaderCellDef> Benefit Amount </th>
+                    <td mat-cell *matCellDef="let element"> {{element.totalBenefitTaken  | dash}} </td>
+                  </ng-container>
+                
+                   <tr mat-header-row *matHeaderRowDef="displayedScheme"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedScheme;"></tr>
+                </table>
+             </div>
         </div>
 
 
