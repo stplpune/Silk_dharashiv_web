@@ -1,8 +1,9 @@
-.profile-pic img{
+.profile-pic img {
   width: 100px;
   height: 100px;
   border-radius: 50%;
 }
+
 .file-upload {
   position: relative;
   display: flex;
@@ -40,14 +41,16 @@
 }
 
 
-.add-btn{
+.add-btn {
   position: absolute;
-  top: -10px;
+  bottom: -10px;
   left: 60px;
 }
-.add-btn:active{
+
+.add-btn:active {
   background-color: transparent !important;
 }
+
 // .mat-mdc-icon-button {
 //   --mat-mdc-button-persistent-ripple-color: transparent !important;
 // }
