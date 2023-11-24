@@ -32,6 +32,9 @@ export class CreateManaregaAppComponent {
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   gramPCtrl: FormControl = new FormControl();
   gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  dialogFlag: boolean = false;
+  demoArray: any;
+  checkedItems: any[]=[]; // Define an array to store checked items
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -72,7 +75,7 @@ export class CreateManaregaAppComponent {
       "stateId": [this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],//no
       "districtId": [this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],//no
       "talukaId": [this.WebStorageService.getTalukaId() == '' ? 0 : this.WebStorageService.getTalukaId()],//no
-      "grampanchayatId": [ this.WebStorageService.getGrampanchayatId() == '' ? 0 : this.WebStorageService.getGrampanchayatId()],//no
+      "grampanchayatId": [this.WebStorageService.getGrampanchayatId() == '' ? 0 : this.WebStorageService.getGrampanchayatId()],//no
       "village": [''],
       "address": [''],
       "pinCode": [''],
@@ -268,19 +271,19 @@ export class CreateManaregaAppComponent {
     this.districtArray = [];
     let stateId = this.manaregaFrm.getRawValue()?.stateId;
     if (stateId != 0) {
-    this.masterService.GetAllDistrict(1).subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.districtArray = res.responseData;
-          // this.data ? this.f['districtId'].setValue(this.data?.districtId) : ''
-          this.getTaluka();
-        }
-        else {
-          this.districtArray = [];
-        }
+      this.masterService.GetAllDistrict(1).subscribe({
+        next: ((res: any) => {
+          if (res.statusCode == "200" && res.responseData?.length) {
+            this.districtArray = res.responseData;
+            // this.data ? this.f['districtId'].setValue(this.data?.districtId) : ''
+            this.getTaluka();
+          }
+          else {
+            this.districtArray = [];
+          }
+        })
       })
-    })
-  }
+    }
   }
 
   getTaluka() {
@@ -288,80 +291,83 @@ export class CreateManaregaAppComponent {
     let stateId = this.manaregaFrm.getRawValue()?.stateId;
     let disId = this.manaregaFrm.getRawValue()?.districtId;
     if (disId != 0) {
-    this.masterService.GetAllTaluka(stateId,disId,0).subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.talukaArray = res.responseData;
-          this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
-          //  this.data  ? this.f['talukaId'].setValue(this.data?.talId) : '';
-          this.getGrampanchayat()
-        }
-        else {
-          this.talukaArray = [];
-          this.talukaSubject.next(null);
-        }
+      this.masterService.GetAllTaluka(stateId, disId, 0).subscribe({
+        next: ((res: any) => {
+          if (res.statusCode == "200" && res.responseData?.length) {
+            this.talukaArray = res.responseData;
+            this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
+            //  this.data  ? this.f['talukaId'].setValue(this.data?.talId) : '';
+            this.getGrampanchayat()
+          }
+          else {
+            this.talukaArray = [];
+            this.talukaSubject.next(null);
+          }
+        })
       })
-    })
+    }
   }
-  }
+
+  // GetQualification()
 
   getGrampanchayat() {
     this.grampanchayatArray = [];
     let talukaId = this.manaregaFrm.getRawValue()?.talukaId;
     // if (talukaId != 0) {
-      this.masterService.GetGrampanchayat(talukaId).subscribe({
-        next: ((res: any) => {
-          if (res.statusCode == "200" && res.responseData?.length) {
-            this.grampanchayatArray = res.responseData;
-            // this.grampanchayatArray.unshift( { id: 0,textEnglish:'All Grampanchayat' ,textMarathi:'सर्व ग्रामपंचायत'});
-            this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
-            // this.data ? (this.f['grampanchayatId'].setValue(this.data?.grampanchayatId)) : '';
-          }
-          else {
-            this.grampanchayatArray = [];
-            this.gramPSubject.next(null);
-          }
-        })
+    this.masterService.GetGrampanchayat(talukaId).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.grampanchayatArray = res.responseData;
+          // this.grampanchayatArray.unshift( { id: 0,textEnglish:'All Grampanchayat' ,textMarathi:'सर्व ग्रामपंचायत'});
+          this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
+          // this.data ? (this.f['grampanchayatId'].setValue(this.data?.grampanchayatId)) : '';
+        }
+        else {
+          this.grampanchayatArray = [];
+          this.gramPSubject.next(null);
+        }
       })
+    })
     // }
   }
 
-  getCategory(){
+  getCategory() {
     this.apiService.setHttp('GET', 'sericulture/api/DropdownService/Get-Category-Of-Beneficiary?lan=' + this.lang, false, false, false, 'masterUrl')
     this.apiService.getHttp().subscribe({
-      next: (res: any) => { 
-        if (res.statusCode == "200") { 
+      next: (res: any) => {
+        if (res.statusCode == "200") {
           this.categoryArray = res.responseData;
-          //this.categoryDialogBox(this.categoryArray)
-        } 
-          else { 
-            this.categoryArray = [];
-          } 
         }
+        else {
+          this.categoryArray = [];
+        }
+      }
     })
   }
 
-    categoryDialogBox() {
-     const dialogRef =this.dialog.open(CategorydetailsComponent, {
+  categoryDialogBox() {
+    const dialogRef = this.dialog.open(CategorydetailsComponent, {
       width: '400px',
-      data:  this.categoryArray,
+      data: this.categoryArray,
       disableClose: true,
       autoFocus: true,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
-       result ?  console.log("dialog box data",result) : '';
-     });
+      if (result) {
+        this.categoryArray = result;
+        this.checkedItems = this.categoryArray.filter(item => item.checked);
+      }
+    });
   }
-
 
   clearDropdown(flag: any) {
     switch (flag) {
       case 'taluka':
         this.gramPSubject = new ReplaySubject<any>();
         this.grampanchayatArray = [];
-        this.f['grampanchayatId'].setValue(0);
+        this.f['grampanchayatId'].setValue('');
         break;
-       }
+    }
   }
 
 

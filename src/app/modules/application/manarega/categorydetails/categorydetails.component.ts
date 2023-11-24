@@ -5,6 +5,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
+import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 
 
 @Component({
@@ -15,11 +16,16 @@ import { MatRadioModule } from '@angular/material/radio';
   styleUrls: ['./categorydetails.component.scss']
 })
 export class CategorydetailsComponent {
-  
+
   constructor(
+    public commonMethod: CommonMethodsService,
     private dialogRef: MatDialogRef<CategorydetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
+  ) {
+    console.log(this.data);
+    
+  
+  }
 
 
   onOptionChange(event: any, i: number, label: string) {
@@ -36,6 +42,14 @@ export class CategorydetailsComponent {
   }
 
   getSelectedItems() {
-    this.dialogRef.close('yes');
+    console.log("this.data", this.data)
+    let checkedCategory = this.data.some((category: any) => category.checked);
+    if (!checkedCategory) {
+      this.commonMethod.snackBar('Please select at least one category.', 1);
+      return;
+    }
+    else {
+      this.dialogRef.close(this.data);
+    }
   }
 }

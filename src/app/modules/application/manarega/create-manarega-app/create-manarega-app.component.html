@@ -226,54 +226,20 @@
             </div>
             <div class="col-sm-6">
               <div class="form-label">15. लाभर्त्याची वर्गवारी</div>
-              <mat-form-field appearance="outline" class="w-100" formControlName="categoryId">
-                <mat-select (click)="categoryDialogBox()">
-                  
-                  <!-- <mat-option>
-                    <mat-radio-button value="1">अनीसीचीत जाती</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-radio-button value="1">अनीसीचीत जमाती</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-radio-button value="1">भटक्या जमाती</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-radio-button value="1">निरधिसूचित जमाती</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-radio-button value="1">इतर मागसवर्ग</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-radio-button value="1">सर्वसाधारण</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">दारिद्र्य रेषेखालील कुटुंबे </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">स्त्री कुटुंब प्रमुख असेलेले कुटुंबे </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">दिव्यांग व्यक्ति प्रमुख असेलेले कुटुंबे </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">जमीन सुधरणांचे लाभार्थी </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">प्रधानमंत्री आवास योजना - ग्रामीण योजनेखालील लाभार्थी
-                    </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">अनिसूचित जमाती व इतर पारंपरिक वानवशि (वनहक्क मान्य करणे );
-                      आधिनियम २००६(2007) च 2 खलील पात्रलाभार्थी </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">कृषि कर्ज माफी योजना सान 2008 नुसार अल्पभूधारक (1हेक्टर
-                      )पेक्स्गा कमी क्षेत्र. </mat-checkbox>
-                  </mat-option> -->
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select (click)="categoryDialogBox()" formControlName="categoryId">
                 </mat-select>
               </mat-form-field>
             </div>
+            <div *ngIf="checkedItems.length">
+              <div class="form-label">Cast Category</div>
+              <div class="form-data mb-0" *ngFor="let data of checkedItems;let i=index">
+                {{(i+1)+". "+(data.textEnglish)}}
+              </div>
+            </div>
+            <!-- <ol *ngFor = "let data of checkedItems;let i=index" class="list-unstyled">
+             <li>{{i}}{{ data.textEnglish }}</li>
+            </ol> -->
           </div>
           <!-- </div> -->
         </div>

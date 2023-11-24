@@ -11,8 +11,10 @@
 <mat-dialog-content class="modal-body form-container scrollbar">
   <ng-container *ngFor="let list of data; let i = index">
     <p class="mb-2">
-       <mat-radio-button [value]="list.textEnglish" *ngIf="list?.isRadioButton" class="ms-2" (change)="onOptionChange($event,i,'radio')">{{list.textEnglish}}</mat-radio-button></p>
-    <p class="mb-0"><mat-checkbox class="example-margin" *ngIf="list?.isCheckBox" (change)="onOptionChange($event,i,'checkbox')"> {{list.textEnglish}}</mat-checkbox></p>
+     
+       <mat-radio-button [value]="list.textEnglish" *ngIf="list?.isRadioButton" [checked]="list.checked" class="ms-2" (change)="onOptionChange($event,i,'radio')">{{list.textEnglish}}</mat-radio-button></p>
+    <p class="mb-0"><mat-checkbox class="example-margin" *ngIf="list?.isCheckBox" [checked]="list.checked" (change)="onOptionChange($event,i,'checkbox')"> {{list.textEnglish}}</mat-checkbox></p>
+  <p> {{data.checked}}</p>
   </ng-container>
 
   <button (click)="getSelectedItems()">Selected</button>
