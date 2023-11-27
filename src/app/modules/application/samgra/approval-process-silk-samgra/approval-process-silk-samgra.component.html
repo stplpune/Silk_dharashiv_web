@@ -306,7 +306,7 @@
               <tbody>
                 <tr>
                   <td>
-                    <div class="form-label">Total land in hectares in favor of beneficiaries (as per 8-A) </div>
+                    <div class="form-label">{{'approvalProcess.total_land_in_hectares_in_favor_of_beneficiaries'| translate}} </div>
                   </td>
                   <td>
                     <div class="form-data">{{applicantDetails?.benificiaryTotalFarm}}</div>
@@ -314,7 +314,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <div class="form-label">Landholding Category</div>
+                    <div class="form-label">{{'approvalProcess.landholding_Category'| translate}}</div>
                   </td>
                   <td>
                     <div class="form-data">{{applicantDetails?.sm_LandTenureCategories}}</div>
@@ -344,7 +344,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <div class="form-label">Irrigation Period</div>
+                    <div class="form-label">{{'approvalProcess.irrigation_Period'| translate}}</div>
                   </td>
                   <td>
                     <div class="form-data">{{lang == 'en' ? (applicantDetails?.irrigationPeriod | dash ) :
@@ -356,12 +356,12 @@
 
           </div>
           <div class="col-sm-6">
-            <div class="fw-bold text-main">Mulberry planting details </div>
+            <div class="fw-bold text-main">{{'approvalProcess.mulberry_planting_details'| translate}} </div>
             <table class="table table-bordered">
               <tbody>
                 <tr>
                   <td>
-                    <div class="form-label">An improved breed of Mulberry</div>
+                    <div class="form-label">{{'approvalProcess.an_improved_breed_of_Mulberry'| translate}}</div>
                   </td>
                   <td>
                     <div class="form-data">{{lang == 'en' ? (applicantDetails?.irrigationPeriod | dash ) :
@@ -370,7 +370,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <div class="form-label">Mulberry Planting Distance (feet) </div>
+                    <div class="form-label">{{'approvalProcess.mulberry_Planting_Distance_(feet)'| translate}} </div>
                   </td>
                   <td>
                     <div class="form-data">{{applicantDetails?.sm_MulberryPlantingDistance}} </div>
@@ -378,7 +378,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <div class="form-label">Mulberry Planting Land Group No./ Survey No </div>
+                    <div class="form-label">{{'approvalProcess.mulberry_Planting_Land_Group_No_Survey_No'| translate}} </div>
                   </td>
                   <td>
                     <div class="form-data">{{applicantDetails?.sm_PlantationSurveyNo}}</div>
@@ -386,7 +386,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <div class="form-label">Mulberry Plantation Area (Acres) </div>
+                    <div class="form-label">{{'approvalProcess.mulberry_Plantation_Area_(Acres)'| translate}} </div>
                   </td>
                   <td>
                     <div class="form-data">{{lang == 'en' ? (applicantDetails?.mulberryCultivationArea | dash ) :
@@ -395,7 +395,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <div class="form-label">Mulberry Plantation Method </div>
+                    <div class="form-label">{{'approvalProcess.mulberry_Plantation_Method'| translate}} </div>
                   </td>
                   <td>
                     <div class="form-data">{{lang == 'en' ? (applicantDetails?.plantationMethod | dash ) :
@@ -408,7 +408,7 @@
         </div>
 
         <div class="d-flex gap-2">
-          <div class="form-label">Have you planted mulberry earlier under the government scheme ?</div>
+          <div class="form-label">{{'approvalProcess.have_you_planted_mulberry_earlier_under_the_government_scheme'| translate}}</div>
         <div class="form-data">
           <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
             <mat-radio-button value="1" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == true"
@@ -421,9 +421,9 @@
         <table class="table table-bordered" *ngIf="applicantDetails?.isAnyPlantedBeforeGovScheme">
           <thead>
             <tr>
-              <th scope="col">Year of planting</th>
-              <th scope="col"> Cultivated Area (Acres) </th>
-              <th scope="col">Land Survey No.</th>
+              <th scope="col">{{'approvalProcess.year_of_planting'| translate}}</th>
+              <th scope="col"> {{'approvalProcess.cultivated_Area_(Acres)'| translate}}</th>
+              <th scope="col">{{'approvalProcess.land_Survey_No'| translate}}</th>
             
             </tr>
           </thead>
@@ -441,49 +441,49 @@
 
 
         <div class="d-flex gap-2 my-1">
-          <div class="form-data">Details of current crop and production:</div>
+          <div class="form-data">{{'approvalProcess.details_of_current_crop_and_production'| translate}} :</div>
           <!-- <div class="form-data">: Yes</div> -->
         </div>
 
         <table mat-table [dataSource]="applicantDetails?.currentProductDetailModel" class="dashboard-table mb-4">
 
           <ng-container matColumnDef="srno">
-            <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
+            <th mat-header-cell *matHeaderCellDef> {{'common.srNo'| translate}} </th>
             <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
           </ng-container>
 
           <ng-container matColumnDef="cropname">
-            <th mat-header-cell *matHeaderCellDef> Crop Name </th>
+            <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.crop_Name'| translate}}  </th>
             <td mat-cell *matCellDef="let element">{{lang == 'en' ? (element?.ShetmalCast | dash ) :
               (element?.M_ShetmalCast | dash)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="areaacres">
-            <th mat-header-cell *matHeaderCellDef> Area Acres </th>
+            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.Area_Acres'| translate}} </th>
             <td mat-cell *matCellDef="let element"> {{element.area}} </td>
           </ng-container>
           <ng-container matColumnDef="producedquintal">
-            <th mat-header-cell *matHeaderCellDef> Produced Quintal </th>
+            <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.produced_Quintal'| translate}} </th>
             <td mat-cell *matCellDef="let element"> {{element.totalProduction}} </td>
           </ng-container>
           <ng-container matColumnDef="avgrateperquintal">
-            <th mat-header-cell *matHeaderCellDef> The average rate obtained per quintal </th>
+            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.the_average_rate_obtained_per_quintal'| translate}} </th>
             <td mat-cell *matCellDef="let element"> {{element.averageRate}} </td>
           </ng-container>
           <ng-container matColumnDef="finishedproduct">
-            <th mat-header-cell *matHeaderCellDef> Finished Prod </th>
+            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.finished_Prod'| translate}} </th>
             <td mat-cell *matCellDef="let element"> {{element.totalProductionAmt}} </td>
           </ng-container>
           <ng-container matColumnDef="expenditureincurred">
-            <th mat-header-cell *matHeaderCellDef> The expenditure incurred </th>
+            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.the_expenditure_incurred'| translate}} </th>
             <td mat-cell *matCellDef="let element"> {{element.totalExpenses}} </td>
           </ng-container>
           <ng-container matColumnDef="netincome">
-            <th mat-header-cell *matHeaderCellDef> Net income </th>
+            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.net_income'| translate}} </th>
             <td mat-cell *matCellDef="let element"> {{element.netIncome}} </td>
           </ng-container>
           <ng-container matColumnDef="netincomeperacre">
-            <th mat-header-cell *matHeaderCellDef> Net income per acre </th>
+            <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.net_income_per_acre'| translate}} </th>
             <td mat-cell *matCellDef="let element"> {{element.acreNetIncome}} </td>
           </ng-container>
 
@@ -495,7 +495,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="row">
-              <div class="col-sm-8 form-label">Do you have experience in the silk industry ?</div>
+              <div class="col-sm-8 form-label">{{'approvalProcess.do_you_have_experience_in_the_silk_industry'| translate}}</div>
               <div class="col-sm-4 form-data">
               <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
                 <mat-radio-button value="1" [checked]="applicantDetails?.sm_IsExperienceSilkIndustry == true"
@@ -508,13 +508,13 @@
           </div>
           <div class="col-sm-6">
             <div class="d-flex justify-content-end gap-3">
-              <div class="form-label">How many years ?</div>
+              <div class="form-label">{{'approvalProcess.how_many_years'| translate}}</div>
               <div class="form-data">:{{applicantDetails?.sm_ExperienceYears}}</div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="row">
-              <div class="col-sm-8 form-label">Have you done training in silk industry ?</div>
+              <div class="col-sm-8 form-label">{{'approvalProcess.have_you_done_training_in_silk_industry'| translate}}</div>
               <div class="col-sm-4 form-data">
                 <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
                   <mat-radio-button value="1" [checked]="applicantDetails?.sm_IsSilkIndustrtyTrainingReceived == true"
@@ -525,7 +525,7 @@
               </div>
             </div>
             <div class="row" *ngIf="applicantDetails?.sm_IsSilkIndustrtyTrainingReceived">
-              <div class="col-sm-8 form-label">Details</div>
+              <div class="col-sm-8 form-label">{{'approvalProcess.details'| translate}}</div>
               <div class="col-sm-4 form-data">:{{applicantDetails?.sm_SilkIndustrtyTrainingDetails | dash}}</div>
             </div>
           </div>
@@ -533,7 +533,7 @@
 
         <!-- <div class="text-main fw-bold mt-4">Details </div> -->
         <div class="d-flex gap-2">
-          <div class="form-label">Have you gone directly to the silk industry farmer and taken the information ?</div>
+          <div class="form-label">{{'approvalProcess.have_you_gone_directly_to_the_silk_industry_farmer_and_taken_the_information'| translate}}</div>
           <div class="form-data">
             <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
               <mat-radio-button value="1" [checked]="applicantDetails?.sm_IsSilkIndustrtyTrainingReceived == true"
@@ -555,7 +555,7 @@
         <div class="card mb-2">
           <div class="card-header">
             <div class="d-flex gap-2">
-              <div class="form-label">Have you benefited from any scheme under Silk Directorate before this ?</div>
+              <div class="form-label">{{'approvalProcess.have_you_benefited_from_any_scheme_under_Silk_Directorate_before_this'| translate}}</div>
               <div class="form-data">
                 <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
                   <mat-radio-button value="1" [checked]="applicantDetails?.sm_IsTakenBenefitOfInternalScheme == true"
@@ -574,17 +574,17 @@
                   </ng-container>
       
                   <ng-container matColumnDef="sm_NameOfPlan">
-                    <th mat-header-cell *matHeaderCellDef>Scheme Name</th>
+                    <th mat-header-cell *matHeaderCellDef>{{'scheme.scheme_name'| translate}}Scheme Name</th>
                     <td mat-cell *matCellDef="let element"> {{element.internalSchemeName | dash}} </td>
                   </ng-container>
                 
                   <ng-container matColumnDef="sm_PlanTakenDate">
-                    <th mat-header-cell *matHeaderCellDef> Benefit Year </th>
+                    <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.benefit_Year'| translate}} </th>
                     <td mat-cell *matCellDef="let element"> {{element.schemeTakenDate | date:'dd-MM-yyyy'}} </td>
                   </ng-container>
                 
                  <ng-container matColumnDef="sm_TakenPlanBenefit">
-                    <th mat-header-cell *matHeaderCellDef> Benefit Amount </th>
+                    <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.benefit_Amount'| translate}}</th>
                     <td mat-cell *matCellDef="let element"> {{element.totalBenefitTaken  | dash}} </td>
                   </ng-container>
                 
