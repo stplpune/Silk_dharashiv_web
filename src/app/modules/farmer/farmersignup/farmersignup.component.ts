@@ -175,6 +175,7 @@ export class FarmersignupComponent {
 
   clearDependancy() {
     this.f['grampanchayatId'].setValue('');
+    this.grampanchayatArray = [];
   }
 }
 

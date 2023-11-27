@@ -21,7 +21,7 @@
               <a class="text-main" (click)=sendOTP() *ngIf="otpTimerFlag == true">{{'farmerSignUp.Resend_OTP'|translate}}?</a>
           </div>
           <div  class="text-end">
-              <span  class="mb-2 ml-4 text-main">
+              <span  class="mb-2 ml-4 text-main" *ngIf="!otpTimerFlag">
                 {{'farmerSignUp.Wait_for'|translate}} 00: {{otpTimer}} Sec.</span>
           </div>
       </div>

@@ -17,7 +17,7 @@
                         <label class="form-label">{{'farmerSignUp.Full_Name'|translate}}</label>
                         <mat-form-field appearance="outline" class="w-100">
                             <!-- <mat-label>Full Name</mat-label> -->
-                            <input matInput formControlName="name" (keypress)="validator.noFirstSpaceAllow($event);validator.onlyAlphabetsWithSpace($event)" maxlength="20">
+                            <input matInput formControlName="name" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)" maxlength="20">
                             <mat-error class="text-danger" *ngIf="f['name'].hasError('required')">{{'farmerSignUp.Please_enter_full_name'|translate}}</mat-error>
                             <mat-error class="text-danger" *ngIf="f['name'].hasError('pattern')">{{'farmerSignUp.Please_enter_valid_full_name'|translate}} </mat-error>
                         </mat-form-field>
@@ -68,7 +68,7 @@
                             <label class="form-label">{{'farmerSignUp.village'|translate}}</label>
                             <mat-form-field appearance="outline" class="w-100">
                                 <!-- <mat-label>Full Name</mat-label> -->
-                                <input matInput formControlName="village" (keypress)="validator.noFirstSpaceAllow($event);validator.onlyAlphabetsWithSpace($event)" maxlength="20">
+                                <input matInput formControlName="village" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)" maxlength="20">
                                 <mat-error class="text-danger" *ngIf="f['village'].hasError('required')">{{'farmerSignUp.Please_enter_village_name'|translate}} </mat-error>
                                 <mat-error class="text-danger" *ngIf="f['village'].hasError('pattern')">{{'farmerSignUp.Please_enter_valid_village_name'|translate}} </mat-error>                                
                             </mat-form-field>
