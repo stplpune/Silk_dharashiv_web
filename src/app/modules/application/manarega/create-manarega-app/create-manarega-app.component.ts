@@ -9,7 +9,8 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { MasterService } from 'src/app/core/services/master.service';
-import { CategorydetailsComponent } from '../categorydetails/categorydetails.component';
+//import { CategorydetailsComponent } from '../categorydetails/categorydetails.component';
+import { CategoryDetailsComponent } from '../category-details/category-details.component';
 import { ValidationService } from 'src/app/core/services/validation.service';
 @Component({
   selector: 'app-create-manarega-app',
@@ -480,7 +481,7 @@ export class CreateManaregaAppComponent {
   }
 
   categoryDialogBox() {
-    const dialogRef = this.dialog.open(CategorydetailsComponent, {
+    const dialogRef = this.dialog.open(CategoryDetailsComponent, {
       width: '400px',
       data: this.categoryArray,
       disableClose: true,

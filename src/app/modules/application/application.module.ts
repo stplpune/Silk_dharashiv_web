@@ -15,12 +15,12 @@ import { MatTableModule } from '@angular/material/table';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { GlobalTableComponent } from 'src/app/shared/components/global-table/global-table.component';
-import { CategoryDetailsComponent } from './manarega/category-details/category-details.component';
+//import { CategoryDetailsComponent } from './manarega/category-details/category-details.component';
 
 @NgModule({
   declarations: [
     ApplicationComponent,
-    CategoryDetailsComponent,
+   // CategoryDetailsComponent
   ],
   imports: [
     CommonModule,
