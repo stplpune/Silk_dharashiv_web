@@ -169,7 +169,7 @@
     <div class="card mb-3">
       <div class="card-header">
         <!-- <div class="form-data text-main">{{'approvalProcess.applicant_details'| translate}}</div> -->
-        <div class="form-data text-main">अर्जदारचा तपशील</div>
+        <div class="form-data text-main">{{'approvalProcess.applicant_details' | translate }}</div>
       </div>
       <div class="card-body">
         <div class="row application-details">
@@ -198,7 +198,7 @@
                 <div class="form-data">: {{applicantDetails?.mobileNo1 | dash}}</div>
               </div>
               <div class="col-sm-2 col-4">
-                <div class="form-label">Election Id No</div>
+                <div class="form-label">{{'approvalProcess.election_Id_No'| translate}}</div>
               </div>
               <div class="col-sm-4 col-8">
                 <div class="form-data">: {{applicantDetails?.sm_VoterRegistrationNo | dash}}</div>
@@ -279,7 +279,7 @@
                 {{(i+1)+". "+(lang == 'en' ? data?.categoryOfBeneficiary : data?.m_CategoryOfBeneficiary)}}
               </div>
             <div class="d-flex gap-2">
-              <div class="form-label">Is Beneficiary below poverty line ?</div>
+              <div class="form-label">{{'approvalProcess.is_Beneficiary_below_poverty_line'| translate}}</div>
              <div class="form-data">
                 <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
                   <mat-radio-button value="11" [checked]="applicantDetails?.sm_IsBelowPovertyLine == true"
@@ -296,12 +296,12 @@
 
     <div class="card mb-3">
       <div class="card-header">
-        <div class="text-main fw-bold">Land Details</div>
+        <div class="text-main fw-bold">{{'approvalProcess.land_details'| translate}}</div>
       </div>
       <div class="card-body">
         <div class="row gx-2">
           <div class="col-sm-6">
-            <div class="fw-bold text-main">Land Details</div>
+            <div class="fw-bold text-main">{{'approvalProcess.land_details'| translate}}</div>
             <table class="table table-bordered">
               <tbody>
                 <tr>
