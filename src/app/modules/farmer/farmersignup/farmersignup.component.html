@@ -12,65 +12,65 @@
                     <div class="mb-2 text-center">
                         <img src="assets/images/logo-text.svg" class="w-75">
                     </div>
-                    <h4 class="fw-bold text-center mb-2">FARMER SIGN UP</h4>
+                    <h4 class="fw-bold text-center mb-2">{{'farmerSignUp.farmer_sign_up' |translate}}</h4>
                     <div class="mb-0">
-                        <label class="form-label">Full Name</label>
+                        <label class="form-label">{{'farmerSignUp.Full_Name'|translate}}</label>
                         <mat-form-field appearance="outline" class="w-100">
                             <!-- <mat-label>Full Name</mat-label> -->
                             <input matInput placeholder="Full Name" formControlName="name" (keypress)="validator.noFirstSpaceAllow($event);validator.onlyAlphabetsWithSpace($event)" maxlength="20">
-                            <mat-error class="text-danger" *ngIf="f['name'].hasError('required')">Please enter full name </mat-error>
-                            <mat-error class="text-danger" *ngIf="f['name'].hasError('pattern')">Please enter valid full name </mat-error>
+                            <mat-error class="text-danger" *ngIf="f['name'].hasError('required')">{{'farmerSignUp.Please_enter_full_name'|translate}}</mat-error>
+                            <mat-error class="text-danger" *ngIf="f['name'].hasError('pattern')">{{'farmerSignUp.Please_enter_valid_full_name'|translate}} </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="row gx-2">
                         <div class="col-sm-6">
-                            <label class="form-label">Mobile No.</label>
+                            <label class="form-label">{{'farmerSignUp.Mobile_No'|translate}}</label>
                             <mat-form-field appearance="outline" class="w-100">
                                 <!-- <mat-label>Mobile No.</mat-label> -->
                                 <input matInput placeholder="Mobile No." maxlength="10" formControlName="mobileNo" (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
-                                <mat-error class="text-danger" *ngIf="f['mobileNo'].hasError('required')">Please enter mobile number </mat-error>
-                                <mat-error class="text-danger" *ngIf="f['mobileNo'].hasError('pattern')">Please enter valid mobile number </mat-error>
+                                <mat-error class="text-danger" *ngIf="f['mobileNo'].hasError('required')">{{'farmerSignUp.Please_enter_mobile_number'|translate}} </mat-error>
+                                <mat-error class="text-danger" *ngIf="f['mobileNo'].hasError('pattern')">{{'farmerSignUp.Please_enter_valid_mobile_number'|translate}} </mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
-                            <label class="form-label">District</label>
+                            <label class="form-label">{{'farmerSignUp.District'|translate}} </label>
                             <mat-form-field appearance="outline" class="w-100"
                             [class]="f['districtId'].value ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
                                 <!-- <mat-label>District</mat-label> -->
                                 <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
                                     <mat-option *ngFor="let district of districtArray" [value]="district.id">{{district.textEnglish}}</mat-option>                                                          
                                 </mat-select>
-                                <mat-error class="text-danger" *ngIf="f['districtId'].hasError('required')">Please select district </mat-error>      
+                                <mat-error class="text-danger" *ngIf="f['districtId'].hasError('required')">{{'farmerSignUp.Please_select_district'|translate}} </mat-error>      
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
-                            <label class="form-label">Taluka</label>
+                            <label class="form-label">{{'farmerSignUp.Taluka'|translate}}</label>
                             <mat-form-field appearance="outline" class="w-100">
                                 <!-- <mat-label>Taluka</mat-label> -->
                                 <mat-select formControlName="talukaId"  (selectionChange)="getGrampanchayat();clearDependancy()">
                                     <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.textEnglish}}</mat-option>                                                             
                                 </mat-select>
-                                <mat-error class="text-danger" *ngIf="f['talukaId'].hasError('required')">Please select taluka </mat-error>      
+                                <mat-error class="text-danger" *ngIf="f['talukaId'].hasError('required')">{{'farmerSignUp.Please_select_taluka'|translate}} </mat-error>      
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
-                            <label class="form-label">Grampanchayat</label>
+                            <label class="form-label">{{'farmerSignUp.Grampanchayat'|translate}}</label>
                             <mat-form-field appearance="outline" class="w-100">
                                 <!-- <mat-label>Village</mat-label> -->
                                 <mat-select formControlName="grampanchayatId">
                                     <mat-option *ngFor="let grampanchayat of grampanchayatArray" [value]="grampanchayat.id">{{grampanchayat.textEnglish}}</mat-option>                                                       
                                 </mat-select>
-                                <mat-error class="text-danger" *ngIf="f['grampanchayatId'].hasError('required')">Please select grampanchayat </mat-error>  
+                                <mat-error class="text-danger" *ngIf="f['grampanchayatId'].hasError('required')">{{'farmerSignUp.Please_select_grampanchayat'|translate}} </mat-error>  
                             </mat-form-field>
                         </div>
 
                         <div  class="col-sm-6">
-                            <label class="form-label">village</label>
+                            <label class="form-label">{{'farmerSignUp.village'|translate}}</label>
                             <mat-form-field appearance="outline" class="w-100">
                                 <!-- <mat-label>Full Name</mat-label> -->
                                 <input matInput placeholder="village Name" formControlName="village" (keypress)="validator.noFirstSpaceAllow($event);validator.onlyAlphabetsWithSpace($event)" maxlength="20">
-                                <mat-error class="text-danger" *ngIf="f['village'].hasError('required')">Please enter village name </mat-error>
-                                <mat-error class="text-danger" *ngIf="f['village'].hasError('pattern')">Please enter valid village name </mat-error>                                
+                                <mat-error class="text-danger" *ngIf="f['village'].hasError('required')">{{'farmerSignUp.Please_enter_village_name'|translate}} </mat-error>
+                                <mat-error class="text-danger" *ngIf="f['village'].hasError('pattern')">{{'farmerSignUp.Please_enter_valid_village_name'|translate}} </mat-error>                                
                             </mat-form-field>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                   
                         <div class="col-sm-6">
                             <button mat-flat-button class="btn-main w-100" (click)="openSendOtpComponent()">
-                                SIGN UP
+                                {{'farmerSignUp.SIGN_UP'|translate}}
                             </button>
                         </div>
                     </div>
