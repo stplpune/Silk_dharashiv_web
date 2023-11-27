@@ -51,7 +51,6 @@ export class OtpSendReceiveComponent {
     this.apiService.setHttp('post', 'sericulture/api/OtpTran/GenerateOTP', false, obj, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
-        // this.commonMethods.snackBar(res.statusMessage, 0);
         this.setOtpTimer();
       }
       else {
@@ -78,7 +77,6 @@ export class OtpSendReceiveComponent {
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.commonMethods.snackBar(res.statusMessage, 0);
-          // this.webStorage.setVerifyOtp(true)
           this.otpFormControl.setValue('');
           this.dialogRef.close('Yes');
         }
