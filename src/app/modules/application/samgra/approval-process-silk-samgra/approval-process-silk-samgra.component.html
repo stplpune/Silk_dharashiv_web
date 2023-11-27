@@ -803,7 +803,7 @@
                         </span>
                       </button> -->
                       <!-- [disabled]="!element?.isDeleteAction"   *ngIf="applicationData?.isEdit" -->
-                      <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
+                      <button matTooltipPosition="above" [disabled]="!applicationData?.isEdit" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
                         (click)="deleteOtherDocument(i, element)" >
                         <span class="material-symbols-rounded text-danger">
                           delete
