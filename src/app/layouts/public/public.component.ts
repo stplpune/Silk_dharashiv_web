@@ -12,6 +12,7 @@ export class PublicComponent {
 
   constructor(private router: Router) {
     this.router.events.subscribe((event: any) => {
+      console.log("event",event)
       if (event instanceof (NavigationEnd || NavigationStart)) {
         if (event.url == '/login' || event.url == '/forgot-password') {
           this.hideHeaderFooter = false;
