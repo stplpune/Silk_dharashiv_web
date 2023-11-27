@@ -70,6 +70,7 @@
     "select_grampanchayat":"ग्रामपंचायत निवडा"
   },
   "approvalProcess"  : {
+    "Add_Manarega":"मनरेगा जोडा",
     "applicant_id":"अर्ज क्रमांक",
     "mulberry_id":"तुती क्रमांक (तारीख)",
     "date":"तारीख",
