@@ -9,7 +9,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 import { ValidationService } from 'src/app/core/services/validation.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class OtpSendReceiveComponent {
     private commonMethods: CommonMethodsService,
     private apiService: ApiService,
     private error: ErrorHandlingService, 
-    private router: Router,
+    // private router: Router,
     public validator: ValidationService,
     public dialogRef: MatDialogRef<OtpSendReceiveComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -102,8 +102,8 @@ export class OtpSendReceiveComponent {
     }, 1000)
   }
 
-  getlogin() {
-    this.router.navigate(['/login']); 
-  }
+  // getlogin() {
+  //   this.router.navigate(['/login']); 
+  // }
 }
 

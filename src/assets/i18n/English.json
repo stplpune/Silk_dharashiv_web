@@ -554,6 +554,9 @@
     "village": "village",
     "Please_enter_village_name": "Please enter village name",
     "Please_enter_valid_village_name":"Please enter valid village name",
-    "SIGN_UP":"SIGN UP"
+    "SIGN_UP":"SIGN UP",
+    "Enter_OTP" : "Enter OTP",
+    "Resend_OTP" : "Resend OTP",
+    "Wait_for" : "Wait for"
   }
 }

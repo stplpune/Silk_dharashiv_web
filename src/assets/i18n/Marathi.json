@@ -555,6 +555,9 @@
     "village": "गाव",
     "Please_enter_village_name": "कृपया गावाचे नाव टाका",
     "Please_enter_valid_village_name":"कृपया वैध गावाचे नाव प्रविष्ट करा",
-    "SIGN_UP":"साइन अप करा"
+    "SIGN_UP":"साइन अप करा",
+    "Enter_OTP" : "ओटीपी टाका",
+    "Resend_OTP" : "ओटीपी पुन्हा पाठवा",
+    "Wait_for" : "साठी प्रतीक्षा"
   }
 }

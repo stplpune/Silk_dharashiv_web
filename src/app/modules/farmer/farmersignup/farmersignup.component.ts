@@ -9,6 +9,7 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-farmersignup',
@@ -33,7 +34,8 @@ export class FarmersignupComponent {
     private apiService : ApiService,
     private commonMethods : CommonMethodsService,
     private error : ErrorHandlingService,
-    public WebStorageService : WebStorageService
+    public WebStorageService : WebStorageService,
+    private router: Router
   ) { }
 
   get f() { return this.signUpForm.controls }
@@ -91,31 +93,18 @@ export class FarmersignupComponent {
     })
   }
 
-  // getVillage() {
-  //   let talId = this.signUpForm.getRawValue().talukaId;
-  //   let distId = this.signUpForm.getRawValue().districtId;
-  //   this.master.GetAllVillages(1, distId, talId, 0).subscribe({
-  //     next: ((res: any) => {
-  //       this.villageArray = res.responseData;
-  //     }), error: (() => {
-  //       this.villageArray = [];
-  //     })
-  //   })
-  // }
-
-
   openSendOtpComponent() {
     if (this.signUpForm.invalid) {
       return;
     } else {
       let dialogObj = {
-        header: "Sign UP OTP",
-        button: "Verify OTP",
+        header: this.lang == "English" ? "Sign Up OTP" : "ओटीपी साइन अप करा",
+        button: this.lang == "English" ? "Verify OTP" : "ओटीपी सत्यापित करा",
         pageName: "farmer-signUp",
         mobileNo: this.signUpForm.getRawValue().mobileNo
       };
       const dialogRef = this.dialog.open(OtpSendReceiveComponent, {
-        width: '50%',
+        width: '30%',
         data: dialogObj,
         disableClose: true,
         autoFocus: true,
@@ -124,6 +113,7 @@ export class FarmersignupComponent {
         if (result == 'Yes') {
           console.log(this.signUpForm.getRawValue())
           this.saveSignUpData();
+          this.router.navigate(['/login']);
         }
       });
     }
@@ -150,7 +140,7 @@ export class FarmersignupComponent {
           "crcRegNo": "",
           "aadharNumber": "",
           "gender": 0,
-          "dob": "",
+          "dob": new Date(),
           "mobNo1": formValue.mobileNo,
           "mobNo2": "",
           "emailId": "",
@@ -164,7 +154,7 @@ export class FarmersignupComponent {
           "chalkyCapacity": 0,
           "officerAssignArea": "",
           "chalkyApprovedQty": 0,
-          "doj": "",
+          "doj": null,
           "profileImagePath": "",
           "userTypeId": 1,
           "createdBy": 0,
