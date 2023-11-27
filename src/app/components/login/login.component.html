@@ -14,7 +14,7 @@
                     </div>
                     <h4 class="fw-bold text-center mb-4">LOGIN</h4>
                     <div class="mb-0">
-                        <label class="form-label">Username</label>
+                        <label class="form-label">{{'login.username'|translate}}</label>
                         <mat-form-field appearance="outline" class="w-100">
                             <input id="usernameId" matInput placeholder="Username" formControlName="userName"
                                 (keypress)="validation.noSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
