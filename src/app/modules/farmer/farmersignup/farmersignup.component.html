@@ -17,7 +17,9 @@
                         <label class="form-label">Full Name</label>
                         <mat-form-field appearance="outline" class="w-100">
                             <!-- <mat-label>Full Name</mat-label> -->
-                            <input matInput placeholder="Full Name" formControlName="name" (keypress)="validator.noFirstSpaceAllow($event)" maxlength="20">
+                            <input matInput placeholder="Full Name" formControlName="name" (keypress)="validator.noFirstSpaceAllow($event);validator.onlyAlphabetsWithSpace($event)" maxlength="20">
+                            <mat-error class="text-danger" *ngIf="f['name'].hasError('required')">Please enter full name </mat-error>
+                            <mat-error class="text-danger" *ngIf="f['name'].hasError('pattern')">Please enter valid full name </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="row gx-2">
@@ -26,36 +28,53 @@
                             <mat-form-field appearance="outline" class="w-100">
                                 <!-- <mat-label>Mobile No.</mat-label> -->
                                 <input matInput placeholder="Mobile No." maxlength="10" formControlName="mobileNo" (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
+                                <mat-error class="text-danger" *ngIf="f['mobileNo'].hasError('required')">Please enter mobile number </mat-error>
+                                <mat-error class="text-danger" *ngIf="f['mobileNo'].hasError('pattern')">Please enter valid mobile number </mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
                             <label class="form-label">District</label>
-                            <mat-form-field appearance="outline" class="w-100">
+                            <mat-form-field appearance="outline" class="w-100"
+                            [class]="f['districtId'].value ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
                                 <!-- <mat-label>District</mat-label> -->
                                 <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
-                                    <mat-option *ngFor="let district of districtArray" [value]="district.id">{{district.textEnglish}}</mat-option>                             
+                                    <mat-option *ngFor="let district of districtArray" [value]="district.id">{{district.textEnglish}}</mat-option>                                                          
                                 </mat-select>
+                                <mat-error class="text-danger" *ngIf="f['districtId'].hasError('required')">Please select district </mat-error>      
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
                             <label class="form-label">Taluka</label>
                             <mat-form-field appearance="outline" class="w-100">
                                 <!-- <mat-label>Taluka</mat-label> -->
-                                <mat-select formControlName="talukaId"  (selectionChange)="getVillage()">
-                                    <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.textEnglish}}</mat-option>                              
+                                <mat-select formControlName="talukaId"  (selectionChange)="getGrampanchayat();clearDependancy()">
+                                    <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{taluka.textEnglish}}</mat-option>                                                             
                                 </mat-select>
+                                <mat-error class="text-danger" *ngIf="f['talukaId'].hasError('required')">Please select taluka </mat-error>      
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
-                            <label class="form-label">Village</label>
+                            <label class="form-label">Grampanchayat</label>
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Village</mat-label>
-                                <mat-select formControlName="villageId">
-                                    <mat-option *ngFor="let village of villageArray" [value]="village.id">{{village.textEnglish}}</mat-option>                       
+                                <!-- <mat-label>Village</mat-label> -->
+                                <mat-select formControlName="grampanchayatId">
+                                    <mat-option *ngFor="let grampanchayat of grampanchayatArray" [value]="grampanchayat.id">{{grampanchayat.textEnglish}}</mat-option>                                                       
                                 </mat-select>
+                                <mat-error class="text-danger" *ngIf="f['grampanchayatId'].hasError('required')">Please select grampanchayat </mat-error>  
+                            </mat-form-field>
+                        </div>
+
+                        <div  class="col-sm-6">
+                            <label class="form-label">village</label>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <!-- <mat-label>Full Name</mat-label> -->
+                                <input matInput placeholder="village Name" formControlName="village" (keypress)="validator.noFirstSpaceAllow($event);validator.onlyAlphabetsWithSpace($event)" maxlength="20">
+                                <mat-error class="text-danger" *ngIf="f['village'].hasError('required')">Please enter village name </mat-error>
+                                <mat-error class="text-danger" *ngIf="f['village'].hasError('pattern')">Please enter valid village name </mat-error>                                
                             </mat-form-field>
                         </div>
                     </div>
+
                     <!-- <div class="row align-items-start g-2">
                         <div class="col-sm">
                             <div id="captcha"></div>
