@@ -98,8 +98,8 @@ export class FarmersignupComponent {
       return;
     } else {
       let dialogObj = {
-        header: this.lang == "English" ? "Sign Up OTP" : "ओटीपी साइन अप करा",
-        button: this.lang == "English" ? "Verify OTP" : "ओटीपी सत्यापित करा",
+        header: this.lang == "en" ? "Sign Up OTP" : "ओटीपी साइन अप करा",
+        button: this.lang == "en" ? "Verify OTP" : "ओटीपी सत्यापित करा",
         pageName: "farmer-signUp",
         mobileNo: this.signUpForm.getRawValue().mobileNo
       };
@@ -112,8 +112,7 @@ export class FarmersignupComponent {
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result == 'Yes') {
           console.log(this.signUpForm.getRawValue())
-          this.saveSignUpData();
-          this.router.navigate(['/login']);
+          this.saveSignUpData();          
         }
       });
     }
@@ -154,7 +153,7 @@ export class FarmersignupComponent {
           "chalkyCapacity": 0,
           "officerAssignArea": "",
           "chalkyApprovedQty": 0,
-          "doj": null,
+          "doj": new Date(),
           "profileImagePath": "",
           "userTypeId": 1,
           "createdBy": 0,
@@ -164,7 +163,8 @@ export class FarmersignupComponent {
       this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan='+this.lang , false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
-          this.commonMethods.snackBar(res.statusMessage, 0);       
+          this.commonMethods.snackBar(res.statusMessage, 0);  
+          this.router.navigate(['/login']);     
         }
         else {
           this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
