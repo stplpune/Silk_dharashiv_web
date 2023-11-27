@@ -157,7 +157,7 @@
     "have_you_benefited_from_any_scheme_under_Silk_Directorate_before_this":"याआधी रेशीम संचालनालयाच्या अंतर्गत कोणत्याही योजनेचा लाभ घेतला आहे का ?",
     "benefit_Year":"लाभ वर्ष",
     "benefit_Amount":"लाभाची रक्कम",
-    "election_Id_No":"निवडणूक ओळखपत्र क्र"
+    "election_Id_No":"निवडणूक ओळखपत्र क्रमांक"
 
   },
   "manrega": {
@@ -536,5 +536,24 @@
     "Name_en": "कृपया नाव प्रविष्ट करा (इंग्रजी)",
     "Name_en_valid": "कृपया वैध नाव प्रविष्ट करा (इंग्रजी)",
     "Name_mr_valid": "कृपया वैध नाव प्रविष्ट करा (मराठी)"
+  },
+  "farmerSignUp": {
+    "farmer_sign_up": "शेतकरी साइन अप करा",
+    "Full_Name": "पूर्ण नाव",
+    "Please_enter_full_name": "कृपया पूर्ण नाव प्रविष्ट करा",
+    "Please_enter_valid_full_name": "कृपया वैध पूर्ण नाव प्रविष्ट करा",
+    "Mobile_No": "मोबाईल क्र",
+    "Please_enter_mobile_number": "कृपया मोबाईल नंबर टाका",
+    "Please_enter_valid_mobile_number": "कृपया वैध मोबाइल नंबर प्रविष्ट करा",
+    "District": "जिल्हा",
+    "Please_select_district": "कृपया जिल्हा निवडा",
+    "Taluka": "तालुका",
+    "Please_select_taluka": "कृपया तालुका निवडा",
+    "Grampanchayat": "ग्रामपंचायत",
+    "Please_select_grampanchayat": "कृपया ग्रामपंचायत निवडा",
+    "village": "गाव",
+    "Please_enter_village_name": "कृपया गावाचे नाव टाका",
+    "Please_enter_valid_village_name":"कृपया वैध गावाचे नाव प्रविष्ट करा",
+    "SIGN_UP":"साइन अप करा"
   }
 }

@@ -534,5 +534,25 @@
     "Name_en": "Please enter name (English)",
     "Name_en_valid": "Please enter valid name (English)",
     "Name_mr_valid": "Please enter valid  name (Marathi)"
+  },
+
+   "farmerSignUp": {
+    "farmer_sign_up": "FARMER SIGN UP",
+    "Full_Name": "Full Name",
+    "Please_enter_full_name": "Please enter full name",
+    "Please_enter_valid_full_name": "Please enter valid full name",
+    "Mobile_No": "Mobile No",
+    "Please_enter_mobile_number": "Please enter mobile number",
+    "Please_enter_valid_mobile_number": "Please enter valid mobile number",
+    "District": "District",
+    "Please_select_district": "Please select district",
+    "Taluka": "Taluka",
+    "Please_select_taluka": "Please select taluka",
+    "Grampanchayat": "Grampanchayat",
+    "Please_select_grampanchayat": "Please select grampanchayat",
+    "village": "village",
+    "Please_enter_village_name": "Please enter village name",
+    "Please_enter_valid_village_name":"Please enter valid village name",
+    "SIGN_UP":"SIGN UP"
   }
 }
