@@ -1,1 +1,26 @@
-<p>header works!</p>
+<nav class="navbar bg-white py-1 border-bottom shadow-sm">
+
+  <div class="container-fluid">
+    <div class="d-flex align-items-center justify-content-end w-100">
+
+      <div class="dropdown">
+        <button mat-flat-button class="btn-icon border-0 bg-transparent" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="assets/images/language.svg">
+        </button>
+        <div class="dropdown-menu dropdown-menu-end">
+          <ng-container>
+            <button class="dropdown-item">
+              <div class="d-flex align-items-center">
+                <img src="assets/images/english.svg">
+                <span>English</span>
+              </div>
+            </button>
+          </ng-container>
+        </div>
+      </div>
+      <button mat-flat-button class="btn-main">
+        <a routerLink="/login" class="text-white text-decoration-none">Login</a>
+      </button>
+    </div>
+  </div>
+</nav>
