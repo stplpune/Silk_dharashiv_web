@@ -31,9 +31,8 @@ export class OtpSendReceiveComponent {
     private commonMethods: CommonMethodsService,
     private apiService: ApiService,
     private error: ErrorHandlingService, 
-    // private router: Router,
     public validator: ValidationService,
-    public dialogRef: MatDialogRef<OtpSendReceiveComponent>,
+    private dialogRef: MatDialogRef<OtpSendReceiveComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -46,7 +45,7 @@ export class OtpSendReceiveComponent {
       "mobileNo": this.data.mobileNo,
       "otp": "",
       "pageName": this.data.pageName,
-      "createdBy": 0
+      "createdBy":  this.data.createdBy
     }
 
     this.apiService.setHttp('post', 'sericulture/api/OtpTran/GenerateOTP', false, obj, false, 'baseUrl');
@@ -71,7 +70,7 @@ export class OtpSendReceiveComponent {
         "MobileNo": this.data.mobileNo,
         "OTP": this.otpFormControl.value,
         "PageName":  this.data.pageName,
-        "CreatedBy": 0
+        "CreatedBy": this.data.createdBy
       }
 
       this.apiService.setHttp('get', 'sericulture/api/OtpTran/VerifyOTP?MobileNo=' + obj.MobileNo + '&OTP=' + obj.OTP + '&PageName='+obj.PageName, false, false, false, 'baseUrl');
@@ -102,9 +101,5 @@ export class OtpSendReceiveComponent {
       }
     }, 1000)
   }
-
-  // getlogin() {
-  //   this.router.navigate(['/login']); 
-  // }
 }
 

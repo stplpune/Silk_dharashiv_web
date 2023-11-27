@@ -10,6 +10,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-farmersignup',
@@ -29,16 +30,16 @@ export class FarmersignupComponent {
   constructor(
     private master: MasterService,
     private fb: FormBuilder,
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     public validator: ValidationService,
     private apiService: ApiService,
     private commonMethods: CommonMethodsService,
     private error: ErrorHandlingService,
-    public WebStorageService: WebStorageService,
-    private router: Router
+    private WebStorageService: WebStorageService,
+    private router: Router, 
+    private spinner: NgxSpinnerService
   ) { }
 
-  get f() { return this.signUpForm.controls }
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
@@ -59,6 +60,8 @@ export class FarmersignupComponent {
     })
   }
 
+  get f() { return this.signUpForm.controls }
+
   getDisrict() {
     this.master.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
@@ -72,7 +75,7 @@ export class FarmersignupComponent {
 
   getTaluka() {
     let distId = this.signUpForm.getRawValue().districtId;
-    this.master.GetAllTaluka(1, distId, 0,).subscribe({
+    this.master.GetAllTaluka(1, distId, 0).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
       }), error: (() => {
@@ -100,7 +103,8 @@ export class FarmersignupComponent {
         header: this.lang == "en" ? "Sign Up OTP" : "ओटीपी साइन अप करा",
         button: this.lang == "en" ? "Verify OTP" : "ओटीपी सत्यापित करा",
         pageName: "farmer-signUp",
-        mobileNo: this.signUpForm.getRawValue().mobileNo
+        mobileNo: this.signUpForm.getRawValue().mobileNo,
+        createdBy:0
       };
       const dialogRef = this.dialog.open(OtpSendReceiveComponent, {
         width: '30%',
@@ -110,7 +114,6 @@ export class FarmersignupComponent {
       });
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result == 'Yes') {
-          console.log(this.signUpForm.getRawValue())
           this.saveSignUpData();
         }
       });
@@ -118,6 +121,7 @@ export class FarmersignupComponent {
   }
 
   saveSignUpData() {
+    this.spinner.show();
     let formValue = this.signUpForm.getRawValue()
     let obj = {
       "id": 0,
@@ -127,19 +131,14 @@ export class FarmersignupComponent {
       "districtId": formValue.districtId,
       "blockId": 0,
       "circleId": 0,
-      "talukaId": formValue.talukaId,
-      "grampanchayatId": formValue.grampanchayatId,
-      "village": formValue.village,
-      "designationId": 2,
+      "designationId": 2, // 2 is Farmer
       "departmentId": 0,
       "departmentLevelId": 0,
-      "name": formValue.name,
       "m_Name": "",
       "crcRegNo": "",
       "aadharNumber": "",
       "gender": 0,
-      "dob": new Date(),
-      "mobNo1": formValue.mobileNo,
+      "dob": null,
       "mobNo2": "",
       "emailId": "",
       "userName": "",
@@ -152,23 +151,28 @@ export class FarmersignupComponent {
       "chalkyCapacity": 0,
       "officerAssignArea": "",
       "chalkyApprovedQty": 0,
-      "doj": new Date(),
+      "doj":null,
       "profileImagePath": "",
       "userTypeId": 1,
       "createdBy": 0,
       "flag": "i"
     }
 
-    this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan=' + this.lang, false, obj, false, 'masterUrl');
+    let postObj = {obj, ...formValue};
+
+    this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan=' + this.lang, false, postObj, false, 'masterUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
+        this.spinner.hide();
         this.commonMethods.snackBar(res.statusMessage, 0);
         this.router.navigate(['/login']);
       }
       else {
+        this.spinner.hide();
         this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
       }
     }, (error: any) => {
+      this.spinner.hide();
       this.error.handelError(error.status);
     })
   }
