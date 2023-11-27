@@ -1,106 +1,133 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">{{!this.data?('rejectReason.add_reject_reason'|translate):isViewFlag?('rejectReason.view'|translate):('rejectReason.update_reject_reason'|translate)}}</div>
+    <div class="text-main">
+      {{!this.data?('rejectReason.add_reject_reason'|translate):isViewFlag?('rejectReason.view'|translate):('rejectReason.update_reject_reason'|translate)}}
+    </div>
 
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
     </button>
   </div>
 </div>
-<div mat-dialog-content class="modal-body form-container scrollbar" *ngIf="!isViewFlag">
+<div *ngIf="!isViewFlag">
   <form [formGroup]="rejectResonFrm" (ngSubmit)="onSubmit()" #formDirective="ngForm">
-  <div class="row">
-    <div class="col-sm-12">
-      <mat-label class="form-label">{{'rejectReason.all_stage_action'|translate}}</mat-label>
-      <mat-form-field appearance="outline" class="w-100">
-        <!-- <mat-label>{{'rejectReason.all_stage_action'|translate}}</mat-label> -->
-        <mat-select formControlName="actionId" placeholder="All Stage/Action">
-          <mat-option *ngFor="let data of actionResp" [value]="data.id">{{lang == 'en' ?
-            data.textEnglish : data.textMarathi}}</mat-option>
-        </mat-select>
-        <mat-error class="text-danger" *ngIf="f['actionId'].hasError('required')">{{'rejectReason.please_select_action'|translate}}
-      </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="col-sm-12">
-      <mat-label class="form-label">{{'rejectReason.enter_rejection_title'|translate}}</mat-label>
-      <mat-form-field appearance="outline" class="w-100">
-        <!-- <mat-label>{{'rejectReason.enter_rejection_title'|translate}}</mat-label> -->
-        <input matInput placeholder="" formControlName="rejectionTitle"
-        (keypress)="validation.noFirstSpaceAllow($event)">
-        <mat-error class="text-danger" *ngIf="f['rejectionTitle'].hasError('required')">{{'rejectReason.please_enter_rejection_title'|translate}}
-      </mat-error>
-      <mat-error class="text-danger" *ngIf="f['rejectionTitle'].hasError('pattern')">{{'rejectReason.please_enter_valid_rejection_title'|translate}}
-      </mat-error>
-      <mat-error class="text-danger" *ngIf="f['rejectionTitle'].hasError('maxLengthExceeded')">{{'grainage.address_limit'|translate}}
-    </mat-error>
-      </mat-form-field>
-    </div>
+    <div mat-dialog-content class="modal-body form-container scrollbar">
+      <div class="row">
+        <div class="col-sm-12">
+          <mat-label class="form-label">{{'rejectReason.all_stage_action'|translate}}</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <!-- <mat-label>{{'rejectReason.all_stage_action'|translate}}</mat-label> -->
+            <mat-select formControlName="actionId" placeholder="All Stage/Action">
+              <mat-option *ngFor="let data of actionResp" [value]="data.id">{{lang == 'en' ?
+                data.textEnglish : data.textMarathi}}</mat-option>
+            </mat-select>
+            <mat-error class="text-danger"
+              *ngIf="f['actionId'].hasError('required')">{{'rejectReason.please_select_action'|translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-12">
+          <mat-label class="form-label">{{'rejectReason.enter_rejection_title'|translate}}</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <!-- <mat-label>{{'rejectReason.enter_rejection_title'|translate}}</mat-label> -->
+            <input matInput placeholder="" formControlName="rejectionTitle"
+              (keypress)="validation.noFirstSpaceAllow($event)">
+            <mat-error class="text-danger"
+              *ngIf="f['rejectionTitle'].hasError('required')">{{'rejectReason.please_enter_rejection_title'|translate}}
+            </mat-error>
+            <mat-error class="text-danger"
+              *ngIf="f['rejectionTitle'].hasError('pattern')">{{'rejectReason.please_enter_valid_rejection_title'|translate}}
+            </mat-error>
+            <mat-error class="text-danger"
+              *ngIf="f['rejectionTitle'].hasError('maxLengthExceeded')">{{'grainage.address_limit'|translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
 
-    <div class="col-sm-12">
-      <mat-label class="form-label">{{'rejectReason.enter_rejection_title_marathi'|translate}}</mat-label>
-      <mat-form-field appearance="outline" class="w-100">
-        <!-- <mat-label>{{'rejectReason.enter_rejection_title_marathi'|translate}}</mat-label> -->
-        <input matInput placeholder="" formControlName="rejectionTitleMarathi"
-        (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
-        <mat-error class="text-danger" *ngIf="f['rejectionTitleMarathi'].hasError('required')">{{'rejectReason.please_enter_rejection_title_marathi'|translate}}
-      </mat-error>
-      <mat-error class="text-danger" *ngIf="f['rejectionTitleMarathi'].hasError('maxLengthExceeded')">{{'grainage.address_limit'|translate}}
-    </mat-error>
-      </mat-form-field>
-    </div>
+        <div class="col-sm-12">
+          <mat-label class="form-label">{{'rejectReason.enter_rejection_title_marathi'|translate}}</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <!-- <mat-label>{{'rejectReason.enter_rejection_title_marathi'|translate}}</mat-label> -->
+            <input matInput placeholder="" formControlName="rejectionTitleMarathi"
+              (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
+            <mat-error class="text-danger"
+              *ngIf="f['rejectionTitleMarathi'].hasError('required')">{{'rejectReason.please_enter_rejection_title_marathi'|translate}}
+            </mat-error>
+            <mat-error class="text-danger"
+              *ngIf="f['rejectionTitleMarathi'].hasError('maxLengthExceeded')">{{'grainage.address_limit'|translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
 
-    <div class="col-sm-12">
-      <mat-label class="form-label">{{'rejectReason.enter_rejection_description'|translate}}</mat-label>
-      <mat-form-field appearance="outline" class="w-100">
-        <!-- <mat-label>{{'rejectReason.enter_rejection_description'|translate}}</mat-label> -->
-        <textarea matInput placeholder="" rows="3" formControlName="description"
-        (keypress)="validation.noFirstSpaceAllow($event)"></textarea>
-        <mat-error class="text-danger" *ngIf="f['description'].hasError('required')">{{'rejectReason.please_enter_rejection_description'|translate}}
-      </mat-error>
-      <mat-error class="text-danger" *ngIf="f['description'].hasError('maxLengthExceeded')">{{'action.description_maxLength'|translate}}
-    </mat-error>
-      </mat-form-field>
+        <div class="col-sm-12">
+          <mat-label class="form-label">{{'rejectReason.enter_rejection_description'|translate}}</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <!-- <mat-label>{{'rejectReason.enter_rejection_description'|translate}}</mat-label> -->
+            <textarea matInput placeholder="" rows="3" formControlName="description"
+              (keypress)="validation.noFirstSpaceAllow($event)"></textarea>
+            <mat-error class="text-danger"
+              *ngIf="f['description'].hasError('required')">{{'rejectReason.please_enter_rejection_description'|translate}}
+            </mat-error>
+            <mat-error class="text-danger"
+              *ngIf="f['description'].hasError('maxLengthExceeded')">{{'action.description_maxLength'|translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- <div mat-dialog-actions class="modal-footer">
+        <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+          <button mat-flat-button type="button" class="btn-main-light"
+            (click)="clearForm()">{{'common.clear'|translate}}</button>
+          <button mat-flat-button type="submit"
+            class="btn-main">{{editFlag?('common.update'|translate):('common.add'|translate)}}</button>
+        </div>
+      </div> -->
     </div>
-  </div>
-  <div mat-dialog-actions class="modal-footer">
-    <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-      <button mat-flat-button type="button" class="btn-main-light" (click)="clearForm()" >{{'common.clear'|translate}}</button>
-      <button mat-flat-button type="submit" class="btn-main">{{editFlag?('common.update'|translate):('common.add'|translate)}}</button>
+    <div mat-dialog-actions class="modal-footer">
+      <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+        <button mat-flat-button type="button" class="btn-main-light"
+          (click)="clearForm()">{{'common.clear'|translate}}</button>
+        <button mat-flat-button type="submit"
+          class="btn-main">{{editFlag?('common.update'|translate):('common.add'|translate)}}</button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
 </div>
+
 
 <div class="" *ngIf="isViewFlag">
   <mat-dialog-content class="modal-body form-container scrollbar">
-  <div class="row gy-2 gx-2">
+    <div class="row gy-2 gx-2">
       <div class="col-sm-12">
         <div class="row gx-2">
           <div class="col-sm-5 form-label">{{lang == 'en' ? 'Action/Stage name' : 'कृतीचे नाव'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.actionName || '-') : (data?.m_ActionName || '-')}}</div>
+          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.actionName || '-') : (data?.m_ActionName || '-')}}
+          </div>
         </div>
       </div>
       <div class="col-sm-12">
         <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Rejection title(English)' : 'नामंजूर शीर्षक(इंग्रजी)'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.rejectionTitle || '-') : (data?.rejectionTitle || '-')}}</div>
+          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Rejection title(English)' : 'नामंजूर शीर्षक(इंग्रजी)'}}
+          </div>
+          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.rejectionTitle || '-') : (data?.rejectionTitle ||
+            '-')}}</div>
         </div>
       </div>
       <div class="col-sm-12">
         <div class="row gx-2">
           <div class="col-sm-5 form-label">{{lang == 'en' ? 'Rejection title(Marathi)' : 'नामंजूर शीर्षक(मराठी)'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.m_RejectionTitle || '-') : (data?.m_RejectionTitle || '-')}}</div>
+          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.m_RejectionTitle || '-') : (data?.m_RejectionTitle
+            || '-')}}</div>
         </div>
       </div>
       <div class="col-sm-12">
         <div class="row gx-2">
           <div class="col-sm-5 form-label">{{lang == 'en' ? 'Rejection Description' : 'नामंजूर वर्णन'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.rejectionDescription || '-') : (data?.rejectionDescription || '-')}}</div>
+          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.rejectionDescription || '-') :
+            (data?.rejectionDescription || '-')}}</div>
         </div>
       </div>
     </div>
 
   </mat-dialog-content>
 </div>
-
