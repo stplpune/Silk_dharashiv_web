@@ -20,7 +20,7 @@ import { MasterService } from 'src/app/core/services/master.service';
 export class GrainageComponent {
   filterFrm!: FormGroup;
   grainageArr = new Array();
-  stateArr  = new Array();
+  stateArr = new Array();
   tableDataArray = new Array();
   tableDatasize!: number;
   totalPages!: number;
@@ -30,7 +30,7 @@ export class GrainageComponent {
   subscription!: Subscription;//used  for lang conv
   lang: string = 'English';
   get fl() { return this.filterFrm.controls };
-  
+
   constructor(private fb: FormBuilder,
     private master: MasterService,
     private spinner: NgxSpinnerService,
@@ -63,7 +63,7 @@ export class GrainageComponent {
 
   getGrainage() {
     this.grainageArr = [];
-    this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-Grainage-Type?lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-Grainage-Type?lan=' + this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
@@ -91,9 +91,9 @@ export class GrainageComponent {
   getTableData(status?: any) {
     this.spinner.show();
     let formData = this.filterFrm.getRawValue();
-    status == 'filter' ? ((this.pageNumber = 1),  this.searchDataFlag = true) : '';
+    status == 'filter' ? ((this.pageNumber = 1), this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/GrainageModel/Get-Grainage-Details?Type='+ (formData?.type || 0)+'&StateId='+(formData?.stateId || 0)+'&SearchText='+(formData.textSearch.trim() || '')+str+'&lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/GrainageModel/Get-Grainage-Details?Type=' + (formData?.type || 0) + '&StateId=' + (formData?.stateId || 0) + '&SearchText=' + (formData.textSearch.trim() || '') + str + '&lan=' + this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -119,7 +119,7 @@ export class GrainageComponent {
   setTableData() {
     this.highLightRowFlag = true;
     let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'm_Type', 'm_Grainage', 'm_State', 'm_District', 'action'] : ['srNo', 'type', 'grainage', 'state', 'district', 'action'];
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'प्रकार', 'ग्रेनेज', 'राज्य', 'जिल्हा', 'कृती'] : ['Sr. No.','Type', 'Grainage', 'State', 'District', 'Action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'प्रकार', 'ग्रेनेज', 'राज्य', 'जिल्हा', 'कृती'] : ['Sr. No.', 'Type', 'Grainage', 'State', 'District', 'Action'];
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
@@ -128,7 +128,7 @@ export class GrainageComponent {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      view:  true,
+      view: true,
       edit: true,
       delete: true,
     };
@@ -161,7 +161,7 @@ export class GrainageComponent {
       header: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       okButton: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
-      headerImage:'assets/images/delete.svg'
+      headerImage: 'assets/images/delete.svg'
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -192,7 +192,7 @@ export class GrainageComponent {
 
   addgrainage(obj?: any) {
     const dialogRef = this.dialog.open(AddGrainageComponent, {
-      width: '60%',
+      width: '550px',
       data: obj,
       disableClose: true,
       autoFocus: false

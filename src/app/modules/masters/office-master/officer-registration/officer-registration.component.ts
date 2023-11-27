@@ -55,7 +55,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
 
   circleCtrl: FormControl = new FormControl();
   circleSubject: ReplaySubject<any> = new ReplaySubject<any>();
-  
+
   gramPCtrl: FormControl = new FormControl();
   gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
 
@@ -116,8 +116,8 @@ export class OfficerRegistrationComponent implements OnDestroy {
     this.masterService.GetDepartmentDropdown().subscribe({
       next: ((res: any) => {
         this.departmentArray = res.responseData;
-        this.departmentArray.unshift({ id: 0,textEnglish:'All Department' ,textMarathi:'सर्व विभाग'} ),
-        this.commonMethod.filterArrayDataZone(this.departmentArray, this.departmentctrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentSubject);
+        this.departmentArray.unshift({ id: 0, textEnglish: 'All Department', textMarathi: 'सर्व विभाग' }),
+          this.commonMethod.filterArrayDataZone(this.departmentArray, this.departmentctrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentSubject);
       }), error: (() => {
         this.departmentArray = [];
         this.departmentSubject.next(null);
@@ -126,12 +126,12 @@ export class OfficerRegistrationComponent implements OnDestroy {
   }
   // error: (error: any) => { if (error.statusCode == '404') { this.organationArray = []; this.orgSubject.next(null); }; }
   getDepartmentLevel() {
-    if(this.filterForm.value.departmentId !=0){
+    if (this.filterForm.value.departmentId != 0) {
       this.masterService.GetDeptLevelDropDown().subscribe({
         next: ((res: any) => {
           this.departmentLevelArray = res.responseData;
-          this.departmentLevelArray.unshift({ id: 0,textEnglish:'All Level' ,textMarathi:'सर्व स्तर'} ),
-          this.commonMethod.filterArrayDataZone(this.departmentLevelArray, this.departmentLevelCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentLevelSubject);
+          this.departmentLevelArray.unshift({ id: 0, textEnglish: 'All Level', textMarathi: 'सर्व स्तर' }),
+            this.commonMethod.filterArrayDataZone(this.departmentLevelArray, this.departmentLevelCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.departmentLevelSubject);
         }), error: (() => {
           this.departmentLevelArray = [];
           this.departmentLevelSubject.next(null);
@@ -143,12 +143,12 @@ export class OfficerRegistrationComponent implements OnDestroy {
   getDesignation() {
     let deptId = this.filterForm.getRawValue().departmentId;
     let deptLevelId = this.filterForm.getRawValue().departmentLevelId;
-    if (deptId != 0 && deptLevelId!=0) {
-      this.masterService.GetDesignationDropDownOnDeptLevel((deptId || 0),(deptLevelId||0)).subscribe({
+    if (deptId != 0 && deptLevelId != 0) {
+      this.masterService.GetDesignationDropDownOnDeptLevel((deptId || 0), (deptLevelId || 0)).subscribe({
         next: ((res: any) => {
           this.designationArray = res.responseData;
-          this.designationArray.unshift({ id: 0,textEnglish:'All Designation' ,textMarathi:'सर्व पदनाम'} ),
-          this.commonMethod.filterArrayDataZone(this.designationArray, this.designationCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.designationSubject);
+          this.designationArray.unshift({ id: 0, textEnglish: 'All Designation', textMarathi: 'सर्व पदनाम' }),
+            this.commonMethod.filterArrayDataZone(this.designationArray, this.designationCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.designationSubject);
         }), error: (() => {
           this.designationArray = [];
           this.designationSubject.next(null);
@@ -161,8 +161,8 @@ export class OfficerRegistrationComponent implements OnDestroy {
     this.masterService.GetAllTaluka(1, 1, 0).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
-        this.talukaArray.unshift( { id: 0,textEnglish:'All Taluka',textMarathi:'सर्व तालुका'} ),
-        this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
+        this.talukaArray.unshift({ id: 0, textEnglish: 'All Taluka', textMarathi: 'सर्व तालुका' }),
+          this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
       }), error: (() => {
         this.talukaArray = [];
         this.talukaSubject.next(null);
@@ -174,7 +174,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
     this.masterService.GetAllBlock(1, 1).subscribe({
       next: ((res: any) => {
         this.blockArray = res.responseData;
-        this.blockArray.unshift( { id: 0,textEnglish:'All Block' ,textMarathi:'सर्व ब्लॉक'});
+        this.blockArray.unshift({ id: 0, textEnglish: 'All Block', textMarathi: 'सर्व ब्लॉक' });
         this.commonMethod.filterArrayDataZone(this.blockArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.blockSubject);
       }), error: (() => {
         this.blockArray = [];
@@ -185,11 +185,11 @@ export class OfficerRegistrationComponent implements OnDestroy {
 
   getCircle() {
     let talukaId = this.filterForm.getRawValue().talukaId || 0;
-    if(talukaId!=0){
+    if (talukaId != 0) {
       this.masterService.GetAllCircle(1, 1, talukaId).subscribe({
         next: ((res: any) => {
           this.circleArray = res.responseData;
-          this.circleArray.unshift( { id: 0,textEnglish:'All Circle' ,textMarathi:'सर्व मंडळ'});
+          this.circleArray.unshift({ id: 0, textEnglish: 'All Circle', textMarathi: 'सर्व मंडळ' });
           this.commonMethod.filterArrayDataZone(this.circleArray, this.circleCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.circleSubject);
         }), error: (() => {
           this.circleArray = [];
@@ -201,18 +201,18 @@ export class OfficerRegistrationComponent implements OnDestroy {
 
   getGrampanchayat() {
     let talukaId = this.filterForm.getRawValue().talukaId;
-    if(talukaId!=0){
+    if (talukaId != 0) {
       this.masterService.GetGrampanchayat(talukaId || 0).subscribe({
         next: ((res: any) => {
           this.grampanchayatArray = res.responseData;
-          this.grampanchayatArray.unshift( { id: 0,textEnglish:'All Grampanchayat' ,textMarathi:'सर्व ग्रामपंचायत'});
+          this.grampanchayatArray.unshift({ id: 0, textEnglish: 'All Grampanchayat', textMarathi: 'सर्व ग्रामपंचायत' });
           this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
         }), error: (() => {
           this.grampanchayatArray = [];
           this.gramPSubject.next(null);
         })
       })
-    }   
+    }
   }
 
   bindTable(flag?: any) {
@@ -287,7 +287,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
 
   registerofficer(obj?: any) {
     let dialogRef = this.dialog.open(RegisterOfficerComponent, {
-      width: '800px',
+      width: '600px',
       data: obj,
       disableClose: true,
       autoFocus: true,
@@ -304,7 +304,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
       header: this.lang == 'en' ? 'Delete Officer' : 'अधिकारी हटवा',
       okButton: this.lang == 'en' ? 'Delete' : 'हटवा',
       cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
-      headerImage:'assets/images/delete.svg'
+      headerImage: 'assets/images/delete.svg'
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '30%',
@@ -339,7 +339,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
     this.getFilterFormData();
     this.bindTable();
   }
- 
+
   clearDropDown(flag?: any) {
     if (flag == 'dept') {
       this.departmentLevelSubject = new ReplaySubject<any>();
@@ -348,7 +348,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
       this.designationSubject = new ReplaySubject<any>();
       this.designationArray = [];
       this.f['designationId'].setValue('');
-    }else if(flag == 'clearAll'){
+    } else if (flag == 'clearAll') {
       this.designationSubject = new ReplaySubject<any>();
       this.designationArray = [];
       this.f['designationId'].setValue('');

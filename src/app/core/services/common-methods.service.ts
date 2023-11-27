@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, } from '@angular/material/snack-bar';
-import { DatePipe,Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 @Injectable({
@@ -8,9 +8,9 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 })
 export class CommonMethodsService {
   codecareerPage: any;
-  constructor(private _SnackBar: MatSnackBar,private datePipe: DatePipe,
-    private router:Router, public location: Location,
-    private activatedRoute:ActivatedRoute,) { }
+  constructor(private _SnackBar: MatSnackBar, private datePipe: DatePipe,
+    private router: Router, public location: Location,
+    private activatedRoute: ActivatedRoute,) { }
 
   snackBar(data: string, status: number) {
     let snackClassArr: any = ['snack-success', 'snack-danger', 'snack-warning'];
@@ -37,9 +37,9 @@ export class CommonMethodsService {
     return value;
   }
 
- 
 
- // date format in toISOstring 
+
+  // date format in toISOstring 
   setDate(date: any) {
     if (date) {
       let d = new Date(date);
@@ -80,7 +80,7 @@ export class CommonMethodsService {
     ctx.fillText(captcha.join(""), 40, 28);
     this.codecareerPage = captcha.join("");
     let appendChild: any = document.getElementById("captcha");
-    appendChild.appendChild(canv); 
+    appendChild.appendChild(canv);
 
   }
 
@@ -98,18 +98,18 @@ export class CommonMethodsService {
     height: '10rem',
     minHeight: '5rem',
     translate: 'no',
+    outline: false,
     defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
     toolbarHiddenButtons: [
-      ['insertVideo', 'toggleEditorMode']
+      ['insertVideo', 'toggleEditorMode', 'heading']
     ],
-    customClasses: [
-      {
-        name: 'image',
-        class: 'textareaimage',
-        tag: 'img',
-      },
-    ],
+    // customClasses: [
+    //   {
+    //     name: 'image',
+    //     class: 'textareaimage',
+    //     tag: 'img',
+    //   },
+    // ],
   };
 
   findIndexOfArrayObject(array: any, key: any, val: any) { // find index of array object  [{'id:0',:name:'john'}, {'id:1',:name:'deo'}]

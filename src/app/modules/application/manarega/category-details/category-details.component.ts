@@ -5,19 +5,19 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
-
-
+import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 @Component({
-  selector: 'app-categorydetails',
+  selector: 'app-category-details',
   standalone: true,
   imports: [CommonModule, MatRadioModule, MatIconModule, MatDialogModule, MatButtonModule, MatCheckboxModule],
-  templateUrl: './categorydetails.component.html',
-  styleUrls: ['./categorydetails.component.scss']
+  templateUrl: './category-details.component.html',
+  styleUrls: ['./category-details.component.scss']
 })
-export class CategorydetailsComponent {
-  
+export class CategoryDetailsComponent {
+
   constructor(
-    private dialogRef: MatDialogRef<CategorydetailsComponent>,
+    public commonMethod: CommonMethodsService,
+    private dialogRef: MatDialogRef<CategoryDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -36,6 +36,13 @@ export class CategorydetailsComponent {
   }
 
   getSelectedItems() {
-    this.dialogRef.close('yes');
+    let checkedCategory = this.data.some((category: any) => category.checked);
+    if (!checkedCategory) {
+      this.commonMethod.snackBar('Please select at least one category.', 1);
+      return;
+    }
+    else {
+      this.dialogRef.close(this.data);
+    }
   }
 }

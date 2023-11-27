@@ -49,7 +49,7 @@ export class ApprovalProcessSilkSamgraComponent {
   actionNameLabel!: string;
   uploadedDepDoc: any;
 
-  displayedColumnsdetails: string[] = ['srno', 'schemename', 'benefityear', 'benefitamount'];
+  displayedScheme: string[] = ['srNo', 'sm_NameOfPlan', 'sm_PlanTakenDate', 'sm_TakenPlanBenefit'];
   dataSourcedetails:any;
 
   displayedColumnslandetails: string[] = ['year', 'cultivatedarea', 'landsurvey'];
@@ -130,7 +130,7 @@ export class ApprovalProcessSilkSamgraComponent {
           this.appDataClonedArray = JSON.parse(JSON.stringify(res.responseData))
           this.applicationData = res.responseData;
           this.applicantDetails = this.applicationData?.applicationModel;
-
+      
           res.responseData.allApplicationApproval.map((ele: any) => {
             res.responseData.allApprovalDocument.find((item: any) => {
               ele.uploadDocTypeId == item.docTypeId ? (ele.documnetApprovalPath = item?.docPath) : ''

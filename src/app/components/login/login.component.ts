@@ -14,6 +14,8 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { Router } from '@angular/router';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { Subscription } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 // import * as CryptoJS from 'crypto-js';
 
 
@@ -22,7 +24,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
   moduleId: module.id,
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, ReactiveFormsModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, ReactiveFormsModule,TranslateModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -31,7 +33,9 @@ export class LoginComponent {
   loginForm!: FormGroup;
   encryptInfo: any;
   loginData: any;
-
+  subscription!: Subscription;//used  for lang conv
+  lang: any;
+  
   constructor(private fb: FormBuilder,
     public validation: ValidationService,
     private commonMethods: CommonMethodsService,
@@ -45,6 +49,11 @@ export class LoginComponent {
   }
 
   ngOnInit() {
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+   })
+
     // let ele = document.getElementById('usernameId');
     // ele?.focus();
     this.defaultForm();
