@@ -85,12 +85,11 @@
 
         <ng-container matColumnDef="designationName">
           <th mat-header-cell *matHeaderCellDef>{{'setRule.designation'| translate}}</th>
-          <td mat-cell *matCellDef="let element" class="mnw-200">{{element.designationName ? element.designationName
-            :'-'}}</td>
+          <td mat-cell *matCellDef="let element" class="mnw-200">{{lang == 'en' ? element.designationName : element.m_DesignationName}}</td>
         </ng-container>
         <ng-container matColumnDef="actionName">
           <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
-          <td mat-cell *matCellDef="let element" class="mnw-200">{{element.actionName ? element.actionName :'-'}}</td>
+          <td mat-cell *matCellDef="let element" class="mnw-200">{{lang == 'en' ? element.actionName : element.m_ActionName}}</td>
         </ng-container>
 
         <ng-container matColumnDef="status">
