@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -18,13 +18,15 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 })
 export class CreateManaregaAppComponent {
   manaregaFrm !: FormGroup;
-  farmInfoFrm !:FormGroup;
+  farmInfoFrm !: FormGroup;
+  farmDeatailsFrm !: FormGroup;
   @ViewChild('uplodLogo') clearlogo!: any;
   imageResponse: string = '';
   subscription!: Subscription;//used  for lang conv
   lang: any;
   viewMsgFlag: boolean = false;//used for error msg show
   genderArray: any = [{ id: 1, name: 'Male' }, { id: 0, name: 'Female' }];
+  displayedColumns = ['srNo','plantName','gutNo','gutArea','cultivatedArea','cultivatedPlantsCount'];
   qualificationArray = new Array();
   departmentArray = new Array();
   stateArray = new Array();
@@ -41,6 +43,7 @@ export class CreateManaregaAppComponent {
   demoArray: any;
   checkedItems: any[]=[]; // Define an array to store checked items
   maxDate = new Date();
+  farmDetails = new Array();
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -60,6 +63,7 @@ export class CreateManaregaAppComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
     this.addManaregaFrm();
+    this.addFarmInfo();
     this.getDepartment();
     this.getQualification();
     this.getState();
@@ -127,6 +131,21 @@ export class CreateManaregaAppComponent {
   get f() {
     return this.manaregaFrm.controls
   }
+
+
+  getFarmInfo(){
+    this.farmDeatailsFrm = this.fb.group({
+      "id": [0],
+      "applicationId":[0],
+      "plantName": ['',[Validators.required]],
+      "gutNo": ['',[Validators.required]],
+      "gutArea": ['',[Validators.required]],
+      "cultivatedArea":['',[Validators.required]],
+      "cultivatedPlantsCount":['',[Validators.required]],
+      "createdBy":[0]
+    })
+  }
+
 
   imageUplod(event: any) {
     this.spinner.show();
@@ -485,17 +504,6 @@ export class CreateManaregaAppComponent {
     }
   }
 
-  displayedColumns: string[] = [' plantName', 'gutNo', 'gutArea', 'cultivatedArea', 'cultivatedPlantsCount'];
-  dataSource = ELEMENT_DATA;
-}
-export interface PeriodicElement {
-  plantName: string;
-  gutNo: number;
-  gutArea: number;
-  cultivatedArea: string;
-  cultivatedPlantsCount: string;
-}
+ }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {plantName: '1', gutNo: 21, gutArea: 1.0079, cultivatedArea: 'H', cultivatedPlantsCount:'0' }
-];
+
