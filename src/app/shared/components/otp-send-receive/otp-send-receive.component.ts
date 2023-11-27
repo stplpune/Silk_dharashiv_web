@@ -11,11 +11,12 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 // import { Router } from '@angular/router';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-otp-send-receive',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, ReactiveFormsModule,MatDialogModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, ReactiveFormsModule,MatDialogModule,TranslateModule],
   templateUrl: './otp-send-receive.component.html',
   styleUrls: ['./otp-send-receive.component.scss']
 })
