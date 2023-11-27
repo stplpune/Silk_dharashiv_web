@@ -45,6 +45,7 @@ export class CreateManaregaAppComponent {
   checkedItems: any[]=[]; // Define an array to store checked items
   maxDate = new Date();
   farmDetails = new Array();
+  getId:any;
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -319,6 +320,8 @@ export class CreateManaregaAppComponent {
         next: ((res: any) => {
           this.spinner.hide();
           if (res.statusCode == "200") {
+            this.getId = res.responseData;
+            console.log("this.getId",this.getId)
             this.commonMethod.snackBar(res.statusMessage, 0);
             // this.dialogRef.close('Yes');
             // this.clearMainForm();
