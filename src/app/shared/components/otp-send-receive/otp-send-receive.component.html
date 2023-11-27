@@ -9,7 +9,7 @@
   <mat-dialog-content class="modal-body">
     <ng-container >
       <div class="mb-3">
-          <label class="form-label">Enter OTP</label>
+          <label class="form-label">{{'farmerSignUp.Enter_OTP'|translate}}</label>
           <div class="d-flex gap-2 no-subscript-wrapper mb-1">
             <mat-form-field appearance="outline" class="w-100">
               <input matInput maxlength="5" [formControl]="otpFormControl"
@@ -18,19 +18,19 @@
           </div>
 
           <div class="text-end" >
-              <a class="text-main" (click)=sendOTP() *ngIf="otpTimerFlag == true">Resend OTP?</a>
+              <a class="text-main" (click)=sendOTP() *ngIf="otpTimerFlag == true">{{'farmerSignUp.Resend_OTP'|translate}}?</a>
           </div>
           <div  class="text-end">
               <span  class="mb-2 ml-4 text-main">
-                  Wait for 00: {{otpTimer}} Sec.</span>
+                {{'farmerSignUp.Wait_for'|translate}} 00: {{otpTimer}} Sec.</span>
           </div>
       </div>
 
       <div class="forgotPwd mb-1 d-flex align-items-center justify-content-between">
-          <a class="d-flex align-items-center justify-content-end text-main" mat-dialog-close (click)="getlogin()" >
+          <!-- <a class="d-flex align-items-center justify-content-end text-main" mat-dialog-close (click)="getlogin()" >
               <mat-icon class="">chevron_left</mat-icon>
               <span >Back To Login</span>
-          </a>
+          </a> -->
           <button mat-flat-button type="button" class="btn-main"  (click)="verifyOTP()">{{data.button}}</button>
       </div>
       <!-- <div class="col-sm-auto">
