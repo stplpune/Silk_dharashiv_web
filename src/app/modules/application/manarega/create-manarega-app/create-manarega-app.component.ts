@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -18,7 +18,8 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 })
 export class CreateManaregaAppComponent {
   manaregaFrm !: FormGroup;
-  farmInfoFrm !:FormGroup;
+  farmInfoFrm !: FormGroup;
+  farmDeatailsFrm !: FormGroup;
   @ViewChild('uplodLogo') clearlogo!: any;
   imageResponse: string = '';
   subscription!: Subscription;//used  for lang conv
@@ -130,6 +131,21 @@ export class CreateManaregaAppComponent {
   get f() {
     return this.manaregaFrm.controls
   }
+
+
+  getFarmInfo(){
+    this.farmDeatailsFrm = this.fb.group({
+      "id": [0],
+      "applicationId":[0],
+      "plantName": ['',[Validators.required]],
+      "gutNo": ['',[Validators.required]],
+      "gutArea": ['',[Validators.required]],
+      "cultivatedArea":['',[Validators.required]],
+      "cultivatedPlantsCount":['',[Validators.required]],
+      "createdBy":[0]
+    })
+  }
+
 
   imageUplod(event: any) {
     this.spinner.show();
