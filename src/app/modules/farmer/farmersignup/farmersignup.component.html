@@ -14,7 +14,7 @@
                     </div>
                     <h4 class="fw-bold text-center mb-2">{{'farmerSignUp.farmer_sign_up' |translate}}</h4>
                     <div class="mb-0">
-                        <label class="form-label">{{'farmerSignUp.Full_Name'|translate}}</label>
+                        <label class="form-label">{{'farmerSignUp.Full_Name'|translate}}<span class="text-danger">*</span></label>
                         <mat-form-field appearance="outline" class="w-100">
                             <!-- <mat-label>Full Name</mat-label> -->
                             <input matInput formControlName="name" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)" maxlength="20">
@@ -24,7 +24,7 @@
                     </div>
                     <div class="row gx-2">
                         <div class="col-sm-6">
-                            <label class="form-label">{{'farmerSignUp.Mobile_No'|translate}}</label>
+                            <label class="form-label">{{'farmerSignUp.Mobile_No'|translate}}<span class="text-danger">*</span></label>
                             <mat-form-field appearance="outline" class="w-100">
                                 <!-- <mat-label>Mobile No.</mat-label> -->
                                 <input matInput  maxlength="10" formControlName="mobileNo" (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
@@ -33,7 +33,7 @@
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
-                            <label class="form-label">{{'common.district'|translate}} </label>
+                            <label class="form-label">{{'common.district'|translate}} <span class="text-danger">*</span></label>
                             <mat-form-field appearance="outline" class="w-100"
                             [class]="f['districtId'].value ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
                                 <!-- <mat-label>District</mat-label> -->
@@ -44,7 +44,7 @@
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
-                            <label class="form-label">{{'common.taluka'|translate}}</label>
+                            <label class="form-label">{{'common.taluka'|translate}}<span class="text-danger">*</span></label>
                             <mat-form-field appearance="outline" class="w-100">
                                 <!-- <mat-label>Taluka</mat-label> -->
                                 <mat-select formControlName="talukaId"  (selectionChange)="getGrampanchayat();clearDependancy()">
@@ -54,7 +54,7 @@
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
-                            <label class="form-label">{{'common.select_grampanchayat'|translate}}</label>
+                            <label class="form-label">{{'common.select_grampanchayat'|translate}}<span class="text-danger">*</span></label>
                             <mat-form-field appearance="outline" class="w-100">
                                 <!-- <mat-label>Village</mat-label> -->
                                 <mat-select formControlName="grampanchayatId">
@@ -65,7 +65,7 @@
                         </div>
 
                         <div  class="col-sm-6">
-                            <label class="form-label">{{'farmerSignUp.village'|translate}}</label>
+                            <label class="form-label">{{'farmerSignUp.village'|translate}}<span class="text-danger">*</span></label>
                             <mat-form-field appearance="outline" class="w-100">
                                 <!-- <mat-label>Full Name</mat-label> -->
                                 <input matInput formControlName="village" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)" maxlength="20">

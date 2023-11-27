@@ -26,6 +26,7 @@ export class HeaderComponent {
   loginData: any;
   userName: string = '';
   designationName: string = '';
+  profileImg : string = '';
   subscription!: Subscription;
   lang: string = 'English';
 
@@ -53,6 +54,7 @@ export class HeaderComponent {
     this.webStorage.getProfileData().subscribe((res: any) => {
       this.userName = res.name;
       this.designationName = res.designationName
+      this.profileImg = res.profile;
     })
   }
 
