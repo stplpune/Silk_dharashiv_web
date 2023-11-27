@@ -24,17 +24,17 @@ export class FarmersignupComponent {
   villageArray = new Array();
   grampanchayatArray = new Array();
   subscription!: Subscription;
-  lang:any;
+  lang: any;
 
   constructor(
     private master: MasterService,
     private fb: FormBuilder,
     public dialog: MatDialog,
     public validator: ValidationService,
-    private apiService : ApiService,
-    private commonMethods : CommonMethodsService,
-    private error : ErrorHandlingService,
-    public WebStorageService : WebStorageService,
+    private apiService: ApiService,
+    private commonMethods: CommonMethodsService,
+    private error: ErrorHandlingService,
+    public WebStorageService: WebStorageService,
     private router: Router
   ) { }
 
@@ -44,7 +44,6 @@ export class FarmersignupComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-
     this.formData();
     this.getDisrict();
   }
@@ -56,7 +55,7 @@ export class FarmersignupComponent {
       districtId: [1, [Validators.required]],
       talukaId: ['', [Validators.required]],
       grampanchayatId: ['', [Validators.required]],
-      village :['',[Validators.required, Validators.pattern(this.validator.fullName)]]
+      village: ['', [Validators.required, Validators.pattern(this.validator.fullName)]]
     })
   }
 
@@ -112,71 +111,71 @@ export class FarmersignupComponent {
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result == 'Yes') {
           console.log(this.signUpForm.getRawValue())
-          this.saveSignUpData();          
+          this.saveSignUpData();
         }
       });
     }
   }
 
-  saveSignUpData(){
+  saveSignUpData() {
     let formValue = this.signUpForm.getRawValue()
-      let obj = {        
-          "id": 0,
-          "crcName": "",
-          "m_CRCName": "",
-          "stateId": 1,
-          "districtId": formValue.districtId,
-          "blockId": 0,
-          "circleId": 0,
-          "talukaId": formValue.talukaId,
-          "grampanchayatId": formValue.grampanchayatId,
-          "village": formValue.village,
-          "designationId": 2,
-          "departmentId": 0,
-          "departmentLevelId": 0,
-          "name": formValue.name,
-          "m_Name": "",
-          "crcRegNo": "",
-          "aadharNumber": "",
-          "gender": 0,
-          "dob": new Date(),
-          "mobNo1": formValue.mobileNo,
-          "mobNo2": "",
-          "emailId": "",
-          "userName": "",
-          "password": "",
-          "address": "",
-          "m_Address": "",
-          "pinCode": "",
-          "totalAreaForCRC": 0,
-          "areaUnderCRC": 0,
-          "chalkyCapacity": 0,
-          "officerAssignArea": "",
-          "chalkyApprovedQty": 0,
-          "doj": new Date(),
-          "profileImagePath": "",
-          "userTypeId": 1,
-          "createdBy": 0,
-          "flag": "i"        
-      }
-     
-      this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan='+this.lang , false, obj, false, 'masterUrl');
-      this.apiService.getHttp().subscribe((res: any) => {
-        if (res.statusCode == "200") {
-          this.commonMethods.snackBar(res.statusMessage, 0);  
-          this.router.navigate(['/login']);     
-        }
-        else {
-          this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
-        }
-      }, (error: any) => {
-        this.error.handelError(error.status);
-      })
+    let obj = {
+      "id": 0,
+      "crcName": "",
+      "m_CRCName": "",
+      "stateId": 1,
+      "districtId": formValue.districtId,
+      "blockId": 0,
+      "circleId": 0,
+      "talukaId": formValue.talukaId,
+      "grampanchayatId": formValue.grampanchayatId,
+      "village": formValue.village,
+      "designationId": 2,
+      "departmentId": 0,
+      "departmentLevelId": 0,
+      "name": formValue.name,
+      "m_Name": "",
+      "crcRegNo": "",
+      "aadharNumber": "",
+      "gender": 0,
+      "dob": new Date(),
+      "mobNo1": formValue.mobileNo,
+      "mobNo2": "",
+      "emailId": "",
+      "userName": "",
+      "password": "",
+      "address": "",
+      "m_Address": "",
+      "pinCode": "",
+      "totalAreaForCRC": 0,
+      "areaUnderCRC": 0,
+      "chalkyCapacity": 0,
+      "officerAssignArea": "",
+      "chalkyApprovedQty": 0,
+      "doj": new Date(),
+      "profileImagePath": "",
+      "userTypeId": 1,
+      "createdBy": 0,
+      "flag": "i"
     }
 
-    clearDependancy(){
-      this.f['grampanchayatId'].setValue('')
-    }
+    this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan=' + this.lang, false, obj, false, 'masterUrl');
+    this.apiService.getHttp().subscribe((res: any) => {
+      if (res.statusCode == "200") {
+        this.commonMethods.snackBar(res.statusMessage, 0);
+        this.router.navigate(['/login']);
+      }
+      else {
+        this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
+      }
+    }, (error: any) => {
+      this.error.handelError(error.status);
+    })
   }
-  
+
+  clearDependancy() {
+    this.f['grampanchayatId'].setValue('');
+  }
+}
+
 
