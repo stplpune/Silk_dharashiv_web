@@ -70,6 +70,7 @@
     "select_grampanchayat": "Select Grampanchayat"
   },
   "approvalProcess": {
+    "Add_Manarega":"Add Manarega",
     "applicant_id": "Application ID",
     "mulberry_id": "Mulberry Id (Date)",
     "date": "Date",
