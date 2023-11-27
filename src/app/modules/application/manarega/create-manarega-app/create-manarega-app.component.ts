@@ -10,6 +10,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { MasterService } from 'src/app/core/services/master.service';
 import { CategorydetailsComponent } from '../categorydetails/categorydetails.component';
+import { ValidationService } from 'src/app/core/services/validation.service';
 @Component({
   selector: 'app-create-manarega-app',
   templateUrl: './create-manarega-app.component.html',
@@ -17,17 +18,21 @@ import { CategorydetailsComponent } from '../categorydetails/categorydetails.com
 })
 export class CreateManaregaAppComponent {
   manaregaFrm !: FormGroup;
+  farmInfoFrm !:FormGroup;
   @ViewChild('uplodLogo') clearlogo!: any;
   imageResponse: string = '';
   subscription!: Subscription;//used  for lang conv
   lang: any;
   viewMsgFlag: boolean = false;//used for error msg show
   genderArray: any = [{ id: 1, name: 'Male' }, { id: 0, name: 'Female' }];
+  qualificationArray = new Array();
+  departmentArray = new Array();
   stateArray = new Array();
   districtArray = new Array();
   talukaArray = new Array();
   grampanchayatArray = new Array();
   categoryArray = new Array();
+  irrigationFacilityArray = new Array();
   talukaCtrl: FormControl = new FormControl();
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   gramPCtrl: FormControl = new FormControl();
@@ -35,6 +40,7 @@ export class CreateManaregaAppComponent {
   dialogFlag: boolean = false;
   demoArray: any;
   checkedItems: any[]=[]; // Define an array to store checked items
+  maxDate = new Date();
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -44,6 +50,7 @@ export class CreateManaregaAppComponent {
     private spinner: NgxSpinnerService,
     private errorHandler: ErrorHandlingService,
     private commonMethod: CommonMethodsService,
+    public validation: ValidationService,
     private masterService: MasterService
   ) { }
 
@@ -53,8 +60,11 @@ export class CreateManaregaAppComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
     this.addManaregaFrm();
+    this.getDepartment();
+    this.getQualification();
     this.getState();
-    this.getCategory()
+    this.getCategory();
+    this.searchDataZone();
   }
 
   addManaregaFrm() {
@@ -81,6 +91,36 @@ export class CreateManaregaAppComponent {
       "pinCode": [''],
       "mn_JobCardNo": [''],
       "categoryId": [''],//no
+    })
+  }
+
+  addFarmInfo(){
+    this.farmInfoFrm = this.fb.group({
+      "benificiaryTotalFarm":[''],
+      "mulberryCultivatedSurveyNo": "string",
+      "cultivatedFarmInHector": 0,
+      "isJointAccHolder": true,
+      "applicantFarmSurveyNo": "string",
+      "applicantFarmArea": 0,
+      "farmTypeId": 0,
+    "irrigationFacilityId": 0,
+    "isAnyPlantedBeforeGovScheme": true,
+    "isSelfTraining": true,
+    "candidateName": "string",
+    "candidateRelationId": 0,
+
+      "plantingDetails": [
+        {
+          "id": 0,
+          "applicationId": 0,
+          "plantName": "string",
+          "gutNo": 0,
+          "gutArea": 0,
+          "cultivatedArea": 0,
+          "cultivatedPlantsCount": 0,
+          "createdBy": 0
+        }
+      ],
     })
   }
 
@@ -126,30 +166,39 @@ export class CreateManaregaAppComponent {
       return;
     }
     else {
-      let obj = {
-        "id": 0,
-        "farmerId": 0,
-        "schemeTypeId": 0,
-        "applicationNo": "string",
-        "profilePhotoPath": "string",
-        "fullName": "string",
-        "m_FullName": "string",
-        "mn_DepartmentId": 0,
-        "mobileNo1": "string",
-        "mobileNo2": "string",
-        "aadharNo": "string",
-        "birthDate": "2023-11-23T05:37:36.259Z",
-        "gender": 0,
-        "qualificationId": 0,
-        "stateId": 0,
-        "districtId": 0,
-        "talukaId": 0,
-        "grampanchayatId": 0,
-        "village": "string",
-        "address": "string",
-        "m_Address": "string",
-        "pinCode": "string",
-        "mn_JobCardNo": "string",
+      let formData = this.manaregaFrm?.getRawValue();
+      let obj ={
+        "id": formData.id,
+        "farmerId": formData.farmerId,
+        "schemeTypeId":formData.schemeTypeId,
+        "applicationNo":String(formData.applicationNo),
+        "profilePhotoPath": formData.profilePhotoPath,
+        "fullName": formData.fullName,
+        "m_FullName": formData.fullName,//enter marathi name
+        "mn_DepartmentId":formData.mn_DepartmentId,
+        "mobileNo1":formData.mobileNo1,
+        "mobileNo2": formData.mobileNo2,
+        "aadharNo": formData.aadharNo,
+        "birthDate": this.commonMethod.setDate(formData.birthDate) || null,
+        "gender":formData.gender,
+        "qualificationId": formData.qualificationId,
+        "stateId":formData.stateId,
+        "districtId":formData.districtId,
+        "talukaId":formData.talukaId,
+        "grampanchayatId":formData.grampanchayatId,
+        "village": formData.village,
+        "address": formData.address,
+        "m_Address":formData.address,
+        "pinCode":formData.pinCode,
+        "mn_JobCardNo":formData.mn_JobCardNo,
+
+
+
+
+
+
+
+       
         "sm_VoterRegistrationNo": "string",
         "sm_IsBelowPovertyLine": true,
         "benificiaryTotalFarm": 0,
@@ -168,7 +217,7 @@ export class CreateManaregaAppComponent {
         "gutArea": "string",
         "plantCultivatedArea": 0,
         "noOfPlant": 0,
-        "sm_YearOfPlanting": "2023-11-23T05:37:36.259Z",
+        "sm_YearOfPlanting": "2023-11-24T09:55:29.130Z",
         "sm_CultivatedArea": 0,
         "sm_LandSurveyNo": "string",
         "sm_ImprovedMulberryCast": 0,
@@ -186,7 +235,7 @@ export class CreateManaregaAppComponent {
         "sm_IsEngagedInSilkIndustry": true,
         "sm_IsTakenBenefitOfInternalScheme": true,
         "sm_NameOfPlan": "string",
-        "sm_PlanTakenDate": "string",
+        "sm_PlanTakenDate": "2023-11-24T09:55:29.130Z",
         "sm_TakenPlanBenefit": "string",
         "bankId": 0,
         "bankBranchId": 0,
@@ -221,8 +270,28 @@ export class CreateManaregaAppComponent {
             "isDeleted": true
           }
         ],
-        "categoryId": [
-          0
+        "categoryId": this.checkedItems.map((x:any)=>{return x.id}),
+        "plantingDetails": [
+          {
+            "id": 0,
+            "applicationId": 0,
+            "plantName": "string",
+            "gutNo": 0,
+            "gutArea": 0,
+            "cultivatedArea": 0,
+            "cultivatedPlantsCount": 0,
+            "createdBy": 0
+          }
+        ],
+        "internalSchemes": [
+          {
+            "id": 0,
+            "applicationId": 0,
+            "internalSchemeName": "string",
+            "schemeTakenDate": "2023-11-24T09:55:29.130Z",
+            "totalBenefitTaken": 0,
+            "createdBy": 0
+          }
         ]
       }
       this.apiService.setHttp('post', 'sericulture/api/Application/Insert-Update-Application?lan=' + this.lang, false, obj, false, 'masterUrl');
@@ -249,6 +318,52 @@ export class CreateManaregaAppComponent {
   searchDataZone() {
     this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
     this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject) });
+  }
+
+  getDepartment() {
+    this.departmentArray = [];
+    this.masterService.GetDepartmentDropdown().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.departmentArray = res.responseData;
+        }
+        else {
+          this.departmentArray = [];
+        }
+      })
+    })
+  }
+
+  // GetIrrigationFacility()
+
+  getIrrigationFacility() {
+    this.irrigationFacilityArray = [];
+    this.masterService.GetIrrigationFacility().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.irrigationFacilityArray = res.responseData;
+        }
+        else {
+          this.irrigationFacilityArray = [];
+        }
+      })
+    })
+  }
+
+
+  getQualification(){
+    this.qualificationArray = [];
+    this.masterService.GetQualification().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.qualificationArray = res.responseData;
+          //  this.data ? (this.f['qualificationId'].setValue(this.data?.qualificationId)) : '' ;  
+        }
+        else {
+          this.qualificationArray = [];
+        }
+      })
+    })
   }
 
   getState() {
@@ -370,5 +485,17 @@ export class CreateManaregaAppComponent {
     }
   }
 
-
+  displayedColumns: string[] = [' plantName', 'gutNo', 'gutArea', 'cultivatedArea', 'cultivatedPlantsCount'];
+  dataSource = ELEMENT_DATA;
 }
+export interface PeriodicElement {
+  plantName: string;
+  gutNo: number;
+  gutArea: number;
+  cultivatedArea: string;
+  cultivatedPlantsCount: string;
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  {plantName: '1', gutNo: 21, gutArea: 1.0079, cultivatedArea: 'H', cultivatedPlantsCount:'0' }
+];
