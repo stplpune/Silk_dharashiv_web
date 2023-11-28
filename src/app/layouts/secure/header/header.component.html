@@ -34,7 +34,7 @@
             <div class="dropdown">
                 <button class="btn profile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="d-flex align-items-center gap-2">
-                        <img [src]="profileImg ? profileImg : 'assets/images/user.png'">
+                        <img [src]="profileImg ? profileImg : loginData.profileImagePath ? loginData.profileImagePath : 'assets/images/user.png'">
                         <div class="d-flex flex-column align-items-start">
                             <p>{{userName ? userName : loginData.name}}</p>
                             <small>{{designationName ? designationName : loginData.designationName}}</small>
