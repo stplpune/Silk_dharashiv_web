@@ -239,7 +239,7 @@
           <!-- </div> -->
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-          <button mat-button matStepperNext class="btn-main" type="button" (click)="onSubmit()">Next</button>
+          <button mat-button matStepperNext class="btn-main" type="button" (click)="onSubmit('farmerInfo')">Next</button>
         </div>
         </form>
       </mat-step>
@@ -276,9 +276,15 @@
             <div class="col-sm-4">
               <div class="d-flex align-items-center gap-3">
                 <mat-label class="form-label">19. संयुक्तखातेदार आहात का ?</mat-label>
-                <mat-radio-group aria-label="Select an option"  formControlName="isJointAccHolder">
+                <!-- <mat-radio-group aria-label="Select an option"  formControlName="isJointAccHolder">
                   <mat-radio-button class="pe-3" value="1" checked="true">होय</mat-radio-button>
                   <mat-radio-button class="pe-3" value="2">नाही</mat-radio-button>
+                </mat-radio-group> -->
+                <mat-radio-group aria-label="Select an option" class="pb-0"
+                formControlName="isAnyPlantedBeforeGovScheme">
+                <mat-radio-button *ngFor="let arr of checkedArray"  [value]="arr.id" class="pe-3">
+                {{arr.name }}
+                </mat-radio-button>
                 </mat-radio-group>
               </div>
             </div>
@@ -303,17 +309,20 @@
             <div class="col-sm-4">
               <div class="form-label">20. जमिनीचा प्रकार</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select  formControlName="farmTypeId">
-                  <mat-option>हलकी</mat-option>
-                  <mat-option>माध्यम</mat-option>
-                  <mat-option>भारी</mat-option>
+                <mat-select formControlName="farmTypeId">
+                  <mat-option *ngFor="let farm of farmTypeArray" [value]="farm.id">{{lang != 'en' ?  farm.textMarathi :
+                     farm.textEnglish}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="col-sm-4">
               <div class="form-label">21. सिंचांनाची सुविधा</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select  formControlName="irrigationFacilityId">
+                <mat-select formControlName="irrigationFacilityId">
+                  <mat-option *ngFor="let irrigation of irrigationFacilityArray" [value]="irrigation.id">{{lang != 'en' ?  irrigation.textMarathi :
+                     irrigation.textEnglish}}</mat-option>
+                </mat-select>
+                <!-- <mat-select  formControlName="irrigationFacilityId">
                   <mat-option>विहीर</mat-option>
                   <mat-option>बोरवेल</mat-option>
                   <mat-option>नदी</mat-option>
@@ -324,28 +333,35 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="इतर इथे लिहा">
                   </mat-form-field>
-                </mat-select>
+                </mat-select> -->
               </mat-form-field>
             </div>
             <div class="col-sm-4">
               <mat-label class="form-label">22. रोजगार हमी व्यतिरिक्त इतर शासकीय योजनेचे अंतर्गत पूर्वा फलबाग/ फुलपिके/
                 वृक्ष केली आहे का ?</mat-label>
               <div class="">
-                <mat-radio-group aria-label="Select an option"  formControlName="isAnyPlantedBeforeGovScheme">
+                <!-- <mat-radio-group aria-label="Select an option"  formControlName="isAnyPlantedBeforeGovScheme">
                   <mat-radio-button class="pe-3" value="1" checked="true">होय</mat-radio-button>
                   <mat-radio-button class="pe-3" value="2">नाही</mat-radio-button>
+                </mat-radio-group> -->
+                <mat-radio-group aria-label="Select an option" class="pb-0"
+                formControlName="isAnyPlantedBeforeGovScheme">
+                <mat-radio-button *ngFor="let arr of checkedArray"  [value]="arr.id" class="pe-3">
+                {{arr.name }}
+                </mat-radio-button>
                 </mat-radio-group>
               </div>
             </div>
           </div>
           <div class="card card-body my-4">
+            <form [formGroup]="farmDeatailsFrm" #formDirective="ngForm">
+           
             <div class="row align-items-center">
-          
               <div class="col-sm-4">
                 <div class="form-label">22.A. फलबागचे/ फुलबाग/ वृक्ष नाव </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="">
+                    <input matInput placeholder="" formControlName="plantName">
                   </mat-form-field>
                 </div>
               </div>
@@ -353,7 +369,7 @@
                 <div class="form-label">22.B. गट क्रमांक </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="">
+                    <input matInput placeholder="" formControlName="gutNo">
                   </mat-form-field>
                 </div>
               </div>
@@ -361,7 +377,7 @@
                 <div class="form-label">22.C. गटाचे क्षेत्र (हेक्टर) </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="">
+                    <input matInput placeholder="" formControlName="gutArea">
                   </mat-form-field>
                 </div>
               </div>
@@ -369,7 +385,7 @@
                 <div class="form-label">22.D. लागवड क्षेत्र (हेक्टर) </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="">
+                    <input matInput placeholder="" formControlName="cultivatedArea">
                   </mat-form-field>
                 </div>
               </div>
@@ -377,16 +393,18 @@
                 <div class="form-label">22.E. लागवड केलेल्या झाडांची संख्या </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="">
+                    <input matInput placeholder="" formControlName="cultivatedPlantsCount">
                   </mat-form-field>
                 </div>
               </div>
               <div class="col-sm-4">
-                <button mat-flat-button class="btn-main">आणखी तपशील जोडा</button>
+                <button mat-flat-button class="btn-main" (click)="onAddFarmInfo()">आणखी तपशील जोडा</button>
               </div>
-            </div>
+             </div>
+            </form>
+           
             <div class="table-responsive scrollbar">
-              <table mat-table [dataSource]="farmDetails" class="dashboard-table">
+              <table mat-table [dataSource] = "dataSource" class="dashboard-table">
 
                 <ng-container matColumnDef="srNo">
                   <th mat-header-cell *matHeaderCellDef> Sr No.</th>
@@ -394,7 +412,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="plantName">
-                  <th mat-header-cell *matHeaderCellDef> PLant Name </th>
+                  <th mat-header-cell *matHeaderCellDef> Plant Name </th>
                   <td mat-cell *matCellDef="let element"> {{element.plantName}} </td>
                 </ng-container>
               
@@ -412,17 +430,45 @@
                   <th mat-header-cell *matHeaderCellDef> Cultivated Area </th>
                   <td mat-cell *matCellDef="let element"> {{element.cultivatedArea}} </td>
                 </ng-container>
+
                 <ng-container matColumnDef="cultivatedPlantsCount">
                   <th mat-header-cell *matHeaderCellDef> Cultivated Plant Amount </th>
                   <td mat-cell *matCellDef="let element"> {{element.cultivatedPlantsCount}} </td>
                 </ng-container>
+
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell *matHeaderCellDef> Actions</th>
+                  <td mat-cell *matCellDef="let element;let i = index"> 
+                    <div class="d-flex align-items-center gap-2">
+                        <button matTooltip="{{'common.edit' | translate}}" matTooltipPosition="below" mat-icon-button
+                            class=" btn-icon bg-warning bg-opacity-10">
+                            <!-- (click)="patchFarmInfo(element,i)" -->
+                              <span class="material-symbols-rounded text-warning">
+                                  edit_square
+                              </span>
+                          </button>
+                    
+                         <button matTooltip="{{'common.delete' | translate}}" matTooltipPosition="below" mat-icon-button
+                             class=" btn-icon bg-danger bg-opacity-10" (click)="deleteFarmInfo(i)">
+                              <span class="material-symbols-rounded text-danger">
+                                  delete
+                              </span>
+                          </button>
+                     
+                  </div>
+                  </td>
+                </ng-container>
+
+
               
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
-              
-              
-            </div>
+              <div *ngIf="!farmDetails.length" class="alert alert-danger text-center mt-1 py-2 mb-0">
+                <span> {{lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'}}</span>
+              </div>
+               </div>
+        
           </div>
           <div class="row">
             <div class="col-sm-4">
@@ -446,13 +492,17 @@
               <div class="form-label">23.B. उमेदवाराशी नाते</div>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="candidateRelationId">
+                  <mat-option *ngFor="let relation of candidateRelationArray" [value]="relation.id">{{lang != 'en' ?  relation.textMarathi :
+                     relation.textEnglish}}</mat-option>
+                </mat-select>
+                <!-- <mat-select formControlName="candidateRelationId">
                   <mat-option>भाऊ</mat-option>
                   <mat-option>बहीण</mat-option>
                   <mat-option>चुलत भाऊ</mat-option>
                   <mat-option>काका</mat-option>
                   <mat-option>मामा</mat-option>
                   <mat-option>सासरे</mat-option>
-                </mat-select>
+                </mat-select> -->
               </mat-form-field>
             </div>
           </div>
