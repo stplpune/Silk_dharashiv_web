@@ -43,6 +43,9 @@ export class MyProfileComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
+
+    console.log("this.lang",this.lang);
+    
     this.getssProfileData();
     this.formData();
   }
@@ -74,7 +77,7 @@ export class MyProfileComponent {
 
   imageUplod(event: any) {
     this.spinner.show();
-    this.fileUpl.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc').subscribe({
+    this.fileUpl.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc','','',this.lang).subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.spinner.hide();
