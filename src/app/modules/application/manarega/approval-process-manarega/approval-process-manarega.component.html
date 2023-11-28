@@ -476,7 +476,7 @@
 
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
-          
+
             <!-- Position Column -->
             <ng-container matColumnDef="srNo">
               <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
@@ -487,19 +487,19 @@
               <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.orchard_flower_tree'| translate}}</th>
               <td mat-cell *matCellDef="let element"> {{element.plantName}} </td>
             </ng-container>
-          
+
             <!-- Name Column -->
             <ng-container matColumnDef="gutNo">
               <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.group_no.'| translate}} </th>
               <td mat-cell *matCellDef="let element"> {{element.gutNo}} </td>
             </ng-container>
-          
+
             <!-- Weight Column -->
             <ng-container matColumnDef="gutArea">
               <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.group_area'| translate}} </th>
               <td mat-cell *matCellDef="let element"> {{element.gutArea}} </td>
             </ng-container>
-          
+
             <!-- Symbol Column -->
             <ng-container matColumnDef="plantCultivatedArea">
               <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.cultivated_area'| translate}} </th>
@@ -510,12 +510,12 @@
               <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.number_of_trees_planted'| translate}} </th>
               <td mat-cell *matCellDef="let element"> {{element.cultivatedPlantsCount}} </td>
             </ng-container>
-          
+
             <tr mat-header-row *matHeaderRowDef="displayedColumn"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumn;"></tr>
           </table>
         </div>
-          
+
 
 
         </div>
@@ -833,6 +833,9 @@
                     </button>
                   </div>
                 </div>
+              <button mat-flat-button class="btn-main" [routerLink]="['/technical-estimate']" type="button" >
+         Technical Estimate
+            </button>
               </div>
 
               <div class="col-sm">
