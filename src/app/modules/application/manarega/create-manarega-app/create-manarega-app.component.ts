@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup,NgForm,Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -12,6 +12,7 @@ import { MasterService } from 'src/app/core/services/master.service';
 //import { CategorydetailsComponent } from '../categorydetails/categorydetails.component';
 import { CategoryDetailsComponent } from '../category-details/category-details.component';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-create-manarega-app',
   templateUrl: './create-manarega-app.component.html',
@@ -27,7 +28,9 @@ export class CreateManaregaAppComponent {
   lang: any;
   viewMsgFlag: boolean = false;//used for error msg show
   genderArray: any = [{ id: 1, name: 'Male' }, { id: 0, name: 'Female' }];
-  displayedColumns = ['srNo','plantName','gutNo','gutArea','cultivatedArea','cultivatedPlantsCount'];
+  checkedArray:any = [{id:1,name:'Yes'},{id:0,name:'No'}];
+  selfTrainingArray:any = [{id:1,name:'Send Candidate'},{id:0,name:'MySelf'}];
+  displayedColumns = ['srNo','plantName','gutNo','gutArea','cultivatedArea','cultivatedPlantsCount','actions'];
   qualificationArray = new Array();
   departmentArray = new Array();
   stateArray = new Array();
@@ -36,6 +39,8 @@ export class CreateManaregaAppComponent {
   grampanchayatArray = new Array();
   categoryArray = new Array();
   irrigationFacilityArray = new Array();
+  farmTypeArray = new Array();
+  candidateRelationArray = new Array();
   talukaCtrl: FormControl = new FormControl();
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   gramPCtrl: FormControl = new FormControl();
@@ -46,7 +51,11 @@ export class CreateManaregaAppComponent {
   maxDate = new Date();
   farmDetails = new Array();
   getId:any;
-
+  index:any;
+  farmDeatailsEditObj:any
+  dataSource :any;
+ @ViewChild('formDirective') private formDirective!: NgForm;
+  
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
     public WebStorageService: WebStorageService,
@@ -66,10 +75,14 @@ export class CreateManaregaAppComponent {
     })
     this.addManaregaFrm();
     this.addFarmInfo();
+    this.getFarmInfo();
     this.getDepartment();
     this.getQualification();
     this.getState();
     this.getCategory();
+    this.getFarmType();
+    this.getIrrigationFacility();
+    this.getCandidateRelation();
     this.searchDataZone();
   }
 
@@ -103,30 +116,17 @@ export class CreateManaregaAppComponent {
   addFarmInfo(){
     this.farmInfoFrm = this.fb.group({
       "benificiaryTotalFarm":[''],
-      "mulberryCultivatedSurveyNo": "string",
-      "cultivatedFarmInHector": 0,
-      "isJointAccHolder": true,
-      "applicantFarmSurveyNo": "string",
-      "applicantFarmArea": 0,
-      "farmTypeId": 0,
-    "irrigationFacilityId": 0,
-    "isAnyPlantedBeforeGovScheme": true,
-    "isSelfTraining": true,
-    "candidateName": "string",
-    "candidateRelationId": 0,
-
-      "plantingDetails": [
-        {
-          "id": 0,
-          "applicationId": 0,
-          "plantName": "string",
-          "gutNo": 0,
-          "gutArea": 0,
-          "cultivatedArea": 0,
-          "cultivatedPlantsCount": 0,
-          "createdBy": 0
-        }
-      ],
+      "mulberryCultivatedSurveyNo": [''],
+      "cultivatedFarmInHector":[''],//num
+      "isJointAccHolder": [''],//true
+      "applicantFarmSurveyNo": [''],
+      "applicantFarmArea": [''],//num
+      "farmTypeId":[''],//num
+    "irrigationFacilityId":[''],//num
+    "isAnyPlantedBeforeGovScheme": [''],//true
+    "isSelfTraining":[''],//true
+    "candidateName":[''],
+    "candidateRelationId": [''],//num
     })
   }
 
@@ -134,19 +134,57 @@ export class CreateManaregaAppComponent {
     return this.manaregaFrm.controls
   }
 
+  
+
+  
 
   getFarmInfo(){
     this.farmDeatailsFrm = this.fb.group({
       "id": [0],
-      "applicationId":[0],
       "plantName": ['',[Validators.required]],
       "gutNo": ['',[Validators.required]],
       "gutArea": ['',[Validators.required]],
       "cultivatedArea":['',[Validators.required]],
-      "cultivatedPlantsCount":['',[Validators.required]],
-      "createdBy":[0]
+      "cultivatedPlantsCount":['',[Validators.required]]
     })
   }
+
+  onAddFarmInfo(){
+    let data = this.farmDeatailsFrm.getRawValue();
+   // var newArray = new Array();
+    if( this.farmDeatailsFrm.invalid){
+      return;
+    }
+    else{
+      let obj ={
+      "id": data.id,
+      "applicationId":0,
+      "plantName": data.plantName,
+      "gutNo": Number(data.gutNo),
+      "gutArea": Number(data.gutArea),
+      "cultivatedArea": Number(data.cultivatedArea),
+      "cultivatedPlantsCount": Number(data.cultivatedPlantsCount),
+      "createdBy":0
+      }
+      this.farmDetails.push(obj);
+      this.dataSource = new MatTableDataSource( this.farmDetails);
+      this.formDirective?.resetForm();
+      console.log("farmDetails",this.farmDetails)
+    }
+  }
+
+  // patchFarmInfo(obj?: any, index?: number){
+  //   this.index = index;
+  //   this.farmDeatailsEditObj = obj;
+  //   this.getFarmInfo();
+  // }
+
+  deleteFarmInfo(i:number){
+    this.farmDetails.splice(i,1);
+    this.dataSource= new MatTableDataSource(this.farmDetails);
+   }
+
+
 
 
   imageUplod(event: any) {
@@ -182,12 +220,14 @@ export class CreateManaregaAppComponent {
   }
 
 
-  onSubmit() {
+  onSubmit(flag?:any) {
     if (this.manaregaFrm.invalid) {
       return;
     }
     else {
       let formData = this.manaregaFrm?.getRawValue();
+      let farmDetails=this.farmDeatailsFrm.getRawValue();
+      console.log("farmDetails",farmDetails)
       let obj ={
         "id": formData.id,
         "farmerId": formData.farmerId,
@@ -277,7 +317,7 @@ export class CreateManaregaAppComponent {
         "sm_IsRequestForYourPriorConsent": true,
         "registrationFeeReceiptPath": "string",
         "createdBy": 0,
-        "flag": 0,
+        "flag": flag == 'farmerInfo' ? 0 : 2,
         "isUpdate": true,
         "appDoc": [
           {
@@ -292,18 +332,7 @@ export class CreateManaregaAppComponent {
           }
         ],
         "categoryId": this.checkedItems.map((x:any)=>{return x.id}),
-        "plantingDetails": [
-          {
-            "id": 0,
-            "applicationId": 0,
-            "plantName": "string",
-            "gutNo": 0,
-            "gutArea": 0,
-            "cultivatedArea": 0,
-            "cultivatedPlantsCount": 0,
-            "createdBy": 0
-          }
-        ],
+        "plantingDetails": this.farmDetails,
         "internalSchemes": [
           {
             "id": 0,
@@ -456,7 +485,6 @@ export class CreateManaregaAppComponent {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.grampanchayatArray = res.responseData;
-          // this.grampanchayatArray.unshift( { id: 0,textEnglish:'All Grampanchayat' ,textMarathi:'सर्व ग्रामपंचायत'});
           this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
           // this.data ? (this.f['grampanchayatId'].setValue(this.data?.grampanchayatId)) : '';
         }
@@ -467,6 +495,32 @@ export class CreateManaregaAppComponent {
       })
     })
     // }
+  }
+ 
+  getFarmType(){
+    this.masterService.GetFarmType().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.farmTypeArray = res.responseData;
+          }
+        else {
+          this.farmTypeArray = [];
+        }
+      })
+    })
+  }
+
+ getCandidateRelation(){
+    this.masterService.GetCandidateRelation().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.candidateRelationArray = res.responseData;
+          }
+        else {
+          this.candidateRelationArray = [];
+        }
+      })
+    })
   }
 
   getCategory() {

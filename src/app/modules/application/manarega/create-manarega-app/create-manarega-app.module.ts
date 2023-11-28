@@ -20,6 +20,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 @NgModule({
   declarations: [
     CreateManaregaAppComponent
@@ -44,7 +46,8 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     FormsModule,
     NgxMatSelectSearchModule,
-    TranslateModule
+    TranslateModule,
+    MatTooltipModule
   ]
 })
 export class CreateManaregaAppModule { }
