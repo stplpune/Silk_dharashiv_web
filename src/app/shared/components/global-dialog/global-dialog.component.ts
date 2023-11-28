@@ -23,21 +23,23 @@ export class GlobalDialogComponent {
   constructor(public dialogRef: MatDialogRef<GlobalDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,    public commonService: CommonMethodsService, public valiService: ValidationService) { }
 
   ngOnInit() {
+    console.log("data",this.data);
 
   }
 
   closeDialog(flag: string) {
     if (this.data.discription && flag == "Yes") {
-      if (this.remark.value.trim() == "") {
-        this.commonService.snackBar("Please Enter Remark", 1);
-        return
-      } else {
+      // if (this.remark.value.trim() == "") {
+      //   this.commonService.snackBar("Please Enter Remark", 1);
+      //   return
+      // } else {
         let obj = {
           flag: flag,
-          inputValue: this.remark.value
+          // inputValue: this.remark.value
+          inputValue: this.remark.value.trim()
         }
         this.dialogRef.close(obj)
-      }
+      // }
     } else {
       this.dialogRef.close(flag);
     }
