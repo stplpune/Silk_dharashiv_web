@@ -226,8 +226,10 @@ export class CreateManaregaAppComponent {
     }
     else {
       let formData = this.manaregaFrm?.getRawValue();
-      let farmDetails=this.farmDeatailsFrm.getRawValue();
-      console.log("farmDetails",farmDetails)
+      //let farmDetails=this.farmDeatailsFrm.getRawValue();
+      let farmInfo = this.farmInfoFrm.getRawValue();
+
+      console.log("farmInfo",farmInfo)
       let obj ={
         "id": formData.id,
         "farmerId": formData.farmerId,
@@ -262,17 +264,17 @@ export class CreateManaregaAppComponent {
        
         "sm_VoterRegistrationNo": "string",
         "sm_IsBelowPovertyLine": true,
-        "benificiaryTotalFarm": 0,
+        "benificiaryTotalFarm": Number(farmInfo.benificiaryTotalFarm),
         "sm_LandTenureCategories": 0,
-        "mulberryCultivatedSurveyNo": "string",
-        "cultivatedFarmInHector": 0,
-        "isJointAccHolder": true,
-        "applicantFarmSurveyNo": "string",
-        "applicantFarmArea": 0,
-        "farmTypeId": 0,
-        "irrigationFacilityId": 0,
+        "mulberryCultivatedSurveyNo": farmInfo.mulberryCultivatedSurveyNo,
+        "cultivatedFarmInHector":  Number(farmInfo.cultivatedFarmInHector),
+        "isJointAccHolder":farmInfo.isJointAccHolder,
+        "applicantFarmSurveyNo": farmInfo.applicantFarmSurveyNo,
+        "applicantFarmArea": Number(farmInfo.applicantFarmArea),
+        "farmTypeId":Number(farmInfo.farmTypeId),
+        "irrigationFacilityId": Number(farmInfo.irrigationFacilityId),
         "sm_IrrigationPeriod": 0,
-        "isAnyPlantedBeforeGovScheme": true,
+        "isAnyPlantedBeforeGovScheme":farmInfo.isAnyPlantedBeforeGovScheme,
         "plantName": "string",
         "gutNo": "string",
         "gutArea": "string",
@@ -288,9 +290,9 @@ export class CreateManaregaAppComponent {
         "sm_PlantationMethod": 0,
         "sm_IsExperienceSilkIndustry": true,
         "sm_ExperienceYears": 0,
-        "isSelfTraining": true,
-        "candidateName": "string",
-        "candidateRelationId": 0,
+        "isSelfTraining": farmInfo.isSelfTraining,
+        "candidateName": farmInfo.candidateName,
+        "candidateRelationId":Number(farmInfo.candidateRelationId),
         "sm_IsSilkIndustrtyTrainingReceived": true,
         "sm_SilkIndustrtyTrainingDetails": "string",
         "sm_IsEngagedInSilkIndustry": true,
