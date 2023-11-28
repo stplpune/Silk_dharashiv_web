@@ -115,6 +115,7 @@ export class CreateManaregaAppComponent {
 
   addFarmInfo(){
     this.farmInfoFrm = this.fb.group({
+      "id":[ this.getId],
       "benificiaryTotalFarm":[''],
       "mulberryCultivatedSurveyNo": [''],
       "cultivatedFarmInHector":[''],//num
@@ -268,13 +269,13 @@ export class CreateManaregaAppComponent {
         "sm_LandTenureCategories": 0,
         "mulberryCultivatedSurveyNo": farmInfo.mulberryCultivatedSurveyNo,
         "cultivatedFarmInHector":  Number(farmInfo.cultivatedFarmInHector),
-        "isJointAccHolder":farmInfo.isJointAccHolder,
+        "isJointAccHolder":farmInfo.isJointAccHolder || false,
         "applicantFarmSurveyNo": farmInfo.applicantFarmSurveyNo,
         "applicantFarmArea": Number(farmInfo.applicantFarmArea),
         "farmTypeId":Number(farmInfo.farmTypeId),
         "irrigationFacilityId": Number(farmInfo.irrigationFacilityId),
         "sm_IrrigationPeriod": 0,
-        "isAnyPlantedBeforeGovScheme":farmInfo.isAnyPlantedBeforeGovScheme,
+        "isAnyPlantedBeforeGovScheme":farmInfo.isAnyPlantedBeforeGovScheme || false,
         "plantName": "string",
         "gutNo": "string",
         "gutArea": "string",
@@ -290,7 +291,7 @@ export class CreateManaregaAppComponent {
         "sm_PlantationMethod": 0,
         "sm_IsExperienceSilkIndustry": true,
         "sm_ExperienceYears": 0,
-        "isSelfTraining": farmInfo.isSelfTraining,
+        "isSelfTraining": farmInfo.isSelfTraining || false,
         "candidateName": farmInfo.candidateName,
         "candidateRelationId":Number(farmInfo.candidateRelationId),
         "sm_IsSilkIndustrtyTrainingReceived": true,
@@ -319,7 +320,7 @@ export class CreateManaregaAppComponent {
         "sm_IsRequestForYourPriorConsent": true,
         "registrationFeeReceiptPath": "string",
         "createdBy": 0,
-        "flag": flag == 'farmerInfo' ? 0 : 2,
+        "flag": flag == 'farmerInfo' ? 0 : flag == 'farmInfo'? 2 : 3,
         "isUpdate": true,
         "appDoc": [
           {
@@ -482,7 +483,7 @@ export class CreateManaregaAppComponent {
   getGrampanchayat() {
     this.grampanchayatArray = [];
     let talukaId = this.manaregaFrm.getRawValue()?.talukaId;
-    // if (talukaId != 0) {
+    if (talukaId != 0) {
     this.masterService.GetGrampanchayat(talukaId).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
@@ -496,7 +497,7 @@ export class CreateManaregaAppComponent {
         }
       })
     })
-    // }
+    }
   }
  
   getFarmType(){
