@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 // import * as CryptoJS from 'crypto-js';
 
 
@@ -35,24 +35,26 @@ export class LoginComponent {
   loginData: any;
   subscription!: Subscription;//used  for lang conv
   lang: any;
-  
+  getLangForLocalStor!: string | null | any;
+
   constructor(private fb: FormBuilder,
     public validation: ValidationService,
     private commonMethods: CommonMethodsService,
     private error: ErrorHandlingService,
     private spinner: NgxSpinnerService,
-    private apiService: ApiService,
+    private apiService: ApiService,    private translate: TranslateService,
     private router: Router,private WebStorageService:WebStorageService,
     private AESEncryptDecryptService: AesencryptDecryptService,
   ) {
-
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor)
   }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
-      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
-      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+      this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
    })
+   this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
 
     // let ele = document.getElementById('usernameId');
     // ele?.focus();

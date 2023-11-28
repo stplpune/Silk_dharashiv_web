@@ -70,11 +70,12 @@
           <div class="col-sm">
             <div class="d-flex gap-2">
               <div class="form-label mb-0">{{'grainage.address'| translate}}:</div>
-              <div class="form-data">{{lang == 'en' ? (applicantDetails?.state +', '+applicantDetails?.taluka+','+applicantDetails?.village) : (applicantDetails?.m_State
-                +', '+applicantDetails?.m_Taluka+','+applicantDetails?.village)}}</div>
+              <div class="form-data">{{lang == 'en' ? ((applicantDetails?.state | dash) +', '+(applicantDetails?.district | dash)+', '+(applicantDetails?.taluka | dash)+','+(applicantDetails?.grampanchayatName | dash)) : ((applicantDetails?.m_State | dash)
+                +', '+(applicantDetails?.m_District | dash)+', '+(applicantDetails?.m_Taluka | dash)+','+(applicantDetails?.m_GrampanchayatName | dash))}}</div>
             </div>
           </div>
-
+          <!-- {{lang == 'en' ? (applicantDetails?.grampanchayatName | dash ) :
+          (applicantDetails?.m_GrampanchayatName | dash)}} -->
         </div>
       </div>
 
@@ -187,16 +188,22 @@
                     (applicantDetails?.m_FullName | dash)}}</div>
                 </div>
                 <div class="col-sm-2 col-4">
-                  <div class="form-label">{{'approvalProcess.manarega_job_card_no.'| translate}}</div>
-                </div>
-                <div class="col-sm-4 col-8">
-                  <div class="form-data">: {{applicantDetails?.mn_JobCardNo | dash}}</div>
-                </div>
-                <div class="col-sm-2 col-4">
                   <div class="form-label">{{'common.mobile'| translate}}:</div>
                 </div>
                 <div class="col-sm-4 col-8">
                   <div class="form-data">: {{applicantDetails?.mobileNo1 | dash}}</div>
+                </div>
+                <div class="col-sm-2 col-4">
+                  <div class="form-label">{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
+                </div>
+                <div class="col-sm-4 col-8">
+                  <div class="form-data"> : {{applicantDetails?.mobileNo2 | dash}}</div>
+                </div>
+                <div class="col-sm-2 col-4">
+                  <div class="form-label">{{'approvalProcess.manarega_job_card_no.'| translate}}</div>
+                </div>
+                <div class="col-sm-4 col-8">
+                  <div class="form-data">: {{applicantDetails?.mn_JobCardNo | dash}}</div>
                 </div>
                 <div class="col-sm-2 col-4">
                   <div class="form-label">{{'approvalProcess.aadhar_number'| translate}}</div>
@@ -205,10 +212,24 @@
                   <div class="form-data"> : {{applicantDetails?.aadharNo | dash}}</div>
                 </div>
                 <div class="col-sm-2 col-4">
+                  <div class="form-label">{{'approvalProcess.gender'| translate}}</div>
+                </div>
+                <div class="col-sm-4 col-8">
+                  <div class="form-data">: {{lang == 'en' ? (applicantDetails?.gender | dash ) :
+                    (applicantDetails?.m_gender | dash)}}</div>
+                </div>
+                <div class="col-sm-2 col-4">
                   <div class="form-label">{{'approvalProcess.date_of_birth'| translate}}</div>
                 </div>
                 <div class="col-sm-4 col-8">
                   <div class="form-data">: {{(applicantDetails?.birthDate | date: 'dd-MM-yyyy') | dash}}</div>
+                </div>
+                <div class="col-sm-2 col-4">
+                  <div class="form-label">{{'approvalProcess.education'| translate}}</div>
+                </div>
+                <div class="col-sm-4 col-8">
+                  <div class="form-data">: {{lang == 'en' ? (applicantDetails?.qualification | dash ) :
+                    (applicantDetails?.m_Qualification | dash)}}</div>
                 </div>
                 <div class="col-sm-2 col-4">
                   <div class="form-label">{{'common.State'| translate}}</div>
@@ -218,11 +239,25 @@
                     (applicantDetails?.m_State | dash)}}</div>
                 </div>
                 <div class="col-sm-2 col-4">
+                  <div class="form-label">{{'common.District'| translate}}</div>
+                </div>
+                <div class="col-sm-4 col-8">
+                  <div class="form-data">: {{lang == 'en' ? (applicantDetails?.district | dash ) :
+                    (applicantDetails?.m_District | dash)}}</div>
+                </div>
+                <div class="col-sm-2 col-4">
                   <div class="form-label">{{'common.Taluka'| translate}}</div>
                 </div>
                 <div class="col-sm-4 col-8">
                   <div class="form-data">: {{lang == 'en' ? (applicantDetails?.taluka | dash ) :
                     (applicantDetails?.m_Taluka | dash)}}</div>
+                </div>
+                <div class="col-sm-2 col-4">
+                  <div class="form-label">{{'approvalProcess.village_committee'| translate}}</div>
+                </div>
+                <div class="col-sm-4 col-8">
+                  <div class="form-data"> : {{lang == 'en' ? (applicantDetails?.grampanchayatName | dash ) :
+                    (applicantDetails?.m_GrampanchayatName | dash)}}</div>
                 </div>
                 <div class="col-sm-2 col-4">
                   <div class="form-label">{{'common.Village'| translate}}</div>
@@ -237,41 +272,7 @@
                 <div class="col-sm-4 col-8">
                   <div class="form-data">: {{applicantDetails?.pinCode | dash}}</div>
                 </div>
-                <div class="col-sm-2 col-4">
-                  <div class="form-label">{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
-                </div>
-                <div class="col-sm-4 col-8">
-                  <div class="form-data"> : {{applicantDetails?.mobileNo2 | dash}}</div>
-                </div>
-                <div class="col-sm-2 col-4">
-                  <div class="form-label">{{'approvalProcess.gender'| translate}}</div>
-                </div>
-                <div class="col-sm-4 col-8">
-                  <div class="form-data">: {{lang == 'en' ? (applicantDetails?.gender | dash ) :
-                    (applicantDetails?.m_gender | dash)}}</div>
-                </div>
-                <div class="col-sm-2 col-4">
-                  <div class="form-label">{{'approvalProcess.education'| translate}}</div>
-                </div>
-                <div class="col-sm-4 col-8">
-                  <div class="form-data">: {{lang == 'en' ? (applicantDetails?.qualification | dash ) :
-                    (applicantDetails?.m_Qualification | dash)}}</div>
-                </div>
-                <div class="col-sm-2 col-4">
-                  <div class="form-label">{{'common.District'| translate}}</div>
-                </div>
-                <div class="col-sm-4 col-8">
-                  <div class="form-data">: {{lang == 'en' ? (applicantDetails?.district | dash ) :
-                    (applicantDetails?.m_District | dash)}}</div>
-                </div>
-                <div class="col-sm-2 col-4">
-                  <div class="form-label">{{'approvalProcess.village_committee'| translate}}</div>
-                </div>
-                <div class="col-sm-4 col-8">
-                  <div class="form-data"> : {{lang == 'en' ? (applicantDetails?.grampanchayatName | dash ) :
-                    (applicantDetails?.m_GrampanchayatName | dash)}}</div>
-                </div>
-                <div class="col-sm-2 col-4">
+               <div class="col-sm-2 col-4">
                   <div class="form-label">{{'common.address'| translate}}</div>
                 </div>
                 <div class="col-sm-4 col-8">
@@ -476,7 +477,7 @@
 
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
-          
+
             <!-- Position Column -->
             <ng-container matColumnDef="srNo">
               <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
@@ -487,19 +488,19 @@
               <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.orchard_flower_tree'| translate}}</th>
               <td mat-cell *matCellDef="let element"> {{element.plantName}} </td>
             </ng-container>
-          
+
             <!-- Name Column -->
             <ng-container matColumnDef="gutNo">
               <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.group_no.'| translate}} </th>
               <td mat-cell *matCellDef="let element"> {{element.gutNo}} </td>
             </ng-container>
-          
+
             <!-- Weight Column -->
             <ng-container matColumnDef="gutArea">
               <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.group_area'| translate}} </th>
               <td mat-cell *matCellDef="let element"> {{element.gutArea}} </td>
             </ng-container>
-          
+
             <!-- Symbol Column -->
             <ng-container matColumnDef="plantCultivatedArea">
               <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.cultivated_area'| translate}} </th>
@@ -510,12 +511,12 @@
               <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.number_of_trees_planted'| translate}} </th>
               <td mat-cell *matCellDef="let element"> {{element.cultivatedPlantsCount}} </td>
             </ng-container>
-          
+
             <tr mat-header-row *matHeaderRowDef="displayedColumn"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumn;"></tr>
           </table>
         </div>
-          
+
 
 
         </div>
@@ -833,6 +834,9 @@
                     </button>
                   </div>
                 </div>
+              <!-- <button mat-flat-button class="btn-main" [routerLink]="['/technical-estimate']" type="button" >
+         Technical Estimate
+            </button> -->
               </div>
 
               <div class="col-sm">
@@ -840,12 +844,20 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <textarea matInput placeholder="" formControlName="remark"
                     (keypress)="validation.noFirstSpaceAllow($event)" style="height: 83px;"></textarea>
-                  <mat-error *ngIf="approvalFrm.controls['remark']?.errors">
+                  <!-- <mat-error *ngIf="approvalFrm.controls['remark']?.errors">
                     <span class="text-danger"
                       *ngIf="approvalFrm.controls['remark']?.hasError('maxLengthExceeded')">
                       {{'common.address_maximum_100_character_allowed' | translate }}
                     </span>
+                  </mat-error> -->
+                  <mat-error *ngIf="approvalFrm.controls['remark']?.errors">
+                    <span class="text-danger"
+                      *ngIf="approvalFrm.controls['remark']?.hasError('maxLengthExceeded') || approvalFrm.controls['remark']?.hasError('required')">
+                      {{approvalFrm.controls['remark'].hasError('maxLengthExceeded') ? ('common.address_maximum_100_character_allowed' | translate) :
+                      ('officerreg.Please_enter_remark'| translate)}}
+                    </span>
                   </mat-error>
+                  
                 </mat-form-field>
               </div>
 

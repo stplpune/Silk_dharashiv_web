@@ -26,30 +26,41 @@ export class HeaderComponent {
   loginData: any;
   userName: string = '';
   designationName: string = '';
-  profileImg : string = '';
+  profileImg: string = '';
   subscription!: Subscription;
-  lang: string = 'English';
+  setLang: any;
 
+  getLangForLocalStor!: string | null | any;
 
   constructor(private webStorage: WebStorageService, public dialog: MatDialog,
     private commonMethods: CommonMethodsService,
     private translate: TranslateService) {
+
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('lang');
+    this.translate.use(this.getLangForLocalStor)
+
   }
 
   ngOnInit() {
     this.loginData = this.webStorage.getLoggedInLocalstorageData();
-    let language: any = sessionStorage.getItem('language');
-    language = language ? language : 'English';
-    // sessionStorage.setItem('language', language)
-    this.webStorage.setLanguage.next(language);
-    this.translate.use(language);
-    this.webStorage.setLanguage.subscribe((res: any) => {
-      this.selLang = res;
-    })
-    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
-      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
-      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-    })
+    // let language: any = localStorage.getItem('language');
+    // language = language ? language : 'English';
+    // this.webStorage.setLanguage.next(language);
+    // this.translate.use(language);
+
+    // this.webStorage.setLanguage.subscribe((res: any) => {
+    //   this.setLang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+    // });
+
+    // this.setLang = localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+
+    const language = localStorage.getItem('language') || 'English';
+     this.translate.use(language);
+     this.webStorage.setLanguage.subscribe((res: any) => {
+      this.setLang = res || localStorage.getItem('language') || 'English';
+    });
+    this.setLang = language;
+
 
     this.webStorage.getProfileData().subscribe((res: any) => {
       this.userName = res.name;
@@ -71,10 +82,10 @@ export class HeaderComponent {
 
   openChangePasswordDialog() {
     let dialoObj = {
-      header: this.lang == 'en' ? 'Change Password' : 'पासवर्ड बदला',
-      title: this.lang == 'en' ? 'Do You Really Want To Change Password?' : 'तुम्हाला खरच पासवर्ड बदलायचा आहे का?',
-      cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
-      okButton: this.lang == 'en' ? 'Change Password' : 'पासवर्ड बदला',
+      header: this.setLang == 'en' ? 'Change Password' : 'पासवर्ड बदला',
+      title: this.setLang == 'en' ? 'Do You Really Want To Change Password?' : 'तुम्हाला खरच पासवर्ड बदलायचा आहे का?',
+      cancelButton: this.setLang == 'en' ? 'Cancel' : 'रद्द करा',
+      okButton: this.setLang == 'en' ? 'Change Password' : 'पासवर्ड बदला',
     }
     const dialogRef = this.dialog.open(ChangePasswordComponent, {
       width: '50%',
@@ -97,10 +108,10 @@ export class HeaderComponent {
 
   openLogOutDialog() {    //open logout dialog
     let dialoObj = {
-      header: this.lang == 'en' ? 'Logout' : 'बाहेर पडणे',
-      title: this.lang == 'en' ? 'Do You Want To Logout?' : 'आपण लॉगआउट करू इच्छिता',
-      cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
-      okButton: this.lang == 'en' ? 'Logout' : 'बाहेर पडणे',
+      header: this.setLang == 'en' ? 'Logout' : 'बाहेर पडणे',
+      title: this.setLang == 'en' ? 'Do You Want To Logout?' : 'आपण लॉगआउट करू इच्छिता',
+      cancelButton: this.setLang == 'en' ? 'Cancel' : 'रद्द करा',
+      okButton: this.setLang == 'en' ? 'Logout' : 'बाहेर पडणे',
       headerImage: 'assets/images/logout/logout@3x.png'
     }
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
@@ -115,11 +126,11 @@ export class HeaderComponent {
       }
     });
   }
-  
+
   changeLanguage(lang: any) {
     this.language = lang
     this.translate.use(lang)
     this.webStorage.setLanguage.next(lang)
-    sessionStorage.setItem('language', lang)
+    localStorage.setItem('language', lang)
   }
 }

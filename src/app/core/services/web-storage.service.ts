@@ -132,7 +132,7 @@ export class WebStorageService {
 
   setLanguageCallback() {
     this.setLanguageSubject.subscribe(() => {
-      this.lang = sessionStorage.getItem('language') || 'English';
+      this.lang = localStorage.getItem('language') || 'English';
       this.lang = this.lang === 'English' ? 'en' : 'mr-IN';
     });
     return this.lang

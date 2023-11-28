@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-farmersignup',
@@ -27,6 +28,8 @@ export class FarmersignupComponent {
   subscription!: Subscription;
   lang: any;
 
+  getLangForLocalStor!: string | null | any;
+
   constructor(
     private master: MasterService,
     private fb: FormBuilder,
@@ -37,14 +40,18 @@ export class FarmersignupComponent {
     private error: ErrorHandlingService,
     private WebStorageService: WebStorageService,
     private router: Router, 
-    private spinner: NgxSpinnerService
-  ) { }
+    private spinner: NgxSpinnerService,
+    private translate: TranslateService,
+  ) {
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor)
+   }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
-      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
-      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+      this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
     })
+    this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     this.formData();
     this.getDisrict();
   }

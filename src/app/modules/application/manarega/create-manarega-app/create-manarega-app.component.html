@@ -142,7 +142,7 @@
             <div class="col-sm-3">
               <div class="form-label">8. जिल्हा</div>
               <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="districtId"
+              <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
               [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
                 district.textMarathi : district.textEnglish}}
@@ -474,9 +474,15 @@
             <div class="col-sm-4">
               <mat-label class="form-label">23. रेशीम उद्योगाचे प्रशिक्षण स्वतः घेणार का उमेदवार पाठवणार ?</mat-label>
               <div class="">
-                <mat-radio-group aria-label="Select an option" formControlName="isSelfTraining">
+                <!-- <mat-radio-group aria-label="Select an option" formControlName="isSelfTraining">
                   <mat-radio-button class="pe-3" value="1"> स्वतः घेणार</mat-radio-button>
                   <mat-radio-button class="pe-3" value="2" checked="true"> उमेदवार पाठवणार</mat-radio-button>
+                </mat-radio-group> -->
+                <mat-radio-group aria-label="Select an option" class="pb-0"
+                formControlName="isSelfTraining">
+                <mat-radio-button *ngFor="let arr of selfTrainingArray"  [value]="arr.id" class="pe-3">
+                {{arr.name }}
+                </mat-radio-button>
                 </mat-radio-group>
               </div>
             </div>
@@ -510,7 +516,7 @@
 
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main" type="button">Back</button>
-          <button mat-button matStepperNext class="btn-main"  type="button">Next</button>
+          <button mat-button matStepperNext class="btn-main"  type="button" (click)="onSubmit('farmInfo')">Next</button>
         </div>
       </form>
       </mat-step>
