@@ -20,11 +20,13 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { TranslateModule } from '@ngx-translate/core';
 import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
 import { ConfigService } from 'src/app/core/services/config.service';
+// import { TechnicalEstimateComponent } from './technical-estimate/technical-estimate.component';
 
 
 @NgModule({
   declarations: [
-    ApprovalProcessManaregaComponent
+    ApprovalProcessManaregaComponent,
+    // TechnicalEstimateComponent
   ],
   imports: [
     CommonModule,
