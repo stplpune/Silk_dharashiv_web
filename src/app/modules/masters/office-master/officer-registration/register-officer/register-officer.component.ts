@@ -323,7 +323,7 @@ export class RegisterOfficerComponent {
         m_CRCName: "",
         userName: "",
         password: "",
-        profileImagePath: this.imageResponse? this.imageResponse : this.data.profileImagePath ,
+        profileImagePath: this.imageResponse? this.imageResponse : this.data?.profileImagePath ,
         userTypeId: 2, // officer register
         village: "0"
       }
