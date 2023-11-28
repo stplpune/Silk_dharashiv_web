@@ -43,17 +43,23 @@ export class HeaderComponent {
 
   ngOnInit() {
     this.loginData = this.webStorage.getLoggedInLocalstorageData();
-    let language: any = localStorage.getItem('language');
-    language = language ? language : 'English';
-    // sessionStorage.setItem('language', language)
-    this.webStorage.setLanguage.next(language);
-    this.translate.use(language);
+    // let language: any = localStorage.getItem('language');
+    // language = language ? language : 'English';
+    // this.webStorage.setLanguage.next(language);
+    // this.translate.use(language);
 
-    this.webStorage.setLanguage.subscribe((res: any) => {
-      this.setLang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+    // this.webStorage.setLanguage.subscribe((res: any) => {
+    //   this.setLang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+    // });
+
+    // this.setLang = localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+
+    const language = localStorage.getItem('language') || 'English';
+     this.translate.use(language);
+     this.webStorage.setLanguage.subscribe((res: any) => {
+      this.setLang = res || localStorage.getItem('language') || 'English';
     });
-
-    this.setLang = localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+    this.setLang = language;
 
 
     this.webStorage.getProfileData().subscribe((res: any) => {
