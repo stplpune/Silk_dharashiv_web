@@ -26,7 +26,7 @@ export class HeaderComponent {
   loginData: any;
   userName: string = '';
   designationName: string = '';
-  profileImg : string = '';
+  profileImg: string = '';
   subscription!: Subscription;
   lang: string = 'English';
 
@@ -115,7 +115,7 @@ export class HeaderComponent {
       }
     });
   }
-  
+
   changeLanguage(lang: any) {
     this.language = lang
     this.translate.use(lang)
