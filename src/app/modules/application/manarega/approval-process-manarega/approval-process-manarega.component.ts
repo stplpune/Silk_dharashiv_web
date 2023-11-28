@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { ActivatedRoute,Router } from '@angular/router';
-import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
@@ -91,7 +91,7 @@ export class ApprovalProcessManaregaComponent {
     this.approvalFrm = this.fb.group({
       "applicationStatus": [''],
       "reason": [0],
-      "remark": ['', this.validation.maxLengthValidator(100)],
+      "remark": ['', [this.validation.maxLengthValidator(100),Validators.required]],
       "m_remark": [''],
       "modifiedBy": this.WebStorageService.getUserId()
     })
