@@ -276,6 +276,16 @@ export class MasterService {
     })
   }
 
+  GetBankBranch(bankId: number) {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/Get-Bank-Branch?BankId=' + bankId, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
   GetQualification() {
     return new Observable((obj) => {
       this.apiService.setHttp('GET', 'sericulture/api/DropdownService/Get-Qualification', false, false, false, 'masterUrl')

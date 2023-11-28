@@ -80,7 +80,7 @@ export class RegisterOfficerComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
     this.getFormData();
-    this.getstatusForm();
+    // this.getstatusForm();
     this.searchDataZone();
     this.data?.label == 'View' ? (this.viewFlag = true, this.getDataById()) : (this.viewFlag = false, this.getDepartment());
   }
@@ -323,15 +323,17 @@ export class RegisterOfficerComponent {
         m_CRCName: "",
         userName: "",
         password: "",
-        profileImagePath: "",
-        userTypeId: 2,
+        profileImagePath: this.imageResponse? this.imageResponse : this.data?.profileImagePath ,
+        userTypeId: 2, // officer register
         village: "0"
       }
+
       this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan=' + this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
           if (res.statusCode == "200") {
+            this.onSubmitProfileData(res.responseData);
             this.commonMethod.snackBar(res.statusMessage, 0);
             this.dialogRef.close('Yes');
             this.formDirective.resetForm();
@@ -393,67 +395,66 @@ export class RegisterOfficerComponent {
     }
   }
 
-  getstatusForm() {
-    this.statusForm = this.fb.group({
-      remark: [this.data ? this.data?.reason : ''],
-      statusId: [this.data?.activeStatus == 'In Active' ? 0 : 1]
-    })
-  }
+  // getstatusForm() {
+  //   this.statusForm = this.fb.group({
+  //     remark: [this.data ? this.data?.reason : ''],
+  //     statusId: [this.data?.activeStatus == 'In Active' ? 0 : 1]
+  //   })
+  // }
 
-  get fs() { return this.statusForm.controls; }
+  // get fs() { return this.statusForm.controls; }
 
-  sendData(id?: any) {
-    id == 1 ? (this.showFlag = false, this.statusForm.controls['remark'].setValue('')) : this.showFlag = true
-    if (id == 0) {
-      this.statusForm.controls["remark"].clearValidators();
-      this.statusForm.controls['remark'].setValidators([Validators.required]);
-      this.statusForm.controls["remark"].updateValueAndValidity();
-    } else {
-      this.statusForm.controls["remark"].clearValidators();
-      this.statusForm.controls['remark'].setValidators([]);
-      this.statusForm.controls["remark"].updateValueAndValidity();
-    }
-  }
+  // sendData(id?: any) {
+  //   id == 1 ? (this.showFlag = false, this.statusForm.controls['remark'].setValue('')) : this.showFlag = true
+  //   if (id == 0) {
+  //     this.statusForm.controls["remark"].clearValidators();
+  //     this.statusForm.controls['remark'].setValidators([Validators.required]);
+  //     this.statusForm.controls["remark"].updateValueAndValidity();
+  //   } else {
+  //     this.statusForm.controls["remark"].clearValidators();
+  //     this.statusForm.controls['remark'].setValidators([]);
+  //     this.statusForm.controls["remark"].updateValueAndValidity();
+  //   }
+  // }
 
-  submitStatusData() {
-    this.spinner.show();
-    let formData = this.statusForm.value;
-    console.log('formData', formData);
-    if (this.statusForm.invalid) {
-      this.spinner.hide();
-      return
-    } else {
-      let obj = {
-        "id": this.data?.id,
-        "isActive": formData.statusId == 0 ? true : false,
-        "reason": formData.statusId == 1 ? "" : formData.remark
-      }
-      this.apiService.setHttp('put', 'sericulture/api/UserRegistration/User-Active-Status?lan=' + this.lang, false, obj, false, 'masterUrl');
-      this.apiService.getHttp().subscribe({
-        next: ((res: any) => {
-          this.spinner.hide();
-          if (res.statusCode == "200") {
-            this.commonMethod.snackBar(res.statusMessage, 0);
-            this.dialogRef.close('Yes');
-          }
-          else {
-            this.commonMethod.checkDataType(res.statusMessage) == false
-              ? this.errorHandler.handelError(res.statusCode)
-              : this.commonMethod.snackBar(res.statusMessage, 1);
-          }
-        }),
-        error: (error: any) => {
-          this.spinner.hide();
-          this.errorHandler.handelError(error.status);
-        }
-      })
-    }
-  }
+  // submitStatusData() {
+  //   this.spinner.show();
+  //   let formData = this.statusForm.value;
+  //   if (this.statusForm.invalid) {
+  //     this.spinner.hide();
+  //     return
+  //   } else {
+  //     let obj = {
+  //       "id": this.data?.id,
+  //       "isActive": formData.statusId == 0 ? true : false,
+  //       "reason": formData.statusId == 1 ? "" : formData.remark
+  //     }
+  //     this.apiService.setHttp('put', 'sericulture/api/UserRegistration/User-Active-Status?lan=' + this.lang, false, obj, false, 'masterUrl');
+  //     this.apiService.getHttp().subscribe({
+  //       next: ((res: any) => {
+  //         this.spinner.hide();
+  //         if (res.statusCode == "200") {
+  //           this.commonMethod.snackBar(res.statusMessage, 0);
+  //           this.dialogRef.close('Yes');
+  //         }
+  //         else {
+  //           this.commonMethod.checkDataType(res.statusMessage) == false
+  //             ? this.errorHandler.handelError(res.statusCode)
+  //             : this.commonMethod.snackBar(res.statusMessage, 1);
+  //         }
+  //       }),
+  //       error: (error: any) => {
+  //         this.spinner.hide();
+  //         this.errorHandler.handelError(error.status);
+  //       }
+  //     })
+  //   }
+  // }
 
-  resetStatus() {
-    this.statusForm.reset();
-    this.getstatusForm();
-  }
+  // resetStatus() {
+  //   this.statusForm.reset();
+  //   this.getstatusForm();
+  // }
 
   imageUplod(event: any) {
     this.spinner.show();
@@ -461,10 +462,10 @@ export class RegisterOfficerComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.spinner.hide();
-          this.imageResponse = res.responseData;
-          setTimeout(() => {
-            this.onSubmitProfileData();
-          }, 500);
+          this.imageResponse = res.responseData;        
+          // setTimeout(() => {
+          //   this.onSubmitProfileData();
+          // }, 500);
         }
         else {
           this.clearlogo.nativeElement.value = "";
@@ -479,10 +480,10 @@ export class RegisterOfficerComponent {
     })
   }
 
-  onSubmitProfileData() {
+  onSubmitProfileData(resId?:any) {
     let obj =
     {
-      "id": this.tableDataArray[0].id,
+      "id": resId,
       "imagePath": this.imageResponse
     }
     this.apiService.setHttp('put', 'sericulture/api/UserRegistration/Upload-Image_web?lan=' + this.lang, false, obj, false, 'masterUrl');
