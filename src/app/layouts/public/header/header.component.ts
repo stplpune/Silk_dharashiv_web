@@ -13,32 +13,35 @@ export class HeaderComponent {
   lag = ['English', 'Marathi'];
   selLang!: string;
   subscription!: Subscription;
-  lang: string = 'English';
-  
+  // lang: string = 'English';
+  getLangForLocalStor!: string | null | any;
+  setLang: any;
+
   constructor(private webStorage: WebStorageService,
     private translate: TranslateService) {
+      localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+      this.translate.use(this.getLangForLocalStor)
   }
 
   ngOnInit() {
-   let language: any = sessionStorage.getItem('language');
+    let language: any = localStorage.getItem('language');
     language = language ? language : 'English';
     // sessionStorage.setItem('language', language)
     this.webStorage.setLanguage.next(language);
     this.translate.use(language);
+
     this.webStorage.setLanguage.subscribe((res: any) => {
-      this.selLang = res;
-    })
-    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
-      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
-      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-    })
+      this.setLang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+    });
+
+    this.setLang = localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
   }
 
   changeLanguage(lang: any) {
     this.language = lang
     this.translate.use(lang)
     this.webStorage.setLanguage.next(lang)
-    sessionStorage.setItem('language', lang)
+    localStorage.setItem('language', lang)
   }
 
 

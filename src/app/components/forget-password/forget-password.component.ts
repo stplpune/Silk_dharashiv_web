@@ -10,6 +10,9 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ApiService } from 'src/app/core/services/api.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { Router } from '@angular/router';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -32,16 +35,28 @@ export class ForgetPasswordComponent {
   otpTimerFlag: boolean = false;
   otpTimerCount: number | any;
   otpTimer: number = 60;
+  lang: any;
+  getLangForLocalStor!: string | null | any;
+  subscription!: Subscription;
 
   constructor(private fb: FormBuilder, public validation: ValidationService,
     private commonMethods: CommonMethodsService,
     private apiService: ApiService,
     private error: ErrorHandlingService,
     private commomMethod: CommonMethodsService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private WebStorageService: WebStorageService,
+    private translate: TranslateService,
+  ) {
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor)
+   }
 
   ngOnInit() {
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+    })
+    this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     this.defaultSendOTPFrom();
     this.defaultverifyOTPForm();
     this.defaultchangepassword();
