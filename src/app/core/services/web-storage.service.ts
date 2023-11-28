@@ -39,7 +39,7 @@ export class WebStorageService {
   }
 
   getLocalstorageData() {
-    if (this.checkUserIsLoggedIn() == true) {
+    if (this.checkUserIsLoggedIn()) {
       var decryptData =JSON.parse(this.AESEncryptDecryptService.decrypt(localStorage['silkDharashivUserInfo']));
       let data = decryptData;
       return data;
@@ -48,7 +48,7 @@ export class WebStorageService {
 
   // Get LocalStorage Data
   getLoggedInLocalstorageData() {
-    if (this.checkUserIsLoggedIn() == true) {
+    if (this.checkUserIsLoggedIn()) {
       var decryptData =JSON.parse(this.AESEncryptDecryptService.decrypt(localStorage['silkDharashivUserInfo']));
       let data = decryptData?.responseData;
       return data;
@@ -56,7 +56,7 @@ export class WebStorageService {
   }
 
   getJWTTokenData() {
-    if (this.checkUserIsLoggedIn() == true) {
+    if (this.checkUserIsLoggedIn()) {
       var decryptData = JSON.parse(this.AESEncryptDecryptService.decrypt(localStorage['silkDharashivUserInfo']));
       let data = decryptData?.responseData1
       return data;
@@ -66,7 +66,7 @@ export class WebStorageService {
   // Get All Page Details For Sidebar
   getAllPageName() {
     let data = this.getLoggedInLocalstorageData();
-    if (this.checkUserIsLoggedIn() == true) {
+    if (this.checkUserIsLoggedIn()) {
       return data.pageList;
     }
   }
