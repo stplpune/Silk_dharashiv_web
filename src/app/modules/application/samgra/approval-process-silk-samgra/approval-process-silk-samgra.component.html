@@ -85,20 +85,20 @@
 
         <ng-container matColumnDef="designationName">
           <th mat-header-cell *matHeaderCellDef>{{'setRule.designation'| translate}}</th>
-          <td mat-cell *matCellDef="let element" class="mnw-200">{{element.designationName ? element.designationName
-            :'-'}}</td>
+          <td mat-cell *matCellDef="let element" class="mnw-200">{{lang == 'en' ? element.designationName : element.m_DesignationName}}</td>
         </ng-container>
         <ng-container matColumnDef="actionName">
           <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
-          <td mat-cell *matCellDef="let element" class="mnw-200">{{element.actionName ? element.actionName :'-'}}</td>
+          <td mat-cell *matCellDef="let element" class="mnw-200">{{lang == 'en' ? element.actionName : element.m_ActionName}}</td>
         </ng-container>
 
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.approval_status'| translate}}</th>
           <td mat-cell *matCellDef="let element">
             <h6 class="mb-0"><span class="badge"
-                [ngClass]="element.status=='Approved' ? 'text-bg-success' : (element.status == 'Pending' || element.status == 'pending') ? 'text-bg-warning' : 'bg-danger-subtle text-danger'">
-                {{element.status ? element.status :'-'}}
+              [ngClass]="lang == 'en' ? (element.status=='Approved' ? 'text-bg-success' : (element.status == 'Pending') ? 'text-bg-warning' : 'bg-danger-subtle text-danger') :
+              (element.m_Status=='मान्यता प्राप्त' ? 'text-bg-success' : (element.m_Status == 'प्रलंबित') ? 'text-bg-warning' : 'bg-danger-subtle text-danger')">
+                {{lang =='en' ? (element.status ? element.status :'-') : (element.m_Status ? element.m_Status :'-')}}
               </span></h6>
           </td>
         </ng-container>
@@ -175,7 +175,9 @@
         <div class="row application-details">
           <div class="col-sm-3">
             <!-- <img src="{{applicantDetails?.profilePhotoPath}}" alt="view Application Image"> -->
-            <img src="{{applicantDetails?.profilePhotoPath}}" alt="view Application Image" class="w-100">
+            <div class="applicant-profile-img">
+              <img src="{{applicantDetails?.profilePhotoPath}}" alt="view Application Image" class="w-100">
+            </div>
           </div>
           <div class="col-sm-9">
             <div class="row g-2 mb-2 pb-2 border-bottom">
@@ -252,7 +254,7 @@
                 <div class="form-data"> : {{lang == 'en' ? (applicantDetails?.grampanchayatName | dash ) :
                   (applicantDetails?.m_GrampanchayatName | dash)}}</div>
               </div>
-           
+
               <div class="col-sm-2 col-4">
                 <div class="form-label">{{'common.pin_Code'| translate}} </div>
               </div>
@@ -260,7 +262,7 @@
                 <div class="form-data">: {{applicantDetails?.pinCode | dash}}</div>
               </div>
 
-            
+
               <div class="col-sm-12">
                 <div class="row">
                   <div class="col-sm-2 col-4">
@@ -424,7 +426,7 @@
               <th scope="col">{{'approvalProcess.year_of_planting'| translate}}</th>
               <th scope="col"> {{'approvalProcess.cultivated_Area_(Acres)'| translate}}</th>
               <th scope="col">{{'approvalProcess.land_Survey_No'| translate}}</th>
-            
+
             </tr>
           </thead>
           <tbody>
@@ -435,7 +437,7 @@
             </tr>
             </tbody>
           </table>
-          
+
 
 
 
@@ -543,7 +545,7 @@
             </mat-radio-group>
           </div>
 
-          
+
 
         </div>
 <!-- <div class="col-sm-2 col-4">
@@ -572,22 +574,22 @@
                     <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
                     <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
                   </ng-container>
-      
+
                   <ng-container matColumnDef="sm_NameOfPlan">
                     <th mat-header-cell *matHeaderCellDef>{{'scheme.scheme_name'| translate}}Scheme Name</th>
                     <td mat-cell *matCellDef="let element"> {{element.internalSchemeName | dash}} </td>
                   </ng-container>
-                
+
                   <ng-container matColumnDef="sm_PlanTakenDate">
                     <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.benefit_Year'| translate}} </th>
                     <td mat-cell *matCellDef="let element"> {{element.schemeTakenDate | date:'dd-MM-yyyy'}} </td>
                   </ng-container>
-                
+
                  <ng-container matColumnDef="sm_TakenPlanBenefit">
                     <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.benefit_Amount'| translate}}</th>
                     <td mat-cell *matCellDef="let element"> {{element.totalBenefitTaken  | dash}} </td>
                   </ng-container>
-                
+
                    <tr mat-header-row *matHeaderRowDef="displayedScheme"></tr>
                   <tr mat-row *matRowDef="let row; columns: displayedScheme;"></tr>
                 </table>

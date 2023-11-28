@@ -32,7 +32,7 @@ export class MyProfileComponent {
     private fileUpl : FileUploadService,
     private fb : FormBuilder,
     public validator: ValidationService,
-    private encrypt :AesencryptDecryptService
+    private encrypt:AesencryptDecryptService
   ) { }
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class MyProfileComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-    this.getProfileData();
+    this.getssProfileData();
     this.formData();
   }
 
@@ -58,13 +58,12 @@ export class MyProfileComponent {
     })
   }
 
-  getProfileData() {
+  getssProfileData() {
     this.apiService.setHttp('get', `sericulture/api/UserRegistration/get-user-details?Id=${this.WebStorageService.getUserId()}&lan=${this.lang}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == 200) {         
-          this.profilDetailsArr = res.responseData.responseData1[0]
-          this.WebStorageService.setProfileData(this.profilDetailsArr);
+          this.profilDetailsArr = res.responseData.responseData1[0];
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
@@ -120,6 +119,10 @@ export class MyProfileComponent {
 
   onSubmit() {
     let formvalue = this.profileForm.getRawValue();
+
+console.log("formvalue",formvalue);
+
+
     // this.profilDetailsArr.name = formvalue.name;
     // this.profilDetailsArr.m_Name = formvalue.m_Name;
     // this.profilDetailsArr.mobNo1 = formvalue.mobileNo;
@@ -178,9 +181,10 @@ export class MyProfileComponent {
             this.spinner.hide();
             this.commonMethod.snackBar(res.statusMessage, 0);
             this.setProfilePhoto(); 
-            this.getProfileData();
-            this.changeLocalStorageDate()
+            this.getssProfileData();
+            this.WebStorageService.setProfileData({name:formvalue.name, profile : obj.profileImagePath });
             this.editFlag = false;
+            this.changeLocelStorage();
           } else {
             this.spinner.hide();
             this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -190,18 +194,14 @@ export class MyProfileComponent {
       })
     }
   }
-  changeLocalStorageDate(){  
+  
+  changeLocelStorage(){
     let encryptInfo ;
     this.WebStorageService.getProfileData().subscribe((res: any) => {   
-      let localData =this.WebStorageService.getLoggedInLocalstorageData();   
-      localData.name = res.name;
-      localData.designationName = res.designationName
-      encryptInfo =  this.encrypt.encrypt(JSON.stringify(localData))
-      localStorage.setItem('silkDharashivUserInfo',encryptInfo);
-    }) 
+    let localData =this.WebStorageService.getLocalstorageData();
+    localData.responseData.name = res.name;
+    encryptInfo =  this.encrypt.encrypt(JSON.stringify(localData));
+    localStorage.setItem('silkDharashivUserInfo',encryptInfo);
+  }) 
   }
-
-
-  
-
 }
