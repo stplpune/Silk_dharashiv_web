@@ -225,7 +225,10 @@ export class OfficerRegistrationComponent implements OnDestroy {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;
+          this.tableDataArray = res.responseData.responseData1;          
+          // this.tableDataArray.map((ele:any)=>{
+          //   ele['activeStatus'] = ele.activeStatus == 'Active' ? true : false;
+          // })
           this.tableDatasize = res.responseData.responseData2?.totalCount;
           this.totalPages = res.responseData.responseData2?.totalPages;
         } else {
@@ -244,14 +247,15 @@ export class OfficerRegistrationComponent implements OnDestroy {
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'en' ? ['srNo', 'name', 'departmentName', 'departmentLevel', 'designationName', 'mobNo1', 'emailId', 'action']
-      : ['srNo', 'm_Name', 'm_DepartmentName', 'm_DepartmentLevel', 'm_DesignationName', 'mobNo1', 'emailId', 'action'];
-    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Officer Name', 'Department', 'Department Level', 'Designation', 'Mobile No.', 'Email', 'Action'] :
-      ['अनुक्रमांक', 'अधिकाऱ्याचे नाव', 'विभाग', 'विभाग स्तर', 'पदनाम', 'मोबाईल नंबर', 'ईमेल', 'कृती'];
+    let displayedColumns = this.lang == 'en' ? ['srNo', 'name', 'departmentName', 'departmentLevel', 'designationName', 'mobNo1', 'emailId','activeStatus','action']
+      : ['srNo', 'm_Name', 'm_DepartmentName', 'm_DepartmentLevel', 'm_DesignationName', 'mobNo1', 'emailId','activeStatus','action'];
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Officer Name', 'Department', 'Department Level', 'Designation', 'Mobile No.', 'Email','Account Status', 'Action'] :
+      ['अनुक्रमांक', 'अधिकाऱ्याचे नाव', 'विभाग', 'विभाग स्तर', 'पदनाम', 'मोबाईल नंबर', 'ईमेल','खाते स्थिती','कृती'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
       highlightedrow: true,
+      isBlock: 'activeStatus',
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
@@ -282,7 +286,60 @@ export class OfficerRegistrationComponent implements OnDestroy {
         this.registerofficer(obj);
         obj.label == 'View' ? this.objId = obj.id : 0;
         break;
+      case 'Block':
+        this.openBlockDialog(obj);
+        break;
     }
+  }
+
+  openBlockDialog(obj?: any) {
+    let userEng = obj.activeStatus == false ? 'Active' : 'DeActive';
+    let userMara = obj.activeStatus == false ? 'सक्रिय' : 'निष्क्रिय';
+    let dialoObj = {
+      header: this.lang == 'mr-IN' ? 'खाते स्थिती ' + userMara + ' करा' : userEng + ' Acount Status',
+      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेली खाते स्थिती' + userMara + ' करू इच्छिता ?' : 'Do You Want To ' + userEng + ' The Selected Acount Status?',
+      cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
+      okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
+      discription:'show',
+      headerImage: obj.activeStatus == false ?'assets/images/active_scheme@3x.png' : 'assets/images/inactive_scheme/inactive_scheme@3x.png'
+    }
+    const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
+      width: '320px',
+      data: dialoObj,
+      disableClose: true,
+      autoFocus: false,
+    })
+    deleteDialogRef.afterClosed().subscribe((result: any) => {    
+      let activeStatusObj = {
+        "id": obj?.id,
+        "isActive":!obj.activeStatus,
+        "reason":result.inputValue
+      }
+      result.flag == 'Yes' ? this.submitStatusData(activeStatusObj) : '';
+    })
+  }
+
+ submitStatusData(obj:any) {
+      this.apiService.setHttp('put', 'sericulture/api/UserRegistration/User-Active-Status?lan=' + this.lang, false, obj, false, 'masterUrl');
+      this.apiService.getHttp().subscribe({
+        next: ((res: any) => {
+          this.spinner.hide();
+          if (res.statusCode == "200") {
+            this.commonMethod.snackBar(res.statusMessage, 0);
+            this.bindTable();
+          }
+          else {
+            this.commonMethod.checkDataType(res.statusMessage) == false
+              ? this.errorHandler.handelError(res.statusCode)
+              : this.commonMethod.snackBar(res.statusMessage, 1);
+          }
+        }),
+        error: (error: any) => {
+          this.spinner.hide();
+          this.errorHandler.handelError(error.status);
+        }
+      })
+
   }
 
   registerofficer(obj?: any) {

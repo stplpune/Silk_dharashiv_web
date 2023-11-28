@@ -12,6 +12,25 @@
   </div>
   <mat-dialog-content class="modal-body form-container scrollbar">
     <form [formGroup]="officeForm" (ngSubmit)="onSubmitData()" #formDirective="ngForm">
+
+
+      <div class="d-flex align-items-center justify-content-center mb-3">
+        <div class="profile-pic position-relative">
+          <img
+            [src]="this.imageResponse ? this.imageResponse :data?.profileImagePath ? data?.profileImagePath  : 'assets/images/user.png'"
+            class="">
+          <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" #uplodLogo
+            (change)="imageUplod($event)" />
+          <div class="profile-btn text-center">
+            <input type="file" class="profile-upload d-none">
+            <button type="button" mat-icon-button class="btn-icon text-primary add-btn" (click)="uplodLogo.click()">
+              <mat-icon class="material-symbols-outlined">add</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
       <div class="row gx-2 gy-0">
         <div class="col-sm-6">
           <mat-label class="form-label">{{'common.department' | translate}} <span
@@ -297,9 +316,9 @@
           (change)="imageUplod($event)" />
         <div class="profile-btn text-center">
           <input type="file" class="profile-upload d-none">
-          <button type="button" mat-icon-button class="btn-icon text-primary add-btn" (click)="uplodLogo.click()">
+          <!-- <button type="button" mat-icon-button class="btn-icon text-primary add-btn" (click)="uplodLogo.click()">
             <mat-icon class="material-symbols-outlined">add</mat-icon>
-          </button>
+          </button> -->
         </div>
       </div>
     </div>
@@ -373,7 +392,7 @@
     </div>
     <!-- <div class="page-heading mb-0 fw-bold my-2">{{'officerreg.work_Area' | translate}}</div> -->
     <!-- <div class="page-heading mb-0 fw-bold mb-2">{{'officerreg.account_Info' | translate}}</div> -->
-    <form [formGroup]="statusForm" (ngSubmit)="submitStatusData()">
+    <!-- <form [formGroup]="statusForm" (ngSubmit)="submitStatusData()">
       <div class="row align-items-center">
         <div class="col-sm-3">
           <div class="form-label mb-2">Account Status</div>
@@ -403,6 +422,6 @@
           translate}}</button>
         <button mat-flat-button class="btn-main" type="submit">{{'common.add' | translate}}</button>
       </div>
-    </form>
+    </form> -->
   </mat-dialog-content>
 </div>
