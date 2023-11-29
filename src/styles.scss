@@ -5,6 +5,7 @@
 @include mat.all-component-densities(-3);
 @include mat.form-field-density(-5);
 @import url('assets/scss/MaterialStyleSheet.scss');
+@import url('assets/scss/PrintStyleSheet.scss');
 @import url('../node_modules/ngx-spinner/animations/ball-atom.css');
 
 body {
