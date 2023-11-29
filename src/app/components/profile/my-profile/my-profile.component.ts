@@ -112,7 +112,7 @@ export class MyProfileComponent {
       "m_Name": formvalue.m_Name,
       "crcRegNo": this.profilDetailsArr.crcRegNo,
       "aadharNumber": this.profilDetailsArr.aadharNumber,
-      "gender": 1,
+      "gender": 0,
       "dob": null,
       "mobNo1": this.profilDetailsArr.mobNo1,
       "mobNo2": this.profilDetailsArr.mobNo2,
@@ -149,7 +149,6 @@ export class MyProfileComponent {
           if (res.statusCode == '200') {
             this.spinner.hide();
             this.commonMethod.snackBar(res.statusMessage, 0);
-            // this.setProfilePhoto();
             this.getssProfileData();
             this.WebStorageService.setProfileData(setHeaderDataObj);
             this.editFlag = false;
