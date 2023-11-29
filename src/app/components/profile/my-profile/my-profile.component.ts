@@ -135,7 +135,7 @@ export class MyProfileComponent {
       "doj": "2023-10-27T06:04:55.417Z",
       "profileImagePath": this.imageRes ? this.imageRes : this.profilDetailsArr.profileImagePath,
       "userTypeId": 1, // Farmer Registration
-      "createdBy": 0,
+      "createdBy": this.WebStorageService.getUserId(),
       "flag": 'u'
     }
     if (this.profileForm.invalid) {
