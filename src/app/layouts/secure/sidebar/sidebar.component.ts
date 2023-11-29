@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 @Component({
@@ -8,10 +9,19 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 })
 export class SideBarComponent {
   pageListArray = new Array();
+  subscription!: Subscription;//used  for lang conv
+  lang: string = 'English';
+  constructor(public webStorage: WebStorageService) {
 
-  constructor(private webStorage: WebStorageService) {
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+    })
+
+
     let pageListData = this.webStorage.getAllPageName();
-
+    console.log(pageListData);
+    
     let pageUrls = pageListData.filter((ele: any) => {
       if (ele.isSideBarMenu) {
         return ele;
@@ -28,20 +38,24 @@ export class SideBarComponent {
         let existingIndex: any = pageList.indexOf(existing[0]);
         pageList[existingIndex].pageURL = pageList[existingIndex].pageURL.concat(item.pageURL);
         pageList[existingIndex].pageName = pageList[existingIndex].pageName.concat(item.pageName);
+        pageList[existingIndex].m_PageName = pageList[existingIndex].m_PageName.concat(item.m_PageName);
       } else {
         if (typeof item.pageURL == 'string')
           item.pageURL = [item.pageURL];
         item.pageName = [item.pageName];
+        item.m_PageName = [item.m_PageName];
         pageList.push(item);
       }
     });
 
     pageList.find((ele: any) => {
+      console.log(this.pageListArray);
+      
       if (this.pageListArray.length) {
         let findIndex: any = this.pageListArray.findIndex((item: any) => { return ele.mainMenuId == item.id });
-        findIndex != "-1" ? (this.pageListArray[findIndex].subMenu = true, this.pageListArray[findIndex]?.data?.push(ele)) : this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: false, mainMenu: ele.mainMenu });
+        findIndex != "-1" ? (this.pageListArray[findIndex].subMenu = true, this.pageListArray[findIndex]?.data?.push(ele)) : this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: false, mainMenu: ele.mainMenu, m_MainMenu : ele.m_MainMenu });
       } else {
-        this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: ele.pageURL.length > 1 ? true : false, mainMenu: ele.mainMenu })
+        this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: ele.pageURL.length > 1 ? true : false, mainMenu: ele.mainMenu, m_MainMenu : ele.m_MainMenu })
       }
     });
 

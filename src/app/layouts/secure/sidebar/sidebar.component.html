@@ -14,7 +14,8 @@
                     <a routerLinkActive="active" class="main-menu" routerLink="{{master.data[0].pageURL[0]}}">
                         <div class="menu-item">
                             <img src="assets/images/sidebar-icons/dashboard.svg">
-                            {{master?.mainMenu}}
+                            <!-- {{master?.mainMenu}} -->
+                            {{lang == 'en' ? master.mainMenu : master.m_MainMenu }}
                         </div>
                     </a>
                 </li>
@@ -29,7 +30,8 @@
                         [ngClass]="{'active':master.activeFlag}">
                         <div class="menu-item">
                             <img src="assets/images/sidebar-icons/cms.svg">
-                            {{master?.mainMenu}}
+                            <!-- {{master?.mainMenu}} -->
+                            {{lang == 'en' ? master.mainMenu : master.m_MainMenu }}
                         </div>
                         <span class="dropdown-toggle"></span>
                     </a>
@@ -57,7 +59,8 @@
                         [ngClass]="{'active':master.activeFlag}">
                         <div class="menu-item">
                             <img src="assets/images/sidebar-icons/master.svg">
-                            {{master?.mainMenu}}
+                            <!-- {{master?.mainMenu}} -->
+                            {{lang == 'en' ? master.mainMenu : master.m_MainMenu }}
                         </div>
                         <span class="dropdown-toggle"></span>
                     </a>
@@ -72,7 +75,8 @@
                                         (click)="prevClosedDep(i, j)" [ngClass]="{'active':menu.activeFlag}">
                                         <div>
                                             <img src="assets/images/sidebar-icons/circle.svg">
-                                            {{menu?.subMenu}}
+                                            <!-- {{menu?.subMenu}} -->
+                                            {{lang == 'en' ? menu.subMenu : menu.m_SubMenu }}
                                         </div>
                                         <span class="dropdown-toggle"></span>
                                     </a>
@@ -83,7 +87,8 @@
                                                     <mat-icon class="material-symbols-rounded">
                                                         arrow_right_alt
                                                     </mat-icon>
-                                                    {{menu?.pageName[m]}}
+                                                    <!-- {{menu?.pageName[m]}} -->
+                                                    {{lang == 'en' ? menu.pageName[m] : menu.m_PageName[m] }}
                                                 </a>
                                             </li>
                                         </ul>
