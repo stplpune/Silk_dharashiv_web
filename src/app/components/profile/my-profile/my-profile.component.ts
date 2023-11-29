@@ -89,24 +89,6 @@ export class MyProfileComponent {
     })
   }
 
-  setProfilePhoto() {
-    let imageObj = {
-      "id": this.WebStorageService.getUserId(),
-      "imagePath": this.imageRes ? this.imageRes : this.profilDetailsArr.profileImagePath
-    }
-    this.apiService.setHttp('put', `sericulture/api/UserRegistration/Upload-Image_web?lan=${this.lang}`, false, imageObj, false, 'masterUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {
-        if (res.statusCode == 200) {
-          this.commonMethod.snackBar(res.statusMessage, 0);
-        } else {
-          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      },
-      error: ((err: any) => { this.errorHandler.handelError(err.statusCode) })
-    });
-  }
-
   onEditProfile() {
     this.editFlag = true;
     this.f['name'].setValue(this.profilDetailsArr.name);
@@ -130,8 +112,8 @@ export class MyProfileComponent {
       "m_Name": formvalue.m_Name,
       "crcRegNo": this.profilDetailsArr.crcRegNo,
       "aadharNumber": this.profilDetailsArr.aadharNumber,
-      "gender": 1,
-      "dob": new Date(),
+      "gender": 0,
+      "dob": null,
       "mobNo1": this.profilDetailsArr.mobNo1,
       "mobNo2": this.profilDetailsArr.mobNo2,
       "emailId": this.profilDetailsArr.emailId,
@@ -151,7 +133,7 @@ export class MyProfileComponent {
       "officerAssignArea": this.profilDetailsArr.officerAssignArea,
       "chalkyApprovedQty": 0,
       "doj": "2023-10-27T06:04:55.417Z",
-      "profileImagePath": this.profilDetailsArr.profileImagePath,
+      "profileImagePath": this.imageRes ? this.imageRes : this.profilDetailsArr.profileImagePath,
       "userTypeId": 1, // Farmer Registration
       "createdBy": 0,
       "flag": 'u'
@@ -167,7 +149,6 @@ export class MyProfileComponent {
           if (res.statusCode == '200') {
             this.spinner.hide();
             this.commonMethod.snackBar(res.statusMessage, 0);
-            this.setProfilePhoto();
             this.getssProfileData();
             this.WebStorageService.setProfileData(setHeaderDataObj);
             this.editFlag = false;
