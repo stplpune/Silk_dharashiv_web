@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup,NgForm,Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
@@ -58,6 +58,14 @@ export class CreateManaregaAppComponent {
   farmDeatailsEditObj:any
   dataSource :any;
  @ViewChild('formDirective') private formDirective!: NgForm;
+  //documnet form variable
+  TestimonialUploadImg = new Array();
+  @ViewChild('testimonialImage') TestimonialImg!: ElementRef;
+  @ViewChild('eightAImage') EightAImg!: ElementRef;
+  EightAUploadImg = new Array();
+  @ViewChild('sevenTweImage') SevenTweImg!: ElementRef;
+  SevenTweUploadImg = new Array();
+  visible:boolean = false;
   
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -234,6 +242,58 @@ export class CreateManaregaAppComponent {
     this.f['profilePhotoPath'].setValue(this.imageResponse)
     this.clearlogo.nativeElement.value = "";
   }
+
+  fileUpload(event: any, photoName: string) {
+    this.spinner.show();
+    let documentObj: any
+    let type = photoName == 'img' ? 'jpg, jpeg, png' : 'pdf,mp3,mp4,jpg,jpeg,png,xls,xlsx,doc,docx';
+    this.fileUpl.uploadDocuments(event, 'ApplicationDocuments', type).subscribe({
+      next: (res: any) => {
+        if (res.statusCode == 200) {
+          this.spinner.hide();
+          console.log("res.responseData",res.responseData);
+          let fileName = res.responseData.split('/');
+          let imageName = fileName.pop();
+          console.log("imageName",imageName)
+           documentObj = {
+            "id": 0,
+            "applicationId": 0,
+            "docTypeId":photoName == 'testimonialImg' ? 12 : photoName == 'EightAImg' ?  19 : photoName == 'SevenTweImg' ?  18 : 11,
+            "docNo": "string",
+            "docname": imageName,
+            "docPath": res.responseData,
+            "createdBy": 0,
+            "isDeleted": true
+          }
+          photoName == 'testimonialImg' ? (this.TestimonialUploadImg.push(documentObj),console.log("this.TestimonialUploadImg",this.TestimonialUploadImg), this.TestimonialImg.nativeElement.value = '') :
+           photoName == 'EightAImg' ? (this.EightAUploadImg.push(documentObj),console.log("this.EightAUploadImg",this.EightAUploadImg), this.EightAImg.nativeElement.value = '') :
+           photoName == 'SevenTweImg' ? (this.SevenTweUploadImg.push(documentObj), this.SevenTweImg.nativeElement.value = '') :
+         //  photoName == 'clamImg' ? (this.claimImageArr.push(documentObj), this.clamImg.nativeElement.value = '') :
+   
+          this.commonMethod.snackBar(res.statusMessage, 0)
+        }
+      },
+      error: ((error: any) => {
+        this.spinner.hide();
+        this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+      })
+    });
+  }
+  viewImages(obj?: any) {
+    window.open(obj.docPath, 'blank');
+  }
+
+  deleteImges(photoName: string, i: number) {
+    if (photoName == 'testimonialImg') {
+      this.TestimonialUploadImg.splice(i, 1);
+    } 
+    else if (photoName == 'EightAImg') {
+      this.EightAUploadImg.splice(i, 1);
+    }
+    else if (photoName == 'SevenTweImg') {
+      this.SevenTweUploadImg.splice(i, 1);
+    }
+   }
 
 
   onSubmit(flag?:any) {
