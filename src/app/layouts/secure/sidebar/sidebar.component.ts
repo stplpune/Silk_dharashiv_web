@@ -56,7 +56,6 @@ export class SideBarComponent {
         this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: ele.pageURL.length > 1 ? true : false, mainMenu: ele.mainMenu, m_MainMenu : ele.m_MainMenu })
       }
     });
-
     this.setDefaultCollapse();
   }
 
