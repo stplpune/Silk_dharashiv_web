@@ -1,0 +1,51 @@
+#report3 h4 {
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+#report3 h5 {
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+#report3 h6 {
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+#report3 p {
+    font-size: 0.75rem;
+}
+
+#report3 .table3 {
+    font-size: 0.75rem;
+    width: 100%;
+}
+
+#report3 .table31 {
+    font-size: 0.75rem;
+    width: 30%;
+}
+
+#report3 .table3 th,
+#report3 .table3 td,
+#report3 .table31 th,
+#report3 .table31 td {
+    padding-block: 3px;
+}
+
+#report3 .table31 td {
+    text-align: center;
+}
+
+#report3 .table3 tr th:nth-child(1) {
+    width: 28px;
+}
+
+#report3 .table3 tr th:nth-child(n+3) {
+    width: 46px;
+}
+
+#report3 .table31 tr th:nth-child(n+2) {
+    width: 46px;
+}

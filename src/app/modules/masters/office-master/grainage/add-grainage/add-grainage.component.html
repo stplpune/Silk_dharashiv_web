@@ -7,8 +7,8 @@
     </button>
   </div>
 </div>
-<div mat-dialog-content class="modal-body form-container">
-  <div *ngIf="isViewFlag">
+<div *ngIf="isViewFlag">
+  <div mat-dialog-content class="modal-body form-container">
     <ul class="list-group list-group-flush">
       <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
         <div class="form-label mb-0">{{lang == 'en' ? 'Type ': 'प्रकार'}}</div>
@@ -48,9 +48,11 @@
       </li>
     </ul>
   </div>
+</div>
 
-  <div class="" *ngIf="!isViewFlag">
-    <form [formGroup]="grainageFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
+<div class="" *ngIf="!isViewFlag">
+  <form [formGroup]="grainageFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
+    <div mat-dialog-content class="modal-body form-container">
       <div class="row gx-2">
         <div class="col-sm-12">
           <mat-label class="form-label">{{"grainage.Type" | translate}} <span
@@ -170,12 +172,20 @@
           </mat-form-field>
         </div>
       </div>
+      <!-- <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+        <button mat-flat-button class="btn-main-light" (click)="clearFormData()"
+          type="button">{{'common.clear'|translate}} </button>
+        <button mat-flat-button class="btn-main" type="submit">{{data ? ('common.update'|translate) :
+          ('common.add'|translate)}}</button>
+      </div> -->
+    </div>
+    <div mat-dialog-actions class="modal-footer">
       <div class="d-flex align-items-center justify-content-end gap-2 w-100">
         <button mat-flat-button class="btn-main-light" (click)="clearFormData()"
           type="button">{{'common.clear'|translate}} </button>
         <button mat-flat-button class="btn-main" type="submit">{{data ? ('common.update'|translate) :
           ('common.add'|translate)}}</button>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
 </div>

@@ -523,25 +523,24 @@
 
       <mat-step>
         <ng-template matStepLabel>बँक तपशील</ng-template>
+        <form [formGroup]="bankInfoFrm">
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-4">
               <div class="form-label">24. बँक निवडा</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>Bank of India</mat-option>
-                  <mat-option>Bank of maharashtra</mat-option>
-                  <mat-option>Bank of Badoda</mat-option>
-                  <mat-option>HDFC</mat-option>
+                <mat-select formControlName="bankId" (selectionChange)="getBankBranch()">
+                  <mat-option *ngFor="let bank of bankArray" [value]="bank.id">{{lang != 'en' ?  bank.textMarathi :
+                     bank.textEnglish}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="col-sm-4">
               <div class="form-label">25. बँक शाखा निवडा</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>Pune </mat-option>
-                  <mat-option>Dharahsiv</mat-option>
+                <mat-select formControlName="bankBranchId">
+                  <mat-option *ngFor="let branch of branchArray" [value]="branch.id">{{lang != 'en' ?  branch.textMarathi :
+                     branch.textEnglish}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -549,7 +548,7 @@
               <div class="form-label">26. आय एफ एस सी कोड </div>
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
+                  <input matInput placeholder="" formControlName="bankIFSCCode">
                 </mat-form-field>
               </div>
             </div>
@@ -557,7 +556,7 @@
               <div class="form-label">27. राष्ट्रीय बँक खाते क्रमांक </div>
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
+                  <input matInput placeholder="" formControlName="bankAccountNo">
                 </mat-form-field>
               </div>
             </div>
@@ -565,8 +564,9 @@
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">Back</button>
-          <button mat-button matStepperNext class="btn-main">Next</button>
+          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('bankInfo')">Next</button>
         </div>
+        </form>
       </mat-step>
 
       <mat-step>
