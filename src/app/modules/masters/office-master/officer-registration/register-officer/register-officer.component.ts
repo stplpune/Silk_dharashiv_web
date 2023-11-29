@@ -308,7 +308,7 @@ export class RegisterOfficerComponent {
         ...formData,
         crcRegNo: "",
         aadharNumber: "",
-        gender: 1,
+        gender: null,
         dob: new Date(),
         mobNo2: "",
         pinCode: "",
