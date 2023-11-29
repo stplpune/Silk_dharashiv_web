@@ -1,26 +1,31 @@
 #report3 h4 {
     font-weight: 800;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    margin-bottom: 0;
 }
 
 #report3 h5 {
     font-weight: 700;
     font-size: 0.9rem;
+    margin-bottom: 3px;
 }
 
 #report3 h6 {
     font-weight: 600;
     font-size: 0.8rem;
+    margin-bottom: 3px;
 }
 
 #report3 p {
     font-size: 0.75rem;
+    margin-bottom: 0;
 }
 
 #report3 .table3 {
-    font-size: 0.75rem;
+    font-size: 10px;
     width: 100%;
 }
+
 
 #report3 .table31 {
     font-size: 0.75rem;
@@ -31,7 +36,7 @@
 #report3 .table3 td,
 #report3 .table31 th,
 #report3 .table31 td {
-    padding-block: 3px;
+    padding-block: 2px;
 }
 
 #report3 .table31 td {
@@ -48,4 +53,35 @@
 
 #report3 .table31 tr th:nth-child(n+2) {
     width: 46px;
+}
+
+
+#report4 .table4,
+#report4 .table41 {
+    font-size: 10px;
+    width: 100%;
+}
+
+@media print {
+
+    @page portrait {
+        size: A4;
+    }
+
+    @page landscape {
+        size: A4;
+    }
+
+    div.landscape {
+        page: landscape;
+    }
+
+    div.portrait {
+        page: portrait;
+    }
+
+    .div.landscape .card-body,
+    div.portrait .card-body {
+        padding: 0 !important;
+    }
 }
