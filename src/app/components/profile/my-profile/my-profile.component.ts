@@ -151,7 +151,7 @@ export class MyProfileComponent {
       "officerAssignArea": this.profilDetailsArr.officerAssignArea,
       "chalkyApprovedQty": 0,
       "doj": "2023-10-27T06:04:55.417Z",
-      "profileImagePath": this.profilDetailsArr.profileImagePath,
+      "profileImagePath": this.imageRes ? this.imageRes : this.profilDetailsArr.profileImagePath,
       "userTypeId": 1, // Farmer Registration
       "createdBy": 0,
       "flag": 'u'
@@ -167,7 +167,7 @@ export class MyProfileComponent {
           if (res.statusCode == '200') {
             this.spinner.hide();
             this.commonMethod.snackBar(res.statusMessage, 0);
-            this.setProfilePhoto();
+            // this.setProfilePhoto();
             this.getssProfileData();
             this.WebStorageService.setProfileData(setHeaderDataObj);
             this.editFlag = false;
