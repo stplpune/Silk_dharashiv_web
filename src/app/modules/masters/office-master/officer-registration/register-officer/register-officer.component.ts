@@ -202,7 +202,7 @@ export class RegisterOfficerComponent {
     this.masterService.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
         this.districtArray = res.responseData;
-        this.officeForm.value.departmentLevelId != 2 && this.officeForm.value.departmentLevelId != 5 || this.data ? (this.f['districtId'].setValue(this.data?.districtId || 1), this.getTaluka(flag)) : ''
+        this.officeForm.value.departmentLevelId != 2 && this.officeForm.value.departmentLevelId != 1 || this.data ? (this.f['districtId'].setValue(this.data?.districtId || 1), this.getTaluka(flag)) : ''
       }), error: (() => {
         this.districtArray = [];
       })
@@ -231,7 +231,7 @@ export class RegisterOfficerComponent {
         this.talukaArray = res.responseData;
         // this.talukaArray.unshift( { id: 0,textEnglish:'All Taluka',textMarathi:'सर्व तालुका'} ),
         this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
-        (this.officeForm.value.departmentLevelId != 4 && this.officeForm.value.departmentLevelId != 1 || (this.data && flag)) ? (this.f['talukaId'].setValue(this.data?.talId), this.getGrampanchayat(), this.getCircle()) : '';
+        (this.officeForm.value.departmentLevelId != 4 && this.officeForm.value.departmentLevelId != 4 || (this.data && flag)) ? (this.f['talukaId'].setValue(this.data?.talId), this.getGrampanchayat(), this.getCircle()) : '';
       }), error: (() => {
         this.talukaArray = [];
         this.talukaSubject.next(null);
@@ -296,10 +296,10 @@ export class RegisterOfficerComponent {
   }
   onSubmitData() {
     let formData = this.officeForm.getRawValue();
-    this.f['talukaId'].setValue(formData.departmentLevelId == 5 || formData.departmentLevelId == 2 ? formData.talukaId = 0 : formData.talukaId);
-    this.f['blockId'].setValue(formData.departmentLevelId == 1 || formData.departmentLevelId == 5 || formData.departmentLevelId == 3 || formData.departmentLevelId == 4 ? formData.blockId = 0 : formData.blockId);
-    this.f['circleId'].setValue(formData.departmentLevelId == 2 || formData.departmentLevelId == 5 || formData.departmentLevelId == 3 || formData.departmentLevelId == 4 ? formData.circleId = 0 : formData.circleId);
-    this.f['grampanchayatId'].setValue(formData.departmentLevelId == 2 || formData.departmentLevelId == 5 || formData.departmentLevelId == 4 || formData.departmentLevelId == 1 ? formData.grampanchayatId = 0 : formData.grampanchayatId);
+    this.f['talukaId'].setValue(formData.departmentLevelId == 1 || formData.departmentLevelId == 2 ? formData.talukaId = 0 : formData.talukaId);
+    this.f['blockId'].setValue(formData.departmentLevelId == 4 || formData.departmentLevelId == 1 || formData.departmentLevelId == 5 || formData.departmentLevelId == 3 ? formData.blockId = 0 : formData.blockId);
+    this.f['circleId'].setValue(formData.departmentLevelId == 2 || formData.departmentLevelId == 1 || formData.departmentLevelId == 5 || formData.departmentLevelId == 3 ? formData.circleId = 0 : formData.circleId);
+    this.f['grampanchayatId'].setValue(formData.departmentLevelId == 2 || formData.departmentLevelId == 1 || formData.departmentLevelId == 3 || formData.departmentLevelId == 4 ? formData.grampanchayatId = 0 : formData.grampanchayatId);
     if (this.officeForm.invalid) {
       this.spinner.hide();
       return
@@ -308,7 +308,7 @@ export class RegisterOfficerComponent {
         ...formData,
         crcRegNo: "",
         aadharNumber: "",
-        gender: 1,
+        gender: 0,
         dob: new Date(),
         mobNo2: "",
         pinCode: "",
@@ -333,7 +333,6 @@ export class RegisterOfficerComponent {
         next: ((res: any) => {
           this.spinner.hide();
           if (res.statusCode == "200") {
-            this.onSubmitProfileData(res.responseData);
             this.commonMethod.snackBar(res.statusMessage, 0);
             this.dialogRef.close('Yes');
             this.formDirective.resetForm();
@@ -395,77 +394,13 @@ export class RegisterOfficerComponent {
     }
   }
 
-  // getstatusForm() {
-  //   this.statusForm = this.fb.group({
-  //     remark: [this.data ? this.data?.reason : ''],
-  //     statusId: [this.data?.activeStatus == 'In Active' ? 0 : 1]
-  //   })
-  // }
-
-  // get fs() { return this.statusForm.controls; }
-
-  // sendData(id?: any) {
-  //   id == 1 ? (this.showFlag = false, this.statusForm.controls['remark'].setValue('')) : this.showFlag = true
-  //   if (id == 0) {
-  //     this.statusForm.controls["remark"].clearValidators();
-  //     this.statusForm.controls['remark'].setValidators([Validators.required]);
-  //     this.statusForm.controls["remark"].updateValueAndValidity();
-  //   } else {
-  //     this.statusForm.controls["remark"].clearValidators();
-  //     this.statusForm.controls['remark'].setValidators([]);
-  //     this.statusForm.controls["remark"].updateValueAndValidity();
-  //   }
-  // }
-
-  // submitStatusData() {
-  //   this.spinner.show();
-  //   let formData = this.statusForm.value;
-  //   if (this.statusForm.invalid) {
-  //     this.spinner.hide();
-  //     return
-  //   } else {
-  //     let obj = {
-  //       "id": this.data?.id,
-  //       "isActive": formData.statusId == 0 ? true : false,
-  //       "reason": formData.statusId == 1 ? "" : formData.remark
-  //     }
-  //     this.apiService.setHttp('put', 'sericulture/api/UserRegistration/User-Active-Status?lan=' + this.lang, false, obj, false, 'masterUrl');
-  //     this.apiService.getHttp().subscribe({
-  //       next: ((res: any) => {
-  //         this.spinner.hide();
-  //         if (res.statusCode == "200") {
-  //           this.commonMethod.snackBar(res.statusMessage, 0);
-  //           this.dialogRef.close('Yes');
-  //         }
-  //         else {
-  //           this.commonMethod.checkDataType(res.statusMessage) == false
-  //             ? this.errorHandler.handelError(res.statusCode)
-  //             : this.commonMethod.snackBar(res.statusMessage, 1);
-  //         }
-  //       }),
-  //       error: (error: any) => {
-  //         this.spinner.hide();
-  //         this.errorHandler.handelError(error.status);
-  //       }
-  //     })
-  //   }
-  // }
-
-  // resetStatus() {
-  //   this.statusForm.reset();
-  //   this.getstatusForm();
-  // }
-
   imageUplod(event: any) {
     this.spinner.show();
     this.fileUpl.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc', '', '', this.lang).subscribe({
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.spinner.hide();
-          this.imageResponse = res.responseData;        
-          // setTimeout(() => {
-          //   this.onSubmitProfileData();
-          // }, 500);
+          this.imageResponse = res.responseData;    
         }
         else {
           this.clearlogo.nativeElement.value = "";
@@ -479,32 +414,7 @@ export class RegisterOfficerComponent {
       }
     })
   }
-
-  onSubmitProfileData(resId?:any) {
-    let obj =
-    {
-      "id": resId,
-      "imagePath": this.imageResponse
-    }
-    this.apiService.setHttp('put', 'sericulture/api/UserRegistration/Upload-Image_web?lan=' + this.lang, false, obj, false, 'masterUrl');
-    this.apiService.getHttp().subscribe({
-      next: ((res: any) => {
-        this.spinner.hide();
-        if (res.statusCode == "200") {
-          this.commonMethod.snackBar(res.statusMessage, 0);
-          this.getDataById();
-        }
-        else {
-          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      }),
-      error: (error: any) => {
-        this.spinner.hide();
-        this.errorHandler.handelError(error.status);
-      }
-    })
-  }
-
+ 
   clearFormData() {
     this.formDirective.resetForm();
     this.data = null;

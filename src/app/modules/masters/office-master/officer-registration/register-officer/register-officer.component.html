@@ -73,7 +73,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6"
-          *ngIf="(officeForm.value.departmentLevelId == 5)  || (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 2) || (officeForm.value.departmentLevelId == 1)">
+          *ngIf="(officeForm.value.departmentLevelId == 1)  || (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 5) || (officeForm.value.departmentLevelId == 2) || (officeForm.value.departmentLevelId == 4)">
           <mat-label class="form-label">{{'common.state' | translate}} <span
               class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
@@ -86,7 +86,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6"
-          *ngIf="(officeForm.value.departmentLevelId == 5)  || (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 2) || (officeForm.value.departmentLevelId == 1)">
+          *ngIf="(officeForm.value.departmentLevelId == 1)  || (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 5) || (officeForm.value.departmentLevelId == 2) || (officeForm.value.departmentLevelId == 4)">
           <mat-label class="form-label">{{'common.district' | translate}} <span
               class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
@@ -118,8 +118,8 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-sm-6" *ngIf=" (officeForm.value.departmentLevelId == 4) || (officeForm.value.departmentLevelId == 3)
-      || (officeForm.value.departmentLevelId == 1)">
+        <div class="col-sm-6" *ngIf=" (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 5)
+      || (officeForm.value.departmentLevelId == 4)">
           <mat-label class="form-label">{{'common.taluka' | translate}} <span
               class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
@@ -139,7 +139,7 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 1)">
+        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 4)">
           <mat-label class="form-label">{{'common.circle' | translate}} <span
               class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
@@ -158,7 +158,7 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 3)">
+        <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 5)">
           <mat-label class="form-label">{{'common.select_grampanchayat' | translate}} <span
               class="text-danger fs-6">*</span></mat-label>
           <mat-form-field appearance="outline" class="w-100">
