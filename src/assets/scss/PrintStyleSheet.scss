@@ -1,1 +1,41 @@
-@media print {}
+@media print {
+    * {
+        overflow-y: visible !important;
+        -webkit-print-color-adjust: exact !important;
+        -moz-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    html,
+    body {
+        height: 99%;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .wrapper {
+        display: block !important;
+        width: 100vw !important;
+        height: 0 !important;
+    }
+
+    .sidebar-wrapper {
+        display: none !important;
+        width: 0 !important;
+        position: relative !important;
+    }
+
+    nav.navbar {
+        display: none !important;
+    }
+
+    .wrapper .content-wrapper {
+        margin-left: 0 !important;
+        width: 100% !important;
+        height: 0 !important;
+    }
+
+    .d-print-none {
+        display: none;
+    }
+}
