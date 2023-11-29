@@ -43,7 +43,7 @@
                                     routerLinkActive="active" class="submenu-link" aria-current="true">
                                     <div class="d-flex align-items-center">
                                         <img src="assets/images/sidebar-icons/circle.svg">
-                                        {{url}}
+                                        {{lang == 'en' ? master?.data[0]?.pageName[k] : master?.data[0]?.m_PageName[k]}}
                                     </div>
                                 </a>
                             </li>
