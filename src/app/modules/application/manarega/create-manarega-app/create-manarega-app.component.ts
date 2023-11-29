@@ -22,14 +22,15 @@ export class CreateManaregaAppComponent {
   manaregaFrm !: FormGroup;
   farmInfoFrm !: FormGroup;
   farmDeatailsFrm !: FormGroup;
+  bankInfoFrm !: FormGroup;
   @ViewChild('uplodLogo') clearlogo!: any;
   imageResponse: string = '';
   subscription!: Subscription;//used  for lang conv
   lang: any;
   viewMsgFlag: boolean = false;//used for error msg show
   genderArray: any = [{ id: 1, name: 'Male' }, { id: 0, name: 'Female' }];
-  checkedArray:any = [{id:1,name:'Yes'},{id:0,name:'No'}];
-  selfTrainingArray:any = [{id:1,name:'Send Candidate'},{id:0,name:'MySelf'}];
+  checkedArray:any = [{id:true,name:'Yes'},{id:false,name:'No'}];
+  selfTrainingArray:any = [{id:true,name:'Send Candidate'},{id:false,name:'MySelf'}];
   displayedColumns = ['srNo','plantName','gutNo','gutArea','cultivatedArea','cultivatedPlantsCount','actions'];
   qualificationArray = new Array();
   departmentArray = new Array();
@@ -40,6 +41,8 @@ export class CreateManaregaAppComponent {
   categoryArray = new Array();
   irrigationFacilityArray = new Array();
   farmTypeArray = new Array();
+  bankArray = new Array();
+  branchArray = new Array();
   candidateRelationArray = new Array();
   talukaCtrl: FormControl = new FormControl();
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
@@ -76,6 +79,7 @@ export class CreateManaregaAppComponent {
     this.addManaregaFrm();
     this.addFarmInfo();
     this.getFarmInfo();
+    this.addBankInfo();
     this.getDepartment();
     this.getQualification();
     this.getState();
@@ -83,6 +87,7 @@ export class CreateManaregaAppComponent {
     this.getFarmType();
     this.getIrrigationFacility();
     this.getCandidateRelation();
+    this.getBank();
     this.searchDataZone();
   }
 
@@ -119,15 +124,25 @@ export class CreateManaregaAppComponent {
       "benificiaryTotalFarm":[''],
       "mulberryCultivatedSurveyNo": [''],
       "cultivatedFarmInHector":[''],//num
-      "isJointAccHolder": [''],//true
+      "isJointAccHolder": [false],//true
       "applicantFarmSurveyNo": [''],
       "applicantFarmArea": [''],//num
       "farmTypeId":[''],//num
     "irrigationFacilityId":[''],//num
-    "isAnyPlantedBeforeGovScheme": [''],//true
-    "isSelfTraining":[''],//true
+    "isAnyPlantedBeforeGovScheme": [false],//true
+    "isSelfTraining":[false],//true
     "candidateName":[''],
     "candidateRelationId": [''],//num
+    })
+  }
+
+  addBankInfo(){
+    this.bankInfoFrm = this.fb.group({
+      "id":[ this.getId],
+      "bankId": [''],//num
+      "bankBranchId": [''],//num
+      "bankIFSCCode": [''],
+      "bankAccountNo": ['']
     })
   }
 
@@ -229,10 +244,10 @@ export class CreateManaregaAppComponent {
       let formData = this.manaregaFrm?.getRawValue();
       //let farmDetails=this.farmDeatailsFrm.getRawValue();
       let farmInfo = this.farmInfoFrm.getRawValue();
-
+        let bankInfo=this.bankInfoFrm.getRawValue();
       console.log("farmInfo",farmInfo)
       let obj ={
-        "id": formData.id,
+        "id": flag == 'farmerInfo' ? formData.id : this.getId,
         "farmerId": formData.farmerId,
         "schemeTypeId":formData.schemeTypeId,
         "applicationNo":String(formData.applicationNo),
@@ -265,7 +280,7 @@ export class CreateManaregaAppComponent {
        
         "sm_VoterRegistrationNo": "string",
         "sm_IsBelowPovertyLine": true,
-        "benificiaryTotalFarm": Number(farmInfo.benificiaryTotalFarm),
+        "benificiaryTotalFarm": Number(farmInfo.benificiaryTotalFarm) || 0,
         "sm_LandTenureCategories": 0,
         "mulberryCultivatedSurveyNo": farmInfo.mulberryCultivatedSurveyNo,
         "cultivatedFarmInHector":  Number(farmInfo.cultivatedFarmInHector),
@@ -301,10 +316,10 @@ export class CreateManaregaAppComponent {
         "sm_NameOfPlan": "string",
         "sm_PlanTakenDate": "2023-11-24T09:55:29.130Z",
         "sm_TakenPlanBenefit": "string",
-        "bankId": 0,
-        "bankBranchId": 0,
-        "bankIFSCCode": "string",
-        "bankAccountNo": "string",
+        "bankId":Number(bankInfo.bankId),
+        "bankBranchId": Number(bankInfo.bankBranchId),
+        "bankIFSCCode": bankInfo.bankIFSCCode,
+        "bankAccountNo": bankInfo.bankAccountNo,
         "isHonestlyProtectPlant": true,
         "isHonestLabor": true,
         "isSelfTransport": true,
@@ -320,7 +335,7 @@ export class CreateManaregaAppComponent {
         "sm_IsRequestForYourPriorConsent": true,
         "registrationFeeReceiptPath": "string",
         "createdBy": 0,
-        "flag": flag == 'farmerInfo' ? 0 : flag == 'farmInfo'? 2 : 3,
+        "flag": flag == 'farmerInfo' ? 0 : flag == 'farmInfo'? 2 : flag == 'bankInfo' ?  3 : 4,
         "isUpdate": true,
         "appDoc": [
           {
@@ -389,8 +404,6 @@ export class CreateManaregaAppComponent {
     })
   }
 
-  // GetIrrigationFacility()
-
   getIrrigationFacility() {
     this.irrigationFacilityArray = [];
     this.masterService.GetIrrigationFacility().subscribe({
@@ -403,6 +416,37 @@ export class CreateManaregaAppComponent {
         }
       })
     })
+  }
+
+  getBank() {
+    this.bankArray= [];
+    this.masterService. GetBank().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.bankArray = res.responseData;
+        }
+        else {
+          this.bankArray = [];
+        }
+      })
+    })
+  } 
+
+  getBankBranch() {
+    this.branchArray= [];
+    let bankId =  this.bankInfoFrm.getRawValue()?.bankId;
+    if(bankId != 0){
+    this.masterService.GetBankBranch(bankId).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.branchArray = res.responseData;
+        }
+        else {
+          this.branchArray = [];
+        }
+      })
+    })
+  }
   }
 
 
