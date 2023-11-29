@@ -333,7 +333,7 @@ export class RegisterOfficerComponent {
         next: ((res: any) => {
           this.spinner.hide();
           if (res.statusCode == "200") {
-            this.onSubmitProfileData(res.responseData);
+            // this.onSubmitProfileData(res.responseData);
             this.commonMethod.snackBar(res.statusMessage, 0);
             this.dialogRef.close('Yes');
             this.formDirective.resetForm();
@@ -480,30 +480,30 @@ export class RegisterOfficerComponent {
     })
   }
 
-  onSubmitProfileData(resId?:any) {
-    let obj =
-    {
-      "id": resId,
-      "imagePath": this.imageResponse
-    }
-    this.apiService.setHttp('put', 'sericulture/api/UserRegistration/Upload-Image_web?lan=' + this.lang, false, obj, false, 'masterUrl');
-    this.apiService.getHttp().subscribe({
-      next: ((res: any) => {
-        this.spinner.hide();
-        if (res.statusCode == "200") {
-          this.commonMethod.snackBar(res.statusMessage, 0);
-          this.getDataById();
-        }
-        else {
-          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      }),
-      error: (error: any) => {
-        this.spinner.hide();
-        this.errorHandler.handelError(error.status);
-      }
-    })
-  }
+  // onSubmitProfileData(resId?:any) {
+  //   let obj =
+  //   {
+  //     "id": resId,
+  //     "imagePath": this.imageResponse
+  //   }
+  //   this.apiService.setHttp('put', 'sericulture/api/UserRegistration/Upload-Image_web?lan=' + this.lang, false, obj, false, 'masterUrl');
+  //   this.apiService.getHttp().subscribe({
+  //     next: ((res: any) => {
+  //       this.spinner.hide();
+  //       if (res.statusCode == "200") {
+  //         this.commonMethod.snackBar(res.statusMessage, 0);
+  //         this.getDataById();
+  //       }
+  //       else {
+  //         this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+  //       }
+  //     }),
+  //     error: (error: any) => {
+  //       this.spinner.hide();
+  //       this.errorHandler.handelError(error.status);
+  //     }
+  //   })
+  // }
 
   clearFormData() {
     this.formDirective.resetForm();
