@@ -89,24 +89,6 @@ export class MyProfileComponent {
     })
   }
 
-  setProfilePhoto() {
-    let imageObj = {
-      "id": this.WebStorageService.getUserId(),
-      "imagePath": this.imageRes ? this.imageRes : this.profilDetailsArr.profileImagePath
-    }
-    this.apiService.setHttp('put', `sericulture/api/UserRegistration/Upload-Image_web?lan=${this.lang}`, false, imageObj, false, 'masterUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {
-        if (res.statusCode == 200) {
-          this.commonMethod.snackBar(res.statusMessage, 0);
-        } else {
-          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      },
-      error: ((err: any) => { this.errorHandler.handelError(err.statusCode) })
-    });
-  }
-
   onEditProfile() {
     this.editFlag = true;
     this.f['name'].setValue(this.profilDetailsArr.name);
@@ -131,7 +113,7 @@ export class MyProfileComponent {
       "crcRegNo": this.profilDetailsArr.crcRegNo,
       "aadharNumber": this.profilDetailsArr.aadharNumber,
       "gender": 1,
-      "dob": new Date(),
+      "dob": null,
       "mobNo1": this.profilDetailsArr.mobNo1,
       "mobNo2": this.profilDetailsArr.mobNo2,
       "emailId": this.profilDetailsArr.emailId,
