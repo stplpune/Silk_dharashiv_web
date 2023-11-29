@@ -97,37 +97,32 @@
 
 <div class="" *ngIf="isViewFlag">
   <mat-dialog-content class="modal-body form-container scrollbar">
-    <div class="row gy-2 gx-2">
-      <div class="col-sm-12">
-        <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Action/Stage name' : 'कृतीचे नाव'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.actionName || '-') : (data?.m_ActionName || '-')}}
-          </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
+        <div class=" form-label">{{lang == 'en' ? 'Action/Stage name' : 'कृतीचे नाव'}}</div>
+        <div class=" form-data"> {{lang == 'en' ? (data?.actionName || '-') : (data?.m_ActionName || '-')}}
         </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Rejection title(English)' : 'नामंजूर शीर्षक(इंग्रजी)'}}
-          </div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.rejectionTitle || '-') : (data?.rejectionTitle ||
-            '-')}}</div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
+        <div class=" form-label">{{lang == 'en' ? 'Rejection title(English)' : 'नामंजूर शीर्षक(इंग्रजी)'}}
         </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Rejection title(Marathi)' : 'नामंजूर शीर्षक(मराठी)'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.m_RejectionTitle || '-') : (data?.m_RejectionTitle
-            || '-')}}</div>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row gx-2">
-          <div class="col-sm-5 form-label">{{lang == 'en' ? 'Rejection Description' : 'नामंजूर वर्णन'}}</div>
-          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.rejectionDescription || '-') :
-            (data?.rejectionDescription || '-')}}</div>
-        </div>
-      </div>
-    </div>
+        <div class=" form-data"> {{lang == 'en' ? (data?.rejectionTitle || '-') : (data?.rejectionTitle ||
+          '-')}}</div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
+        <div class=" form-label">{{lang == 'en' ? 'Rejection title(Marathi)' : 'नामंजूर शीर्षक(मराठी)'}}</div>
+        <div class=" form-data"> {{lang == 'en' ? (data?.m_RejectionTitle || '-') : (data?.m_RejectionTitle
+          || '-')}}</div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
+        <div class=" form-label">{{lang == 'en' ? 'Rejection Description' : 'नामंजूर वर्णन'}}</div>
+        <div class=" form-data">{{lang == 'en' ? (data?.rejectionDescription || '-') :
+          (data?.rejectionDescription || '-')}}</div>
+      </li>
+    </ul>
+
+
+
 
   </mat-dialog-content>
 </div>
