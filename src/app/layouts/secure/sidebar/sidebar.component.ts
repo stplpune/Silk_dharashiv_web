@@ -20,7 +20,6 @@ export class SideBarComponent {
 
 
     let pageListData = this.webStorage.getAllPageName();
-    console.log(pageListData);
     
     let pageUrls = pageListData.filter((ele: any) => {
       if (ele.isSideBarMenu) {
@@ -49,7 +48,6 @@ export class SideBarComponent {
     });
 
     pageList.find((ele: any) => {
-      console.log(this.pageListArray);
       
       if (this.pageListArray.length) {
         let findIndex: any = this.pageListArray.findIndex((item: any) => { return ele.mainMenuId == item.id });
