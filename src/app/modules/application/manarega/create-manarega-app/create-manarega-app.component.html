@@ -573,45 +573,54 @@
         <ng-template matStepLabel>कागदपत्रे</ng-template>
         <div class="container-fluid">
           <div class="row align-items-center g-3">
-            <div class="col-sm-4">
+
+          <div class="col-sm-4">
               <div class="form-label">1. मनरेगा जॉब कार्डइथे अपलोड करा (चित्रा किवा पीडीएफ अपलोड करा) </div>
               <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
-                  Upload<span class="text-danger fs-6">*</span>
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                 [disabled]="TestimonialUploadImg.length && TestimonialUploadImg[0]?.id > 0 && TestimonialUploadImg[0]?.docTypeId == 12">
+                 File Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
+                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
+                 [disabled]="TestimonialUploadImg.length && TestimonialUploadImg[0]?.id > 0 && TestimonialUploadImg[0]?.docTypeId == 12"
+                              (change)="fileUpload($event,'testimonialImg')"
+                              #testimonialImage />
+                <div class="d-flex gap-2"  *ngFor="let Testimonial of TestimonialUploadImg;let i = index">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
+                    matTooltip="view"   (click)="viewImages(Testimonial)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
                   <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
+                    matTooltip="delete" (click)="deleteImges('testimonialImg',i)">
                     <mat-icon class="material-symbols-rounded">
                       delete
                     </mat-icon>
                   </button>
                 </div>
               </div>
-            </div>
-            <div class="col-sm-4">
+            </div> 
+
+          <div class="col-sm-4">
               <div class="form-label">2. जमिनीचा 8-अ येथे जोडा </div>
               <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
-                  Upload<span class="text-danger fs-6">*</span>
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                [disabled]="EightAUploadImg.length && EightAUploadImg[0]?.id > 0 && EightAUploadImg[0]?.docTypeId == 19">
+                File Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
+                <input type="file"  accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" 
+                [disabled]="EightAUploadImg.length && EightAUploadImg[0]?.id > 0 && EightAUploadImg[0]?.docTypeId == 19"
+                 (change)="fileUpload($event,'EightAImg')" #eightAImage/>
+                <div class="d-flex gap-2"  *ngFor="let EightA of EightAUploadImg;let i = index">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
+                    matTooltip="view"  (click)="viewImages(EightA)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
                   <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
+                    matTooltip="delete" (click)="deleteImges('EightAImg',i)">
                     <mat-icon class="material-symbols-rounded">
                       delete
                     </mat-icon>
@@ -619,13 +628,18 @@
                 </div>
               </div>
             </div>
+
+
+
             <div class="col-sm-4">
               <div class="form-label">2. जमिनीचा 7/12 उतारा येथे अपलोड करा </div>
               <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
-                  Upload<span class="text-danger fs-6">*</span>
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                [disabled]="EightAUploadImg.length && EightAUploadImg[0]?.id > 0 && EightAUploadImg[0]?.docTypeId == 18">
+                File Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
+                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" 
+                (change)="fileUpload($event,'SevenTweImg')" #sevenTweImage/>
                 <div class="d-flex gap-2">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
                     matTooltip="view">
@@ -642,6 +656,8 @@
                 </div>
               </div>
             </div>
+
+
             <div class="col-sm-4">
               <div class="form-label">3. बँक पासबूक/ रद्द केलेला चेक अपलोड करा. </div>
               <div class="file-upload border rounded-2 p-1">
@@ -665,6 +681,8 @@
                 </div>
               </div>
             </div>
+
+
             <div class="col-sm-4">
               <button mat-flat-button class="btn-main-light" type="button">इतर कागदपत्रे जोडा</button>
             </div>
