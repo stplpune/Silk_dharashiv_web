@@ -13,8 +13,8 @@
     <div class="row gx-2 w-100">
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
-          <!-- <mat-label>{{"blogs.search_by_title" | translate}}</mat-label> -->
-          <input matInput [formControl]="textsearch" (keyup.enter)="searchDataFlag=true;getTableData('filter')" (keypress)="validator.noFirstSpaceAllow($event)" 
+          <mat-label>{{"blogs.search_by_title" | translate}}</mat-label>
+          <input matInput [formControl]="textsearch" (keyup.enter)="searchDataFlag=true;getTableData('filter')" (keypress)="validator.noFirstSpaceAllow($event)"
           placeholder="{{lang == 'en' ? 'Search By Title' : 'शीर्षकानुसार शोधा'}}">
         </mat-form-field>
       </div>
