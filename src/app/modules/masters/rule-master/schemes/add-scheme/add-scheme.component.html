@@ -13,10 +13,10 @@
     <mat-dialog-content class="modal-body form-container scrollbar">
       <div class="row gx-2 gy-1">
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'common.state' | translate }} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.state' | translate }} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'scheme.select_state' | translate }}</mat-label> -->
+            <mat-label>{{'common.state' | translate }} </mat-label>
             <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
               [class]="WebStorageService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let st of stateArray" [value]="st.id">{{lang != 'en' ? st.textMarathi
@@ -25,10 +25,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'common.district' | translate }} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.district' | translate }} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'scheme.select_district' | translate }}</mat-label> -->
+            <mat-label>{{'common.district' | translate }}</mat-label>
             <mat-select formControlName="districtId"
               [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let dist of districtArray" [value]="dist.id">{{lang != 'en' ? dist.textMarathi
@@ -37,12 +37,12 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'scheme.scheme_namee' | translate }} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'scheme.scheme_namee' | translate }} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
             <!-- <mat-label>Scheme Name (English)</mat-label>
         <input matInput placeholder=""> -->
-            <!-- <mat-label>{{'scheme.scheme_namee' | translate }}</mat-label> -->
+            <mat-label>{{'scheme.scheme_namee' | translate }}</mat-label>
             <input matInput placeholder="" formControlName="schemeType"
               (keypress)="validator.noFirstSpaceAllow($event);validator.englishNumericspecialChar($event)">
             <mat-error *ngIf="f['schemeType']?.hasError('required')">{{'scheme.please_enter_scheme_name'|translate}}
@@ -54,10 +54,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'scheme.scheme_namemr' | translate }} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'scheme.scheme_namemr' | translate }} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'scheme.scheme_namemr' | translate }}</mat-label> -->
+            <mat-label>{{'scheme.scheme_namemr' | translate }} </mat-label>
             <input matInput placeholder="" formControlName="m_SchemeType"
               (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiQuetionValidation($event)">
             <mat-error *ngIf="f['m_SchemeType']?.hasError('required')">
