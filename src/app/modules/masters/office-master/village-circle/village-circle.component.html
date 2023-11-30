@@ -15,7 +15,7 @@
       <div class="row gx-2 w-100">
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.taluka_filter' | translate}}</mat-label> -->
+            <mat-label>{{'common.taluka_filter' | translate}}</mat-label>
             <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('gram');getGrampanchayat()"
               placeholder="{{lang == 'en' ?'All Taluka' : 'सर्व तालुका'}}">
               <mat-option>
@@ -32,7 +32,7 @@
         </div>
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.grampanchayat_filter' | translate}}</mat-label> -->
+            <mat-label>{{'common.grampanchayat_filter' | translate}}</mat-label>
             <mat-select formControlName="grampanchayatId"
               placeholder="{{lang == 'en' ?'All Grampanchayat' : 'सर्व ग्रामपंचायत'}}">
               <mat-option>
@@ -48,7 +48,7 @@
         </div>
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'villageCircle.search_by_village_circle_name' | translate}}</mat-label> -->
+            <mat-label>{{'villageCircle.search_by_village_circle_name' | translate}}</mat-label>
             <input matInput formControlName="textsearch"
               placeholder="{{lang == 'en' ? 'Search by Circle Name' : 'मंडळाच्या नावाने शोधा'}}"
               (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
