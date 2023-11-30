@@ -53,12 +53,12 @@
 <div class="" *ngIf="!isViewFlag">
   <form [formGroup]="grainageFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
     <div mat-dialog-content class="modal-body form-container">
-      <div class="row gx-2">
+      <div class="row gx-2 gy-2">
         <div class="col-sm-12">
-          <mat-label class="form-label">{{"grainage.Type" | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{"grainage.Type" | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{"grainage.Type" | translate}}</mat-label> -->
+            <mat-label>{{"grainage.Type" | translate}}</mat-label>
             <mat-select formControlName="type">
               <mat-option *ngFor=" let grain of grainageArr" [value]="grain.id">{{lang == 'en' ? grain.textEnglish :
                 grain.textMarathi}}</mat-option>
@@ -67,10 +67,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{"grainage.grainageName_en" | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{"grainage.grainageName_en" | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{"grainage.grainageName_en" | translate}}</mat-label> -->
+            <mat-label>{{"grainage.grainageName_en" | translate}}</mat-label>
             <input formControlName="grainage" matInput
               (keypress)="validator.noFirstSpaceAllow($event);validator.englishAlphaNumeric($event)">
             <mat-error
@@ -82,10 +82,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{"grainage.grainageName_mr" | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{"grainage.grainageName_mr" | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{"grainage.grainageName_mr" | translate}}</mat-label> -->
+            <mat-label>{{"grainage.grainageName_mr" | translate}}</mat-label>
             <input formControlName="m_Grainage" matInput
               (keypress)="validator.noFirstSpaceAllow($event);validator.marathiAlphaNumeric($event)">
             <mat-error
@@ -97,10 +97,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{"common.state" | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{"common.state" | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{"grainage.state" | translate}}</mat-label> -->
+            <mat-label>{{"grainage.state" | translate}}</mat-label>
             <mat-select formControlName="stateId" (selectionChange)="clearDropdown('state');getDisrict()">
               <mat-option *ngFor=" let state of stateArr" [value]="state.id">{{lang == 'en' ? state.textEnglish :
                 state.textMarathi}}</mat-option>
@@ -109,10 +109,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{"common.district" | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{"common.district" | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label >{{"grainage.district" | translate}}</mat-label> -->
+            <mat-label >{{"grainage.district" | translate}}</mat-label>
             <mat-select formControlName="districtId" (selectionChange)="clearDropdown('district');getTaluka()">
               <mat-option *ngFor=" let dist of districtArr" [value]="dist.id">{{lang == 'en' ? dist.textEnglish :
                 dist.textMarathi}}</mat-option>
@@ -122,10 +122,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{"common.taluka" | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{"common.taluka" | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{"grainage.taluka" | translate}}</mat-label> -->
+            <mat-label>{{"grainage.taluka" | translate}}</mat-label>
             <mat-select formControlName="talukaId">
               <mat-option>
                 <ngx-mat-select-search [formControl]="talukaCtrl"
@@ -140,10 +140,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{"grainage.pincode" | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{"grainage.pincode" | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{"grainage.pincode" | translate}}</mat-label> -->
+            <mat-label>{{"grainage.pincode" | translate}}</mat-label>
             <input formControlName="pincode" matInput maxlength="6"
               (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
             <mat-error *ngIf="f['pincode']?.hasError('required')">{{'grainage.pincode_require'|translate}}</mat-error>
@@ -151,10 +151,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{"grainage.address" | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{"grainage.address" | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{"grainage.address" | translate}}</mat-label> -->
+            <mat-label>{{"grainage.address" | translate}}</mat-label>
             <textarea rows="3" formControlName="address" matInput
               (keypress)="validator.noFirstSpaceAllow($event)"></textarea>
             <mat-error *ngIf="f['address']?.hasError('required')">{{'grainage.address_require'|translate}}</mat-error>
@@ -163,10 +163,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{"grainage.remark" | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{"grainage.remark" | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{"grainage.remark" | translate}}</mat-label> -->
+            <mat-label>{{"grainage.remark" | translate}}</mat-label>
             <textarea rows="3" formControlName="remark" matInput
               (keypress)="validator.noFirstSpaceAllow($event)"></textarea>
           </mat-form-field>
