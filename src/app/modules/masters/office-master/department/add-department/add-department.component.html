@@ -27,11 +27,11 @@
   </div>
   <div class="form-container" *ngIf="!isViewFlag">
     <form [formGroup]="departmentFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
-      <div class="mb-0">
-        <mat-label class="form-label">{{"department.departmentName_en" | translate}} <span
-            class="text-danger fs-6">*</span></mat-label>
+      <div class="mb-2">
+        <!-- <mat-label class="form-label">{{"department.departmentName_en" | translate}} <span
+            class="text-danger fs-6">*</span></mat-label> -->
         <mat-form-field appearance="outline" class="w-100">
-          <!-- <mat-label>{{"department.departmentName_en" | translate}}</mat-label> -->
+          <mat-label>{{"department.departmentName_en" | translate}}</mat-label>
           <input matInput formControlName="departmentName" placeholder="Department Name (English)"
             (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
           <mat-error
@@ -43,10 +43,10 @@
         </mat-form-field>
       </div>
       <div class="mb-3">
-        <mat-label class="form-label">{{"department.departmentName_mr" | translate}} <span
-            class="text-danger fs-6">*</span></mat-label>
+        <!-- <mat-label class="form-label">{{"department.departmentName_mr" | translate}} <span
+            class="text-danger fs-6">*</span></mat-label> -->
         <mat-form-field appearance="outline" class="w-100">
-          <!-- <mat-label>{{"department.departmentName_mr" | translate}}</mat-label> -->
+          <mat-label>{{"department.departmentName_mr" | translate}}</mat-label>
           <input matInput formControlName="m_DepartmentName" placeholder="Department Name (Marathi)"
             (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
           <mat-error
