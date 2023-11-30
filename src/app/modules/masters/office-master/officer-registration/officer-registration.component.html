@@ -12,10 +12,10 @@
   </mat-card-header>
   <mat-card-header class="card-header-control">
     <form [formGroup]="filterForm" #formDirective="ngForm">
-      <div class="row g-2">
+      <div class="row gx-2 gy-3">
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.department_filter' | translate}}</mat-label> -->
+            <mat-label>{{'common.department_filter' | translate}}</mat-label>
             <mat-select formControlName="departmentId" placeholder="{{lang == 'en' ?'All Department' : 'सर्व विभाग'}}"
               (selectionChange)="clearDropDown('dept');getDepartmentLevel()">
               <!-- <mat-option [value]="0">{{'officerreg.allDepartment' | translate}}</mat-option> -->
@@ -31,7 +31,7 @@
         </div>
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.designation_lev_filter' | translate}}</mat-label> -->
+            <mat-label>{{'common.designation_lev_filter' | translate}}</mat-label>
             <mat-select formControlName="departmentLevelId" placeholder="{{lang == 'en' ?'All Level' : 'सर्व स्तर'}}"
               (selectionChange)="clearDropDown('clearAll');getDesignation()">
               <!-- <mat-option [value]="0"> {{'officerreg.allLevel' | translate}}</mat-option> -->
@@ -47,7 +47,7 @@
         </div>
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.designation_filter' | translate}}</mat-label> -->
+            <mat-label>{{'common.designation_filter' | translate}}</mat-label>
             <mat-select formControlName="designationId"
               placeholder="{{lang == 'en' ?'All Designation' : 'सर्व पदनाम'}}">
               <!-- <mat-option [value]="0"> {{'officerreg.allDesignation' | translate}}</mat-option> -->
@@ -64,7 +64,7 @@
         </div>
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.taluka_filter' | translate}}</mat-label> -->
+            <mat-label>{{'common.taluka_filter' | translate}}</mat-label>
             <mat-select formControlName="talukaId"
               (selectionChange)="clearDropDown('gram');getGrampanchayat();getCircle()"
               placeholder="{{lang == 'en' ?'All Taluka' : 'सर्व तालुका'}}">
@@ -81,7 +81,7 @@
         </div>
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.block_filter' | translate}}</mat-label> -->
+            <mat-label>{{'common.block_filter' | translate}}</mat-label>
             <mat-select formControlName="blockId" placeholder="{{lang == 'en' ?'All Block' : 'सर्व ब्लॉक'}}">
               <mat-option>
                 <ngx-mat-select-search [formControl]="blockCtrl"
@@ -96,7 +96,7 @@
         </div>
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.circle_filter' | translate}}</mat-label> -->
+            <mat-label>{{'common.circle_filter' | translate}}</mat-label>
             <mat-select formControlName="circleId" placeholder="All Circle"
               placeholder="{{lang == 'en' ?'All Circle' : 'सर्व मंडळ'}}">
               <!-- <mat-option [value]="0"> {{'officerreg.allCircle' | translate}}</mat-option> -->
@@ -113,7 +113,7 @@
         </div>
         <div class="col-sm-2">
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.grampanchayat_filter' | translate}}</mat-label> -->
+            <mat-label>{{'common.grampanchayat_filter' | translate}}</mat-label>
             <mat-select formControlName="grampanchayatId"
               placeholder="{{lang == 'en' ?'All Grampanchayat' : 'सर्व ग्रामपंचायत'}}">
               <!-- <mat-option [value]="0">{{'officerreg.all_grampanchayat' | translate}}</mat-option> -->
@@ -129,7 +129,7 @@
         </div>
         <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.searchbyMobile_email' | translate}}</mat-label> -->
+            <mat-label>{{'common.searchbyMobile_email' | translate}}</mat-label>
             <input matInput formControlName="searchtext"
               placeholder="{{lang == 'en' ? 'Search by Mobile No/Email ID' : 'मोबाईल नंबर/ईमेल आयडी द्वारे शोधा'}}"
               (keypress)="validation.noFirstSpaceAllow($event)">

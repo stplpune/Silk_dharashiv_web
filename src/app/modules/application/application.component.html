@@ -14,15 +14,15 @@
           </mat-icon>
           Add Samgra
         </button>
-        
+
       </div>
     </mat-card-header>
     <mat-card-header class="card-header-control">
       <form [formGroup]="filterFrm" class="w-100">
-        <div class="row gx-2 gy-2">
+        <div class="row gx-2 gy-3">
          <div class="col-sm-4">
             <mat-form-field appearance="outline" class="w-100">
-              <!-- <mat-label>{{'manrega.district'| translate}}</mat-label> -->
+              <mat-label>{{'manrega.district'| translate}}</mat-label>
               <mat-select formControlName="districtId" (selectionChange)="getTaluka()" placeholder="District"
               [class]="webStorage.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
                 <mat-option *ngFor=" let dist of districtArr" [value]="dist.id">{{lang == 'en' ? dist.textEnglish :
@@ -32,7 +32,7 @@
           </div>
           <div class="col-sm-4">
             <mat-form-field appearance="outline" class="w-100">
-              <!-- <mat-label>{{'manrega.taluka'| translate}}</mat-label> -->
+              <mat-label>{{'manrega.taluka'| translate}}</mat-label>
               <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('Taluka');getGrampanchayat()" placeholder="All Taluka"
               [class]="webStorage.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })">
               <mat-option>
@@ -47,7 +47,7 @@
           </div>
           <div class="col-sm-4">
             <mat-form-field appearance="outline" class="w-100">
-              <!-- <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label> -->
+              <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label>
               <mat-select formControlName="grampanchayatId" placeholder="{{lang == 'en' ? 'Grampanchayat' :'ग्रामपंचायत'}}"
               [class]="webStorage.getGrampanchayatId() || !filterFrm.getRawValue().talukaId ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
               <mat-option>
@@ -62,7 +62,7 @@
           </div>
           <div class="col-sm-4">
             <mat-form-field appearance="outline" class="w-100">
-              <!-- <mat-label>{{'manrega.scheme'| translate}}</mat-label> -->
+              <mat-label>{{'manrega.scheme'| translate}}</mat-label>
               <mat-select formControlName="schemeTypeId" placeholder="All Scheme">
                 <mat-option *ngFor=" let scheme of schemeFilterArr" [value]="scheme.id">{{lang == 'en' ?
                   scheme.textEnglish : scheme.textMarathi}}</mat-option>
@@ -71,7 +71,7 @@
           </div>
           <div class="col-sm-4">
             <mat-form-field appearance="outline" class="w-100">
-              <!-- <mat-label>{{'manrega.status'| translate}}</mat-label> -->
+              <mat-label>{{'manrega.status'| translate}}</mat-label>
               <mat-select formControlName="statusId" placeholder="All Status">
                 <mat-option *ngFor=" let status of statusArr" [value]="status.id">{{lang == 'en' ? status.textEnglish
                   : status.textMarathi}}</mat-option>
@@ -80,7 +80,7 @@
           </div>
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
-              <!-- <mat-label>{{'manrega.search_by'| translate}}</mat-label> -->
+              <mat-label>{{'manrega.search_by'| translate}}</mat-label>
               <input matInput formControlName="textSearch" (keypress)="validator.noFirstSpaceAllow($event)" placeholder="{{lang == 'en' ? 'Application ID/ Farmer Name/ Mobile No.' : 'अर्ज आयडी/ शेतकऱ्याचे नाव/ मोबाईल क्र.'}}">
             </mat-form-field>
           </div>
@@ -139,22 +139,22 @@
       <div class="table-responsive scrollbar">
         <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
         <!-- <table mat-table [dataSource]="dataSource" class="dashboard-table">
-  
+
           <ng-container matColumnDef="srno">
             <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
             <td mat-cell *matCellDef="let element"> {{element.srno}} </td>
           </ng-container>
-  
+
           <ng-container matColumnDef="applicationid">
             <th mat-header-cell *matHeaderCellDef> Application ID </th>
             <td mat-cell *matCellDef="let element"> {{element.applicationid}} </td>
           </ng-container>
-  
+
           <ng-container matColumnDef="farmername">
             <th mat-header-cell *matHeaderCellDef> Farmer Name </th>
             <td mat-cell *matCellDef="let element"> {{element.farmername}} </td>
           </ng-container>
-  
+
           <ng-container matColumnDef="mobileno">
             <th mat-header-cell *matHeaderCellDef> Mobile No. </th>
             <td mat-cell *matCellDef="let element"> {{element.mobileno}} </td>
@@ -188,13 +188,12 @@
               </a>
             </td>
           </ng-container>
-  
+
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table> -->
-  
-  
+
+
       </div>
     </mat-card-content>
   </mat-card>
-  

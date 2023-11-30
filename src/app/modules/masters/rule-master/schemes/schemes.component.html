@@ -16,7 +16,7 @@
         <div class="row g-2 w-100">
           <div class="col-sm-4">
             <mat-form-field appearance="outline" class="w-100">
-              <!-- <mat-label>{{'scheme.search_by_scheme_name' | translate }}</mat-label> -->
+              <mat-label>{{'scheme.search_by_scheme_name' | translate }}</mat-label>
               <input matInput [formControl]="filterForm" placeholder="{{lang == 'en' ? 'Search by Scheme Name' : 'योजनेच्या नावाने शोधा'}}"
                 (keypress)="validator.noFirstSpaceAllow($event)">
             </mat-form-field>
