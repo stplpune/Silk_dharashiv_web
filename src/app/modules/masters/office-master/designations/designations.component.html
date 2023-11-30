@@ -18,7 +18,7 @@
           <div class="row gx-2">
             <div class="col-sm-2">
               <mat-form-field appearance="outline" class="w-100">
-                <!-- <mat-label>{{'common.department_filter'|translate}}</mat-label> -->
+                <mat-label>{{'common.department_filter'|translate}}</mat-label>
                 <mat-select formControlName="deptId">
                   <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang == 'en' ?
                     department.textEnglish : department.textMarathi}}</mat-option>
@@ -27,7 +27,7 @@
             </div>
             <div class="col-sm-2">
               <mat-form-field appearance="outline" class="w-100">
-                <!-- <mat-label>{{'common.designation_filter'|translate}}</mat-label> -->
+                <mat-label>{{'common.designation_filter'|translate}}</mat-label>
                 <mat-select formControlName="deptLevelId">
                   <mat-option *ngFor="let deptLevel of departmentLevelArray" [value]="deptLevel.id">{{lang == 'en' ?
                     deptLevel.textEnglish : deptLevel.textMarathi}}</mat-option>
@@ -36,7 +36,7 @@
             </div>
             <div class="col-sm-4">
               <mat-form-field appearance="outline" class="w-100">
-                <!-- <mat-label>{{'designation.search_by_designation'|translate}}</mat-label> -->
+                <mat-label>{{'designation.search_by_designation'|translate}}</mat-label>
                 <input matInput formControlName="textSearch"
                   placeholder="{{lang == 'en' ? 'Search by Designation' : 'पदनामनुसार शोधा'}}"
                   (keypress)="validation.noFirstSpaceAllow($event)">
