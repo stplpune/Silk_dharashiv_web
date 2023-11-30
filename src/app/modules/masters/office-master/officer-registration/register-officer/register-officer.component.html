@@ -33,10 +33,10 @@
 
       <div class="row gx-2 gy-0">
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'common.department' | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.department' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.department' | translate}}</mat-label> -->
+            <mat-label>{{'common.department' | translate}} </mat-label>
             <mat-select formControlName="departmentId"
               (selectionChange)="clearDropDown('levelclear');getDepartmentLevel()">
               <mat-option>
@@ -53,10 +53,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'common.designation_level' | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.designation_level' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.designation_level' | translate}}</mat-label> -->
+            <mat-label>{{'common.designation_level' | translate}}</mat-label>
             <mat-select formControlName="departmentLevelId"
               (selectionChange)="clearDropDown('deptLevelClear');dropDownCall(officeForm.value.departmentLevelId, false);getDesignation()">
               <mat-option>
@@ -74,10 +74,10 @@
         </div>
         <div class="col-sm-6"
           *ngIf="(officeForm.value.departmentLevelId == 1)  || (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 5) || (officeForm.value.departmentLevelId == 2) || (officeForm.value.departmentLevelId == 4)">
-          <mat-label class="form-label">{{'common.state' | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.state' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.state' | translate}}</mat-label> -->
+            <mat-label>{{'common.state' | translate}}</mat-label>
             <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
               [class]="webService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let state of stateArray" [value]="state.id">{{lang != 'en' ? state.textMarathi :
@@ -87,10 +87,10 @@
         </div>
         <div class="col-sm-6"
           *ngIf="(officeForm.value.departmentLevelId == 1)  || (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 5) || (officeForm.value.departmentLevelId == 2) || (officeForm.value.departmentLevelId == 4)">
-          <mat-label class="form-label">{{'common.district' | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.district' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.district' | translate}}</mat-label> -->
+            <mat-label>{{'common.district' | translate}}</mat-label>
             <mat-select formControlName="districtId"
               [class]="webService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
@@ -100,10 +100,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 2)">
-          <mat-label class="form-label">{{'common.block' | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.block' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.block' | translate}}</mat-label> -->
+            <mat-label>{{'common.block' | translate}}</mat-label>
             <mat-select formControlName="blockId">
               <mat-option>
                 <ngx-mat-select-search [formControl]="blockCtrl"
@@ -120,10 +120,10 @@
         </div>
         <div class="col-sm-6" *ngIf=" (officeForm.value.departmentLevelId == 3) || (officeForm.value.departmentLevelId == 5)
       || (officeForm.value.departmentLevelId == 4)">
-          <mat-label class="form-label">{{'common.taluka' | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.taluka' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
+            <mat-label>{{'common.taluka' | translate}}</mat-label>
             <mat-select formControlName="talukaId"
               (selectionChange)="clearDropDown('talukaClear');getGrampanchayat();getCircle()">
               <mat-option>
@@ -140,10 +140,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 4)">
-          <mat-label class="form-label">{{'common.circle' | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.circle' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.circle' | translate}}</mat-label> -->
+            <mat-label>{{'common.circle' | translate}}</mat-label>
             <mat-select formControlName="circleId">
               <mat-option>
                 <ngx-mat-select-search [formControl]="circleCtrl"
@@ -159,10 +159,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6" *ngIf="(officeForm.value.departmentLevelId == 5)">
-          <mat-label class="form-label">{{'common.select_grampanchayat' | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.select_grampanchayat' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'officerreg.select_grampanchayat' | translate}}</mat-label> -->
+            <mat-label>{{'officerreg.select_grampanchayat' | translate}}</mat-label>
             <mat-select formControlName="grampanchayatId">
               <mat-option>
                 <ngx-mat-select-search [formControl]="gramPCtrl"
@@ -177,10 +177,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'common.designation' | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.designation' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.designation' | translate}}</mat-label> -->
+            <mat-label>{{'common.designation' | translate}}</mat-label>
             <mat-select formControlName="designationId">
               <mat-option>
                 <ngx-mat-select-search [formControl]="designationCtrl"
@@ -195,10 +195,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'common.officer_en' | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.officer_en' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.officer_en' | translate}}</mat-label> -->
+            <mat-label>{{'common.officer_en' | translate}}</mat-label>
             <input matInput formControlName="name"
               (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
             <mat-error *ngIf="officeForm.controls['name'].hasError('required')">{{'common.officer_Name_en'|translate}}
@@ -212,10 +212,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'common.officer_mr' | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.officer_mr' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.officer_mr' | translate}}</mat-label> -->
+            <mat-label>{{'common.officer_mr' | translate}}</mat-label>
             <input matInput formControlName="m_Name"
               (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
             <mat-error *ngIf="officeForm.controls['m_Name'].hasError('required')">{{'common.officer_Name_mr'|translate}}
@@ -229,10 +229,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label"> {{'common.mobile' | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label"> {{'common.mobile' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label> {{'common.mobile' | translate}}</mat-label> -->
+            <mat-label> {{'common.mobile' | translate}}</mat-label>
             <input matInput formControlName="mobNo1" maxlength="10"
               (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
             <mat-error *ngIf="officeForm.controls['mobNo1'].hasError('required')">
@@ -243,10 +243,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label"> {{'common.email' | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label"> {{'common.email' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label> {{'common.email' | translate}}</mat-label> -->
+            <mat-label> {{'common.email' | translate}}</mat-label>
             <input matInput formControlName="emailId"
               (keypress)="validator.noFirstSpaceAllow($event);validator.emailRegex($event)">
             <mat-error *ngIf="officeForm.controls['emailId'].hasError('required')">
@@ -262,10 +262,10 @@
       </div>
       <div class="row gx-2 gy-0">
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'common.address_en' | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.address_en' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.address_en' | translate}}</mat-label> -->
+            <mat-label>{{'common.address_en' | translate}}</mat-label>
             <textarea matInput formControlName="address" (keypress)="validator.noFirstSpaceAllow($event)"
               (keyup)="validator.alphaNumericWithSpacesAndSpecChars($event)"></textarea>
             <mat-error *ngIf="officeForm.controls['address'].hasError('maxLengthExceeded')">
@@ -274,10 +274,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'common.address_mr' | translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.address_mr' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{'common.address_mr' | translate}}</mat-label> -->
+            <mat-label>{{'common.address_mr' | translate}}</mat-label>
             <textarea matInput formControlName="m_Address"
               (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)"></textarea>
           </mat-form-field>
