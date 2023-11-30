@@ -15,10 +15,11 @@
 <mat-dialog-content class="modal-body form-container">
   <ng-container *ngIf="!viewFlag">
     <form [formGroup]="addBlockForm" #formDirective="ngForm">
-      <div class="row gx-2">
+      <div class="row gx-2 gy-2">
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'common.state'|translate}} <span class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.state'|translate}} <span class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
+            <mat-label class="form-label">{{'common.state'|translate}} </mat-label>
             <mat-select formControlName="stateId" (selectionChange)="getDistrict()"
               [class]="WebStorageService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let state of stateArr" [value]="state.id">{{lang == 'en' ? state.textEnglish :
@@ -27,9 +28,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label">{{'common.district'|translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.district'|translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
+            <mat-label class="form-label">{{'common.district'|translate}}</mat-label>
             <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
               [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let district of districtArr" [value]="district.id">{{lang == 'en' ?
@@ -38,9 +40,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-12">
-          <mat-label class="form-label">{{'common.taluka'|translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'common.taluka'|translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
+            <mat-label class="form-label">{{'common.taluka'|translate}} </mat-label>
             <mat-select formControlName="talukas" multiple>
               <mat-option>
                 <ngx-mat-select-search [formControl]="talukaCtrl"
@@ -56,9 +59,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-12">
-          <mat-label class="form-label">{{'talukaBlock.block_name_en'|translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'talukaBlock.block_name_en'|translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
+            <mat-label class="form-label">{{'talukaBlock.block_name_en'|translate}} </mat-label>
             <input matInput formControlName="blockName"
               (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
             <mat-error
@@ -72,9 +76,10 @@
           </mat-form-field>
         </div>
         <div class="col-sm-12">
-          <mat-label class="form-label">{{'talukaBlock.block_name_mr'|translate}} <span
-              class="text-danger fs-6">*</span></mat-label>
+          <!-- <mat-label class="form-label">{{'talukaBlock.block_name_mr'|translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
+            <mat-label class="form-label">{{'talukaBlock.block_name_mr'|translate}} </mat-label>
             <input matInput formControlName="m_BlockName"
               (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
             <mat-error

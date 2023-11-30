@@ -14,6 +14,7 @@
     <div class="row gx-2 w-100">
       <div class="col-sm-4">
         <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{lang == 'en' ? 'Search by Block Name' : 'ब्लॉक नावाने शोधा'}}</mat-label>
           <input matInput [formControl]="textsearch"
             placeholder="{{lang == 'en' ? 'Search by Block Name' : 'ब्लॉक नावाने शोधा'}}"
             (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
