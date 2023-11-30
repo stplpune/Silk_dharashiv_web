@@ -37,3 +37,23 @@ nav.navbar .nav-link.active {
   background-color: var(--main-light-color);
   color: var(--main-color);
 }
+
+#topbar {
+  padding-block: 3px;
+  font-size: 0.85rem;
+}
+
+#topbar .btn {
+  font-size: 0.7rem;
+}
+
+#topbar .btn-check:checked+.btn,
+#topbar .btn.active :not(.btn-check)+.btn:active {
+  background-color: #fff;
+  color: var(--main-color);
+}
+
+#topbar .btn-outline-primary {
+  border-color: #fff;
+  color: #fff;
+}
