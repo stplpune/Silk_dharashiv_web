@@ -84,8 +84,8 @@
           <!-- <mat-label class="form-label">{{'common.state' | translate}}</mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.state' | translate}}</mat-label>
-            <mat-select formControlName="stateId" (selectionChange)="getDistrict()"
-              [class]="WebStorageService.getStateId() ? a['stateId'].disable({ onlySelf: true }) : a['stateId'].enable({ onlySelf: true })">
+            <mat-select formControlName="stateId" (selectionChange)="getDistrict('sel')"
+              [class.disable]="WebStorageService.getStateId() ? a['stateId'].disable({ onlySelf: true }) : a['stateId'].enable({ onlySelf: true })">
               <mat-option *ngFor="let state of stateArray" [value]="state.id">{{lang == 'en' ? state.textEnglish :
                 state.textMarathi}}</mat-option>
             </mat-select>
@@ -95,8 +95,8 @@
           <!-- <mat-label class="form-label">{{'common.district' | translate}}</mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.district' | translate}}</mat-label>
-            <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
-              [class]="WebStorageService.getDistrictId() ? a['districtId'].disable({ onlySelf: true }) : a['districtId'].enable({ onlySelf: true })">
+            <mat-select formControlName="districtId" (selectionChange)="clearDropdown('district');getTaluka()"
+              [class]="WebStorageService.getDistrictId() ? a['districtId'].disable({ onlySelf: true }) : a['districtId'].enable({ onlySelf: true }) ">
               <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang == 'en' ?
                 district.textEnglish : district.textMarathi }}
               </mat-option>
