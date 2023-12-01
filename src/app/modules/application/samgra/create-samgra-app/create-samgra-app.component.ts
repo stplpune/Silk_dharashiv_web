@@ -3,9 +3,9 @@ import { AddDetailsComponent } from './add-details/add-details.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MasterService } from 'src/app/core/services/master.service';
 import { ApiService } from 'src/app/core/services/api.service';
-import { Subscription } from 'rxjs';
+import { ReplaySubject, Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -40,6 +40,12 @@ export class CreateSamgraAppComponent {
   genderArray: any = [{ id: 1, name: 'Male' }, { id: 0, name: 'Female' }];
   checkedArray:any = [{id:true,name:'Yes'},{id:false,name:'No'}];
   subscription!: Subscription;
+  todayDate = new Date();
+
+  talukaCtrl: FormControl = new FormControl();
+  talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  gramPCtrl: FormControl = new FormControl();
+  gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
 
   constructor(public dialog: MatDialog,
     private masterService : MasterService,
@@ -55,11 +61,13 @@ export class CreateSamgraAppComponent {
         this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
         this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       })
-   
+      this.searchDataZone();
       this.samgraformData();
       this.landDetailsFormData();
       this.bankDetailsFormData(); 
       this.commonDropdown();
+
+     
       
     }
 
@@ -70,6 +78,7 @@ export class CreateSamgraAppComponent {
       this.getIrrigationFacility();
       this.getBank();
       this.getCategory();
+     
     }
     get f() {
       return this.samgraForm.controls
@@ -194,6 +203,12 @@ export class CreateSamgraAppComponent {
     }
   }
 
+  searchDataZone() {
+    this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, 'textEnglish' , this.talukaSubject) });
+    this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, 'textEnglish' , this.gramPSubject) });
+  }
+
+
   getTaluka() {
     this.talukaArray = [];
     let stateId = this.samgraForm.getRawValue()?.stateId;
@@ -201,8 +216,9 @@ export class CreateSamgraAppComponent {
     if (disId != 0) {
       this.masterService.GetAllTaluka(stateId, disId, 0).subscribe({
         next: ((res: any) => {
-          if (res.statusCode == "200" && res.responseData?.length) {
+          if (res.statusCode == "200") {
             this.talukaArray = res.responseData;
+            this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl,'textEnglish', this.talukaSubject);
             this.getGrampanchayat()
           }
           else {
@@ -221,8 +237,9 @@ export class CreateSamgraAppComponent {
     if (talukaId != 0) {
     this.masterService.GetGrampanchayat(talukaId).subscribe({
       next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
+        if (res.statusCode == "200") {
           this.grampanchayatArray = res.responseData;
+          this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl,'textEnglish', this.gramPSubject);
         }
         else {
           this.grampanchayatArray = [];

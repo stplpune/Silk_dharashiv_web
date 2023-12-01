@@ -70,7 +70,8 @@
             <div class="col-sm-3">
               <mat-label class="form-label">4. जन्मतारीख</mat-label>
               <mat-form-field appearance="outline" class="w-100">
-                <input matInput [matDatepicker]="picker" formControlName="birthDate">
+                <input matInput [matDatepicker]="picker" formControlName="birthDate"  (click)="picker.open()" readonly
+                [max]="todayDate">
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -111,8 +112,7 @@
             </div>
             <div class="col-sm-3">
               <div class="form-label">8. जिल्हा</div>
-              <mat-form-field appearance="outline" class="w-100"
-              [class]="WebStorageService.getStateId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
+              <mat-form-field appearance="outline" class="w-100" >
                 <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
                   <mat-option *ngFor="let district of districtArray" [value]="district.id">{{district.textEnglish}}</mat-option>
                   <!-- <mat-option>गुजरात</mat-option>
@@ -124,9 +124,18 @@
               <div class="form-label">9. तालुका</div>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="talukaId" (selectionChange)="getGrampanchayat()">
-                  <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id" >{{taluka.textEnglish}}</mat-option>
+                  <!-- <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id" >{{taluka.textEnglish}}</mat-option> -->
                   <!-- <mat-option>गुजरात</mat-option>
                   <mat-option>बिहार</mat-option> -->
+
+                  <mat-option>
+                    <ngx-mat-select-search [formControl]="talukaCtrl"
+                    placeholderLabel="Search Lead Name" noEntriesFoundLabel="No Data Found"></ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi
+                    :taluka.textEnglish}}</mat-option>
+
+
                 </mat-select>
               </mat-form-field>
             </div>
@@ -134,9 +143,17 @@
               <div class="form-label">10. ग्रामपंचायत</div>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="grampanchayatId">
-                  <mat-option *ngFor="let grampanchayat of grampanchayatArray" [value]="grampanchayat.id">{{grampanchayat.textEnglish}}</mat-option>
+                  <!-- <mat-option *ngFor="let grampanchayat of grampanchayatArray" [value]="grampanchayat.id">{{grampanchayat.textEnglish}}</mat-option> -->
                   <!-- <mat-option>गुजरात</mat-option>
                   <mat-option>बिहार</mat-option> -->
+
+                  <mat-option>
+                    <ngx-mat-select-search [formControl]="gramPCtrl"
+                      placeholderLabel=""
+                      noEntriesFoundLabel=""></ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?
+                    village.textMarathi : village.textEnglish}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
