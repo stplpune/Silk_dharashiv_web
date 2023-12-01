@@ -2,9 +2,11 @@
     <mat-card-header class="card-header">
       <div class="d-flex align-items-center justify-content-between w-100">
         <div class="text-main">{{'manrega.manrega'| translate}}</div>
-        <button mat-flat-button class="btn-main" [routerLink]="['/create-manarega-app']">
-          <mat-icon class="material-symbols-rounded">
-            add
+        <div class="d-flex gap-2">
+
+          <button mat-flat-button class="btn-main" [routerLink]="['/create-manarega-app']">
+            <mat-icon class="material-symbols-rounded">
+              add
           </mat-icon>
           {{'approvalProcess.Add_Manarega' | translate}}
         </button>
@@ -14,6 +16,7 @@
           </mat-icon>
           Add Samgra
         </button>
+      </div>
 
       </div>
     </mat-card-header>
