@@ -1005,7 +1005,7 @@
                 </li>
               </ul>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-8">
               <div class="row g-3">
                 <div class="col-sm-12">
                   <div class="form-data text-main">जमिनीचा तपशील </div>
@@ -1057,7 +1057,7 @@
                     </li>
                     <ng-container *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">
                       <div class="table-responsive scrollbar" >
-                        <table mat-table [dataSource]="previewData?.plantingDetails" class="mat-elevation-z8">
+                        <table mat-table [dataSource]="previewData?.plantingDetails" class="dashboard-table">
               
                           <!--- Note that these columns can be defined in any order.
                                 The actual rendered columns are set as a property on the row definition" -->
@@ -1126,9 +1126,9 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-12">
               <div class="row gx-2 gy-3">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                   <div class="text-main fw-bold">बँकेचे तपशील</div>
                   <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -1152,7 +1152,7 @@
 
                   </ul>
                 </div>
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                   <div class="text-main fw-bold">कागदपत्रे</div>
                   <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">

@@ -432,7 +432,7 @@ getPreviewData(){
 
           documentArray.map((document:any) => {
             if(document.docId == 12){
-              this.previewManarega =  this.previewManarega.push(document);
+              this.previewManarega =  this.previewManarega?.push(document);
              
             }
             console.log(" this.previewManarega", this.previewManarega)
