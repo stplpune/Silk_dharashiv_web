@@ -17,6 +17,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AddDetailsComponent } from './add-details/add-details.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { AddDetailsComponent } from './add-details/add-details.component';
     MatStepperModule,
     MatDatepickerModule,        // <----- import(must)
     MatNativeDateModule,
+    ReactiveFormsModule
   ]
 })
 export class CreateSamgraAppModule { }
