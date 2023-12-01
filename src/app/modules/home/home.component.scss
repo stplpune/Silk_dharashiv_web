@@ -1,0 +1,37 @@
+header {
+    height: 70vh;
+}
+
+header img {
+    height: 70vh;
+}
+
+header .carousel-control-next,
+header .carousel-control-prev {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(20, 60, 0, 0.95);
+    top: 42%;
+}
+
+header .carousel-caption {
+    top: 25%;
+}
+
+header .carousel-caption h5 {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: #E6670B !important;
+    text-shadow: 1px 1px 1px #111;
+}
+
+header .carousel-caption p {
+    font-size: 1.1rem;
+    font-weight: 500;
+    background-color: rgba(255, 255, 255, 0.75);
+    color: #151515;
+    width: max-content;
+    margin: 0 auto;
+    padding: 10px 20px;
+    border-radius: 30px;
+}

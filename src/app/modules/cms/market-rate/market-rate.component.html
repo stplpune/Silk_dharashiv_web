@@ -17,7 +17,7 @@
         <div class="row g-2 w-100">
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
-              <!-- <mat-label> {{'marketPrice.All_market'|translate}}</mat-label> -->
+              <mat-label> {{'marketPrice.All_market'|translate}}</mat-label>
               <mat-select formControlName="marketId" placeholder="{{lang == 'en' ? 'All Market' : 'सर्व बाजार'}}">
                 <!-- <mat-option>Option 1</mat-option> -->
                 <mat-option *ngFor="let market of marketArr" [value]="market.id">{{market.textEnglish}}</mat-option>
@@ -26,7 +26,7 @@
           </div>
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
-              <!-- <mat-label> {{'marketPrice.All_Farm Goods'|translate}}</mat-label> -->
+              <mat-label> {{'marketPrice.All_Farm Goods'|translate}}</mat-label>
               <mat-select formControlName="goodId" placeholder="{{lang == 'en' ? 'All Farm Goods' : 'सर्व शेत माल'}}">
                 <!-- <mat-option>Option 1</mat-option> -->
                 <mat-option *ngFor="let goods of goodsArr" [value]="goods.id">{{goods.textEnglish}}</mat-option>
@@ -35,7 +35,7 @@
           </div>
           <div class="col-sm-2">
             <mat-form-field appearance="outline" class="w-100">
-              <!-- <mat-label>{{'marketPrice.from_date'|translate}}</mat-label> -->
+              <mat-label>{{'marketPrice.from_date'|translate}}</mat-label>
               <input matInput [matDatepicker]="frompicker" placeholder="{{lang == 'en' ? 'From Date' : 'तारखेपासून'}}" formControlName="fromDate" (click)="frompicker.open()">
               <mat-datepicker-toggle matIconSuffix [for]="frompicker"></mat-datepicker-toggle>
               <mat-datepicker #frompicker></mat-datepicker>
@@ -43,7 +43,7 @@
           </div>
           <div class="col-sm-2">
             <mat-form-field appearance="outline" class="w-100" [class]="filterForm.value.fromDate ? this.f['toDate'].enable({ onlySelf: true }): this.f['toDate'].disable({ onlySelf: true })">
-              <!-- <mat-label>{{'marketPrice.to_date'|translate}}</mat-label> -->
+              <mat-label>{{'marketPrice.to_date'|translate}}</mat-label>
               <input matInput [matDatepicker]="picker" formControlName="toDate" placeholder="{{lang == 'en' ? 'To Date' : 'तारखेपर्यंत'}}" (click)="picker.open()"
                [min]="f['fromDate'].value" max="maxDate" >
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>

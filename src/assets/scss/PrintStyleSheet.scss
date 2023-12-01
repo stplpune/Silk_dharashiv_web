@@ -6,6 +6,20 @@
         print-color-adjust: exact !important;
     }
 
+    @page {
+        margin: 5px;
+    }
+
+    @page :first {
+        size: landscape;
+        margin: 10px;
+    }
+
+    @page {
+        size: A4 portrait;
+        margin: 0.3in;
+    }
+
     html,
     body {
         height: 99%;
@@ -37,5 +51,9 @@
 
     .d-print-none {
         display: none;
+    }
+
+    .pagebreak {
+        page-break-after: always !important;
     }
 }

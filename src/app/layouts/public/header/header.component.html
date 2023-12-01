@@ -1,27 +1,100 @@
-<nav class="navbar bg-white py-1 border-bottom shadow-sm">
+<!-- <nav class="navbar bg-white py-1 border-bottom shadow-sm fixed-top">
 
   <div class="container-fluid">
     <div class="d-flex align-items-center justify-content-end w-100">
 
       <div class="dropdown">
-        <button mat-flat-button class="btn-icon border-0 bg-transparent" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button mat-flat-button class="btn-icon border-0 bg-transparent" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
           <img src="assets/images/language.svg">
         </button>
         <div class="dropdown-menu dropdown-menu-end">
           <ng-container *ngFor="let getLag of lag">
-            <button class="dropdown-item" (click)="changeLanguage(getLag)"
-                [class.active]="getLag == selLang">
-                <div class="d-flex align-items-center">
-                    <img [src]="getLag == 'English' ? 'assets/images/english.svg' : 'assets/images/marathi.svg'">
-                    <span>{{getLag}}</span>
-                </div>
+            <button class="dropdown-item" (click)="changeLanguage(getLag)" [class.active]="getLag == selLang">
+              <div class="d-flex align-items-center">
+                <img [src]="getLag == 'English' ? 'assets/images/english.svg' : 'assets/images/marathi.svg'">
+                <span>{{getLag}}</span>
+              </div>
             </button>
-        </ng-container>
+          </ng-container>
         </div>
       </div>
       <button mat-flat-button class="btn-main">
         <a routerLink="/login" class="text-white text-decoration-none">Login</a>
       </button>
+    </div>
+  </div>
+</nav> -->
+<div class="container-fluid bg-main">
+  <div class="container">
+    <div class="row align-items-center" id="topbar">
+      <div class="col-sm">
+        <marquee behavior="" direction="">
+          News 1
+        </marquee>
+      </div>
+      <div class="col-sm-auto">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+          <label class="btn btn-outline-primary" for="btnradio1">English</label>
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+          <label class="btn btn-outline-primary" for="btnradio2">मराठी</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<nav class="navbar bg-body-tertiary navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="assets/images/logo-text.svg">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-between flex-grow-1 ms-3">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              About Us
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">About Us</a></li>
+              <li><a class="dropdown-item" href="#">Online Process</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Silk Business</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Schemes & Programs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Success Stories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Farmer</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Officer</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Track Application</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact Us</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>

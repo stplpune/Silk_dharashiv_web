@@ -49,11 +49,11 @@
 <div class="" *ngIf="!isViewFlag">
   <form [formGroup]="blogForm" #formDirective="ngForm" (ngSubmit)="onSubmit()">
     <mat-dialog-content class="modal-body form-container scrollbar">
-      <div class="row">
+      <div class="row gx-2 gy-2">
         <div class="col-sm-6">
-          <mat-label class="form-label">{{"blogs.title" | translate}}</mat-label>
+          <!-- <mat-label class="form-label">{{"blogs.title" | translate}}</mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <!-- <mat-label>{{"blogs.title" | translate}}</mat-label> -->
+            <mat-label>{{"blogs.title" | translate}}</mat-label>
             <input matInput formControlName="title" placeholder="Enter Title"
               (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithQuetion($event)">
             <mat-error *ngIf="f['title']?.hasError('required')">{{"blogs.blog_empty" | translate}} </mat-error>
@@ -62,7 +62,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <mat-label class="form-label"> {{"blogs.featuredImage" | translate}}</mat-label>
+          <!-- <mat-label class="form-label"> {{"blogs.featuredImage" | translate}}</mat-label> -->
           <div class="file-upload border rounded-2 p-1">
             <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
               data-placement="right" (click)="uplodLogo.click()">
@@ -102,7 +102,7 @@
     </mat-dialog-content>
     <div mat-dialog-actions class="modal-footer">
       <div class="d-flex align-items-center justify-content-end w-100 gap-2">
-        <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">{{"blogs.clear" |
+        <button mat-flat-button class="btn-main-light" (click)="clearFormData()" type="button">{{"common.clear" |
           translate}}</button>
         <button mat-flat-button class="btn-main" type="submit">{{data ? ('common.update'|translate) :
           ('blogs.add'|translate)}}</button>

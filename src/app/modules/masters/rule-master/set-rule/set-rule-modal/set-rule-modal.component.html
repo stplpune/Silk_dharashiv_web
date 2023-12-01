@@ -41,7 +41,7 @@
 
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
-              <!-- <mat-label>{{'setRule.select_scheme'|translate}}</mat-label> -->
+              <mat-label>{{'setRule.select_scheme'|translate}}</mat-label>
               <mat-select formControlName="scheme" placeholder="{{'setRule.select_scheme'|translate}}" (selectionChange)="approveLevelArray = [];editFlag = false;f['department'].setValue('');getDepartment()"
                 [class]="data?.label == 'Edit' ? setRulefrm.controls['scheme'].disable({ onlySelf: true }) :setRulefrm.controls['scheme'].enable({ onlySelf: true })">
                 <mat-option *ngFor="let data of schemeTypeArray" [value]="data.id">{{lang == 'en' ?
@@ -52,7 +52,7 @@
           </div>
           <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
-              <!-- <mat-label>{{'common.department'|translate}}</mat-label> -->
+              <mat-label>{{'common.department'|translate}}</mat-label>
               <mat-select formControlName="department" placeholder="{{'common.department'|translate}}"
                 (selectionChange)="approveLevelArray = [];clearAddRuleForm();getAllApprovalMasterLevels()"
                 [class]="(data?.label == 'Edit' || !f['scheme'].getRawValue()) ? f['department'].disable() :f['department'].enable()">
@@ -88,6 +88,7 @@
         <div class="row  gx-2">
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{'setRule.select_order'|translate}}</mat-label>
               <mat-select formControlName="approvalLevel" placeholder="{{'setRule.select_order'|translate}}" (selectionChange)="setActionDropdown()"
               [class]="addRuleEditFlag == true ? g['approvalLevel'].disable() : g['approvalLevel'].enable()">
                 <mat-option *ngFor="let data of getAllActionArray" [value]="data.orderLevel">{{lang == 'en' ? data.approvalLevel : data.m_ApprovalLevel}}</mat-option>
@@ -96,6 +97,7 @@
           </div>
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{'setRule.select_action'|translate}}</mat-label>
               <mat-select formControlName="actionId" placeholder="{{'setRule.select_action'|translate}}" [class]="g['actionId'].disable({ onlySelf: true })">
                 <mat-option *ngFor="let data of getAllActionArray" [value]="data?.id">
                   {{lang == 'en' ? data.actionName : data.m_ActionName}}</mat-option>
@@ -104,6 +106,7 @@
           </div>
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{'common.designation_level'|translate}}</mat-label>
               <mat-select formControlName="departmentLevelId" placeholder="{{'common.designation_level'|translate}}" (selectionChange)="g['designationId'].setValue('');getDesignation()">
                 <mat-option *ngFor="let data of designationLevelArray" [value]="data.id" [disabled]="data.id == 0">
                   {{lang == 'en' ? data.textEnglish : data.textMarathi}}</mat-option>
@@ -112,6 +115,7 @@
           </div>
           <div class="col-sm">
             <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{'common.designation'|translate}}</mat-label>
               <mat-select formControlName="designationId" placeholder="{{'common.designation'|translate}}">
                 <mat-option *ngFor="let data of designationArray" [value]="data.id"
                   [disabled]="data.id == 0">{{lang == 'en' ? data.textEnglish : data.textMarathi}}</mat-option>
