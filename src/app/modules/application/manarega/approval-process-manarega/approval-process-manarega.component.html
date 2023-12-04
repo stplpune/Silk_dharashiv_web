@@ -803,7 +803,7 @@
                   </div>
                   <div
                     *ngIf="approvalFrm.getRawValue()?.applicationStatus == 5 || approvalFrm.getRawValue()?.applicationStatus == 11">
-                    <label class="form-label">{{'approvalProcess.select_reason'| translate}}Select Reason</label>
+                    <label class="form-label">{{'approvalProcess.select_reason'| translate}}</label>
                     <mat-form-field appearance="outline" class="w-100">
                       <mat-select formControlName="reason">
                         <mat-option *ngFor="let reason of reasonArray" [value]="reason?.id">{{lang
@@ -844,19 +844,19 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <textarea matInput placeholder="" formControlName="remark"
                     (keypress)="validation.noFirstSpaceAllow($event)" style="height: 83px;"></textarea>
-                  <!-- <mat-error *ngIf="approvalFrm.controls['remark']?.errors">
+                  <mat-error *ngIf="approvalFrm.controls['remark']?.errors">
                     <span class="text-danger"
                       *ngIf="approvalFrm.controls['remark']?.hasError('maxLengthExceeded')">
                       {{'common.address_maximum_100_character_allowed' | translate }}
                     </span>
-                  </mat-error> -->
-                  <mat-error *ngIf="approvalFrm.controls['remark']?.errors">
+                  </mat-error>
+                  <!-- <mat-error *ngIf="approvalFrm.controls['remark']?.errors">
                     <span class="text-danger"
                       *ngIf="approvalFrm.controls['remark']?.hasError('maxLengthExceeded') || approvalFrm.controls['remark']?.hasError('required')">
                       {{approvalFrm.controls['remark'].hasError('maxLengthExceeded') ? ('common.address_maximum_100_character_allowed' | translate) :
                       ('officerreg.Please_enter_remark'| translate)}}
                     </span>
-                  </mat-error>
+                  </mat-error> -->
                   
                 </mat-form-field>
               </div>

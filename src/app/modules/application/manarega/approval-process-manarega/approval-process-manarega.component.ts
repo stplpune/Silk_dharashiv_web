@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { ActivatedRoute,Router } from '@angular/router';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
@@ -91,7 +91,7 @@ export class ApprovalProcessManaregaComponent {
     this.approvalFrm = this.fb.group({
       "applicationStatus": [''],
       "reason": [0],
-      "remark": ['', [this.validation.maxLengthValidator(100),Validators.required]],
+      "remark": ['', [this.validation.maxLengthValidator(100)]],
       "m_remark": [''],
       "modifiedBy": this.WebStorageService.getUserId()
     })
@@ -413,7 +413,12 @@ export class ApprovalProcessManaregaComponent {
     } else if ((approvalFrmVal.applicationStatus == 11 || approvalFrmVal.applicationStatus == 5) && !approvalFrmVal?.reason) {
       this.commonMethod.snackBar('Application reason is  required', 1);
       return
-    } else if (this.actionNameLabel && !this.uploadedDepDoc && this.applicationData?.isEdit && approvalFrmVal.applicationStatus == 12) {
+    } 
+    else if(!approvalFrmVal?.remark){
+      this.commonMethod.snackBar('Application remark is  required', 1);
+      return
+    }
+    else if (this.actionNameLabel && !this.uploadedDepDoc && this.applicationData?.isEdit && approvalFrmVal.applicationStatus == 12) {
       this.commonMethod.snackBar(this.actionNameLabel + ' document is required', 1);
       return;
     }
