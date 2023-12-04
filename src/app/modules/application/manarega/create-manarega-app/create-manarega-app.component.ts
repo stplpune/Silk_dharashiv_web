@@ -23,6 +23,7 @@ export class CreateManaregaAppComponent {
   farmInfoFrm !: FormGroup;
   farmDeatailsFrm !: FormGroup;
   bankInfoFrm !: FormGroup;
+  otherDocumentFrm !: FormGroup;
   @ViewChild('uplodLogo') clearlogo!: any;
   imageResponse: string = '';
   subscription!: Subscription;//used  for lang conv
@@ -32,6 +33,7 @@ export class CreateManaregaAppComponent {
   checkedArray:any = [{id:true,name:'Yes'},{id:false,name:'No'}];
   selfTrainingArray:any = [{id:true,name:'Send Candidate'},{id:false,name:'MySelf'}];
   displayedColumns = ['srNo','plantName','gutNo','gutArea','cultivatedArea','cultivatedPlantsCount','actions'];
+  plantDisplayedColumns = ['srNo','plantName','gutNo','gutArea','cultivatedArea','cultivatedPlantsCount'];
   qualificationArray = new Array();
   departmentArray = new Array();
   stateArray = new Array();
@@ -59,14 +61,29 @@ export class CreateManaregaAppComponent {
   dataSource :any;
  @ViewChild('formDirective') private formDirective!: NgForm;
   //documnet form variable
-  TestimonialUploadImg = new Array();
-  @ViewChild('testimonialImage') TestimonialImg!: ElementRef;
+  
+  manaregaJobUploadImg = new Array();
+  @ViewChild('manaregaImage') ManaregaImg!: ElementRef;
   @ViewChild('eightAImage') EightAImg!: ElementRef;
   EightAUploadImg = new Array();
   @ViewChild('sevenTweImage') SevenTweImg!: ElementRef;
-  SevenTweUploadImg = new Array();
+  SevenTweUploadImg = new Array(); 
+  @ViewChild('bankPassImage') BankPassImg!: ElementRef;
+  BankPassUploadImg = new Array(); 
+  @ViewChild('otherDocImage') OtherDocImg!: ElementRef;
+  OtherDocUploadImg = new Array(); 
+  documentdisplayedColumns:string[] = ['srNo', 'documentType', 'docNo', 'action'];
   visible:boolean = false;
-  
+  selOtherDocIndex!: number;
+  editOtherDocForm: boolean = false;
+  otherDocArray: any = new Array();
+  @ViewChild('formDirectivess') private otherformDirective!: NgForm;
+  //selfDeckaration form variable
+  selfDeclarationFrm !: FormGroup
+  //preview form variable
+  previewData:any;
+  previewManarega :any;
+
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
     public WebStorageService: WebStorageService,
@@ -88,6 +105,8 @@ export class CreateManaregaAppComponent {
     this.addFarmInfo();
     this.getFarmInfo();
     this.addBankInfo();
+    this.addSelfDeclaration();
+    this.addOtherDocument();
     this.getDepartment();
     this.getQualification();
     this.getState();
@@ -97,6 +116,7 @@ export class CreateManaregaAppComponent {
     this.getCandidateRelation();
     this.getBank();
     this.searchDataZone();
+    this.getPreviewData();
   }
 
   addManaregaFrm() {
@@ -154,10 +174,40 @@ export class CreateManaregaAppComponent {
     })
   }
 
+  addOtherDocument(){
+    this.otherDocumentFrm = this.fb.group({
+      "id": [0],
+      "docNo": [''],
+      "docname": [''],
+      "docPath": ['']
+    })
+  }
+
+  addSelfDeclaration(){
+    this.selfDeclarationFrm = this.fb.group({
+      "isHonestLabor": [false],
+        "isSelfTransport": [false],
+        "isEligibleGettingInstallmentAmount":[false],
+        "isBoundByConditions":[false],
+        "isPayMoreThanLimitedAmt": [false],
+        "isSignedOnLetter":[false],
+        "isChangedAcceptable": [false],
+        "isSchemeCorrectAsPerSatbara": [false],
+        "isJointAccHolderTermAcceptable": [false]
+        // "sm_IsReadyToPlantNewMulberries": true,
+        // "sm_IsHonestlyProtectPlant": true,
+        // "sm_IsRequestForYourPriorConsent": true,
+    })
+  }
+
   get f() {
     return this.manaregaFrm.controls
   }
 
+  onclick()
+  {
+    this.visible = !this.visible
+  }
   
 
   
@@ -197,11 +247,6 @@ export class CreateManaregaAppComponent {
     }
   }
 
-  // patchFarmInfo(obj?: any, index?: number){
-  //   this.index = index;
-  //   this.farmDeatailsEditObj = obj;
-  //   this.getFarmInfo();
-  // }
 
   deleteFarmInfo(i:number){
     this.farmDetails.splice(i,1);
@@ -255,23 +300,31 @@ export class CreateManaregaAppComponent {
           let fileName = res.responseData.split('/');
           let imageName = fileName.pop();
           console.log("imageName",imageName)
+           if (photoName == 'OtherDocImg') {
+            this.otherDocumentFrm.controls['docPath'].setValue(res.responseData)
+          } 
+          //let otherForm = this.otherDocumentFrm.getRawValue();
+          else{
            documentObj = {
             "id": 0,
-            "applicationId": 0,
-            "docTypeId":photoName == 'testimonialImg' ? 12 : photoName == 'EightAImg' ?  19 : photoName == 'SevenTweImg' ?  18 : 11,
-            "docNo": "string",
+            "applicationId":this.getId  || 0,//remove 0
+            "docTypeId":photoName == 'manaregaJobImg' ? 12 : photoName == 'EightAImg' ?  19 : photoName == 'SevenTweImg' ?  18 :photoName == 'BankPassImg' ? 11 : '',//7
+            "docNo":'',
             "docname": imageName,
             "docPath": res.responseData,
             "createdBy": 0,
-            "isDeleted": true
+            // "isDeleted": true
+            "isDeleted": false
           }
-          photoName == 'testimonialImg' ? (this.TestimonialUploadImg.push(documentObj),console.log("this.TestimonialUploadImg",this.TestimonialUploadImg), this.TestimonialImg.nativeElement.value = '') :
+          photoName == 'manaregaJobImg' ? (this.manaregaJobUploadImg.push(documentObj),console.log("this.manaregaJobUploadImg",this.manaregaJobUploadImg), this.ManaregaImg.nativeElement.value = '') :
            photoName == 'EightAImg' ? (this.EightAUploadImg.push(documentObj),console.log("this.EightAUploadImg",this.EightAUploadImg), this.EightAImg.nativeElement.value = '') :
-           photoName == 'SevenTweImg' ? (this.SevenTweUploadImg.push(documentObj), this.SevenTweImg.nativeElement.value = '') :
-         //  photoName == 'clamImg' ? (this.claimImageArr.push(documentObj), this.clamImg.nativeElement.value = '') :
+           photoName == 'SevenTweImg' ? (this.SevenTweUploadImg.push(documentObj),console.log("this.SevenTweUploadImg",this.SevenTweUploadImg), this.SevenTweImg.nativeElement.value = '') :
+           photoName == 'BankPassImg' ? (this.BankPassUploadImg.push(documentObj),console.log("this.BankPassUploadImg",this.BankPassUploadImg),  this.BankPassImg.nativeElement.value = '') :
+           //photoName == 'OtherDocImg' ? (this.OtherDocUploadImg.push(documentObj),console.log("this.OtherDocUploadImg",this.OtherDocUploadImg),  this.OtherDocImg.nativeElement.value = '') :
    
           this.commonMethod.snackBar(res.statusMessage, 0)
         }
+      }
       },
       error: ((error: any) => {
         this.spinner.hide();
@@ -284,8 +337,8 @@ export class CreateManaregaAppComponent {
   }
 
   deleteImges(photoName: string, i: number) {
-    if (photoName == 'testimonialImg') {
-      this.TestimonialUploadImg.splice(i, 1);
+    if (photoName == 'manaregaJobImg') {
+      this.manaregaJobUploadImg.splice(i, 1);
     } 
     else if (photoName == 'EightAImg') {
       this.EightAUploadImg.splice(i, 1);
@@ -293,7 +346,111 @@ export class CreateManaregaAppComponent {
     else if (photoName == 'SevenTweImg') {
       this.SevenTweUploadImg.splice(i, 1);
     }
-   }
+    else if (photoName == 'BankPassImg') {
+      this.BankPassUploadImg.splice(i, 1);
+    }
+    }
+
+    deleteOtherDocument(){
+      this.OtherDocImg.nativeElement.value = '';
+      this.otherDocumentFrm.controls['docPath'].setValue('');
+    }
+
+   onOtherDocSubmit() {
+    let uploadFrmValue = this.otherDocumentFrm.getRawValue();
+    console.log(" uploadFrmValue", uploadFrmValue)
+    if (!uploadFrmValue?.docname) {
+      this.commonMethod.snackBar('Document name is  required', 1);
+      return
+    } else if (!uploadFrmValue?.docNo) {
+      this.commonMethod.snackBar('Document number is  required', 1);
+      return
+    } else if (!uploadFrmValue?.docPath) {
+      this.commonMethod.snackBar('Document path is  required', 1);
+      return
+    }
+    else {
+      let obj = {
+        "id": 0,
+        "applicationId": 0,//remove 0
+        "docTypeId":7,
+        "docNo":uploadFrmValue.docNo,
+        "docname": uploadFrmValue.docname,
+        "docPath": uploadFrmValue.docPath,
+        "createdBy": 0,
+        "isDeleted": false
+      }
+    if (!this.editOtherDocForm) {
+        this.OtherDocUploadImg.push(obj);
+      } else {
+        this.OtherDocUploadImg[this.selOtherDocIndex] = obj;
+        this.editOtherDocForm = false;
+      }
+      this.otherDocArray = new MatTableDataSource(this.OtherDocUploadImg);
+      this.resetOtherDocForm();
+    }
+  }
+
+  resetOtherDocForm() {
+    this.otherformDirective.resetForm();
+    this.deleteImages()
+
+  }
+
+  deleteImages() {
+    this.OtherDocImg.nativeElement.value = "";
+  }
+
+  editOtherDoc(ele: any) {
+    this.editOtherDocForm = true;
+    this.selOtherDocIndex = this.commonMethod.findIndexOfArrayObject(this.OtherDocUploadImg, 'id', ele.id)
+    this.otherDocumentFrm = this.fb.group({
+      "id": [ele.id],
+      "docNo": [ele.docNo],
+      "docname": [ele.docname],
+      "docPath": [ele.docPath]
+    });
+    // ele.docPath ? this.imageData = ele.docPath:'';
+  }
+
+  deleteTableOtherDocument(i: any) {
+    this.OtherDocUploadImg.splice(i,1)
+    
+    this.otherDocArray = new MatTableDataSource( this.OtherDocUploadImg);
+  }
+
+
+getPreviewData(){
+  this.apiService.setHttp('get','sericulture/api/Application/application-preview?Id=16&AadharNo=675676564545&MobileNo=8765456789&lan=en',false,false,false,'masterUrl');
+  this.apiService.getHttp().subscribe({
+    next:((res:any)=>{
+      if(res.statusCode == "200"){
+          this.previewData = res.responseData;
+          console.log("vvvvvvvvvvvvvv",this.previewData.categoryOfBeneficiaries)
+          let documentArray = new Array()
+          documentArray = res.responseData?.documents;
+
+          documentArray.map((document:any) => {
+            if(document.docId == 12){
+              this.previewManarega =  this.previewManarega?.push(document);
+             
+            }
+            console.log(" this.previewManarega", this.previewManarega)
+            // const docId = 12;
+            
+          });
+
+          // console.log("this.previewData?.appDoc",this.previewData.documents )
+          // this.previewManarega = documentArray.filter((res: any) => res.docTypeId == 12);
+          //console.log("this.previewManarega",this.previewManarega)
+          }
+      
+      else{
+        this.previewData = [];
+      }
+    })
+  })
+}
 
 
   onSubmit(flag?:any) {
@@ -305,6 +462,9 @@ export class CreateManaregaAppComponent {
       //let farmDetails=this.farmDeatailsFrm.getRawValue();
       let farmInfo = this.farmInfoFrm.getRawValue();
         let bankInfo=this.bankInfoFrm.getRawValue();
+        let declarationInfo=this.selfDeclarationFrm.getRawValue();
+        console.log("declarationInfo",declarationInfo)
+        let mergeDocumentArray = [...this.OtherDocUploadImg,...this.manaregaJobUploadImg,...this.EightAUploadImg,...this.SevenTweUploadImg,...this.BankPassUploadImg];
       console.log("farmInfo",farmInfo)
       let obj ={
         "id": flag == 'farmerInfo' ? formData.id : this.getId,
@@ -314,7 +474,7 @@ export class CreateManaregaAppComponent {
         "profilePhotoPath": formData.profilePhotoPath,
         "fullName": formData.fullName,
         "m_FullName": formData.fullName,//enter marathi name
-        "mn_DepartmentId":formData.mn_DepartmentId,
+        "mn_DepartmentId":Number(formData.mn_DepartmentId),
         "mobileNo1":formData.mobileNo1,
         "mobileNo2": formData.mobileNo2,
         "aadharNo": formData.aadharNo,
@@ -330,14 +490,6 @@ export class CreateManaregaAppComponent {
         "m_Address":formData.address,
         "pinCode":formData.pinCode,
         "mn_JobCardNo":formData.mn_JobCardNo,
-
-
-
-
-
-
-
-       
         "sm_VoterRegistrationNo": "string",
         "sm_IsBelowPovertyLine": true,
         "benificiaryTotalFarm": Number(farmInfo.benificiaryTotalFarm) || 0,
@@ -381,34 +533,34 @@ export class CreateManaregaAppComponent {
         "bankIFSCCode": bankInfo.bankIFSCCode,
         "bankAccountNo": bankInfo.bankAccountNo,
         "isHonestlyProtectPlant": true,
-        "isHonestLabor": true,
-        "isSelfTransport": true,
-        "isEligibleGettingInstallmentAmount": true,
-        "isBoundByConditions": true,
-        "isPayMoreThanLimitedAmt": true,
-        "isSignedOnLetter": true,
-        "isChangedAcceptable": true,
-        "isSchemeCorrectAsPerSatbara": true,
-        "isJointAccHolderTermAcceptable": true,
+        "isHonestLabor": declarationInfo.isHonestLabor,
+        "isSelfTransport": declarationInfo.isSelfTransport,
+        "isEligibleGettingInstallmentAmount": declarationInfo.isEligibleGettingInstallmentAmount,
+        "isBoundByConditions": declarationInfo.isBoundByConditions,
+        "isPayMoreThanLimitedAmt": declarationInfo.isPayMoreThanLimitedAmt,
+        "isSignedOnLetter": declarationInfo.isSignedOnLetter,
+        "isChangedAcceptable": declarationInfo.isChangedAcceptable,
+        "isSchemeCorrectAsPerSatbara": declarationInfo.isSchemeCorrectAsPerSatbara,
+        "isJointAccHolderTermAcceptable":declarationInfo.isJointAccHolderTermAcceptable,
         "sm_IsReadyToPlantNewMulberries": true,
         "sm_IsHonestlyProtectPlant": true,
         "sm_IsRequestForYourPriorConsent": true,
         "registrationFeeReceiptPath": "string",
         "createdBy": 0,
-        "flag": flag == 'farmerInfo' ? 0 : flag == 'farmInfo'? 2 : flag == 'bankInfo' ?  3 : 4,
+        "flag": flag == 'farmerInfo' ? 0 : flag == 'farmInfo'? 2 : flag == 'bankInfo' ?  3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : 7,
         "isUpdate": true,
-        "appDoc": [
-          {
-            "id": 0,
-            "applicationId": 0,
-            "docTypeId": 0,
-            "docNo": "string",
-            "docname": "string",
-            "docPath": "string",
-            "createdBy": 0,
-            "isDeleted": true
-          }
-        ],
+        "appDoc": mergeDocumentArray,
+        // [{
+        //     "id": 0,
+        //     "applicationId": 0,
+        //     "docTypeId": 0,
+        //     "docNo": "string",
+        //     "docname": "string",
+        //     "docPath": "string",
+        //     "createdBy": 0,
+        //     "isDeleted": true
+        //   }
+        // ],
         "categoryId": this.checkedItems.map((x:any)=>{return x.id}),
         "plantingDetails": this.farmDetails,
         "internalSchemes": [

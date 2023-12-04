@@ -5,567 +5,557 @@
     <div class="text-main">Manarega Application</div>
   </mat-card-header>
   <mat-card-content class=" card-body form-container">
-   <mat-stepper  #stepper>
+    <mat-stepper #stepper>
       <mat-step>
         <ng-template matStepLabel>मूळ तपशील</ng-template>
         <form [formGroup]="manaregaFrm">
-        <div class="container-fluid">
-          <!-- <div class="container"> -->
-          <div class="row gx-2 mb-2">
-            <!-- <div class="col-sm-2">
+          <div class="container-fluid">
+            <!-- <div class="container"> -->
+            <div class="row gx-2 mb-2">
+              <!-- <div class="col-sm-2">
               <img src="https://demosilkapi.mahamining.com/Upload/profilePhoto/Farmer.png" alt="Applicant image"
                 class="img-fluid">
             </div> -->
-            <div class="col-sm-2">
-              <mat-label class="form-label">Applicant Image</mat-label>
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                  data-placement="right" (click)="uplodLogo.click()">
-                  Applicant Image Upload
-                </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.png" id="real-file" hidden="hidden"
-                  (change)="imageUplod($event)" />
-                <div class="d-flex gap-2" *ngIf="imageResponse">
-                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view" (click)="viewimage()">
-                    <mat-icon class="material-symbols-rounded">
-                      preview
-                    </mat-icon>
+              <div class="col-sm-2">
+                <mat-label class="form-label">Applicant Image</mat-label>
+                <div class="file-upload border rounded-2 p-1">
+                  <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                    data-placement="right" (click)="uplodLogo.click()">
+                    Applicant Image Upload
                   </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete" (click)="deleteImage()">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
+                  <input type="file" #uplodLogo accept=".jpg,.jpeg,.png" id="real-file" hidden="hidden"
+                    (change)="imageUplod($event)" />
+                  <div class="d-flex gap-2" *ngIf="imageResponse">
+                    <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+                      matTooltip="view" (click)="viewimage()">
+                      <mat-icon class="material-symbols-rounded">
+                        preview
+                      </mat-icon>
+                    </button>
+                    <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                      matTooltip="delete" (click)="deleteImage()">
+                      <mat-icon class="material-symbols-rounded">
+                        delete
+                      </mat-icon>
+                    </button>
+                  </div>
                 </div>
+                <mat-error *ngIf="viewMsgFlag && !imageResponse">{{lang == 'en' ? "Please Add Applicant Image" : "कृपया अर्जदाराची प्रतिमा जोडा"}} </mat-error>
               </div>
-              <mat-error *ngIf="viewMsgFlag && !imageResponse">{{lang == 'en' ? "Please Add  Applicant Image" : "कृपया अर्जदाराची प्रतिमा जोडा"}} </mat-error>
-            </div>
-            <div class="col-sm">
+              <div class="col-sm">
 
-              <div class="row gy-2 gx-2 align-items-center ">
-                <div class="col-sm-6">
+                <div class="row gy-2 gx-2 align-items-center ">
+                  <div class="col-sm-6">
                     <div class="form-label">Mobile Number</div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <!-- <mat-label>Favorite food</mat-label> -->
-                        <input matInput placeholder="" formControlName="mobileNo1" (keypress)="validation.noFirstSpaceAllow($event)">
+                        <input matInput placeholder="" formControlName="mobileNo1"
+                          (keypress)="validation.noFirstSpaceAllow($event)">
                       </mat-form-field>
                     </div>
-                </div>
-                <div class="col-sm-6">
+                  </div>
+                  <div class="col-sm-6">
                     <div class="form-label">Aadhar Number</div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <!-- <mat-label>Favorite food</mat-label> -->
-                        <input matInput placeholder="" formControlName="aadharNo" (keypress)="validation.noFirstSpaceAllow($event)">
+                        <input matInput placeholder="" formControlName="aadharNo"
+                          (keypress)="validation.noFirstSpaceAllow($event)">
                       </mat-form-field>
                     </div>
+                  </div>
+
                 </div>
 
               </div>
-
-            </div>
-            <div class="row gx-2 p-0 align-items-center">
-              <div class="col-sm-6">
-                <div class="form-label"> 1. Applicant Name</div>
-                <div class="form-label">
+              <div class="row gx-2 p-0 align-items-center">
+                <div class="col-sm-6">
+                  <div class="form-label"> 1. Applicant Name</div>
+                  <div class="form-label">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <input matInput placeholder="" formControlName="fullName"
+                        (keypress)="validation.noFirstSpaceAllow($event)">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-label">2. माझ्या शेतीवर रेशीम विकास योजने अंतर्गत तुति लागवड विभाग मार्फत करण्यात
+                    यावी
+                    (कोणतेही १ निवडा )</div>
                   <mat-form-field appearance="outline" class="w-100">
-                    <!-- <mat-label>Favorite food</mat-label> -->
-                    <input matInput placeholder="" formControlName="fullName"  (keypress)="validation.noFirstSpaceAllow($event)">
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="form-label">2. माझ्या शेतीवर रेशीम विकास योजने अंतर्गत तुति लागवड विभाग मार्फत करण्यात
-                  यावी
-                  (कोणतेही १ निवडा )</div>
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-select formControlName="mn_DepartmentId">
+                    <mat-select formControlName="mn_DepartmentId">
                       <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang == 'en' ?
                         department.textEnglish : department.textMarathi}}</mat-option>
                     </mat-select>
-                </mat-form-field>
+                  </mat-form-field>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row gx-2 align-items-center">
-            <div class="col-sm-3">
-              <div class="form-label">3. पर्यायी मोबाइल क्रमांक</div>
-              <div class="form-label">
+            <div class="row gx-2 align-items-center">
+              <div class="col-sm-3">
+                <div class="form-label">3. पर्यायी मोबाइल क्रमांक</div>
+                <div class="form-label">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <!-- <mat-label>Favorite food</mat-label> -->
+                    <input matInput placeholder="" formControlName="mobileNo2"
+                      (keypress)="validation.noFirstSpaceAllow($event)">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <mat-label class="form-label">4. जन्मतारीख</mat-label>
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput [matDatepicker]="picker" formControlName="birthDate" (click)="picker.open()" readonly
+                    [max]="maxDate">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <div class="d-flex align-items-center gap-3">
+                  <mat-label class="form-label">5. लिंग निवडा</mat-label>
+                  <mat-radio-group aria-label="Select an option" formControlName="gender">
+                    <mat-radio-button *ngFor="let gen of genderArray" [value]="gen.id">{{gen.name }}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-label">6. शिक्षण</div>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select formControlName="qualificationId">
+                    <mat-option *ngFor="let qua of qualificationArray" [value]="qua.id">{{lang != 'en' ? qua.textMarathi
+                      :
+                      qua.textEnglish}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-label">7. राज्य</div>
+                <mat-form-field appearance="outline" class="w-100">
+                  <!-- <mat-label>{{'common.state' | translate}}</mat-label> -->
+                  <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
+                    [class]="WebStorageService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
+                    <mat-option *ngFor="let state of stateArray" [value]="state.id">{{lang != 'en' ? state.textMarathi :
+                      state.textEnglish}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-label">8. जिल्हा</div>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
+                    [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
+                    <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
+                      district.textMarathi : district.textEnglish}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-label">9. तालुका</div>
+                <mat-form-field appearance="outline" class="w-100">
+                  <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
+                  <mat-select formControlName="talukaId"
+                    [class]="WebStorageService.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })"
+                    (selectionChange)="clearDropdown('taluka');getGrampanchayat()">
+                    <mat-option>
+                      <ngx-mat-select-search [formControl]="talukaCtrl"
+                        placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
+                        noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ?
+                      taluka.textMarathi
+                      :taluka.textEnglish}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="f['talukaId']?.hasError('required')">{{'common.Please_select_taluka'|translate}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-label">10. ग्रामपंचायत</div>
+                <mat-form-field appearance="outline" class="w-100">
+                  <!-- <mat-label>{{'officerreg.select_grampanchayat' | translate}}</mat-label> -->
+                  <mat-select formControlName="grampanchayatId"
+                    [class]="WebStorageService.getGrampanchayatId() || !manaregaFrm.getRawValue()?.talukaId ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
+                    <mat-option>
+                      <ngx-mat-select-search [formControl]="gramPCtrl"
+                        placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                        noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?
+                      village.textMarathi : village.textEnglish}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="f['grampanchayatId']?.hasError('required')">
+                    {{'officerreg.please_select_grampanchayat'|translate}} </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-label">11. गाव</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>Favorite food</mat-label> -->
-                  <input matInput placeholder="" formControlName="mobileNo2" (keypress)="validation.noFirstSpaceAllow($event)">
+                  <input matInput placeholder="" formControlName="village"
+                    (keypress)="validation.noFirstSpaceAllow($event)">
                 </mat-form-field>
               </div>
-            </div>
-            <div class="col-sm-3">
-              <mat-label class="form-label">4. जन्मतारीख</mat-label>
-              <mat-form-field appearance="outline" class="w-100">
-                <input matInput [matDatepicker]="picker" formControlName="birthDate" (click)="picker.open()" readonly
-                [max]="maxDate">
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-              <div class="d-flex align-items-center gap-3">
-                <mat-label class="form-label">5. लिंग निवडा</mat-label>
-               <mat-radio-group aria-label="Select an option" formControlName="gender">
-                <mat-radio-button *ngFor="let gen of genderArray"
-                    [value]="gen.id">{{gen.name }}
-                </mat-radio-button>
-            </mat-radio-group>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-label">6. शिक्षण</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="qualificationId">
-                <mat-option *ngFor="let qua of qualificationArray" [value]="qua.id">{{lang != 'en' ?  qua.textMarathi :
-                   qua.textEnglish}}</mat-option>
-              </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-label">7. राज्य</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <!-- <mat-label>{{'common.state' | translate}}</mat-label> -->
-                <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
-                  [class]="WebStorageService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
-                  <mat-option *ngFor="let state of stateArray" [value]="state.id">{{lang != 'en' ? state.textMarathi :
-                    state.textEnglish}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-label">8. जिल्हा</div>
-              <mat-form-field appearance="outline" class="w-100">
-              <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
-              [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
-              <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
-                district.textMarathi : district.textEnglish}}
-              </mat-option>
-            </mat-select>
-            </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-label">9. तालुका</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
-                <mat-select formControlName="talukaId"
-                [class]="WebStorageService.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })"
-                  (selectionChange)="clearDropdown('taluka');getGrampanchayat()">
-                  <mat-option>
-                    <ngx-mat-select-search [formControl]="talukaCtrl"
-                      placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
-                      noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
-                  </mat-option>
-                  <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi
-                    :taluka.textEnglish}}</mat-option>
-                </mat-select>
-                <mat-error *ngIf="f['talukaId']?.hasError('required')">{{'common.Please_select_taluka'|translate}}
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-label">10. ग्रामपंचायत</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <!-- <mat-label>{{'officerreg.select_grampanchayat' | translate}}</mat-label> -->
-                <mat-select formControlName="grampanchayatId"
-                [class]="WebStorageService.getGrampanchayatId() || !manaregaFrm.getRawValue()?.talukaId ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
-                  <mat-option>
-                    <ngx-mat-select-search [formControl]="gramPCtrl"
-                      placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
-                      noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
-                  </mat-option>
-                  <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?
-                    village.textMarathi : village.textEnglish}}</mat-option>
-                </mat-select>
-                <mat-error *ngIf="f['grampanchayatId']?.hasError('required')">
-                  {{'officerreg.please_select_grampanchayat'|translate}} </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-label">11. गाव</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <!-- <mat-label>Favorite food</mat-label> -->
-                <input matInput placeholder="" formControlName="village" (keypress)="validation.noFirstSpaceAllow($event)">
-              </mat-form-field>
-            </div>
 
-            <div class="col-sm-3">
-              <div class="form-label">12. पिन कोड </div>
-              <div class="form-label">
+              <div class="col-sm-3">
+                <div class="form-label">12. पिन कोड </div>
+                <div class="form-label">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <!-- <mat-label>Favorite food</mat-label> -->
+                    <input matInput placeholder="" formControlName="pinCode"
+                      (keypress)="validation.noFirstSpaceAllow($event)">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-label">13. मनरेगा जॉब कार्ड क्र</div>
+                <div class="form-label">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <!-- <mat-label>Favorite food</mat-label> -->
+                    <input matInput placeholder="" formControlName="mn_JobCardNo"
+                      (keypress)="validation.noFirstSpaceAllow($event)">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <mat-label>14. पत्ता</mat-label>
                 <mat-form-field appearance="outline" class="w-100">
-                  <!-- <mat-label>Favorite food</mat-label> -->
-                  <input matInput placeholder="" formControlName="pinCode" (keypress)="validation.noFirstSpaceAllow($event)">
+                  <textarea matInput placeholder="" formControlName="address"></textarea>
                 </mat-form-field>
               </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-label">13. मनरेगा जॉब कार्ड क्र</div>
-              <div class="form-label">
+              <div class="col-sm-6">
+                <div class="form-label">15. लाभर्त्याची वर्गवारी</div>
                 <mat-form-field appearance="outline" class="w-100">
-                  <!-- <mat-label>Favorite food</mat-label> -->
-                  <input matInput placeholder="" formControlName="mn_JobCardNo" (keypress)="validation.noFirstSpaceAllow($event)"> 
+                  <mat-select (click)="categoryDialogBox()" formControlName="categoryId">
+                  </mat-select>
                 </mat-form-field>
               </div>
-            </div>
-            <div class="col-sm-3">
-              <mat-label>14. पत्ता</mat-label>
-              <mat-form-field appearance="outline" class="w-100">
-                <textarea matInput placeholder="" formControlName="address"></textarea>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-6">
-              <div class="form-label">15. लाभर्त्याची वर्गवारी</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select (click)="categoryDialogBox()" formControlName="categoryId">
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div *ngIf="checkedItems.length">
-              <div class="form-label">Cast Category</div>
-              <div class="form-data mb-0" *ngFor="let data of checkedItems;let i=index">
-                {{(i+1)+". "+(data.textEnglish)}}
+              <div *ngIf="checkedItems.length">
+                <div class="form-label">Cast Category</div>
+                <div class="form-data mb-0" *ngFor="let data of checkedItems;let i=index">
+                  {{(i+1)+". "+(data.textEnglish)}}
+                </div>
               </div>
-            </div>
-            <!-- <ol *ngFor = "let data of checkedItems;let i=index" class="list-unstyled">
-             <li>{{i}}{{ data.textEnglish }}</li>
-            </ol> -->
+             </div>
+           
           </div>
-          <!-- </div> -->
-        </div>
-        <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-          <button mat-button matStepperNext class="btn-main" type="button" (click)="onSubmit('farmerInfo')">Next</button>
-        </div>
+          <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+            <button mat-button matStepperNext class="btn-main" type="button"
+              (click)="onSubmit('farmerInfo')">Next</button>
+          </div>
         </form>
       </mat-step>
 
-       <mat-step>
+      <mat-step>
         <ng-template matStepLabel>जमीन तपशील</ng-template>
         <form [formGroup]="farmInfoFrm">
-        <div class="container-fluid">
-          <div class="row align-items-center">
-            <div class="col-sm-4">
-              <div class="form-label"> 16. लाभरट्याच्या नावे (8-A )प्रमाणे एकूण जमीन हेक्टर (2.0 हेक्टर पर्यंत) </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder=""  formControlName="benificiaryTotalFarm">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label"> 17. लागवडीचा भुयामापन क्रमांक </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder=""  formControlName="mulberryCultivatedSurveyNo">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label"> 17. लागवडीचा क्षेत्र हेक्टर (मुद्दा क्रमांक 16 पेक्षा जसता नसावे) </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder=""  formControlName="cultivatedFarmInHector">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="d-flex align-items-center gap-3">
-                <mat-label class="form-label">19. संयुक्तखातेदार आहात का ?</mat-label>
-                <!-- <mat-radio-group aria-label="Select an option"  formControlName="isJointAccHolder">
-                  <mat-radio-button class="pe-3" value="1" checked="true">होय</mat-radio-button>
-                  <mat-radio-button class="pe-3" value="2">नाही</mat-radio-button>
-                </mat-radio-group> -->
-                <mat-radio-group aria-label="Select an option" class="pb-0"
-                formControlName="isAnyPlantedBeforeGovScheme">
-                <mat-radio-button *ngFor="let arr of checkedArray"  [value]="arr.id" class="pe-3">
-                {{arr.name }}
-                </mat-radio-button>
-                </mat-radio-group>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label"> 19.A. अर्जदारच्या हिष्याचे प्रमानुसार लागवड करवायच्या जमिनीचे भुमपण क्रमांक
-              </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder=""  formControlName="applicantFarmSurveyNo">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label"> 19.B. त्याचे क्षेत्र (हेक्टर) (मुद्दा क्रमांक 16 पेक्षा जसता नसावे व 19 पेक्षा
-                कमी नसावे) </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder=""  formControlName="applicantFarmArea">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">20. जमिनीचा प्रकार</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="farmTypeId">
-                  <mat-option *ngFor="let farm of farmTypeArray" [value]="farm.id">{{lang != 'en' ?  farm.textMarathi :
-                     farm.textEnglish}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">21. सिंचांनाची सुविधा</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="irrigationFacilityId">
-                  <mat-option *ngFor="let irrigation of irrigationFacilityArray" [value]="irrigation.id">{{lang != 'en' ?  irrigation.textMarathi :
-                     irrigation.textEnglish}}</mat-option>
-                </mat-select>
-                <!-- <mat-select  formControlName="irrigationFacilityId">
-                  <mat-option>विहीर</mat-option>
-                  <mat-option>बोरवेल</mat-option>
-                  <mat-option>नदी</mat-option>
-                  <mat-option>कालवा</mat-option>
-                  <mat-option>पाट</mat-option>
-                  <mat-option>धरण</mat-option>
-                  <mat-option>इतर</mat-option>
-                  <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="इतर इथे लिहा">
-                  </mat-form-field>
-                </mat-select> -->
-              </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-              <mat-label class="form-label">22. रोजगार हमी व्यतिरिक्त इतर शासकीय योजनेचे अंतर्गत पूर्वा फलबाग/ फुलपिके/
-                वृक्ष केली आहे का ?</mat-label>
-              <div class="">
-                <!-- <mat-radio-group aria-label="Select an option"  formControlName="isAnyPlantedBeforeGovScheme">
-                  <mat-radio-button class="pe-3" value="1" checked="true">होय</mat-radio-button>
-                  <mat-radio-button class="pe-3" value="2">नाही</mat-radio-button>
-                </mat-radio-group> -->
-                <mat-radio-group aria-label="Select an option" class="pb-0"
-                formControlName="isAnyPlantedBeforeGovScheme">
-                <mat-radio-button *ngFor="let arr of checkedArray"  [value]="arr.id" class="pe-3">
-                {{arr.name }}
-                </mat-radio-button>
-                </mat-radio-group>
-              </div>
-            </div>
-          </div>
-          <div class="card card-body my-4">
-            <form [formGroup]="farmDeatailsFrm" #formDirective="ngForm">
-           
+          <div class="container-fluid">
             <div class="row align-items-center">
               <div class="col-sm-4">
-                <div class="form-label">22.A. फलबागचे/ फुलबाग/ वृक्ष नाव </div>
+                <div class="form-label"> 16. लाभरट्याच्या नावे (8-A )प्रमाणे एकूण जमीन हेक्टर (2.0 हेक्टर पर्यंत) </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="plantName">
+                    <input matInput placeholder="" formControlName="benificiaryTotalFarm">
                   </mat-form-field>
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">22.B. गट क्रमांक </div>
+                <div class="form-label"> 17. लागवडीचा भुयामापन क्रमांक </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="gutNo">
+                    <input matInput placeholder="" formControlName="mulberryCultivatedSurveyNo">
                   </mat-form-field>
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">22.C. गटाचे क्षेत्र (हेक्टर) </div>
+                <div class="form-label"> 17. लागवडीचा क्षेत्र हेक्टर (मुद्दा क्रमांक 16 पेक्षा जसता नसावे) </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="gutArea">
+                    <input matInput placeholder="" formControlName="cultivatedFarmInHector">
                   </mat-form-field>
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">22.D. लागवड क्षेत्र (हेक्टर) </div>
+                <div class="d-flex align-items-center gap-3">
+                  <mat-label class="form-label">19. संयुक्तखातेदार आहात का ?</mat-label>
+                  <!-- <mat-radio-group aria-label="Select an option"  formControlName="isJointAccHolder">
+                  <mat-radio-button class="pe-3" value="1" checked="true">होय</mat-radio-button>
+                  <mat-radio-button class="pe-3" value="2">नाही</mat-radio-button>
+                </mat-radio-group> -->
+                  <mat-radio-group aria-label="Select an option" class="pb-0"
+                    formControlName="isAnyPlantedBeforeGovScheme">
+                    <mat-radio-button *ngFor="let arr of checkedArray" [value]="arr.id" class="pe-3">
+                      {{arr.name }}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-label"> 19.A. अर्जदारच्या हिष्याचे प्रमानुसार लागवड करवायच्या जमिनीचे भुमपण क्रमांक
+                </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="cultivatedArea">
+                    <input matInput placeholder="" formControlName="applicantFarmSurveyNo">
                   </mat-form-field>
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">22.E. लागवड केलेल्या झाडांची संख्या </div>
+                <div class="form-label"> 19.B. त्याचे क्षेत्र (हेक्टर) (मुद्दा क्रमांक 16 पेक्षा जसता नसावे व 19 पेक्षा
+                  कमी नसावे) </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="cultivatedPlantsCount">
+                    <input matInput placeholder="" formControlName="applicantFarmArea">
                   </mat-form-field>
                 </div>
               </div>
               <div class="col-sm-4">
-                <button mat-flat-button class="btn-main" (click)="onAddFarmInfo()">आणखी तपशील जोडा</button>
+                <div class="form-label">20. जमिनीचा प्रकार</div>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select formControlName="farmTypeId">
+                    <mat-option *ngFor="let farm of farmTypeArray" [value]="farm.id">{{lang != 'en' ? farm.textMarathi :
+                      farm.textEnglish}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
-             </div>
-            </form>
-           
-            <div class="table-responsive scrollbar">
-              <table mat-table [dataSource] = "dataSource" class="dashboard-table">
+              <div class="col-sm-4">
+                <div class="form-label">21. सिंचांनाची सुविधा</div>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select formControlName="irrigationFacilityId">
+                    <mat-option *ngFor="let irrigation of irrigationFacilityArray" [value]="irrigation.id">{{lang !=
+                      'en' ? irrigation.textMarathi :
+                      irrigation.textEnglish}}</mat-option>
+                  </mat-select>
+                 
+</mat-form-field>
+              </div>
+              <div class="col-sm-4">
+                <mat-label class="form-label">22. रोजगार हमी व्यतिरिक्त इतर शासकीय योजनेचे अंतर्गत पूर्वा फलबाग/
+                  फुलपिके/
+                  वृक्ष केली आहे का ?</mat-label>
+                <div class="">
+                  <!-- <mat-radio-group aria-label="Select an option"  formControlName="isAnyPlantedBeforeGovScheme">
+                  <mat-radio-button class="pe-3" value="1" checked="true">होय</mat-radio-button>
+                  <mat-radio-button class="pe-3" value="2">नाही</mat-radio-button>
+                </mat-radio-group> -->
+                  <mat-radio-group aria-label="Select an option" class="pb-0"
+                    formControlName="isAnyPlantedBeforeGovScheme">
+                    <mat-radio-button *ngFor="let arr of checkedArray" [value]="arr.id" class="pe-3">
+                      {{arr.name }}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+            <div class="card card-body my-4">
+              <form [formGroup]="farmDeatailsFrm" #formDirective="ngForm">
 
-                <ng-container matColumnDef="srNo">
-                  <th mat-header-cell *matHeaderCellDef> Sr No.</th>
-                  <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="plantName">
-                  <th mat-header-cell *matHeaderCellDef> Plant Name </th>
-                  <td mat-cell *matCellDef="let element"> {{element.plantName}} </td>
-                </ng-container>
-              
-                <ng-container matColumnDef="gutNo">
-                  <th mat-header-cell *matHeaderCellDef> Gut No. </th>
-                  <td mat-cell *matCellDef="let element"> {{element.gutNo}} </td>
-                </ng-container>
-              
-                <ng-container matColumnDef="gutArea">
-                  <th mat-header-cell *matHeaderCellDef> Gut Area </th>
-                  <td mat-cell *matCellDef="let element"> {{element.gutArea}} </td>
-                </ng-container>
-              
-                <ng-container matColumnDef="cultivatedArea">
-                  <th mat-header-cell *matHeaderCellDef> Cultivated Area </th>
-                  <td mat-cell *matCellDef="let element"> {{element.cultivatedArea}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="cultivatedPlantsCount">
-                  <th mat-header-cell *matHeaderCellDef> Cultivated Plant Amount </th>
-                  <td mat-cell *matCellDef="let element"> {{element.cultivatedPlantsCount}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="actions">
-                  <th mat-header-cell *matHeaderCellDef> Actions</th>
-                  <td mat-cell *matCellDef="let element;let i = index"> 
-                    <div class="d-flex align-items-center gap-2">
-                        <button matTooltip="{{'common.edit' | translate}}" matTooltipPosition="below" mat-icon-button
-                            class=" btn-icon bg-warning bg-opacity-10">
-                            <!-- (click)="patchFarmInfo(element,i)" -->
-                              <span class="material-symbols-rounded text-warning">
-                                  edit_square
-                              </span>
-                          </button>
-                    
-                         <button matTooltip="{{'common.delete' | translate}}" matTooltipPosition="below" mat-icon-button
-                             class=" btn-icon bg-danger bg-opacity-10" (click)="deleteFarmInfo(i)">
-                              <span class="material-symbols-rounded text-danger">
-                                  delete
-                              </span>
-                          </button>
-                     
+                <div class="row align-items-center">
+                  <div class="col-sm-4">
+                    <div class="form-label">22.A. फलबागचे/ फुलबाग/ वृक्ष नाव </div>
+                    <div class="form-label">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <input matInput placeholder="" formControlName="plantName">
+                      </mat-form-field>
+                    </div>
                   </div>
-                  </td>
-                </ng-container>
+                  <div class="col-sm-4">
+                    <div class="form-label">22.B. गट क्रमांक </div>
+                    <div class="form-label">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <input matInput placeholder="" formControlName="gutNo">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-label">22.C. गटाचे क्षेत्र (हेक्टर) </div>
+                    <div class="form-label">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <input matInput placeholder="" formControlName="gutArea">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-label">22.D. लागवड क्षेत्र (हेक्टर) </div>
+                    <div class="form-label">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <input matInput placeholder="" formControlName="cultivatedArea">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-label">22.E. लागवड केलेल्या झाडांची संख्या </div>
+                    <div class="form-label">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <input matInput placeholder="" formControlName="cultivatedPlantsCount">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <button mat-flat-button class="btn-main" (click)="onAddFarmInfo()">आणखी तपशील जोडा</button>
+                  </div>
+                </div>
+              </form>
+
+              <div class="table-responsive scrollbar">
+                <table mat-table [dataSource]="dataSource" class="dashboard-table">
+
+                  <ng-container matColumnDef="srNo">
+                    <th mat-header-cell *matHeaderCellDef> Sr No.</th>
+                    <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="plantName">
+                    <th mat-header-cell *matHeaderCellDef> Plant Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.plantName}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="gutNo">
+                    <th mat-header-cell *matHeaderCellDef> Gut No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.gutNo}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="gutArea">
+                    <th mat-header-cell *matHeaderCellDef> Gut Area </th>
+                    <td mat-cell *matCellDef="let element"> {{element.gutArea}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="cultivatedArea">
+                    <th mat-header-cell *matHeaderCellDef> Cultivated Area </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cultivatedArea}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="cultivatedPlantsCount">
+                    <th mat-header-cell *matHeaderCellDef> Cultivated Plant Amount </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cultivatedPlantsCount}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Actions</th>
+                    <td mat-cell *matCellDef="let element;let i = index">
+                      <div class="d-flex align-items-center gap-2">
+                        <button matTooltip="{{'common.edit' | translate}}" matTooltipPosition="below" mat-icon-button
+                          class=" btn-icon bg-warning bg-opacity-10">
+                          <!-- (click)="patchFarmInfo(element,i)" -->
+                          <span class="material-symbols-rounded text-warning">
+                            edit_square
+                          </span>
+                        </button>
+
+                        <button matTooltip="{{'common.delete' | translate}}" matTooltipPosition="below" mat-icon-button
+                          class=" btn-icon bg-danger bg-opacity-10" (click)="deleteFarmInfo(i)">
+                          <span class="material-symbols-rounded text-danger">
+                            delete
+                          </span>
+                        </button>
+
+                      </div>
+                    </td>
+                  </ng-container>
 
 
-              
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
-              <div *ngIf="!farmDetails.length" class="alert alert-danger text-center mt-1 py-2 mb-0">
-                <span> {{lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'}}</span>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <div *ngIf="!farmDetails.length" class="alert alert-danger text-center mt-1 py-2 mb-0">
+                  <span> {{lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'}}</span>
+                </div>
               </div>
-               </div>
-        
-          </div>
-          <div class="row">
-            <div class="col-sm-4">
-              <mat-label class="form-label">23. रेशीम उद्योगाचे प्रशिक्षण स्वतः घेणार का उमेदवार पाठवणार ?</mat-label>
-              <div class="">
-                <!-- <mat-radio-group aria-label="Select an option" formControlName="isSelfTraining">
+
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <mat-label class="form-label">23. रेशीम उद्योगाचे प्रशिक्षण स्वतः घेणार का उमेदवार पाठवणार ?</mat-label>
+                <div class="">
+                  <!-- <mat-radio-group aria-label="Select an option" formControlName="isSelfTraining">
                   <mat-radio-button class="pe-3" value="1"> स्वतः घेणार</mat-radio-button>
                   <mat-radio-button class="pe-3" value="2" checked="true"> उमेदवार पाठवणार</mat-radio-button>
                 </mat-radio-group> -->
-                <mat-radio-group aria-label="Select an option" class="pb-0"
-                formControlName="isSelfTraining">
-                <mat-radio-button *ngFor="let arr of selfTrainingArray"  [value]="arr.id" class="pe-3">
-                {{arr.name }}
-                </mat-radio-button>
-                </mat-radio-group>
+                  <mat-radio-group aria-label="Select an option" class="pb-0" formControlName="isSelfTraining">
+                    <mat-radio-button *ngFor="let arr of selfTrainingArray" [value]="arr.id" class="pe-3">
+                      {{arr.name }}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
               </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">23.A. उमेदवारचे नाव </div>
-              <div class="form-label">
+              <div class="col-sm-4">
+                <div class="form-label">23.A. उमेदवारचे नाव </div>
+                <div class="form-label">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput placeholder="" formControlName="candidateName">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-label">23.B. उमेदवाराशी नाते</div>
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="" formControlName="candidateName">
+                  <mat-select formControlName="candidateRelationId">
+                    <mat-option *ngFor="let relation of candidateRelationArray" [value]="relation.id">{{lang != 'en' ?
+                      relation.textMarathi :
+                      relation.textEnglish}}</mat-option>
+                  </mat-select>
                 </mat-form-field>
               </div>
             </div>
-            <div class="col-sm-4" >
-              <div class="form-label">23.B. उमेदवाराशी नाते</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="candidateRelationId">
-                  <mat-option *ngFor="let relation of candidateRelationArray" [value]="relation.id">{{lang != 'en' ?  relation.textMarathi :
-                     relation.textEnglish}}</mat-option>
-                </mat-select>
-                <!-- <mat-select formControlName="candidateRelationId">
-                  <mat-option>भाऊ</mat-option>
-                  <mat-option>बहीण</mat-option>
-                  <mat-option>चुलत भाऊ</mat-option>
-                  <mat-option>काका</mat-option>
-                  <mat-option>मामा</mat-option>
-                  <mat-option>सासरे</mat-option>
-                </mat-select> -->
-              </mat-form-field>
-            </div>
           </div>
-        </div>
 
-        <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-          <button mat-button matStepperPrevious class="btn-main" type="button">Back</button>
-          <button mat-button matStepperNext class="btn-main"  type="button" (click)="onSubmit('farmInfo')">Next</button>
-        </div>
-      </form>
+          <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+            <button mat-button matStepperPrevious class="btn-main" type="button">Back</button>
+            <button mat-button matStepperNext class="btn-main" type="button"
+              (click)="onSubmit('farmInfo')">Next</button>
+          </div>
+        </form>
       </mat-step>
 
       <mat-step>
         <ng-template matStepLabel>बँक तपशील</ng-template>
         <form [formGroup]="bankInfoFrm">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-4">
-              <div class="form-label">24. बँक निवडा</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="bankId" (selectionChange)="getBankBranch()">
-                  <mat-option *ngFor="let bank of bankArray" [value]="bank.id">{{lang != 'en' ?  bank.textMarathi :
-                     bank.textEnglish}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">25. बँक शाखा निवडा</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="bankBranchId">
-                  <mat-option *ngFor="let branch of branchArray" [value]="branch.id">{{lang != 'en' ?  branch.textMarathi :
-                     branch.textEnglish}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">26. आय एफ एस सी कोड </div>
-              <div class="form-label">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-label">24. बँक निवडा</div>
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="" formControlName="bankIFSCCode">
+                  <mat-select formControlName="bankId" (selectionChange)="getBankBranch()">
+                    <mat-option *ngFor="let bank of bankArray" [value]="bank.id">{{lang != 'en' ? bank.textMarathi :
+                      bank.textEnglish}}</mat-option>
+                  </mat-select>
                 </mat-form-field>
               </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">27. राष्ट्रीय बँक खाते क्रमांक </div>
-              <div class="form-label">
+              <div class="col-sm-4">
+                <div class="form-label">25. बँक शाखा निवडा</div>
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="" formControlName="bankAccountNo">
+                  <mat-select formControlName="bankBranchId">
+                    <mat-option *ngFor="let branch of branchArray" [value]="branch.id">{{lang != 'en' ?
+                      branch.textMarathi :
+                      branch.textEnglish}}</mat-option>
+                  </mat-select>
                 </mat-form-field>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-label">26. आय एफ एस सी कोड </div>
+                <div class="form-label">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput placeholder="" formControlName="bankIFSCCode">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-label">27. राष्ट्रीय बँक खाते क्रमांक </div>
+                <div class="form-label">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput placeholder="" formControlName="bankAccountNo">
+                  </mat-form-field>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-          <button mat-button matStepperPrevious class="btn-main">Back</button>
-          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('bankInfo')">Next</button>
-        </div>
+          <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+            <button mat-button matStepperPrevious class="btn-main">Back</button>
+            <button mat-button matStepperNext class="btn-main" (click)="onSubmit('bankInfo')">Next</button>
+          </div>
         </form>
       </mat-step>
 
@@ -574,47 +564,46 @@
         <div class="container-fluid">
           <div class="row align-items-center g-3">
 
-          <div class="col-sm-4">
+            <div class="col-sm-4">
               <div class="form-label">1. मनरेगा जॉब कार्डइथे अपलोड करा (चित्रा किवा पीडीएफ अपलोड करा) </div>
               <div class="file-upload border rounded-2 p-1">
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                 [disabled]="TestimonialUploadImg.length && TestimonialUploadImg[0]?.id > 0 && TestimonialUploadImg[0]?.docTypeId == 12">
-                 File Upload<span class="text-danger fs-6">*</span>
+                  [disabled]="manaregaJobUploadImg.length && manaregaJobUploadImg[0]?.id > 0 && manaregaJobUploadImg[0]?.docTypeId == 12">
+                  File Upload<span class="text-danger fs-6">*</span>
                 </button>
                 <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
-                 [disabled]="TestimonialUploadImg.length && TestimonialUploadImg[0]?.id > 0 && TestimonialUploadImg[0]?.docTypeId == 12"
-                              (change)="fileUpload($event,'testimonialImg')"
-                              #testimonialImage />
-                <div class="d-flex gap-2"  *ngFor="let Testimonial of TestimonialUploadImg;let i = index">
+                  [disabled]="manaregaJobUploadImg.length && manaregaJobUploadImg[0]?.id > 0 && manaregaJobUploadImg[0]?.docTypeId == 12"
+                  (change)="fileUpload($event,'manaregaJobImg')" #manaregaImage />
+                <div class="d-flex gap-2" *ngFor="let Manarega of manaregaJobUploadImg;let i = index">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view"   (click)="viewImages(Testimonial)">
+                    matTooltip="view" (click)="viewImages(Manarega)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
                   <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete" (click)="deleteImges('testimonialImg',i)">
+                    matTooltip="delete" (click)="deleteImges('manaregaJobImg',i)">
                     <mat-icon class="material-symbols-rounded">
                       delete
                     </mat-icon>
                   </button>
                 </div>
               </div>
-            </div> 
+            </div>
 
-          <div class="col-sm-4">
+            <div class="col-sm-4">
               <div class="form-label">2. जमिनीचा 8-अ येथे जोडा </div>
               <div class="file-upload border rounded-2 p-1">
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                [disabled]="EightAUploadImg.length && EightAUploadImg[0]?.id > 0 && EightAUploadImg[0]?.docTypeId == 19">
-                File Upload<span class="text-danger fs-6">*</span>
+                  [disabled]="EightAUploadImg.length && EightAUploadImg[0]?.id > 0 && EightAUploadImg[0]?.docTypeId == 19">
+                  File Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file"  accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" 
-                [disabled]="EightAUploadImg.length && EightAUploadImg[0]?.id > 0 && EightAUploadImg[0]?.docTypeId == 19"
-                 (change)="fileUpload($event,'EightAImg')" #eightAImage/>
-                <div class="d-flex gap-2"  *ngFor="let EightA of EightAUploadImg;let i = index">
+                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
+                  [disabled]="EightAUploadImg.length && EightAUploadImg[0]?.id > 0 && EightAUploadImg[0]?.docTypeId == 19"
+                  (change)="fileUpload($event,'EightAImg')" #eightAImage />
+                <div class="d-flex gap-2" *ngFor="let EightA of EightAUploadImg;let i = index">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view"  (click)="viewImages(EightA)">
+                    matTooltip="view" (click)="viewImages(EightA)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
@@ -635,20 +624,21 @@
               <div class="form-label">2. जमिनीचा 7/12 उतारा येथे अपलोड करा </div>
               <div class="file-upload border rounded-2 p-1">
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                [disabled]="EightAUploadImg.length && EightAUploadImg[0]?.id > 0 && EightAUploadImg[0]?.docTypeId == 18">
-                File Upload<span class="text-danger fs-6">*</span>
+                  [disabled]="SevenTweUploadImg.length && SevenTweUploadImg[0]?.id > 0 && SevenTweUploadImg[0]?.docTypeId == 18">
+                  File Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" 
-                (change)="fileUpload($event,'SevenTweImg')" #sevenTweImage/>
-                <div class="d-flex gap-2">
+                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
+                  [disabled]="SevenTweUploadImg.length && SevenTweUploadImg[0]?.id > 0 && SevenTweUploadImg[0]?.docTypeId == 18"
+                  (change)="fileUpload($event,'SevenTweImg')" #sevenTweImage />
+                <div class="d-flex gap-2" *ngFor="let SevenTwe of SevenTweUploadImg;let i = index">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
+                    matTooltip="view" (click)="viewImages(SevenTwe)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
                   <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
+                    matTooltip="delete" (click)="deleteImges('SevenTweImg',i)">
                     <mat-icon class="material-symbols-rounded">
                       delete
                     </mat-icon>
@@ -661,19 +651,22 @@
             <div class="col-sm-4">
               <div class="form-label">3. बँक पासबूक/ रद्द केलेला चेक अपलोड करा. </div>
               <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                  [disabled]="BankPassUploadImg.length && BankPassUploadImg[0]?.id > 0 && BankPassUploadImg[0]?.docTypeId == 11">File
                   Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
+                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
+                  [disabled]="BankPassUploadImg.length && BankPassUploadImg[0]?.id > 0 && BankPassUploadImg[0]?.docTypeId == 11"
+                  (change)="fileUpload($event,'BankPassImg')" #bankPassImage />
+                <div class="d-flex gap-2" *ngFor="let BankPass of BankPassUploadImg;let i = index">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
+                    matTooltip="view" (click)="viewImages(BankPass)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
                   <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
+                    matTooltip="delete" (click)="deleteImges('BankPassImg',i)">
                     <mat-icon class="material-symbols-rounded">
                       delete
                     </mat-icon>
@@ -684,57 +677,134 @@
 
 
             <div class="col-sm-4">
-              <button mat-flat-button class="btn-main-light" type="button">इतर कागदपत्रे जोडा</button>
+              <button mat-flat-button class="btn-main-light mt-3" type="button" (click)="onclick()">इतर कागदपत्रे
+                जोडा</button>
             </div>
-            <div class="col-sm-4">
-              <div class="form-label">5.A. कागदपत्राचे नाव </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">5.B. क्रमांक </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">Other
-                  docx File
-                  Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
-                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
-                    <mat-icon class="material-symbols-rounded">
-                      preview
-                    </mat-icon>
-                  </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
+            <ng-container *ngIf="visible">
+              <div class="card card-body mb-4">
+                <div class="container-fluid">
+                  <form [formGroup]="otherDocumentFrm" #formDirectivess="ngForm">
+                    <div class="row g-2 row g-2 align-items-center">
+                      <div class="col-sm-3">
+                        <div class="form-label">5.A. कागदपत्राचे नाव </div>
+                        <div class="form-label">
+                          <mat-form-field appearance="outline" class="w-100">
+                            <input matInput placeholder="" formControlName="docname">
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="form-label">5.B. क्रमांक </div>
+                        <div class="form-label">
+                          <mat-form-field appearance="outline" class="w-100">
+                            <input matInput placeholder="" formControlName="docNo">
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+
+                      <div class="col-sm-3">
+                        <div class="file-upload border rounded-2 p-1">
+                          <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                          (click)="otherDocImage.value='';otherDocImage.click()">
+                            Upload<span class="text-danger fs-6">*</span>
+                          </button>
+                          <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
+                             (change)="fileUpload($event,'OtherDocImg')"
+                             #otherDocImage />
+                          <div class="d-flex gap-2" *ngIf="otherDocumentFrm.getRawValue().docPath">
+                            <button type="button" mat-flat-button
+                              class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view"
+                              (click)="viewImages(otherDocumentFrm.getRawValue().docPath)">
+                              <mat-icon class="material-symbols-rounded">
+                                preview
+                              </mat-icon>
+                            </button>
+                            <button type="button" mat-flat-button
+                              class="bg-danger-subtle text-danger btn-icon btn-action" matTooltip="delete"
+                              (click)="deleteOtherDocument()">
+                              <mat-icon class="material-symbols-rounded">
+                                delete
+                              </mat-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-auto">
+                        <button mat-flat-button class="btn-main" (click)="onOtherDocSubmit()">
+                          <mat-icon class="material-symbols-rounded">
+                            add
+                          </mat-icon>
+                          Add Document
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="table-responsive">
+                  <table mat-table [dataSource]="otherDocArray" class="dashboard-table mb-0">
+                    <ng-container matColumnDef="srNo">
+                      <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
+                      <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="documentType">
+                      <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.document_name'| translate}} </th>
+                      <td mat-cell *matCellDef="let element">{{element?.docname}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="docNo">
+                      <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_number'| translate}}
+                      </th>
+                      <td mat-cell *matCellDef="let element"> {{element?.docNo}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                      <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                        <div class="d-flex gap-02">
+                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
+                          [disabled]="!element?.docPath" (click)="viewImages(element)">
+                            <span class="material-symbols-rounded text-dark">
+                              visibility
+                            </span>
+                          </button>
+                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
+                          (click)="deleteTableOtherDocument(i)">
+                            <span class="material-symbols-rounded text-danger">
+                              delete
+                            </span>
+                          </button>
+                        </div>
+                      </td>
+                    </ng-container>
+                    <tr class="mat-row p-2 w-100" *matNoDataRow col>
+                      <td colspan="12">
+                        <div class="alert alert-danger text-center m-2 p-2" colspan="12">
+                          {{'approvalProcess.no_data_found'| translate}}
+                        </div>
+                      </td>
+                    </tr>
+                    <tr mat-header-row *matHeaderRowDef="documentdisplayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: documentdisplayedColumns;"></tr>
+                  </table>
                 </div>
               </div>
-            </div>
+
+            </ng-container>
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">Back</button>
-          <button mat-button matStepperNext class="btn-main">Next</button>
+          <button mat-button matStepperNext class="btn-main" type="button" (click)="onSubmit('document')">Next</button>
         </div>
       </mat-step>
 
       <mat-step>
         <ng-template matStepLabel>स्वयंघोशापत्र</ng-template>
+        <form [formGroup]="selfDeclarationFrm" #selfformDirective="ngForm">
         <div class="container-fluid">
           <p class="form-label">
             वरील प्रमाणे महात्मा गांधी रोजगार हमी योजनेशी निगडित रेशीम उद्योग विकास / तुती लागवड योजनेअंतर्गत मी अर्ज
@@ -744,7 +814,7 @@
           <ul class="list-unstyled">
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
+                <mat-checkbox formControlName="isHonestLabor"></mat-checkbox>
                 <p class="form-label mb-0">
                   सदर ची योजना राबविण्याकरिता मी स्वतः / माझे कुटुंबातील कार्यक्षम व्यक्ती महात्मा गांधी राष्ट्रीय
                   ग्रामीण रोजगार हमी योजनेतील प्रामाणिक मजूर म्हणून घोषित करीत आहे / आहोत.
@@ -756,7 +826,7 @@
             </li>
             <li>
               <div class="d-flex  align-items-center gap-2">
-                <mat-checkbox></mat-checkbox>
+                <mat-checkbox formControlName="isSelfTransport"></mat-checkbox>
                 <p class="form-label mb-0">
                   योजने अंतर्गत आवश्यक कलमे / रोपांची वाहतूक मला स्वतः
                   करावी लागेल याची मला कल्पना देण्यात आलेली असून मला ते मान्य आहे
@@ -765,7 +835,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
+                <mat-checkbox formControlName="isEligibleGettingInstallmentAmount"></mat-checkbox>
                 <p class="form-label mb-0">
                   झाडांची लागवड केल्यानंतर हप्ता रक्कम मिळण्यासाठीचे पात्रता निकष मला अवगत करून देण्यात आलेले असून ते
                   मला मान्य राहतील,
@@ -774,7 +844,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
+                <mat-checkbox formControlName="isBoundByConditions"></mat-checkbox>
                 <p class="form-label mb-0">
                   या योजनेचे नियम व अटी मला बंधनकारक आहे व त्यानुसार मी कलाम / रोपांची लागवड / संगोपन / संरक्षण करीन.
                 </p>
@@ -782,7 +852,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
+                <mat-checkbox formControlName="isPayMoreThanLimitedAmt"></mat-checkbox>
                 <p class="form-label mb-0">
                   सदर योजनेअंतर्गत एकूण क्षेत्राप्रमाणे व नमुन्याप्रमाणे शासनाने Ο प्रतिवर्षी मंजूर केलेल्या मयदिच्या
                   प्रमाणकापेक्षा जास्त खर्च झाल् मी / स्वतः करील
@@ -791,7 +861,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
+                <mat-checkbox formControlName="isSignedOnLetter"></mat-checkbox>
                 <p class="form-label mb-0">
                   महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजनेशी निगडित
 
@@ -802,7 +872,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
+                <mat-checkbox formControlName="isChangedAcceptable"></mat-checkbox>
                 <p class="form-label mb-0">
                   या योजनेअंतर्गत शासन वेळोवेळी जे बदल करेल अथवा अटी ■ घालेल त्या अटी / बदल मला / आम्हाला मान्य राहतील.
                 </p>
@@ -810,7 +880,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
+                <mat-checkbox formControlName="isSchemeCorrectAsPerSatbara"></mat-checkbox>
                 <p class="form-label mb-0">
                   महात्मा गांधी राष्टीय ग्रामीण रोजगार हमी योजनेअंतर्गत रेशीम उद्योग विकास / तुती लागवड योजनेमध्ये
                   समाविष्ठ करून / घ्या करीता मी / आम्ही दिलेला तपशील ७/१२ चे उताऱ्याप्रमाणे बरोबर आहे.
@@ -819,7 +889,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
+                <mat-checkbox formControlName="isJointAccHolderTermAcceptable"></mat-checkbox>
                 <p class="form-label mb-0">
                   मी / आम्ही संयुक्त खातेदार असून माझ्या / आमच्या हिश्याच्या □ भूमापन क्र. १२६० मध्ये १ हेक्टर
                   क्षेत्रावर लागवड करण्यास परवानगी दिल्यास वरील अटी मला / आम्हाला मान्य राहतील
@@ -830,16 +900,19 @@
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">मागे जा</button>
-          <button mat-button matStepperNext class="btn-main">पुरवलोकण करा </button>
+          <button mat-button matStepperNext class="btn-main" type="button" (click)="onSubmit('selfDeclaration')">पुरवलोकण करा </button>
         </div>
+        </form>
 
+      </mat-step>
 
-
+      <mat-step>
+        <ng-template matStepLabel>Preview</ng-template>
         <div class="container-fluid">
           <div class="form-data">Individual Information</div>
           <div class="row gx-2 mb-3">
             <div class="col-sm-2">
-              <img src="https://demosilkapi.mahamining.com/Upload/profilePhoto/Farmer.png" alt="Applicant image"
+              <img src="" alt="Applicant image"
                 class="img-fluid">
             </div>
             <div class="col-sm-10">
@@ -849,30 +922,28 @@
                   <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">Mobile No.</div>
-                      <span class="form-data  rounded-pill">8669264767</span>
+                      <span class="form-data  rounded-pill">:{{previewData?.mobileNo1 | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">Aadhar No.</div>
-                      <span class="form-data rounded-pill">: 8669 2647 6774</span>
+                      <span class="form-data rounded-pill">:{{previewData?.aadharNo | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">1. अर्जदाराचे नाव</div>
-                      <span class=" form-data rounded-pill">जयरम रमेश कांबळे</span>
+                      <span class=" form-data rounded-pill">:{{previewData?.fullName | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">2. माझ्या शेतावर रेशीम विकास योजनेअंतर्गत तुती लागवड विभाग मार्फत करण्यात यावी
+                      <div class="form-label">2. माझ्या शेतावर रेशीम विकास योजनेअंतर्गत तुती लागवड विभाग मार्फत करण्यात
+                        यावी
                       </div>
                     </li>
                   </ul>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-data text-main">लाभरट्याची वर्गावारी </div>
-                  <ul class="list-group">
+                  <ul class="list-group" *ngFor="let category of previewData?.categoryOfBeneficiaries">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">अनुसूचीत जाती</div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">दारिद्र्य रेशेखालील इतर कुटुंबे    प्रधानमंत्री आवास योजने - ग्रामीण योजनेखालील लाभार्थी</div>
+                      <div class="form-label">{{category?.categoryOfBeneficiary}}</div>
                     </li>
                   </ul>
                 </div>
@@ -885,136 +956,219 @@
               <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">3. पर्यायी मोबाइल क्रं.</div>
-                  <span class="form-data  rounded-pill">8669264767</span>
+                  <span class="form-data  rounded-pill">:{{previewData?.mobileNo2 | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">जन्मतारीक</div>
-                  <span class="form-data rounded-pill">: 06/10-2023</span>
+                  <span class="form-data rounded-pill">:{{(previewData?.birthDate | date:'dd-MM-yyyy') | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">लिंग</div>
-                  <span class=" form-data rounded-pill">पुरुष</span>
+                  <span class=" form-data rounded-pill"> {{lang == 'en' ? (previewData?.gender | dash ) :
+                    (previewData?.m_gender | dash)}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">शिक्षण</div>
-                  <span class=" form-data rounded-pill">12वी</span>
+                  <span class=" form-data rounded-pill">:{{(this.lang == 'en' ? previewData?.qualification : previewData?.m_Qualification) | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">राज्य</div>
-                  <span class=" form-data rounded-pill">महाराष्ट्र</span>
+                  <span class=" form-data rounded-pill">:{{(this.lang == 'en' ? previewData?.state : previewData?.m_State) | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">जिल्हा</div>
-                  <span class=" form-data rounded-pill">धरशीव</span>
+                  <span class=" form-data rounded-pill">:{{(this.lang == 'en' ? previewData?.district : previewData?.m_District) | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">तालुका</div>
-                  <span class=" form-data rounded-pill">कळंब</span>
+                  <span class=" form-data rounded-pill">:{{(this.lang == 'en' ? previewData?.taluka : previewData?.m_Taluka) | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">ग्रामपंचायत</div>
-                  <span class=" form-data rounded-pill">कळंब</span>
+                  <span class=" form-data rounded-pill">:{{(this.lang == 'en' ? previewData?.grampanchayatName : previewData?.m_GrampanchayatName) | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">गाव</div>
-                  <span class=" form-data rounded-pill">कळंब</span>
+                  <span class=" form-data rounded-pill">:{{previewData?.village  | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">पत्ता</div>
-                  <span class=" form-data rounded-pill">कळंब</span>
+                  <span class=" form-data rounded-pill">:{{(this.lang == 'en' ? previewData?.address : previewData?.m_Address) | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">पिन कोड</div>
-                  <span class=" form-data rounded-pill">411011</span>
+                  <span class=" form-data rounded-pill">:{{previewData?.pinCode | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">मनरेगा जॉब कार्ड क्रं</div>
-                  <span class=" form-data rounded-pill">MH-12-345-678-901/122-00</span>
+                  <span class=" form-data rounded-pill">:{{previewData?.mn_JobCardNo | dash}}</span>
                 </li>
               </ul>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-8">
               <div class="row g-3">
                 <div class="col-sm-12">
                   <div class="form-data text-main">जमिनीचा तपशील </div>
                   <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">लाभरट्याची नवे (8-अ प्रमाणे ) एकूण जमीन हेक्टर.</div>
-                      <span class="form-data  rounded-pill">1.20</span>
+                      <span class="form-data  rounded-pill">:{{previewData?.benificiaryTotalFarm | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">लागवडीचा भुयांपान क्रं</div>
-                      <span class="form-data  rounded-pill">1260</span>
+                      <span class="form-data  rounded-pill">:{{previewData?.mulberryCultivatedSurveyNo | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">लागवडीचा क्षेत्र हेक्टर ( मुद्दा क्रं 17 पेक्षा जसता  नसावे)</div>
-                      <span class="form-data  rounded-pill">1260</span>
+                      <div class="form-label">लागवडीचा क्षेत्र हेक्टर ( मुद्दा क्रं 17 पेक्षा जसता नसावे)</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.cultivatedFarmInHector | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label"> संयक्त खातेदार आहात का? 	</div>
-                      <span class="form-data  rounded-pill">नाही </span>
+                      <div class="form-label"> संयक्त खातेदार आहात का? </div>
+                      <span class="form-data  rounded-pill" *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">:{{'approvalProcess.yes'| translate}}</span> 
+                      <span class="form-data  rounded-pill" *ngIf="previewData?.isAnyPlantedBeforeGovScheme == false">:{{'approvalProcess.no'| translate}}</span> 
+                    </li>
+                    <ng-container *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="d-flex gap-3">
+                          <div class="form-label">{{'approvalProcess.land_survey_no._of_land'| translate}}: </div>
+                          <div class="form-data">{{previewData?.applicantFarmSurveyNo | dash}}</div>
+                        </div>
+                        <div class="d-flex gap-2">
+                          <div class="form-label">{{'approvalProcess.its_area'| translate}}: </div>
+                          <div class="form-data">{{previewData?.applicantFarmArea | dash}}</div>
+                        </div>
+                      </li>
+                    </ng-container>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">जमिनीचा प्रकार </div>
+                      <span class="form-data  rounded-pill">{{lang == 'en' ? (previewData?.farmType | dash ) :
+                        (previewData?.m_FarmType | dash)}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">जमिनीचा प्रकार  	</div>
-                      <span class="form-data  rounded-pill">हलकी </span>
+                      <div class="form-label">सिंचांनाची सोय </div>
+                      <span class="form-data  rounded-pill">{{lang == 'en' ? (previewData?.irrigationFacility | dash ) :
+                        (previewData?.m_IrrigationFacility | dash)}} </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">सिंचांनाची सोय	</div>
-                      <span class="form-data  rounded-pill">विहीर </span>
+                      <div class="form-label"> रोजगार हमी व्यतिरिक्त इतर शासकीय योजना अंतर्गत पूर्वा फलबाग / फुलपिके /
+                        वृक्षकेली आहेत का ? </div>
+                      <span class="form-data  rounded-pill" *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">{{this.lang == 'en' ? 'Yes' : 'होय'}}</span>
+                      <span class="form-data  rounded-pill" *ngIf="previewData?.isAnyPlantedBeforeGovScheme == false">{{this.lang == 'en' ? 'No' : 'नाही'}} </span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label"> रोजगार हमी व्यतिरिक्त इतर शासकीय योजना अंतर्गत पूर्वा फलबाग / फुलपिके / वृक्षकेली आहेत का ? </div>
-                      <span class="form-data  rounded-pill">नाही </span>
-                    </li>
+                    <ng-container *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">
+                      <div class="table-responsive scrollbar" >
+                        <table mat-table [dataSource]="previewData?.plantingDetails" class="dashboard-table">
+              
+                          <!--- Note that these columns can be defined in any order.
+                                The actual rendered columns are set as a property on the row definition" -->
+              
+                          <!-- Position Column -->
+                          <ng-container matColumnDef="srNo">
+                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
+                            <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
+                          </ng-container>
+              
+                          <ng-container matColumnDef="plantName">
+                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.orchard_flower_tree'| translate}}</th>
+                            <td mat-cell *matCellDef="let element"> {{element.plantName}} </td>
+                          </ng-container>
+              
+                          <!-- Name Column -->
+                          <ng-container matColumnDef="gutNo">
+                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.group_no.'| translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.gutNo}} </td>
+                          </ng-container>
+              
+                          <!-- Weight Column -->
+                          <ng-container matColumnDef="gutArea">
+                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.group_area'| translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.gutArea}} </td>
+                          </ng-container>
+              
+                          <!-- Symbol Column -->
+                          <ng-container matColumnDef="cultivatedArea">
+                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.cultivated_area'| translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.cultivatedArea}} </td>
+                          </ng-container>
+              
+                          <ng-container matColumnDef="cultivatedPlantsCount">
+                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.number_of_trees_planted'| translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.cultivatedPlantsCount}} </td>
+                          </ng-container>
+              
+                          <tr mat-header-row *matHeaderRowDef="plantDisplayedColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: plantDisplayedColumns;"></tr>
+                        </table>
+                      </div>
+                    </ng-container>
+                   
+
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label"> रेशीम उद्योगाचे प्रशिक्षण स्वतः घेणार का उमेदवार पाठवणार ? </div>
-                      <span class="form-data  rounded-pill">स्वतः घेणार</span>
+                      <span class="form-data  rounded-pill" *ngIf="previewData?.isSelfTraining == true">{{'approvalProcess.send_candidate'| translate}}</span>
+                      <span class="form-data  rounded-pill" *ngIf="previewData?.isSelfTraining == false">{{'approvalProcess.mySelf'| translate}}</span>
                     </li>
+                    <ng-container *ngIf="previewData?.isSelfTraining == true">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="d-flex gap-3">
+                          <div class="form-label">{{'approvalProcess.candidate_name'| translate}}: </div>
+                          <div class="form-data">{{previewData?.candidateName | dash}}</div>
+                        </div>
+                        <div class="d-flex gap-2">
+                          <div class="form-label">{{'approvalProcess.relation'| translate}}: </div>
+                          <div class="form-data">{{lang == 'en' ? (previewData?.relationName | dash ) :
+                            (previewData?.m_RelationName | dash)}}</div>
+                        </div>
+                      </li>
+                    </ng-container>
+                   
                   </ul>
                 </div>
               </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-12">
               <div class="row gx-2 gy-3">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                   <div class="text-main fw-bold">बँकेचे तपशील</div>
                   <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">बंकेचे नाव </div>
-                      <span class="form-data  rounded-pill">भारतीय स्टेट बँक</span>
+                      <span class="form-data  rounded-pill">{{lang == 'en' ? (previewData?.bankName | dash ) :
+                        (previewData?.m_BankName | dash)}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">शाखा </div>
-                      <span class="form-data  rounded-pill">धरशीव</span>
+                      <span class="form-data  rounded-pill">{{lang == 'en' ? (previewData?.branchName | dash ) :
+                        (previewData?.m_BranchName | dash)}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">आय एफएससी कोड </div>
-                      <span class="form-data  rounded-pill">SBIN0003900</span>
+                      <span class="form-data  rounded-pill">{{previewData?.bankIFSCCode | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">राष्ट्रीय बँक खाते क्रं </div>
-                      <span class="form-data  rounded-pill">SBIN0003900</span>
+                      <span class="form-data  rounded-pill">{{previewData?.bankAccountNo | dash}}</span>
                     </li>
 
                   </ul>
                 </div>
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                   <div class="text-main fw-bold">कागदपत्रे</div>
                   <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">मनरेगा जॉब कार्ड </div>
                       <span class="form-data  rounded-pill">
-                        <mat-icon class="material-symbols-outlined">
+                        <mat-icon class="material-symbols-outlined"   (click)="viewImages(previewManarega)">
                           visibility
-                          </mat-icon>
+                        </mat-icon>
                       </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">जमिनीचा 8-अ </div>
                       <span class="form-data  rounded-pill">
-                        <mat-icon class="material-symbols-outlined">
+                        <mat-icon class="material-symbols-outlined" >
                           visibility
-                          </mat-icon>
+                        </mat-icon>
                       </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -1022,7 +1176,7 @@
                       <span class="form-data  rounded-pill">
                         <mat-icon class="material-symbols-outlined">
                           visibility
-                          </mat-icon>
+                        </mat-icon>
                       </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -1030,7 +1184,7 @@
                       <span class="form-data  rounded-pill">
                         <mat-icon class="material-symbols-outlined">
                           visibility
-                          </mat-icon>
+                        </mat-icon>
                       </span>
                     </li>
                   </ul>
@@ -1040,11 +1194,13 @@
           </div>
 
           <div class="text-main fw-bold">स्वयंघोशापत्र</div>
+          
           <div class="d-flex align-items-center gap-2">
             <mat-checkbox checked="true"></mat-checkbox>
             <p class="form-label">
               वरील प्रमाणे महात्मा गांधी रोजगार हमी योजनेशी निगडित रेशीम उद्योग विकास / तुती लागवड योजनेअंतर्गत मी अर्ज
-              केला आहे. त्यास मंजुरी मिळाल्यास त्याकरिता माझ्या / आमच्या मालकीच्या / जमिनीवर हि योजना राबविण्यास संमती देत
+              केला आहे. त्यास मंजुरी मिळाल्यास त्याकरिता माझ्या / आमच्या मालकीच्या / जमिनीवर हि योजना राबविण्यास संमती
+              देत
               आहे / आहोत
             </p>
           </div>
@@ -1139,6 +1295,7 @@
           <button mat-button matStepperPrevious class="btn-main">Previous</button>
           <button mat-button matStepperNext class="btn-main">Next</button>
         </div>
+
       </mat-step>
 
       <mat-step>
@@ -1178,7 +1335,7 @@
 
         <div class="container-fluid">
           <div class="d-flex flex-column align-items-center gap-3">
-           <img src="assets/images/success (1)/success/check.png" alt="" class="img-fluid" width="200px">
+            <img src="assets/images/success (1)/success/check.png" alt="" class="img-fluid" width="200px">
             <h2 class="fw-bold">अभिनंदन</h2>
             <div class="form-label">आपला आरजा यशस्वी रित्या सादर झाला आहे.</div>
             <div class="form-data">आरजा क्रं : MNR202306210859</div>
@@ -1193,7 +1350,7 @@
 
 
     </mat-stepper>
-</mat-card-content>
+  </mat-card-content>
 </mat-card>
 
 

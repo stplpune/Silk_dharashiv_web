@@ -158,6 +158,13 @@ export class AddMarketListComponent {
     this.editFlag = false;
   }
 
+  clearDropdown(dropdown: string) {
+    if (dropdown == 'district') {
+      this.marketFrm.controls['talukaId'].setValue('');
+      this.talukaArray = [];
+      this.talukaSubject = new ReplaySubject<any>();
+    }
+  }
 
   // addValidation() {
   //   if (this.lang == 'en') {
@@ -196,7 +203,7 @@ export class AddMarketListComponent {
     })
   }
 
-  getDistrict() {
+  getDistrict(flag?:any) {
     this.districtArray = [];
     let stateId = this.marketFrm.getRawValue()?.stateId;
     //console.log("stateId",stateId)
@@ -205,9 +212,8 @@ export class AddMarketListComponent {
         next: ((res: any) => {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.districtArray = res.responseData;
-            this.districtArray.unshift({ "id": 0, "textEnglish": "All District", "textMarathi": "सर्व जिल्हे" });
-
-            this.editFlag ? this.a['districtId'].setValue(this.editObj?.districtId) : '';
+           // this.districtArray.unshift({ "id": 0, "textEnglish": "All District", "textMarathi": "सर्व जिल्हे" });
+            this.editFlag &&  !flag ? this.a['districtId'].setValue(this.editObj?.districtId) : '';
             this.getTaluka();
           }
           else {
@@ -222,7 +228,7 @@ export class AddMarketListComponent {
     this.talukaArray = [];
     let stateId = this.marketFrm.getRawValue()?.stateId
     let disId = this.marketFrm.getRawValue()?.districtId
-    if (disId != 0) {
+    // if (disId != 0) {
       this.masterService.GetAllTaluka(stateId, disId, 0).subscribe({
         next: ((res: any) => {
           if (res.statusCode == "200" && res.responseData?.length) {
@@ -235,7 +241,7 @@ export class AddMarketListComponent {
           }
         })
       })
-    }
+    // }
   }
 
   getFarmGoods() {

@@ -21,6 +21,7 @@ import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     FormsModule,
     NgxMatSelectSearchModule,
     TranslateModule,
-    MatTooltipModule
+    MatTooltipModule,
+    DashPipe
   ]
 })
 export class CreateManaregaAppModule { }

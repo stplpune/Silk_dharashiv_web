@@ -6,6 +6,7 @@
     <mat-stepper #stepper>
       <mat-step>
         <ng-template matStepLabel>मूळ तपशील</ng-template>
+        <form [formGroup]="samgraForm">
         <div class="container-fluid">
           <div class="row gx-2 mb-4">
             <div class="col-sm-2">
@@ -13,7 +14,6 @@
                 class="img-fluid">
             </div>
             <div class="col-sm">
-
               <div class="row gy-2 gx-2 align-items-center ">
                 <div class="col-sm-6">
                   <div class="d-flex gap-2">
@@ -27,19 +27,19 @@
                     <div class="form-data">: 8669 2647 6774</div>
                   </div>
                 </div>
-                <div class="col-sm-12">
+                <!-- <div class="col-sm-12">
                   <div class="form-label"> 1.तुति लागवड कारचे क्षेत्र ( एकर )</div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
-                      <input matInput placeholder="">
+                      <input matInput placeholder="" >
                     </mat-form-field>
                   </div>
-                </div>
+                </div> -->
                 <div class="col-sm-12">
                   <div class="form-label"> 2. Applicant Name</div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
-                      <input matInput placeholder="">
+                      <input matInput placeholder="" formControlName="fullName">
                     </mat-form-field>
                   </div>
                 </div>
@@ -63,14 +63,15 @@
               <div class="form-label">3. पर्यायी मोबाइल क्रमांक</div>
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
+                  <input matInput placeholder="" formControlName="mobileNo1">
                 </mat-form-field>
               </div>
             </div>
             <div class="col-sm-3">
               <mat-label class="form-label">4. जन्मतारीख</mat-label>
               <mat-form-field appearance="outline" class="w-100">
-                <input matInput [matDatepicker]="picker">
+                <input matInput [matDatepicker]="picker" formControlName="birthDate"  (click)="picker.open()" readonly
+                [max]="todayDate">
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -78,89 +79,114 @@
             <div class="col-sm-3">
               <div class="d-flex align-items-center gap-3">
                 <mat-label class="form-label">5. लिंग निवडा</mat-label>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1">Male</mat-radio-button>
-                  <mat-radio-button value="2">Female</mat-radio-button>
+                <mat-radio-group aria-label="Select an option" formControlName="gender">
+                  <mat-radio-button *ngFor="let gender of genderArray" [value]="gender.id">{{gender.name}}</mat-radio-button>
+                  <!-- <mat-radio-button value="2">Female</mat-radio-button> -->
                 </mat-radio-group>
               </div>
             </div>
             <div class="col-sm-3">
               <div class="form-label">6. शिक्षण</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>अशिक्षित</mat-option>
-                  <mat-option>10 वी</mat-option>
+                <mat-select formControlName="qualificationId">
+                  <mat-option *ngFor="let qualification of qualificationArray" [value]="qualification.id">{{qualification.textEnglish}}</mat-option>
+                  <!-- <mat-option>10 वी</mat-option>
                   <mat-option>12 वी</mat-option>
                   <mat-option>डिप्लोमा</mat-option>
                   <mat-option>पदवीधर</mat-option>
                   <mat-option>उछपद्विधार</mat-option>
-                  <mat-option>इतर</mat-option>
+                  <mat-option>इतर</mat-option> -->
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="col-sm-3">
               <div class="form-label">7. राज्य</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>महाराष्ट्र</mat-option>
-                  <mat-option>गुजरात</mat-option>
-                  <mat-option>बिहार</mat-option>
+              <mat-form-field appearance="outline" class="w-100"
+              [class]="WebStorageService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
+                <mat-select formControlName="stateId" (selectionChange)="getDisrict()">
+                  <mat-option *ngFor="let state of stateArray" [value]="state.id">{{state.textEnglish}}</mat-option>
+                  <!-- <mat-option>गुजरात</mat-option>
+                  <mat-option>बिहार</mat-option> -->
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="col-sm-3">
               <div class="form-label">8. जिल्हा</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>धारशीव</mat-option>
-                  <mat-option>गुजरात</mat-option>
-                  <mat-option>बिहार</mat-option>
+              <mat-form-field appearance="outline" class="w-100" >
+                <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
+                  <mat-option *ngFor="let district of districtArray" [value]="district.id">{{district.textEnglish}}</mat-option>
+                  <!-- <mat-option>गुजरात</mat-option>
+                  <mat-option>बिहार</mat-option> -->
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="col-sm-3">
               <div class="form-label">9. तालुका</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>कळंब</mat-option>
-                  <mat-option>गुजरात</mat-option>
-                  <mat-option>बिहार</mat-option>
+                <mat-select formControlName="talukaId" (selectionChange)="getGrampanchayat()">
+                  <!-- <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id" >{{taluka.textEnglish}}</mat-option> -->
+                  <!-- <mat-option>गुजरात</mat-option>
+                  <mat-option>बिहार</mat-option> -->
+
+                  <mat-option>
+                    <ngx-mat-select-search [formControl]="talukaCtrl"
+                    placeholderLabel="Search Lead Name" noEntriesFoundLabel="No Data Found"></ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ? taluka.textMarathi
+                    :taluka.textEnglish}}</mat-option>
+
+
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="col-sm-3">
               <div class="form-label">10. ग्रामपंचायत</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>निपाणी</mat-option>
-                  <mat-option>गुजरात</mat-option>
-                  <mat-option>बिहार</mat-option>
+                <mat-select formControlName="grampanchayatId">
+                  <!-- <mat-option *ngFor="let grampanchayat of grampanchayatArray" [value]="grampanchayat.id">{{grampanchayat.textEnglish}}</mat-option> -->
+                  <!-- <mat-option>गुजरात</mat-option>
+                  <mat-option>बिहार</mat-option> -->
+
+                  <mat-option>
+                    <ngx-mat-select-search [formControl]="gramPCtrl"
+                      placeholderLabel=""
+                      noEntriesFoundLabel=""></ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?
+                    village.textMarathi : village.textEnglish}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="col-sm-3">
               <div class="form-label">11. गाव</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
+                <input matInput placeholder="" formControlName="village">
+              </mat-form-field>
+              <!-- <mat-form-field appearance="outline" class="w-100">
+                <mat-select formControlName="village">
                   <mat-option>निपाणी</mat-option>
                   <mat-option>गुजरात</mat-option>
                   <mat-option>बिहार</mat-option>
                 </mat-select>
-              </mat-form-field>
+              </mat-form-field> -->
             </div>
 
             <div class="col-sm-3">
               <div class="form-label">12. पिन कोड </div>
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
+                  <input matInput placeholder="" formControlName="pinCode">
                 </mat-form-field>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-label">13. लाभर्त्याची वर्गवारी</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
+
+                <mat-select (click)="categoryDialogBox()" formControlName="categoryId">
+                </mat-select>
+
+                <!-- <mat-select formControlName="categoryId">
                   <mat-option>
                     <mat-radio-button value="1">अनीसीचीत जाती</mat-radio-button>
                   </mat-option>
@@ -178,8 +204,8 @@
                   </mat-option>
                   <mat-option>
                     <mat-radio-button value="1">सर्वसाधारण</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
+                  </mat-option> 
+                   <mat-option>
                     <mat-checkbox class="example-margin">दारिद्र्य रेषेखालील कुटुंबे </mat-checkbox>
                   </mat-option>
                   <mat-option>
@@ -202,52 +228,59 @@
                   <mat-option>
                     <mat-checkbox class="example-margin">कृषि कर्ज माफी योजना सान 2008 नुसार अल्पभूधारक (1हेक्टर
                       )पेक्स्गा कमी क्षेत्र. </mat-checkbox>
-                  </mat-option>
-                </mat-select>
+                  </mat-option> -->
+                <!-- </mat-select> -->
               </mat-form-field>
             </div>
             <div class="col-sm-3">
               <div class="form-label">14. मतदान नोंदणी क्रं</div>
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
+                  <input matInput placeholder="" formControlName="sm_VoterRegistrationNo">
                 </mat-form-field>
               </div>
             </div>
             <div class="col-sm-3">
               <mat-label>15. पत्ता</mat-label>
               <mat-form-field appearance="outline" class="w-100">
-                <textarea matInput placeholder="लक्ष्मी रोड प्राथमिक शाळेसमोर वर्ड क्रमांक १"></textarea>
+                <textarea matInput placeholder="" formControlName="address"></textarea>
               </mat-form-field>
             </div>
             <div class="col-sm-6">
               <div class="d-flex align-items-center gap-3">
                 <mat-label class="form-label">16. लाभार्थी दारिद्र्यरेशेखालील आहे का ?</mat-label>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1" class="pe-3">हो</mat-radio-button>
-                  <mat-radio-button value="2">नाही</mat-radio-button>
+                <mat-radio-group aria-label="Select an option" formControlName="sm_IsBelowPovertyLine">
+                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id" class="pe-3">{{check.name}}</mat-radio-button>
+                  <!-- <mat-radio-button value="2">नाही</mat-radio-button> -->
                 </mat-radio-group>
               </div>
             </div>
           </div>
         </div>
+        <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+          <button mat-button matStepperPrevious class="btn-main">Back</button>
+          <button mat-button matStepperNext class="btn-main" (click)="onSubmit()">Next</button>
+        </div>
+      </form>
       </mat-step>
+      <!-- ////////////////// start 2 form -->
       <mat-step>
         <ng-template matStepLabel>जमीन तपशील</ng-template>
+        <form  [formGroup]="landDetailsForm">
         <div class="container-fluid">
           <div class="row align-items-center g-3">
             <div class="col-sm-4">
               <div class="form-label"> 17. लाभरट्याच्या नावे (8-A )प्रमाणे एकूण जमीन हेक्टर </div>
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
+                  <input matInput placeholder="" formControlName="benificiaryTotalFarm">
                 </mat-form-field>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="form-label">18. भुदरन वर्गवारी निवडा</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
+              <mat-form-field appearance="outline" class="w-100" >
+                <mat-select formControlName="sm_LandTenureCategories">
                   <mat-option>अत्यल्प</mat-option>
                   <mat-option>अल्प</mat-option>
                   <mat-option>मध्यम</mat-option>
@@ -258,29 +291,29 @@
             <div class="col-sm-4">
               <div class="form-label">19. जमिनीचा प्रकार </div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>हलकी</mat-option>
-                  <mat-option>मध्यम </mat-option>
-                  <mat-option>भारी</mat-option>
+                <mat-select formControlName="farmTypeId">
+                  <mat-option *ngFor="let farmType of farmTypeArray" [value]="farmType.id">{{farmType.textEnglish}}</mat-option>
+                  <!-- <mat-option>मध्यम </mat-option>
+                  <mat-option>भारी</mat-option> -->
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="col-sm-4">
               <div class="form-label">20. सिंचांनाची सुविधा </div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>विहीर</mat-option>
-                  <mat-option>बोरेवेल्ल</mat-option>
+                <mat-select formControlName="irrigationFacilityId">
+                  <mat-option *ngFor="let irrigationFacility of irrigationFacilityArray" [value]="irrigationFacility.id">{{irrigationFacility.textEnglish}}</mat-option>
+                  <!-- <mat-option>बोरेवेल्ल</mat-option>
                   <mat-option>नदी</mat-option>
                   <mat-option>पाट</mat-option>
-                  <mat-option>कालवा</mat-option>
+                  <mat-option>कालवा</mat-option> -->
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="col-sm-4">
               <div class="form-label">21. सिंचन कालावधी </div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
+                <mat-select formControlName="sm_IrrigationPeriod">
                   <mat-option>आठमही</mat-option>
                   <mat-option>बारमाही</mat-option>
                 </mat-select>
@@ -290,25 +323,25 @@
             <div class="col-sm-4">
               <div class="d-flex flex-column">
                 <mat-label class="form-label mb-0">22. शासकीय योजने अंतर्गत तुति लागवड केली आहे का ?</mat-label>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1" class="pe-3" checked>हो</mat-radio-button>
-                  <mat-radio-button value="2">नाही</mat-radio-button>
+                <mat-radio-group aria-label="Select an option" formControlName="isAnyPlantedBeforeGovScheme">
+                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id" class="pe-3" checked>{{check.name}}</mat-radio-button>
+                  <!-- <mat-radio-button value="2">नाही</mat-radio-button> -->
                 </mat-radio-group>
               </div>
             </div>
             <div class="col-sm-4">
               <mat-label class="form-label">22.A. लागवड वर्षं</mat-label>
               <mat-form-field appearance="outline" class="w-100">
-                <input matInput [matDatepicker]="picker">
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+                <input matInput [matDatepicker]="picker1" formControlName="sm_YearOfPlanting">
+                <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
               </mat-form-field>
             </div>
             <div class="col-sm-4">
               <div class="form-label"> 22.B. लागवड क्षेत्र </div>
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
+                  <input matInput placeholder="" formControlName="sm_CultivatedArea">
                 </mat-form-field>
               </div>
             </div>
@@ -316,7 +349,7 @@
               <div class="form-label"> 22.C. भुमपण क्रमांक </div>
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
+                  <input matInput placeholder="" formControlName="sm_LandSurveyNo">
                 </mat-form-field>
               </div>
             </div>
@@ -396,19 +429,19 @@
                 <div class="col-sm-4">
                   <div class="form-label">24.B. तुति लागवड अंतर फुट :</div>
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="">
+                    <input matInput placeholder="" formControlName="sm_MulberryPlantingDistance">
                   </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                   <div class="form-label">24.C. तुति लागवडीचा भुमपण क्रमांक ( गत नं / सर्व्हे नं ) :</div>
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="">
+                    <input matInput placeholder="" formControlName="sm_LandSurveyNo">
                   </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                   <div class="form-label">24.D. तुति लागवड करावयाचे क्षेत्र ( एकर )</div>
                   <mat-form-field appearance="outline" class="w-100">
-                    <mat-select>
+                    <mat-select formControlName="sm_MulberryCultivationArea">
                       <mat-option>Bank of India</mat-option>
                       <mat-option>Bank of maharashtra</mat-option>
                       <mat-option>Bank of Badoda</mat-option>
@@ -419,7 +452,7 @@
                 <div class="col-sm-4">
                   <div class="form-label">24.E. तुति लागवड करवायची पद्धत :</div>
                   <mat-form-field appearance="outline" class="w-100">
-                    <mat-select>
+                    <mat-select formControlName="sm_PlantationMethod">
                       <mat-option>1 एकर</mat-option>
                       <mat-option>2 एकर</mat-option>
                     </mat-select>
@@ -432,9 +465,8 @@
             <div class="col-sm-4">
               <div class="d-flex align-items-center gap-3">
                 <mat-label class="form-label">25. रेशीम उद्योगातील अनुभव आहे का ?</mat-label>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1" checked>हो</mat-radio-button>
-                  <mat-radio-button value="2">नाही</mat-radio-button>
+                <mat-radio-group aria-label="Select an option" formControlName="sm_IsExperienceSilkIndustry">
+                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id">{{check.name}}</mat-radio-button>               
                 </mat-radio-group>
               </div>
             </div>
@@ -442,47 +474,48 @@
               <div class="form-label"> 25.A. किती वर्षाचा ते नमूद करावे : </div>
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
+                  <input matInput placeholder="" >
                 </mat-form-field>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="d-flex flex-column ">
                 <mat-label class="form-label">26. रेशीम उद्योगातील प्रशिक्षण घेतले आहे ?</mat-label>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1">हो</mat-radio-button>
-                  <mat-radio-button value="2">नाही</mat-radio-button>
+                <mat-radio-group aria-label="Select an option" formControlName="sm_IsSilkIndustrtyTrainingReceived">
+                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id">{{check.name}}</mat-radio-button>
+                  <!-- <mat-radio-button value="2">नाही</mat-radio-button> -->
                 </mat-radio-group>
               </div>
             </div>
             <div class="col-sm-4">
               <mat-label class="form-label">26.A. रेशीम उद्योगातील घेतलेले प्रशिक्षण </mat-label>
               <mat-form-field appearance="outline" class="w-100">
-                <textarea matInput placeholder="" rows="3"></textarea>
+                <textarea matInput placeholder="" rows="3" formControlName="sm_SilkIndustrtyTrainingDetails"
+                ></textarea>
               </mat-form-field>
             </div>
             <div class="col-sm-4">
               <div class="d-flex flex-column">
                 <mat-label class="form-label">27. रेशीम उद्योग करणार्‍या शेतकर्‍याकडे प्रत्यक्ष जाऊन माहिती घेतली आहे का  ?</mat-label>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1">हो</mat-radio-button>
-                  <mat-radio-button value="2">नाही</mat-radio-button>
+                <mat-radio-group aria-label="Select an option" formControlName="sm_IsEngagedInSilkIndustry">
+                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id">{{check.name}}</mat-radio-button>
+                  <!-- <mat-radio-button value="2">नाही</mat-radio-button> -->
                 </mat-radio-group>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="d-flex flex-column">
                 <mat-label class="form-label">28. यापूर्वी रेशीम संचालनालय अंतर्गत कुठल्या योजनेचा लाभ घेतला आहे ka  ?</mat-label>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1">हो</mat-radio-button>
-                  <mat-radio-button value="2">नाही</mat-radio-button>
+                <mat-radio-group aria-label="Select an option" formControlName="sm_IsTakenBenefitOfInternalScheme">
+                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id">{{check.name}}</mat-radio-button>
+                  <!-- <mat-radio-button value="2">नाही</mat-radio-button> -->
                 </mat-radio-group>
               </div>
             </div>
             <div class="col-sm-4">
               <mat-label class="form-label">28.A. यापूर्वी रेशीम संचालनालय अंतर्गत कुठल्या योजनेचा लाभ घेतला आहे ?</mat-label>
               <mat-form-field appearance="outline" class="w-100">
-                <textarea matInput placeholder="" rows="3"></textarea>
+                <textarea matInput placeholder="" rows="3" ></textarea>
               </mat-form-field>
             </div>
             <div class="col-sm-4">
@@ -506,30 +539,32 @@
           <button mat-button matStepperPrevious class="btn-main">Back</button>
           <button mat-button matStepperNext class="btn-main">Next</button>
         </div>
+      </form>
       </mat-step>
 
-
+      <!-- ////////////////// start 3 form -->
       <mat-step>
         <ng-template matStepLabel>बँक तपशील</ng-template>
+        <form [formGroup]="bankDetailsForm">
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-4">
               <div class="form-label">29. बँक निवडा</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>Bank of India</mat-option>
-                  <mat-option>Bank of maharashtra</mat-option>
+                <mat-select formControlName="bankId" (selectionChange)="getBankBranch()">
+                  <mat-option *ngFor="let bank of bankArray" [value]="bank.id">{{bank.textEnglish}}</mat-option>
+                  <!-- <mat-option>Bank of maharashtra</mat-option>
                   <mat-option>Bank of Badoda</mat-option>
-                  <mat-option>HDFC</mat-option>
+                  <mat-option>HDFC</mat-option> -->
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="col-sm-4">
               <div class="form-label">30. बँक शाखा निवडा</div>
               <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>Pune </mat-option>
-                  <mat-option>Dharahsiv</mat-option>
+                <mat-select formControlName="bankBranchId">
+                  <mat-option *ngFor="let branch of branchArray" [value]="branch.id">{{branch.textEnglish}} </mat-option>
+                  <!-- <mat-option>Dharahsiv</mat-option> -->
                 </mat-select>
               </mat-form-field>
             </div>
@@ -537,7 +572,7 @@
               <div class="form-label">31. आय एफ एस सी कोड </div>
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
+                  <input matInput placeholder="" formControlName="bankIFSCCode">
                 </mat-form-field>
               </div>
             </div>
@@ -545,7 +580,7 @@
               <div class="form-label">32. राष्ट्रीय बँक खाते क्रमांक </div>
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
+                  <input matInput placeholder="" formControlName="bankAccountNo">
                 </mat-form-field>
               </div>
             </div>
@@ -555,6 +590,7 @@
           <button mat-button matStepperPrevious class="btn-main">Back</button>
           <button mat-button matStepperNext class="btn-main">Next</button>
         </div>
+      </form>
       </mat-step>
 
       <mat-step>

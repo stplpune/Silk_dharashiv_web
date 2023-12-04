@@ -6,12 +6,13 @@
     </button>
   </div>
 </div>
-<div mat-dialog-content class="modal-body form-container">
+<form [formGroup]="cropDetailsForm">
+<div mat-dialog-content class="modal-body form-container"> 
   <div class="row g-3">
     <div class="col-sm-4">
       <div class="form-label">पीक निवडा</div>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-select>
+        <mat-select formControlName="cropId">
           <mat-option>अत्यल्प</mat-option>
           <mat-option>अल्प</mat-option>
           <mat-option>मध्यम</mat-option>
@@ -22,7 +23,7 @@
     <div class="col-sm-4">
       <div class="form-label">क्षेत्र एकर</div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="">
+        <input matInput placeholder="" >
       </mat-form-field>
     </div>
     <div class="col-sm-4">
@@ -34,13 +35,13 @@
     <div class="col-sm-4">
       <div class="form-label">मिळालेला सरासरी दर प्रती रु  </div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="">
+        <input matInput placeholder="" >
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="form-label">झालेला उत्पादन रु </div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="">
+        <input matInput placeholder="" >
       </mat-form-field>
     </div>
     <div class="col-sm-4">
@@ -67,3 +68,4 @@
 <div mat-dialog-actions class="modal-footer float-end">
     <button mat-flat-button class="btn-main">Save</button>
 </div>
+</form>
