@@ -70,7 +70,7 @@
     "select_grampanchayat": "Select Grampanchayat"
   },
   "approvalProcess": {
-    "Add_Manarega":"Add Manarega",
+    "Add_Manarega":"Add Manrega",
     "applicant_id": "Application ID",
     "mulberry_id": "Mulberry Id (Date)",
     "date": "Date",
@@ -93,9 +93,9 @@
     "beneficiary_category": "Beneficiary Category (Selected Options)",
     "land_details": "Land Details",
     "total_land_in_hectares_in_favor_of_beneciaries": "Total Land in Hectares (up to 2.0 hectares) in favor of beneficiaries(as per 8-A)",
-    "cultivated_area_in_hectaes": "Plantation Area in Hectares",
+    "cultivated_area_in_hectaes": "Cultivation Area in Hectares",
     "irrigation_facility": "Irrigation Facility",
-    "cultivation_land_survey_number": "Cultivation Land Survey Number",
+    "cultivation_land_survey_number": " Plantation Land Survey Number",
     "land_type": "Land Type",
     "are_you_a_joined_account_Holder": "Are you a joined account Holder?",
     "land_survey_no._of_land": "Land Survey No. of land to be cultivated as per applicant's share",
