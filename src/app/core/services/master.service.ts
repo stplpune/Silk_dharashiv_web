@@ -337,6 +337,55 @@ export class MasterService {
     })
   }
 
+  getIrrigationPeriod() {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetIrrigationPeriod', false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  getImprovedMulberryCast() {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetImprovedMulberryCast', false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  getPlantationMethod() {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetPlantationMethod', false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  getMulberryCultivationArea() {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetMulberryCultivationArea', false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  getLandTenureCategories() {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetLandTenureCategories', false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
    
 
   refreshTokenJWT(obj: any) {
