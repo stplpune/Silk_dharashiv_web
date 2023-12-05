@@ -6,18 +6,18 @@
                     menu
                 </span>
             </button>
-         
+
             <div class="dropdown">
-                <button mat-flat-button class="btn-icon" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                          <img src="assets/images/language.svg">
+                <button mat-flat-button class="btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="assets/images/language.svg">
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <ng-container *ngFor="let getLag of lag">
                         <button class="dropdown-item" (click)="changeLanguage(getLag)"
                             [class.active]="getLag == selLang">
                             <div class="d-flex align-items-center">
-                                <img [src]="getLag == 'English' ? 'assets/images/english.svg' : 'assets/images/marathi.svg'">
+                                <img
+                                    [src]="getLag == 'English' ? 'assets/images/english.svg' : 'assets/images/marathi.svg'">
                                 <span>{{getLag}}</span>
                             </div>
                         </button>
@@ -34,7 +34,8 @@
             <div class="dropdown">
                 <button class="btn profile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="d-flex align-items-center gap-2">
-                        <img [src]="profileImg ? profileImg : loginData.profileImagePath ? loginData.profileImagePath : 'assets/images/user.png'">
+                        <img [src]="profileImg ? profileImg : loginData.profileImagePath ? loginData.profileImagePath : 'assets/images/user.png'"
+                            class="profile-photo">
                         <div class="d-flex flex-column align-items-start">
                             <p>{{userName ? userName : loginData.name}}</p>
                             <small>{{designationName ? designationName : loginData.designationName}}</small>
