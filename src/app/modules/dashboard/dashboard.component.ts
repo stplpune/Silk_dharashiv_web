@@ -1,19 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { ApiService } from 'src/app/core/services/api.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
-import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
-import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatCardModule, MatIconModule],
+  imports: [CommonModule, MatButtonModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })

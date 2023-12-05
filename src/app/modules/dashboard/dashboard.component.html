@@ -1,2 +1,233 @@
-<p>dashboard works!</p>
-<button mat-raised-button color="primary">Primary</button>
+<mat-card class="plain-card form-container">
+    <mat-card-header class="card-header-control">
+        <div class="row w-100 g-2">
+            <div class="col-sm-3">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Select District</mat-label>
+                    <mat-select>
+                        <mat-option value="option1">Option 1</mat-option>
+                        <mat-option value="option2">Option 2</mat-option>
+                        <mat-option value="option3">Option 3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Select Taluka</mat-label>
+                    <mat-select>
+                        <mat-option value="option1">Option 1</mat-option>
+                        <mat-option value="option2">Option 2</mat-option>
+                        <mat-option value="option3">Option 3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Select Grampanchayat</mat-label>
+                    <mat-select>
+                        <mat-option value="option1">Option 1</mat-option>
+                        <mat-option value="option2">Option 2</mat-option>
+                        <mat-option value="option3">Option 3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Select Scheme</mat-label>
+                    <mat-select>
+                        <mat-option value="option1">Option 1</mat-option>
+                        <mat-option value="option2">Option 2</mat-option>
+                        <mat-option value="option3">Option 3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Select Category</mat-label>
+                    <mat-select>
+                        <mat-option value="option1">Option 1</mat-option>
+                        <mat-option value="option2">Option 2</mat-option>
+                        <mat-option value="option3">Option 3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-3">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Select Duration</mat-label>
+                    <mat-select>
+                        <mat-option value="option1">Option 1</mat-option>
+                        <mat-option value="option2">Option 2</mat-option>
+                        <mat-option value="option3">Option 3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-auto">
+                <div class="d-flex align-items-center gap-2">
+                    <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
+                        <mat-icon class="material-symbols-rounded">
+                            search
+                        </mat-icon>
+                    </button>
+                    <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+                        <mat-icon class="material-symbols-rounded">
+                            close
+                        </mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </mat-card-header>
+    <mat-card-content class="card-body" id="dash-stats">
+        <div class="row g-2">
+            <div class="col-sm">
+                <div class="card card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <img src="assets/images/dashboard-icons/applications.svg" alt="Total Applications"
+                                class="green">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h2>142</h2>
+                            <p>Total Applications</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <img src="assets/images/dashboard-icons/beneficiary.svg" alt="Total Beneficiaries"
+                                class="red">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h2>142</h2>
+                            <p>Total Beneficiaries</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <img src="assets/images/dashboard-icons/land.svg" alt="Land Cultivated (Hector)"
+                                class="blue">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h2>142</h2>
+                            <p>Land Cultivated <small class="text-muted">(Hector)</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <img src="assets/images/dashboard-icons/total.svg" alt="Total DBT(INR)" class="green-blue">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h2>142</h2>
+                            <p>Total DBT (INR)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row g-2 align-items-center">
+            <div class="col-sm-3">
+                <div class="card card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <img src="assets/images/dashboard-icons/manarega.svg" alt="Manrega Applications"
+                                class="olive">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h2>142</h2>
+                            <p>Manrega Applications</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <table class="table dashboard-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Approved</th>
+                            <th>Pending</th>
+                            <th>Resend</th>
+                            <th>Rejected</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Technical Estimate</td>
+                            <td>
+                                <a href="#" class="text-main text-decoration-underline">66</a>
+                            </td>
+                            <td>
+                                <a href="#" class="text-main text-decoration-underline">26</a>
+                            </td>
+                            <td>
+                                <a href="#" class="text-main text-decoration-underline">03</a>
+                            </td>
+                            <td>
+                                <a href="#" class="text-main text-decoration-underline">12</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr>
+        <div class="row g-2 align-items-center">
+            <div class="col-sm-3">
+                <div class="card card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <img src="assets/images/dashboard-icons/silk.svg" alt="Silk Samgra-2 Applications"
+                                class="voilet">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h2>142</h2>
+                            <p>Silk Samgra-2 Applications</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <table class="table dashboard-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Approved</th>
+                            <th>Pending</th>
+                            <th>Resend</th>
+                            <th>Rejected</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Technical Estimate</td>
+                            <td>
+                                <a href="#" class="text-main text-decoration-underline">66</a>
+                            </td>
+                            <td>
+                                <a href="#" class="text-main text-decoration-underline">26</a>
+                            </td>
+                            <td>
+                                <a href="#" class="text-main text-decoration-underline">03</a>
+                            </td>
+                            <td>
+                                <a href="#" class="text-main text-decoration-underline">12</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
