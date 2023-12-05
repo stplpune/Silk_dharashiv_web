@@ -15,7 +15,7 @@
                     <th rowspan="3">अ. क्र.</th>
                     <th rowspan="3">कामाचा तपशील</th>
                     <th colspan="7">पहिले वर्ष</th>
-                    <th colspan="6">दुसरे वर्ष</th>
+                    
                     <th colspan="6">तिसरे वर्ष</th>
                     <th colspan="6">एकूण खर्चाचा तपशील</th>
                 </tr>
@@ -83,7 +83,7 @@
                 </tr>
             </tbody>
             <tbody>
-                <tr class="text-center">
+                <tr class="text-center" >
                     <td class="text-center"><strong>अ.</strong></td>
                     <td class="text-center"><strong>मजुरी</strong></td>
                     <td></td>
@@ -112,9 +112,19 @@
                     <td></td>
                     <td></td>
                 </tr>
+                <ng-container  *ngFor="let data of tableDataArray;let i=index">
                 <tr class="text-center">
-                    <td class="text-center">१</td>
-                    <td>जमीन तयार करणे</td>
+                    <td class="text-center">{{i+1}}</td>
+                    <td>{{data.m_WorkDetail || '-'}}</td>
+                    
+                    <td>{{data.unit || '-'}}</td>
+                    <td>{{data.manPower || '-'}}</td>
+                    <td>{{data.wagesRate || '-'}}</td>
+                    <td>{{data.wages || '-'}}</td>
+                    <td>{{data.accessoriesAmount== 0 ? 0 : '-' || '-'}}</td>
+                    <td>{{data.benificiaryShares == 0 ? 0 : '-' || '-'}}</td>
+                    <td>{{data.total || '-'}}</td>
+
                     <td></td>
                     <td></td>
                     <td></td>
@@ -122,13 +132,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    
                     <td></td>
                     <td></td>
                     <td></td>
@@ -141,7 +145,8 @@
                     <td></td>
                     <td></td>
                 </tr>
-                <tr class="text-center">
+                </ng-container>
+                <!-- <tr class="text-center">
                     <td class="text-center">२</td>
                     <td>शेणखत पसरविणे</td>
                     <td></td>
@@ -481,7 +486,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                </tr>
+                </tr> -->
                 <tr class="text-center">
                     <td></td>
                     <td><strong>एकूण मजुरी (अ)</strong></td>
