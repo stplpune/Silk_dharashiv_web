@@ -39,8 +39,10 @@
                   <div class="form-label"> 2. Applicant Name</div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
-                      <input matInput placeholder="" formControlName="fullName">
+                      <input matInput placeholder="" formControlName="fullName"
+                      (keypress)="validation.noFirstSpaceAllow($event);validation.onlyAlphabetsWithSpace($event)">
                     </mat-form-field>
+                    <!-- <mat-error *ngIf="f['fullName'].hasError('required') ">Please enter  applicant name</mat-error> -->
                   </div>
                 </div>
                 <!-- <div class="col-sm-12">
@@ -63,7 +65,8 @@
               <div class="form-label">3. पर्यायी मोबाइल क्रमांक</div>
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="" formControlName="mobileNo1">
+                  <input matInput placeholder="" formControlName="mobileNo2">
+                  <!-- <mat-error *ngIf="f['mobileNo2'].hasError('required') ">Please enter valid mobile No.</mat-error> -->
                 </mat-form-field>
               </div>
             </div>
@@ -74,6 +77,7 @@
                 [max]="todayDate">
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <!-- <mat-error *ngIf="f['birthDate'].hasError('required') ">Please select birthdate</mat-error> -->
               </mat-form-field>
             </div>
             <div class="col-sm-3">
@@ -156,54 +160,9 @@
             <div class="col-sm-6">
               <div class="form-label">13. लाभर्त्याची वर्गवारी</div>
               <mat-form-field appearance="outline" class="w-100">
-
-                <mat-select (click)="categoryDialogBox()" formControlName="categoryId">
+                <mat-select (click)="categoryDialogBox()" >                 
                 </mat-select>
-
-                <!-- <mat-select formControlName="categoryId">
-                  <mat-option>
-                    <mat-radio-button value="1">अनीसीचीत जाती</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-radio-button value="1">अनीसीचीत जमाती</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-radio-button value="1">भटक्या जमाती</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-radio-button value="1">निरधिसूचित जमाती</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-radio-button value="1">इतर मागसवर्ग</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-radio-button value="1">सर्वसाधारण</mat-radio-button>
-                  </mat-option> 
-                   <mat-option>
-                    <mat-checkbox class="example-margin">दारिद्र्य रेषेखालील कुटुंबे </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">स्त्री कुटुंब प्रमुख असेलेले कुटुंबे </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">दिव्यांग व्यक्ति प्रमुख असेलेले कुटुंबे </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">जमीन सुधरणांचे लाभार्थी </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">प्रधानमंत्री आवास योजना - ग्रामीण योजनेखालील लाभार्थी
-                    </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">अनिसूचित जमाती व इतर पारंपरिक वानवशि (वनहक्क मान्य करणे );
-                      आधिनियम २००६(2007) च 2 खलील पात्रलाभार्थी </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">कृषि कर्ज माफी योजना सान 2008 नुसार अल्पभूधारक (1हेक्टर
-                      )पेक्स्गा कमी क्षेत्र. </mat-checkbox>
-                  </mat-option> -->
-                <!-- </mat-select> -->
+               <span>{{this.checkedItems[0]?.textEnglish}}</span>               
               </mat-form-field>
             </div>
             <div class="col-sm-3">
@@ -232,7 +191,7 @@
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">Back</button>
-          <button mat-button matStepperNext class="btn-main" (click)="onSubmit()">Next</button>
+          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('samgraForm')">Next</button>
         </div>
       </form>
       </mat-step>
@@ -286,35 +245,40 @@
             <div class="col-sm-4">
               <div class="d-flex flex-column">
                 <mat-label class="form-label mb-0">22. शासकीय योजने अंतर्गत तुति लागवड केली आहे का ?</mat-label>
-                <mat-radio-group aria-label="Select an option" formControlName="isAnyPlantedBeforeGovScheme">
-                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id" class="pe-3" checked>{{check.name}}</mat-radio-button>              
+                <mat-radio-group aria-label="Select an option" formControlName="isAnyPlantedBeforeGovScheme" (click)="radioEvent(landDetailsForm.value.isAnyPlantedBeforeGovScheme,'AnyPlantedBefor')">
+                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id" class="pe-3" >{{check.name}}</mat-radio-button>              
                 </mat-radio-group>
               </div>
             </div>
-            <div class="col-sm-4">
-              <mat-label class="form-label">22.A. लागवड वर्षं</mat-label>
-              <mat-form-field appearance="outline" class="w-100">
-                <input matInput [matDatepicker]="picker1" formControlName="sm_YearOfPlanting">
-                <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label"> 22.B. लागवड क्षेत्र </div>
-              <div class="form-label">
+            <ng-container *ngIf="landDetailsForm.value.isAnyPlantedBeforeGovScheme">
+              <div class="col-sm-4">
+                <mat-label class="form-label">22.A. लागवड वर्षं</mat-label>
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="" formControlName="sm_CultivatedArea">
+                  <input matInput [matDatepicker]="picker1" formControlName="sm_YearOfPlanting">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
               </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label"> 22.C. भुमपण क्रमांक </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="" formControlName="sm_LandSurveyNo">
-                </mat-form-field>
+              <div class="col-sm-4">
+                <div class="form-label"> 22.B. लागवड क्षेत्र </div>
+                <div class="form-label">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput placeholder="" formControlName="sm_CultivatedArea">
+                  </mat-form-field>
+                </div>
               </div>
-            </div>
+              <div class="col-sm-4">
+                <div class="form-label"> 22.C. भुमपण क्रमांक </div>
+                <div class="form-label">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput placeholder="" formControlName="sm_LandSurveyNo">
+                  </mat-form-field>
+                </div>
+              </div>
+            </ng-container>
+         
+          
+         
             <div class="col-sm-12">
               <div class="d-flex align-items-center justify-content-between">
                 <div class="form-label"> 23. सध्या घेत असलेल्या पीक व उत्पादन तपशील </div>
@@ -422,12 +386,12 @@
             <div class="col-sm-4">
               <div class="d-flex align-items-center gap-3">
                 <mat-label class="form-label">25. रेशीम उद्योगातील अनुभव आहे का ?</mat-label>
-                <mat-radio-group aria-label="Select an option" formControlName="sm_IsExperienceSilkIndustry" (change)="radioEvent($event,'isExperience')">
+                <mat-radio-group aria-label="Select an option" formControlName="sm_IsExperienceSilkIndustry" (change)="radioEvent(landDetailsForm.value.sm_IsExperienceSilkIndustry,'isExperience')">
                   <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id"  >{{check.name}}</mat-radio-button>               
                 </mat-radio-group>
               </div>
             </div>
-            <div class="col-sm-4" *ngIf="IsExperienceSilk">
+            <div class="col-sm-4" *ngIf="landDetailsForm.value.sm_IsExperienceSilkIndustry">
               <div class="form-label"> 25.A. किती वर्षाचा ते नमूद करावे : </div>
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
@@ -438,12 +402,12 @@
             <div class="col-sm-4">
               <div class="d-flex flex-column ">
                 <mat-label class="form-label">26. रेशीम उद्योगातील प्रशिक्षण घेतले आहे ?</mat-label>
-                <mat-radio-group aria-label="Select an option" formControlName="sm_IsSilkIndustrtyTrainingReceived" (change)="radioEvent($event,'isTraining')">
+                <mat-radio-group aria-label="Select an option" formControlName="sm_IsSilkIndustrtyTrainingReceived" (change)="radioEvent(landDetailsForm.value.sm_IsSilkIndustrtyTrainingReceived,'isTraining')">
                   <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id">{{check.name}}</mat-radio-button>                
                 </mat-radio-group>
               </div>
             </div>
-            <div class="col-sm-4" *ngIf="isIndustrtyTraining">
+            <div class="col-sm-4" *ngIf="landDetailsForm.value.sm_IsSilkIndustrtyTrainingReceived" >
               <mat-label class="form-label">26.A. रेशीम उद्योगातील घेतलेले प्रशिक्षण </mat-label>
               <mat-form-field appearance="outline" class="w-100">
                 <textarea matInput placeholder="" rows="3" formControlName="sm_SilkIndustrtyTrainingDetails"></textarea>
@@ -461,11 +425,11 @@
               <div class="d-flex flex-column">
                 <mat-label class="form-label">28. यापूर्वी रेशीम संचालनालय अंतर्गत कुठल्या योजनेचा लाभ घेतला आहे ka  ?</mat-label>
                 <mat-radio-group aria-label="Select an option" formControlName="sm_IsTakenBenefitOfInternalScheme">
-                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id" (change)="radioEvent($event,'isBenefit')">{{check.name}}</mat-radio-button>          
+                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id" (change)="radioEvent(landDetailsForm.value.sm_IsTakenBenefitOfInternalScheme,'isBenefit')">{{check.name}}</mat-radio-button>          
                 </mat-radio-group>
               </div>
             </div>
-            <ng-container *ngIf="isTakenBenefit">
+            <ng-container *ngIf="landDetailsForm.value.sm_IsTakenBenefitOfInternalScheme">
             <form [formGroup]="internalSchemes">         
             <div class="col-sm-4">
               <mat-label class="form-label">28.A. यापूर्वी रेशीम संचालनालय अंतर्गत कुठल्या योजनेचा लाभ घेतला आहे ?</mat-label>
@@ -530,7 +494,7 @@
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">Back</button>
-          <button mat-button matStepperNext class="btn-main">Next</button>
+          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('landDetailsForm')">Next</button>
         </div>
       </form>
       </mat-step>
@@ -581,12 +545,12 @@
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">Back</button>
-          <button mat-button matStepperNext class="btn-main">Next</button>
+          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('bankDetailsForm')">Next</button>
         </div>
       </form>
       </mat-step>
 
-      <mat-step>
+      <mat-step>     
         <ng-template matStepLabel>कागदपत्रे</ng-template>
         <div class="container-fluid">
           <div class="row align-items-center g-3">
@@ -600,7 +564,7 @@
                 <ng-container *ngIf="docArray[0]?.docPath">
                   <div class="d-flex gap-2">
                     <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                      matTooltip="view">
+                      matTooltip="view" (click)="viewimage(docArray[0]?.docPath)">
                       <mat-icon class="material-symbols-rounded">
                         preview
                       </mat-icon>
@@ -613,8 +577,10 @@
                     </button>
                   </div>
                 </ng-container>
-            
               </div>
+              <mat-error *ngIf="docArray[0]?.docPath == '' && showDocValidation">
+                Please upload addhar card image
+            </mat-error>
             </div>
             <div class="col-sm-4">
               <div class="form-label">2. जमिनीचा 7/12 तुति नोंद असलेला किवा तलाठी प्रांणपतरा अपलोड करा </div>
@@ -622,11 +588,11 @@
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip" (click)="selImg2.value='';selImg2.click()">File
                   Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg2  (change)="fileUpload($event,docArray[1]?.docTypeId)"    />
+                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg2  (change)="fileUpload($event,docArray[1]?.docTypeId)" />
                 <ng-container *ngIf="docArray[1]?.docPath">
                 <div class="d-flex gap-2" >
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view" >
+                    matTooltip="view" (click)="viewimage(docArray[1]?.docPath)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
@@ -640,114 +606,135 @@
                 </div>
               </ng-container>
               </div>
+              <mat-error *ngIf="docArray[1]?.docPath == '' && showDocValidation">
+                Please upload sat bara image
+            </mat-error>
             </div>
             <div class="col-sm-4">
               <div class="form-label">3. जमिनीचा 8-अ उतारा येथे जोडा </div>
               <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip" (click)="selImg3.value='';selImg3.click()">File
                   Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
+                <input type="file"  accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg3  (change)="fileUpload($event,docArray[2]?.docTypeId)" />
+               <ng-container *ngIf="docArray[2]?.docPath">
                 <div class="d-flex gap-2">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
+                    matTooltip="view"  (click)="viewimage(docArray[2]?.docPath)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
                   <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
+                    matTooltip="delete" (click)="deleteDocument(docArray[2]?.docTypeId)">
                     <mat-icon class="material-symbols-rounded">
                       delete
                     </mat-icon>
                   </button>
                 </div>
+              </ng-container>
               </div>
+              <mat-error *ngIf="docArray[2]?.docPath == '' && showDocValidation">
+                Please upload sat bara image
+            </mat-error>
             </div>
             <div class="col-sm-4">
               <div class="form-label">4.जमिनीचा चतुःसीमा नकाशा अपलोड करा </div>
               <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip" (click)="selImg4.value='';selImg4.click()">File
                   Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
+                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg4  (change)="fileUpload($event,docArray[3]?.docTypeId)" />
+               <ng-container *ngIf="docArray[3]?.docPath">
                 <div class="d-flex gap-2">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
+                    matTooltip="view" (click)="viewimage(docArray[3]?.docPath)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
                   <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
+                    matTooltip="delete"  (click)="deleteDocument(docArray[3]?.docTypeId)">
                     <mat-icon class="material-symbols-rounded">
                       delete
                     </mat-icon>
                   </button>
                 </div>
+               </ng-container>
               </div>
+              <mat-error *ngIf="docArray[3]?.docPath == '' && showDocValidation">
+                Please upload sat bara image
+            </mat-error>
             </div>
             <div class="col-sm-4">
               <div class="form-label">5. आधार संलग्न राष्ट्रीय बँक पासबूक प्रथम पानाची छायांकित प्रत (फोटोसहित ) अपलोड करा </div>
               <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip" (click)="selImg5.value='';selImg5.click()">File
                   Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
-                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
-                    <mat-icon class="material-symbols-rounded">
-                      preview
-                    </mat-icon>
-                  </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
-                </div>
+                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg5  (change)="fileUpload($event,docArray[4]?.docTypeId)" />
+                <ng-container *ngIf="docArray[4]?.docPath">
+                  <div class="d-flex gap-2">
+                    <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+                      matTooltip="view" (click)="viewimage(docArray[4]?.docPath)">
+                      <mat-icon class="material-symbols-rounded">
+                        preview
+                      </mat-icon>
+                    </button>
+                    <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                      matTooltip="delete" (click)="deleteDocument(docArray[4]?.docTypeId)">
+                      <mat-icon class="material-symbols-rounded">
+                        delete
+                      </mat-icon>
+                    </button>
+                  </div>
+                </ng-container>
               </div>
+              <mat-error *ngIf="docArray[4]?.docPath == '' && showDocValidation">
+                Please upload sat bara image
+            </mat-error>
             </div>
             <div class="col-sm-4">
               <div class="form-label">6. जातीचे प्रमाणपत्र ( अनूजाती / अनू जमाती शेतकर्‍यांसाठी येथे अपलोड करा ) </div>
               <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip" (click)="selImg6.value='';selImg6.click()">File
                   Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
+                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg6  (change)="fileUpload($event,docArray[5]?.docTypeId)" />
+                <div class="d-flex gap-2" *ngIf="docArray[5]?.docPath">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
+                    matTooltip="view" (click)="viewimage(docArray[5]?.docPath)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
                   <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
+                    matTooltip="delete" (click)="deleteDocument(docArray[5]?.docTypeId)">
                     <mat-icon class="material-symbols-rounded">
                       delete
                     </mat-icon>
                   </button>
                 </div>
               </div>
+              <mat-error *ngIf="docArray[5]?.docPath == '' && showDocValidation">
+                Please upload sat bara image
+            </mat-error>
             </div>
             <div class="col-sm-4">
               <div class="form-label">7. पाणी उपलब्धता प्रमाणपत्र अपलोड करा </div>
               <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip" (click)="selImg7.value='';selImg7.click()">File
                   Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
+                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg7  (change)="fileUpload($event,docArray[6]?.docTypeId)" />
+                <div class="d-flex gap-2" *ngIf="docArray[6]?.docPath">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
+                    matTooltip="view" (click)="viewimage(docArray[6]?.docPath)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action" (click)="deleteDocument(docArray[6]?.docTypeId)"
                     matTooltip="delete">
                     <mat-icon class="material-symbols-rounded">
                       delete
@@ -755,41 +742,102 @@
                   </button>
                 </div>
               </div>
-            </div>
+              <mat-error *ngIf="docArray[6]?.docPath == '' && showDocValidation">
+                Please upload sat bara image
+            </mat-error>
+            </div>        
             <div class="col-sm-4">
-              <div class="form-label">8. इतर कागदपत्रे जोडा </div>
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
-                  Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
-                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
-                    <mat-icon class="material-symbols-rounded">
-                      preview
-                    </mat-icon>
-                  </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
+              <button mat-flat-button class="btn-main-light" type="button" (click)="showOtherDoc = ! showOtherDoc">इतर कागदपत्रे जोडा</button>
+            </div>
+            <ng-container *ngIf="showOtherDoc">             
+              <div class="card card-body mb-4">              
+              <div class="row g-2 row g-2 align-items-center">
+              <div class="col-sm-4">
+                <div class="form-label">8.A. कागदपत्राचे नाव </div>
+                <div class="form-label">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput placeholder="" [formControl]="otherDocForm">
+                  </mat-form-field>
                 </div>
               </div>
-            </div>
-            <div class="col-sm-4">
-              <button mat-flat-button class="btn-main-light" type="button">इतर कागदपत्रे जोडा</button>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">8.A. कागदपत्राचे नाव </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
+              <div class="col-sm-4">
+                <div class="form-label">8. इतर कागदपत्रे जोडा </div>              
+                <div class="file-upload border rounded-2 p-1">
+                  <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip" (click)="otherDoc.value='';otherDoc.click()">File
+                    Upload<span class="text-danger fs-6">*</span>
+                  </button>
+                  <input type="file"  accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #otherDoc  (change)="fileUpload($event,1,'otherDoc')" />
+                  <div class="d-flex gap-2" *ngIf="uploadedDocUrl">
+                    <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+                      matTooltip="view" (click)="viewimage(uploadedDocUrl)">
+                      <mat-icon class="material-symbols-rounded">
+                        preview
+                      </mat-icon>
+                    </button>
+                    <!-- <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                      matTooltip="delete">
+                      <mat-icon class="material-symbols-rounded">
+                        delete
+                      </mat-icon>
+                    </button> -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-auto">
+                <button mat-flat-button class="btn-main" type="submit" (click)="submitOtherDoc()">
+                  <mat-icon class="material-symbols-rounded">
+                    add
+                  </mat-icon>
+                  Add Document
+                </button>
               </div>
             </div>
+              </div>
+
+
+              <div class="table-responsive">
+                <table mat-table [dataSource]="dataSource2" class="dashboard-table mb-0">
+                  <ng-container matColumnDef="srno">
+                    <th mat-header-cell *matHeaderCellDef> Sr No</th>
+                    <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="docname">
+                    <th mat-header-cell *matHeaderCellDef> Document Name </th>
+                    <td mat-cell *matCellDef="let element">{{element?.docname}}</td>
+                  </ng-container>        
+
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                      <div class="d-flex gap-02">
+                        <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10" (click)="viewimage(element.docPath)">
+                          <span class="material-symbols-rounded text-dark" >
+                            visibility
+                          </span>
+                        </button>
+                        <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10" (click)="deleteOtherDoc(i)">
+                          <span class="material-symbols-rounded text-danger" >
+                            delete
+                          </span>
+                        </button>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <tr class="mat-row p-2 w-100" *matNoDataRow col>
+                    <td colspan="12">
+                      <div class="alert alert-danger text-center m-2 p-2" colspan="12">
+                        Data Not Found
+                      </div>
+                    </td>
+                  </tr>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                </table>
+              </div>
+            </ng-container>
+          
+          
             <!-- <div class="col-sm-4">
               <div class="form-label">8.B. क्रमांक </div>
               <div class="form-label">
@@ -798,7 +846,10 @@
                 </mat-form-field>
               </div>
             </div> -->
-            <div class="col-sm-4">
+
+
+
+            <!-- <div class="col-sm-4">
               <div class="file-upload border rounded-2 p-1">
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">Other
                   docx File
@@ -820,12 +871,14 @@
                   </button>
                 </div>
               </div>
-            </div>
+            </div> -->
+
+
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">Back</button>
-          <button mat-button matStepperNext class="btn-main">Next</button>
+          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('document')">Next</button>
         </div>
       </mat-step>
 

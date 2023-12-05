@@ -5,13 +5,14 @@ import { MasterService } from 'src/app/core/services/master.service';
 import { ApiService } from 'src/app/core/services/api.service';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { CategoryDetailsComponent } from '../../manarega/category-details/category-details.component';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { ValidationService } from 'src/app/core/services/validation.service';
 // import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 
 @Component({
@@ -25,41 +26,35 @@ export class CreateSamgraAppComponent {
   landDetailsForm !: FormGroup;
   bankDetailsForm !: FormGroup;
   internalSchemes !: FormGroup;
-
-
-  qualificationArray = new Array();
+  otherDocForm  = new FormControl();
   stateArray = new Array();
   districtArray = new Array();
   talukaArray = new Array();
   grampanchayatArray = new Array();
-  lang: any;
+  qualificationArray = new Array();
   categoryArray = new Array();
   bankArray = new Array();
   branchArray = new Array();
   farmTypeArray = new Array();
   irrigationFacilityArray = new Array();
   checkedItems = new Array();
-
   irrigationPeriodArray = new Array();
   mulberryCastArray = new Array();
   mulberryAreaArray = new Array();
   pantationMethodArray = new Array();
   landTenureCatArray = new Array();
-  documentArray = new Array();
   internalSchemesArray = new Array();
-
   currentCropDetailsArray = new Array;
+  lang: any;
+  todayDate = new Date();
+  subscription!: Subscription;
   dataSource: any;
   dataSource1: any;
-
+  dataSource2:any;
   genderArray: any = [{ id: 1, name: 'Male' }, { id: 0, name: 'Female' }];
   checkedArray: any = [{ id: true, name: 'Yes' }, { id: false, name: 'No' }];
-  subscription!: Subscription;
-  todayDate = new Date();
 
-  IsExperienceSilk: boolean = false;
-  isIndustrtyTraining: boolean = false;
-  isTakenBenefit: boolean = false;
+  showOtherDoc : boolean = false;
 
   talukaCtrl: FormControl = new FormControl();
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
@@ -69,10 +64,14 @@ export class CreateSamgraAppComponent {
 
   displayedColumns: string[] = ['srno', 'cropId', 'area', 'totalProduction', 'averageRate', 'totalProductionAmt', 'totalExpenses', 'netIncome', 'acreNetIncome'];
   displayedColumns1: string[] = ['srno', 'internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken'];
+  displayedColumns2: string[] = ['srno', 'docname', 'action'];
 
   docUploadedPath: string = '';
   docArray = [{id:0,docTypeId:16,docPath:'',docNo:'',docname:''},{id:0,docTypeId:18,docPath:'',docNo:'',docname:''},{id:0,docTypeId:19,docPath:'',docNo:'',docname:''},{id:0,docTypeId:21,docPath:'',docNo:'',docname:''},{id:0,docTypeId:11,docPath:'',docNo:'',docname:''},{id:0,docTypeId:25,docPath:'',docNo:'',docname:''},{id:0,docTypeId:14,docPath:'',docNo:'',docname:''}]
-  otherDocArray = [];
+  otherDocArray = new Array();
+  uploadedDocUrl : any;
+  
+  showDocValidation : boolean = false;
   
   constructor(public dialog: MatDialog,
     private masterService: MasterService,
@@ -82,7 +81,8 @@ export class CreateSamgraAppComponent {
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     private errorHandler: ErrorHandlingService,
-    private uploadService: FileUploadService
+    private uploadService: FileUploadService,
+    public validation : ValidationService
   ) { }
 
   ngOnInit() {
@@ -106,7 +106,11 @@ export class CreateSamgraAppComponent {
     this.getIrrigationFacility();
     this.getBank();
     this.getCategory();
-
+    this.getLandTenureCategories();
+    this.getIrrigationPeriod();
+    this.getImprovedMulberryCast();
+    this.getPlantationMethod();
+    this.getMulberryCultivationArea();
   }
   get f() {
     return this.samgraForm.controls
@@ -115,58 +119,39 @@ export class CreateSamgraAppComponent {
   samgraformData() {
     this.samgraForm = this.fb.group({
       "id": [0],
-      "fullName": [''],
-      "mobileNo1": [''],
-      "birthDate": [''],
-      "gender": [''],
-      "qualificationId": [0],
+      "fullName": ['',[Validators.required,Validators.maxLength(100)]],
+      "mobileNo2": ['',[Validators.maxLength(10)]],      
+      "birthDate": ['',[Validators.required]],
+      "gender": [1],
+      "qualificationId": [0,[Validators.required]],
       "stateId": [this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],
       "districtId": [this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],
-      "talukaId": [this.WebStorageService.getTalukaId() == '' ? 0 : this.WebStorageService.getTalukaId()],
-      "grampanchayatId": [this.WebStorageService.getGrampanchayatId() == '' ? 0 : this.WebStorageService.getGrampanchayatId()],
-      "village": [''],
-      "pinCode": [''],
+      "talukaId": [this.WebStorageService.getTalukaId() == '' ? 0 : this.WebStorageService.getTalukaId(),[Validators.required]],
+      "grampanchayatId": [this.WebStorageService.getGrampanchayatId() == '' ? 0 : this.WebStorageService.getGrampanchayatId(),[Validators.required]],
+      "village": ['',[Validators.required]],
+      "pinCode": ['',[Validators.required,Validators.maxLength(6)]],//numeric
       "sm_VoterRegistrationNo": [''],
-      "address": [''],
+      "address": ['',[Validators.required]],
       "sm_IsBelowPovertyLine": true,
-      "categoryId": [
-        0
-      ],
-
+        // category validation remaning 
     })
   }
 
   landDetailsFormData() {
     this.landDetailsForm = this.fb.group({
-      "benificiaryTotalFarm": 0,
-      "sm_LandTenureCategories": 0,
-      "mulberryCultivatedSurveyNo": "string",
-      "cultivatedFarmInHector": 0,
-      "isJointAccHolder": true,
-      "applicantFarmSurveyNo": "string",
-      "applicantFarmArea": 0,
-      "farmTypeId": 0,
-      "irrigationFacilityId": 0,
+      "benificiaryTotalFarm": ['',[Validators.required,Validators.maxLength(5)]],
+      "sm_LandTenureCategories": 0,  
+      "farmTypeId": ['',[Validators.required]],
+      "irrigationFacilityId": ['',[Validators.required]],
       "sm_IrrigationPeriod": 0,
-      "isAnyPlantedBeforeGovScheme": true,
-      "plantName": "string",
-      "gutNo": "string",
-      "gutArea": "string",
-      "plantCultivatedArea": 0,
-      "noOfPlant": 0,
-      "sm_YearOfPlanting": "2023-11-30T04:40:28.670Z",
-      "sm_CultivatedArea": 0,
-      "sm_LandSurveyNo": "string",
-      "sm_ImprovedMulberryCast": 0,
-      "sm_MulberryPlantingDistance": 0,
-      "sm_PlantationSurveyNo": "string",
-      "sm_MulberryCultivationArea": 0,
-      "sm_PlantationMethod": 0,
+      "isAnyPlantedBeforeGovScheme": false,
+      "sm_YearOfPlanting": new Date(),
+      "sm_CultivatedArea": [0],
+      "sm_LandSurveyNo": [''],
+      "sm_MulberryPlantingDistance": [0],
+      "sm_MulberryCultivationArea": [0],
+      "sm_PlantationMethod": [0],
       "sm_IsExperienceSilkIndustry": true,
-      "sm_ExperienceYears": 0,
-      "isSelfTraining": true,
-      "candidateName": "string",
-      "candidateRelationId": 0,
       "sm_IsSilkIndustrtyTrainingReceived": true,
       "sm_SilkIndustrtyTrainingDetails": "string",
       "sm_IsTakenBenefitOfInternalScheme": true,
@@ -176,10 +161,10 @@ export class CreateSamgraAppComponent {
 
   bankDetailsFormData() {
     this.bankDetailsForm = this.fb.group({
-      "bankId": 0,
-      "bankBranchId": 0,
-      "bankIFSCCode": "string",
-      "bankAccountNo": "string",
+      "bankId": ['',[Validators.required]],
+      "bankBranchId": ['',[Validators.required]],
+      "bankIFSCCode": ['',[Validators.required,Validators.maxLength(30)]],
+      "bankAccountNo": ['',[Validators.required,Validators.maxLength(30)]],
     })
   }
 
@@ -263,7 +248,7 @@ export class CreateSamgraAppComponent {
           }
           else {
             this.talukaArray = [];
-            // this.talukaSubject.next(null);
+            this.talukaSubject.next(null);
           }
         })
       })
@@ -431,140 +416,88 @@ export class CreateSamgraAppComponent {
     }
   }
 
-
-
-
-
-  onSubmit() {
-    let samgraFormValue = this.samgraForm.value;
-    let landDetailsFormValue = this.landDetailsForm.value;
-    let bankDetailsFormValue = this.bankDetailsForm.value;
-
-    let obj = {
-      "id": samgraFormValue.id,
-      "farmerId": 0,
-      "schemeTypeId": 0,
-      "applicationNo": "",
-      "profilePhotoPath": "",
-      "fullName": samgraFormValue.fullName,
-      "m_FullName": "",
-      "mn_DepartmentId": 0,
-      "mobileNo1": samgraFormValue.mobileNo1,
-      "mobileNo2": "",
-      "aadharNo": "",
-      "isAgreeReadableInfo": true,
-      "birthDate": samgraFormValue.birthDate,
-      "gender": samgraFormValue.gender,
-      "qualificationId": samgraFormValue.qualificationId,
-      "stateId": samgraFormValue.stateId,
-      "districtId": samgraFormValue.districtId,
-      "talukaId": samgraFormValue.talukaId,
-      "grampanchayatId": samgraFormValue.grampanchayatId,
-      "village": samgraFormValue.village,
-      "address": samgraFormValue.address,
-      "m_Address": "",
-      "pinCode": samgraFormValue.pinCode,
-      "mn_JobCardNo": "",
-      "sm_VoterRegistrationNo": samgraFormValue.sm_VoterRegistrationNo,
-      "sm_IsBelowPovertyLine": samgraFormValue.sm_IsBelowPovertyLine,
-      "benificiaryTotalFarm": landDetailsFormValue.benificiaryTotalFarm,
-      "sm_LandTenureCategories": landDetailsFormValue.sm_LandTenureCategories,
-      "mulberryCultivatedSurveyNo": landDetailsFormValue.mulberryCultivatedSurveyNo,
-      "cultivatedFarmInHector": landDetailsFormValue.cultivatedFarmInHector,
-      "isJointAccHolder": landDetailsFormValue.isJointAccHolder,
-      "applicantFarmSurveyNo": landDetailsFormValue.applicantFarmSurveyNo,
-      "applicantFarmArea": landDetailsFormValue.applicantFarmArea,
-      "farmTypeId": landDetailsFormValue.farmTypeId,
-      "irrigationFacilityId": landDetailsFormValue.irrigationFacilityId,
-      "sm_IrrigationPeriod": landDetailsFormValue.sm_IrrigationPeriod,
-      "isAnyPlantedBeforeGovScheme": landDetailsFormValue.isAnyPlantedBeforeGovScheme,
-      "plantName": landDetailsFormValue.plantName,
-      "gutNo": landDetailsFormValue.gutNo,
-      "gutArea": landDetailsFormValue.gutArea,
-      "plantCultivatedArea": landDetailsFormValue.plantCultivatedArea,
-      "noOfPlant": landDetailsFormValue.noOfPlant,
-      "sm_YearOfPlanting": landDetailsFormValue.sm_YearOfPlanting,
-      "sm_CultivatedArea": landDetailsFormValue.sm_CultivatedArea,
-      "sm_LandSurveyNo": landDetailsFormValue.sm_LandSurveyNo,
-      "sm_ImprovedMulberryCast": landDetailsFormValue.sm_ImprovedMulberryCast,
-      "sm_MulberryPlantingDistance": landDetailsFormValue.sm_MulberryPlantingDistance,
-      "sm_PlantationSurveyNo": landDetailsFormValue.sm_PlantationSurveyNo,
-      "sm_MulberryCultivationArea": landDetailsFormValue.sm_MulberryCultivationArea,
-      "sm_PlantationMethod": landDetailsFormValue.sm_PlantationMethod,
-      "sm_IsExperienceSilkIndustry": landDetailsFormValue.sm_IsExperienceSilkIndustry,
-      "sm_ExperienceYears": landDetailsFormValue.sm_ExperienceYears,
-      "isSelfTraining": landDetailsFormValue.isSelfTraining,
-      "candidateName": landDetailsFormValue.candidateName,
-      "candidateRelationId": landDetailsFormValue.candidateRelationId,
-      "sm_IsSilkIndustrtyTrainingReceived": landDetailsFormValue.sm_IsSilkIndustrtyTrainingReceived,
-      "sm_SilkIndustrtyTrainingDetails": landDetailsFormValue.sm_SilkIndustrtyTrainingDetails,
-      "sm_IsEngagedInSilkIndustry": landDetailsFormValue.sm_IsEngagedInSilkIndustry,
-      "sm_IsTakenBenefitOfInternalScheme": landDetailsFormValue.sm_IsTakenBenefitOfInternalScheme,
-      "sm_NameOfPlan": "",
-      "sm_PlanTakenDate": new Date(),
-      "sm_TakenPlanBenefit": "",
-      "bankId": bankDetailsFormValue.bankId,
-      "bankBranchId": bankDetailsFormValue.bankBranchId,
-      "bankIFSCCode": bankDetailsFormValue.bankIFSCCode,
-      "bankAccountNo": bankDetailsFormValue.bankAccountNo,
-      "isHonestlyProtectPlant": true,
-      "isHonestLabor": true,
-      "isSelfTransport": true,
-      "isEligibleGettingInstallmentAmount": true,
-      "isBoundByConditions": true,
-      "isPayMoreThanLimitedAmt": true,
-      "isSignedOnLetter": true,
-      "isChangedAcceptable": true,
-      "isSchemeCorrectAsPerSatbara": true,
-      "isJointAccHolderTermAcceptable": true,
-      "sm_IsReadyToPlantNewMulberries": true,
-      "sm_IsHonestlyProtectPlant": true,
-      "sm_IsRequestForYourPriorConsent": true,
-      "registrationFeeReceiptPath": "",
-      "createdBy": 0,
-      "flag": 0,
-      "isUpdate": true,
-      "appDoc": [
-        {
-          "id": 0,
-          "applicationId": 0,
-          "docTypeId": 0,
-          "docNo": "string",
-          "docname": "string",
-          "docPath": "string",
-          "createdBy": 0,
-          "isDeleted": true
-        }
-      ],
-      "categoryId": this.checkedItems.map((res: any) => { return res.id }),
-      "plantingDetails": [
-        {
-          "id": 0,
-          "applicationId": 0,
-          "plantName": "string",
-          "gutNo": 0,
-          "gutArea": 0,
-          "cultivatedArea": 0,
-          "cultivatedPlantsCount": 0,
-          "createdBy": 0,
-          "isDeleted": true
-        }
-      ],
-      "internalSchemes": [
-        {
-          "id": 0,
-          "applicationId": 0,
-          "internalSchemeName": "string",
-          "schemeTakenDate": "2023-12-01T04:55:58.526Z",
-          "totalBenefitTaken": 0,
-          "createdBy": 0
-        }
-      ]
+  onSubmit(flag:any) {
+    let samgraFormValue = this.samgraForm.getRawValue();
+    let landDetailsFormValue = this.landDetailsForm.getRawValue();
+    let bankDetailsFormValue = this.bankDetailsForm.getRawValue();
+    let formDocuments = this.docArray.concat(this.otherDocArray);
+    this.showDocValidation= true;
+    formDocuments.map((res:any)=>{
+      res.createdBy = 0,
+      res.isDeleted = true
+    })    
+  
+    let obj = {  
+        ...samgraFormValue,
+        ...landDetailsFormValue,
+         ...bankDetailsFormValue,
+        "farmerId": 0,
+        "schemeTypeId": 0,
+        "applicationNo": "string",
+        "profilePhotoPath": "string",
+        "m_FullName": "string",
+        "mn_DepartmentId": 0,
+        "mobileNo1": "string",
+        "aadharNo": "string",
+        "isAgreeReadableInfo": true,
+        "m_Address": "string",
+        "mn_JobCardNo": "string",
+        "mulberryCultivatedSurveyNo": "string",
+        "cultivatedFarmInHector": 0,
+        "isJointAccHolder": true,
+        "applicantFarmSurveyNo": "string",
+        "applicantFarmArea": 0,
+        "plantName": "string",
+        "gutNo": "string",
+        "gutArea": "string",
+        "plantCultivatedArea": 0,
+        "noOfPlant": 0,
+        "sm_ImprovedMulberryCast": 0,
+        "sm_PlantationSurveyNo": "string",
+        "sm_ExperienceYears": 0,
+        "isSelfTraining": true,
+        "candidateName": "string",
+        "candidateRelationId": 0,
+        "sm_NameOfPlan": "string",
+        "sm_PlanTakenDate": "2023-12-05T07:26:41.936Z",
+        "sm_TakenPlanBenefit": "string",
+        "isHonestlyProtectPlant": true,
+        "isHonestLabor": true,
+        "isSelfTransport": true,
+        "isEligibleGettingInstallmentAmount": true,
+        "isBoundByConditions": true,
+        "isPayMoreThanLimitedAmt": true,
+        "isSignedOnLetter": true,
+        "isChangedAcceptable": true,
+        "isSchemeCorrectAsPerSatbara": true,
+        "isJointAccHolderTermAcceptable": true,
+        "sm_IsReadyToPlantNewMulberries": true,
+        "sm_IsHonestlyProtectPlant": true,
+        "sm_IsRequestForYourPriorConsent": true,
+        "registrationFeeReceiptPath": "string",
+        "createdBy": 0,
+        "flag":flag == 'samgraForm' ? 0 : flag == 'landDetailsForm' ? 2 : flag == 'bankDetailsForm' ? 3 : flag == 'document' ? 4 : '',
+        "isUpdate": true,
+        "appDoc":formDocuments,
+        "categoryId": this.checkedItems.map((x:any)=>{return x.id}),
+        "plantingDetails": [{
+            "id": 0,
+            "applicationId": 0,
+            "plantName": "string",
+            "gutNo": 0,
+            "gutArea": 0,
+            "cultivatedArea": 0,
+            "cultivatedPlantsCount": 0,
+            "createdBy": 0,
+            "isDeleted": true
+          }],
+        "internalSchemes":this.internalSchemesArray
+      
     }
 
     console.log("object", obj);
 
-    return
+    // return
 
     this.apiService.setHttp('post', 'sericulture/api/Application/Insert-Update-Application?lan=' + this.lang, false, obj, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
@@ -610,17 +543,22 @@ export class CreateSamgraAppComponent {
       } else if (result) {
         this.categoryArray = result;
         this.checkedItems = this.categoryArray.filter(item => item.checked);
+        console.log("this.checkedItems",this.checkedItems);
+        
       }
     });
   }
 
   radioEvent(event: any, flag: any) {
+    console.log(event);
     if (flag == 'isExperience') {
-      this.IsExperienceSilk = event.value;
+      // this.IsExperienceSilk = event.value;
     } else if (flag == 'isTraining') {
-      this.isIndustrtyTraining = event.value;
+      // this.isIndustrtyTraining = event.value;
     } else if (flag == 'isBenefit') {
-      this.isTakenBenefit = event.value;
+      // this.isTakenBenefit = event.value;
+    }else if(flag == 'AnyPlantedBefor'){
+      //
     }
   }
 
@@ -638,18 +576,17 @@ export class CreateSamgraAppComponent {
 
   //#region  -----------------------------------------------------------doc upload section fn start heare-----------------------------------//
 
-  fileUpload(event: any, docId: any) {
+  fileUpload(event: any, docId: any,flag?:any) {
 
-    let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray,'docTypeId',docId);
-
+    let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray,'docTypeId',docId);   
+    // this.showDocValidation = true
     this.spinner.show();
     let type = 'jpg, jpeg, png, pdf'
     this.uploadService.uploadDocuments(event, 'ApplicationDocuments', type, '', '', this.lang).subscribe({
       next: (res: any) => {
         if (res.statusCode == 200) {
           this.spinner.hide();
-          this.docArray[indexByDocId].docPath = res.responseData;
-          console.log( this.docArray)
+            flag == 'otherDoc'? this.uploadedDocUrl = res.responseData : this.docArray[indexByDocId].docPath = res.responseData;      
           this.commonMethod.snackBar(res.statusMessage, 0)
         }
       },
@@ -667,9 +604,28 @@ export class CreateSamgraAppComponent {
   deleteDocument(docId: any) {
     let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray,'docTypeId',docId);
     this.docArray[indexByDocId]['docPath'] = '';
+    // this.showDocValidation = false;
   }
 
   //#endregion  --------------------------------------------------------doc upload section fn end heare-----------------------------------//
+
+submitOtherDoc(){
+  let obj = {
+      id:0,
+      docTypeId:1,
+      docPath:this.uploadedDocUrl,
+      docNo:'',
+      docname:this.otherDocForm.value
+    }   
+  this.otherDocArray.push(obj);
+  this.uploadedDocUrl = '';
+  this.dataSource2 = new MatTableDataSource(this.otherDocArray);
+}
+
+deleteOtherDoc(index:any){
+  this.otherDocArray.splice(index,1)
+  this.dataSource2 = new MatTableDataSource(this.otherDocArray);
+}
 
 }
 
