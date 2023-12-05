@@ -10,13 +10,15 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { DashPipe } from "../../../../../core/Pipes/dash.pipe";
+//import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
 
 @Component({
-  standalone: true,
-  selector: 'app-technical-estimate',
-  templateUrl: './technical-estimate.component.html',
-  styleUrls: ['./technical-estimate.component.scss'],
-  imports: [CommonModule,RouterLink, MatCardModule, MatButtonModule]
+    standalone: true,
+    selector: 'app-technical-estimate',
+    templateUrl: './technical-estimate.component.html',
+    styleUrls: ['./technical-estimate.component.scss'],
+    imports: [CommonModule, RouterLink, MatCardModule, MatButtonModule, DashPipe]
 })
 export class TechnicalEstimateComponent {
   tableDataArray = new Array();
