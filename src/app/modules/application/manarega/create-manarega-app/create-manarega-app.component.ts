@@ -426,7 +426,7 @@ getPreviewData(){
     next:((res:any)=>{
       if(res.statusCode == "200"){
           this.previewData = res.responseData;
-          console.log("vvvvvvvvvvvvvv",this.previewData.categoryOfBeneficiaries)
+          console.log("vvvvvvvvvvvvvv",this.previewData)
           let documentArray = new Array()
           documentArray = res.responseData?.documents;
 
@@ -547,7 +547,7 @@ getPreviewData(){
         "sm_IsRequestForYourPriorConsent": true,
         "registrationFeeReceiptPath": "string",
         "createdBy": 0,
-        "flag": flag == 'farmerInfo' ? 0 : flag == 'farmInfo'? 2 : flag == 'bankInfo' ?  3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : 7,
+        "flag": flag == 'farmerInfo' ? 0 : flag == 'farmInfo'? 2 : flag == 'bankInfo' ?  3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'preview' ? 6 : 7,
         "isUpdate": true,
         "appDoc": mergeDocumentArray,
         // [{

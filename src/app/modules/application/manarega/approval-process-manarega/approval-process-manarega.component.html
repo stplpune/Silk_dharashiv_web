@@ -5,7 +5,7 @@
     <mat-card-header class="card-header">
       <div class="d-flex align-items-center justify-content-between w-100">
         <!-- <div class="text-main fw-bold">Application / {{applicantDetails?.schemeType}} / View Application </div> -->
-      <div class="text-main fw-bold">{{lang == 'en' ? 'Manarega / Details' : 'मनरेगा / तपशील'}}</div>
+      <div class="text-main fw-bold">{{lang == 'en' ? 'Manrega / Details' : 'मनरेगा / तपशील'}}</div>
       <button mat-flat-button class="btn-main-light" (click)="commonMethod.locationBack()">
           <mat-icon class="material-symbols-rounded">
             chevron_left
@@ -416,15 +416,15 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
               <div class="form-label">{{'approvalProcess.will_take_the_silk_industry_training'| translate}}</div>
               <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
-                <mat-radio-button value="1" [checked]="applicantDetails?.isSelfTraining == true">
+                <mat-radio-button value="1" [checked]="applicantDetails?.isSelfTraining == false">
                   <div class="fw-bold">{{'approvalProcess.send_candidate'| translate}}</div>
                 </mat-radio-button>
-                <mat-radio-button value="2" [checked]="applicantDetails?.isSelfTraining == false">
+                <mat-radio-button value="2" [checked]="applicantDetails?.isSelfTraining == true">
                   <div class="fw-bold">{{'approvalProcess.mySelf'| translate}}</div>
                 </mat-radio-button>
               </mat-radio-group>
             </li>
-            <ng-container *ngIf="applicantDetails?.isSelfTraining">
+            <ng-container *ngIf="applicantDetails?.isSelfTraining == false">
             <li class="list-group-item d-flex justify-content-between align-items-center">
               <div class="d-flex gap-3">
                 <div class="form-label">{{'approvalProcess.candidate_name'| translate}}: </div>

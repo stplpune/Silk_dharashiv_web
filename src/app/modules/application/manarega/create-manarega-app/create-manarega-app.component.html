@@ -46,7 +46,7 @@
 
                 <div class="row gy-2 gx-2 align-items-center ">
                   <div class="col-sm-6">
-                    <div class="form-label">Mobile Number</div>
+                    <div class="form-label">{{'common.mobile'| translate}} </div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <!-- <mat-label>Favorite food</mat-label> -->
@@ -56,7 +56,7 @@
                     </div>
                   </div>
                   <div class="col-sm-6">
-                    <div class="form-label">Aadhar Number</div>
+                    <div class="form-label">{{'common.aadhar_number'| translate}}</div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <!-- <mat-label>Favorite food</mat-label> -->
@@ -71,7 +71,7 @@
               </div>
               <div class="row gx-2 p-0 align-items-center">
                 <div class="col-sm-6">
-                  <div class="form-label"> 1. Applicant Name</div>
+                  <div class="form-label">{{'addManrega.applicant_name'| translate}}</div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="fullName"
@@ -80,9 +80,7 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <div class="form-label">2. माझ्या शेतीवर रेशीम विकास योजने अंतर्गत तुति लागवड विभाग मार्फत करण्यात
-                    यावी
-                    (कोणतेही १ निवडा )</div>
+                  <div class="form-label">{{'addManrega.mulberry_plantation_under_Silk'| translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="mn_DepartmentId">
                       <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang == 'en' ?
@@ -94,7 +92,7 @@
             </div>
             <div class="row gx-2 align-items-center">
               <div class="col-sm-3">
-                <div class="form-label">3. पर्यायी मोबाइल क्रमांक</div>
+                <div class="form-label">{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <!-- <mat-label>Favorite food</mat-label> -->
@@ -104,7 +102,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <mat-label class="form-label">4. जन्मतारीख</mat-label>
+                <mat-label class="form-label">{{'approvalProcess.date_of_birth'| translate}}</mat-label>
                 <mat-form-field appearance="outline" class="w-100">
                   <input matInput [matDatepicker]="picker" formControlName="birthDate" (click)="picker.open()" readonly
                     [max]="maxDate">
@@ -114,7 +112,7 @@
               </div>
               <div class="col-sm-3">
                 <div class="d-flex align-items-center gap-3">
-                  <mat-label class="form-label">5. लिंग निवडा</mat-label>
+                  <mat-label class="form-label">{{'addManrega.select_gender'| translate}}</mat-label>
                   <mat-radio-group aria-label="Select an option" formControlName="gender">
                     <mat-radio-button *ngFor="let gen of genderArray" [value]="gen.id">{{gen.name }}
                     </mat-radio-button>
@@ -122,7 +120,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">6. शिक्षण</div>
+                <div class="form-label">{{'addManrega.education'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="qualificationId">
                     <mat-option *ngFor="let qua of qualificationArray" [value]="qua.id">{{lang != 'en' ? qua.textMarathi
@@ -132,7 +130,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">7. राज्य</div>
+                <div class="form-label">{{'common.State'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'common.state' | translate}}</mat-label> -->
                   <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
@@ -143,7 +141,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">8. जिल्हा</div>
+                <div class="form-label">{{'common.District'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
                     [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
@@ -154,7 +152,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">9. तालुका</div>
+                <div class="form-label">{{'common.Taluka'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
                   <mat-select formControlName="talukaId"
@@ -174,7 +172,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">10. ग्रामपंचायत</div>
+                <div class="form-label">{{'approvalProcess.village_committee'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'officerreg.select_grampanchayat' | translate}}</mat-label> -->
                   <mat-select formControlName="grampanchayatId"
@@ -192,7 +190,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">11. गाव</div>
+                <div class="form-label">{{'common.Village'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>Favorite food</mat-label> -->
                   <input matInput placeholder="" formControlName="village"
@@ -201,7 +199,7 @@
               </div>
 
               <div class="col-sm-3">
-                <div class="form-label">12. पिन कोड </div>
+                <div class="form-label">{{'common.pin_Code'| translate}} </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <!-- <mat-label>Favorite food</mat-label> -->
@@ -211,7 +209,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">13. मनरेगा जॉब कार्ड क्र</div>
+                <div class="form-label">{{'approvalProcess.manarega_job_card_no.'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <!-- <mat-label>Favorite food</mat-label> -->
@@ -221,20 +219,20 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <mat-label>14. पत्ता</mat-label>
+                <mat-label>{{'common.address'| translate}}</mat-label>
                 <mat-form-field appearance="outline" class="w-100">
                   <textarea matInput placeholder="" formControlName="address"></textarea>
                 </mat-form-field>
               </div>
               <div class="col-sm-6">
-                <div class="form-label">15. लाभर्त्याची वर्गवारी</div>
+                <div class="form-label">{{'approvalProcess.beneficiary_category'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select (click)="categoryDialogBox()" formControlName="categoryId">
                   </mat-select>
                 </mat-form-field>
               </div>
               <div *ngIf="checkedItems.length">
-                <div class="form-label">Cast Category</div>
+                <div class="form-label">{{'approvalProcess.beneficiary_category_options'| translate}}</div>
                 <div class="form-data mb-0" *ngFor="let data of checkedItems;let i=index">
                   {{(i+1)+". "+(data.textEnglish)}}
                 </div>
@@ -250,12 +248,12 @@
       </mat-step>
 
       <mat-step>
-        <ng-template matStepLabel>जमीन तपशील</ng-template>
+        <ng-template matStepLabel>{{'approvalProcess.land_details'| translate}}</ng-template>
         <form [formGroup]="farmInfoFrm">
           <div class="container-fluid">
             <div class="row align-items-center">
               <div class="col-sm-4">
-                <div class="form-label"> 16. लाभरट्याच्या नावे (8-A )प्रमाणे एकूण जमीन हेक्टर (2.0 हेक्टर पर्यंत) </div>
+                <div class="form-label">{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="benificiaryTotalFarm">
@@ -263,7 +261,7 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label"> 17. लागवडीचा भुयामापन क्रमांक </div>
+                <div class="form-label">{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="mulberryCultivatedSurveyNo">
@@ -271,7 +269,7 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label"> 17. लागवडीचा क्षेत्र हेक्टर (मुद्दा क्रमांक 16 पेक्षा जसता नसावे) </div>
+                <div class="form-label">{{'approvalProcess.cultivated_area_in_hectaes'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="cultivatedFarmInHector">
@@ -280,7 +278,7 @@
               </div>
               <div class="col-sm-4">
                 <div class="d-flex align-items-center gap-3">
-                  <mat-label class="form-label">19. संयुक्तखातेदार आहात का ?</mat-label>
+                  <mat-label class="form-label">{{'approvalProcess.are_you_a_joined_account_Holder'| translate}}</mat-label>
                   <!-- <mat-radio-group aria-label="Select an option"  formControlName="isJointAccHolder">
                   <mat-radio-button class="pe-3" value="1" checked="true">होय</mat-radio-button>
                   <mat-radio-button class="pe-3" value="2">नाही</mat-radio-button>
@@ -293,9 +291,9 @@
                   </mat-radio-group>
                 </div>
               </div>
+              <ng-container *ngIf="farmInfoFrm.getRawValue()?.isAnyPlantedBeforeGovScheme">
               <div class="col-sm-4">
-                <div class="form-label"> 19.A. अर्जदारच्या हिष्याचे प्रमानुसार लागवड करवायच्या जमिनीचे भुमपण क्रमांक
-                </div>
+                <div class="form-label">{{'approvalProcess.land_survey_no._of_land'| translate}} </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="applicantFarmSurveyNo">
@@ -303,7 +301,7 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label"> 19.B. त्याचे क्षेत्र (हेक्टर) (मुद्दा क्रमांक 16 पेक्षा जसता नसावे व 19 पेक्षा
+                <div class="form-label">{{'approvalProcess.its_area'| translate}}(मुद्दा क्रमांक 18 पेक्षा जसता नसावे व 19 पेक्षा
                   कमी नसावे) </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
@@ -311,8 +309,9 @@
                   </mat-form-field>
                 </div>
               </div>
+            </ng-container>
               <div class="col-sm-4">
-                <div class="form-label">20. जमिनीचा प्रकार</div>
+                <div class="form-label">{{'approvalProcess.type_of_land'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="farmTypeId">
                     <mat-option *ngFor="let farm of farmTypeArray" [value]="farm.id">{{lang != 'en' ? farm.textMarathi :
@@ -321,7 +320,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">21. सिंचांनाची सुविधा</div>
+                <div class="form-label">{{'approvalProcess.irrigation_facilities'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="irrigationFacilityId">
                     <mat-option *ngFor="let irrigation of irrigationFacilityArray" [value]="irrigation.id">{{lang !=
@@ -332,9 +331,7 @@
 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <mat-label class="form-label">22. रोजगार हमी व्यतिरिक्त इतर शासकीय योजनेचे अंतर्गत पूर्वा फलबाग/
-                  फुलपिके/
-                  वृक्ष केली आहे का ?</mat-label>
+                <mat-label class="form-label">{{'approvalProcess.have_you_done_orchards'| translate}}</mat-label>
                 <div class="">
                   <!-- <mat-radio-group aria-label="Select an option"  formControlName="isAnyPlantedBeforeGovScheme">
                   <mat-radio-button class="pe-3" value="1" checked="true">होय</mat-radio-button>
@@ -354,7 +351,7 @@
 
                 <div class="row align-items-center">
                   <div class="col-sm-4">
-                    <div class="form-label">22.A. फलबागचे/ फुलबाग/ वृक्ष नाव </div>
+                    <div class="form-label">{{'approvalProcess.orchard_flower_tree'| translate}}</div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="plantName">
@@ -362,7 +359,7 @@
                     </div>
                   </div>
                   <div class="col-sm-4">
-                    <div class="form-label">22.B. गट क्रमांक </div>
+                    <div class="form-label">{{'approvalProcess.group_no.'| translate}}</div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="gutNo">
@@ -370,7 +367,7 @@
                     </div>
                   </div>
                   <div class="col-sm-4">
-                    <div class="form-label">22.C. गटाचे क्षेत्र (हेक्टर) </div>
+                    <div class="form-label">{{'approvalProcess.group_area'| translate}}</div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="gutArea">
@@ -378,7 +375,7 @@
                     </div>
                   </div>
                   <div class="col-sm-4">
-                    <div class="form-label">22.D. लागवड क्षेत्र (हेक्टर) </div>
+                    <div class="form-label">{{'approvalProcess.cultivated_area'| translate}}</div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="cultivatedArea">
@@ -386,7 +383,7 @@
                     </div>
                   </div>
                   <div class="col-sm-4">
-                    <div class="form-label">22.E. लागवड केलेल्या झाडांची संख्या </div>
+                    <div class="form-label">{{'approvalProcess.number_of_trees_planted'| translate}}</div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="cultivatedPlantsCount">
@@ -394,7 +391,7 @@
                     </div>
                   </div>
                   <div class="col-sm-4">
-                    <button mat-flat-button class="btn-main" (click)="onAddFarmInfo()">आणखी तपशील जोडा</button>
+                    <button mat-flat-button class="btn-main" (click)="onAddFarmInfo()">{{'approvalProcess.add_more_details'| translate}}</button>
                   </div>
                 </div>
               </form>
@@ -403,37 +400,37 @@
                 <table mat-table [dataSource]="dataSource" class="dashboard-table">
 
                   <ng-container matColumnDef="srNo">
-                    <th mat-header-cell *matHeaderCellDef> Sr No.</th>
+                    <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.sr_no'| translate}}</th>
                     <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="plantName">
-                    <th mat-header-cell *matHeaderCellDef> Plant Name </th>
+                    <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.orchard_flower_tree'| translate}}</th>
                     <td mat-cell *matCellDef="let element"> {{element.plantName}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="gutNo">
-                    <th mat-header-cell *matHeaderCellDef> Gut No. </th>
+                    <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.group_no.'| translate}}</th>
                     <td mat-cell *matCellDef="let element"> {{element.gutNo}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="gutArea">
-                    <th mat-header-cell *matHeaderCellDef> Gut Area </th>
+                    <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.group_area'| translate}}</th>
                     <td mat-cell *matCellDef="let element"> {{element.gutArea}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="cultivatedArea">
-                    <th mat-header-cell *matHeaderCellDef> Cultivated Area </th>
+                    <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.cultivated_area'| translate}}</th>
                     <td mat-cell *matCellDef="let element"> {{element.cultivatedArea}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="cultivatedPlantsCount">
-                    <th mat-header-cell *matHeaderCellDef> Cultivated Plant Amount </th>
+                    <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.number_of_trees_planted'| translate}}</th>
                     <td mat-cell *matCellDef="let element"> {{element.cultivatedPlantsCount}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="actions">
-                    <th mat-header-cell *matHeaderCellDef> Actions</th>
+                    <th mat-header-cell *matHeaderCellDef> {{'common.action'| translate}}</th>
                     <td mat-cell *matCellDef="let element;let i = index">
                       <div class="d-flex align-items-center gap-2">
                         <button matTooltip="{{'common.edit' | translate}}" matTooltipPosition="below" mat-icon-button
@@ -468,7 +465,7 @@
             </div>
             <div class="row">
               <div class="col-sm-4">
-                <mat-label class="form-label">23. रेशीम उद्योगाचे प्रशिक्षण स्वतः घेणार का उमेदवार पाठवणार ?</mat-label>
+                <mat-label class="form-label">{{'approvalProcess.will_he_take_the_training'| translate}}</mat-label>
                 <div class="">
                   <!-- <mat-radio-group aria-label="Select an option" formControlName="isSelfTraining">
                   <mat-radio-button class="pe-3" value="1"> स्वतः घेणार</mat-radio-button>
@@ -481,6 +478,7 @@
                   </mat-radio-group>
                 </div>
               </div>
+              <ng-container *ngIf="farmInfoFrm.getRawValue()?.isSelfTraining">
               <div class="col-sm-4">
                 <div class="form-label">23.A. उमेदवारचे नाव </div>
                 <div class="form-label">
@@ -499,6 +497,7 @@
                   </mat-select>
                 </mat-form-field>
               </div>
+            </ng-container>
             </div>
           </div>
 
@@ -863,9 +862,7 @@
               <div class="d-flex align-items-center  gap-2">
                 <mat-checkbox formControlName="isSignedOnLetter"></mat-checkbox>
                 <p class="form-label mb-0">
-                  महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजनेशी निगडित
-
-                  रेशीम उद्योग विकास / तुती लागवड योजनेची माहिती मला / आम्हाला मान्य असल्याव काबुल क करून त्याप्रमाणे
+                  महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजनेशी निगडित रेशीम उद्योग विकास / तुती लागवड योजनेची माहिती मला / आम्हाला मान्य असल्याव काबुल क करून त्याप्रमाणे
                   करार पत्रावर सह्या केल्या आहेत
                 </p>
               </div>
@@ -912,7 +909,7 @@
           <div class="form-data">Individual Information</div>
           <div class="row gx-2 mb-3">
             <div class="col-sm-2">
-              <img src="" alt="Applicant image"
+              <img src="{{previewData?.profilePhotoPath}}" alt="Applicant image"
                 class="img-fluid">
             </div>
             <div class="col-sm-10">
@@ -1196,7 +1193,7 @@
           <div class="text-main fw-bold">स्वयंघोशापत्र</div>
           
           <div class="d-flex align-items-center gap-2">
-            <mat-checkbox checked="true"></mat-checkbox>
+            <!-- <mat-checkbox checked="true"></mat-checkbox> -->
             <p class="form-label">
               वरील प्रमाणे महात्मा गांधी रोजगार हमी योजनेशी निगडित रेशीम उद्योग विकास / तुती लागवड योजनेअंतर्गत मी अर्ज
               केला आहे. त्यास मंजुरी मिळाल्यास त्याकरिता माझ्या / आमच्या मालकीच्या / जमिनीवर हि योजना राबविण्यास संमती
@@ -1207,7 +1204,7 @@
           <ul class="list-unstyled">
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
+                <mat-checkbox [checked]="previewData?.isHonestLabor == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   सदर ची योजना राबविण्याकरिता मी स्वतः / माझे कुटुंबातील कार्यक्षम व्यक्ती महात्मा गांधी राष्ट्रीय
                   ग्रामीण रोजगार हमी योजनेतील प्रामाणिक मजूर म्हणून घोषित करीत आहे / आहोत.
@@ -1219,7 +1216,7 @@
             </li>
             <li>
               <div class="d-flex  align-items-center gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
+                <mat-checkbox [checked]="previewData?.isSelfTransport == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   योजने अंतर्गत आवश्यक कलमे / रोपांची वाहतूक मला स्वतः
                   करावी लागेल याची मला कल्पना देण्यात आलेली असून मला ते मान्य आहे
@@ -1228,7 +1225,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
+                <mat-checkbox [checked]="previewData?.isEligibleGettingInstallmentAmount == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   झाडांची लागवड केल्यानंतर हप्ता रक्कम मिळण्यासाठीचे पात्रता निकष मला अवगत करून देण्यात आलेले असून ते
                   मला मान्य राहतील,
@@ -1237,7 +1234,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
+                <mat-checkbox [checked]="previewData?.isBoundByConditions == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   या योजनेचे नियम व अटी मला बंधनकारक आहे व त्यानुसार मी कलाम / रोपांची लागवड / संगोपन / संरक्षण करीन.
                 </p>
@@ -1245,7 +1242,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
+                <mat-checkbox [checked]="previewData?.isPayMoreThanLimitedAmt == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   सदर योजनेअंतर्गत एकूण क्षेत्राप्रमाणे व नमुन्याप्रमाणे शासनाने Ο प्रतिवर्षी मंजूर केलेल्या मयदिच्या
                   प्रमाणकापेक्षा जास्त खर्च झाल् मी / स्वतः करील
@@ -1254,7 +1251,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
+                <mat-checkbox [checked]="previewData?.isSignedOnLetter == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजनेशी निगडित
 
@@ -1265,7 +1262,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
+                <mat-checkbox [checked]="previewData?.isChangedAcceptable == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   या योजनेअंतर्गत शासन वेळोवेळी जे बदल करेल अथवा अटी ■ घालेल त्या अटी / बदल मला / आम्हाला मान्य राहतील.
                 </p>
@@ -1273,7 +1270,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
+                <mat-checkbox [checked]="previewData?.isSchemeCorrectAsPerSatbara == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   महात्मा गांधी राष्टीय ग्रामीण रोजगार हमी योजनेअंतर्गत रेशीम उद्योग विकास / तुती लागवड योजनेमध्ये
                   समाविष्ठ करून / घ्या करीता मी / आम्ही दिलेला तपशील ७/१२ चे उताऱ्याप्रमाणे बरोबर आहे.
@@ -1282,7 +1279,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
+                <mat-checkbox [checked]="previewData?.isJointAccHolderTermAcceptable == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   मी / आम्ही संयुक्त खातेदार असून माझ्या / आमच्या हिश्याच्या □ भूमापन क्र. १२६० मध्ये १ हेक्टर
                   क्षेत्रावर लागवड करण्यास परवानगी दिल्यास वरील अटी मला / आम्हाला मान्य राहतील
@@ -1293,7 +1290,7 @@
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">Previous</button>
-          <button mat-button matStepperNext class="btn-main">Next</button>
+          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('preview')">Next</button>
         </div>
 
       </mat-step>
