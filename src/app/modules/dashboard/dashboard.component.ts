@@ -1,11 +1,22 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { Subscription } from 'rxjs';
+import { ApiService } from 'src/app/core/services/api.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
+import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { MatCardModule } from '@angular/material/card';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MatButtonModule],
+  imports: [CommonModule, MatButtonModule,MatCardModule,ReactiveFormsModule,MatFormFieldModule,MatSelectModule,MatIconModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
