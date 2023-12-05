@@ -29,7 +29,7 @@ export class HeaderComponent {
   profileImg: string = '';
   subscription!: Subscription;
   setLang: any;
-  
+
   getLangForLocalStor!: string | null | any;
 
   constructor(private webStorage: WebStorageService, public dialog: MatDialog,
@@ -106,7 +106,7 @@ export class HeaderComponent {
     this.commonMethods.routerLinkRedirect('/login');
   }
 
-  openLogOutDialog() {    //open logout dialog
+  openLogOutDialog() { //open logout dialog
     let dialoObj = {
       header: this.setLang == 'en' ? 'Logout' : 'बाहेर पडणे',
       title: this.setLang == 'en' ? 'Do You Want To Logout?' : 'आपण लॉगआउट करू इच्छिता',
