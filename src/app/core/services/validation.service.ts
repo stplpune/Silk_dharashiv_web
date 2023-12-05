@@ -61,6 +61,15 @@ export class ValidationService {
     };
   }
 
+  minLengthValidator(minLength: number) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (control.value && control.value.length < minLength) {
+        return { minLengthNotMet: true };
+      }
+      return null;
+    };
+  }
+
   alphaNumericWithSpacesAndSpecCharss(event: any) {
     const maskSeperator = new RegExp('^([a-zA-Z0-9 -])', 'g');
     return maskSeperator.test(event.key);
