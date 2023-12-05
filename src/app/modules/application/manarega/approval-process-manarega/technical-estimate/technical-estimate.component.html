@@ -82,8 +82,8 @@
                     <th>२७</th>
                 </tr>
             </tbody>
-            <tbody>
-                <tr class="text-center">
+            <tbody *ngFor="let data of tableDataArray">
+                <tr class="text-center" >
                     <td class="text-center"><strong>अ.</strong></td>
                     <td class="text-center"><strong>मजुरी</strong></td>
                     <td></td>
@@ -115,13 +115,13 @@
                 <tr class="text-center">
                     <td class="text-center">१</td>
                     <td>जमीन तयार करणे</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{data.unit || '-'}}</td>
+                    <td>{{data.manPower || '-'}}</td>
+                    <td>{{data.wagesRate || '-'}}</td>
+                    <td>{{data.wages || '-'}}</td>
+                    <td>{{data.accessoriesAmount== 0 ? 0 : '-' || '-'}}</td>
+                    <td>{{data.benificiaryShares == 0 ? 0 : '-' || '-'}}</td>
+                    <td>{{data.total || '-'}}</td>
                     <td></td>
                     <td></td>
                     <td></td>
