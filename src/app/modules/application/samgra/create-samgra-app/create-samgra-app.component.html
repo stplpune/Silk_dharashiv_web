@@ -593,21 +593,20 @@
             <div class="col-sm-4">
               <div class="form-label">1. आधारर कार्ड छायांकित प्रत </div>
               <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip" (click)="selImg1.value='';selImg1.click()">File
                   Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" 
-                (change)="fileUpload($event,'addhar',16)" AddharPhoto.value="" #AddharPhoto />
-                <ng-container *ngFor="let document of documentArray;let i =index">
-                  <div class="d-flex gap-2" *ngIf="document?.docTypeId == 16">
+                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg1  (change)="fileUpload($event,docArray[0]?.docTypeId)"   />
+                <ng-container *ngIf="docArray[0]?.docPath">
+                  <div class="d-flex gap-2">
                     <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                      matTooltip="view" (click)="viewimage(document.docPath)">
+                      matTooltip="view">
                       <mat-icon class="material-symbols-rounded">
                         preview
                       </mat-icon>
                     </button>
                     <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                      matTooltip="delete" (click)="deleteDocument(i);AddharPhoto.value='' " >
+                      matTooltip="delete" (click)="deleteDocument(docArray[0]?.docTypeId)">
                       <mat-icon class="material-symbols-rounded">
                         delete
                       </mat-icon>
@@ -620,21 +619,20 @@
             <div class="col-sm-4">
               <div class="form-label">2. जमिनीचा 7/12 तुति नोंद असलेला किवा तलाठी प्रांणपतरा अपलोड करा </div>
               <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip" (click)="selImg2.value='';selImg2.click()">File
                   Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" 
-                (change)="fileUpload($event,'satbara',18)" satbara.value="" #satbara/>
-                <ng-container *ngFor="let document of documentArray;let i= index">
-                <div class="d-flex gap-2" *ngIf="document?.docTypeId == 18">
+                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg2  (change)="fileUpload($event,docArray[1]?.docTypeId)"    />
+                <ng-container *ngIf="docArray[1]?.docPath">
+                <div class="d-flex gap-2" >
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view" (click)="viewimage(document.docPath)">
+                    matTooltip="view" >
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
                   <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete" (click)="deleteDocument(i)">
+                    matTooltip="delete"  (click)="deleteDocument(docArray[1]?.docTypeId)">
                     <mat-icon class="material-symbols-rounded" >
                       delete
                     </mat-icon>
