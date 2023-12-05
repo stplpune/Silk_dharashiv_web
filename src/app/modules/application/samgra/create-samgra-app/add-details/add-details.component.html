@@ -13,59 +13,59 @@
       <div class="form-label">पीक निवडा</div>
       <mat-form-field appearance="outline" class="w-100">
         <mat-select formControlName="cropId">
-          <mat-option>अत्यल्प</mat-option>
-          <mat-option>अल्प</mat-option>
+          <mat-option *ngFor="let farmsGood of farmsGoodArray" [value]="farmsGood.id">{{farmsGood.textEnglish}}</mat-option>
+          <!-- <mat-option>अल्प</mat-option>
           <mat-option>मध्यम</mat-option>
-          <mat-option>उच्च भूधारक</mat-option>
+          <mat-option>उच्च भूधारक</mat-option> -->
         </mat-select>
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="form-label">क्षेत्र एकर</div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="" >
+        <input matInput placeholder=""  formControlName="area">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="form-label">झालेले उत्पादन ( क्विंटल ) </div>
-      <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="">
+      <mat-form-field appearance="outline" class="w-100" >
+        <input matInput placeholder="" formControlName="totalProduction">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="form-label">मिळालेला सरासरी दर प्रती रु  </div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="" >
+        <input matInput placeholder="" formControlName="averageRate">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="form-label">झालेला उत्पादन रु </div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="" >
+        <input matInput placeholder="" formControlName="totalProductionAmt">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="form-label">आलेला खर्च रु </div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="">
+        <input matInput placeholder="" formControlName="totalExpenses">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="form-label">झालेला निव्वळ उत्पन्न रु</div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="">
+        <input matInput placeholder="" formControlName="netIncome">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="form-label">प्रती एकर निव्वळ उत्पन्न रु</div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="">
+        <input matInput placeholder="" formControlName="acreNetIncome">
       </mat-form-field>
     </div>
 
   </div>
 </div>
 <div mat-dialog-actions class="modal-footer float-end">
-    <button mat-flat-button class="btn-main">Save</button>
+    <button mat-flat-button class="btn-main" (click)="onSubmit()">Save</button>
 </div>
 </form>

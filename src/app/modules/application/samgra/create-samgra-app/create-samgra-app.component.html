@@ -81,7 +81,6 @@
                 <mat-label class="form-label">5. लिंग निवडा</mat-label>
                 <mat-radio-group aria-label="Select an option" formControlName="gender">
                   <mat-radio-button *ngFor="let gender of genderArray" [value]="gender.id">{{gender.name}}</mat-radio-button>
-                  <!-- <mat-radio-button value="2">Female</mat-radio-button> -->
                 </mat-radio-group>
               </div>
             </div>
@@ -89,13 +88,7 @@
               <div class="form-label">6. शिक्षण</div>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="qualificationId">
-                  <mat-option *ngFor="let qualification of qualificationArray" [value]="qualification.id">{{qualification.textEnglish}}</mat-option>
-                  <!-- <mat-option>10 वी</mat-option>
-                  <mat-option>12 वी</mat-option>
-                  <mat-option>डिप्लोमा</mat-option>
-                  <mat-option>पदवीधर</mat-option>
-                  <mat-option>उछपद्विधार</mat-option>
-                  <mat-option>इतर</mat-option> -->
+                  <mat-option *ngFor="let qualification of qualificationArray" [value]="qualification.id">{{qualification.textEnglish}}</mat-option>         
                 </mat-select>
               </mat-form-field>
             </div>
@@ -104,9 +97,7 @@
               <mat-form-field appearance="outline" class="w-100"
               [class]="WebStorageService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
                 <mat-select formControlName="stateId" (selectionChange)="getDisrict()">
-                  <mat-option *ngFor="let state of stateArray" [value]="state.id">{{state.textEnglish}}</mat-option>
-                  <!-- <mat-option>गुजरात</mat-option>
-                  <mat-option>बिहार</mat-option> -->
+                  <mat-option *ngFor="let state of stateArray" [value]="state.id">{{state.textEnglish}}</mat-option>             
                 </mat-select>
               </mat-form-field>
             </div>
@@ -114,9 +105,7 @@
               <div class="form-label">8. जिल्हा</div>
               <mat-form-field appearance="outline" class="w-100" >
                 <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
-                  <mat-option *ngFor="let district of districtArray" [value]="district.id">{{district.textEnglish}}</mat-option>
-                  <!-- <mat-option>गुजरात</mat-option>
-                  <mat-option>बिहार</mat-option> -->
+                  <mat-option *ngFor="let district of districtArray" [value]="district.id">{{district.textEnglish}}</mat-option>         
                 </mat-select>
               </mat-form-field>
             </div>
@@ -124,10 +113,6 @@
               <div class="form-label">9. तालुका</div>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="talukaId" (selectionChange)="getGrampanchayat()">
-                  <!-- <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id" >{{taluka.textEnglish}}</mat-option> -->
-                  <!-- <mat-option>गुजरात</mat-option>
-                  <mat-option>बिहार</mat-option> -->
-
                   <mat-option>
                     <ngx-mat-select-search [formControl]="talukaCtrl"
                     placeholderLabel="Search Lead Name" noEntriesFoundLabel="No Data Found"></ngx-mat-select-search>
@@ -143,10 +128,6 @@
               <div class="form-label">10. ग्रामपंचायत</div>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="grampanchayatId">
-                  <!-- <mat-option *ngFor="let grampanchayat of grampanchayatArray" [value]="grampanchayat.id">{{grampanchayat.textEnglish}}</mat-option> -->
-                  <!-- <mat-option>गुजरात</mat-option>
-                  <mat-option>बिहार</mat-option> -->
-
                   <mat-option>
                     <ngx-mat-select-search [formControl]="gramPCtrl"
                       placeholderLabel=""
@@ -162,13 +143,6 @@
               <mat-form-field appearance="outline" class="w-100">
                 <input matInput placeholder="" formControlName="village">
               </mat-form-field>
-              <!-- <mat-form-field appearance="outline" class="w-100">
-                <mat-select formControlName="village">
-                  <mat-option>निपाणी</mat-option>
-                  <mat-option>गुजरात</mat-option>
-                  <mat-option>बिहार</mat-option>
-                </mat-select>
-              </mat-form-field> -->
             </div>
 
             <div class="col-sm-3">
@@ -250,8 +224,7 @@
               <div class="d-flex align-items-center gap-3">
                 <mat-label class="form-label">16. लाभार्थी दारिद्र्यरेशेखालील आहे का ?</mat-label>
                 <mat-radio-group aria-label="Select an option" formControlName="sm_IsBelowPovertyLine">
-                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id" class="pe-3">{{check.name}}</mat-radio-button>
-                  <!-- <mat-radio-button value="2">नाही</mat-radio-button> -->
+                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id" class="pe-3">{{check.name}}</mat-radio-button>            
                 </mat-radio-group>
               </div>
             </div>
@@ -281,10 +254,7 @@
               <div class="form-label">18. भुदरन वर्गवारी निवडा</div>
               <mat-form-field appearance="outline" class="w-100" >
                 <mat-select formControlName="sm_LandTenureCategories">
-                  <mat-option>अत्यल्प</mat-option>
-                  <mat-option>अल्प</mat-option>
-                  <mat-option>मध्यम</mat-option>
-                  <mat-option>उच्च भूधारक</mat-option>
+                  <mat-option *ngFor="let landTenure of landTenureCatArray" [value]="landTenure.id">{{landTenure.textEnglish}}</mat-option>                
                 </mat-select>
               </mat-form-field>
             </div>
@@ -292,9 +262,7 @@
               <div class="form-label">19. जमिनीचा प्रकार </div>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="farmTypeId">
-                  <mat-option *ngFor="let farmType of farmTypeArray" [value]="farmType.id">{{farmType.textEnglish}}</mat-option>
-                  <!-- <mat-option>मध्यम </mat-option>
-                  <mat-option>भारी</mat-option> -->
+                  <mat-option *ngFor="let farmType of farmTypeArray" [value]="farmType.id">{{farmType.textEnglish}}</mat-option>             
                 </mat-select>
               </mat-form-field>
             </div>
@@ -302,11 +270,7 @@
               <div class="form-label">20. सिंचांनाची सुविधा </div>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="irrigationFacilityId">
-                  <mat-option *ngFor="let irrigationFacility of irrigationFacilityArray" [value]="irrigationFacility.id">{{irrigationFacility.textEnglish}}</mat-option>
-                  <!-- <mat-option>बोरेवेल्ल</mat-option>
-                  <mat-option>नदी</mat-option>
-                  <mat-option>पाट</mat-option>
-                  <mat-option>कालवा</mat-option> -->
+                  <mat-option *ngFor="let irrigationFacility of irrigationFacilityArray" [value]="irrigationFacility.id">{{irrigationFacility.textEnglish}}</mat-option>             
                 </mat-select>
               </mat-form-field>
             </div>
@@ -314,8 +278,7 @@
               <div class="form-label">21. सिंचन कालावधी </div>
               <mat-form-field appearance="outline" class="w-100">
                 <mat-select formControlName="sm_IrrigationPeriod">
-                  <mat-option>आठमही</mat-option>
-                  <mat-option>बारमाही</mat-option>
+                 <mat-option *ngFor="let irrigationPeriod of irrigationPeriodArray" [value]="irrigationPeriod.id">{{irrigationPeriod.textEnglish}}</mat-option>            
                 </mat-select>
               </mat-form-field>
             </div>
@@ -324,8 +287,7 @@
               <div class="d-flex flex-column">
                 <mat-label class="form-label mb-0">22. शासकीय योजने अंतर्गत तुति लागवड केली आहे का ?</mat-label>
                 <mat-radio-group aria-label="Select an option" formControlName="isAnyPlantedBeforeGovScheme">
-                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id" class="pe-3" checked>{{check.name}}</mat-radio-button>
-                  <!-- <mat-radio-button value="2">नाही</mat-radio-button> -->
+                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id" class="pe-3" checked>{{check.name}}</mat-radio-button>              
                 </mat-radio-group>
               </div>
             </div>
@@ -368,47 +330,50 @@
 
                   <ng-container matColumnDef="srno">
                     <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
-                    <td mat-cell *matCellDef="let element"> {{element.srno}} </td>
+                    <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
                   </ng-container>
 
-                  <ng-container matColumnDef="cropname">
+                  <ng-container matColumnDef="cropId">
                     <th mat-header-cell *matHeaderCellDef> Crop Name </th>
-                    <td mat-cell *matCellDef="let element"> {{element.cropname}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element?.cropId || '-'}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="area">
                     <th mat-header-cell *matHeaderCellDef> क्षेत्र एकर </th>
-                    <td mat-cell *matCellDef="let element"> {{element.area}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element?.area || '-'}} </td>
                   </ng-container>
 
-                  <ng-container matColumnDef="doneProdQuintal">
+                  <ng-container matColumnDef="totalProduction">
                     <th mat-header-cell *matHeaderCellDef> झालेले उत्पादन क्विंटल </th>
-                    <td mat-cell *matCellDef="let element"> {{element.doneProdQuintal}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element?.totalProduction || '-'}} </td>
                   </ng-container>
-                  <ng-container matColumnDef="recievedpriceperkg">
+                  <ng-container matColumnDef="averageRate">
                     <th mat-header-cell *matHeaderCellDef> मिळालेला सरासरी दर प्रती क्विं रु </th>
-                    <td mat-cell *matCellDef="let element"> {{element.recievedpriceperkg}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element?.averageRate || '-'}} </td>
                   </ng-container>
-                  <ng-container matColumnDef="doneProductionQty">
+                  <ng-container matColumnDef="totalProductionAmt">
                     <th mat-header-cell *matHeaderCellDef> झालेला उत्पादन रु </th>
-                    <td mat-cell *matCellDef="let element"> {{element.doneProductionQty}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element?.totalProductionAmt || '-'}} </td>
                   </ng-container>
-                  <ng-container matColumnDef="recievedcost">
+                  <ng-container matColumnDef="totalExpenses">
                     <th mat-header-cell *matHeaderCellDef> आलेला खर्चा रु </th>
-                    <td mat-cell *matCellDef="let element"> {{element.recievedcost}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element?.totalExpenses || '-'}} </td>
                   </ng-container>
-                  <ng-container matColumnDef="doneproductionRs">
+                  <ng-container matColumnDef="netIncome">
                     <th mat-header-cell *matHeaderCellDef> झालेले निव्वळ उत्पन्न रु </th>
-                    <td mat-cell *matCellDef="let element"> {{element.doneproductionRs}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element?.netIncome || '-'}} </td>
                   </ng-container>
-                  <ng-container matColumnDef="perekarprodRs">
+                  <ng-container matColumnDef="acreNetIncome">
                     <th mat-header-cell *matHeaderCellDef> प्रती एकर निव्वळ उत्पन्नरु </th>
-                    <td mat-cell *matCellDef="let element"> {{element.perekarprodRs}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element?.acreNetIncome || '-'}} </td>
                   </ng-container>
 
                   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
+                <div *ngIf="!currentCropDetailsArray.length" class="alert alert-danger text-center mt-1 py-2 mb-0">
+                  <span> {{lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'}}</span>
+                </div>
               </div>
             </div>
 
@@ -419,10 +384,7 @@
                   <div class="form-label">24.A. तुतीची सुधारित जात निवडा</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select>
-                      <mat-option>Bank of India</mat-option>
-                      <mat-option>Bank of maharashtra</mat-option>
-                      <mat-option>Bank of Badoda</mat-option>
-                      <mat-option>HDFC</mat-option>
+                      <mat-option *ngFor="let mulberryCast of mulberryCastArray" [value]="mulberryCast.id">{{mulberryCast.textEnglish}}</mat-option>             
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -442,10 +404,7 @@
                   <div class="form-label">24.D. तुति लागवड करावयाचे क्षेत्र ( एकर )</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="sm_MulberryCultivationArea">
-                      <mat-option>Bank of India</mat-option>
-                      <mat-option>Bank of maharashtra</mat-option>
-                      <mat-option>Bank of Badoda</mat-option>
-                      <mat-option>HDFC</mat-option>
+                      <mat-option *ngFor="let mulberryArea of mulberryAreaArray" [value]="mulberryArea.id">{{mulberryArea.textEnglish}}</mat-option>                
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -453,24 +412,22 @@
                   <div class="form-label">24.E. तुति लागवड करवायची पद्धत :</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="sm_PlantationMethod">
-                      <mat-option>1 एकर</mat-option>
-                      <mat-option>2 एकर</mat-option>
+                      <mat-option *ngFor="let pantationMethod of pantationMethodArray" [value]="pantationMethod.id">{{pantationMethod.textEnglish}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
               </div>
             </div>
 
-
             <div class="col-sm-4">
               <div class="d-flex align-items-center gap-3">
                 <mat-label class="form-label">25. रेशीम उद्योगातील अनुभव आहे का ?</mat-label>
-                <mat-radio-group aria-label="Select an option" formControlName="sm_IsExperienceSilkIndustry">
-                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id">{{check.name}}</mat-radio-button>               
+                <mat-radio-group aria-label="Select an option" formControlName="sm_IsExperienceSilkIndustry" (change)="radioEvent($event,'isExperience')">
+                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id"  >{{check.name}}</mat-radio-button>               
                 </mat-radio-group>
               </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4" *ngIf="IsExperienceSilk">
               <div class="form-label"> 25.A. किती वर्षाचा ते नमूद करावे : </div>
               <div class="form-label">
                 <mat-form-field appearance="outline" class="w-100">
@@ -481,25 +438,22 @@
             <div class="col-sm-4">
               <div class="d-flex flex-column ">
                 <mat-label class="form-label">26. रेशीम उद्योगातील प्रशिक्षण घेतले आहे ?</mat-label>
-                <mat-radio-group aria-label="Select an option" formControlName="sm_IsSilkIndustrtyTrainingReceived">
-                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id">{{check.name}}</mat-radio-button>
-                  <!-- <mat-radio-button value="2">नाही</mat-radio-button> -->
+                <mat-radio-group aria-label="Select an option" formControlName="sm_IsSilkIndustrtyTrainingReceived" (change)="radioEvent($event,'isTraining')">
+                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id">{{check.name}}</mat-radio-button>                
                 </mat-radio-group>
               </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4" *ngIf="isIndustrtyTraining">
               <mat-label class="form-label">26.A. रेशीम उद्योगातील घेतलेले प्रशिक्षण </mat-label>
               <mat-form-field appearance="outline" class="w-100">
-                <textarea matInput placeholder="" rows="3" formControlName="sm_SilkIndustrtyTrainingDetails"
-                ></textarea>
+                <textarea matInput placeholder="" rows="3" formControlName="sm_SilkIndustrtyTrainingDetails"></textarea>
               </mat-form-field>
             </div>
             <div class="col-sm-4">
               <div class="d-flex flex-column">
                 <mat-label class="form-label">27. रेशीम उद्योग करणार्‍या शेतकर्‍याकडे प्रत्यक्ष जाऊन माहिती घेतली आहे का  ?</mat-label>
                 <mat-radio-group aria-label="Select an option" formControlName="sm_IsEngagedInSilkIndustry">
-                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id">{{check.name}}</mat-radio-button>
-                  <!-- <mat-radio-button value="2">नाही</mat-radio-button> -->
+                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id">{{check.name}}</mat-radio-button>              
                 </mat-radio-group>
               </div>
             </div>
@@ -507,32 +461,71 @@
               <div class="d-flex flex-column">
                 <mat-label class="form-label">28. यापूर्वी रेशीम संचालनालय अंतर्गत कुठल्या योजनेचा लाभ घेतला आहे ka  ?</mat-label>
                 <mat-radio-group aria-label="Select an option" formControlName="sm_IsTakenBenefitOfInternalScheme">
-                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id">{{check.name}}</mat-radio-button>
-                  <!-- <mat-radio-button value="2">नाही</mat-radio-button> -->
+                  <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id" (change)="radioEvent($event,'isBenefit')">{{check.name}}</mat-radio-button>          
                 </mat-radio-group>
               </div>
             </div>
+            <ng-container *ngIf="isTakenBenefit">
+            <form [formGroup]="internalSchemes">         
             <div class="col-sm-4">
               <mat-label class="form-label">28.A. यापूर्वी रेशीम संचालनालय अंतर्गत कुठल्या योजनेचा लाभ घेतला आहे ?</mat-label>
               <mat-form-field appearance="outline" class="w-100">
-                <textarea matInput placeholder="" rows="3" ></textarea>
+                <textarea matInput placeholder="" rows="3" formControlName="internalSchemeName" ></textarea>
               </mat-form-field>
             </div>
             <div class="col-sm-4">
               <mat-label class="form-label">28.B. तारीख ?</mat-label>
               <mat-form-field appearance="outline" class="w-100">
-                <textarea matInput placeholder="" rows="3"></textarea>
+                <textarea matInput placeholder="" rows="3"  formControlName="schemeTakenDate"></textarea>
               </mat-form-field>
             </div>
             <div class="col-sm-4">
               <mat-label class="form-label">28.C. एकूण घेतलेला लाभ ?</mat-label>
               <mat-form-field appearance="outline" class="w-100">
-                <textarea matInput placeholder="" rows="3"></textarea>
+                <textarea matInput placeholder="" rows="3" formControlName="totalBenefitTaken"></textarea>
               </mat-form-field>
-            </div>
+            </div>          
             <div class="col-sm-auto">
-              <button mat-flat-button class="btn-main">आणखी तपशील जोडा </button>
+              <button mat-flat-button class="btn-main" (click)="addInternalSchemes()">आणखी तपशील जोडा </button>
             </div>
+          </form>
+        
+
+
+        <div class="table-responsive scrollbar">
+          <table mat-table [dataSource]="dataSource1" class="dashboard-table">
+
+            <ng-container matColumnDef="srno">
+              <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
+              <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="internalSchemeName">
+              <th mat-header-cell *matHeaderCellDef> Crop Name </th>
+              <td mat-cell *matCellDef="let element"> {{element?.internalSchemeName || '-'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="schemeTakenDate">
+              <th mat-header-cell *matHeaderCellDef> क्षेत्र एकर </th>
+              <td mat-cell *matCellDef="let element"> {{element?.schemeTakenDate || '-'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="totalBenefitTaken">
+              <th mat-header-cell *matHeaderCellDef> झालेले उत्पादन क्विंटल </th>
+              <td mat-cell *matCellDef="let element"> {{element?.totalBenefitTaken || '-'}} </td>
+            </ng-container>            
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+          </table>
+          <div *ngIf="!internalSchemesArray.length" class="alert alert-danger text-center mt-1 py-2 mb-0">
+            <span> {{lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'}}</span>
+          </div>
+        </div>
+      </ng-container>
+
+
+
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
@@ -603,21 +596,25 @@
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
                   Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
-                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
-                    <mat-icon class="material-symbols-rounded">
-                      preview
-                    </mat-icon>
-                  </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
-                </div>
+                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" 
+                (change)="fileUpload($event,'addhar',16)" AddharPhoto.value="" #AddharPhoto />
+                <ng-container *ngFor="let document of documentArray;let i =index">
+                  <div class="d-flex gap-2" *ngIf="document?.docTypeId == 16">
+                    <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+                      matTooltip="view" (click)="viewimage(document.docPath)">
+                      <mat-icon class="material-symbols-rounded">
+                        preview
+                      </mat-icon>
+                    </button>
+                    <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                      matTooltip="delete" (click)="deleteDocument(i);AddharPhoto.value='' " >
+                      <mat-icon class="material-symbols-rounded">
+                        delete
+                      </mat-icon>
+                    </button>
+                  </div>
+                </ng-container>
+            
               </div>
             </div>
             <div class="col-sm-4">
@@ -626,21 +623,24 @@
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
                   Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
+                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" 
+                (change)="fileUpload($event,'satbara',18)" satbara.value="" #satbara/>
+                <ng-container *ngFor="let document of documentArray;let i= index">
+                <div class="d-flex gap-2" *ngIf="document?.docTypeId == 18">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
+                    matTooltip="view" (click)="viewimage(document.docPath)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
                   <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
-                    <mat-icon class="material-symbols-rounded">
+                    matTooltip="delete" (click)="deleteDocument(i)">
+                    <mat-icon class="material-symbols-rounded" >
                       delete
                     </mat-icon>
                   </button>
                 </div>
+              </ng-container>
               </div>
             </div>
             <div class="col-sm-4">

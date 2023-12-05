@@ -10,6 +10,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { CategoryDetailsComponent } from '../../manarega/category-details/category-details.component';
+import { FileUploadService } from 'src/app/core/services/file-upload.service';
+import { MatTableDataSource } from '@angular/material/table';
 // import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 
 @Component({
@@ -22,6 +24,7 @@ export class CreateSamgraAppComponent {
   samgraForm !: FormGroup;
   landDetailsForm !: FormGroup;
   bankDetailsForm !: FormGroup;
+  internalSchemes ! : FormGroup;
 
 
   qualificationArray = new Array();
@@ -37,16 +40,35 @@ export class CreateSamgraAppComponent {
   irrigationFacilityArray = new Array();
   checkedItems = new Array();
 
+  irrigationPeriodArray = new Array();
+  mulberryCastArray= new Array();
+  mulberryAreaArray = new Array();
+  pantationMethodArray = new Array();
+  landTenureCatArray = new Array();
+  documentArray = new Array();
+  internalSchemesArray = new Array();
+
+  currentCropDetailsArray = new Array;
+  dataSource : any;
+  dataSource1:any;
+
   genderArray: any = [{ id: 1, name: 'Male' }, { id: 0, name: 'Female' }];
   checkedArray:any = [{id:true,name:'Yes'},{id:false,name:'No'}];
   subscription!: Subscription;
   todayDate = new Date();
+
+  IsExperienceSilk : boolean = false;
+  isIndustrtyTraining: boolean = false;
+  isTakenBenefit : boolean = false;
 
   talukaCtrl: FormControl = new FormControl();
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   gramPCtrl: FormControl = new FormControl();
   gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
 
+
+  displayedColumns: string[] = ['srno', 'cropId', 'area', 'totalProduction', 'averageRate','totalProductionAmt','totalExpenses','netIncome','acreNetIncome'];
+  displayedColumns1: string[] = ['srno', 'internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken'];
   constructor(public dialog: MatDialog,
     private masterService : MasterService,
     private commonMethod : CommonMethodsService,
@@ -54,7 +76,8 @@ export class CreateSamgraAppComponent {
     public WebStorageService : WebStorageService,
     private fb : FormBuilder,
     private spinner : NgxSpinnerService,
-    private errorHandler : ErrorHandlingService
+    private errorHandler : ErrorHandlingService,
+    private uploadService : FileUploadService
     ) {}
     ngOnInit() {
       this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
@@ -65,6 +88,7 @@ export class CreateSamgraAppComponent {
       this.samgraformData();
       this.landDetailsFormData();
       this.bankDetailsFormData(); 
+      this.internalSchemesFormData();
       this.commonDropdown();
 
      
@@ -155,6 +179,18 @@ export class CreateSamgraAppComponent {
       })
     }
 
+    internalSchemesFormData(){
+      this.internalSchemes = this.fb.group({
+        "id": 0,
+        "applicationId": 0,
+        "internalSchemeName": [''],
+        "schemeTakenDate":[''],
+        "totalBenefitTaken": [''],
+        "createdBy": 0
+      })
+    }
+
+
     
   getQualification(){
     this.qualificationArray = [];
@@ -230,7 +266,6 @@ export class CreateSamgraAppComponent {
     }
   }
 
-
   getGrampanchayat() {
     this.grampanchayatArray = [];
     let talukaId = this.samgraForm.getRawValue()?.talukaId;
@@ -263,6 +298,18 @@ export class CreateSamgraAppComponent {
     })
   }
 
+  getLandTenureCategories(){
+    this.masterService.getLandTenureCategories().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.landTenureCatArray = res.responseData;
+          }
+        else {
+          this.landTenureCatArray = [];
+        }
+      })
+    })
+  }
 
 
   getFarmType(){
@@ -278,6 +325,19 @@ export class CreateSamgraAppComponent {
     })
   }
 
+  getIrrigationPeriod(){
+    this.masterService.getIrrigationPeriod().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.irrigationPeriodArray = res.responseData;
+          }
+        else {
+          this.irrigationPeriodArray = [];
+        }
+      })
+    })
+  }
+
   getIrrigationFacility() {
     this.irrigationFacilityArray = [];
     this.masterService.GetIrrigationFacility().subscribe({
@@ -287,6 +347,49 @@ export class CreateSamgraAppComponent {
         }
         else {
           this.irrigationFacilityArray = [];
+        }
+      })
+    })
+  }
+
+  getImprovedMulberryCast() {
+    this.irrigationFacilityArray = [];
+    this.masterService.getImprovedMulberryCast().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.mulberryCastArray = res.responseData;
+        }
+        else {
+          this.mulberryCastArray = [];
+        }
+      })
+    })
+  }
+
+  
+  getPlantationMethod() {
+    this.irrigationFacilityArray = [];
+    this.masterService.getPlantationMethod().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.pantationMethodArray = res.responseData;
+        }
+        else {
+          this.pantationMethodArray = [];
+        }
+      })
+    })
+  }
+
+  getMulberryCultivationArea() {
+    this.irrigationFacilityArray = [];
+    this.masterService.getMulberryCultivationArea().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200" && res.responseData?.length) {
+          this.mulberryAreaArray = res.responseData;
+        }
+        else {
+          this.mulberryAreaArray = [];
         }
       })
     })
@@ -481,9 +584,13 @@ export class CreateSamgraAppComponent {
 
 
   adddetails(){
-    this.dialog.open(AddDetailsComponent,{
+    const dialogRef =  this.dialog.open(AddDetailsComponent,{
       width:'50%'
-    })
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+    this.currentCropDetailsArray.push(result);
+    this.dataSource = new MatTableDataSource( this.currentCropDetailsArray);
+    });
   }
 
   categoryDialogBox() {
@@ -494,36 +601,98 @@ export class CreateSamgraAppComponent {
       autoFocus: true,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log("result",result);
       if(result == 'true'){
         return;
       }else if(result){
         this.categoryArray = result;
         this.checkedItems = this.categoryArray.filter(item => item.checked); 
-        console.log("this.checkedItems",this.checkedItems);
-        
       }
     });
   }
+
+  radioEvent(event:any,flag:any){
+    if(flag == 'isExperience'){
+      this.IsExperienceSilk = event.value;
+    }else if(flag =='isTraining'){
+      this.isIndustrtyTraining = event.value;
+    }else if(flag == 'isBenefit'){
+      this.isTakenBenefit = event.value;
+    }     
+  }
+
+  fileUpload(event: any, docName: string,docId:any) {
+    this.spinner.show();
+    let docObject: any  
+    let type = 'jpg, jpeg, png, pdf'
+    this.uploadService.uploadDocuments(event, 'ApplicationDocuments',type,'','',this.lang).subscribe({
+      next: (res: any) => {
+        if (res.statusCode == 200) {
+          this.spinner.hide();
+          let fileName = res.responseData.split('/');
+          let imageName = fileName.pop();
+          docObject = {
+            "id": 0,
+            "applicationId": 0,
+            "docTypeId":docName == 'addhar' ? 16 :docName == 'satbara'? 18 :'',
+            "docNo":'',
+            "docname": imageName,
+            "docPath": res.responseData,
+            "createdBy": 0,       
+            "isDeleted": false
+          }  
+          if(this.documentArray.length){
+            let index = this.documentArray.findIndex((res:any)=>{return res.docTypeId == docId})
+            index >= 0 ?  this.documentArray[index] = docObject : this.documentArray.push(docObject)          
+          } else{
+            this.documentArray.push(docObject)
+          }    
+          this.commonMethod.snackBar(res.statusMessage, 0)
+        } 
+      },
+      error: ((error: any) => {
+        this.spinner.hide();
+        this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+      })
+    });
+  }
+
+  viewimage(obj:any) {
+    window.open(obj, '_blank')
+  }
+  deleteDocument(index:any){
+    this.documentArray.splice(index,1);
+  }
+
+  addInternalSchemes(){
+    let fromvalue = this.internalSchemes.value
+    if(this.internalSchemes.invalid){
+      return;
+    }else{
+      this.internalSchemesArray.push(fromvalue);
+      this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
+    }
+  }
+ 
+
   
-  displayedColumns: string[] = ['srno', 'cropname', 'area', 'doneProdQuintal', 'recievedpriceperkg','doneProductionQty','recievedcost','doneproductionRs','perekarprodRs'];
-  dataSource = ELEMENT_DATA;
+  // displayedColumns: string[] = ['srno', 'cropId', 'area', 'totalProduction', 'averageRate','totalProductionAmt','totalExpenses','netIncome','acreNetIncome'];
+  // dataSource = ELEMENT_DATA;
 
 
 }
 
-export interface PeriodicElement {
-  srno: number;
-  cropname: string;
-  area: string;
-  doneProdQuintal: string;
-  recievedpriceperkg :string;
-  doneProductionQty:string;
-  recievedcost:string;
-  doneproductionRs:string;
-  perekarprodRs:string;
-}
+// export interface PeriodicElement {
+//   srno: number;
+//   cropname: string;
+//   area: string;
+//   doneProdQuintal: string;
+//   recievedpriceperkg :string;
+//   doneProductionQty:string;
+//   recievedcost:string;
+//   doneproductionRs:string;
+//   perekarprodRs:string;
+// }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {srno: 1, cropname: 'Hydrogen', area: '1', doneProdQuintal: '8',recievedpriceperkg:'120', doneProductionQty:'960000', recievedcost:'15000', doneproductionRs:'81000',perekarprodRs:'40500'   }
-];
+// const ELEMENT_DATA: PeriodicElement[] = [
+//   {srno: 1, cropname: 'Hydrogen', area: '1', doneProdQuintal: '8',recievedpriceperkg:'120', doneProductionQty:'960000', recievedcost:'15000', doneproductionRs:'81000',perekarprodRs:'40500'   }
+// ];
