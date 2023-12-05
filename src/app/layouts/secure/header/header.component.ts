@@ -29,14 +29,14 @@ export class HeaderComponent {
   profileImg: string = '';
   subscription!: Subscription;
   setLang: any;
-
+  
   getLangForLocalStor!: string | null | any;
 
   constructor(private webStorage: WebStorageService, public dialog: MatDialog,
     private commonMethods: CommonMethodsService,
     private translate: TranslateService) {
 
-    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('lang');
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
     this.translate.use(this.getLangForLocalStor)
 
   }
