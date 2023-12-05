@@ -110,3 +110,12 @@
 .mat-mdc-form-field-subscript-wrapper {
     height: 14px;
 }
+
+/* toggle button css */
+.mat-mdc-slide-toggle .mdc-switch.mdc-switch--unselected:enabled .mdc-switch__icon {
+    fill: transparent !important;
+}
+
+.mat-mdc-slide-toggle .mdc-switch.mdc-switch--selected:enabled .mdc-switch__icon {
+    fill: transparent !important;
+}

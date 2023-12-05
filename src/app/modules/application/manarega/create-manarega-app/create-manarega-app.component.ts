@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component,ElementRef,ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup,NgForm,Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
@@ -61,24 +61,15 @@ export class CreateManaregaAppComponent {
   dataSource :any;
  @ViewChild('formDirective') private formDirective!: NgForm;
   //documnet form variable
-  
-  manaregaJobUploadImg = new Array();
-  @ViewChild('manaregaImage') ManaregaImg!: ElementRef;
-  @ViewChild('eightAImage') EightAImg!: ElementRef;
-  EightAUploadImg = new Array();
-  @ViewChild('sevenTweImage') SevenTweImg!: ElementRef;
-  SevenTweUploadImg = new Array(); 
-  @ViewChild('bankPassImage') BankPassImg!: ElementRef;
-  BankPassUploadImg = new Array(); 
-  @ViewChild('otherDocImage') OtherDocImg!: ElementRef;
-  OtherDocUploadImg = new Array(); 
-  documentdisplayedColumns:string[] = ['srNo', 'documentType', 'docNo', 'action'];
+  docUploadedPath: string = '';
+  docArray = [{id:0,docTypeId:12,docPath:'',docNo:'',docname:'Job Card'},{id:0,docTypeId:19,docPath:'',docNo:'',docname:'8A Form'},{id:0,docTypeId:18,docPath:'',docNo:'',docname:'7-Dec'},{id:0,docTypeId:11,docPath:'',docNo:'',docname:'Nationalized Bank Passbook'}]
   visible:boolean = false;
-  selOtherDocIndex!: number;
-  editOtherDocForm: boolean = false;
   otherDocArray: any = new Array();
+  @ViewChild('otherDocImage') OtherDocImg!: ElementRef;
+   OtherDocUploadImg = new Array(); 
   @ViewChild('formDirectivess') private otherformDirective!: NgForm;
-  //selfDeckaration form variable
+  documentdisplayedColumns:string[] = ['srNo', 'documentType', 'docNo', 'action'];
+ //selfDeckaration form variable
   selfDeclarationFrm !: FormGroup
   //preview form variable
   previewData:any;
@@ -118,7 +109,104 @@ export class CreateManaregaAppComponent {
     this.searchDataZone();
     this.getPreviewData();
   }
+    //#region  -----------------------------------------------------------doc upload section fn start heare-----------------------------------//
 
+    fileUpload(event: any, docId: any,lable:any) {
+
+      let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray,'docTypeId',docId);
+  
+      this.spinner.show();
+      let type = 'jpg, jpeg, png, pdf'
+      this.fileUpl.uploadDocuments(event, 'ApplicationDocuments', type, '', '', this.lang).subscribe({
+        next: (res: any) => {
+          if (res.statusCode == 200) {
+            this.spinner.hide();
+            if(lable == 'documents'){
+              this.docArray[indexByDocId].docPath = res.responseData;
+              console.log( this.docArray)
+            }
+            else if(lable == 'otherDocuments'){
+              this.otherDocumentFrm.controls['docPath'].setValue(res.responseData)
+             
+            }
+           
+            this.commonMethod.snackBar(res.statusMessage, 0)
+          }
+        },
+        error: ((error: any) => {
+          this.spinner.hide();
+          this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+        })
+      });
+    }
+  
+    viewimages(obj: any) {
+      window.open(obj, '_blank')
+    }
+  
+    deleteDocument(docId: any) {
+      let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray,'docTypeId',docId);
+      this.docArray[indexByDocId]['docPath'] = '';
+    }
+  
+    //#endregion  --------------------------------------------------------doc upload section fn end heare-----------------------------------//
+
+    //#region -----------------other document upload functionality start --------------------------------------------------
+     onOtherDocSubmit() {
+    let uploadFrmValue = this.otherDocumentFrm.getRawValue();
+    console.log(" uploadFrmValue", uploadFrmValue)
+    if (!uploadFrmValue?.docname) {
+      this.commonMethod.snackBar('Document name is  required', 1);
+      return
+    } else if (!uploadFrmValue?.docNo) {
+      this.commonMethod.snackBar('Document number is  required', 1);
+      return
+    } else if (!uploadFrmValue?.docPath) {
+      this.commonMethod.snackBar('Document path is  required', 1);
+      return
+    }
+    else {
+      let obj = {
+        "id": 0,
+        "applicationId": 0,//remove 0
+        "docTypeId":7,
+        "docNo":uploadFrmValue.docNo,
+        "docname": uploadFrmValue.docname,
+        "docPath": uploadFrmValue.docPath,
+        "createdBy": 0,
+        "isDeleted": false
+      }
+    // if (!this.editOtherDocForm) {
+        this.OtherDocUploadImg.push(obj);
+        console.log("this.otherDocumentFrm",this.OtherDocUploadImg)
+      // } else {
+      //   this.OtherDocUploadImg[this.selOtherDocIndex] = obj;
+      //   this.editOtherDocForm = false;
+      // }
+      this.otherDocArray = new MatTableDataSource(this.OtherDocUploadImg);
+      this.resetOtherDocForm();
+    }
+  }
+    deleteOtherDocument(){
+      this.OtherDocImg.nativeElement.value = '';
+      this.otherDocumentFrm.controls['docPath'].setValue('');
+    }
+
+
+  resetOtherDocForm() {
+    this.otherformDirective.resetForm();
+    this.OtherDocImg.nativeElement.value = "";
+
+  }
+
+    deleteTableOtherDocument(i: any) { //logic for delete table document
+    this.OtherDocUploadImg.splice(i,1)
+    this.otherDocArray = new MatTableDataSource( this.OtherDocUploadImg);
+  }
+ //#endregion  --------------------------------------------------------other doc upload section fn end here-----------------------------------//
+
+    
+//#region -------------------------------Original Details------------------------------------------------
   addManaregaFrm() {
     this.manaregaFrm = this.fb.group({
       "id": [0],
@@ -127,12 +215,12 @@ export class CreateManaregaAppComponent {
       "applicationNo": [1],
       "mobileNo1": [''],
       "aadharNo": [''],
-      "profilePhotoPath": [''],
+      "profilePhotoPath": ['',[Validators.required]],
       "mn_DepartmentId": [''],
       "fullName": [''],
       "mobileNo2": [''],
-      "birthDate": [''],
-      "gender": [''],//no
+      "birthDate": ['',[Validators.required]],
+      "gender": [1],//no
       "qualificationId": [''],//no
       "stateId": [this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],//no
       "districtId": [this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],//no
@@ -288,136 +376,8 @@ export class CreateManaregaAppComponent {
     this.clearlogo.nativeElement.value = "";
   }
 
-  fileUpload(event: any, photoName: string) {
-    this.spinner.show();
-    let documentObj: any
-    let type = photoName == 'img' ? 'jpg, jpeg, png' : 'pdf,mp3,mp4,jpg,jpeg,png,xls,xlsx,doc,docx';
-    this.fileUpl.uploadDocuments(event, 'ApplicationDocuments', type).subscribe({
-      next: (res: any) => {
-        if (res.statusCode == 200) {
-          this.spinner.hide();
-          console.log("res.responseData",res.responseData);
-          let fileName = res.responseData.split('/');
-          let imageName = fileName.pop();
-          console.log("imageName",imageName)
-           if (photoName == 'OtherDocImg') {
-            this.otherDocumentFrm.controls['docPath'].setValue(res.responseData)
-          } 
-          //let otherForm = this.otherDocumentFrm.getRawValue();
-          else{
-           documentObj = {
-            "id": 0,
-            "applicationId":this.getId  || 0,//remove 0
-            "docTypeId":photoName == 'manaregaJobImg' ? 12 : photoName == 'EightAImg' ?  19 : photoName == 'SevenTweImg' ?  18 :photoName == 'BankPassImg' ? 11 : '',//7
-            "docNo":'',
-            "docname": imageName,
-            "docPath": res.responseData,
-            "createdBy": 0,
-            // "isDeleted": true
-            "isDeleted": false
-          }
-          photoName == 'manaregaJobImg' ? (this.manaregaJobUploadImg.push(documentObj),console.log("this.manaregaJobUploadImg",this.manaregaJobUploadImg), this.ManaregaImg.nativeElement.value = '') :
-           photoName == 'EightAImg' ? (this.EightAUploadImg.push(documentObj),console.log("this.EightAUploadImg",this.EightAUploadImg), this.EightAImg.nativeElement.value = '') :
-           photoName == 'SevenTweImg' ? (this.SevenTweUploadImg.push(documentObj),console.log("this.SevenTweUploadImg",this.SevenTweUploadImg), this.SevenTweImg.nativeElement.value = '') :
-           photoName == 'BankPassImg' ? (this.BankPassUploadImg.push(documentObj),console.log("this.BankPassUploadImg",this.BankPassUploadImg),  this.BankPassImg.nativeElement.value = '') :
-           //photoName == 'OtherDocImg' ? (this.OtherDocUploadImg.push(documentObj),console.log("this.OtherDocUploadImg",this.OtherDocUploadImg),  this.OtherDocImg.nativeElement.value = '') :
-   
-          this.commonMethod.snackBar(res.statusMessage, 0)
-        }
-      }
-      },
-      error: ((error: any) => {
-        this.spinner.hide();
-        this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
-      })
-    });
-  }
-  viewImages(obj?: any) {
-    window.open(obj.docPath, 'blank');
-  }
 
-  deleteImges(photoName: string, i: number) {
-    if (photoName == 'manaregaJobImg') {
-      this.manaregaJobUploadImg.splice(i, 1);
-    } 
-    else if (photoName == 'EightAImg') {
-      this.EightAUploadImg.splice(i, 1);
-    }
-    else if (photoName == 'SevenTweImg') {
-      this.SevenTweUploadImg.splice(i, 1);
-    }
-    else if (photoName == 'BankPassImg') {
-      this.BankPassUploadImg.splice(i, 1);
-    }
-    }
-
-    deleteOtherDocument(){
-      this.OtherDocImg.nativeElement.value = '';
-      this.otherDocumentFrm.controls['docPath'].setValue('');
-    }
-
-   onOtherDocSubmit() {
-    let uploadFrmValue = this.otherDocumentFrm.getRawValue();
-    console.log(" uploadFrmValue", uploadFrmValue)
-    if (!uploadFrmValue?.docname) {
-      this.commonMethod.snackBar('Document name is  required', 1);
-      return
-    } else if (!uploadFrmValue?.docNo) {
-      this.commonMethod.snackBar('Document number is  required', 1);
-      return
-    } else if (!uploadFrmValue?.docPath) {
-      this.commonMethod.snackBar('Document path is  required', 1);
-      return
-    }
-    else {
-      let obj = {
-        "id": 0,
-        "applicationId": 0,//remove 0
-        "docTypeId":7,
-        "docNo":uploadFrmValue.docNo,
-        "docname": uploadFrmValue.docname,
-        "docPath": uploadFrmValue.docPath,
-        "createdBy": 0,
-        "isDeleted": false
-      }
-    if (!this.editOtherDocForm) {
-        this.OtherDocUploadImg.push(obj);
-      } else {
-        this.OtherDocUploadImg[this.selOtherDocIndex] = obj;
-        this.editOtherDocForm = false;
-      }
-      this.otherDocArray = new MatTableDataSource(this.OtherDocUploadImg);
-      this.resetOtherDocForm();
-    }
-  }
-
-  resetOtherDocForm() {
-    this.otherformDirective.resetForm();
-    this.deleteImages()
-
-  }
-
-  deleteImages() {
-    this.OtherDocImg.nativeElement.value = "";
-  }
-
-  editOtherDoc(ele: any) {
-    this.editOtherDocForm = true;
-    this.selOtherDocIndex = this.commonMethod.findIndexOfArrayObject(this.OtherDocUploadImg, 'id', ele.id)
-    this.otherDocumentFrm = this.fb.group({
-      "id": [ele.id],
-      "docNo": [ele.docNo],
-      "docname": [ele.docname],
-      "docPath": [ele.docPath]
-    });
-    // ele.docPath ? this.imageData = ele.docPath:'';
-  }
-
-  deleteTableOtherDocument(i: any) {
-    this.OtherDocUploadImg.splice(i,1)
-    
-    this.otherDocArray = new MatTableDataSource( this.OtherDocUploadImg);
-  }
+  
 
 
 getPreviewData(){
@@ -464,7 +424,11 @@ getPreviewData(){
         let bankInfo=this.bankInfoFrm.getRawValue();
         let declarationInfo=this.selfDeclarationFrm.getRawValue();
         console.log("declarationInfo",declarationInfo)
-        let mergeDocumentArray = [...this.OtherDocUploadImg,...this.manaregaJobUploadImg,...this.EightAUploadImg,...this.SevenTweUploadImg,...this.BankPassUploadImg];
+        this.docArray.map((ele:any)=>{
+           ele.createdBy = 0;
+           ele.isDeleted = false;
+        })
+       let mergeDocumentArray = [... this.docArray,...this.OtherDocUploadImg];
       console.log("farmInfo",farmInfo)
       let obj ={
         "id": flag == 'farmerInfo' ? formData.id : this.getId,
@@ -821,6 +785,256 @@ getPreviewData(){
     }
   }
 
- }
+}
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// fileUpload(event: any, photoName: string) {
+  //   this.spinner.show();
+  //   let documentObj: any
+  //   let type = photoName == 'img' ? 'jpg, jpeg, png' : 'pdf,mp3,mp4,jpg,jpeg,png,xls,xlsx,doc,docx';
+  //   this.fileUpl.uploadDocuments(event, 'ApplicationDocuments', type).subscribe({
+  //     next: (res: any) => {
+  //       if (res.statusCode == 200) {
+  //         this.spinner.hide();
+  //         console.log("res.responseData",res.responseData);
+  //         let fileName = res.responseData.split('/');
+  //         let imageName = fileName.pop();
+  //         console.log("imageName",imageName)
+  //          if (photoName == 'OtherDocImg') {
+  //           this.otherDocumentFrm.controls['docPath'].setValue(res.responseData)
+  //         } 
+  //         //let otherForm = this.otherDocumentFrm.getRawValue();
+  //         else{
+  //          documentObj = {
+  //           "id": 0,
+  //           "applicationId":this.getId  || 0,//remove 0
+  //           "docTypeId":photoName == 'manaregaJobImg' ? 12 : photoName == 'EightAImg' ?  19 : photoName == 'SevenTweImg' ?  18 :photoName == 'BankPassImg' ? 11 : '',//7
+  //           "docNo":'',
+  //           "docname": imageName,
+  //           "docPath": res.responseData,
+  //           "createdBy": 0,
+  //           // "isDeleted": true
+  //           "isDeleted": false
+  //         }
+  //         photoName == 'manaregaJobImg' ? (this.manaregaJobUploadImg.push(documentObj),console.log("this.manaregaJobUploadImg",this.manaregaJobUploadImg), this.ManaregaImg.nativeElement.value = '') :
+  //          photoName == 'EightAImg' ? (this.EightAUploadImg.push(documentObj),console.log("this.EightAUploadImg",this.EightAUploadImg), this.EightAImg.nativeElement.value = '') :
+  //          photoName == 'SevenTweImg' ? (this.SevenTweUploadImg.push(documentObj),console.log("this.SevenTweUploadImg",this.SevenTweUploadImg), this.SevenTweImg.nativeElement.value = '') :
+  //          photoName == 'BankPassImg' ? (this.BankPassUploadImg.push(documentObj),console.log("this.BankPassUploadImg",this.BankPassUploadImg),  this.BankPassImg.nativeElement.value = '') :
+  //          //photoName == 'OtherDocImg' ? (this.OtherDocUploadImg.push(documentObj),console.log("this.OtherDocUploadImg",this.OtherDocUploadImg),  this.OtherDocImg.nativeElement.value = '') :
+   
+  //         this.commonMethod.snackBar(res.statusMessage, 0)
+  //       }
+  //     }
+  //     },
+  //     error: ((error: any) => {
+  //       this.spinner.hide();
+  //       this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+  //     })
+  //   });
+  // }
+  // viewImages(obj?: any) {
+  //   window.open(obj.docPath, 'blank');
+  // }
+
+  // deleteImges(photoName: string, i: number) {
+  //   if (photoName == 'manaregaJobImg') {
+  //     this.manaregaJobUploadImg.splice(i, 1);
+  //   } 
+  //   else if (photoName == 'EightAImg') {
+  //     this.EightAUploadImg.splice(i, 1);
+  //   }
+  //   else if (photoName == 'SevenTweImg') {
+  //     this.SevenTweUploadImg.splice(i, 1);
+  //   }
+  //   else if (photoName == 'BankPassImg') {
+  //     this.BankPassUploadImg.splice(i, 1);
+  //   }
+  //   }
+
+ 
 
 

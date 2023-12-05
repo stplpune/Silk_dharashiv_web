@@ -56,7 +56,7 @@
                     </div>
                   </div>
                   <div class="col-sm-6">
-                    <div class="form-label">{{'common.aadhar_number'| translate}}</div>
+                    <div class="form-label">{{'approvalProcess.aadhar_number'| translate}}</div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <!-- <mat-label>Favorite food</mat-label> -->
@@ -563,121 +563,123 @@
         <div class="container-fluid">
           <div class="row align-items-center g-3">
 
-            <div class="col-sm-4">
-              <div class="form-label">1. मनरेगा जॉब कार्डइथे अपलोड करा (चित्रा किवा पीडीएफ अपलोड करा) </div>
+           
+           <div class="col-sm-4">
+              <div class="form-label">1.  मनरेगा जॉब कार्डइथे अपलोड करा (चित्रा किवा पीडीएफ अपलोड करा)</div>
               <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                  [disabled]="manaregaJobUploadImg.length && manaregaJobUploadImg[0]?.id > 0 && manaregaJobUploadImg[0]?.docTypeId == 12">
-                  File Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
-                  [disabled]="manaregaJobUploadImg.length && manaregaJobUploadImg[0]?.id > 0 && manaregaJobUploadImg[0]?.docTypeId == 12"
-                  (change)="fileUpload($event,'manaregaJobImg')" #manaregaImage />
-                <div class="d-flex gap-2" *ngFor="let Manarega of manaregaJobUploadImg;let i = index">
-                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view" (click)="viewImages(Manarega)">
-                    <mat-icon class="material-symbols-rounded">
-                      preview
-                    </mat-icon>
-                  </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete" (click)="deleteImges('manaregaJobImg',i)">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="form-label">2. जमिनीचा 8-अ येथे जोडा </div>
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                  [disabled]="EightAUploadImg.length && EightAUploadImg[0]?.id > 0 && EightAUploadImg[0]?.docTypeId == 19">
-                  File Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
-                  [disabled]="EightAUploadImg.length && EightAUploadImg[0]?.id > 0 && EightAUploadImg[0]?.docTypeId == 19"
-                  (change)="fileUpload($event,'EightAImg')" #eightAImage />
-                <div class="d-flex gap-2" *ngFor="let EightA of EightAUploadImg;let i = index">
-                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view" (click)="viewImages(EightA)">
-                    <mat-icon class="material-symbols-rounded">
-                      preview
-                    </mat-icon>
-                  </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete" (click)="deleteImges('EightAImg',i)">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-
-
-            <div class="col-sm-4">
-              <div class="form-label">2. जमिनीचा 7/12 उतारा येथे अपलोड करा </div>
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                  [disabled]="SevenTweUploadImg.length && SevenTweUploadImg[0]?.id > 0 && SevenTweUploadImg[0]?.docTypeId == 18">
-                  File Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
-                  [disabled]="SevenTweUploadImg.length && SevenTweUploadImg[0]?.id > 0 && SevenTweUploadImg[0]?.docTypeId == 18"
-                  (change)="fileUpload($event,'SevenTweImg')" #sevenTweImage />
-                <div class="d-flex gap-2" *ngFor="let SevenTwe of SevenTweUploadImg;let i = index">
-                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view" (click)="viewImages(SevenTwe)">
-                    <mat-icon class="material-symbols-rounded">
-                      preview
-                    </mat-icon>
-                  </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete" (click)="deleteImges('SevenTweImg',i)">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-
-            <div class="col-sm-4">
-              <div class="form-label">3. बँक पासबूक/ रद्द केलेला चेक अपलोड करा. </div>
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                  [disabled]="BankPassUploadImg.length && BankPassUploadImg[0]?.id > 0 && BankPassUploadImg[0]?.docTypeId == 11">File
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip" (click)="selImg1.value='';selImg1.click()">File
                   Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
-                  [disabled]="BankPassUploadImg.length && BankPassUploadImg[0]?.id > 0 && BankPassUploadImg[0]?.docTypeId == 11"
-                  (change)="fileUpload($event,'BankPassImg')" #bankPassImage />
-                <div class="d-flex gap-2" *ngFor="let BankPass of BankPassUploadImg;let i = index">
+                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg1  (change)="fileUpload($event,docArray[0].docTypeId,'documents')"   />
+                <ng-container *ngIf="docArray[0].docPath">
+                  <div class="d-flex gap-2">
+                    <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+                      matTooltip="view" (click)="viewimages(this.docArray[0].docPath)">
+                      <mat-icon class="material-symbols-rounded">
+                        preview
+                      </mat-icon>
+                    </button>
+                    <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                      matTooltip="delete" (click)="deleteDocument(docArray[0].docTypeId)">
+                      <mat-icon class="material-symbols-rounded">
+                        delete
+                      </mat-icon>
+                    </button>
+                  </div>
+                </ng-container>
+            
+              </div>
+            </div>
+
+
+
+           <div class="col-sm-4">
+              <div class="form-label">2. जमिनीचा 8-अ येथे जोडा </div>
+              <div class="file-upload border rounded-2 p-1">
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip" (click)="selImg2.value='';selImg2.click()">File
+                  Upload<span class="text-danger fs-6">*</span>
+                </button>
+                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg2  (change)="fileUpload($event,docArray[1].docTypeId,'documents')"    />
+                <ng-container *ngIf="docArray[1].docPath">
+                <div class="d-flex gap-2" >
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view" (click)="viewImages(BankPass)">
+                    matTooltip="view"  (click)="viewimages(this.docArray[1].docPath)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
                   <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete" (click)="deleteImges('BankPassImg',i)">
+                    matTooltip="delete"  (click)="deleteDocument(docArray[1].docTypeId)">
+                    <mat-icon class="material-symbols-rounded" >
+                      delete
+                    </mat-icon>
+                  </button>
+                </div>
+              </ng-container>
+              </div>
+            </div>
+
+
+
+
+
+
+            <div class="col-sm-4">
+              <div class="form-label">3. जमिनीचा 7/12 उतारा येथे अपलोड करा </div>
+              <div class="file-upload border rounded-2 p-1">
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip" (click)="selImg3.value='';selImg3.click()">File
+                  Upload<span class="text-danger fs-6">*</span>
+                </button>
+                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg3  (change)="fileUpload($event,docArray[2].docTypeId,'documents')"   />
+                <ng-container *ngIf="docArray[2].docPath">
+                <div class="d-flex gap-2">
+                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+                    matTooltip="view"  (click)="viewimages(this.docArray[2].docPath)">
+                    <mat-icon class="material-symbols-rounded">
+                      preview
+                    </mat-icon>
+                  </button>
+                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                    matTooltip="delete" (click)="deleteDocument(docArray[2].docTypeId)">
                     <mat-icon class="material-symbols-rounded">
                       delete
                     </mat-icon>
                   </button>
                 </div>
+                </ng-container>
               </div>
             </div>
 
 
             <div class="col-sm-4">
-              <button mat-flat-button class="btn-main-light mt-3" type="button" (click)="onclick()">इतर कागदपत्रे
-                जोडा</button>
+              <div class="form-label">4. बँक पासबूक/ रद्द केलेला चेक अपलोड करा. </div>
+              <div class="file-upload border rounded-2 p-1">
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip" (click)="selImg4.value='';selImg4.click()">File
+                  Upload<span class="text-danger fs-6">*</span>
+                </button>
+                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg4  (change)="fileUpload($event,docArray[3].docTypeId,'documents')"   />
+                <ng-container *ngIf="docArray[3].docPath">
+                <div class="d-flex gap-2">
+                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+                    matTooltip="view"  (click)="viewimages(this.docArray[3].docPath)">
+                    <mat-icon class="material-symbols-rounded">
+                      preview
+                    </mat-icon>
+                  </button>
+                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                    matTooltip="delete" (click)="deleteDocument(docArray[3].docTypeId)">
+                    <mat-icon class="material-symbols-rounded">
+                      delete
+                    </mat-icon>
+                  </button>
+                </div>
+                </ng-container>
+              </div>
+            </div>
+
+
+            <div class="col-sm-4">
+              <button mat-flat-button class="btn-main-light mt-3" type="button" (click)="onclick()">इतर कागदपत्रे जोडा</button>
             </div>
             <ng-container *ngIf="visible">
               <div class="card card-body mb-4">
@@ -705,23 +707,22 @@
                       <div class="col-sm-3">
                         <div class="file-upload border rounded-2 p-1">
                           <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                          (click)="otherDocImage.value='';otherDocImage.click()">
+                           (click)="otherDocImage.value='';otherDocImage.click()">
                             Upload<span class="text-danger fs-6">*</span>
                           </button>
-                          <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
-                             (change)="fileUpload($event,'OtherDocImg')"
-                             #otherDocImage />
-                          <div class="d-flex gap-2" *ngIf="otherDocumentFrm.getRawValue().docPath">
-                            <button type="button" mat-flat-button
-                              class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view"
-                              (click)="viewImages(otherDocumentFrm.getRawValue().docPath)">
+                          <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" 
+                             (change)="fileUpload($event,7,'otherDocuments')"  #otherDocImage />
+                          <div class="d-flex gap-2"  *ngIf="otherDocumentFrm.getRawValue().docPath">
+                            <!-- *ngIf="otherDocumentFrm.getRawValue().docPath"  (click)="deleteOtherDocument()"
+                            (click)="viewImages(otherDocumentFrm.getRawValue().docPath)" -->
+                            <button type="button" mat-flat-button  (click)="viewimages(otherDocumentFrm.getRawValue().docPath)" 
+                              class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view">
                               <mat-icon class="material-symbols-rounded">
                                 preview
                               </mat-icon>
                             </button>
-                            <button type="button" mat-flat-button
-                              class="bg-danger-subtle text-danger btn-icon btn-action" matTooltip="delete"
-                              (click)="deleteOtherDocument()">
+                            <button type="button" mat-flat-button  (click)="deleteOtherDocument()"
+                              class="bg-danger-subtle text-danger btn-icon btn-action" matTooltip="delete">
                               <mat-icon class="material-symbols-rounded">
                                 delete
                               </mat-icon>
@@ -765,7 +766,8 @@
                       <td mat-cell *matCellDef="let element; let i = index">
                         <div class="d-flex gap-02">
                           <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
-                          [disabled]="!element?.docPath" (click)="viewImages(element)">
+                          [disabled]="!element?.docPath">
+                          <!-- (click)="viewImages(element)" -->
                             <span class="material-symbols-rounded text-dark">
                               visibility
                             </span>
@@ -793,6 +795,8 @@
               </div>
 
             </ng-container>
+
+           
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
@@ -1155,7 +1159,7 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">मनरेगा जॉब कार्ड </div>
                       <span class="form-data  rounded-pill">
-                        <mat-icon class="material-symbols-outlined"   (click)="viewImages(previewManarega)">
+                        <mat-icon class="material-symbols-outlined">
                           visibility
                         </mat-icon>
                       </span>
