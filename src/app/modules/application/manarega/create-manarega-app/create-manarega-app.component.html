@@ -480,7 +480,7 @@
               </div>
               <ng-container *ngIf="farmInfoFrm.getRawValue()?.isSelfTraining">
               <div class="col-sm-4">
-                <div class="form-label">23.A. उमेदवारचे नाव </div>
+                <div class="form-label">{{'approvalProcess.candidate_name'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="candidateName">
@@ -488,7 +488,7 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">23.B. उमेदवाराशी नाते</div>
+                <div class="form-label">{{'approvalProcess.relation'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="candidateRelationId">
                     <mat-option *ngFor="let relation of candidateRelationArray" [value]="relation.id">{{lang != 'en' ?
