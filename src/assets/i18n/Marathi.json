@@ -68,7 +68,8 @@
     "select_state": "राज्य निवडा",
     "action": "कृती",
     "remark": " टिप्पणी",
-    "select_grampanchayat":"ग्रामपंचायत निवडा"
+    "select_grampanchayat":"ग्रामपंचायत निवडा",
+    "fullName_minLength": "किमान 5 वर्णांना अनुमती आहे"
   },
   "approvalProcess"  : {
     "Add_Manarega":"मनरेगा जोडा",
@@ -76,6 +77,8 @@
     "mulberry_id":"तुती क्रमांक (तारीख)",
     "date":"तारीख",
     "applicant_name_mob":"अर्जदाराचे नाव",
+    "please_enter_valid_application_name":"कृपया वैध अर्जदाराचे नाव प्रविष्ट करा",
+  
     "process_department":"प्रक्रिया विभाग",
     "plantation_area":"लागवडीचे क्षेत्र (हेक्टर)",
     "sr_no":"अनुक्रमांक",

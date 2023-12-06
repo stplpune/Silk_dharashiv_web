@@ -68,7 +68,8 @@
     "select_state": "Select State",
     "action": "Action",
     "remark": "Remark",
-    "select_grampanchayat": "Select Grampanchayat"
+    "select_grampanchayat": "Select Grampanchayat",
+    "fullName_minLength": "Minimum 5 character allowed"
   },
   "approvalProcess": {
     "Add_Manarega":"Add Manrega",
@@ -76,6 +77,7 @@
     "mulberry_id": "Mulberry Id (Date)",
     "date": "Date",
     "applicant_name_mob": "Applicant Name",
+    "please_enter_valid_application_name":"Please enter valid applicant name",
     "process_department": "Process Department",
     "plantation_area": "Plantation Area (Hector)",
     "sr_no": "Sr. No.",
@@ -404,6 +406,7 @@
     "designation_maxLength": "Maximun 50 character allowed",
     "please_enter_valid_designation_name(Marathi)": "Please enter valid designation name (Marathi)",
     "please_enter_valid_designation_name(English)": "Please enter valid designation name (English)"
+    
   },
   "scheme": {
     "scheme": "Scheme",
