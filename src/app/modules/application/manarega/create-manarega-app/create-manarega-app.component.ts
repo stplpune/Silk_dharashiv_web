@@ -217,8 +217,8 @@ export class CreateManaregaAppComponent {
       "aadharNo": [''],
       "profilePhotoPath": ['',[Validators.required]],
       "mn_DepartmentId": [''],
-      "fullName": [''],
-      "mobileNo2": [''],
+      "fullName": ['',[this.validation.minLengthValidator(5),this.validation.maxLengthValidator(100),Validators.pattern(this.validation.fullName)]],
+      "mobileNo2": ['',[this.validation.maxLengthValidator(10),Validators.pattern(this.validation.mobile_No)]],
       "birthDate": ['',[Validators.required]],
       "gender": [1],//no
       "qualificationId": [''],//no
