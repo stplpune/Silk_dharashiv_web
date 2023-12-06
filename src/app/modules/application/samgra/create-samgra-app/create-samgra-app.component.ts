@@ -64,13 +64,14 @@ export class CreateSamgraAppComponent {
 
 
   displayedColumns: string[] = ['srno', 'cropId', 'area', 'totalProduction', 'averageRate', 'totalProductionAmt', 'totalExpenses', 'netIncome', 'acreNetIncome'];
-  displayedColumns1: string[] = ['srno', 'internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken'];
+  displayedColumns1: string[] = ['srno', 'internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken','action'];
   displayedColumns2: string[] = ['srno', 'docname', 'action'];
 
   docUploadedPath: string = '';
   docArray = [{id:0,docTypeId:16,docPath:'',docNo:'',docname:''},{id:0,docTypeId:18,docPath:'',docNo:'',docname:''},{id:0,docTypeId:19,docPath:'',docNo:'',docname:''},{id:0,docTypeId:21,docPath:'',docNo:'',docname:''},{id:0,docTypeId:11,docPath:'',docNo:'',docname:''},{id:0,docTypeId:25,docPath:'',docNo:'',docname:''},{id:0,docTypeId:14,docPath:'',docNo:'',docname:''}]
   otherDocArray = new Array();
   uploadedDocUrl : any;
+  profileImageUrl :any;
   
   showDocValidation : boolean = false;
   
@@ -153,16 +154,17 @@ export class CreateSamgraAppComponent {
       "irrigationFacilityId": ['',[Validators.required]],
       "sm_IrrigationPeriod": 0,
       "isAnyPlantedBeforeGovScheme": false,
-      "sm_YearOfPlanting": new Date(),
-      "sm_CultivatedArea": [0],
+      "sm_YearOfPlanting": [''],
+      "sm_CultivatedArea": [''],
       "sm_LandSurveyNo": [''],
       "sm_MulberryPlantingDistance": [0],
       "sm_MulberryCultivationArea": [0],
       "sm_PlantationMethod": [0],
-      "sm_IsExperienceSilkIndustry": true,
-      "sm_IsSilkIndustrtyTrainingReceived": true,
-      "sm_SilkIndustrtyTrainingDetails": "string",
-      "sm_IsTakenBenefitOfInternalScheme": true,
+      "sm_IsExperienceSilkIndustry": false,
+      "sm_ExperienceYears": [''],
+      "sm_IsSilkIndustrtyTrainingReceived": false,
+      "sm_SilkIndustrtyTrainingDetails": [''],
+      "sm_IsTakenBenefitOfInternalScheme": false,
       "sm_IsEngagedInSilkIndustry": true,
     })
   }
@@ -175,14 +177,15 @@ export class CreateSamgraAppComponent {
       "bankAccountNo": ['',[Validators.required,Validators.maxLength(30)]],
     })
   }
+  get fIS(){return this.internalSchemes.controls}
 
-  internalSchemesFormData() {
+  internalSchemesFormData(data?:any) {
     this.internalSchemes = this.fb.group({
-      "id": 0,
-      "applicationId": 0,
-      "internalSchemeName": [''],
-      "schemeTakenDate": [''],
-      "totalBenefitTaken": [''],
+      "id": [0 || data?.id],
+      "applicationId": [0 || data?.applicationId],
+      "internalSchemeName": ['' || data?.internalSchemeName],
+      "schemeTakenDate": ['' || data?.schemeTakenDate],
+      "totalBenefitTaken": ['' || data?.totalBenefitTaken],
       "createdBy": 0
     })
   }
@@ -429,21 +432,11 @@ export class CreateSamgraAppComponent {
     let samgraFormValue = this.samgraForm.getRawValue();
     let landDetailsFormValue = this.landDetailsForm.value;
     let bankDetailsFormValue = this.bankDetailsForm.getRawValue();
-
-    
-   
     landDetailsFormValue.benificiaryTotalFarm == '' ? landDetailsFormValue.benificiaryTotalFarm = 0:'';
     landDetailsFormValue.farmTypeId  == '' ? landDetailsFormValue.farmTypeId = 0 : '';
     landDetailsFormValue.irrigationFacilityId  == '' ? landDetailsFormValue.irrigationFacilityId = 0 : '' ;
     bankDetailsFormValue.bankId == '' ? bankDetailsFormValue.bankId = 0 : '';
     bankDetailsFormValue.bankBranchId == '' ? bankDetailsFormValue.bankBranchId = 0 :'';
-   
-
-
-    console.log("landDetailsFormValue",landDetailsFormValue);
-    console.log("landDetailsFormValue",bankDetailsFormValue);
-    
-    
 
     let formDocuments = this.docArray.concat(this.otherDocArray);
     this.showDocValidation= true;
@@ -576,44 +569,73 @@ export class CreateSamgraAppComponent {
     });
   }
 
-  radioEvent(event: any, flag: any) {
-    console.log(event);
+  radioEvent(value:any, flag: any) {
+    console.log('event value',value);
     if (flag == 'isExperience') {
-      // this.IsExperienceSilk = event.value;
+      value == true ? (this.fL['sm_ExperienceYears']?.setValidators([Validators.required,Validators.maxLength(2),Validators.pattern('^([0-9])')]),console.log("1 st condition")) : (this.fL['sm_ExperienceYears']?.clearValidators(),console.log("2 nd condition"));
+      this.fL['sm_ExperienceYears']?.updateValueAndValidity();
     } else if (flag == 'isTraining') {
-      // this.isIndustrtyTraining = event.value;
+      value == true ? this.fL['sm_SilkIndustrtyTrainingDetails']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fL['sm_SilkIndustrtyTrainingDetails']?.clearValidators();
+      this.fL['sm_SilkIndustrtyTrainingDetails']?.updateValueAndValidity();
     } else if (flag == 'isBenefit') {
-      // this.isTakenBenefit = event.value;
+      value == true ? this.fIS['internalSchemeName']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['internalSchemeName']?.clearValidators();
+      value == true ? this.fIS['schemeTakenDate']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['schemeTakenDate']?.clearValidators();
+      value == true ? this.fIS['totalBenefitTaken']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['totalBenefitTaken']?.clearValidators();
+      this.fIS['internalSchemeName']?.updateValueAndValidity();
+      this.fIS['schemeTakenDate']?.updateValueAndValidity();
+      this.fIS['totalBenefitTaken']?.updateValueAndValidity();
     }else if(flag == 'AnyPlantedBefor'){
-      //
+     value == true ? this.fL['sm_YearOfPlanting']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['sm_YearOfPlanting']?.clearValidators();
+     value == true ? this.fL['sm_CultivatedArea']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['sm_CultivatedArea']?.clearValidators();
+     value == true ? this.fL['sm_LandSurveyNo']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['sm_LandSurveyNo']?.clearValidators();
+     this.fIS['sm_YearOfPlanting']?.updateValueAndValidity();
+     this.fIS['sm_CultivatedArea']?.updateValueAndValidity();
+     this.fIS['sm_LandSurveyNo']?.updateValueAndValidity();
     }
   }
 
   addInternalSchemes() {
-    let fromvalue = this.internalSchemes.value
+    debugger
+    let fromvalue = this.internalSchemes.value;
     if (this.internalSchemes.invalid) {
       return;
     } else {
-      this.internalSchemesArray.push(fromvalue);
+      if (!this.internalSchemesArray.length) {
+        this.internalSchemesArray.push(fromvalue);
+        this.internalSchemesFormData();
+      } else {
+        this.internalSchemesArray.forEach((res: any) => {
+          if (res.internalSchemeName == fromvalue.internalSchemeName) {
+            this.commonMethod.snackBar("This scheme already present", 0);
+            return;
+          } else {
+            this.internalSchemesArray.push(fromvalue);
+            this.internalSchemesFormData();
+          }
+        });
+      }                                                                                                                                                                                
       this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
     }
+  }
+
+  deleteInternalSchemes(index : any){
+    this.internalSchemesArray.splice(index,1)
+    this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
   }
 
 
 
   //#region  -----------------------------------------------------------doc upload section fn start heare-----------------------------------//
 
-  fileUpload(event: any, docId: any,flag?:any) {
-
-    let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray,'docTypeId',docId);   
-    // this.showDocValidation = true
+  fileUpload(event: any, docId?: any,flag?:any) {
+    let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray,'docTypeId',docId);     
     this.spinner.show();
     let type = 'jpg, jpeg, png, pdf'
     this.uploadService.uploadDocuments(event, 'ApplicationDocuments', type, '', '', this.lang).subscribe({
       next: (res: any) => {
         if (res.statusCode == 200) {
           this.spinner.hide();
-            flag == 'otherDoc'? this.uploadedDocUrl = res.responseData : this.docArray[indexByDocId].docPath = res.responseData;      
+            flag == 'otherDoc'? this.uploadedDocUrl = res.responseData : flag == 'profilePhoto' ? this.profileImageUrl = res.responseData : this.docArray[indexByDocId].docPath = res.responseData;      
           this.commonMethod.snackBar(res.statusMessage, 0)
         }
       },
