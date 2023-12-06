@@ -353,6 +353,28 @@
                       <td mat-cell *matCellDef="let element"> {{element?.acreNetIncome || '-'}} </td>
                     </ng-container>
 
+                    
+                    <ng-container matColumnDef="action">
+                      <th mat-header-cell *matHeaderCellDef>Action</th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                        <div class="d-flex gap-02">
+                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10" 
+                          (click)="adddetails(element,i)" >
+                            <span class="material-symbols-rounded text-dark">
+                              edit_square
+                            </span>
+                          </button>
+                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10" 
+                          (click)="deleteInternalSchemes(i ,'currentCropDetails')">
+                            <span class="material-symbols-rounded text-danger">
+                              delete
+                            </span>
+                          </button>
+                        </div>
+                      </td>
+                    </ng-container>
+
+
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                   </table>
@@ -825,17 +847,26 @@
                 कागदपत्रे जोडा</button>
             </div>
             <ng-container *ngIf="showOtherDoc">
+              <form [formGroup]="otherDocForm">
               <div class="card card-body mb-4">
                 <div class="row g-2 row g-2 align-items-center">
-                  <div class="col-sm-4">
+                  <div class="col-sm-3">
                     <div class="form-label">8.A. कागदपत्राचे नाव </div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
-                        <input matInput placeholder="" [formControl]="otherDocForm">
+                        <input matInput placeholder="" formControlName="docname" >
                       </mat-form-field>
                     </div>
                   </div>
-                  <div class="col-sm-4">
+                  <div class="col-sm-3">
+                    <div class="form-label">5.B. क्रमांक </div>
+                    <div class="form-label">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <input matInput placeholder=""  formControlName="docNo" >
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
                     <div class="form-label">8. इतर कागदपत्रे जोडा </div>
                     <div class="file-upload border rounded-2 p-1">
                       <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
@@ -870,6 +901,7 @@
                   </div>
                 </div>
               </div>
+            </form>
 
 
               <div class="table-responsive">
@@ -882,6 +914,11 @@
                   <ng-container matColumnDef="docname">
                     <th mat-header-cell *matHeaderCellDef> Document Name </th>
                     <td mat-cell *matCellDef="let element">{{element?.docname}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="docNo">
+                    <th mat-header-cell *matHeaderCellDef> Document Number </th>
+                    <td mat-cell *matCellDef="let element">{{element?.docNo}}</td>
                   </ng-container>
 
                   <ng-container matColumnDef="action">
