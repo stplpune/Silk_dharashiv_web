@@ -38,24 +38,24 @@ header .carousel-caption p {
 section#about-us,
 section#scheme,
 section#process,
-section#stats {
-    padding-block: 3rem;
+section#stats,
+section#newssuccess {
+    padding-block: 2rem;
 }
 
 section .section-head {
-    font-weight: 900;
-    font-size: 1.6rem;
+    font-weight: 500;
+    font-size: 1.3rem;
     margin-bottom: 1rem;
     color: var(--main-color);
 }
 
 section .section-head::after {
     content: '';
-    border-bottom: solid 5px #E6670B;
+    border-bottom: solid 2px #E6670B;
     display: block;
-    width: 10%;
+    width: 80px;
     margin-top: 0.5rem;
-    border-radius: 10px;
 }
 
 section p {
@@ -157,12 +157,14 @@ button:hover .button-text {
 
 #stats .card .card-footer {
     background-color: transparent;
+    border-radius: 0 0 20px 20px;
     border: 0;
+    transition: background-color cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s;
 }
 
 #stats .card:hover .card-footer {
     background-color: var(--main-color);
-    border-radius: 0 0 20px 20px;
+    transition: background-color cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s;
 }
 
 #stats .card:hover .card-footer p {
@@ -178,6 +180,12 @@ button:hover .button-text {
     margin-bottom: 1rem;
     border-radius: 50%;
     padding: 15px;
+    transition: background-color cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s;
+}
+
+#stats .card:hover .icon {
+    background-color: var(--main-color);
+    transition: background-color cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s;
 }
 
 #stats .card .icon img {
