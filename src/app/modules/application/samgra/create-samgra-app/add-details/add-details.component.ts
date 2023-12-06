@@ -1,11 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
-import { ApiService } from 'src/app/core/services/api.service';
-import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
-import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { MasterService } from 'src/app/core/services/master.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
@@ -24,15 +20,13 @@ export class AddDetailsComponent {
   constructor( 
     private fb :FormBuilder,
     private masterService : MasterService,
-    private apiService : ApiService,
-    private spinner : NgxSpinnerService,
-    private commonMethod : CommonMethodsService,
-    private errorHandler : ErrorHandlingService,
     private WebStorageService : WebStorageService,
     public dialogRef: MatDialogRef<AddDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   ngOnInit() {
+    console.log("data",this.data);
+    
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -43,22 +37,18 @@ export class AddDetailsComponent {
 
   cropDetailsFormData() {
     this.cropDetailsForm = this.fb.group({
-      "id": [0],
-      "applicationId": [0],
-      "cropId": ['',[Validators.required]],
-      "area": ['',[Validators.required]],
-      "totalProduction": ['',[Validators.required]],
-      "averageRate": ['',[Validators.required]],
-      "totalProductionAmt": ['',[Validators.required]],
-      "totalExpenses": ['',[Validators.required]],
-      "netIncome": ['',[Validators.required]],
-      "acreNetIncome": ['',[Validators.required]],
-      "createdBy": 0,
-      "createdDate": new Date(),
-      "modifiedBy": 0,
-      "modifiedDate": new Date(),
+      "id": [0 || this.data?.id ],
+      "applicationId": [0 || this.data?.id ],
+      "cropId": ['' || this.data?.cropId ,[Validators.required]],
+      "area": ['' || this.data?.area ,[Validators.required]],
+      "totalProduction": ['' || this.data?.totalProduction,[Validators.required]],
+      "averageRate": ['' || this.data?.averageRate,[Validators.required]],
+      "totalProductionAmt": ['' || this.data?.totalProductionAmt,[Validators.required]],
+      "totalExpenses": [''  || this.data?.totalExpenses,[Validators.required]],
+      "netIncome": ['' || this.data?.netIncome,[Validators.required]],
+      "acreNetIncome": ['' || this.data?.acreNetIncome,[Validators.required]],
+      "createdBy": 0,    
       "isDeleted": true,
-      "flag": "string"
     })
   }
 
@@ -80,34 +70,11 @@ export class AddDetailsComponent {
 
   onSubmit(){    
     let formValue = this.cropDetailsForm.value;
-    console.log("cropDetailsForm controls",this.cropDetailsForm.controls);
-    
     if(this.cropDetailsForm.invalid){
       return;
     }else{
       this.dialogRef.close(formValue);
     }
-    
-    
-
-    return;
-    this.apiService.setHttp('post', 'sericulture/api/Application/insert-update-current-product-details?lan=' + this.lang, false, formValue, false, 'masterUrl');
-    this.apiService.getHttp().subscribe({
-      next: ((res: any) => {
-        this.spinner.hide();
-        if (res.statusCode == "200") {
-          this.commonMethod.snackBar(res.statusMessage, 0);
-          // this.dialogRef.close('Yes');
-          // this.clearMainForm();
-        } else {
-          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-        }
-      }),
-      error: (error: any) => {
-        this.spinner.hide();
-        this.errorHandler.handelError(error.statusCode);
-      }
-    });
   }
 
 
