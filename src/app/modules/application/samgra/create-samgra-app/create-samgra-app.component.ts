@@ -55,6 +55,7 @@ export class CreateSamgraAppComponent {
   checkedArray: any = [{ id: true, name: 'Yes' }, { id: false, name: 'No' }];
 
   showOtherDoc : boolean = false;
+  currentRecordId : number = 0;
 
   talukaCtrl: FormControl = new FormControl();
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
@@ -116,9 +117,16 @@ export class CreateSamgraAppComponent {
     return this.samgraForm.controls
   }
 
+  get fL() {
+    return this.landDetailsForm.controls
+  }
+  get bL() {
+    return this.bankDetailsForm.controls
+  }
+
   samgraformData() {
     this.samgraForm = this.fb.group({
-      "id": [0],
+      "id": [this.currentRecordId],
       "fullName": ['',[Validators.required,Validators.maxLength(100)]],
       "mobileNo2": ['',[Validators.maxLength(10)]],      
       "birthDate": ['',[Validators.required]],
@@ -416,10 +424,27 @@ export class CreateSamgraAppComponent {
     }
   }
 
+   //#region -------------------------------------------------page submit method start heare-------------------------------------------------- 
   onSubmit(flag:any) {
     let samgraFormValue = this.samgraForm.getRawValue();
-    let landDetailsFormValue = this.landDetailsForm.getRawValue();
+    let landDetailsFormValue = this.landDetailsForm.value;
     let bankDetailsFormValue = this.bankDetailsForm.getRawValue();
+
+    
+   
+    landDetailsFormValue.benificiaryTotalFarm == '' ? landDetailsFormValue.benificiaryTotalFarm = 0:'';
+    landDetailsFormValue.farmTypeId  == '' ? landDetailsFormValue.farmTypeId = 0 : '';
+    landDetailsFormValue.irrigationFacilityId  == '' ? landDetailsFormValue.irrigationFacilityId = 0 : '' ;
+    bankDetailsFormValue.bankId == '' ? bankDetailsFormValue.bankId = 0 : '';
+    bankDetailsFormValue.bankBranchId == '' ? bankDetailsFormValue.bankBranchId = 0 :'';
+   
+
+
+    console.log("landDetailsFormValue",landDetailsFormValue);
+    console.log("landDetailsFormValue",bankDetailsFormValue);
+    
+    
+
     let formDocuments = this.docArray.concat(this.otherDocArray);
     this.showDocValidation= true;
     formDocuments.map((res:any)=>{
@@ -491,7 +516,8 @@ export class CreateSamgraAppComponent {
             "createdBy": 0,
             "isDeleted": true
           }],
-        "internalSchemes":this.internalSchemesArray
+          "currentProducts":this.currentCropDetailsArray,
+          "internalSchemes":this.internalSchemesArray
       
     }
 
@@ -504,7 +530,7 @@ export class CreateSamgraAppComponent {
       next: ((res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
-          // this.getId = res.responseData;
+           this.currentRecordId = res.responseData;
           this.commonMethod.snackBar(res.statusMessage, 0);
           // this.dialogRef.close('Yes');
           // this.clearMainForm();
@@ -519,6 +545,7 @@ export class CreateSamgraAppComponent {
     });
   }
 
+   //#endregion-------------------------------------------page submit method start heare-------------------------------------------
 
   adddetails() {
     const dialogRef = this.dialog.open(AddDetailsComponent, {

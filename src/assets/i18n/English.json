@@ -25,6 +25,7 @@
     "mobile": "Mobile No.",
     "please_enter_mobile_number": "Please enter Mobile No.",
     "please_enter_valid_mobile_number": "Please enter valid 10 digit mobile number",
+    "mobile_maximum_10_digit_allowed": "Maximun 10 digit allowed",
     "address": "Address",
     "address_maximum_100_character_allowed": "Maximun 100 character allowed",
     "Please_select_department": "Please select department",
