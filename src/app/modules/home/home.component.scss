@@ -40,7 +40,8 @@ section#scheme,
 section#process,
 section#stats,
 section#newssuccess,
-section#download {
+section#download,
+section#blogs {
     padding-block: 2rem;
 }
 
@@ -338,4 +339,41 @@ a.read-more:hover span {
 
 #download .store {
     width: 200px;
+}
+
+#blogs .card {
+    border: none;
+    border-radius: 15px;
+    background-color: transparent;
+    padding: 10px;
+    text-decoration: none;
+}
+
+#blogs .card:hover {
+    background-color: #fff;
+}
+
+#blogs .card:hover .card-title {
+    color: var(--main-color);
+}
+
+#blogs .card-body {
+    padding: 15px 5px 5px 5px;
+}
+
+#blogs .card-img-top {
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+#blogs .card-title {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+}
+
+#blogs .card-text {
+    font-size: 0.85rem;
+    color: #555;
 }
