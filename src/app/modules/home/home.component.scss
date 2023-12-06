@@ -148,3 +148,55 @@ button:hover .circle .icon.arrow {
 button:hover .button-text {
     color: #fff;
 }
+
+#stats .card {
+    border-radius: 20px;
+    border: none;
+    text-align: center;
+}
+
+#stats .card .card-footer {
+    background-color: transparent;
+    border: 0;
+}
+
+#stats .card:hover .card-footer {
+    background-color: var(--main-color);
+    border-radius: 0 0 20px 20px;
+}
+
+#stats .card:hover .card-footer p {
+    color: #fff !important;
+}
+
+#stats .card .icon {
+    width: 100px;
+    height: 100px;
+    line-height: 70px;
+    background-color: #eee;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    padding: 15px;
+}
+
+#stats .card .icon img {
+    width: 60px;
+}
+
+#stats .card h2 {
+    font-weight: 900;
+    color: var(--main-color);
+    margin-bottom: 0;
+}
+
+#stats .card h2 small {
+    font-weight: 500;
+    color: #757575;
+    font-size: 0.85rem;
+}
+
+#stats .card p {
+    margin-bottom: 0;
+    font-weight: 500;
+}
