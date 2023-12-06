@@ -39,12 +39,18 @@ section#about-us,
 section#scheme,
 section#process,
 section#stats,
-section#newssuccess {
+section#newssuccess,
+section#download {
     padding-block: 2rem;
 }
 
 section#newssuccess {
     background-color: #fff;
+}
+
+section#download {
+    background-color: var(--main-color);
+    color: #fff;
 }
 
 section .section-head {
@@ -301,4 +307,35 @@ a.read-more:hover span {
 #success .card .card-text {
     font-size: 0.85rem;
     color: #858585;
+}
+
+#download h1,
+#download h2 {
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+#download h1 {
+    font-size: 3rem;
+}
+
+#download h2 {
+    font-size: 2.5rem;
+    letter-spacing: 10px;
+    margin-bottom: 1rem;
+}
+
+#download p {
+    color: #fff;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+#download .qrcode {
+    height: 150px;
+    background-color: #fff;
+}
+
+#download .store {
+    width: 200px;
 }
