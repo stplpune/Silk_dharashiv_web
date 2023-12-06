@@ -474,7 +474,6 @@
                   <div class="col-sm-4">
                     <mat-label class="form-label">28.B. तारीख ?</mat-label>
                     <mat-form-field appearance="outline" class="w-100">
-                      <!-- <textarea matInput placeholder="" rows="3" formControlName="schemeTakenDate"></textarea> -->
                       <input matInput [matDatepicker]="datePicker" formControlName="schemeTakenDate" (click)="datePicker.open()" readonly
                       [max]="todayDate">
                     <mat-datepicker-toggle matIconSuffix [for]="datePicker"></mat-datepicker-toggle>

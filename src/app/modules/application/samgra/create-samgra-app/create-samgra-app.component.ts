@@ -576,31 +576,46 @@ export class CreateSamgraAppComponent {
   }
 
   radioEvent(value:any, flag: any) {
-    console.log('event value',value);
+    let setValArray: any = [];
     if (flag == 'isExperience') {
-      value == true ? (this.fL['sm_ExperienceYears']?.setValidators([Validators.required,Validators.maxLength(2),Validators.pattern('^([0-9])')]),console.log("1 st condition")) : (this.fL['sm_ExperienceYears']?.clearValidators(),console.log("2 nd condition"));
-      this.fL['sm_ExperienceYears']?.updateValueAndValidity();
+      setValArray = ['sm_ExperienceYears']
+      this.setValidation(setValArray, this.fL);
+      this.clearValidation(setValArray, this.fL);
+      value == true ?  this.setValidation(setValArray, this.fL) : this.clearValidation(setValArray, this.fL);
     } else if (flag == 'isTraining') {
-      value == true ? this.fL['sm_SilkIndustrtyTrainingDetails']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fL['sm_SilkIndustrtyTrainingDetails']?.clearValidators();
-      this.fL['sm_SilkIndustrtyTrainingDetails']?.updateValueAndValidity();
+      setValArray = ['sm_SilkIndustrtyTrainingDetails']
+      this.setValidation(setValArray, this.fL);
+      this.clearValidation(setValArray, this.fL);
+      value == true ?  this.setValidation(setValArray, this.fL) : this.clearValidation(setValArray, this.fL);
     } else if (flag == 'isBenefit') {
-      value == true ? this.fIS['internalSchemeName']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['internalSchemeName']?.clearValidators();
-      value == true ? this.fIS['schemeTakenDate']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['schemeTakenDate']?.clearValidators();
-      value == true ? this.fIS['totalBenefitTaken']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['totalBenefitTaken']?.clearValidators();
-      this.fIS['internalSchemeName']?.updateValueAndValidity();
-      this.fIS['schemeTakenDate']?.updateValueAndValidity();
-      this.fIS['totalBenefitTaken']?.updateValueAndValidity();
+      setValArray = ['internalSchemeName','schemeTakenDate','totalBenefitTaken']
+      this.setValidation(setValArray, this.fIS);
+      this.clearValidation(setValArray, this.fIS);
+      value == true ? this.setValidation(setValArray, this.fIS) :  this.clearValidation(setValArray, this.fIS);
     }else if(flag == 'AnyPlantedBefor'){
-     value == true ? this.fL['sm_YearOfPlanting']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['sm_YearOfPlanting']?.clearValidators();
-     value == true ? this.fL['sm_CultivatedArea']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['sm_CultivatedArea']?.clearValidators();
-     value == true ? this.fL['sm_LandSurveyNo']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['sm_LandSurveyNo']?.clearValidators();
-     this.fIS['sm_YearOfPlanting']?.updateValueAndValidity();
-     this.fIS['sm_CultivatedArea']?.updateValueAndValidity();
-     this.fIS['sm_LandSurveyNo']?.updateValueAndValidity();
+      setValArray = ['sm_YearOfPlanting','sm_CultivatedArea','sm_LandSurveyNo']
+      this.setValidation(setValArray, this.fL);
+      this.clearValidation(setValArray, this.fL);
+      value == true ? this.fL['sm_YearOfPlanting']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['sm_YearOfPlanting']?.clearValidators();
     }
   }
 
+  setValidation(arr: any, control: any) {
+    arr.map((res: any) => {
+      control[res]?.setValidators(Validators.required);
+      control[res]?.updateValueAndValidity();
+    })
+  }
+  clearValidation(arr: any, control: any) {
+    arr.map((res: any) => {
+      control[res]?.clearValidators();
+      control[res]?.updateValueAndValidity();
+    })
+  }
+
   addInternalSchemes() {
+   let  setValArray = ['internalSchemeName','schemeTakenDate','totalBenefitTaken']
+    this.setValidation(setValArray, this.fIS);
     let fromvalue = this.internalSchemes.value;
     if (this.internalSchemes.invalid) {
       return;
