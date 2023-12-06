@@ -157,7 +157,6 @@ a.read-more {
     display: flex;
     align-items: center;
     text-decoration: none;
-    justify-content: end;
     font-size: 0.85rem;
     color: #151515;
 }
@@ -278,7 +277,7 @@ a.read-more:hover span {
 }
 
 #success .card:hover {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 #success .card .card-img-top {
