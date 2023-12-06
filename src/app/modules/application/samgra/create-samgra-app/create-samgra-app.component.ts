@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AddDetailsComponent } from './add-details/add-details.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MasterService } from 'src/app/core/services/master.service';
 import { ApiService } from 'src/app/core/services/api.service';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -74,6 +74,11 @@ export class CreateSamgraAppComponent {
   profileImageUrl :any;
   
   showDocValidation : boolean = false;
+
+  InternalSchemesEditFlag: boolean = false;
+  InternalSchemesIndex !: number
+
+  @ViewChild('ScheemDirective') private ScheemDirective: NgForm | undefined;
   
   constructor(public dialog: MatDialog,
     private masterService: MasterService,
@@ -432,6 +437,7 @@ export class CreateSamgraAppComponent {
     let samgraFormValue = this.samgraForm.getRawValue();
     let landDetailsFormValue = this.landDetailsForm.value;
     let bankDetailsFormValue = this.bankDetailsForm.getRawValue();
+
     landDetailsFormValue.benificiaryTotalFarm == '' ? landDetailsFormValue.benificiaryTotalFarm = 0:'';
     landDetailsFormValue.farmTypeId  == '' ? landDetailsFormValue.farmTypeId = 0 : '';
     landDetailsFormValue.irrigationFacilityId  == '' ? landDetailsFormValue.irrigationFacilityId = 0 : '' ;
@@ -595,32 +601,40 @@ export class CreateSamgraAppComponent {
   }
 
   addInternalSchemes() {
-    debugger
     let fromvalue = this.internalSchemes.value;
     if (this.internalSchemes.invalid) {
       return;
     } else {
       if (!this.internalSchemesArray.length) {
         this.internalSchemesArray.push(fromvalue);
-        this.internalSchemesFormData();
+        this.ScheemDirective && this.ScheemDirective.resetForm();
       } else {
-        this.internalSchemesArray.forEach((res: any) => {
-          if (res.internalSchemeName == fromvalue.internalSchemeName) {
-            this.commonMethod.snackBar("This scheme already present", 0);
-            return;
-          } else {
-            this.internalSchemesArray.push(fromvalue);
-            this.internalSchemesFormData();
-          }
-        });
+        let existedObj = this.internalSchemesArray.find((res: any) => res.internalSchemeName == fromvalue.internalSchemeName);  
+        if(existedObj && !this.InternalSchemesEditFlag){
+          this.commonMethod.snackBar("this Scheem already exist", 0)
+          return
+        }else{
+          this.InternalSchemesEditFlag ? this.internalSchemesArray[this.InternalSchemesIndex] = fromvalue : this.internalSchemesArray.push(fromvalue);
+          this.ScheemDirective && this.ScheemDirective.resetForm();
+        }
       }                                                                                                                                                                                
       this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
+      this.InternalSchemesEditFlag = false
     }
   }
+
+  onEditInternalSchemes(obj: any, i: number){
+    this.InternalSchemesEditFlag = true;
+    this.InternalSchemesIndex = i;
+    this.internalSchemesFormData(obj);
+  }
+
+ 
 
   deleteInternalSchemes(index : any){
     this.internalSchemesArray.splice(index,1)
     this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
+    this.InternalSchemesEditFlag = false;
   }
 
 

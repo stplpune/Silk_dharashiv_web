@@ -43,6 +43,10 @@ section#newssuccess {
     padding-block: 2rem;
 }
 
+section#newssuccess {
+    background-color: #fff;
+}
+
 section .section-head {
     font-weight: 500;
     font-size: 1.3rem;
@@ -149,6 +153,33 @@ button:hover .button-text {
     color: #fff;
 }
 
+a.read-more {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.85rem;
+    color: #151515;
+}
+
+a.read-more:hover {
+    color: var(--main-color);
+}
+
+a.read-more:hover span {
+    -webkit-animation: bounceright 0.3s alternate ease infinite;
+    animation: bounceright 0.3s alternate ease infinite;
+}
+
+@keyframes bounceright {
+    from {
+        -webkit-transform: translateX(0);
+    }
+
+    to {
+        -webkit-transform: translateX(3px);
+    }
+}
+
 #stats .card {
     border-radius: 20px;
     border: none;
@@ -207,4 +238,67 @@ button:hover .button-text {
 #stats .card p {
     margin-bottom: 0;
     font-weight: 500;
+}
+
+#news .news {
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#news .news:hover {
+    background-color: #eee;
+}
+
+#news .news img {
+    width: 100px;
+    height: 75px;
+    border-radius: 5px;
+}
+
+#news .news p {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+#news .news small {
+    color: #757575;
+    font-size: 0.8rem;
+}
+
+#news .news:hover p {
+    color: var(--main-color);
+}
+
+#success .card {
+    text-decoration: none;
+    padding: 10px;
+    border-color: transparent;
+}
+
+#success .card:hover {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+#success .card .card-img-top {
+    height: 150px;
+    border-radius: 10px;
+}
+
+#success .card .card-body {
+    padding: 15px 5px 5px 5px;
+}
+
+#success .card .card-title {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+#success .card:hover .card-title {
+    color: var(--main-color);
+}
+
+#success .card .card-text {
+    font-size: 0.85rem;
+    color: #858585;
 }
