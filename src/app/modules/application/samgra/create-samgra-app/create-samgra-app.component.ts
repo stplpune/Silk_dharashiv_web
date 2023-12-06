@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AddDetailsComponent } from './add-details/add-details.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MasterService } from 'src/app/core/services/master.service';
 import { ApiService } from 'src/app/core/services/api.service';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -74,6 +74,11 @@ export class CreateSamgraAppComponent {
   profileImageUrl :any;
   
   showDocValidation : boolean = false;
+
+  InternalSchemesEditFlag: boolean = false;
+  InternalSchemesIndex !: number
+
+  @ViewChild('ScheemDirective') private ScheemDirective: NgForm | undefined;
   
   constructor(public dialog: MatDialog,
     private masterService: MasterService,
@@ -432,6 +437,7 @@ export class CreateSamgraAppComponent {
     let samgraFormValue = this.samgraForm.getRawValue();
     let landDetailsFormValue = this.landDetailsForm.value;
     let bankDetailsFormValue = this.bankDetailsForm.getRawValue();
+
     landDetailsFormValue.benificiaryTotalFarm == '' ? landDetailsFormValue.benificiaryTotalFarm = 0:'';
     landDetailsFormValue.farmTypeId  == '' ? landDetailsFormValue.farmTypeId = 0 : '';
     landDetailsFormValue.irrigationFacilityId  == '' ? landDetailsFormValue.irrigationFacilityId = 0 : '' ;
@@ -570,57 +576,80 @@ export class CreateSamgraAppComponent {
   }
 
   radioEvent(value:any, flag: any) {
-    console.log('event value',value);
+    let setValArray: any = [];
     if (flag == 'isExperience') {
-      value == true ? (this.fL['sm_ExperienceYears']?.setValidators([Validators.required,Validators.maxLength(2),Validators.pattern('^([0-9])')]),console.log("1 st condition")) : (this.fL['sm_ExperienceYears']?.clearValidators(),console.log("2 nd condition"));
-      this.fL['sm_ExperienceYears']?.updateValueAndValidity();
+      setValArray = ['sm_ExperienceYears']
+      this.setValidation(setValArray, this.fL);
+      this.clearValidation(setValArray, this.fL);
+      value == true ?  this.setValidation(setValArray, this.fL) : this.clearValidation(setValArray, this.fL);
     } else if (flag == 'isTraining') {
-      value == true ? this.fL['sm_SilkIndustrtyTrainingDetails']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fL['sm_SilkIndustrtyTrainingDetails']?.clearValidators();
-      this.fL['sm_SilkIndustrtyTrainingDetails']?.updateValueAndValidity();
+      setValArray = ['sm_SilkIndustrtyTrainingDetails']
+      this.setValidation(setValArray, this.fL);
+      this.clearValidation(setValArray, this.fL);
+      value == true ?  this.setValidation(setValArray, this.fL) : this.clearValidation(setValArray, this.fL);
     } else if (flag == 'isBenefit') {
-      value == true ? this.fIS['internalSchemeName']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['internalSchemeName']?.clearValidators();
-      value == true ? this.fIS['schemeTakenDate']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['schemeTakenDate']?.clearValidators();
-      value == true ? this.fIS['totalBenefitTaken']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['totalBenefitTaken']?.clearValidators();
-      this.fIS['internalSchemeName']?.updateValueAndValidity();
-      this.fIS['schemeTakenDate']?.updateValueAndValidity();
-      this.fIS['totalBenefitTaken']?.updateValueAndValidity();
+      setValArray = ['internalSchemeName','schemeTakenDate','totalBenefitTaken']
+      this.setValidation(setValArray, this.fIS);
+      this.clearValidation(setValArray, this.fIS);
+      value == true ? this.setValidation(setValArray, this.fIS) :  this.clearValidation(setValArray, this.fIS);
     }else if(flag == 'AnyPlantedBefor'){
-     value == true ? this.fL['sm_YearOfPlanting']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['sm_YearOfPlanting']?.clearValidators();
-     value == true ? this.fL['sm_CultivatedArea']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['sm_CultivatedArea']?.clearValidators();
-     value == true ? this.fL['sm_LandSurveyNo']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['sm_LandSurveyNo']?.clearValidators();
-     this.fIS['sm_YearOfPlanting']?.updateValueAndValidity();
-     this.fIS['sm_CultivatedArea']?.updateValueAndValidity();
-     this.fIS['sm_LandSurveyNo']?.updateValueAndValidity();
+      setValArray = ['sm_YearOfPlanting','sm_CultivatedArea','sm_LandSurveyNo']
+      this.setValidation(setValArray, this.fL);
+      this.clearValidation(setValArray, this.fL);
+      value == true ? this.fL['sm_YearOfPlanting']?.setValidators([Validators.required,Validators.maxLength(200)]) : this.fIS['sm_YearOfPlanting']?.clearValidators();
     }
   }
 
+  setValidation(arr: any, control: any) {
+    arr.map((res: any) => {
+      control[res]?.setValidators(Validators.required);
+      control[res]?.updateValueAndValidity();
+    })
+  }
+  clearValidation(arr: any, control: any) {
+    arr.map((res: any) => {
+      control[res]?.clearValidators();
+      control[res]?.updateValueAndValidity();
+    })
+  }
+
   addInternalSchemes() {
-    debugger
+   let  setValArray = ['internalSchemeName','schemeTakenDate','totalBenefitTaken']
+    this.setValidation(setValArray, this.fIS);
     let fromvalue = this.internalSchemes.value;
     if (this.internalSchemes.invalid) {
       return;
     } else {
       if (!this.internalSchemesArray.length) {
         this.internalSchemesArray.push(fromvalue);
-        this.internalSchemesFormData();
+        this.ScheemDirective && this.ScheemDirective.resetForm();
       } else {
-        this.internalSchemesArray.forEach((res: any) => {
-          if (res.internalSchemeName == fromvalue.internalSchemeName) {
-            this.commonMethod.snackBar("This scheme already present", 0);
-            return;
-          } else {
-            this.internalSchemesArray.push(fromvalue);
-            this.internalSchemesFormData();
-          }
-        });
+        let existedObj = this.internalSchemesArray.find((res: any) => res.internalSchemeName == fromvalue.internalSchemeName);  
+        if(existedObj && !this.InternalSchemesEditFlag){
+          this.commonMethod.snackBar("this Scheem already exist", 0)
+          return
+        }else{
+          this.InternalSchemesEditFlag ? this.internalSchemesArray[this.InternalSchemesIndex] = fromvalue : this.internalSchemesArray.push(fromvalue);
+          this.ScheemDirective && this.ScheemDirective.resetForm();
+        }
       }                                                                                                                                                                                
       this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
+      this.InternalSchemesEditFlag = false
     }
   }
+
+  onEditInternalSchemes(obj: any, i: number){
+    this.InternalSchemesEditFlag = true;
+    this.InternalSchemesIndex = i;
+    this.internalSchemesFormData(obj);
+  }
+
+ 
 
   deleteInternalSchemes(index : any){
     this.internalSchemesArray.splice(index,1)
     this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
+    this.InternalSchemesEditFlag = false;
   }
 
 

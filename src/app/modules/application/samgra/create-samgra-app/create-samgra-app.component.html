@@ -463,7 +463,7 @@
                 </div>
               </div>
               <ng-container *ngIf="landDetailsForm.value.sm_IsTakenBenefitOfInternalScheme">
-                <form [formGroup]="internalSchemes">
+                <form [formGroup]="internalSchemes" #ScheemDirective = "ngForm" (ngSubmit)="addInternalSchemes()">
                   <div class="col-sm-4">
                     <mat-label class="form-label">28.A. यापूर्वी रेशीम संचालनालय अंतर्गत कुठल्या योजनेचा लाभ घेतला आहे
                       ?</mat-label>
@@ -474,7 +474,6 @@
                   <div class="col-sm-4">
                     <mat-label class="form-label">28.B. तारीख ?</mat-label>
                     <mat-form-field appearance="outline" class="w-100">
-                      <!-- <textarea matInput placeholder="" rows="3" formControlName="schemeTakenDate"></textarea> -->
                       <input matInput [matDatepicker]="datePicker" formControlName="schemeTakenDate" (click)="datePicker.open()" readonly
                       [max]="todayDate">
                     <mat-datepicker-toggle matIconSuffix [for]="datePicker"></mat-datepicker-toggle>
@@ -488,7 +487,7 @@
                     </mat-form-field>
                   </div>
                   <div class="col-sm-auto">
-                    <button mat-flat-button class="btn-main" type="submit" (click)="addInternalSchemes()">आणखी तपशील जोडा </button>
+                    <button mat-flat-button class="btn-main" type="submit" >आणखी तपशील जोडा </button>
                   </div>
                 </form>
 
@@ -522,7 +521,7 @@
                       <td mat-cell *matCellDef="let element; let i = index">
                         <div class="d-flex gap-02">
                           <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10" 
-                          (click)="internalSchemesFormData(element)" >
+                          (click)="onEditInternalSchemes(element,i)" >
                             <span class="material-symbols-rounded text-dark">
                               edit_square
                             </span>

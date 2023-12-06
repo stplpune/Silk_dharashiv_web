@@ -326,7 +326,6 @@ export class ApprovalProcessManaregaComponent {
       return
     }
     else {
-
       let otherFormData = this.uploadFrm.getRawValue();
       let obj = {
         "id": 0,
@@ -348,7 +347,8 @@ export class ApprovalProcessManaregaComponent {
         this.editOtherDocForm = false;
       }
 
-      this.otherDocArray = new MatTableDataSource(this.pushOtherDocArray);
+      this.updateMatTable();
+      // this.otherDocArray = new MatTableDataSource(this.pushOtherDocArray);
       this.resetOtherDocForm();
     }
   }
@@ -392,16 +392,18 @@ export class ApprovalProcessManaregaComponent {
     }else{
       this.pushOtherDocArray[i].isDeleted = true;
     }
-   
-    let array: any = [];
-    this.pushOtherDocArray.find((ele: any) => {
-      if (!ele.isDeleted) {
-        array.push(ele)
-      }
-    });
-
-    this.otherDocArray = new MatTableDataSource(array);
+    this.updateMatTable();
   }
+
+updateMatTable(){
+  let array: any = [];
+  this.pushOtherDocArray.map((ele: any) => {
+    if (!ele.isDeleted) {
+      array.push(ele)
+    }
+  });
+  this.otherDocArray = new MatTableDataSource(array);
+}
 
   //#endregion -----------------------------------------------------------other doc section end heare ---------------------------------//
 
@@ -434,7 +436,7 @@ export class ApprovalProcessManaregaComponent {
               if (!newUploadedDoc.length) {
                 newUploadedDoc.push(ele)
               } else {
-                let checkPrevValue = newUploadedDoc.some((i: any) => i.id == ele.id);
+                let checkPrevValue = newUploadedDoc.some((i: any) => {return  i.id == ele.id && i?.documentType == ele.documentType && i?.docNo == ele.docNo});
                 checkPrevValue == '-1' || !checkPrevValue ? newUploadedDoc.push(ele) : '';
               }
             }
@@ -465,13 +467,13 @@ export class ApprovalProcessManaregaComponent {
       });
     }
 
-
     let data = this.approvalFrm.getRawValue();
 
     this.spinner.show();
     this.approvalFrm.controls['m_remark'].setValue(data?.remark);
     let mainData = { ...data, "id": this.applicationData?.id, "createdBy": this.WebStorageService.getUserId(), };
     array.length ? mainData.applicationDocument = array : mainData.applicationDocument = [];
+
     this.apiService.setHttp('post', 'sericulture/api/ApprovalMaster/UpdateApprovalStatus?lan=' + this.lang, false, mainData, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
