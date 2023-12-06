@@ -166,10 +166,14 @@ a.read-more {
     text-decoration: none;
     font-size: 0.85rem;
     color: #151515;
+    background: #efefef;
+    padding: 5px 15px;
+    border-radius: 10px;
 }
 
 a.read-more:hover {
     color: var(--main-color);
+    background-color: #eaeaea;
 }
 
 a.read-more:hover span {
