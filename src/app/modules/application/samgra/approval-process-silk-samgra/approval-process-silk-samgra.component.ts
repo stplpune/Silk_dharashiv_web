@@ -355,8 +355,8 @@ export class ApprovalProcessSilkSamgraComponent {
         this.pushOtherDocArray[this.selOtherDocIndex] = obj;
         this.editOtherDocForm = false;
       }
-
-      this.otherDocArray = new MatTableDataSource(this.pushOtherDocArray);
+      this.updateMatTable();
+      // this.otherDocArray = new MatTableDataSource(this.pushOtherDocArray);
       this.resetOtherDocForm();
     }
   }
@@ -400,13 +400,17 @@ export class ApprovalProcessSilkSamgraComponent {
     }else{
       this.pushOtherDocArray[i].isDeleted = true;
     }
+
+    this.updateMatTable();
+  }
+
+  updateMatTable(){
     let array: any = [];
-    this.pushOtherDocArray.find((ele: any) => {
+    this.pushOtherDocArray.map((ele: any) => {
       if (!ele.isDeleted) {
         array.push(ele)
       }
     });
-
     this.otherDocArray = new MatTableDataSource(array);
   }
 
@@ -436,7 +440,7 @@ export class ApprovalProcessSilkSamgraComponent {
               if (!newUploadedDoc.length) {
                 newUploadedDoc.push(ele)
               } else {
-                let checkPrevValue = newUploadedDoc.some((i: any) => i.id == ele.id);
+                let checkPrevValue = newUploadedDoc.some((i: any) => {return  i.id == ele.id && i?.documentType == ele.documentType && i?.docNo == ele.docNo});
                 checkPrevValue == '-1' || !checkPrevValue ? newUploadedDoc.push(ele) : '';
               }
             }
