@@ -39,7 +39,7 @@ nav.navbar .nav-link.active {
 }
 
 #topbar {
-  padding-block: 3px;
+  padding-block: 5px;
   font-size: 0.85rem;
 }
 
@@ -49,11 +49,34 @@ nav.navbar .nav-link.active {
 
 #topbar .btn-check:checked+.btn,
 #topbar .btn.active :not(.btn-check)+.btn:active {
-  background-color: #fff;
-  color: var(--main-color);
+  color: #fff;
+  background-color: var(--main-color);
 }
 
 #topbar .btn-outline-primary {
-  border-color: #fff;
-  color: #fff;
+  border-color: var(--main-color);
+  color: var(--main-color);
+}
+
+#topbar .news-ticker {
+  display: flex;
+  align-items: center;
+  height: 24.4px;
+}
+
+#topbar .news-ticker .news-left {
+  background-color: #c9c9c9;
+  padding: 2px 10px;
+  color: #151515;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+#topbar .news-ticker .news-right {
+  padding: 2px 10px;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
 }

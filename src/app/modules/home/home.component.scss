@@ -1,39 +1,41 @@
-header {
-    height: 70vh;
+header .carousel-inner {
+    padding-block: 2rem;
 }
 
-header img {
-    height: 70vh;
+header .carousel-item img {
+    height: 50vh;
 }
 
-header .carousel-control-next,
-header .carousel-control-prev {
-    width: 40px;
-    height: 40px;
-    background-color: rgba(20, 60, 0, 0.95);
-    top: 42%;
+header .carousel-item img.blob-image {
+    border-radius: 81% 23% 30% 57% / 65% 38% 64% 23%;
 }
 
-header .carousel-caption {
-    top: 25%;
-}
-
-header .carousel-caption h5 {
-    font-size: 4.5rem;
+header .carousel-item h1 {
+    font-size: 3rem;
     font-weight: 900;
-    color: #E6670B !important;
-    text-shadow: 1px 1px 1px #111;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: var(--main-color);
 }
 
-header .carousel-caption p {
-    font-size: 1.1rem;
-    font-weight: 500;
-    background-color: #E6670B;
-    color: #fff;
-    width: max-content;
-    margin: 0 auto;
-    padding: 10px 20px;
+header .carousel-item h1 span {
+    color: #E6670B;
 }
+
+header .carousel-item h3 {
+    font-size: 2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: #353535;
+}
+
+header .carousel-item p {
+    font-size: 0.9rem;
+    color: #353535;
+    line-height: 1.8rem;
+}
+
 
 section#about-us,
 section#scheme,
@@ -45,12 +47,7 @@ section#blogs {
     padding-block: 2rem;
 }
 
-section#newssuccess {
-    background-color: #fff;
-}
-
 section#download {
-    background-color: var(--main-color);
     color: #fff;
 }
 
@@ -258,7 +255,7 @@ a.read-more:hover span {
 }
 
 #news .news:hover {
-    background-color: #eee;
+    background-color: #fff;
 }
 
 #news .news img {
