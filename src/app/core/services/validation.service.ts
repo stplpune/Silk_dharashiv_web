@@ -20,6 +20,7 @@ export class ValidationService {
   alphabetsWithSpecChar = `^([a-zA-Z0-9 /(,)&.+-=\n'])*$`;
   latValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
   longValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
+  onlyNumbers = '^[0-9]*$';
   marathiNumericAndspecialChar = '/^[\u0900-\u0965?~`!@#$%^&*()\[\]\-+_={}|;:\\<,>.?\/ 0-9]+$/';
   //englishNumericAndspecialChar = '^[a-zA-Z?~`!@#$%^&*()-_+={}[\]:|\\;"<,>.?\/ 0-9]*$';
   englishNumericAndspecialChar = '^[A-Za-z0-9 *%!/(,)&.+-_@#$]*$'

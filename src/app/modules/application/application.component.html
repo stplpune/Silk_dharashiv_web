@@ -22,8 +22,8 @@
     </mat-card-header>
     <mat-card-header class="card-header-control">
       <form [formGroup]="filterFrm" class="w-100">
-        <div class="row gx-2 gy-3">
-         <div class="col-sm-4">
+        <div class="row g-3">
+         <div class="col-sm-2">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'manrega.district'| translate}}</mat-label>
               <mat-select formControlName="districtId" (selectionChange)="getTaluka()" placeholder="District"
@@ -33,7 +33,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'manrega.taluka'| translate}}</mat-label>
               <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('Taluka');getGrampanchayat()" placeholder="All Taluka"
@@ -48,7 +48,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label>
               <mat-select formControlName="grampanchayatId" placeholder="{{lang == 'en' ? 'Grampanchayat' :'ग्रामपंचायत'}}"
@@ -63,7 +63,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-2">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'manrega.scheme'| translate}}</mat-label>
               <mat-select formControlName="schemeTypeId" placeholder="All Scheme">
@@ -72,7 +72,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-2">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'manrega.status'| translate}}</mat-label>
               <mat-select formControlName="statusId" placeholder="All Status">
@@ -87,7 +87,7 @@
               <input matInput formControlName="textSearch" (keypress)="validator.noFirstSpaceAllow($event)" placeholder="{{lang == 'en' ? 'Application ID/ Farmer Name/ Mobile No.' : 'अर्ज आयडी/ शेतकऱ्याचे नाव/ मोबाईल क्र.'}}">
             </mat-form-field>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-2">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{'common.action'| translate}}</mat-label>
               <mat-select formControlName="actionId" placeholder="All Status">
@@ -95,8 +95,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-          
-          <div class="col-sm-1">
+          <div class="col-sm-auto">
             <div class="d-flex gap-2">
               <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"
                 (click)="getTableData('filter')">

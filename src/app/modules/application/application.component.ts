@@ -241,7 +241,7 @@ export class ApplicationComponent {
   }
 
   openApplicationDetails(obj: any) {
-    let Id: any = this.encryptdecrypt.encrypt(`${obj?.id}`+'.'+`${obj.schemeTypeId==1 ? 'm':'s'}`);
+    let Id: any = this.encryptdecrypt.encrypt(`${obj?.id}`+'.'+`${obj?.actionId || 0}`+'.'+`${obj.schemeTypeId==1 ? 'm':'s'}`);
     this.router.navigate([obj.schemeTypeId==1 ? '../approval-process-manarega':'../approval-process-silk-samgra'], {
       queryParams: {
         id: Id

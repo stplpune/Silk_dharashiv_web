@@ -217,40 +217,75 @@ export class CreateManaregaAppComponent {
       "aadharNo": [''],
       "profilePhotoPath": ['',[Validators.required]],
       "mn_DepartmentId": [''],
-      "fullName": ['',[this.validation.minLengthValidator(5),this.validation.maxLengthValidator(100),Validators.pattern(this.validation.fullName)]],
+      "fullName": ['',[Validators.required,this.validation.minLengthValidator(5),this.validation.maxLengthValidator(100),Validators.pattern(this.validation.fullName)]],
       "mobileNo2": ['',[this.validation.maxLengthValidator(10),Validators.pattern(this.validation.mobile_No)]],
       "birthDate": ['',[Validators.required]],
       "gender": [1],//no
-      "qualificationId": [''],//no
-      "stateId": [this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],//no
-      "districtId": [this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],//no
-      "talukaId": [this.WebStorageService.getTalukaId() == '' ? 0 : this.WebStorageService.getTalukaId()],//no
-      "grampanchayatId": [this.WebStorageService.getGrampanchayatId() == '' ? 0 : this.WebStorageService.getGrampanchayatId()],//no
-      "village": [''],
-      "address": [''],
-      "pinCode": [''],
-      "mn_JobCardNo": [''],
-      "categoryId": [''],//no
+      "qualificationId": ['',[Validators.required]],//no
+      "stateId": [this.WebStorageService.getStateId() == '' ? '' : this.WebStorageService.getStateId()],//no
+      "districtId": [this.WebStorageService.getDistrictId() == '' ? '': this.WebStorageService.getDistrictId()],//no
+      "talukaId": [this.WebStorageService.getTalukaId() == '' ? '' : this.WebStorageService.getTalukaId(),[Validators.required]],//no
+      "grampanchayatId": [this.WebStorageService.getGrampanchayatId() == '' ? '' : this.WebStorageService.getGrampanchayatId(),[Validators.required]],//no
+      "village": ['',[Validators.required]],
+      "address": ['',[this.validation.maxLengthValidator(200),Validators.required]],//Mandetory Max:200, alphanumeric with special char
+      "pinCode": ['',[Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],//Mandetory  Max: 6 digit, numeric
+      "mn_JobCardNo": ['',[Validators.required,this.validation.maxLengthValidator(30)] ],//Mandetory  Max: 30 alphanumeric with sepcial char
+      "categoryId": [''],//no, [Validators.required]
     })
   }
 
   addFarmInfo(){
     this.farmInfoFrm = this.fb.group({
       "id":[ this.getId],
-      "benificiaryTotalFarm":[''],
-      "mulberryCultivatedSurveyNo": [''],
-      "cultivatedFarmInHector":[''],//num
-      "isJointAccHolder": [false],//true
-      "applicantFarmSurveyNo": [''],
-      "applicantFarmArea": [''],//num
-      "farmTypeId":[''],//num
-    "irrigationFacilityId":[''],//num
-    "isAnyPlantedBeforeGovScheme": [false],//true
-    "isSelfTraining":[false],//true
-    "candidateName":[''],
-    "candidateRelationId": [''],//num
+      "benificiaryTotalFarm":['',[Validators.required,this.validation.maxLengthValidator(4),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]], //Mandetory  Hectory हेक्टर - Max: 4 digit, float  
+      "mulberryCultivatedSurveyNo": ['',[Validators.required,this.validation.maxLengthValidator(6),Validators.pattern(this.validation.onlyNumbers)]],//Mandetory  Max: 6 digit, numeric
+      "cultivatedFarmInHector":['',[Validators.required,this.validation.maxLengthValidator(4),Validators.pattern(this.validation.onlyNumbers)]],//num  // Mandetory Hectory हेक्टर - Max: 4 digit, numeric
+      "isJointAccHolder": [false],//true //Default - No
+      "applicantFarmSurveyNo": [''],//19 A Mandetory 4 digit, numeric
+      "applicantFarmArea": [''],//num   19 B Mandetory Hectory हेक्टर - Max: 4 digit, float
+      "farmTypeId":['',[Validators.required]],//num Mandetory
+    "irrigationFacilityId":['',[Validators.required]],//num Mandetory
+    "isAnyPlantedBeforeGovScheme": [false],//true  //Default - No
+    "isSelfTraining":[false],//true //Default - Own   Own स्वतः Candidate उमेदवार
+    "candidateName":[''],//Mandetory  Max: 50, Alphabetic 
+    "candidateRelationId": [''],//num  Mandetory
     })
   }
+
+  onClickAccountHolder(val: any) {
+    if (val == true) {
+      this.farmInfoFrm.controls['applicantFarmSurveyNo'].setValidators([Validators.required,this.validation.maxLengthValidator(4),Validators.pattern(this.validation.onlyNumbers)]);
+      this.farmInfoFrm.controls ['applicantFarmArea'].setValidators([Validators.required,this.validation.maxLengthValidator(4),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]);
+    } else {
+      this.farmInfoFrm.controls['applicantFarmSurveyNo'].clearValidators();
+      this.farmInfoFrm.controls['applicantFarmArea'].clearValidators();
+      }
+    this.farmInfoFrm.controls['applicantFarmSurveyNo'].updateValueAndValidity();
+    this.farmInfoFrm.controls ['applicantFarmArea'].updateValueAndValidity();
+   }
+
+   onClickPlantedBeforeGovScheme(val: any) {
+    if (val == true) {
+      this.farmDeatailsFrm.controls ['plantName'].setValidators([Validators.required,this.validation.maxLengthValidator(50),Validators.pattern(this.validation.alphaNumericWithSpace)]);
+      this.farmDeatailsFrm.controls['gutNo'].setValidators([Validators.required,this.validation.maxLengthValidator(6),Validators.pattern(this.validation.onlyNumbers)]);
+      this.farmDeatailsFrm.controls ['gutArea'].setValidators([Validators.required,this.validation.maxLengthValidator(6),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]);
+      this.farmDeatailsFrm.controls['cultivatedArea'].setValidators([Validators.required,this.validation.maxLengthValidator(10),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]);
+      this.farmDeatailsFrm.controls ['cultivatedPlantsCount'].setValidators([Validators.required,this.validation.maxLengthValidator(4),Validators.pattern(this.validation.onlyNumbers)]);
+    } else {
+      this.farmDeatailsFrm.controls ['plantName'].clearValidators();
+      this.farmDeatailsFrm.controls['gutNo'].clearValidators();
+      this.farmDeatailsFrm.controls ['gutArea'].clearValidators();
+      this.farmDeatailsFrm.controls['cultivatedArea'].clearValidators();
+      this.farmDeatailsFrm.controls ['cultivatedPlantsCount'].clearValidators();
+     }
+     this.farmDeatailsFrm.controls ['plantName'].updateValueAndValidity();
+     this.farmDeatailsFrm.controls['gutNo'].updateValueAndValidity();
+     this.farmDeatailsFrm.controls ['gutArea'].updateValueAndValidity();
+     this.farmDeatailsFrm.controls['cultivatedArea'].updateValueAndValidity();
+     this.farmDeatailsFrm.controls ['cultivatedPlantsCount'].updateValueAndValidity();
+  }
+
+
 
   addBankInfo(){
     this.bankInfoFrm = this.fb.group({
@@ -303,11 +338,11 @@ export class CreateManaregaAppComponent {
   getFarmInfo(){
     this.farmDeatailsFrm = this.fb.group({
       "id": [0],
-      "plantName": ['',[Validators.required]],
-      "gutNo": ['',[Validators.required]],
-      "gutArea": ['',[Validators.required]],
-      "cultivatedArea":['',[Validators.required]],
-      "cultivatedPlantsCount":['',[Validators.required]]
+      "plantName": ['',[Validators.required]],//Max 50, Alphanumeric
+      "gutNo": ['',[Validators.required]],//6 digit, numeric
+      "gutArea": ['',[Validators.required]],//6 digit, Float
+      "cultivatedArea":['',[Validators.required]],//10 digit, Float
+      "cultivatedPlantsCount":['',[Validators.required]] //Max 4 digit, Numeric
     })
   }
 
@@ -423,7 +458,7 @@ getPreviewData(){
       let farmInfo = this.farmInfoFrm.getRawValue();
         let bankInfo=this.bankInfoFrm.getRawValue();
         let declarationInfo=this.selfDeclarationFrm.getRawValue();
-        console.log("declarationInfo",declarationInfo)
+        console.log("farmInfo",farmInfo)
         this.docArray.map((ele:any)=>{
            ele.createdBy = 0;
            ele.isDeleted = false;

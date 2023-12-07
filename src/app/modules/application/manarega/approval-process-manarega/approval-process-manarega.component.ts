@@ -32,6 +32,7 @@ export class ApprovalProcessManaregaComponent {
   lang: any;
   routingData: any;
   applicationId: any;
+  actionId : any;
   dataSource: any = new Array()
   displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action'];
   displayedColumn: string[] = ['srNo','plantName', 'gutNo', 'gutArea', 'plantCultivatedArea','noOfPlant'];
@@ -81,9 +82,19 @@ export class ApprovalProcessManaregaComponent {
     }
 
     this.applicationId = spliteUrl[0];
+    this.actionId = spliteUrl[1];
     this.getByApplicationId();
     this.addDefaultFrm();
     this.addApprovalFrm();
+  }
+
+  openEstimateDetails() {
+    let Id: any = this.encryptdecrypt.encrypt(`${this.applicationId}`);
+    this.router.navigate( ['../technical-estimate']), {
+      queryParams: {
+        id: Id
+      },
+     }
   }
 
 

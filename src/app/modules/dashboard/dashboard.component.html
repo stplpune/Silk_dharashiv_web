@@ -2,7 +2,7 @@
     <mat-card-header class="card-header-control">
         <form [formGroup]="filterFrm" class="w-100">
         <div class="row w-100 g-2">
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'manrega.district'| translate}}</mat-label>
                     <mat-select formControlName="districtId" (selectionChange)="getTaluka()" placeholder="District"
@@ -12,7 +12,7 @@
                     </mat-select>
                   </mat-form-field>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'manrega.taluka'| translate}}</mat-label>
                     <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('Taluka');getGrampanchayat()" placeholder="All Taluka"
@@ -27,7 +27,7 @@
                     </mat-select>
                   </mat-form-field>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label>
                     <mat-select formControlName="grampanchayatId" placeholder="{{lang == 'en' ? 'Grampanchayat' :'ग्रामपंचायत'}}"
@@ -42,7 +42,7 @@
                     </mat-select>
                   </mat-form-field>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'manrega.scheme'| translate}}</mat-label>
                     <mat-select formControlName="schemeTypeId" placeholder="All Scheme">
@@ -51,7 +51,7 @@
                     </mat-select>
                   </mat-form-field>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'common.action'| translate}}</mat-label>
                     <mat-select formControlName="actionId" placeholder="All Scheme">
@@ -60,26 +60,6 @@
                     </mat-select>
                   </mat-form-field>
             </div>
-            <!-- <div class="col-sm-3">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Select Category</mat-label>
-                    <mat-select>
-                        <mat-option value="option1">Option 1</mat-option>
-                        <mat-option value="option2">Option 2</mat-option>
-                        <mat-option value="option3">Option 3</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Select Duration</mat-label>
-                    <mat-select>
-                        <mat-option value="option1">Option 1</mat-option>
-                        <mat-option value="option2">Option 2</mat-option>
-                        <mat-option value="option3">Option 3</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div> -->
             <div class="col-sm-auto">
                 <div class="d-flex align-items-center gap-2">
                     <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"   (click)="getDashboardCount('filter')">
