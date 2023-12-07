@@ -733,10 +733,22 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">27. राष्ट्रीय बँक खाते क्रमांक </div>
+                <div class="form-label">{{'approvalProcess.nationalise_bank_accountno'|translate}} </div>
+
+
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="bankAccountNo">
+                    <mat-error
+                    *ngIf="bankInfoFrm.controls['bankAccountNo'].hasError('required') ">{{'approvalProcess.please_nationalise_bank_accountno'|translate}}</mat-error>
+                    <mat-error *ngIf="bankInfoFrm.controls['bankAccountNo']?.errors">
+                      <span class="text-danger"
+                        *ngIf="bankInfoFrm.controls['bankAccountNo']?.hasError('maxLengthExceeded') || bankInfoFrm.controls['bankAccountNo']?.hasError('pattern')">
+                        {{bankInfoFrm.controls['bankAccountNo'].hasError('maxLengthExceeded') ?
+                        ('approvalProcess.maximum_30_character'|translate) :
+                        ('approvalProcess.please_valid_nationalise_bank_accountno'|translate)}}
+                      </span>
+                    </mat-error>
                   </mat-form-field>
                 </div>
               </div>
@@ -756,7 +768,7 @@
 
 
             <div class="col-sm-4">
-              <div class="form-label">1. मनरेगा जॉब कार्डइथे अपलोड करा (चित्रा किवा पीडीएफ अपलोड करा)</div>
+              <div class="form-label">{{'approvalProcess.manrega_job_card'|translate}}</div>
               <div class="file-upload border rounded-2 p-1">
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
                   (click)="selImg1.value='';selImg1.click()">File
