@@ -74,8 +74,10 @@ export class ApprovalProcessManaregaComponent {
 
     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
     let url = this.router.url;
-    let appProVal = (spliteUrl[1] == 'm') && (url.split('?')[0] == '/approval-process-manarega');
+    debugger;
+    let appProVal = (spliteUrl[2] == 'm') && (url.split('?')[0] == '/approval-process-manarega');
     if (!appProVal) {
+      
       this.router.navigate(['../application']);
       this.commonMethod.snackBar('Something went wrong please try again', 1);
     }
@@ -85,10 +87,9 @@ export class ApprovalProcessManaregaComponent {
     this.addDefaultFrm();
     this.addApprovalFrm();
   }
-
   openEstimateDetails() {
-    const sendData=this.applicationData ;
-    this.router.navigate(['../technical-estimate', { data: sendData.applicationId }]);
+    const sendData=this.encryptdecrypt.decrypt(`${decodeURIComponent(this.applicationData.applicationId)}`).split('.');
+    this.router.navigate(['../technical-estimate', { data: sendData }]);
   }
 
 

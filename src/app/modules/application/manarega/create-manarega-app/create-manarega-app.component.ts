@@ -459,9 +459,11 @@ getPreviewData(){
     })
   })
 }
-
+// docArray = [{id:0,docTypeId:12,docPath:'',docNo:'',docname:'Job Card'},{id:0,docTypeId:19,docPath:'',docNo:'',docname:'8A Form'},{id:0,docTypeId:18,docPath:'',docNo:'',docname:'7-Dec'},{id:0,docTypeId:11,docPath:'',docNo:'',docname:'Nationalized Bank Passbook'}]
+  
 // this.viewMsgFlag=false;
   onSubmit(flag?:any) {
+    
     if (this.manaregaFrm.invalid) {
       this.viewMsgFlag = true;
       return;

@@ -170,7 +170,7 @@ export class DashboardComponent {
         if (res.statusCode == "200") {
           this.dashboardData = res;
           const uniquestandardName = [...new Set(this.dashboardData.responseData1.map((x: any) => x.schemeTypeId))];
-          debugger;
+          // debugger;
           uniquestandardName.map((x: any) => {
             const unquieArray = this.dashboardData.responseData1.filter((y: any) => y.schemeTypeId == x);
             if (unquieArray.length > 1) {
