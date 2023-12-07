@@ -213,7 +213,22 @@
     "have_you_benefited_from_any_scheme_under_Silk_Directorate_before_this":"याआधी रेशीम संचालनालयाच्या अंतर्गत कोणत्याही योजनेचा लाभ घेतला आहे का ?",
     "benefit_Year":"लाभ वर्ष",
     "benefit_Amount":"लाभाची रक्कम",
-    "election_Id_No":"निवडणूक ओळखपत्र क्रमांक"
+    "election_Id_No":"निवडणूक ओळखपत्र क्रमांक",
+    "nationalise_bank_accountno":"राष्ट्रीयकृत बँक खाते क्र.",
+    "please_nationalise_bank_accountno":"कृपया राष्ट्रीयकृत बँक खाते क्रमांक प्रविष्ट करा.",
+    "please_valid_nationalise_bank_accountno":"कृपया वैध राष्ट्रीयकृत बँक खाते क्रमांक प्रविष्ट करा.",
+    "manrega_job_card" :"मनरेगा जॉब कार्ड येथे अपलोड करा(चित्र किंव्हा पीडीएफ अपलोड करा)",
+    "maximum_30_character":"कमाल 30 अंकांना अनुमती आहे",
+    "Please_upload_manrega":"कृपया मनरेगा जॉब कार्ड अपलोड करा",
+    "upload_track_of_land":"जमिनीचा 8-अ येथे अपलोड करा",
+    "please_upload_track_of_land":"कृपया जमिनीचा 8 ट्रॅक अपलोड करा",
+    "upload_land_7/12":"जमिनीचा 7/12 उतारा येथे अपलोड करा",
+    "upload_bank_passbook_canceled_cheque":"बँक पासबुक / रद्द केलेला चेक अपलोड करा",
+    "please_upload_bank_passbook_canceled_cheque":"कृपया बँक पासबुक / रद्द केलेला चेक अपलोड करा",
+    "alphanumeric_with_special_char":"विशेष वर्णासह अल्फान्यूमेरिक",
+    "declaration":"स्वयंघोषणापत्र",
+    "please_enter_document_name":"कृपया दस्तऐवजाचे नाव प्रविष्ट करा",
+    "please_enter_valid_document_name":"कृपया वैध दस्तऐवज नाव प्रविष्ट करा"
 
   },
   "manrega": {
@@ -660,6 +675,7 @@
     "submit":"प्रस्तुत करा",
     "congratulations":"अभिनंदन !",
     "application_submitted":"आपला अर्ज यशस्वीरीत्या सादर झाला आहे."
+   
   }
 
 }

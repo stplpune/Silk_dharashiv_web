@@ -214,7 +214,24 @@
     "have_you_benefited_from_any_scheme_under_Silk_Directorate_before_this":"Have you benefited from any scheme under Silk Directorate before this ?",
     "benefit_Year":"Benefit Year",
     "benefit_Amount":"Benefit Amount",
-    "election_Id_No":"Election Id No"
+    "election_Id_No":"Election Id No",
+    "nationalise_bank_accountno":"Nationalise Bank Account No.",
+    "please_nationalise_bank_accountno":"Please Enter Nationalise Bank Account No.",
+    "please_valid_nationalise_bank_accountno":"Please Enter Valid Nationalise Bank Account No.",
+    "manrega_job_card" :"Upload Manrega Job Card Here (Upload Image or PDF)",
+    "maximum_30_character":"Maximum 30 digit allowed",
+    "Please_upload_manrega":"Please upload manrega job card",
+    "please_upload_track_of_land":"Please upload 8 A track of Land",
+    "upload_track_of_land":"Upload 8 A track of Land",
+    "upload_land_7/12":"Upload land 7/12",
+    "upload_bank_passbook_canceled_cheque":"Upload Bank Passbook / Canceled Cheque",
+    "please_upload_bank_passbook_canceled_cheque":"Please upload bank passbook / canceled cheque",
+    "alphanumeric_with_special_char":"Alphanumeric with special char",
+    "declaration":"Declaration",
+    "please_enter_document_name":"Please enter document name",
+    "please_enter_valid_document_name":"Please enter valid document name"
+    
+  
   },
   "manrega": {
     "manrega": "Application",
@@ -663,5 +680,7 @@
     "submit":"Submit",
     "congratulations":"Congratulations !",
     "application_submitted":"Your application has been successfully submitted."
+  
+
   }
 }
