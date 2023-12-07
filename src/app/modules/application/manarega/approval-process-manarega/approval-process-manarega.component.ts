@@ -32,7 +32,6 @@ export class ApprovalProcessManaregaComponent {
   lang: any;
   routingData: any;
   applicationId: any;
-  actionId : any;
   dataSource: any = new Array()
   displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action'];
   displayedColumn: string[] = ['srNo','plantName', 'gutNo', 'gutArea', 'plantCultivatedArea','noOfPlant'];
@@ -82,19 +81,14 @@ export class ApprovalProcessManaregaComponent {
     }
 
     this.applicationId = spliteUrl[0];
-    this.actionId = spliteUrl[1];
     this.getByApplicationId();
     this.addDefaultFrm();
     this.addApprovalFrm();
   }
 
   openEstimateDetails() {
-    let Id: any = this.encryptdecrypt.encrypt(`${this.applicationId}`);
-    this.router.navigate( ['../technical-estimate']), {
-      queryParams: {
-        id: Id
-      },
-     }
+    const sendData=this.applicationData ;
+    this.router.navigate(['../technical-estimate', { data: sendData.applicationId }]);
   }
 
 
@@ -133,7 +127,7 @@ export class ApprovalProcessManaregaComponent {
           this.appDataClonedArray = JSON.parse(JSON.stringify(res.responseData))
           this.applicationData = res.responseData;
           this.applicantDetails = this.applicationData?.applicationModel;
-
+         // this.openEstimateDetails(res.responseData);
           res.responseData.allApplicationApproval.map((ele: any) => {
             res.responseData.allApprovalDocument.find((item: any) => {
               ele.uploadDocTypeId == item.docTypeId ? (ele.documnetApprovalPath = item?.docPath) : ''

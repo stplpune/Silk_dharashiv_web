@@ -1,56 +1,93 @@
 
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ApiService } from 'src/app/core/services/api.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
-import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DashPipe } from "../../../../../core/Pipes/dash.pipe";
-//import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-    standalone: true,
-    selector: 'app-technical-estimate',
-    templateUrl: './technical-estimate.component.html',
-    styleUrls: ['./technical-estimate.component.scss'],
-    imports: [CommonModule, RouterLink, MatCardModule, MatButtonModule, DashPipe]
+  standalone: true,
+  selector: 'app-technical-estimate',
+  templateUrl: './technical-estimate.component.html',
+  styleUrls: ['./technical-estimate.component.scss'],
+  imports: [CommonModule, MatCardModule, MatButtonModule, DashPipe]
 })
 export class TechnicalEstimateComponent {
-  tableDataArray = new Array();
-  subscription!: Subscription;
-  lang: string = 'English';
+  tableDataArray: any;
+  estimateArray = new Array();
+  estimateSkillArray = new Array();
+  routingData:any;
+  applicationId:any;
+  year1Obj: any;
+  year2Obj: any;
+  year3Obj: any;
+  totalSkillObject: any;
+  totalUnSkillObject: any;
+  skillYear1Obj: any;
+  skillYear2Obj: any;
+  skillYear3Obj: any;
+  finalTotalRes: any;
+  finaltotalArray = new Array();
+  totalMappingArray :any;
+  newDataArray: any = {
+    totalSkill: [],
+    totalUnskill: []
+  };
+
+  skillDataArray: any = {
+    skillArray: [],
+    unSkillArray: [],
+    totalUnskill: []
+  }
+  totalObject: any = {
+    totalData: [],
+    totalDataSingally: []
+  }
   constructor
     (
       private spinner: NgxSpinnerService,
       private apiService: ApiService,
       private commonMethod: CommonMethodsService,
       private errorHandler: ErrorHandlingService,
-      private WebStorageService: WebStorageService,
-    ) { }
+      public encryptdecrypt: AesencryptDecryptService,
+      private route:ActivatedRoute,
+      private router:Router
+  ) { }
 
   ngOnInit() {
-    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
-      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
-      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-    })
+   
+    this.route.paramMap.subscribe(params => {
+      this.routingData = params.get('data');
+      if (this.routingData) {
+        this.routingData = JSON.parse(this.routingData);
+      }
+    });
+    let urlData=this.router.url;
+    console.log('urlData',urlData);
+    
+    this.encryptdecrypt.decrypt(`${decodeURIComponent(urlData)}`).split('.');
+    console.log(' this.routingData this.routingData',);
     this.getEstimateData();
+    this.getAnotherEstimateData();
   }
 
-  // api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId=2&lan=en
   getEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId=2&lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId='+this.routingData, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData2;
-          console.log('this.tableDataArray',this.tableDataArray);
-          
+          this.getExtractData(res);
+          this.estimateArray = res.responseData2;
+          this.estimateSkillArray = res.responseData3;
+          this.finaltotalArray =res.responseData10;
+          this.totalMappingArray=res.responseData11;
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
@@ -63,5 +100,91 @@ export class TechnicalEstimateComponent {
     });
   }
 
+  getExtractData(tableData: any) {
+    tableData.responseData6.filter((res: any) => {
+      this.estimateArray = res;
+      if (res.name == 'Unskill') {
+        this.newDataArray.totalUnskill.push(res);
+      } else if (res.name == 'Skill') {
+        this.newDataArray.totalSkill.push(res);
+      }
+    })
+
+
+    this.newDataArray.totalUnskill.filter((res: any) => {
+      if (res.yearId == 1) {
+        this.year1Obj = res;
+      } else if (res.yearId == 2) {
+        this.year2Obj = res;
+      } else {
+        this.year3Obj = res;
+      }
+    })
+
+
+    tableData.responseData8.filter((res: any) => {
+      if (res.skillId == 1) {
+        this.totalSkillObject = res;
+      } else {
+        this.totalUnSkillObject = res;
+      }
+    })
+
+    tableData.responseData7.filter((res: any) => {
+      if (res.yearId == 1) {
+        this.skillYear1Obj = res;
+      } else if (res.yearId == 2) {
+        this.skillYear2Obj = res;
+      } else {
+        this.skillYear3Obj = res;
+      }
+    })
+
+    tableData.responseData9.filter((res: any) => {
+      this.finalTotalRes = res;
+    })
+  }
+
+
+  getAnotherEstimateData() {
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId='+this.routingData, false, false, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == '200') {
+          this.tableDataArray = res;
+          this.getSkillData(res);
+        } else {
+          this.spinner.hide();
+          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
+        }
+      },
+      error: (err: any) => {
+        this.spinner.hide();
+        this.errorHandler.handelError(err.status);
+      },
+    });
+  }
+
+  getSkillData(data: any) {
+    data.responseData2.filter((ev: any) => {
+      if (ev.name == 'Skill') {
+        this.skillDataArray.skillArray.push(ev);
+      } else {
+        this.skillDataArray.unSkillArray.push(ev);
+      }
+    })
+      data.responseData3.filter((ev: any) => {
+      this.skillDataArray.totalUnskill.push(ev)
+    })
+  }
+
+  print() {
+    window.print();
+  }
+
+  // backToPage(){
+  //   this.router.navigate( ['../technical-estimate'])
+  // }
 
 }

@@ -15,7 +15,7 @@
                     <th rowspan="3">अ. क्र.</th>
                     <th rowspan="3">कामाचा तपशील</th>
                     <th colspan="7">पहिले वर्ष</th>
-                    
+                    <th colspan="6">दुसरे वर्ष</th>
                     <th colspan="6">तिसरे वर्ष</th>
                     <th colspan="6">एकूण खर्चाचा तपशील</th>
                 </tr>
@@ -83,7 +83,7 @@
                 </tr>
             </tbody>
             <tbody>
-                <tr class="text-center" >
+                <tr class="text-center">
                     <td class="text-center"><strong>अ.</strong></td>
                     <td class="text-center"><strong>मजुरी</strong></td>
                     <td></td>
@@ -112,410 +112,76 @@
                     <td></td>
                     <td></td>
                 </tr>
-                <ng-container  *ngFor="let data of tableDataArray;let i=index">
-                <tr class="text-center">
-                    <td class="text-center">{{i+1}}</td>
-                    <td>{{data.m_WorkDetail || '-'}}</td>
-                    
-                    <td>{{data.unit || '-'}}</td>
-                    <td>{{data.manPower || '-'}}</td>
-                    <td>{{data.wagesRate || '-'}}</td>
-                    <td>{{data.wages || '-'}}</td>
-                    <td>{{data.accessoriesAmount== 0 ? 0 : '-' || '-'}}</td>
-                    <td>{{data.benificiaryShares == 0 ? 0 : '-' || '-'}}</td>
-                    <td>{{data.total || '-'}}</td>
+                <ng-container *ngFor="let data of this.estimateArray;let i=index">
+                    <tr class="text-center">
+                        <td class="text-center">{{i + 1}}</td>
+                        <td>{{data.m_WorkDetail || '-'}}</td>
+                        <td>{{data.m_Unit || '-'}}</td>
+                        <td>{{data.manPower_1 || 0}}</td>
+                        <td>{{data.wagesRate_1 || 0}}</td>
+                        <td>{{data.wages_1 || 0}}</td>
+                        <td>{{data.accessoriesAmount_1 || 0}}</td>
+                        <td>{{data.benificiaryShares_1 || 0}}</td>
+                        <td>{{data.total_1 || 0}}</td>
 
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+
+                        <td>{{data.manPower_2 || 0}}</td>
+                        <td>{{data.wagesRate_2 || 0}}</td>
+                        <td>{{data.wages_2|| 0}}</td>
+                        <td>{{data.accessoriesAmount_2 || 0}}</td>
+                        <td>{{data.benificiaryShares_2 || 0}}</td>
+                        <td>{{data.total_2 || 0}}</td>
+
+
+                        <td>{{data.manPower_3 || 0}}</td>
+                        <td>{{data.wagesRate_3 || 0}}</td>
+                        <td>{{data.wages_3 || 0}}</td>
+                        <td>{{data.accessoriesAmount_3 || 0}}</td>
+                        <td>{{data.benificiaryShares_3 || 0}}</td>
+                        <td>{{data.total_3|| 0}}</td>
+
+
+                        <td>{{data.totalManPower || 0}}</td>
+                        <td>{{data.totalWagesRate|| 0}}</td>
+                        <td>{{data.totalWages|| 0}}</td>
+                        <td>{{data.totalAccessoriesAmount || 0}}</td>
+                        <td>{{data.benificiaryShares || 0}}</td>
+                        <td>{{data.grandTotal || 0}}</td>
+
+                    </tr>
                 </ng-container>
-                <!-- <tr class="text-center">
-                    <td class="text-center">२</td>
-                    <td>शेणखत पसरविणे</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="text-center">
-                    <td class="text-center">३</td>
-                    <td>सरी वरंबे तयार करणे</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="text-center">
-                    <td class="text-center">४</td>
-                    <td>तुतीची रोपे लागवड</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="text-center">
-                    <td rowspan="6" class="text-center">५</td>
-                    <td>अ) निंदणी व खुरपणी वर्षातून ४ वेळा</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="text-center">
-                    <td>ब) जमीन कुळवणी वर्षातून ४ वेळा</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="text-center">
-                    <td>क) पाणी देणे</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="text-center">
-                    <td>ड) कंपोष्ट खत देणे</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="text-center">
-                    <td>इ) जैविक व तुती पोषक औषधी फवारणी</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="text-center">
-                    <td>फ) तुती छाटणी, गळफाद्या/बगलफुटी काढणे, तुती अळी भरणे</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="text-center">
-                    <td rowspan="3" class="text-center">६</td>
-                    <td>अ) शेड निर्जंतुकरण</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="text-center">
-                    <td>ब) फांदी कापणे, टाकणे, किटक संगोपन करणे</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="text-center">
-                    <td>क) कोष काढणे</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr> -->
                 <tr class="text-center">
                     <td></td>
                     <td><strong>एकूण मजुरी (अ)</strong></td>
                     <td></td>
+                    <td>{{year1Obj?.manPowerAllyear || 0}}</td>
+                    <td>{{year1Obj?.wagesRateAllyear || 0}}</td>
+                    <td>{{year1Obj?.wages_TotalAllyear || 0}}</td>
                     <td></td>
                     <td></td>
+                    <td>{{year1Obj?.wages_TotalAllyear || 0}}</td>
+                    <td>{{year2Obj?.manPowerAllyear || 0}}</td>
+                    <td>{{year2Obj?.wagesRateAllyear || 0}}</td>
+                    <td>{{year2Obj?.wages_TotalAllyear || 0}}</td>
                     <td></td>
                     <td></td>
+                    <td>{{year2Obj?.wages_TotalAllyear || 0}}</td>
+                    <td>{{year3Obj?.manPowerAllyear || 0}}</td>
+                    <td>{{year3Obj?.wagesRateAllyear || 0}}</td>
+                    <td>{{year3Obj?.wages_TotalAllyear || 0}}</td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{year3Obj?.wages_TotalAllyear || 0}}</td>
+
+                    <td>{{totalUnSkillObject?.totalManPower || 0}}</td>
+                    <td>{{totalUnSkillObject?.wagesRate || 0}}</td>
+                    <td>{{totalUnSkillObject?.totalWages || 0}}</td>
+                    <td>{{totalUnSkillObject?.totalAccessoriesAmount || 0}}</td>
+                    <td>{{totalUnSkillObject?.totalBenificiaryShares || 0}}</td>
+                    <td>{{totalUnSkillObject?.grandTotal || 0}}</td>
                 </tr>
+            </tbody>
+            <tbody>
                 <tr class="text-center">
                     <td class="text-center"><strong>ब</strong></td>
                     <td class="text-center"><strong>सामुग्री</strong></td>
@@ -545,151 +211,37 @@
                     <td></td>
                     <td></td>
                 </tr>
-                <tr class="text-center">
-                    <td class="text-center">७</td>
-                    <td>तुतीची रोपे (६००० * ३ )</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="text-center">
-                    <td class="text-center">८</td>
-                    <td>चंद्रिका (१०० * ७०)</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="text-center">
-                    <td class="text-center">९</td>
-                    <td>निर्जंतुकीकरणाची औषधी (Disinfectant)</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="text-center">
-                    <td class="text-center">१०</td>
-                    <td>हायग्रोमीटर १ नग (डिजिटल Hygrometer)</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr class="text-center">
-                    <td class="text-center">११</td>
-                    <td>बॅटरी ऑपरेटेड स्प्रे पंप १ नग</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                <ng-container *ngFor="let evv of estimateSkillArray;let j =index">
+                    <tr class="text-center">
+                        <td class="text-center">{{j + 1}}</td>
+                        <td>{{evv.m_WorkDetail || '-'}}</td>
+                        <td>{{evv.m_Unit || '-'}}</td>
+                        <td>{{evv.manPower_1 || 0}}</td>
+                        <td>{{evv.wagesRate_1 || 0}}</td>
+                        <td>{{evv.wages_1 || 0}}</td>
+                        <td>{{evv.accessoriesAmount_1 || 0}}</td>
+                        <td>{{evv.benificiaryShares_1 || 0}}</td>
+                        <td>{{evv.total_2 || 0}}</td>
+                        <td>{{evv.manPower_2 || 0}}</td>
+                        <td>{{evv.wagesRate_2 || 0}}</td>
+                        <td>{{evv.wages_2 || 0}}</td>
+                        <td>{{evv.accessoriesAmount_2 || 0}}</td>
+                        <td>{{evv.benificiaryShares_2 || 0}}</td>
+                        <td>{{evv.total_3 || 0}}</td>
+                        <td>{{evv.manPower_3 || 0}}</td>
+                        <td>{{evv.wagesRate_3 || 0}}</td>
+                        <td>{{evv.wages_3 || 0}}</td>
+                        <td>{{evv.accessoriesAmount_3 || 0}}</td>
+                        <td>{{evv.benificiaryShares_3 || 0}}</td>
+                        <td>{{evv.total_3 || 0}}</td>
+                        <td>{{evv.totalManPower || 0}}</td>
+                        <td>{{evv.totalWagesRate || 0}}</td>
+                        <td>{{evv.totalWages || 0}}</td>
+                        <td>{{evv.totalAccessoriesAmount || 0}}</td>
+                        <td>{{evv.benificiaryShares || 0}}</td>
+                        <td>{{evv.grandTotal || 0}}</td>
+                    </tr>
+                </ng-container>
                 <tr class="text-center">
                     <td></td>
                     <td><strong>एकूण सामुग्री (ब)</strong></td>
@@ -712,12 +264,12 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <th>{{totalSkillObject?.totalManPower || 0}}</th>
+                    <th>{{totalSkillObject?.wagesRate || 0}}</th>
+                    <th>{{totalSkillObject?.totalWages || 0}}</th>
+                    <th>{{totalSkillObject?.totalAccessoriesAmount || 0}}</th>
+                    <th>{{totalSkillObject?.totalBenificiaryShares || 0}}</th>
+                    <th>{{totalSkillObject?.grandTotal || 0}}</th>
                 </tr>
                 <tr class="text-center">
                     <th></th>
@@ -725,28 +277,28 @@
                     <th></th>
                     <th></th>
                     <th></th>
+                    <th>{{skillYear1Obj?.totalWages_A_B || 0}}</th>
+                    <th>{{skillYear1Obj?.totalAccessoriesAmount_A_B || 0}}</th>
+                    <th></th>
+                    <th>{{skillYear1Obj?.total_A_B || 0}}</th>
                     <th></th>
                     <th></th>
+                    <th>{{skillYear2Obj?.totalWages_A_B || 0}}</th>
+                    <th>{{skillYear2Obj?.totalAccessoriesAmount_A_B || 0}}</th>
+                    <th></th>
+                    <th>{{skillYear2Obj?.total_A_B || 0}}</th>
                     <th></th>
                     <th></th>
+                    <th>{{skillYear3Obj?.totalWages_A_B || 0}}</th>
+                    <th>{{skillYear3Obj?.totalAccessoriesAmount_A_B || 0}}</th>
+                    <th></th>
+                    <th>{{skillYear3Obj?.total_A_B || 0}}</th>
                     <th></th>
                     <th></th>
+                    <th>{{finalTotalRes?.wages || 0}}</th>
+                    <th>{{finalTotalRes?.accessoriesAmount || 0}}</th>
                     <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th>{{finalTotalRes?.total || 0}}</th>
                 </tr>
             </tbody>
         </table>
@@ -763,38 +315,26 @@
                     <th>एकूण</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
+                <ng-container  *ngFor="let err of finaltotalArray">
                 <tr>
-                    <th>तुती लागवड</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <th>{{err.m_Name || '-'}}</th>
+                    <td>{{err.manPower || 0}}</td>
+                    <td>{{err.wagesRate || 0}}</td>
+                    <td>{{err.unskill || 0}}</td>
+                    <td>{{err.skill || 0}}</td>
+                    <td>{{err.total || 0}}</td>
                 </tr>
+            </ng-container>
+            </tbody>
+            <tbody>   
                 <tr>
-                    <th>किटक संगोपनगृह बांधकाम </th>
+                    <th>{{totalMappingArray?.m_Name || '-'}}</th>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th>एकूण अनुदान </th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th>एकूण गुणोत्तर</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{totalMappingArray?.unskill || 0}}</td>
+                    <td>{{totalMappingArray?.skill || 0}}</td>
+                    <td>{{totalMappingArray?.total || 0}}</td>
                 </tr>
             </tbody>
         </table>
@@ -843,89 +383,32 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>शेडसाठी जागा , वाट तयार करणे</td>
-                        <td>मी-2</td>
-                        <td>5</td>
-                        <td>4</td>
-                        <td>20</td>
-                        <td>273</td>
-                        <td>5460</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>वळू चाळणे, सीमेंट वाळू खडी मिक्सिंग करणे व त्याची पाया भरणी करिता वाहतूक</td>
-                        <td>मी-2</td>
-                        <td>6</td>
-                        <td>5</td>
-                        <td>30</td>
-                        <td>273</td>
-                        <td>8190</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>पाया खोदणी, पाईपा करिता खड्डे तयार करणे , पाईप उभा करणे कोक्रीटॅग तयार करणे/ पाया
-                            भरणे
-                            इत्यादी.</td>
-                        <td>मी-2</td>
-                        <td>20</td>
-                        <td>5</td>
-                        <td>100</td>
-                        <td>273</td>
-                        <td>27300</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>मुरूम वाहतूक व आतील जमिनीवर मुरूम टाकणे</td>
-                        <td>मी-2</td>
-                        <td>6</td>
-                        <td>2</td>
-                        <td>12</td>
-                        <td>273</td>
-                        <td>3276</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>मुरूम धुमस करणे</td>
-                        <td>मी-2</td>
-                        <td>6</td>
-                        <td>2</td>
-                        <td>12</td>
-                        <td>273</td>
-                        <td>3276</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>बांधकामा अंतर्गत पाणी भरणे</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>9</td>
-                        <td>9</td>
-                        <td>273</td>
-                        <td>2457</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>शेंड्साठी पाईप कापणे, फिटिंग</td>
                         <td></td>
-                        <td>6</td>
-                        <td>5</td>
-                        <td>30</td>
-                        <td>273</td>
-                        <td>8190</td>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td>अ ) एकूण अकुशल मंजूरी</td>
-                        <td></td>
-                        <td></td>
-                        <td>0</td>
-                        <td>213</td>
-                        <td>273</td>
-                        <td>58149</td>
-                    </tr>
+                    <ng-container *ngFor="let ev of  skillDataArray.unSkillArray;let i=index">
+                        <tr>
+                            <td>{{i + 1}}</td>
+                            <td>{{ev.m_WorkDetail || '-'}}</td>
+                            <td>{{ev.m_Unit || '-'}}</td>
+                            <td>{{ev.manPower || 0}}</td>
+                            <td>{{ev.aroundDay || 0}}</td>
+                            <td>{{ev.totalManPower || 0}}</td>
+                            <td>{{ev.wagesRate || 0}}</td>
+                            <td>{{ev.totalWages || 0}}</td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngFor="let err of skillDataArray.totalUnskill">
+                        <tr>
+                            <td></td>
+                            <td>अ ) एकूण अकुशल मंजूरी</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>{{err.totalManPowerDays || 0}}</td>
+                            <td>{{err.wagesRate || 0}}</td>
+                            <td>{{err.wagesUnderManrega || 0}}</td>
+                        </tr>
+                    </ng-container>
                 </tbody>
             </table>
             <div class="form-data">ब ) कुशल कामांचा तपशील</div>
@@ -940,85 +423,91 @@
                         <th colspan="2">मात्रा</th>
                         <th>दर रु</th>
                         <th>देय रक्कम</th>
-                        <th>शेरा</th>
+                        <!-- <th>शेरा</th> -->
                     </tr>
                 </tbody>
                 <tbody>
-
-                    <tr>
-                        <td>1</td>
-                        <td>लोखंडी पाइप/ अंघल 3 किंवा 4 " साइज</td>
-                        <td>किलो</td>
-                        <td colspan="2">250</td>
-                        <td>65</td>
-                        <td>16250</td>
-                        <td rowspan="6">सीमेंट पत्रे ऐवजी लोखंडी पत्रे, सीमेंट पाइप / कॉलम ऐवजी लोखंडी पाइप,
-                            आधिक
-                            मुलाच्या वस्तु तसेच सीमेंट, वाळू करिता इस्टिमेटपेक्षा जास्त खर्च शेतकरी स्वछ करू
-                            शकतील.
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>लोखंडी क्वायर पाइप / आंगल 1.5" किंवा 2" साइज</td>
-                        <td>किलो</td>
-                        <td colspan="2">450</td>
-                        <td>65</td>
-                        <td>29250</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>पत्रे सीमेंट / लोखंडी 3*8</td>
-                        <td>नग</td>
-                        <td colspan="2">30</td>
-                        <td>1700</td>
-                        <td>51000</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>पात्राचे क्लॅप 7 ते 8 फुट</td>
-                        <td>फुट / किलो</td>
-                        <td colspan="2">20</td>
-                        <td>65</td>
-                        <td>1300</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>स्क्रू व इतर</td>
-                        <td>किलो</td>
-                        <td colspan="2">20</td>
-                        <td>65</td>
-                        <td>1300</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>सीमेंट वाळू विटा लोहा इ॰</td>
-                        <td>किलो</td>
-                        <td colspan="2">लागणारे प्रमाणात</td>
-                        <td></td>
-                        <td>18900</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>जनमाहिती फलक</td>
-                        <td></td>
-                        <td colspan="2">रुंदी 3*4 लांबी फुट</td>
-                        <td>एकत्रीत</td>
-                        <td>3000</td>
-                        <td>विटा/रेती/सीमेंटच्या फळकवर योजनेचे नाव शेतकरी नाव कामाचा कोड व एकूण रक्कम व आदि
-                            रक्कम
-                            नमूद
-                            असावी.</td>
-                    </tr>
+                    <ng-container *ngFor="let err of skillDataArray.skillArray;let i =index">
+                        <tr>
+                            <td>{{i + 1}}</td>
+                            <td>{{err.m_WorkDetail || '-'}}</td>
+                            <td>{{err.m_Unit || '-'}}</td>
+                            <td colspan="2">{{err.aroundDay ||0}}</td>
+                            <td>{{err.wagesRate ||0}}</td>
+                            <td>{{err.totalWages ||0}}</td>
+                            <td rowspan="6" *ngIf="i == 0 && i>=5">
+                                <!-- सीमेंट पत्रे ऐवजी लोखंडी पत्रे, सीमेंट पाइप / कॉलम ऐवजी लोखंडी पाइप,
+                                आधिक
+                                मुलाच्या वस्तु तसेच सीमेंट, वाळू करिता इस्टिमेटपेक्षा जास्त खर्च शेतकरी स्वछ करू
+                                शकतील. -->
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <!-- <tr>
+                            <td>2</td>
+                            <td>लोखंडी क्वायर पाइप / आंगल 1.5" किंवा 2" साइज</td>
+                            <td>किलो</td>
+                            <td colspan="2">450</td>
+                            <td>65</td>
+                            <td>29250</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>पत्रे सीमेंट / लोखंडी 3*8</td>
+                            <td>नग</td>
+                            <td colspan="2">30</td>
+                            <td>1700</td>
+                            <td>51000</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>पात्राचे क्लॅप 7 ते 8 फुट</td>
+                            <td>फुट / किलो</td>
+                            <td colspan="2">20</td>
+                            <td>65</td>
+                            <td>1300</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>स्क्रू व इतर</td>
+                            <td>किलो</td>
+                            <td colspan="2">20</td>
+                            <td>65</td>
+                            <td>1300</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>सीमेंट वाळू विटा लोहा इ॰</td>
+                            <td>किलो</td>
+                            <td colspan="2">लागणारे प्रमाणात</td>
+                            <td></td>
+                            <td>18900</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>जनमाहिती फलक</td>
+                            <td></td>
+                            <td colspan="2">रुंदी 3*4 लांबी फुट</td>
+                            <td>एकत्रीत</td>
+                            <td>3000</td>
+                            <td>विटा/रेती/सीमेंटच्या फळकवर योजनेचे नाव शेतकरी नाव कामाचा कोड व एकूण रक्कम व आदि
+                                रक्कम
+                                नमूद
+                                असावी.</td> 
+                        </tr> -->   
+                </tbody>
+                <tbody>
                     <tr>
                         <td>8</td>
                         <td>ब ) एकूण कुशल रक्कम</td>
                         <td></td>
                         <td colspan="2"></td>
                         <td></td>
-                        <td>121000</td>
+                        <td>{{tableDataArray?.responseData4?.wagesUnderManrega || 0}}</td>
                         <td></td>
                     </tr>
+                </tbody>
+                <tbody>
                     <tr>
                         <td>9</td>
                         <td>एकूण रक्कम (अ + ब )</td>
@@ -1026,7 +515,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
+                        <td>{{tableDataArray?.responseData5?.total ||0}}</td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -1054,8 +543,8 @@
                 </div>
             </div>
             <div class="d-flex gap-2 justify-content-center w-100 d-print-none">
-                <button mat-flat-button class="btn-main-light">Cancel</button>
-                <button mat-flat-button class="btn-main">Print</button>
+                <button mat-flat-button class="btn-main-light"  type="button">Cancel</button>
+                <button mat-flat-button class="btn-main" type="button" (click)="print()">Print</button>
             </div>
         </div>
     </mat-card-content>
