@@ -25,16 +25,16 @@
                         {{ (tableInfo?.time ? (element[columns] | date:'dd-MM-yyyy hh:mm a'):(element[columns] | date:'dd-MM-yyyy')) }}</ng-container>
                      <!-- add badge with color for status -->
                      <ng-container *ngIf="'status1' == columns">
-                        <span class="badge p-2"  [ngClass]=" lang =='en' ? (element.status=='Approved' ? 'text-bg-success' : (element.status == 'Pending') ? 'text-bg-warning' :(element.status == 'Re-Send') ? 'bg-danger-subtle text-danger' : '-') :
+                        <span class="badge p-2"  [ngClass]=" lang =='en' ? (element.status=='Approved' ? 'text-bg-success' : (element.status == 'Pending') ? 'text-bg-warning' :(element.status == 'Re-Send') ? 'bg-danger-subtle text-danger' : '') :
                         (element.m_Status=='मान्यता प्राप्त' ? 'text-bg-success' : (element.m_Status == 'प्रलंबित') ? 'text-bg-warning' : 'bg-danger-subtle text-danger')">
                             {{lang =='en' ? (element.status ? element.status :'-') : (element.m_Status ? element.m_Status :'-')}}
                         </span>
                     </ng-container>
-                    <!-- ------------ -->
+                    <!-- -----add badge with color for status------- -->
                     <ng-container *ngIf="'selfStatus' == columns">
-                        <span class="badge p-2"  [ngClass]=" lang =='en' ? (element.selfStatus=='Approved' ? 'text-bg-success' : (element.selfStatus == 'Pending') ? 'text-bg-warning' : 'bg-danger-subtle text-danger') :
-                        (element.selfStatus=='मान्यता प्राप्त' ? 'text-bg-success' : (element.selfStatus == 'प्रलंबित') ? 'text-bg-warning' : 'bg-danger-subtle text-danger')">
-                            {{lang =='en' ? (element.selfStatus ? element.selfStatus :'-') : (element.selfStatus ? element.selfStatus :'-')}}
+                        <span class="badge p-2"  [ngClass]=" lang =='en' ? (element.selfStatus=='Approved' ? 'text-bg-success' : (element.selfStatus == 'Pending') ? 'text-bg-warning' :  (element.selfStatus == null) ? '' :'bg-danger-subtle text-danger' ) :
+                        (element.m_SelfStatus=='मान्यता प्राप्त' ? 'text-bg-success' : (element.m_SelfStatus == 'प्रलंबित') ? 'text-bg-warning' : (element.m_SelfStatus == 'पुन्हा पाठवा') ? 'bg-danger-subtle text-danger' : '' )">
+                            {{lang =='en' ? (element.selfStatus ? element.selfStatus :'-') : (element.m_SelfStatus ? element.m_SelfStatus :'-')}}
                         </span>
                     </ng-container>
 
