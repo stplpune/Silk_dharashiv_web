@@ -9,7 +9,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { CommonModule } from '@angular/common';
 import { DashPipe } from "../../../../../core/Pipes/dash.pipe";
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -22,8 +22,8 @@ export class TechnicalEstimateComponent {
   tableDataArray: any;
   estimateArray = new Array();
   estimateSkillArray = new Array();
-  routingData:any;
-  applicationId:any;
+  routingData: any;
+  applicationId: any;
   year1Obj: any;
   year2Obj: any;
   year3Obj: any;
@@ -34,7 +34,7 @@ export class TechnicalEstimateComponent {
   skillYear3Obj: any;
   finalTotalRes: any;
   finaltotalArray = new Array();
-  totalMappingArray :any;
+  totalMappingArray: any;
   newDataArray: any = {
     totalSkill: [],
     totalUnskill: []
@@ -56,29 +56,23 @@ export class TechnicalEstimateComponent {
       private commonMethod: CommonMethodsService,
       private errorHandler: ErrorHandlingService,
       public encryptdecrypt: AesencryptDecryptService,
-      private route:ActivatedRoute,
-      private router:Router
+      private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-   
     this.route.paramMap.subscribe(params => {
       this.routingData = params.get('data');
       if (this.routingData) {
         this.routingData = JSON.parse(this.routingData);
       }
     });
-    let urlData=this.router.url;
-    console.log('urlData',urlData);
-    
-    this.encryptdecrypt.decrypt(`${decodeURIComponent(urlData)}`).split('.');
-    console.log(' this.routingData this.routingData',);
+    this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
     this.getEstimateData();
     this.getAnotherEstimateData();
   }
 
   getEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId='+this.routingData, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId=' + this.routingData, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -86,8 +80,8 @@ export class TechnicalEstimateComponent {
           this.getExtractData(res);
           this.estimateArray = res.responseData2;
           this.estimateSkillArray = res.responseData3;
-          this.finaltotalArray =res.responseData10;
-          this.totalMappingArray=res.responseData11;
+          this.finaltotalArray = res.responseData10;
+          this.totalMappingArray = res.responseData11;
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
@@ -147,7 +141,7 @@ export class TechnicalEstimateComponent {
 
 
   getAnotherEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId='+this.routingData, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId=' + this.routingData, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -174,7 +168,7 @@ export class TechnicalEstimateComponent {
         this.skillDataArray.unSkillArray.push(ev);
       }
     })
-      data.responseData3.filter((ev: any) => {
+    data.responseData3.filter((ev: any) => {
       this.skillDataArray.totalUnskill.push(ev)
     })
   }
@@ -182,9 +176,5 @@ export class TechnicalEstimateComponent {
   print() {
     window.print();
   }
-
-  // backToPage(){
-  //   this.router.navigate( ['../technical-estimate'])
-  // }
 
 }
