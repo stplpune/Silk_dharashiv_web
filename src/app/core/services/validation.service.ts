@@ -15,6 +15,7 @@ export class ValidationService {
   panNumber = '[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}';
   marathi=('^[\u0900-\u0965 ]+$');
   alphabetWithSpace = '^[a-zA-Z][a-zA-Z ]*$';
+  bankIFSCCodeVal = "^[A-Z]{4}0[A-Z0-9]{6}$";
   alphaNumericWithSpace = '^[a-zA-Z0-9 -][a-zA-Z0-9 -]*$';
   valPinCode = '^[1-9][0-9]{5}$';
   alphabetsWithSpecChar = `^([a-zA-Z0-9 /(,)&.+-=\n'])*$`;
