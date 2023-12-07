@@ -193,6 +193,15 @@ export class DashboardComponent {
     });
   }
 
+  // redirectToApplication(){
+  //   let Id: any = this.encryptdecrypt.encrypt(`${ this.filterFrm.getRawValue()}`);
+  //   this.router.navigate([ '../application'], {
+  //     queryParams: {
+  //       id: Id
+  //     },
+  //    })
+  // }
+
   redToAppPage(obj: any, appStaId: any) {
     this.router
     console.log(obj, appStaId)
@@ -210,6 +219,8 @@ export class DashboardComponent {
     //     id: Id
     //   }
     // })
+
+  
   }
 
 }

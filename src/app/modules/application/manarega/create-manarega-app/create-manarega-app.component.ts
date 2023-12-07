@@ -31,7 +31,7 @@ export class CreateManaregaAppComponent {
   viewMsgFlag: boolean = false;//used for error msg show
   genderArray: any = [{ id: 1, name: 'Male' }, { id: 0, name: 'Female' }];
   checkedArray:any = [{id:true,name:'Yes'},{id:false,name:'No'}];
-  selfTrainingArray:any = [{id:true,name:'Send Candidate'},{id:false,name:'MySelf'}];
+  selfTrainingArray:any = [{id:true,name:'Own'},{id:false,name:'Candidate'}];
   displayedColumns = ['srNo','plantName','gutNo','gutArea','cultivatedArea','cultivatedPlantsCount','actions'];
   plantDisplayedColumns = ['srNo','plantName','gutNo','gutArea','cultivatedArea','cultivatedPlantsCount'];
   qualificationArray = new Array();

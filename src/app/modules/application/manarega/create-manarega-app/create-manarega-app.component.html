@@ -643,9 +643,10 @@
                   </mat-radio-group>
                 </div>
               </div>
-              <ng-container *ngIf="farmInfoFrm.getRawValue()?.isSelfTraining">
+              <ng-container *ngIf="farmInfoFrm.getRawValue()?.isSelfTraining == false">
                 <div class="col-sm-4">
                   <div class="form-label">{{'approvalProcess.candidate_name'| translate}}</div>
+                 <!-- onlyAlphabetsWithSpace -->
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="candidateName">

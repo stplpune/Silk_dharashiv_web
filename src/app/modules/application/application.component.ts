@@ -63,6 +63,8 @@ export class ApplicationComponent {
       this.routingData = queryParams['id'];
     });
     this.spliteUrlData = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+    //this.spliteUrlData = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
+
     this.filterDefaultFrm(); 
     this.spliteUrlData ? '': this.getTableData(); 
     this.getAllScheme();
