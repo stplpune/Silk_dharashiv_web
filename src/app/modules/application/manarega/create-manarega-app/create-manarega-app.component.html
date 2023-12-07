@@ -5,8 +5,8 @@
     <div class="text-main">Manarega Application</div>
   </mat-card-header>
   <mat-card-content class=" card-body form-container">
-    <mat-stepper #stepper>
-      <mat-step>
+    <mat-stepper linear #stepper>
+      <mat-step [stepControl]="manaregaFrm">
         <ng-template matStepLabel>मूळ तपशील</ng-template>
         <form [formGroup]="manaregaFrm">
           <div class="container-fluid">
@@ -292,13 +292,13 @@
 
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button matStepperNext class="btn-main" type="submit"
-              (click)="onSubmit('farmerInfo')">Next</button>
+            <button mat-button matStepperNext class="btn-main" type="button"
+              (click)="onSubmit('farmerInfo')" matStepperNext>Next</button>
           </div>
         </form>
       </mat-step>
 
-      <mat-step>
+      <mat-step [stepControl]="farmInfoFrm">
         <ng-template matStepLabel>{{'approvalProcess.land_details'| translate}}</ng-template>
         <form [formGroup]="farmInfoFrm">
           <div class="container-fluid">
@@ -632,11 +632,8 @@
               <div class="col-sm-4">
                 <mat-label class="form-label">{{'approvalProcess.will_he_take_the_training'| translate}}</mat-label>
                 <div class="">
-                  <!-- <mat-radio-group aria-label="Select an option" formControlName="isSelfTraining">
-                  <mat-radio-button class="pe-3" value="1"> स्वतः घेणार</mat-radio-button>
-                  <mat-radio-button class="pe-3" value="2" checked="true"> उमेदवार पाठवणार</mat-radio-button>
-                </mat-radio-group> -->
-                  <mat-radio-group aria-label="Select an option" class="pb-0" formControlName="isSelfTraining">
+                  <mat-radio-group aria-label="Select an option" class="pb-0" formControlName="isSelfTraining"
+                  (change)="onClickSelfTraining(farmInfoFrm.controls['isSelfTraining'].value)">
                     <mat-radio-button *ngFor="let arr of selfTrainingArray" [value]="arr.id" class="pe-3">
                       {{arr.name }}
                     </mat-radio-button>
@@ -646,10 +643,20 @@
               <ng-container *ngIf="farmInfoFrm.getRawValue()?.isSelfTraining == false">
                 <div class="col-sm-4">
                   <div class="form-label">{{'approvalProcess.candidate_name'| translate}}</div>
-                 <!-- onlyAlphabetsWithSpace -->
-                  <div class="form-label">
+               <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
-                      <input matInput placeholder="" formControlName="candidateName">
+                      <input matInput placeholder="" formControlName="candidateName"
+                      (keypress)="validation.noFirstSpaceAllow($event);validation.onlyAlphabetsWithSpace($event)">
+                      <mat-error
+                      *ngIf="farmInfoFrm.controls['candidateName'].hasError('required') ">{{'approvalProcess.please_enter_candidate_name'|translate}}</mat-error>
+                      <mat-error *ngIf="farmInfoFrm.controls['candidateName']?.errors">
+                        <span class="text-danger"
+                          *ngIf="farmInfoFrm.controls['candidateName']?.hasError('maxLengthExceeded') || farmInfoFrm.controls['candidateName']?.hasError('pattern')">
+                          {{farmInfoFrm.controls['candidateName'].hasError('maxLengthExceeded') ?
+                          ('common.officer_Name_limit'|translate) :
+                          ('approvalProcess.please_enter_valid_candidate_name'|translate)}}
+                        </span>
+                      </mat-error>
                     </mat-form-field>
                   </div>
                 </div>
@@ -661,6 +668,9 @@
                         relation.textMarathi :
                         relation.textEnglish}}</mat-option>
                     </mat-select>
+                    <mat-error
+                      *ngIf="farmInfoFrm.controls['candidateRelationId'].hasError('required') ">{{'approvalProcess.please_select_relation'|translate}}</mat-error>
+                   
                   </mat-form-field>
                 </div>
               </ng-container>
@@ -675,35 +685,50 @@
         </form>
       </mat-step>
 
-      <mat-step>
-        <ng-template matStepLabel>बँक तपशील</ng-template>
+      <mat-step [stepControl]="bankInfoFrm">
+        <ng-template matStepLabel>{{'approvalProcess.bank_details'|translate}}</ng-template>
         <form [formGroup]="bankInfoFrm">
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-4">
-                <div class="form-label">24. बँक निवडा</div>
+                <div class="form-label">{{'approvalProcess.bank_name'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="bankId" (selectionChange)="getBankBranch()">
                     <mat-option *ngFor="let bank of bankArray" [value]="bank.id">{{lang != 'en' ? bank.textMarathi :
                       bank.textEnglish}}</mat-option>
                   </mat-select>
-                </mat-form-field>
+                  <mat-error *ngIf="bankInfoFrm.controls['bankId'].hasError('required') ">
+                    {{'approvalProcess.please_select_bank_name'|translate}}</mat-error>
+              </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">25. बँक शाखा निवडा</div>
+                <div class="form-label">{{'approvalProcess.branch'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="bankBranchId">
                     <mat-option *ngFor="let branch of branchArray" [value]="branch.id">{{lang != 'en' ?
                       branch.textMarathi :
                       branch.textEnglish}}</mat-option>
                   </mat-select>
+                  <mat-error *ngIf="bankInfoFrm.controls['bankBranchId'].hasError('required') ">
+                    {{'approvalProcess.please_select_branch'|translate}}</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">26. आय एफ एस सी कोड </div>
+                <div class="form-label">{{'approvalProcess.IFSC_Code'|translate}} </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="bankIFSCCode">
+                    <input matInput placeholder="" formControlName="bankIFSCCode"
+                    (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumeric($event)">
+                    <mat-error
+                    *ngIf="bankInfoFrm.controls['bankIFSCCode'].hasError('required') ">{{'approvalProcess.plese_enter_IFSC_Code'|translate}}</mat-error>
+                    <mat-error *ngIf="bankInfoFrm.controls['bankIFSCCode']?.errors">
+                      <span class="text-danger"
+                        *ngIf="bankInfoFrm.controls['bankIFSCCode']?.hasError('maxLengthExceeded') || bankInfoFrm.controls['bankIFSCCode']?.hasError('pattern')">
+                        {{bankInfoFrm.controls['bankIFSCCode'].hasError('maxLengthExceeded') ?
+                        ('approvalProcess.Maximum_11_characters_allowed'|translate) :
+                        ('approvalProcess.plese_enter_valid_IFSC_Code'|translate)}}
+                      </span>
+                    </mat-error>
                   </mat-form-field>
                 </div>
               </div>

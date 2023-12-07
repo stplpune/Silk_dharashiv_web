@@ -285,15 +285,28 @@ export class CreateManaregaAppComponent {
      this.farmDeatailsFrm.controls ['cultivatedPlantsCount'].updateValueAndValidity();
   }
 
+  onClickSelfTraining(val: any) {
+    if (val == false) {
+      this.farmInfoFrm.controls['candidateName'].setValidators([Validators.required,this.validation.maxLengthValidator(50),Validators.pattern(this.validation.alphabetWithSpace)]);
+      this.farmInfoFrm.controls ['candidateRelationId'].setValidators([Validators.required]);
+    } else {
+      this.farmInfoFrm.controls['candidateName'].clearValidators();
+      this.farmInfoFrm.controls['candidateRelationId'].clearValidators();
+      }
+    this.farmInfoFrm.controls['candidateName'].updateValueAndValidity();
+    this.farmInfoFrm.controls ['candidateRelationId'].updateValueAndValidity();
+   }
+
+
 
 
   addBankInfo(){
     this.bankInfoFrm = this.fb.group({
       "id":[ this.getId],
-      "bankId": [''],//num
-      "bankBranchId": [''],//num
-      "bankIFSCCode": [''],
-      "bankAccountNo": ['']
+      "bankId": ['',[Validators.required]],//num
+      "bankBranchId": ['',[Validators.required]],//num
+      "bankIFSCCode": ['',[Validators.required,this.validation.maxLengthValidator(11),Validators.pattern(this.validation.bankIFSCCodeVal)]],
+      "bankAccountNo": ['',[Validators.required,this.validation.maxLengthValidator(30),Validators.pattern(this.validation.onlyNumbers)]]
     })
   }
 
@@ -447,9 +460,10 @@ getPreviewData(){
   })
 }
 
-
+// this.viewMsgFlag=false;
   onSubmit(flag?:any) {
     if (this.manaregaFrm.invalid) {
+      this.viewMsgFlag = true;
       return;
     }
     else {
@@ -581,6 +595,7 @@ getPreviewData(){
             this.getId = res.responseData;
             console.log("this.getId",this.getId)
             this.commonMethod.snackBar(res.statusMessage, 0);
+            this.viewMsgFlag=false; 
             // this.dialogRef.close('Yes');
             // this.clearMainForm();
           } else {
