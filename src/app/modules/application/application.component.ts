@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -37,6 +37,8 @@ export class ApplicationComponent {
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   gramPCtrl: FormControl = new FormControl();
   gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  routingData:any;
+  spliteUrlData!:any;
 
   constructor(private fb: FormBuilder,
     private master: MasterService,
@@ -48,6 +50,7 @@ export class ApplicationComponent {
     public webStorage: WebStorageService,
     public encryptdecrypt: AesencryptDecryptService,
     private router: Router,
+    private route:ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -56,7 +59,13 @@ export class ApplicationComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     })
-    this.filterDefaultFrm(); this.getTableData(); this.getAllScheme();
+    this.route.queryParams.subscribe((queryParams: any) => {
+      this.routingData = queryParams['id'];
+    });
+    this.spliteUrlData = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+    this.filterDefaultFrm(); 
+    this.spliteUrlData ? '': this.getTableData(); 
+    this.getAllScheme();
     this.getDisrict(); this.getStatus(); this.getAction(); 
     this.searchDataZone();
   }
@@ -68,7 +77,7 @@ export class ApplicationComponent {
       talukaId: [ this.webStorage.getTalukaId() == '' ? 0 : this.webStorage.getTalukaId()],
       grampanchayatId: [ this.webStorage.getGrampanchayatId() == '' ? 0 : this.webStorage.getGrampanchayatId()],
       statusId: [0],
-      // actionId: [0],
+      actionId: [0],
       textSearch: [''],
     })
   }
@@ -84,6 +93,8 @@ export class ApplicationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.schemeFilterArr.unshift({ id: 0, textEnglish: "All Scheme", textMarathi: "सर्व योजना" }, ...res.responseData);
+          this.spliteUrlData ?  this.filterFrm.controls['schemeTypeId'].setValue(+this.spliteUrlData[0]):'';
+    
         } else {
           this.schemeFilterArr = [];
         }
@@ -140,6 +151,8 @@ export class ApplicationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.statusArr.unshift({ id: 0, textEnglish: "All Status", textMarathi: "सर्व स्थिती" }, ...res.responseData);
+          this.spliteUrlData ? (this.filterFrm.controls['statusId'].setValue(+this.spliteUrlData[1]),this.getTableData()):'';
+          
         } else {
           this.statusArr = [];
         }
@@ -167,7 +180,7 @@ export class ApplicationComponent {
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllDesignationWiseApplications?' + str + '&SchemeTypeId=' + (formData.schemeTypeId || 0) + '&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchayatId=' + (formData.grampanchayatId || 0) +
     '&ApplicationStatus=' + (formData.statusId || 0) + '&UserId=' + (this.webStorage.getUserId() || 0) + '&TextSearch=' + (formData.textSearch.trim() || '') + '&lan=' + this.lang, false, false, false, 'masterUrl');    
-    //  '&ActionId=' + (formData.actionId || 0) + 
+     '&ActionId=' + (formData.actionId || 0) + 
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();

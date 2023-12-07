@@ -87,6 +87,15 @@
               <input matInput formControlName="textSearch" (keypress)="validator.noFirstSpaceAllow($event)" placeholder="{{lang == 'en' ? 'Application ID/ Farmer Name/ Mobile No.' : 'अर्ज आयडी/ शेतकऱ्याचे नाव/ मोबाईल क्र.'}}">
             </mat-form-field>
           </div>
+          <div class="col-sm-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{'common.action'| translate}}</mat-label>
+              <mat-select formControlName="actionId" placeholder="All Status">
+                <mat-option *ngFor=" let action of actionArr" [value]="action.id">{{lang == 'en' ? action.textEnglish : action.textMarathi}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          
           <div class="col-sm-1">
             <div class="d-flex gap-2">
               <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"
