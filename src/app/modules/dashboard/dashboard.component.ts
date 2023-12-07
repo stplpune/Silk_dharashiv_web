@@ -161,7 +161,7 @@ export class DashboardComponent {
     let formData = this.filterFrm.getRawValue();
     console.log(status)
     this.apiService.setHttp('GET', 'sericulture/api/Action/GetOfficerDashboard?' + '&SchemeTypeId=' + (formData.schemeTypeId || 0) + '&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchayatId=' + (formData.grampanchayatId || 0) +
-    + '&UserId=' + (this.WebStorageService.getUserId() || 0)  + '&actionId=' + (formData.actionId || 0)  + '&lan=' + this.lang, false, false, false, 'masterUrl');    
+     '&UserId=' + (this.WebStorageService.getUserId() || 0)  + '&actionId=' + (formData.actionId || 0)  + '&lan=' + this.lang, false, false, false, 'masterUrl');    
      '&ActionId=' + (formData.actionId || 0) , false, data, false, 'masterUrl';
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
