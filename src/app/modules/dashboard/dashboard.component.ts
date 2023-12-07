@@ -21,7 +21,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatCardModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatIconModule ,TranslateModule, NgxMatSelectSearchModule],
+  imports: [CommonModule, MatButtonModule, MatCardModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatIconModule, TranslateModule, NgxMatSelectSearchModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
@@ -43,8 +43,8 @@ export class DashboardComponent {
 
   constructor(public WebStorageService: WebStorageService, private apiService: ApiService, private router: Router, private fb: FormBuilder, private master: MasterService,
     private spinner: NgxSpinnerService, private errorHandler: ErrorHandlingService, private commonMethod: CommonMethodsService, public encryptdecrypt: AesencryptDecryptService) {
-    
-      this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     });
@@ -119,7 +119,7 @@ export class DashboardComponent {
   }
 
   getGrampanchayat() {
-     this.gramPSubject = new ReplaySubject<any>();
+    this.gramPSubject = new ReplaySubject<any>();
     this.grampanchayatArray = [];
     let talukaId = this.filterFrm.getRawValue().talukaId;
     if (talukaId != 0) {
@@ -156,20 +156,21 @@ export class DashboardComponent {
 
 
   getDashboardCount(status?: any) {
+    this.spinner.show();
     this.appDetailsArray = [];
     let data: any;
     let formData = this.filterFrm.getRawValue();
     console.log(status)
     this.apiService.setHttp('GET', 'sericulture/api/Action/GetOfficerDashboard?' + '&SchemeTypeId=' + (formData.schemeTypeId || 0) + '&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchayatId=' + (formData.grampanchayatId || 0) +
-     '&UserId=' + (this.WebStorageService.getUserId() || 0)  + '&actionId=' + (formData.actionId || 0)  + '&lan=' + this.lang, false, false, false, 'masterUrl');    
-     '&ActionId=' + (formData.actionId || 0) , false, data, false, 'masterUrl';
+      '&UserId=' + (this.WebStorageService.getUserId() || 0) + '&actionId=' + (formData.actionId || 0) + '&lan=' + this.lang, false, false, false, 'masterUrl');
+    '&ActionId=' + (formData.actionId || 0), false, data, false, 'masterUrl';
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.dashboardData = res;
           const uniquestandardName = [...new Set(this.dashboardData.responseData1.map((x: any) => x.schemeTypeId))];
-
+          debugger;
           uniquestandardName.map((x: any) => {
             const unquieArray = this.dashboardData.responseData1.filter((y: any) => y.schemeTypeId == x);
             if (unquieArray.length > 1) {
@@ -181,6 +182,7 @@ export class DashboardComponent {
               this.appDetailsArray.push(uniuqeConsumerObj);
             }
           });
+          this.appDetailsArray.length == 1 ? this.appDetailsArray[0].detailsArr.push(this.appDetailsArray[0]) : '';
           console.log(this.appDetailsArray)
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -193,34 +195,15 @@ export class DashboardComponent {
     });
   }
 
-  // redirectToApplication(){
-  //   let Id: any = this.encryptdecrypt.encrypt(`${ this.filterFrm.getRawValue()}`);
-  //   this.router.navigate([ '../application'], {
-  //     queryParams: {
-  //       id: Id
-  //     },
-  //    })
-  // }
-
-  redToAppPage(obj: any, appStaId: any) {
-    this.router
-    console.log(obj, appStaId)
-    let setObj = {
-      disId: '',
-      talId: '',
-      gramId: '',
-      actionId: '',
-      schId: '',
-    }
-    console.log(setObj)
-    // let Id: any = this.encryptdecrypt.encrypt(`${schemeTypeId}` + '.' + `${appStaId}`);
-    // this.router.navigate(['../application'], {
-    //   queryParams: {
-    //     id: Id
-    //   }
-    // })
-
-  
+  redToAppPage(obj: any, appStaId: any) { //'dis','tal','gram','scheme','action','app final Status'
+    let formValue = this.filterFrm.getRawValue();
+    let jsonStr:any = `${formValue?.districtId}`+'.'+`${formValue?.talukaId}`+'.'+`${formValue?.grampanchayatId}`+'.'+`${formValue?.schemeTypeId}`+'.'+`${obj?.actionId}`+'.'+`${appStaId}`;
+    let data: any = this.encryptdecrypt.encrypt(jsonStr);
+    this.router.navigate(['../application'], {
+      queryParams: {
+        id: data
+      },
+    })
   }
 
 }

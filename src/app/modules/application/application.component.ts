@@ -62,13 +62,25 @@ export class ApplicationComponent {
     this.route.queryParams.subscribe((queryParams: any) => {
       this.routingData = queryParams['id'];
     });
-    this.spliteUrlData = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
-    //this.spliteUrlData = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
-
+    this.spliteUrlData = this.routingData ?  this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.'):[];
     this.filterDefaultFrm(); 
-    this.spliteUrlData ? '': this.getTableData(); 
+    if(this.spliteUrlData.length){
+      this.filterFrm.patchValue({ //'dis','tal','gram','scheme','action','app final Status'
+        districtId:this.spliteUrlData[0],
+        talukaId:this.spliteUrlData[1],
+        grampanchayatId:this.spliteUrlData[2],
+        schemeTypeId:this.spliteUrlData[3],
+        actionId:this.spliteUrlData[4],
+        statusId:this.spliteUrlData[5],
+      });
+    }
+
+
+    this.spliteUrlData.length ? '': this.getTableData(); 
     this.getAllScheme();
-    this.getDisrict(); this.getStatus(); this.getAction(); 
+    this.getDisrict(); 
+    this.getStatus(); 
+    this.getAction(); 
     this.searchDataZone();
   }
 
@@ -95,7 +107,7 @@ export class ApplicationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.schemeFilterArr.unshift({ id: 0, textEnglish: "All Scheme", textMarathi: "सर्व योजना" }, ...res.responseData);
-          this.spliteUrlData ?  this.filterFrm.controls['schemeTypeId'].setValue(+this.spliteUrlData[0]):'';
+          this.spliteUrlData ?  this.filterFrm.controls['schemeTypeId'].setValue(+this.filterFrm.getRawValue().schemeTypeId):'';
     
         } else {
           this.schemeFilterArr = [];
@@ -104,11 +116,13 @@ export class ApplicationComponent {
     });
   }
 
+
   getDisrict() {
     this.districtArr = [];
     this.master.GetAllDistrict(this.webStorage.getStateId()).subscribe({
       next: ((res: any) => {
         this.districtArr = res.responseData;
+        this.spliteUrlData.length ?  this.filterFrm.controls['districtId'].setValue(+this.filterFrm.getRawValue().districtId):'';
         this.getTaluka();
       }), error: (() => {
         this.districtArr = [];
@@ -123,6 +137,7 @@ export class ApplicationComponent {
       next: ((res: any) => {
         this.talukaArr.unshift({ id: 0, textEnglish: "All Taluka", textMarathi: "सर्व तालुका" }, ...res.responseData);
         this.common.filterArrayDataZone(this.talukaArr, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
+        this.spliteUrlData.length ?  this.filterFrm.controls['talukaId'].setValue(+this.filterFrm.getRawValue().talukaId):'';
         this.getGrampanchayat();
       }), error: (() => {
         this.talukaArr = [];
@@ -139,6 +154,7 @@ export class ApplicationComponent {
         next: ((res: any) => {
           this.grampanchayatArray.unshift({ id: 0, textEnglish: "All Grampanchayat", textMarathi: "सर्व ग्रामपंचायत" }, ...res.responseData);
           this.common.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
+          this.spliteUrlData.length ?  this.filterFrm.controls['grampanchayatId'].setValue(+this.filterFrm.getRawValue().grampanchayatId):'';
         }), error: (() => {
           this.grampanchayatArray = [];
           this.gramPSubject.next(null);
@@ -153,7 +169,7 @@ export class ApplicationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.statusArr.unshift({ id: 0, textEnglish: "All Status", textMarathi: "सर्व स्थिती" }, ...res.responseData);
-          this.spliteUrlData ? (this.filterFrm.controls['statusId'].setValue(+this.spliteUrlData[1]),this.getTableData()):'';
+          this.spliteUrlData.length ?  this.filterFrm.controls['statusId'].setValue(+this.filterFrm.getRawValue().statusId):'';
           
         } else {
           this.statusArr = [];
@@ -168,6 +184,7 @@ export class ApplicationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.actionArr.unshift({ id: 0, textEnglish: "All Action", textMarathi: "सर्व कृती" }, ...res.responseData);
+          this.spliteUrlData.length ?  (this.filterFrm.controls['actionId'].setValue(+this.filterFrm.getRawValue().actionId), this.getTableData()):'';
         } else {
           this.actionArr = [];
         }
@@ -267,9 +284,10 @@ export class ApplicationComponent {
     this.getTableData();
     this.pageNumber = 1;
     this.searchDataFlag = false;
-   // this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.common.filterArrayDataZone([], this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject) });
-   // this.gramPSubject = new ReplaySubject<any>();
-    // this.grampanchayatArray = [];
+    this.spliteUrlData.length ? this.spliteUrlData = []:'';
+    //this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.common.filterArrayDataZone([], this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject) });
+    //this.gramPSubject = new ReplaySubject<any>();
+    //this.grampanchayatArray = [];
   }
 
   ngOnDestroy() {
