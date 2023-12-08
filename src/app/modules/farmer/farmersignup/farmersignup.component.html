@@ -33,21 +33,23 @@
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
+                          <div class="d-flex flex-column">
                             <mat-label class="form-label">{{'farmerSignUp.Gender'|translate}}</mat-label>
                             <mat-radio-group aria-label="Select an option" formControlName="gender">
-                              <mat-radio-button *ngFor="let gender of genderArray"
-                                [value]="gender.id">{{lang == 'en' ? gender.textEnglish : gender.textMarathi}}</mat-radio-button>
-                            </mat-radio-group>                       
+                              <mat-radio-button *ngFor="let gender of genderArray" class="px-2"
+                              [value]="gender.id">{{lang == 'en' ? gender.textEnglish : gender.textMarathi}}</mat-radio-button>
+                            </mat-radio-group>
+                          </div>
                         </div>
                         <div class="col-sm-6">
                             <label class="form-label">{{'common.district'|translate}} <span class="text-danger">*</span></label>
                             <mat-form-field appearance="outline" class="w-100"
                             [class]="f['districtId'].value ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
                                 <!-- <mat-label>District</mat-label> -->
-                                <mat-select formControlName="districtId" (selectionChange)="getTaluka()">                                    
-                                    <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang == 'en' ? district.textEnglish : district.textMarathi}}</mat-option>                                                          
+                                <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
+                                    <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang == 'en' ? district.textEnglish : district.textMarathi}}</mat-option>
                                 </mat-select>
-                                <mat-error class="text-danger" *ngIf="f['districtId'].hasError('required')">{{'farmerSignUp.Please_select_district'|translate}} </mat-error>      
+                                <mat-error class="text-danger" *ngIf="f['districtId'].hasError('required')">{{'farmerSignUp.Please_select_district'|translate}} </mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
@@ -62,13 +64,13 @@
                                     <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ?
                                       taluka.textMarathi
                                       :taluka.textEnglish}}</mat-option>
-                
+
 
                                 <!-- <mat-label>Taluka</mat-label> -->
                                 <!-- <mat-select formControlName="talukaId"  (selectionChange)="getGrampanchayat();clearDependancy()">
                                     <mat-option *ngFor="let taluka of talukaArray" [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish : taluka.textMarathi}}</mat-option>                                                              -->
                                 </mat-select>
-                                <mat-error class="text-danger" *ngIf="f['talukaId'].hasError('required')">{{'farmerSignUp.Please_select_taluka'|translate}} </mat-error>      
+                                <mat-error class="text-danger" *ngIf="f['talukaId'].hasError('required')">{{'farmerSignUp.Please_select_taluka'|translate}} </mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
@@ -86,22 +88,22 @@
 
                                 <!-- <mat-label>Village</mat-label> -->
                                 <!-- <mat-select formControlName="grampanchayatId">
-                                    <mat-option *ngFor="let grampanchayat of grampanchayatArray" [value]="grampanchayat.id">{{lang == 'en' ? grampanchayat.textEnglish : grampanchayat.textMarathi}}</mat-option>                                                       
+                                    <mat-option *ngFor="let grampanchayat of grampanchayatArray" [value]="grampanchayat.id">{{lang == 'en' ? grampanchayat.textEnglish : grampanchayat.textMarathi}}</mat-option>
                                 </mat-select> -->
-                                <mat-error class="text-danger" *ngIf="f['grampanchayatId'].hasError('required')">{{'farmerSignUp.Please_select_grampanchayat'|translate}} </mat-error>  
+                                <mat-error class="text-danger" *ngIf="f['grampanchayatId'].hasError('required')">{{'farmerSignUp.Please_select_grampanchayat'|translate}} </mat-error>
                             </mat-form-field>
                         </div>
 
                         <div  class="col-sm-6">
                             <label class="form-label">{{'farmerSignUp.village'|translate}}<span class="text-danger">*</span></label>
-                            <mat-form-field appearance="outline" class="w-100">                           
+                            <mat-form-field appearance="outline" class="w-100">
                                 <input matInput formControlName="village" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)" maxlength="20">
                                 <mat-error class="text-danger" *ngIf="f['village'].hasError('required')">{{'farmerSignUp.Please_enter_village_name'|translate}} </mat-error>
-                                <mat-error class="text-danger" *ngIf="f['village'].hasError('pattern')">{{'farmerSignUp.Please_enter_valid_village_name'|translate}} </mat-error>                                
+                                <mat-error class="text-danger" *ngIf="f['village'].hasError('pattern')">{{'farmerSignUp.Please_enter_valid_village_name'|translate}} </mat-error>
                             </mat-form-field>
                         </div>
 
-                        
+
                     </div>
 
                     <!-- <div class="row align-items-start g-2">
@@ -122,7 +124,7 @@
                         </div>
                     </div> -->
                     <div class="row align-items-center">
-                  
+
                         <div class="col-sm-6">
                             <button mat-flat-button class="btn-main w-100" (click)="openSendOtpComponent()">
                                 {{'farmerSignUp.SIGN_UP'|translate}}
