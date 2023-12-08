@@ -54,7 +54,7 @@
       <ng-container></ng-container>
 
     </div>
-    <div class="col-sm-9">  
+    <div class="col-sm-9">
       <div class="row gx-2 gy-2">
         <ng-container *ngIf="!editFlag">
           <div class="col-sm-6">
@@ -96,11 +96,11 @@
           <div class="col-sm-12">
             <div class="d-flex gap-4">
               <div class="form-label">{{'myProfile.Address' | translate}}</div>
-              <div class="form-data">:{{lang == 'en' ?  (profilDetailsArr?.address || '-') : (profilDetailsArr?.m_Address || '-')}}</div>
+              <div class="ps-3 form-data">:{{lang == 'en' ?  (profilDetailsArr?.address || '-') : (profilDetailsArr?.m_Address || '-')}}</div>
             </div>
           </div>
         </ng-container>
-        
+
           <ng-container *ngIf="editFlag">
             <form [formGroup]="profileForm" >
               <div class="row gy-2">
@@ -114,10 +114,10 @@
                     </mat-error>
                     <mat-error *ngIf="f['name'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
                     </mat-error>
-              
+
                   </mat-form-field>
                 </div>
-              
+
                 <div class="col-sm-6">
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'myProfile.Name_M' | translate}}</mat-label>
@@ -130,7 +130,7 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-              
+
                 <div class="col-sm-6">
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{'myProfile.Mobile_No' | translate}}</mat-label>
@@ -189,7 +189,7 @@
           </div>
         </div>
       </div>
-    </ng-container>   
+    </ng-container>
   </div>
 </mat-dialog-content>
 
