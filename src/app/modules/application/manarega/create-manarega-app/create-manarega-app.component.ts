@@ -123,6 +123,7 @@ export class CreateManaregaAppComponent {
             this.spinner.hide();
             if(lable == 'documents'){
               this.docArray[indexByDocId].docPath = res.responseData;
+              this.docArray[indexByDocId].docTypeId = 1;
               console.log( this.docArray)
             }
             else if(lable == 'otherDocuments'){
@@ -463,10 +464,22 @@ getPreviewData(){
   
 // this.viewMsgFlag=false;
   onSubmit(flag?:any) {
+    let mergeDocumentArray = [... this.docArray,...this.OtherDocUploadImg];
     
     if (this.manaregaFrm.invalid) {
       this.viewMsgFlag = true;
       return;
+    }
+    else if(flag == 'document'){
+      for(let i=0 ;i< this.docArray.length;i++){
+        if(this.docArray[i].docPath == ''){
+          let str = this.docArray[i].docTypeId == 12 ? (this.lang == 'en' ? 'Manrega Job Card' : 'मनरेगा जॉब कार्ड')   :  this.docArray[i].docTypeId == 19 ? (this.lang == 'en' ? '8 A track of Land' : 'जमिनीचा 8-अ') : this.docArray[i].docTypeId == 11  ? (this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque' : 'पासबुक / रद्द केलेला चेक') : ''
+          alert(str+ ' required')
+          // this.apiService.callSnackBar(str+ ' required')
+          return
+        }}
+
+       
     }
     else {
       let formData = this.manaregaFrm?.getRawValue();
@@ -479,8 +492,7 @@ getPreviewData(){
            ele.createdBy = 0;
            ele.isDeleted = false;
         })
-       let mergeDocumentArray = [... this.docArray,...this.OtherDocUploadImg];
-      console.log("farmInfo",farmInfo)
+        console.log("farmInfo",farmInfo)
       let obj ={
         "id": flag == 'farmerInfo' ? formData.id : this.getId,
         "farmerId": formData.farmerId,
@@ -586,6 +598,22 @@ getPreviewData(){
             "schemeTakenDate": "2023-11-24T09:55:29.130Z",
             "totalBenefitTaken": 0,
             "createdBy": 0
+          }
+        ],
+        "currentProducts": [
+          {
+            "id": 0,
+            "applicationId": 0,
+            "cropId": 0,
+            "area": 0,
+            "totalProduction": 0,
+            "averageRate": 0,
+            "totalProductionAmt": 0,
+            "totalExpenses": 0,
+            "netIncome": 0,
+            "acreNetIncome": 0,
+            "createdBy": 0,
+            "isDeleted": true
           }
         ]
       }
