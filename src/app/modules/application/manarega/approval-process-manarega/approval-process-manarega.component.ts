@@ -88,7 +88,7 @@ export class ApprovalProcessManaregaComponent {
     this.addApprovalFrm();
   }
   openEstimateDetails() {
-    const sendData=this.encryptdecrypt.decrypt(`${decodeURIComponent(this.applicationData.applicationId)}`).split('.');
+    const sendData=this.encryptdecrypt.encrypt(`${decodeURIComponent(this.applicationData.applicationId)}`).split('.');
     this.router.navigate(['../technical-estimate', { data: sendData }]);
   }
 
