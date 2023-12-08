@@ -182,7 +182,7 @@ export class DashboardComponent {
               this.appDetailsArray.push(uniuqeConsumerObj);
             }
           });
-          this.appDetailsArray.length == 1 ? this.appDetailsArray[0].detailsArr.push(this.appDetailsArray[0]) : '';
+          this.appDetailsArray.length == 1 && !this.appDetailsArray[0].detailsArr.length ? this.appDetailsArray[0].detailsArr.push(this.appDetailsArray[0]) : '';
           console.log(this.appDetailsArray)
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
