@@ -29,11 +29,16 @@
           (change)="imageUplod($event)" />
           <div class="profile-btn text-center">
             <input type="file" class="profile-upload d-none"  >
-            <button *ngIf="editFlag" type="button" mat-icon-button class="btn text-primary add-btn" (click)="uploadDocument.click()">
+            <button *ngIf="editFlag && !imageRes" type="button" mat-icon-button class="btn text-primary add-btn" (click)="uploadDocument.click()" >
               <!-- <mat-icon class="material-symbols-outlined">add</mat-icon> -->
               <span class="material-symbols-rounded ">
                 edit_square
             </span>
+            </button>
+            <button mat-icon-button class=" btn-icon text-danger add-btn" *ngIf="imageRes" (click)="deleteImage()">
+              <span class="material-symbols-rounded text-danger">
+                delete
+              </span>
             </button>
             <!-- <button type="button" mat-icon-button class="btn text-danger">
               <mat-icon class="material-symbols-outlined">delete</mat-icon>
@@ -98,48 +103,51 @@
         
           <ng-container *ngIf="editFlag">
             <form [formGroup]="profileForm" >
-            <div class="col-sm-6">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>{{'myProfile.Name' | translate}}</mat-label>
-                <input matInput placeholder="Enter your name(English)" formControlName="name"
-                (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
-                <mat-error *ngIf="f['name'].hasError('required')">{{'myProfile.Name_en'|translate}}</mat-error>
-                <mat-error *ngIf="f['name'].hasError('pattern')">{{'myProfile.Name_en_valid'|translate}}
-                </mat-error>
-                <mat-error *ngIf="f['name'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
-                </mat-error>
-                
-              </mat-form-field>
-            </div>
-
-            <div class="col-sm-6">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>{{'myProfile.Name_M' | translate}}</mat-label>
-                <input matInput placeholder="Enter your name(Marathi)" formControlName="m_Name"
-                (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
-                <mat-error *ngIf="f['m_Name'].hasError('required')">{{'myProfile.Name_mr'|translate}}</mat-error>
-            <mat-error *ngIf="f['m_Name'].hasError('pattern')">{{'myProfile.Name_mr_valid'|translate}}
-            </mat-error>
-            <mat-error *ngIf="f['m_Name'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
-            </mat-error>
-              </mat-form-field>
-            </div>
-
-            <div class="col-sm-6">
-              <mat-form-field appearance="outline" class="w-100" >
-                <mat-label>{{'myProfile.Mobile_No' | translate}}</mat-label>
-                <input matInput placeholder="Enter your name" formControlName="mobileNo" readonly>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-12">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>{{'myProfile.Address' | translate}}</mat-label>
-                <textarea matInput placeholder="" rows="2" formControlName="address"
-                (keypress)="validator.noFirstSpaceAllow($event)" (keyup)="validator.alphaNumericWithSpacesAndSpecChars($event)" maxlength="100"></textarea>
-                <mat-error *ngIf="f['address'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
-                </mat-error>
-              </mat-form-field>
-            </div>
+              <div class="row gy-2">
+                <div class="col-sm-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{'myProfile.Name' | translate}}</mat-label>
+                    <input matInput placeholder="Enter your name(English)" formControlName="name"
+                      (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)">
+                    <mat-error *ngIf="f['name'].hasError('required')">{{'myProfile.Name_en'|translate}}</mat-error>
+                    <mat-error *ngIf="f['name'].hasError('pattern')">{{'myProfile.Name_en_valid'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="f['name'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
+                    </mat-error>
+              
+                  </mat-form-field>
+                </div>
+              
+                <div class="col-sm-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{'myProfile.Name_M' | translate}}</mat-label>
+                    <input matInput placeholder="Enter your name(Marathi)" formControlName="m_Name"
+                      (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
+                    <mat-error *ngIf="f['m_Name'].hasError('required')">{{'myProfile.Name_mr'|translate}}</mat-error>
+                    <mat-error *ngIf="f['m_Name'].hasError('pattern')">{{'myProfile.Name_mr_valid'|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="f['m_Name'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              
+                <div class="col-sm-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{'myProfile.Mobile_No' | translate}}</mat-label>
+                    <input matInput placeholder="Enter your name" formControlName="mobileNo" readonly>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{'myProfile.Address' | translate}}</mat-label>
+                    <textarea matInput placeholder="" rows="3" formControlName="address"
+                      (keypress)="validator.noFirstSpaceAllow($event)" (keyup)="validator.alphaNumericWithSpacesAndSpecChars($event)"
+                      maxlength="100"></textarea>
+                    <mat-error *ngIf="f['address'].hasError('maxLengthExceeded')">{{'common.officer_Name_limit'|translate}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
             <div mat-dialog-actions class="modal-footer" >
               <div class="d-flex align-items-center justify-content-end gap-2 w-100">
                 <button mat-flat-button class="btn-main-light" (click)="editFlag = false">{{'common.clear' | translate}}</button>
