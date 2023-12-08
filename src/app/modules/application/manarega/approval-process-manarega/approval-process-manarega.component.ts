@@ -74,7 +74,6 @@ export class ApprovalProcessManaregaComponent {
 
     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
     let url = this.router.url;
-    debugger;
     let appProVal = (spliteUrl[2] == 'm') && (url.split('?')[0] == '/approval-process-manarega');
     if (!appProVal) {
       
