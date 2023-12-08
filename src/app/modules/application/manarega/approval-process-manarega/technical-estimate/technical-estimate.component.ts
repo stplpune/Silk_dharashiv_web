@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -56,7 +56,7 @@ export class TechnicalEstimateComponent {
   skillYr1obj:any;
   skillYr2obj:any;
   skillYr3obj:any;
-
+  acceptTermsValue!:boolean;
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -65,6 +65,7 @@ export class TechnicalEstimateComponent {
       private errorHandler: ErrorHandlingService,
       public encryptdecrypt: AesencryptDecryptService,
       private route: ActivatedRoute,
+      private _elementRef: ElementRef
   ) { }
 
   ngOnInit() {
@@ -189,10 +190,38 @@ export class TechnicalEstimateComponent {
     
   }
 
-  acceptTerms(event?:any) {
-    if (event.target.checked === true) {
-      // Handle your code
-      }
+  acceptTerms(event?: any) {
+    this.acceptTermsValue = event.target.checked;    
+  }
+
+  confirm() {
+    if (!this.acceptTermsValue) {
+      this.commonMethod.snackBar('Please select terms and condition', 1);
+      return
+    }
+    this.generate_PDF();
+  }
+
+  generate_PDF() {
+    let doc = this._elementRef.nativeElement.querySelector(`#document`);
+    console.log(doc)
+    let obj = { htmlData: JSON.stringify(doc) }
+    this.apiService.setHttp('POST', 'api/TechnicalEstimate/Generate-PDF_V1', false, obj, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == '200') {
+          console.log('resss',res);
+        } else {
+          this.spinner.hide();
+          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
+        }
+      },
+      error: (err: any) => {
+        this.spinner.hide();
+        this.errorHandler.handelError(err.status);
+      },
+    });
   }
 
 }
