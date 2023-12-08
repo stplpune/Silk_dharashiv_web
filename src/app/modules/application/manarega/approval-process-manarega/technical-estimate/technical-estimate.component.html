@@ -423,78 +423,24 @@
                         <th colspan="2">मात्रा</th>
                         <th>दर रु</th>
                         <th>देय रक्कम</th>
-                        <!-- <th>शेरा</th> -->
+                        <th>शेरा</th>
                     </tr>
                 </tbody>
                 <tbody>
-                    <ng-container *ngFor="let err of skillDataArray.skillArray;let i =index">
-                        <tr>
+                        <tr *ngFor="let err of skillDataArray.skillArray;let i =index">
                             <td>{{i + 1}}</td>
                             <td>{{err.m_WorkDetail || '-'}}</td>
                             <td>{{err.m_Unit || '-'}}</td>
                             <td colspan="2">{{err.aroundDay ||0}}</td>
                             <td>{{err.wagesRate ||0}}</td>
                             <td>{{err.totalWages ||0}}</td>
-                            <td rowspan="6" *ngIf="i == 0 && i>=5">
-                                <!-- सीमेंट पत्रे ऐवजी लोखंडी पत्रे, सीमेंट पाइप / कॉलम ऐवजी लोखंडी पाइप,
-                                आधिक
-                                मुलाच्या वस्तु तसेच सीमेंट, वाळू करिता इस्टिमेटपेक्षा जास्त खर्च शेतकरी स्वछ करू
-                                शकतील. -->
+                            <td rowspan="6" *ngIf="i == 0">
+                                {{technicalUnSkillObj?.action1}}
+                            </td>
+                            <td *ngIf="i == 6">
+                                {{technicalUnSkillObj?.action2}}
                             </td>
                         </tr>
-                    </ng-container>
-                    <!-- <tr>
-                            <td>2</td>
-                            <td>लोखंडी क्वायर पाइप / आंगल 1.5" किंवा 2" साइज</td>
-                            <td>किलो</td>
-                            <td colspan="2">450</td>
-                            <td>65</td>
-                            <td>29250</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>पत्रे सीमेंट / लोखंडी 3*8</td>
-                            <td>नग</td>
-                            <td colspan="2">30</td>
-                            <td>1700</td>
-                            <td>51000</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>पात्राचे क्लॅप 7 ते 8 फुट</td>
-                            <td>फुट / किलो</td>
-                            <td colspan="2">20</td>
-                            <td>65</td>
-                            <td>1300</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>स्क्रू व इतर</td>
-                            <td>किलो</td>
-                            <td colspan="2">20</td>
-                            <td>65</td>
-                            <td>1300</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>सीमेंट वाळू विटा लोहा इ॰</td>
-                            <td>किलो</td>
-                            <td colspan="2">लागणारे प्रमाणात</td>
-                            <td></td>
-                            <td>18900</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>जनमाहिती फलक</td>
-                            <td></td>
-                            <td colspan="2">रुंदी 3*4 लांबी फुट</td>
-                            <td>एकत्रीत</td>
-                            <td>3000</td>
-                            <td>विटा/रेती/सीमेंटच्या फळकवर योजनेचे नाव शेतकरी नाव कामाचा कोड व एकूण रक्कम व आदि
-                                रक्कम
-                                नमूद
-                                असावी.</td> 
-                        </tr> -->   
                 </tbody>
                 <tbody>
                     <tr>
