@@ -16,6 +16,13 @@
           </mat-icon>
           Add Samgra
         </button>
+        <ng-container *ngIf="spliteUrlData.length">
+        <button mat-flat-button class="btn-main-light" (click)="common.locationBack()">
+          <mat-icon class="material-symbols-rounded">
+            chevron_left
+          </mat-icon>{{lang == 'en' ? 'Back' :'मागे'}}
+        </button>
+      </ng-container>
       </div>
 
       </div>

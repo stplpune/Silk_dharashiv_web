@@ -46,7 +46,7 @@ export class ApplicationComponent {
     public validator: ValidationService,
     private apiService: ApiService,
     private errorService: ErrorHandlingService,
-    private common: CommonMethodsService,
+    public common: CommonMethodsService,
     public webStorage: WebStorageService,
     public encryptdecrypt: AesencryptDecryptService,
     private router: Router,

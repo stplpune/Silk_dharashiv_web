@@ -155,12 +155,11 @@ export class DashboardComponent {
   }
 
 
-  getDashboardCount(status?: any) {
+  getDashboardCount(_status?: any) {
     this.spinner.show();
     this.appDetailsArray = [];
     let data: any;
     let formData = this.filterFrm.getRawValue();
-    console.log(status)
     this.apiService.setHttp('GET', 'sericulture/api/Action/GetOfficerDashboard?' + '&SchemeTypeId=' + (formData.schemeTypeId || 0) + '&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchayatId=' + (formData.grampanchayatId || 0) +
       '&UserId=' + (this.WebStorageService.getUserId() || 0) + '&actionId=' + (formData.actionId || 0) + '&lan=' + this.lang, false, false, false, 'masterUrl');
     '&ActionId=' + (formData.actionId || 0), false, data, false, 'masterUrl';
@@ -183,7 +182,7 @@ export class DashboardComponent {
             }
           });
           this.appDetailsArray.length == 1 && !this.appDetailsArray[0].detailsArr.length ? this.appDetailsArray[0].detailsArr.push(this.appDetailsArray[0]) : '';
-          console.log(this.appDetailsArray)
+
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
@@ -197,7 +196,7 @@ export class DashboardComponent {
 
   redToAppPage(obj: any, appStaId: any) { //'dis','tal','gram','scheme','action','app final Status'
     let formValue = this.filterFrm.getRawValue();
-    let jsonStr:any = `${formValue?.districtId}`+'.'+`${formValue?.talukaId}`+'.'+`${formValue?.grampanchayatId}`+'.'+`${formValue?.schemeTypeId}`+'.'+`${obj?.actionId}`+'.'+`${appStaId}`;
+    let jsonStr: any = `${formValue?.districtId}` + '.' + `${formValue?.talukaId}` + '.' + `${formValue?.grampanchayatId}` + '.' + `${formValue?.schemeTypeId}` + '.' + `${obj?.actionId}` + '.' + `${appStaId}`;
     let data: any = this.encryptdecrypt.encrypt(jsonStr);
     this.router.navigate(['../application'], {
       queryParams: {
