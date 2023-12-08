@@ -63,7 +63,8 @@ export class CreateManaregaAppComponent {
  @ViewChild('formDirective') private formDirective!: NgForm;
   //documnet form variable
   docUploadedPath: string = '';
-  docArray = [{id:0,docTypeId:12,docPath:'',docNo:'',docname:'Job Card'},{id:0,docTypeId:19,docPath:'',docNo:'',docname:'8A Form'},{id:0,docTypeId:18,docPath:'',docNo:'',docname:'7-Dec'},{id:0,docTypeId:11,docPath:'',docNo:'',docname:'Nationalized Bank Passbook'}]
+  docArray = [{id:0,docTypeId:12,docPath:'',docNo:'',docname:'Job Card'},{id:0,docTypeId:19,docPath:'',docNo:'',docname:'8A Form'},{id:0,docTypeId:18,docPath:'',docNo:'',docname:'7-Dec'},
+  {id:0,docTypeId:11,docPath:'',docNo:'',docname:'Nationalized Bank Passbook'}, {id:0,docTypeId:8,docPath:'',docNo:'',docname:'Registration Fee Receipt Path'}]
   visible:boolean = false;
   otherDocArray: any = new Array();
   @ViewChild('otherDocImage') OtherDocImg!: ElementRef;
@@ -129,7 +130,7 @@ export class CreateManaregaAppComponent {
             }
             else if(lable == 'otherDocuments'){
               this.otherDocumentFrm.controls['docPath'].setValue(res.responseData)
-              this.docArray[indexByDocId].docTypeId = 1; 
+              this.docArray[indexByDocId].docTypeId = 7; 
             }
            
             this.commonMethod.snackBar(res.statusMessage, 0)
@@ -160,6 +161,17 @@ viewPreviewDocument(docId: any) {
  console.log("obj",this.previewData?.documents[2].documentPath)
  window.open(obj, '_blank')
 }
+
+// Define a function to filter and retrieve documents with docId 7
+getDocumentsWithDocId7() {
+  return this.previewData?.documents.filter((doc:any) => doc.docId === 7);
+}
+
+// Function to open the document in a new tab
+viewPreviewDocument11(documentPath: string) {
+  window.open(documentPath, '_blank');
+}
+
 
     //#endregion  --------------------------------------------------------doc upload section fn end heare-----------------------------------//
 
@@ -481,22 +493,23 @@ getPreviewData(){
   
 // this.viewMsgFlag=false;
   onSubmit(flag?:any) {
+    debugger
     let mergeDocumentArray = [... this.docArray,...this.OtherDocUploadImg];
     
-    if (this.manaregaFrm.invalid) {
+    if (this.manaregaFrm.invalid && flag == 'farmerInfo') {
       this.viewMsgFlag = true;
       return;
     }
-    else if(this.farmInfoFrm.invalid){
+    else if(this.farmInfoFrm.invalid && flag == 'farmInfo'){
       return
     }
-    else if(this.bankInfoFrm.invalid){
+    else if(this.bankInfoFrm.invalid && flag == 'bankInfo'){
       return
     }
     else if( this.documentFrm.invalid && flag == 'document'){
       for(let i=0 ;i< this.docArray.length;i++){
         this.documentFrm.controls['allRequiredDocument'].setValue('');
-        if(this.docArray[i].docPath == '' && this.docArray[i].docTypeId != 18){
+        if(this.docArray[i].docPath == '' && this.docArray[i].docTypeId != 18 && this.docArray[i].docTypeId != 8){
           let str = this.docArray[i].docTypeId == 12 ? (this.lang == 'en' ? 'Manrega Job Card' : 'मनरेगा जॉब कार्ड')   :  this.docArray[i].docTypeId == 19 ? (this.lang == 'en' ? '8 A track of Land' : 'जमिनीचा 8-अ') : this.docArray[i].docTypeId == 11  ? (this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque' : 'पासबुक / रद्द केलेला चेक') : ''
           alert(str+ ' required')
           return
