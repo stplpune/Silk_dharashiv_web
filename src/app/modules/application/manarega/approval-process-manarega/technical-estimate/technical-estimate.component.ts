@@ -80,7 +80,7 @@ export class TechnicalEstimateComponent {
   }
 
   getEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId=' + this.applicationId, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId=2' , false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -149,7 +149,7 @@ export class TechnicalEstimateComponent {
 
 
   getAnotherEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId=' + this.applicationId, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId=2', false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -182,8 +182,10 @@ export class TechnicalEstimateComponent {
     
   }
 
-  print() {
-    window.print();
+  acceptTerms(event?:any) {
+    if (event.target.checked === true) {
+      // Handle your code
+      }
   }
 
 }
