@@ -389,7 +389,6 @@ export class RegisterOfficerComponent {
           this.imageResponse = res.responseData;    
         }
         else {
-          this.spinner.hide();
           this.clearlogo.nativeElement.value = "";
           this.imageResponse = "";
         }
@@ -400,6 +399,11 @@ export class RegisterOfficerComponent {
         this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       }
     })
+  }
+
+  deleteImage(){
+    this.clearlogo.nativeElement.value="";
+    this.imageResponse="";
   }
  
   clearFormData() {
