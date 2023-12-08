@@ -5,7 +5,8 @@
     <div class="text-main">Manarega Application</div>
   </mat-card-header>
   <mat-card-content class=" card-body form-container">
-    <mat-stepper linear #stepper>
+    <!-- linear -->
+    <mat-stepper  #stepper linear>
       <mat-step [stepControl]="manaregaFrm">
         <ng-template matStepLabel>मूळ तपशील</ng-template>
         <form [formGroup]="manaregaFrm">
@@ -761,11 +762,12 @@
         </form>
       </mat-step>
 
-      <mat-step>
+      <mat-step [stepControl]="documentFrm">
         <ng-template matStepLabel>कागदपत्रे</ng-template>
+        <form [formGroup]="documentFrm">
         <div class="container-fluid">
           <div class="row align-items-center g-3">
-
+           
 
             <div class="col-sm-4">
               <div class="form-label">{{'approvalProcess.manrega_job_card'|translate}}</div>
@@ -893,6 +895,14 @@
               <button mat-flat-button class="btn-main-light mt-3" type="button" (click)="onclick()">इतर कागदपत्रे
                 जोडा</button>
             </div>
+            <div class="col-sm">
+              <div class="form-label">
+                 <mat-form-field appearance="outline" class="w-100" [hidden]="true">
+                   <!-- <mat-label>Favorite food</mat-label> -->
+                   <input matInput placeholder="" formControlName="allRequiredDocument">
+                 </mat-form-field>
+               </div>
+             </div>
             <ng-container *ngIf="visible">
               <div class="card card-body mb-4">
                 <div class="container-fluid">
@@ -1017,6 +1027,7 @@
           <button mat-button matStepperPrevious class="btn-main">Back</button>
           <button mat-button matStepperNext class="btn-main" type="button" (click)="onSubmit('document')">Next</button>
         </div>
+      </form>
       </mat-step>
 
       <mat-step>
@@ -1392,39 +1403,47 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="text-main fw-bold">कागदपत्रे</div>
-                  <ul class="list-group">
+                  <ul class="list-group" *ngFor="let doc of previewData?.documents">
+                    <ng-container *ngIf="doc.docId == 12">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">मनरेगा जॉब कार्ड </div>
-                      <span class="form-data  rounded-pill">
+                      <span class="form-data  rounded-pill"  (click)="viewPreviewDocument(12)">
                         <mat-icon class="material-symbols-outlined">
                           visibility
                         </mat-icon>
                       </span>
                     </li>
+                  </ng-container>
+                  <ng-container *ngIf="doc.docId == 19">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">जमिनीचा 8-अ </div>
-                      <span class="form-data  rounded-pill">
+                      <span class="form-data  rounded-pill" (click)="viewPreviewDocument(19)">
                         <mat-icon class="material-symbols-outlined">
                           visibility
                         </mat-icon>
                       </span>
                     </li>
+                  </ng-container>
+                  <ng-container *ngIf="doc.docId == 18">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">जमींचा 7/12 उतारा </div>
-                      <span class="form-data  rounded-pill">
+                      <span class="form-data  rounded-pill" (click)="viewPreviewDocument(18)">
                         <mat-icon class="material-symbols-outlined">
                           visibility
                         </mat-icon>
                       </span>
                     </li>
+                    </ng-container>
+                    <ng-container *ngIf="doc.docId == 11">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">बँक पासबूक/ किवा रद्द केलेला चेक </div>
-                      <span class="form-data  rounded-pill">
+                      <span class="form-data  rounded-pill" (click)="viewPreviewDocument(11)">
                         <mat-icon class="material-symbols-outlined">
                           visibility
                         </mat-icon>
                       </span>
                     </li>
+                   </ng-container>
                   </ul>
                 </div>
               </div>

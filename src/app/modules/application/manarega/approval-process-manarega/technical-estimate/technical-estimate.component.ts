@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -53,7 +53,10 @@ export class TechnicalEstimateComponent {
     totalData: [],
     totalDataSingally: []
   }
-
+  skillYr1obj:any;
+  skillYr2obj:any;
+  skillYr3obj:any;
+  acceptTermsValue!:boolean;
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -62,16 +65,12 @@ export class TechnicalEstimateComponent {
       private errorHandler: ErrorHandlingService,
       public encryptdecrypt: AesencryptDecryptService,
       private route: ActivatedRoute,
+      private _elementRef: ElementRef
   ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.routingData = params.get('data');
-      // if (this.routingData) {
-      //   this.routingData = JSON.parse(this.routingData);
-      //   console.log("  this.routingData" , this.routingData)
-      // }
-      
     });
     let id =this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
      this.applicationId = id
@@ -112,7 +111,16 @@ export class TechnicalEstimateComponent {
       }
     })
 
-
+    this.newDataArray.totalSkill.filter((res:any)=>{
+      if(res.yearId == 1){
+        this.skillYr1obj=res;
+      }else if(res.yearId == 2){
+        this.skillYr2obj=res;
+      }else{
+        this.skillYr3obj=res;
+      }
+    })
+    
     this.newDataArray.totalUnskill.filter((res: any) => {
       if (res.yearId == 1) {
         this.year1Obj = res;
@@ -131,7 +139,7 @@ export class TechnicalEstimateComponent {
         this.totalUnSkillObject = res;
       }
     })
-
+    
     tableData.responseData7.filter((res: any) => {
       if (res.yearId == 1) {
         this.skillYear1Obj = res;
@@ -182,10 +190,38 @@ export class TechnicalEstimateComponent {
     
   }
 
-  acceptTerms(event?:any) {
-    if (event.target.checked === true) {
-      // Handle your code
-      }
+  acceptTerms(event?: any) {
+    this.acceptTermsValue = event.target.checked;    
+  }
+
+  confirm() {
+    if (!this.acceptTermsValue) {
+      this.commonMethod.snackBar('Please select terms and condition', 1);
+      return
+    }
+    this.generate_PDF();
+  }
+
+  generate_PDF() {
+    let doc = this._elementRef.nativeElement.querySelector(`#document`);
+    console.log(doc)
+    let obj = { htmlData: JSON.stringify(doc) }
+    this.apiService.setHttp('POST', 'api/TechnicalEstimate/Generate-PDF_V1', false, obj, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == '200') {
+          console.log('resss',res);
+        } else {
+          this.spinner.hide();
+          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
+        }
+      },
+      error: (err: any) => {
+        this.spinner.hide();
+        this.errorHandler.handelError(err.status);
+      },
+    });
   }
 
 }

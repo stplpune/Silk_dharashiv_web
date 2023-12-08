@@ -36,7 +36,7 @@
         <!-- <h6 *ngIf="data?.header">{{data?.header}}</h6> -->
         <p class="fs-main text-secondary text-center" *ngIf="data?.title">{{data?.title}}</p>
         <div mat-dialog-actions align="end" class="px-0">
-          <div *ngIf="data.discription">
+          <div *ngIf="data.discription" class="w-100">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Remark</mat-label>
               <textarea matInput [formControl]="remark" rows="4"
