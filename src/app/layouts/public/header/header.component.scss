@@ -96,3 +96,10 @@ nav.navbar .nav-link.active {
   top: -60px;
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
+@media only screen and (max-width: 600px) {
+  #topbar .news-ticker .news-right {
+    width: 100%;
+  }
+
+}

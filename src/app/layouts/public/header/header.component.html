@@ -27,7 +27,7 @@
 </nav> -->
 <div class="container border-bottom border-secondary-subtle">
   <div class="row align-items-center g-2" id="topbar">
-    <div class="col-sm">
+    <div class="col-sm col">
       <div class="news-ticker">
         <div class="news-left">
           News
@@ -39,12 +39,18 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-auto">
+    <div class="col-sm-auto col-auto">
       <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
         <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-        <label class="btn btn-outline-primary" for="btnradio1">English</label>
+        <label class="btn btn-outline-primary" for="btnradio1">
+          <div class="d-lg-block d-none">English</div>
+          <div class="d-block d-lg-none">En</div>
+        </label>
         <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-        <label class="btn btn-outline-primary" for="btnradio2">मराठी</label>
+        <label class="btn btn-outline-primary" for="btnradio2">
+          <div class="d-lg-block d-none">मराठी</div>
+          <div class="d-block d-lg-none">म</div>
+        </label>
       </div>
     </div>
   </div>
