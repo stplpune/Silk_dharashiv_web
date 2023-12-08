@@ -23,6 +23,7 @@ export class CreateManaregaAppComponent {
   farmInfoFrm !: FormGroup;
   farmDeatailsFrm !: FormGroup;
   bankInfoFrm !: FormGroup;
+  documentFrm !:FormGroup;
   otherDocumentFrm !: FormGroup;
   @ViewChild('uplodLogo') clearlogo!: any;
   imageResponse: string = '';
@@ -96,6 +97,7 @@ export class CreateManaregaAppComponent {
     this.addFarmInfo();
     this.getFarmInfo();
     this.addBankInfo();
+    this.addDocumentFrm() 
     this.addSelfDeclaration();
     this.addOtherDocument();
     this.getDepartment();
@@ -123,12 +125,11 @@ export class CreateManaregaAppComponent {
             this.spinner.hide();
             if(lable == 'documents'){
               this.docArray[indexByDocId].docPath = res.responseData;
-              this.docArray[indexByDocId].docTypeId = 1;
               console.log( this.docArray)
             }
             else if(lable == 'otherDocuments'){
               this.otherDocumentFrm.controls['docPath'].setValue(res.responseData)
-             
+              this.docArray[indexByDocId].docTypeId = 1; 
             }
            
             this.commonMethod.snackBar(res.statusMessage, 0)
@@ -150,6 +151,16 @@ export class CreateManaregaAppComponent {
       this.docArray[indexByDocId]['docPath'] = '';
     }
   
+/////////////////preview patch data
+viewPreviewDocument(docId: any) {
+  console.log("this.previewData?.documents",this.previewData?.documents)
+  let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.previewData?.documents,'docId',docId);
+  console.log("indexByDocId",indexByDocId)
+ let obj= this.previewData?.documents[indexByDocId].documentPath;
+ console.log("obj",this.previewData?.documents[2].documentPath)
+ window.open(obj, '_blank')
+}
+
     //#endregion  --------------------------------------------------------doc upload section fn end heare-----------------------------------//
 
     //#region -----------------other document upload functionality start --------------------------------------------------
@@ -232,6 +243,12 @@ export class CreateManaregaAppComponent {
       "pinCode": ['',[Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],//Mandetory  Max: 6 digit, numeric
       "mn_JobCardNo": ['',[Validators.required,this.validation.maxLengthValidator(30)] ],//Mandetory  Max: 30 alphanumeric with sepcial char
       "categoryId": [''],//no, [Validators.required]
+    })
+  }
+
+  addDocumentFrm() {
+    this.documentFrm = this.fb.group({
+      'allRequiredDocument' : [ '',[Validators.required]]
     })
   }
 
@@ -470,30 +487,36 @@ getPreviewData(){
       this.viewMsgFlag = true;
       return;
     }
-    else if(flag == 'document'){
+    else if(this.farmInfoFrm.invalid){
+      return
+    }
+    else if(this.bankInfoFrm.invalid){
+      return
+    }
+    else if( this.documentFrm.invalid && flag == 'document'){
       for(let i=0 ;i< this.docArray.length;i++){
-        if(this.docArray[i].docPath == ''){
+        this.documentFrm.controls['allRequiredDocument'].setValue('');
+        if(this.docArray[i].docPath == '' && this.docArray[i].docTypeId != 18){
           let str = this.docArray[i].docTypeId == 12 ? (this.lang == 'en' ? 'Manrega Job Card' : 'मनरेगा जॉब कार्ड')   :  this.docArray[i].docTypeId == 19 ? (this.lang == 'en' ? '8 A track of Land' : 'जमिनीचा 8-अ') : this.docArray[i].docTypeId == 11  ? (this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque' : 'पासबुक / रद्द केलेला चेक') : ''
           alert(str+ ' required')
-          // this.apiService.callSnackBar(str+ ' required')
           return
-        }}
+        }
+      else{
+        this.documentFrm.controls['allRequiredDocument'].setValue(1);
+      }}
 
-       
-    }
+     }
     else {
       let formData = this.manaregaFrm?.getRawValue();
       //let farmDetails=this.farmDeatailsFrm.getRawValue();
       let farmInfo = this.farmInfoFrm.getRawValue();
         let bankInfo=this.bankInfoFrm.getRawValue();
         let declarationInfo=this.selfDeclarationFrm.getRawValue();
-        console.log("farmInfo",farmInfo)
         this.docArray.map((ele:any)=>{
            ele.createdBy = 0;
            ele.isDeleted = false;
         })
-        console.log("farmInfo",farmInfo)
-      let obj ={
+     let obj ={
         "id": flag == 'farmerInfo' ? formData.id : this.getId,
         "farmerId": formData.farmerId,
         "schemeTypeId":formData.schemeTypeId,
@@ -850,7 +873,7 @@ getPreviewData(){
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         this.categoryArray = result;
-        this.checkedItems = this.categoryArray.filter(item => item.checked);
+        this.checkedItems = this.categoryArray?.filter(item => item.checked);
       }
     });
   }
