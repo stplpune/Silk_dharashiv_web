@@ -1,4 +1,4 @@
-<mat-card class="plain-card form-container">
+<!-- <mat-card class="plain-card form-container">
     <mat-card-content class="card-body" id="report3">
         <div class="row">
             <div class="col-sm-12 text-center">
@@ -10,7 +10,7 @@
             </div>
         </div>
         <table class="table3 table-bordered">
-            <tbody class="text-center">
+            <tbody style="text-align: center;">
                 <tr>
                     <th rowspan="3">अ. क्र.</th>
                     <th rowspan="3">कामाचा तपशील</th>
@@ -83,9 +83,9 @@
                 </tr>
             </tbody>
             <tbody>
-                <tr class="text-center">
-                    <td class="text-center"><strong>अ.</strong></td>
-                    <td class="text-center"><strong>मजुरी</strong></td>
+                <tr style="text-align: center;">
+                    <td style="text-align: center;"><strong>अ.</strong></td>
+                    <td style="text-align: center;"><strong>मजुरी</strong></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -113,8 +113,8 @@
                     <td></td>
                 </tr>
                 <ng-container *ngFor="let data of this.estimateArray;let i=index">
-                    <tr class="text-center">
-                        <td class="text-center">{{i + 1}}</td>
+                    <tr style="text-align: center;">
+                        <td style="text-align: center;">{{i + 1}}</td>
                         <td>{{data.m_WorkDetail || '-'}}</td>
                         <td>{{data.m_Unit || '-'}}</td>
                         <td>{{data.manPower_1 || 0}}</td>
@@ -150,7 +150,7 @@
 
                     </tr>
                 </ng-container>
-                <tr class="text-center">
+                <tr style="text-align: center;">
                     <td></td>
                     <td><strong>एकूण मजुरी (अ)</strong></td>
                     <td></td>
@@ -182,9 +182,9 @@
                 </tr>
             </tbody>
             <tbody>
-                <tr class="text-center">
-                    <td class="text-center"><strong>ब</strong></td>
-                    <td class="text-center"><strong>सामुग्री</strong></td>
+                <tr style="text-align: center;">
+                    <td style="text-align: center;"><strong>ब</strong></td>
+                    <td style="text-align: center;"><strong>सामुग्री</strong></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -212,8 +212,8 @@
                     <td></td>
                 </tr>
                 <ng-container *ngFor="let evv of estimateSkillArray;let j =index">
-                    <tr class="text-center">
-                        <td class="text-center">{{j + 1}}</td>
+                    <tr style="text-align: center;">
+                        <td style="text-align: center;">{{j + 1}}</td>
                         <td>{{evv.m_WorkDetail || '-'}}</td>
                         <td>{{evv.m_Unit || '-'}}</td>
                         <td>{{evv.manPower_1 || 0}}</td>
@@ -242,7 +242,7 @@
                         <td>{{evv.grandTotal || 0}}</td>
                     </tr>
                 </ng-container>
-                <tr class="text-center">
+                <tr style="text-align: center;">
                     <td></td>
                     <td><strong>एकूण सामुग्री (ब)</strong></td>
                     <td></td>
@@ -271,7 +271,7 @@
                     <th>{{totalSkillObject?.totalBenificiaryShares || 0}}</th>
                     <th>{{totalSkillObject?.grandTotal || 0}}</th>
                 </tr>
-                <tr class="text-center">
+                <tr style="text-align: center;">
                     <th></th>
                     <th class="fw-bold text-center">एकूण अ + ब</th>
                     <th></th>
@@ -305,7 +305,7 @@
         <p class="my-1">टिप : पहिले वर्ष शेतकऱ्यांनी १०० अंडीपुंज व दुसऱ्या वर्षी ४०० अंडीपूंजाचे किटक संगोपन करणे
             आवश्यक आहे. </p>
         <table class="table31 table-bordered mb-3">
-            <thead class="text-center">
+            <thead style="text-align: center;">
                 <tr>
                     <th>तपशील </th>
                     <th>म. दि.</th>
@@ -356,7 +356,7 @@
                 लागणार्‍या खर्चाचे एक एकर तुति लागवड नुसार सुधारित आंदजपत्रक
             </h5>
             <table class="table4 table-bordered">
-                <tbody class="text-center">
+                <tbody style="text-align: center;">
                     <tr>
                         <th rowspan="2">अ. क्र.</th>
                         <th rowspan="2">कामाचा तपशील</th>
@@ -411,7 +411,7 @@
                     </ng-container>
                 </tbody>
             </table>
-            <div class="form-data">ब ) कुशल कामांचा तपशील</div>
+            <div style="font-size:10pt;font-weight: 600;">ब ) कुशल कामांचा तपशील</div>
             <table class="table41 table-bordered">
                 <tbody>
                     <tr>
@@ -469,23 +469,23 @@
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex flex-column align-items-center">
                     <div>--</div>
-                    <div class="form-data">वरिष्ठ तांत्रिक सहा.</div>
-                    <div class="form-data">रेशीम संचालनालय, नागपुर</div>
+                    <div style="font-size:10pt;font-weight: 600;">वरिष्ठ तांत्रिक सहा.</div>
+                    <div style="font-size:10pt;font-weight: 600;">रेशीम संचालनालय, नागपुर</div>
                 </div>
                 <div class="d-flex flex-column align-items-center">
                     <div>--</div>
-                    <div class="form-data">संचालक.</div>
-                    <div class="form-data">रेशीम संचालनालय, नागपुर</div>
+                    <div style="font-size:10pt;font-weight: 600;">संचालक.</div>
+                    <div style="font-size:10pt;font-weight: 600;">रेशीम संचालनालय, नागपुर</div>
                 </div>
                 <div class="d-flex flex-column align-items-center">
                     <div>--</div>
-                    <div class="form-data">उपसंचालक.</div>
-                    <div class="form-data">रेशीम संचालनालय, नागपुर</div>
+                    <div style="font-size:10pt;font-weight: 600;">उपसंचालक.</div>
+                    <div style="font-size:10pt;font-weight: 600;">रेशीम संचालनालय, नागपुर</div>
                 </div>
                 <div class="d-flex flex-column align-items-center">
                     <div>--</div>
-                    <div class="form-data">आयुक्त.</div>
-                    <div class="form-data">मनरेगा</div>
+                    <div style="font-size:10pt;font-weight: 600;">आयुक्त.</div>
+                    <div style="font-size:10pt;font-weight: 600;">मनरेगा</div>
                 </div>
             </div>
             <div class="d-flex gap-2 justify-content-center w-100 d-print-none">
@@ -494,4 +494,1122 @@
             </div>
         </div>
     </mat-card-content>
-</mat-card>
+</mat-card> -->
+<div style="font-size: 0.85rem;">
+    <div id="report3">
+        <div style="text-align: center;">
+            <h4 style="font-weight: 800;font-size: 1.1rem;margin-bottom: 3px;">परिशिष्ट - ३</h4>
+            <h5 style="font-weight: 700;font-size: 0.95rem;margin-bottom: 3px;">रेशीम संचालनालय, नागपूर</h5>
+            <h6 style="font-weight: 600;font-size: 0.85rem;margin-bottom: 3px;">मनरेगा अंतर्गत केंद्र शासनाची अधिसूचना
+                दिनांक २३/०४/२०२३</h6>
+            <p style="font-size: 0.75rem;margin-bottom: 5px;">महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजने अंतर्गत
+                एक एकर तुती लागवड संवर्धन व
+                कोषउत्पादनासाठीखर्चाचे अंदाजपत्रक (रुपये) तक्ता क्रमांक - १</p>
+        </div>
+        <table style="font-size: 10pt;width: 100%;border: 1px solid #aaa;border-collapse: collapse;">
+            <tbody style="text-align: center;">
+                <tr style="border: 1px solid #aaa;border-collapse: collapse;">
+                    <th rowspan="3" style="border: 1px solid #aaa;border-collapse: collapse; width: 30px;">अ. क्र.</th>
+                    <th rowspan="3" style="border: 1px solid #aaa;border-collapse: collapse;">कामाचा तपशील</th>
+                    <th colspan="7" style="border: 1px solid #aaa;border-collapse: collapse;">पहिले वर्ष</th>
+                    <th colspan="6" style="border: 1px solid #aaa;border-collapse: collapse;">दुसरे वर्ष</th>
+                    <th colspan="6" style="border: 1px solid #aaa;border-collapse: collapse;">तिसरे वर्ष</th>
+                    <th colspan="6" style="border: 1px solid #aaa;border-collapse: collapse;">एकूण खर्चाचा तपशील</th>
+                </tr>
+                <tr style="border: 1px solid #aaa;border-collapse: collapse;">
+                    <th rowspan="2" style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">एकक</th>
+                    <th rowspan="2" style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">मनुष्य दिवस
+                    </th>
+                    <th rowspan="2" style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">मंजुरी दर रु.
+                        २७३/- प्रति
+                        दिन</th>
+                    <th colspan="4" style="border: 1px solid #aaa;border-collapse: collapse;">मनरेगा अंतर्गत
+                        खर्चाचा
+                        तपशील</th>
+                    <th rowspan="2" style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">मनुष्य दिवस
+                    </th>
+                    <th rowspan="2" style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">दर</th>
+                    <th colspan="4" style="border: 1px solid #aaa;border-collapse: collapse;">मनरेगा अंतर्गत
+                        खर्चाचा
+                        तपशील</th>
+                    <th rowspan="2" style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">मनुष्य दिवस
+                    </th>
+                    <th rowspan="2" style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">दर</th>
+                    <th colspan="4" style="border: 1px solid #aaa;border-collapse: collapse;">मनरेगा अंतर्गत
+                        खर्चाचा
+                        तपशील</th>
+                    <th rowspan="2" style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">मनुष्य दिवस
+                    </th>
+                    <th rowspan="2" style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">दर</th>
+                    <th colspan="4" style="border: 1px solid #aaa;border-collapse: collapse;">मनरेगा अंतर्गत
+                        खर्चाचा
+                        तपशील</th>
+                </tr>
+                <tr style="border: 1px solid #aaa;border-collapse: collapse;">
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">मजुरी</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">सामुग्री ख. रक्कम</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">लाभार्थी हिस्सा</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">एकूण</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">मजुरी</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">सामुग्री</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">लाभार्थी हिस्सा</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">एकूण</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">मजुरी</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">सामुग्री</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">लाभार्थी हिस्सा</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">एकूण</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">मजुरी</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">सामुग्री</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">लाभार्थी हिस्सा</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">एकूण</th>
+                </tr>
+                <tr style="border: 1px solid #aaa;border-collapse: collapse;">
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">१</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">२</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">३</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">४</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">५</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">६</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">७</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">८</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">९</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">१०</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">११</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">१२</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">१३</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">१४</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">१५</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">१६</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">१७</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">१८</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">१९</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">२०</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">२१</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">२२</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">२३</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">२४</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">२५</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">२६</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">२७</th>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">
+                        <strong>अ.</strong>
+                    </td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">
+                        <strong>मजुरी</strong>
+                    </td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">3</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">24</td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="text-align:center">१</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">जमीन तयार करणे</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">२</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">शेणखत पसरविणे</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">३</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">सरी वरंबे तयार करणे
+                    </td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">४</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">तुतीची रोपे लागवड</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td rowspan="6" style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">५</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">अ) निंदणी व खुरपणी
+                        वर्षातून ४ वेळा</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">ब) जमीन कुळवणी वर्षातून
+                        ४ वेळा</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">क) पाणी देणे</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">ड) कंपोष्ट खत देणे</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">इ) जैविक व तुती पोषक
+                        औषधी फवारणी</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">फ) तुती छाटणी,
+                        गळफाद्या/बगलफुटी काढणे, तुती अळी भरणे</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td rowspan="3" style="text-align: center;">६</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">अ) शेड निर्जंतुकरण</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">ब) फांदी कापणे, टाकणे,
+                        किटक संगोपन करणे</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">क) कोष काढणे</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"><strong>एकूण मजुरी
+                            (अ)</strong></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"><strong>ब</strong>
+                    </td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">
+                        <strong>सामुग्री</strong>
+                    </td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">७</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">
+                        तुतीची रोपे (६००० * ३ )
+                    </td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">८</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">चंद्रिका (१०० * ७०)
+                    </td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">९</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">निर्जंतुकीकरणाची औषधी
+                        (Disinfectant)</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">१०</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">हायग्रोमीटर १ नग
+                        (डिजिटल Hygrometer)</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">११</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:left">बॅटरी ऑपरेटेड स्प्रे
+                        पंप १ नग</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"><strong>एकूण सामुग्री
+                            (ब)</strong></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">
+                        <strong>एकूण अ + ब</strong>
+                    </th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></th>
+                </tr>
+            </tbody>
+        </table>
+        <p style="margin-block: 10px;">टिप : पहिले वर्ष शेतकऱ्यांनी १०० अंडीपुंज व दुसऱ्या वर्षी ४०० अंडीपूंजाचे किटक
+            संगोपन करणे
+            आवश्यक आहे. </p>
+        <table style="font-size: 10pt;width: 33%;border: 1px solid #aaa;border-collapse: collapse;margin-bottom: 1rem;">
+            <thead style="text-align: center;">
+                <tr>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">तपशील </th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">म. दि.</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">दर</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">अकुशल</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">कुशल</th>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;width: 50px;">एकूण</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">तुती लागवड</th>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">किटक संगोपनगृह बांधकाम </th>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">एकूण अनुदान </th>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid #aaa;border-collapse: collapse;">एकूण गुणोत्तर</th>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="page-break-after: always !important;"></div>
+        <div style="width: 66%;" id="report4">
+            <div style="text-align: center;">
+                <h4 style="font-weight: 800;font-size: 1.1rem;margin-bottom: 10px;">
+                    रेशीम संचालनालय, महाराष्ट्र राज्य नागपुर
+                </h4>
+                <h5 style="font-weight: 700;font-size: 0.95rem;margin-bottom: 10px;">
+                    मनरेगा अंतर्गत केंद्र शासनाची आधिसूचना दिनांक 23/04/2023 नुसार रेशीम किटक संगोपनसह 50*22 लॅम्ब *
+                    बंद फुट मोडेलसाठी लागणार्‍या खर्चाचे एक एकर तुति लागवड नुसार सुधारित आंदजपत्रक
+                </h5>
+            </div>
+            <table
+                style="font-size: 10pt;width: 100%;border: 1px solid #aaa;border-collapse: collapse;margin-bottom: 1rem;">
+                <tbody style="text-align: center;">
+                    <tr>
+                        <th rowspan="2" style="border: 1px solid #aaa;border-collapse: collapse;width: 30px;">अ. क्र.
+                        </th>
+                        <th rowspan="2" style="border: 1px solid #aaa;border-collapse: collapse;">कामाचा तपशील</th>
+                        <th colspan="6" style="border: 1px solid #aaa;border-collapse: collapse;">
+                            1100 चौ फुट ( 150 ते 250 ) अंडीपूंज / बॅच
+                        </th>
+                    </tr>
+                    <tr>
+                        <th style="border: 1px solid #aaa;border-collapse: collapse;width: 70px;">एकक</th>
+                        <th style="border: 1px solid #aaa;border-collapse: collapse;width: 70px;">दर रु 273-/ म दिवस
+                        </th>
+                        <th style="border: 1px solid #aaa;border-collapse: collapse;width: 70px;">मात्रा दिवस</th>
+                        <th style="border: 1px solid #aaa;border-collapse: collapse;width: 70px;">एकूण म. दिवस</th>
+                        <th style="border: 1px solid #aaa;border-collapse: collapse;width: 70px;">दर रु</th>
+                        <th style="border: 1px solid #aaa;border-collapse: collapse;width: 300px;">मनरेगा अंतर्गत मंजूरी
+                        </th>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"><strong>अ
+                                .)</strong></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">
+                            <strong>मंजूरी</strong>
+                        </td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">1</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">शेडसाठी जागा , वाट तयार करणे</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">मी-2</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">5</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">4</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">20</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">273</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">5460</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">2</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">वळू चाळणे, सीमेंट वाळू खडी
+                            मिक्सिंग करणे व त्याची पाया भरणी करिता वाहतूक</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">मी-2</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">6</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">5</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">30</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">273</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">8190</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">3</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">पाया खोदणी, पाईपा करिता खड्डे तयार
+                            करणे , पाईप उभा करणे कोक्रीटॅग तयार करणे/ पाया
+                            भरणे
+                            इत्यादी.</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">मी-2</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">20</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">5</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">100</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">273</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">27300</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">4</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">मुरूम वाहतूक व आतील जमिनीवर मुरूम
+                            टाकणे</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">मी-2</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">6</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">2</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">12</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">273</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">3276</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">5</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">मुरूम धुमस करणे</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">मी-2</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">6</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">2</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">12</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">273</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">3276</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">6</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">बांधकामा अंतर्गत पाणी भरणे</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">0</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">1</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">9</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">9</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">273</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">2457</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">7</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">शेंड्साठी पाईप कापणे, फिटिंग</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">6</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">5</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">30</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">273</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">8190</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">अ ) एकूण अकुशल मंजूरी</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">0</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">213</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">273</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">58149</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="font-size: 10pt;font-weight: bold;margin-bottom: 1rem;">ब ) कुशल कामांचा तपशील</div>
+            <table
+                style="font-size: 10pt;width: 100%;border: 1px solid #aaa;border-collapse: collapse;margin-bottom: 1rem;">
+                <tbody>
+                    <tr style="text-align: center;">
+                        <th style="border: 1px solid #aaa;border-collapse: collapse;width: 30px;">
+                            अ. क्र.
+                        </th>
+                        <th style="border: 1px solid #aaa;border-collapse: collapse;">साहित्याचे नाव</th>
+                        <th style="border: 1px solid #aaa;border-collapse: collapse;width: 70px;">प्रमाण</th>
+                        <th colspan="2" style="border: 1px solid #aaa;border-collapse: collapse;width: 140px;">मात्रा
+                        </th>
+                        <th style="border: 1px solid #aaa;border-collapse: collapse;width: 70px;">दर रु</th>
+                        <th style="border: 1px solid #aaa;border-collapse: collapse;width: 70px;">देय रक्कम</th>
+                        <th style="border: 1px solid #aaa;border-collapse: collapse;width: 300px;">शेरा</th>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">1</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">लोखंडी पाइप/ अंघल 3 किंवा 4 " साइज
+                        </td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">किलो</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;" colspan="2">250
+                        </td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">65</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">16250</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;" rowspan="6">सीमेंट पत्रे ऐवजी
+                            लोखंडी पत्रे, सीमेंट पाइप / कॉलम ऐवजी लोखंडी पाइप,
+                            आधिक
+                            मुलाच्या वस्तु तसेच सीमेंट, वाळू करिता इस्टिमेटपेक्षा जास्त खर्च शेतकरी स्वछ करू
+                            शकतील.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">2</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">लोखंडी क्वायर पाइप / आंगल 1.5"
+                            किंवा 2" साइज</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">किलो</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;" colspan="2">450
+                        </td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">65</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">29250</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">3</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">पत्रे सीमेंट / लोखंडी 3*8</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">नग</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;" colspan="2">30
+                        </td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">1700</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">51000</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">4</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">पात्राचे क्लॅप 7 ते 8 फुट</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">फुट / किलो</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;" colspan="2">20
+                        </td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">65</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">1300</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">5</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">स्क्रू व इतर</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">किलो</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;" colspan="2">20
+                        </td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">65</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">1300</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">6</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">सीमेंट वाळू विटा लोहा इ॰</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">किलो</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;" colspan="2">
+                            लागणारे प्रमाणात</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">18900</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">7</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">जनमाहिती फलक</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;" colspan="2">
+                            रुंदी 3*4 लांबी फुट
+                        </td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">एकत्रीत</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">3000</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">विटा/रेती/सीमेंटच्या फळकवर योजनेचे
+                            नाव शेतकरी नाव कामाचा कोड व एकूण रक्कम व आदि
+                            रक्कम
+                            नमूद
+                            असावी.</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">8</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">ब ) एकूण कुशल रक्कम</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;" colspan="2"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">121000</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">9</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;">एकूण रक्कम (अ + ब )</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align: center;">147852</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <table style="font-size: 10pt;width: 100%;border-collapse: collapse;margin-bottom: 1rem;margin-top: 3rem;">
+                <tr style="text-align: center;">
+                    <td>
+                        <div>--</div>
+                        <div style="font-size:10pt;font-weight: 600;">वरिष्ठ तांत्रिक सहा.</div>
+                        <div style="font-size:10pt;font-weight: 600;">रेशीम संचालनालय, नागपुर</div>
+                    </td>
+                    <td>
+                        <div>--</div>
+                        <div style="font-size:10pt;font-weight: 600;">संचालक.</div>
+                        <div style="font-size:10pt;font-weight: 600;">रेशीम संचालनालय, नागपुर</div>
+                    </td>
+                    <td>
+                        <div>--</div>
+                        <div style="font-size:10pt;font-weight: 600;">उपसंचालक.</div>
+                        <div style="font-size:10pt;font-weight: 600;">रेशीम संचालनालय, नागपुर</div>
+                    </td>
+                    <td>
+                        <div>--</div>
+                        <div style="font-size:10pt;font-weight: 600;">आयुक्त.</div>
+                        <div style="font-size:10pt;font-weight: 600;">मनरेगा</div>
+                    </td>
+                </tr>
+            </table>
+
+            <div style="display:flex;justify-content:center;column-gap: 15px;width: 100%;">
+                <button mat-flat-button class="btn-main-light">Cancel</button>
+                <button mat-flat-button class="btn-main">Print</button>
+            </div>
+        </div>
+    </div>
+</div>

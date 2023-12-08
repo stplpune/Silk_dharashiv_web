@@ -1,80 +1,86 @@
 <mat-card class="plain-card form-container">
     <mat-card-header class="card-header-control">
         <form [formGroup]="filterFrm" class="w-100">
-        <div class="row w-100 g-2">
-            <div class="col-sm-2">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'manrega.district'| translate}}</mat-label>
-                    <mat-select formControlName="districtId" (selectionChange)="getTaluka()" placeholder="District"
-                    [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
-                      <mat-option *ngFor=" let dist of districtArr" [value]="dist.id">{{lang == 'en' ? dist.textEnglish :
-                        dist.textMarathi}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            </div>
-            <div class="col-sm-2">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'manrega.taluka'| translate}}</mat-label>
-                    <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('Taluka');getGrampanchayat()" placeholder="All Taluka"
-                    [class]="WebStorageService.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })">
-                    <mat-option>
-                      <ngx-mat-select-search [formControl]="talukaCtrl"
-                          placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
-                          noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
-                  </mat-option>
-                    <mat-option *ngFor=" let taluka of talukaSubject | async" [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish :
-                        taluka.textMarathi}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            </div>
-            <div class="col-sm-2">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label>
-                    <mat-select formControlName="grampanchayatId" placeholder="{{lang == 'en' ? 'Grampanchayat' :'ग्रामपंचायत'}}"
-                    [class]="WebStorageService.getGrampanchayatId() || !filterFrm.getRawValue().talukaId ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
-                    <mat-option>
-                      <ngx-mat-select-search [formControl]="gramPCtrl"
-                          placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
-                          noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
-                  </mat-option>
-                      <mat-option *ngFor=" let gram of gramPSubject | async" [value]="gram.id">{{lang == 'en' ? gram.textEnglish :
-                        gram.textMarathi}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            </div>
-            <div class="col-sm-2">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'manrega.scheme'| translate}}</mat-label>
-                    <mat-select formControlName="schemeTypeId" placeholder="All Scheme">
-                      <mat-option *ngFor=" let scheme of schemeFilterArr" [value]="scheme.id">{{lang == 'en' ?
-                        scheme.textEnglish : scheme.textMarathi}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            </div>
-            <div class="col-sm">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'common.action'| translate}}</mat-label>
-                    <mat-select formControlName="actionId" placeholder="All Scheme">
-                      <mat-option *ngFor=" let action of actionArr" [value]="action.id">{{lang == 'en' ?
-                        action.textEnglish : action.textMarathi}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            </div>
-            <div class="col-sm-auto">
-                <div class="d-flex align-items-center gap-2">
-                    <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"   (click)="getDashboardCount('filter')">
-                        <mat-icon class="material-symbols-rounded">
-                            search
-                        </mat-icon>
-                    </button>
-                    <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
-                        <mat-icon class="material-symbols-rounded">
-                            close
-                        </mat-icon>
-                    </button>
+            <div class="row w-100 g-2">
+                <div class="col-sm-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'manrega.district'| translate}}</mat-label>
+                        <mat-select formControlName="districtId" (selectionChange)="getTaluka()" placeholder="District"
+                            [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
+                            <mat-option *ngFor=" let dist of districtArr" [value]="dist.id">{{lang == 'en' ?
+                                dist.textEnglish :
+                                dist.textMarathi}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'manrega.taluka'| translate}}</mat-label>
+                        <mat-select formControlName="talukaId"
+                            (selectionChange)="clearDropdown('Taluka');getGrampanchayat()" placeholder="All Taluka"
+                            [class]="WebStorageService.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })">
+                            <mat-option>
+                                <ngx-mat-select-search [formControl]="talukaCtrl"
+                                    placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                                    noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor=" let taluka of talukaSubject | async" [value]="taluka.id">{{lang == 'en'
+                                ? taluka.textEnglish :
+                                taluka.textMarathi}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label>
+                        <mat-select formControlName="grampanchayatId"
+                            placeholder="{{lang == 'en' ? 'Grampanchayat' :'ग्रामपंचायत'}}"
+                            [class]="WebStorageService.getGrampanchayatId() || !filterFrm.getRawValue().talukaId ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
+                            <mat-option>
+                                <ngx-mat-select-search [formControl]="gramPCtrl"
+                                    placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                                    noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor=" let gram of gramPSubject | async" [value]="gram.id">{{lang == 'en' ?
+                                gram.textEnglish :
+                                gram.textMarathi}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'manrega.scheme'| translate}}</mat-label>
+                        <mat-select formControlName="schemeTypeId" placeholder="All Scheme">
+                            <mat-option *ngFor=" let scheme of schemeFilterArr" [value]="scheme.id">{{lang == 'en' ?
+                                scheme.textEnglish : scheme.textMarathi}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'common.action'| translate}}</mat-label>
+                        <mat-select formControlName="actionId" placeholder="All Scheme">
+                            <mat-option *ngFor=" let action of actionArr" [value]="action.id">{{lang == 'en' ?
+                                action.textEnglish : action.textMarathi}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-auto">
+                    <div class="d-flex align-items-center gap-2">
+                        <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"
+                            (click)="getDashboardCount('filter')">
+                            <mat-icon class="material-symbols-rounded">
+                                search
+                            </mat-icon>
+                        </button>
+                        <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+                            <mat-icon class="material-symbols-rounded">
+                                close
+                            </mat-icon>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
         </form>
     </mat-card-header>
     <mat-card-content class="card-body" id="dash-stats">
@@ -136,8 +142,8 @@
             </div>
         </div>
         <hr>
-        <div class="row g-2 align-items-center">
-           
+        <div class="row g-2 align-items-center" *ngIf="manaregaArray.length">
+
             <div class="col-sm-3">
                 <div class="card card-body">
                     <div class="d-flex align-items-center">
@@ -146,8 +152,8 @@
                                 class="olive">
                         </div>
                         <div class="flex-grow-1 ms-3">
-                            <h2>142</h2>
-                            <p>{{dashboardData?.responseData1[0]?.schemeType}}</p>
+                            <h2>{{manaregaCount}}</h2>
+                            <p>{{manaregaArray[0]?.schemeType}}</p>
                         </div>
                     </div>
                 </div>
@@ -164,24 +170,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngFor="let result of appDetailsArray">
-                            <tr *ngFor="let res of result?.detailsArr">
+                        <ng-container *ngFor="let res of manaregaArray">
+                            <tr>
                                 <td>{{res?.actionName}}</td>
                                 <td>
 
-                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,12)" *ngIf="res?.approvedCount > 0">{{res?.approvedCount}}</a>
+                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,12)"
+                                        *ngIf="res?.approvedCount > 0">{{res?.approvedCount}}</a>
                                     <span *ngIf="res?.approvedCount <= 0"> 0 </span>
                                 </td>
                                 <td>
-                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,1)" *ngIf="res?.pendingCount > 0">{{res?.pendingCount}}</a>
+                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,1)"
+                                        *ngIf="res?.pendingCount > 0">{{res?.pendingCount}}</a>
                                     <span *ngIf="res?.pendingCount <= 0"> 0 </span>
                                 </td>
                                 <td>
-                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,11)" *ngIf="res?.resendCount > 0">{{res?.resendCount}}</a>
+                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,11)"
+                                        *ngIf="res?.resendCount > 0">{{res?.resendCount}}</a>
                                     <span *ngIf="res?.resendCount <= 0"> 0 </span>
                                 </td>
                                 <td>
-                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,5)" *ngIf="res?.rejectCount > 0">{{res?.rejectCount}}</a>
+                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,5)"
+                                        *ngIf="res?.rejectCount > 0">{{res?.rejectCount}}</a>
                                     <span *ngIf="res?.rejectCount <= 0"> 0 </span>
                                 </td>
                             </tr>
@@ -189,10 +199,10 @@
                     </tbody>
                 </table>
             </div>
-    
+
         </div>
         <hr>
-        <!-- <div class="row g-2 align-items-center">
+        <div class="row g-2 align-items-center" *ngIf="samgraArray.length">
             <div class="col-sm-3">
                 <div class="card card-body">
                     <div class="d-flex align-items-center">
@@ -201,8 +211,8 @@
                                 class="voilet">
                         </div>
                         <div class="flex-grow-1 ms-3">
-                            <h2>142</h2>
-                            <p>Silk Samgra-2 Applications</p>
+                            <h2>{{samgraCount}}</h2>
+                            <p>{{samgraArray[0]?.schemeType}}</p>
                         </div>
                     </div>
                 </div>
@@ -219,24 +229,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Technical Estimate</td>
-                            <td>
-                                <a href="#" class="text-main text-decoration-underline">66</a>
-                            </td>
-                            <td>
-                                <a href="#" class="text-main text-decoration-underline">26</a>
-                            </td>
-                            <td>
-                                <a href="#" class="text-main text-decoration-underline">03</a>
-                            </td>
-                            <td>
-                                <a href="#" class="text-main text-decoration-underline">12</a>
-                            </td>
-                        </tr>
+                        <ng-container *ngFor="let res of samgraArray">
+                            <tr>
+                                <td>{{res?.actionName}}</td>
+                                <td>
+
+                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,12)"
+                                        *ngIf="res?.approvedCount > 0">{{res?.approvedCount}}</a>
+                                    <span *ngIf="res?.approvedCount <= 0"> 0 </span>
+                                </td>
+                                <td>
+                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,1)"
+                                        *ngIf="res?.pendingCount > 0">{{res?.pendingCount}}</a>
+                                    <span *ngIf="res?.pendingCount <= 0"> 0 </span>
+                                </td>
+                                <td>
+                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,11)"
+                                        *ngIf="res?.resendCount > 0">{{res?.resendCount}}</a>
+                                    <span *ngIf="res?.resendCount <= 0"> 0 </span>
+                                </td>
+                                <td>
+                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,5)"
+                                        *ngIf="res?.rejectCount > 0">{{res?.rejectCount}}</a>
+                                    <span *ngIf="res?.rejectCount <= 0"> 0 </span>
+                                </td>
+                            </tr>
+                        </ng-container>
                     </tbody>
                 </table>
             </div>
-        </div> -->
+        </div>
     </mat-card-content>
 </mat-card>
