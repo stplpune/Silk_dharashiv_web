@@ -39,6 +39,10 @@ export class TechnicalEstimateComponent {
     totalSkill: [],
     totalUnskill: []
   };
+  technicalUnSkillObj: any = {
+    action1 : 'सीमेंट पत्रे ऐवजी लोखंडी पत्रे, सीमेंट पाइप / कॉलम ऐवजी लोखंडी पाइप,आधिक मुलाच्या वस्तु तसेच सीमेंट, वाळू करिता इस्टिमेटपेक्षा जास्त खर्च शेतकरी स्वछ करू शकतील.',
+    action2 : 'विटा/रेती/सीमेंटच्या फळकवर योजनेचे नाव शेतकरी नाव कामाचा कोड व एकूण रक्कम व आदि रक्कम नमूद असावी.'
+  }
 
   skillDataArray: any = {
     skillArray: [],
@@ -49,6 +53,7 @@ export class TechnicalEstimateComponent {
     totalData: [],
     totalDataSingally: []
   }
+
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -66,13 +71,12 @@ export class TechnicalEstimateComponent {
         this.routingData = JSON.parse(this.routingData);
       }
     });
-    this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
     this.getEstimateData();
     this.getAnotherEstimateData();
   }
 
   getEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId=' + this.routingData, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId='+this.routingData, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -141,7 +145,7 @@ export class TechnicalEstimateComponent {
 
 
   getAnotherEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId=' + this.routingData, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId='+this.routingData, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -171,6 +175,7 @@ export class TechnicalEstimateComponent {
     data.responseData3.filter((ev: any) => {
       this.skillDataArray.totalUnskill.push(ev)
     })
+    
   }
 
   print() {
