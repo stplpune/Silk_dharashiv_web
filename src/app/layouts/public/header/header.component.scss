@@ -80,3 +80,19 @@ nav.navbar .nav-link.active {
   align-items: center;
   font-size: 0.85rem;
 }
+
+.fixed {
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  background-color: #fff;
+  top: 0;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 1px 1px 2px #aaa;
+}
+
+.notfixed {
+  position: static;
+  top: -60px;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
