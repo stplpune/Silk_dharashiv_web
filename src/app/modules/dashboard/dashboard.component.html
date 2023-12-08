@@ -168,16 +168,21 @@
                             <tr *ngFor="let res of result?.detailsArr">
                                 <td>{{res?.actionName}}</td>
                                 <td>
-                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,12)">{{res?.approvedCount}}</a>
+
+                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,12)" *ngIf="res?.approvedCount > 0">{{res?.approvedCount}}</a>
+                                    <span *ngIf="res?.approvedCount <= 0"> 0 </span>
                                 </td>
                                 <td>
-                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,1)">{{res?.pendingCount}}</a>
+                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,1)" *ngIf="res?.pendingCount > 0">{{res?.pendingCount}}</a>
+                                    <span *ngIf="res?.pendingCount <= 0"> 0 </span>
                                 </td>
                                 <td>
-                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,11)">{{res?.resendCount}}</a>
+                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,11)" *ngIf="res?.resendCount > 0">{{res?.resendCount}}</a>
+                                    <span *ngIf="res?.resendCount <= 0"> 0 </span>
                                 </td>
                                 <td>
-                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,5)">{{res?.rejectCount}}</a>
+                                    <a class="text-main text-decoration-underline" (click)="redToAppPage(res,5)" *ngIf="res?.rejectCount > 0">{{res?.rejectCount}}</a>
+                                    <span *ngIf="res?.rejectCount <= 0"> 0 </span>
                                 </td>
                             </tr>
                         </ng-container>

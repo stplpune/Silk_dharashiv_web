@@ -162,7 +162,7 @@
           <!-- <mat-label class="form-label">{{'common.select_grampanchayat' | translate}} <span
               class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'officerreg.select_grampanchayat' | translate}}</mat-label>
+            <mat-label>{{'common.select_grampanchayat' | translate}}</mat-label>
             <mat-select formControlName="grampanchayatId">
               <mat-option>
                 <ngx-mat-select-search [formControl]="gramPCtrl"
@@ -333,8 +333,8 @@
     <div class="row gx-2 mb-3">
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'officerreg.officer_name' |translate}}</div>
-          <span class="col-sm-8 form-data">: {{this.lang == 'en' ? tableDataArray[0]?.name : tableDataArray[0]?.m_Name||
+          <div class="col-sm-3 form-label">{{'officerreg.officer_name' |translate}}</div>
+          <span class="col-sm-9 form-data">: {{this.lang == 'en' ? tableDataArray[0]?.name : tableDataArray[0]?.m_Name||
             '-'}}</span>
         </div>
       </div>
@@ -347,8 +347,8 @@
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'officerreg.mobile_no' |translate}}</div>
-          <span class="col-sm-8 form-data">: {{tableDataArray[0]?.mobNo1 || '-'}}</span>
+          <div class="col-sm-3 form-label">{{'officerreg.mobile_no' |translate}}</div>
+          <span class="col-sm-9 form-data">: {{tableDataArray[0]?.mobNo1 || '-'}}</span>
         </div>
       </div>
       <div class="col-sm-6">
@@ -359,8 +359,8 @@
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'department.department' |translate}}</div>
-          <span class="col-sm-8  form-data">: {{this.lang == 'en' ? tableDataArray[0]?.departmentName :
+          <div class="col-sm-3 form-label">{{'department.department' |translate}}</div>
+          <span class="col-sm-9  form-data">: {{this.lang == 'en' ? tableDataArray[0]?.departmentName :
             tableDataArray[0]?.m_DepartmentName|| '-'}}</span>
         </div>
       </div>
@@ -373,8 +373,8 @@
       </div>
       <div class="col-sm-6">
         <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'common.State' |translate}}</div>
-          <span class="col-sm-8 form-data">: {{this.lang == 'en' ? tableDataArray[0]?.statId :
+          <div class="col-sm-3 form-label">{{'common.State' |translate}}</div>
+          <span class="col-sm-9 form-data">: {{this.lang == 'en' ? tableDataArray[0]?.statId :
             tableDataArray[0]?.m_OfficeState
             ||
             '-'}}</span>
@@ -389,9 +389,9 @@
         </div>
       </div>
       <div class="col-sm-12">
-        <div class="row gx-2 ">
-          <div class="col-sm-2 form-label">{{'officerreg.address' |translate}}</div>
-          <span class="col-sm-10 form-data">: {{this.lang == 'en' ? tableDataArray[0]?.address :
+        <div class="d-flex gap-5 ">
+          <div class="form-label">{{'officerreg.address' |translate}}</div>
+          <span class=" form-data">: {{this.lang == 'en' ? tableDataArray[0]?.address :
             tableDataArray[0]?.m_Address
             ||
             '-'}}</span>

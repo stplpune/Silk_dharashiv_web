@@ -225,7 +225,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;          
+          this.tableDataArray = res.responseData.responseData1;
           // this.tableDataArray.map((ele:any)=>{
           //   ele['activeStatus'] = ele.activeStatus == 'Active' ? true : false;
           // })
@@ -309,7 +309,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
       disableClose: true,
       autoFocus: false,
     })
-    deleteDialogRef.afterClosed().subscribe((result: any) => {    
+    deleteDialogRef.afterClosed().subscribe((result: any) => {
       let activeStatusObj = {
         "id": obj?.id,
         "isActive":!obj.activeStatus,
@@ -344,7 +344,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
 
   registerofficer(obj?: any) {
     let dialogRef = this.dialog.open(RegisterOfficerComponent, {
-      width: '600px',
+      width: '750px',
       data: obj,
       disableClose: true,
       autoFocus: true,
