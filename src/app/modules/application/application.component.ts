@@ -198,8 +198,8 @@ export class ApplicationComponent {
     status == 'filter' ? ((this.pageNumber = 1), this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllDesignationWiseApplications?' + str + '&SchemeTypeId=' + (formData.schemeTypeId || 0) + '&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchayatId=' + (formData.grampanchayatId || 0) +
-    '&ApplicationStatus=' + (formData.statusId || 0) + '&UserId=' + (this.webStorage.getUserId() || 0) + '&TextSearch=' + (formData.textSearch.trim() || '') + '&lan=' + this.lang, false, false, false, 'masterUrl');    
-     '&ActionId=' + (formData.actionId || 0) + 
+    '&ApplicationStatus=' + (formData.statusId || 0) + '&UserId=' + (this.webStorage.getUserId() || 0) + '&TextSearch=' + (formData.textSearch.trim() || '') + '&ActionId=' + (formData.actionId || 0) +  '&lan=' + this.lang, false, false, false, 'masterUrl');    
+
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
