@@ -59,7 +59,7 @@ export class FarmersignupComponent {
   formData() {
     this.signUpForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern(this.validator.fullName)]],
-      mobileNo: ['', [Validators.required, Validators.pattern(this.validator.mobile_No)]],
+      mobNo1: ['', [Validators.required, Validators.pattern(this.validator.mobile_No)]],
       districtId: [1, [Validators.required]],
       talukaId: ['', [Validators.required]],
       grampanchayatId: ['', [Validators.required]],
@@ -110,7 +110,7 @@ export class FarmersignupComponent {
         header: this.lang == "en" ? "Sign Up OTP" : "ओटीपी साइन अप करा",
         button: this.lang == "en" ? "Verify OTP" : "ओटीपी सत्यापित करा",
         pageName: "farmer-signUp",
-        mobileNo: this.signUpForm.getRawValue().mobileNo,
+        mobileNo: this.signUpForm.getRawValue().mobNo1,
         createdBy:0
       };
       const dialogRef = this.dialog.open(OtpSendReceiveComponent, {
