@@ -165,8 +165,7 @@ export class FarmersignupComponent {
       "flag": "i"
     }
 
-    let postObj = {obj, ...formValue};
-
+    let postObj = {...obj, ...formValue};
     this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan=' + this.lang, false, postObj, false, 'masterUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {

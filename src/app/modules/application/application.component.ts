@@ -46,7 +46,7 @@ export class ApplicationComponent {
     public validator: ValidationService,
     private apiService: ApiService,
     private errorService: ErrorHandlingService,
-    private common: CommonMethodsService,
+    public common: CommonMethodsService,
     public webStorage: WebStorageService,
     public encryptdecrypt: AesencryptDecryptService,
     private router: Router,
@@ -198,8 +198,8 @@ export class ApplicationComponent {
     status == 'filter' ? ((this.pageNumber = 1), this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllDesignationWiseApplications?' + str + '&SchemeTypeId=' + (formData.schemeTypeId || 0) + '&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchayatId=' + (formData.grampanchayatId || 0) +
-    '&ApplicationStatus=' + (formData.statusId || 0) + '&UserId=' + (this.webStorage.getUserId() || 0) + '&TextSearch=' + (formData.textSearch.trim() || '') + '&lan=' + this.lang, false, false, false, 'masterUrl');    
-     '&ActionId=' + (formData.actionId || 0) + 
+    '&ApplicationStatus=' + (formData.statusId || 0) + '&UserId=' + (this.webStorage.getUserId() || 0) + '&TextSearch=' + (formData.textSearch.trim() || '') + '&ActionId=' + (formData.actionId || 0) +  '&lan=' + this.lang, false, false, false, 'masterUrl');    
+
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -227,8 +227,18 @@ export class ApplicationComponent {
   
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = ['srNo', 'applicationNo', this.lang == 'en' ? 'departmentName' : 'm_DepartmentName', this.lang == 'en' ?'schemeType':'m_SchemeType', this.lang == 'en' ?'fullName': 'm_FullName', 'mobileNo1', this.lang == 'en' ?'taluka':'m_Taluka', this.lang == 'en' ?'grampanchayatName':'m_GrampanchayatName', 'selfStatus','status1', 'action'] 
+    let displayedColumns = ['srNo', 'applicationNo', (this.lang == 'en' ? 'departmentName' : 'm_DepartmentName'), (this.lang == 'en' ?'schemeType':'m_SchemeType'), (this.lang == 'en' ?'fullName': 'm_FullName'), 'mobileNo1', (this.lang == 'en' ?'taluka':'m_Taluka'), (this.lang == 'en' ?'grampanchayatName':'m_GrampanchayatName'), 'selfStatus','status1', 'action'] ;
     let displayedheaders = this.lang == 'en' ? ['Sr.No.', 'Application ID','Process Department','Scheme Name', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat','Stage','Application Status', 'Action'] : ['अनुक्रमांक', 'अर्ज आयडी','प्रक्रिया विभाग','योजनेचे नाव', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत','Stage','Application Status', 'कृती'] ;
+    //this.webStorage.getDesignationId() == 1 ? 
+    if (this.webStorage.getDesignationId() === 1) {
+      const selfStatusIndex = displayedColumns.indexOf('selfStatus');
+      const headerselfStatusIndex = displayedheaders.indexOf('Stage');
+      if (selfStatusIndex !== -1 && headerselfStatusIndex !== -1) {
+          displayedColumns.splice(selfStatusIndex, 1); // Remove selfStatus column
+          displayedheaders.splice(headerselfStatusIndex,1)
+         }
+     }
+     
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,

@@ -29,7 +29,6 @@ export class DashboardComponent {
   subscription!: Subscription;//used  for lang conv
   lang: any;
   dashboardData: any;
-  appDetailsArray: any = [];
   filterFrm!: FormGroup;
   schemeFilterArr: any = [];
   districtArr: any = [];
@@ -40,6 +39,10 @@ export class DashboardComponent {
   gramPCtrl: FormControl = new FormControl();
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  manaregaArray: any = [];
+  samgraArray: any = [];
+  manaregaCount: number = 0;
+  samgraCount: number = 0;
 
   constructor(public WebStorageService: WebStorageService, private apiService: ApiService, private router: Router, private fb: FormBuilder, private master: MasterService,
     private spinner: NgxSpinnerService, private errorHandler: ErrorHandlingService, private commonMethod: CommonMethodsService, public encryptdecrypt: AesencryptDecryptService) {
@@ -155,12 +158,14 @@ export class DashboardComponent {
   }
 
 
-  getDashboardCount(status?: any) {
+  getDashboardCount(_status?: any) {
     this.spinner.show();
-    this.appDetailsArray = [];
+    this.manaregaArray = [];
+    this.samgraArray = [];
+    this.manaregaCount = 0;
+    this.samgraCount = 0;
     let data: any;
     let formData = this.filterFrm.getRawValue();
-    console.log(status)
     this.apiService.setHttp('GET', 'sericulture/api/Action/GetOfficerDashboard?' + '&SchemeTypeId=' + (formData.schemeTypeId || 0) + '&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchayatId=' + (formData.grampanchayatId || 0) +
       '&UserId=' + (this.WebStorageService.getUserId() || 0) + '&actionId=' + (formData.actionId || 0) + '&lan=' + this.lang, false, false, false, 'masterUrl');
     '&ActionId=' + (formData.actionId || 0), false, data, false, 'masterUrl';
@@ -169,21 +174,16 @@ export class DashboardComponent {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.dashboardData = res;
-          const uniquestandardName = [...new Set(this.dashboardData.responseData1.map((x: any) => x.schemeTypeId))];
-          // debugger;
-          uniquestandardName.map((x: any) => {
-            const unquieArray = this.dashboardData.responseData1.filter((y: any) => y.schemeTypeId == x);
-            if (unquieArray.length > 1) {
-              const fObj = unquieArray[0];
-              const uniuqeConsumerObj = Object?.assign(fObj, { detailsArr: unquieArray });
-              this.appDetailsArray.push(uniuqeConsumerObj);
-            } else {
-              const uniuqeConsumerObj = Object?.assign(unquieArray[0], { detailsArr: [] });
-              this.appDetailsArray.push(uniuqeConsumerObj);
+
+          this.dashboardData?.responseData1.find((ele: any) => {
+            if (ele.schemeTypeId == 1) { //1 is  MANAREGA
+              this.manaregaCount += Number(ele.pendingCount + ele.rejectCount + ele.resendCount + ele.approvedCount)
+              this.manaregaArray.push(ele);
+            } else if (ele.schemeTypeId == 2) { //2 SILK SAMGRA
+              this.samgraCount += Number(ele.pendingCount + ele.rejectCount + ele.resendCount + ele.approvedCount)
+              this.samgraArray.push(ele)
             }
           });
-          this.appDetailsArray.length == 1 ? this.appDetailsArray[0].detailsArr.push(this.appDetailsArray[0]) : '';
-          console.log(this.appDetailsArray)
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
@@ -197,7 +197,7 @@ export class DashboardComponent {
 
   redToAppPage(obj: any, appStaId: any) { //'dis','tal','gram','scheme','action','app final Status'
     let formValue = this.filterFrm.getRawValue();
-    let jsonStr:any = `${formValue?.districtId}`+'.'+`${formValue?.talukaId}`+'.'+`${formValue?.grampanchayatId}`+'.'+`${formValue?.schemeTypeId}`+'.'+`${obj?.actionId}`+'.'+`${appStaId}`;
+    let jsonStr: any = `${formValue?.districtId}` + '.' + `${formValue?.talukaId}` + '.' + `${formValue?.grampanchayatId}` + '.' + `${obj.schemeTypeId}` + '.' + `${obj?.actionId}` + '.' + `${appStaId}`;
     let data: any = this.encryptdecrypt.encrypt(jsonStr);
     this.router.navigate(['../application'], {
       queryParams: {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
@@ -23,6 +23,8 @@ export class MyProfileComponent {
   profilDetailsArr: any;
   imageRes: any;
   editFlag: boolean = false;
+  @ViewChild('uploadDocument') clearlogo!: any;
+
   constructor(
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
@@ -87,6 +89,11 @@ export class MyProfileComponent {
         this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       }
     })
+  }
+
+  deleteImage(){
+    this.clearlogo.nativeElement.value="";
+    this.imageRes="";
   }
 
   onEditProfile() {

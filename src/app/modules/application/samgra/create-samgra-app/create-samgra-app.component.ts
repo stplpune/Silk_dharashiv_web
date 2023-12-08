@@ -26,6 +26,7 @@ export class CreateSamgraAppComponent {
   bankDetailsForm !: FormGroup;
   internalSchemes !: FormGroup;
   otherDocForm !: FormGroup;
+  selfDeclarationForm !: FormGroup
 
   stateArray = new Array();
   districtArray = new Array();
@@ -79,6 +80,8 @@ export class CreateSamgraAppComponent {
   InternalSchemesIndex !: number
 
   @ViewChild('ScheemDirective') private ScheemDirective: NgForm | undefined;
+  @ViewChild('DocumentDirective') private DocumentDirective: NgForm | undefined;
+
   
   constructor(public dialog: MatDialog,
     private masterService: MasterService,
@@ -104,6 +107,7 @@ export class CreateSamgraAppComponent {
     this.bankDetailsFormData();
     this.internalSchemesFormData();
     this.otherDocumentFormData();
+    this.selfDeclarationFormData();
     this.commonDropdown();
   }
 
@@ -200,6 +204,14 @@ export class CreateSamgraAppComponent {
     this.otherDocForm = this.fb.group({
       docname:[''],
       docNo:['']
+    })
+  }
+
+  selfDeclarationFormData(){
+    this.selfDeclarationForm = this.fb.group({
+      sm_IsReadyToPlantNewMulberries :[''],
+      sm_IsHonestlyProtectPlan : [''],
+      sm_IsRequestForYourPriorConsent : ['']
     })
   }
 
@@ -446,6 +458,7 @@ export class CreateSamgraAppComponent {
     let samgraFormValue = this.samgraForm.getRawValue();
     let landDetailsFormValue = this.landDetailsForm.value;
     let bankDetailsFormValue = this.bankDetailsForm.getRawValue();
+    let selfDeclarationFormValue = this.selfDeclarationForm.getRawValue();
 
     landDetailsFormValue.benificiaryTotalFarm == '' ? landDetailsFormValue.benificiaryTotalFarm = 0:'';
     landDetailsFormValue.farmTypeId  == '' ? landDetailsFormValue.farmTypeId = 0 : '';
@@ -460,6 +473,9 @@ export class CreateSamgraAppComponent {
       res.createdBy = 0,
       res.isDeleted = true
     })    
+
+console.log("selfDeclarationFormValue",selfDeclarationFormValue);
+
   
     let obj = {  
         ...samgraFormValue,
@@ -716,7 +732,7 @@ export class CreateSamgraAppComponent {
   //#endregion  --------------------------------------------------------doc upload section fn end heare-----------------------------------//
 
 submitOtherDoc(){
-  let formValue = this.otherDocForm.value
+  let formValue = this.otherDocForm.value  
   let obj = {
       id:0,
       docTypeId:1,
@@ -727,6 +743,7 @@ submitOtherDoc(){
   this.otherDocArray.push(obj);
   this.uploadedDocUrl = '';
   this.dataSource2 = new MatTableDataSource(this.otherDocArray);
+  this.DocumentDirective && this.DocumentDirective.resetForm();
 }
 
 deleteOtherDoc(index:any){
