@@ -53,6 +53,9 @@ export class TechnicalEstimateComponent {
     totalData: [],
     totalDataSingally: []
   }
+  skillYr1obj:any;
+  skillYr2obj:any;
+  skillYr3obj:any;
 
   constructor
     (
@@ -67,11 +70,6 @@ export class TechnicalEstimateComponent {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.routingData = params.get('data');
-      // if (this.routingData) {
-      //   this.routingData = JSON.parse(this.routingData);
-      //   console.log("  this.routingData" , this.routingData)
-      // }
-      
     });
     let id =this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
      this.applicationId = id
@@ -112,7 +110,16 @@ export class TechnicalEstimateComponent {
       }
     })
 
-
+    this.newDataArray.totalSkill.filter((res:any)=>{
+      if(res.yearId == 1){
+        this.skillYr1obj=res;
+      }else if(res.yearId == 2){
+        this.skillYr2obj=res;
+      }else{
+        this.skillYr3obj=res;
+      }
+    })
+    
     this.newDataArray.totalUnskill.filter((res: any) => {
       if (res.yearId == 1) {
         this.year1Obj = res;
@@ -131,7 +138,7 @@ export class TechnicalEstimateComponent {
         this.totalUnSkillObject = res;
       }
     })
-
+    
     tableData.responseData7.filter((res: any) => {
       if (res.yearId == 1) {
         this.skillYear1Obj = res;
