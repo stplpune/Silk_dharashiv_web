@@ -631,7 +631,8 @@
     "SIGN_UP":"SIGN UP",
     "Enter_OTP" : "Enter OTP",
     "Resend_OTP" : "Resend OTP",
-    "Wait_for" : "Wait for"
+    "Wait_for" : "Wait for",
+    "Gender" : "Select Gender"
   },
 
   "addManrega": {

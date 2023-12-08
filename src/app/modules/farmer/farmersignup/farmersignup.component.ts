@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { MasterService } from 'src/app/core/services/master.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OtpSendReceiveComponent } from 'src/app/shared/components/otp-send-receive/otp-send-receive.component';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
-import { Subscription } from 'rxjs';
+import { ReplaySubject, Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -29,6 +29,11 @@ export class FarmersignupComponent {
   lang: any;
 
   getLangForLocalStor!: string | null | any;
+  genderArray: any = [{ id: 1, textEnglish: 'Male' ,textMarathi:'पुरुष' }, { id: 0, textEnglish: 'Female',textMarathi:'स्त्री' }];
+  talukaCtrl: FormControl = new FormControl();
+  talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  gramPCtrl: FormControl = new FormControl();
+  gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
 
   constructor(
     private master: MasterService,
@@ -54,6 +59,7 @@ export class FarmersignupComponent {
     this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     this.formData();
     this.getDisrict();
+    this.searchDataZone();
   }
 
   formData() {
@@ -63,11 +69,17 @@ export class FarmersignupComponent {
       districtId: [1, [Validators.required]],
       talukaId: ['', [Validators.required]],
       grampanchayatId: ['', [Validators.required]],
-      village: ['', [Validators.required, Validators.pattern(this.validator.fullName)]]
+      village: ['', [Validators.required, Validators.pattern(this.validator.fullName)]],
+      gender:[1]
     })
   }
 
   get f() { return this.signUpForm.controls }
+
+  searchDataZone() {
+    this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethods.filterArrayDataZone(this.talukaArray, this.talukaCtrl, 'textEnglish', this.talukaSubject) });
+    this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.commonMethods.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, 'textEnglish', this.gramPSubject) });
+  }
 
   getDisrict() {
     this.master.GetAllDistrict(1).subscribe({
@@ -85,6 +97,7 @@ export class FarmersignupComponent {
     this.master.GetAllTaluka(1, distId, 0).subscribe({
       next: ((res: any) => {
         this.talukaArray = res.responseData;
+        this.commonMethods.filterArrayDataZone(this.talukaArray, this.talukaCtrl, 'textEnglish', this.talukaSubject);
       }), error: (() => {
         this.talukaArray = [];
       })
@@ -96,6 +109,7 @@ export class FarmersignupComponent {
     this.master.GetGrampanchayat(talId).subscribe({
       next: ((res: any) => {
         this.grampanchayatArray = res.responseData;
+        this.commonMethods.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, 'textEnglish', this.gramPSubject);
       }), error: (() => {
         this.grampanchayatArray = [];
       })
@@ -144,7 +158,8 @@ export class FarmersignupComponent {
       "m_Name": "",
       "crcRegNo": "",
       "aadharNumber": "",
-      "gender": 0,
+      // "village" : "",
+      // "gender": 0,
       "dob": null,
       "mobNo2": "",
       "emailId": "",

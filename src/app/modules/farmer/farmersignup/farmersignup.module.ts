@@ -9,6 +9,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatRadioModule } from '@angular/material/radio';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSelectModule,
     MatButtonModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    MatRadioModule,
+    NgxMatSelectSearchModule
   ]
 })
 export class FarmersignupModule { }
