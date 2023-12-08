@@ -76,7 +76,7 @@
                 <div class="form-label">3. पर्यायी मोबाइल क्रमांक</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="mobileNo2" maxlength="10">
+                    <input matInput placeholder="" formControlName="mobileNo1" maxlength="10">
                     <!-- <mat-error *ngIf="f['mobileNo2'].hasError('required') ">Please enter valid mobile No.</mat-error> -->
                   </mat-form-field>
                 </div>
@@ -1035,9 +1035,419 @@
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">मागे जा</button>
-          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('selfDeclarationForm')">पुरवलोकण करा </button>
+          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('selfDeclaration')">पुरवलोकण करा </button>
         </div>
       </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Preview</ng-template>
+        <div class="container-fluid">
+          <div class="form-data">Individual Information</div>
+          <div class="row gx-2 mb-3">
+            <div class="col-sm-2">
+              <img src="{{previewData?.profilePhotoPath}}" alt="Applicant image" class="img-fluid">
+            </div>
+            <div class="col-sm-10">
+              <div class="row gx-2">
+                <div class="col-sm-6">
+                  <div class="form-data text-main">Individual Information</div>
+                  <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">Mobile No.</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.mobileNo1 | dash}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">Aadhar No.</div>
+                      <span class="form-data rounded-pill">:{{previewData?.aadharNo | dash}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">1. अर्जदाराचे नाव</div>
+                      <span class=" form-data rounded-pill">:{{previewData?.fullName | dash}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">2. माझ्या शेतावर रेशीम विकास योजनेअंतर्गत तुती लागवड विभाग मार्फत करण्यात
+                        यावी
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-data text-main">लाभरट्याची वर्गावारी </div>
+                  <ul class="list-group" *ngFor="let category of previewData?.categoryOfBeneficiaries">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">{{category?.categoryOfBeneficiary}}</div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row gy-2 gx-2 mb-2">
+            <div class="col-sm-4">
+              <div class="form-data text-main">कृषि व फलौत्पादन </div>
+              <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="form-label">3. पर्यायी मोबाइल क्रं.</div>
+                  <span class="form-data  rounded-pill">:{{previewData?.mobileNo2 | dash}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="form-label">जन्मतारीक</div>
+                  <span class="form-data rounded-pill">:{{(previewData?.birthDate | date:'dd-MM-yyyy') | dash}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="form-label">लिंग</div>
+                  <span class=" form-data rounded-pill"> {{lang == 'en' ? (previewData?.gender | dash ) :
+                    (previewData?.m_gender | dash)}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="form-label">शिक्षण</div>
+                  <span class=" form-data rounded-pill">:{{(this.lang == 'en' ? previewData?.qualification :
+                    previewData?.m_Qualification) | dash}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="form-label">राज्य</div>
+                  <span class=" form-data rounded-pill">:{{(this.lang == 'en' ? previewData?.state :
+                    previewData?.m_State) | dash}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="form-label">जिल्हा</div>
+                  <span class=" form-data rounded-pill">:{{(this.lang == 'en' ? previewData?.district :
+                    previewData?.m_District) | dash}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="form-label">तालुका</div>
+                  <span class=" form-data rounded-pill">:{{(this.lang == 'en' ? previewData?.taluka :
+                    previewData?.m_Taluka) | dash}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="form-label">ग्रामपंचायत</div>
+                  <span class=" form-data rounded-pill">:{{(this.lang == 'en' ? previewData?.grampanchayatName :
+                    previewData?.m_GrampanchayatName) | dash}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="form-label">गाव</div>
+                  <span class=" form-data rounded-pill">:{{previewData?.village | dash}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="form-label">पत्ता</div>
+                  <span class=" form-data rounded-pill">:{{(this.lang == 'en' ? previewData?.address :
+                    previewData?.m_Address) | dash}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="form-label">पिन कोड</div>
+                  <span class=" form-data rounded-pill">:{{previewData?.pinCode | dash}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="form-label">मनरेगा जॉब कार्ड क्रं</div>
+                  <span class=" form-data rounded-pill">:{{previewData?.mn_JobCardNo | dash}}</span>
+                </li>
+              </ul>
+            </div>
+            <div class="col-sm-8">
+              <div class="row g-3">
+                <div class="col-sm-12">
+                  <div class="form-data text-main">जमिनीचा तपशील </div>
+                  <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">लाभरट्याची नवे (8-अ प्रमाणे ) एकूण जमीन हेक्टर.</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.benificiaryTotalFarm | dash}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">लागवडीचा भुयांपान क्रं</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.mulberryCultivatedSurveyNo | dash}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">लागवडीचा क्षेत्र हेक्टर ( मुद्दा क्रं 17 पेक्षा जसता नसावे)</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.cultivatedFarmInHector | dash}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label"> संयक्त खातेदार आहात का? </div>
+                      <span class="form-data  rounded-pill"
+                        *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">:{{'approvalProcess.yes'|
+                        translate}}</span>
+                      <span class="form-data  rounded-pill"
+                        *ngIf="previewData?.isAnyPlantedBeforeGovScheme == false">:{{'approvalProcess.no'|
+                        translate}}</span>
+                    </li>
+                    <ng-container *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="d-flex gap-3">
+                          <div class="form-label">{{'approvalProcess.land_survey_no._of_land'| translate}}: </div>
+                          <div class="form-data">{{previewData?.applicantFarmSurveyNo | dash}}</div>
+                        </div>
+                        <div class="d-flex gap-2">
+                          <div class="form-label">{{'approvalProcess.its_area'| translate}}: </div>
+                          <div class="form-data">{{previewData?.applicantFarmArea | dash}}</div>
+                        </div>
+                      </li>
+                    </ng-container>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">जमिनीचा प्रकार </div>
+                      <span class="form-data  rounded-pill">{{lang == 'en' ? (previewData?.farmType | dash ) :
+                        (previewData?.m_FarmType | dash)}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">सिंचांनाची सोय </div>
+                      <span class="form-data  rounded-pill">{{lang == 'en' ? (previewData?.irrigationFacility | dash ) :
+                        (previewData?.m_IrrigationFacility | dash)}} </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label"> रोजगार हमी व्यतिरिक्त इतर शासकीय योजना अंतर्गत पूर्वा फलबाग / फुलपिके /
+                        वृक्षकेली आहेत का ? </div>
+                      <span class="form-data  rounded-pill"
+                        *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">{{this.lang == 'en' ? 'Yes' :
+                        'होय'}}</span>
+                      <span class="form-data  rounded-pill"
+                        *ngIf="previewData?.isAnyPlantedBeforeGovScheme == false">{{this.lang == 'en' ? 'No' : 'नाही'}}
+                      </span>
+                    </li>
+                    <ng-container *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">
+                      <div class="table-responsive scrollbar">
+                        <table mat-table [dataSource]="previewData?.plantingDetails" class="dashboard-table">
+
+                          <!--- Note that these columns can be defined in any order.
+                                The actual rendered columns are set as a property on the row definition" -->
+
+                          <!-- Position Column -->
+                          <ng-container matColumnDef="srNo">
+                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
+                            <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="plantName">
+                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.orchard_flower_tree'| translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.plantName}} </td>
+                          </ng-container>
+
+                          <!-- Name Column -->
+                          <ng-container matColumnDef="gutNo">
+                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.group_no.'| translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.gutNo}} </td>
+                          </ng-container>
+
+                          <!-- Weight Column -->
+                          <ng-container matColumnDef="gutArea">
+                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.group_area'| translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.gutArea}} </td>
+                          </ng-container>
+
+                          <!-- Symbol Column -->
+                          <ng-container matColumnDef="cultivatedArea">
+                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.cultivated_area'| translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.cultivatedArea}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="cultivatedPlantsCount">
+                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.number_of_trees_planted'|
+                              translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.cultivatedPlantsCount}} </td>
+                          </ng-container>
+
+                          <tr mat-header-row *matHeaderRowDef="plantDisplayedColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: plantDisplayedColumns;"></tr>
+                        </table>
+                      </div>
+                    </ng-container>
+
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label"> रेशीम उद्योगाचे प्रशिक्षण स्वतः घेणार का उमेदवार पाठवणार ? </div>
+                      <span class="form-data  rounded-pill"
+                        *ngIf="previewData?.isSelfTraining == true">{{'approvalProcess.send_candidate'|
+                        translate}}</span>
+                      <span class="form-data  rounded-pill"
+                        *ngIf="previewData?.isSelfTraining == false">{{'approvalProcess.mySelf'| translate}}</span>
+                    </li>
+                    <ng-container *ngIf="previewData?.isSelfTraining == true">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="d-flex gap-3">
+                          <div class="form-label">{{'approvalProcess.candidate_name'| translate}}: </div>
+                          <div class="form-data">{{previewData?.candidateName | dash}}</div>
+                        </div>
+                        <div class="d-flex gap-2">
+                          <div class="form-label">{{'approvalProcess.relation'| translate}}: </div>
+                          <div class="form-data">{{lang == 'en' ? (previewData?.relationName | dash ) :
+                            (previewData?.m_RelationName | dash)}}</div>
+                        </div>
+                      </li>
+                    </ng-container>
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="row gx-2 gy-3">
+                <div class="col-sm-6">
+                  <div class="text-main fw-bold">बँकेचे तपशील</div>
+                  <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">बंकेचे नाव </div>
+                      <span class="form-data  rounded-pill">{{lang == 'en' ? (previewData?.bankName | dash ) :
+                        (previewData?.m_BankName | dash)}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">शाखा </div>
+                      <span class="form-data  rounded-pill">{{lang == 'en' ? (previewData?.branchName | dash ) :
+                        (previewData?.m_BranchName | dash)}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">आय एफएससी कोड </div>
+                      <span class="form-data  rounded-pill">{{previewData?.bankIFSCCode | dash}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">राष्ट्रीय बँक खाते क्रं </div>
+                      <span class="form-data  rounded-pill">{{previewData?.bankAccountNo | dash}}</span>
+                    </li>
+
+                  </ul>
+                </div>
+                <div class="col-sm-6">
+                  <div class="text-main fw-bold">कागदपत्रे</div>
+                  <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">मनरेगा जॉब कार्ड </div>
+                      <span class="form-data  rounded-pill">
+                        <mat-icon class="material-symbols-outlined">
+                          visibility
+                        </mat-icon>
+                      </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">जमिनीचा 8-अ </div>
+                      <span class="form-data  rounded-pill">
+                        <mat-icon class="material-symbols-outlined">
+                          visibility
+                        </mat-icon>
+                      </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">जमींचा 7/12 उतारा </div>
+                      <span class="form-data  rounded-pill">
+                        <mat-icon class="material-symbols-outlined">
+                          visibility
+                        </mat-icon>
+                      </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">बँक पासबूक/ किवा रद्द केलेला चेक </div>
+                      <span class="form-data  rounded-pill">
+                        <mat-icon class="material-symbols-outlined">
+                          visibility
+                        </mat-icon>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-main fw-bold">स्वयंघोशापत्र</div>
+
+          <div class="d-flex align-items-center gap-2">
+            <!-- <mat-checkbox checked="true"></mat-checkbox> -->
+            <p class="form-label">
+              वरील प्रमाणे महात्मा गांधी रोजगार हमी योजनेशी निगडित रेशीम उद्योग विकास / तुती लागवड योजनेअंतर्गत मी अर्ज
+              केला आहे. त्यास मंजुरी मिळाल्यास त्याकरिता माझ्या / आमच्या मालकीच्या / जमिनीवर हि योजना राबविण्यास संमती
+              देत
+              आहे / आहोत
+            </p>
+          </div>
+          <ul class="list-unstyled">
+            <li>
+              <div class="d-flex align-items-center  gap-2">
+                <mat-checkbox [checked]="previewData?.isHonestLabor == true"></mat-checkbox>
+                <p class="form-label mb-0">
+                  सदर ची योजना राबविण्याकरिता मी स्वतः / माझे कुटुंबातील कार्यक्षम व्यक्ती महात्मा गांधी राष्ट्रीय
+                  ग्रामीण रोजगार हमी योजनेतील प्रामाणिक मजूर म्हणून घोषित करीत आहे / आहोत.
+                  □ या योजनेकरिता होणारी सर्व कामे प्रामुख्याने पूर्ण करण्याची जबाबदारी माझी किव्हा जॉबकार्ड धारक
+                  मजुरांकडून करून
+                  घेण्याची जबाबदारी माझी / आमची राहील.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="d-flex  align-items-center gap-2">
+                <mat-checkbox [checked]="previewData?.isSelfTransport == true"></mat-checkbox>
+                <p class="form-label mb-0">
+                  योजने अंतर्गत आवश्यक कलमे / रोपांची वाहतूक मला स्वतः
+                  करावी लागेल याची मला कल्पना देण्यात आलेली असून मला ते मान्य आहे
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="d-flex align-items-center  gap-2">
+                <mat-checkbox [checked]="previewData?.isEligibleGettingInstallmentAmount == true"></mat-checkbox>
+                <p class="form-label mb-0">
+                  झाडांची लागवड केल्यानंतर हप्ता रक्कम मिळण्यासाठीचे पात्रता निकष मला अवगत करून देण्यात आलेले असून ते
+                  मला मान्य राहतील,
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="d-flex align-items-center  gap-2">
+                <mat-checkbox [checked]="previewData?.isBoundByConditions == true"></mat-checkbox>
+                <p class="form-label mb-0">
+                  या योजनेचे नियम व अटी मला बंधनकारक आहे व त्यानुसार मी कलाम / रोपांची लागवड / संगोपन / संरक्षण करीन.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="d-flex align-items-center  gap-2">
+                <mat-checkbox [checked]="previewData?.isPayMoreThanLimitedAmt == true"></mat-checkbox>
+                <p class="form-label mb-0">
+                  सदर योजनेअंतर्गत एकूण क्षेत्राप्रमाणे व नमुन्याप्रमाणे शासनाने Ο प्रतिवर्षी मंजूर केलेल्या मयदिच्या
+                  प्रमाणकापेक्षा जास्त खर्च झाल् मी / स्वतः करील
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="d-flex align-items-center  gap-2">
+                <mat-checkbox [checked]="previewData?.isSignedOnLetter == true"></mat-checkbox>
+                <p class="form-label mb-0">
+                  महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजनेशी निगडित
+
+                  रेशीम उद्योग विकास / तुती लागवड योजनेची माहिती मला / आम्हाला मान्य असल्याव काबुल क करून त्याप्रमाणे
+                  करार पत्रावर सह्या केल्या आहेत
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="d-flex align-items-center  gap-2">
+                <mat-checkbox [checked]="previewData?.isChangedAcceptable == true"></mat-checkbox>
+                <p class="form-label mb-0">
+                  या योजनेअंतर्गत शासन वेळोवेळी जे बदल करेल अथवा अटी ■ घालेल त्या अटी / बदल मला / आम्हाला मान्य राहतील.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="d-flex align-items-center  gap-2">
+                <mat-checkbox [checked]="previewData?.isSchemeCorrectAsPerSatbara == true"></mat-checkbox>
+                <p class="form-label mb-0">
+                  महात्मा गांधी राष्टीय ग्रामीण रोजगार हमी योजनेअंतर्गत रेशीम उद्योग विकास / तुती लागवड योजनेमध्ये
+                  समाविष्ठ करून / घ्या करीता मी / आम्ही दिलेला तपशील ७/१२ चे उताऱ्याप्रमाणे बरोबर आहे.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="d-flex align-items-center  gap-2">
+                <mat-checkbox [checked]="previewData?.isJointAccHolderTermAcceptable == true"></mat-checkbox>
+                <p class="form-label mb-0">
+                  मी / आम्ही संयुक्त खातेदार असून माझ्या / आमच्या हिश्याच्या □ भूमापन क्र. १२६० मध्ये १ हेक्टर
+                  क्षेत्रावर लागवड करण्यास परवानगी दिल्यास वरील अटी मला / आम्हाला मान्य राहतील
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+          <button mat-button matStepperPrevious class="btn-main">Previous</button>
+          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('preview')">Next</button>
+        </div>
+
       </mat-step>
 
       <mat-step>
@@ -1049,19 +1459,21 @@
           <div class="row align-items-center ">
             <div class="col-sm-4">
               <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                (click)="uplodLogo1.value='';uplodLogo1.click()">File
                   Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
+                <input type="file" #uplodLogo1 accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" 
+                (change)="fileUpload($event,docArray[7].docTypeId)"/>
+                <div class="d-flex gap-2" *ngIf="docArray[7]?.docPath">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
+                    matTooltip="view" (click)="viewimage(docArray[7].docPath)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
                   <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
+                    matTooltip="delete"  (click)="deleteDocument(docArray[7].docTypeId)" >
                     <mat-icon class="material-symbols-rounded">
                       delete
                     </mat-icon>
@@ -1070,7 +1482,7 @@
               </div>
             </div>
             <div class="col-sm">
-              <button mat-flat-button class="btn-main">प्रस्तुत करा</button>
+              <button mat-flat-button class="btn-main" (click)="onSubmit('addCurrency')">प्रस्तुत करा</button>
             </div>
           </div>
         </div>
