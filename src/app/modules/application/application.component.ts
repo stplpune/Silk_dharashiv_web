@@ -266,6 +266,7 @@ export class ApplicationComponent {
         this.openApplicationDetails(obj);
         // this.router.navigate(['../approval-process']);
         break;
+        
     }
   }
 
