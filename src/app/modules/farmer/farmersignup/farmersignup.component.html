@@ -17,7 +17,7 @@
                         <!-- <mat-label class="form-label">{{'farmerSignUp.Full_Name'|translate}}<span class="text-danger">*</span></mat-label> -->
                         <mat-form-field appearance="outline" class="w-100">
                           <mat-label class="form-label">{{'farmerSignUp.Full_Name'|translate}}</mat-label>
-                            <input matInput formControlName="name" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)" maxlength="50">
+                            <input matInput formControlName="name" (keypress)="validator.noFirstSpaceAllow($event);validator.alphabetsWithSpaces($event)" maxlength="100">
                             <mat-error class="text-danger" *ngIf="f['name'].hasError('required')">{{'farmerSignUp.Please_enter_full_name'|translate}}</mat-error>
                             <mat-error class="text-danger" *ngIf="f['name'].hasError('pattern')">{{'farmerSignUp.Please_enter_valid_full_name'|translate}} </mat-error>
                         </mat-form-field>
