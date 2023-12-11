@@ -27,7 +27,7 @@
               <div class="col-sm">
                 <div class="row gy-2 gx-2 align-items-center ">
                   <div class="col-sm-6">
-                    <div class="d-flex flex-column gap-2">
+                    <div class="d-flex gap-2">
                       <div class="form-label">Mobile Number</div>
                       <!-- <div class="form-data">: 8669264767</div> -->
                       <mat-form-field appearance="outline" class="w-100">
@@ -38,7 +38,7 @@
                     </div>
                   </div>
                   <div class="col-sm-6">
-                    <div class="d-flex flex-column gap-2">
+                    <div class="d-flex gap-2">
                       <div class="form-label">Aadhar Number</div>
                       <!-- <div class="form-data">: 8669 2647 6774</div> -->
                       <mat-form-field appearance="outline" class="w-100">
@@ -57,7 +57,7 @@
                   </div>
                 </div> -->
                   <div class="col-sm-12">
-                    <div class="form-label"> 2. Applicant Name</div>
+                    <div class="form-label"> 2.{{'addManrega.applicant_name'| translate}}</div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="fullName"
@@ -83,27 +83,34 @@
             </div>
             <div class="row gx-2 align-items-center">
               <div class="col-sm-3">
-                <div class="form-label">3. पर्यायी मोबाइल क्रमांक</div>
+                <div class="form-label">3.{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="mobileNo2" maxlength="10">
-                    <mat-error *ngIf="f['mobileNo2'].hasError('maxlength')">Please enter valid mobile No.</mat-error>
+                    <input matInput placeholder="" formControlName="mobileNo2" maxlength="10"
+                    (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+                    <span class="text-danger"
+                        *ngIf="f['mobileNo2']?.hasError('maxLengthExceeded') || f['mobileNo2']?.hasError('pattern')">
+                        {{f['mobileNo2'].hasError('maxLengthExceeded') ?
+                        ('common.mobile_maximum_10_digit_allowed'|translate) :
+                        ('common.please_enter_valid_mobile_number'|translate)}}
+                      </span>
                   </mat-form-field>
                 </div>
               </div>
               <div class="col-sm-3">
-                <mat-label class="form-label">4. जन्मतारीख</mat-label>
+                <mat-label class="form-label">4.{{'approvalProcess.date_of_birth'| translate}}</mat-label>
                 <mat-form-field appearance="outline" class="w-100">
                   <input matInput [matDatepicker]="picker" formControlName="birthDate" (click)="picker.open()" readonly
                     [max]="todayDate">
                   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
-                  <mat-error *ngIf="f['birthDate'].hasError('required') ">Please select birthdate</mat-error>
-                </mat-form-field>
+                  <mat-error
+                  *ngIf="f['birthDate'].hasError('required') ">{{'approvalProcess.applicant_dateBirthd_Required'|translate}}</mat-error>
+              </mat-form-field>
               </div>
               <div class="col-sm-3">
                 <div class="d-flex align-items-center gap-3">
-                  <mat-label class="form-label">5. लिंग निवडा</mat-label>
+                  <mat-label class="form-label">5.{{'addManrega.select_gender'| translate}}</mat-label>
                   <mat-radio-group aria-label="Select an option" formControlName="gender">
                     <mat-radio-button *ngFor="let gender of genderArray"
                       [value]="gender.id">{{gender.name}}</mat-radio-button>
@@ -111,17 +118,18 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">6. शिक्षण</div>
+                <div class="form-label">6.{{'addManrega.education'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="qualificationId">
                     <mat-option *ngFor="let qualification of qualificationArray"
-                      [value]="qualification.id">{{qualification.textEnglish}}</mat-option>
+                      [value]="qualification.id">{{lang != 'en' ? qualification.textMarathi : qualification.textEnglish}}</mat-option>
                   </mat-select>
-                  <mat-error *ngIf="f['qualificationId'].hasError('required') ">Please select qualification </mat-error>
+                  <mat-error
+                  *ngIf="f['qualificationId'].hasError('required') ">{{'approvalProcess.applicant_qualification_Required'|translate}}</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">7. राज्य</div>
+                <div class="form-label">7.{{'common.State'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100"
                   [class]="WebStorageService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
                   <mat-select formControlName="stateId" (selectionChange)="getDisrict()">
@@ -130,17 +138,17 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">8. जिल्हा</div>
+                <div class="form-label">8.{{'common.District'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
                     <mat-option *ngFor="let district of districtArray"
-                      [value]="district.id">{{district.textEnglish}}</mat-option>
+                      [value]="district.id">{{lang != 'en' ? district.textMarathi : district.textEnglish}}</mat-option>
                   </mat-select>
                   <mat-error *ngIf="f['districtId'].hasError('required') ">Please select birthdate</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">9. तालुका</div>
+                <div class="form-label">9.{{'common.Taluka'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="talukaId" (selectionChange)="getGrampanchayat()">
                     <mat-option>
@@ -156,7 +164,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">10. ग्रामपंचायत</div>
+                <div class="form-label">10.{{'approvalProcess.village_committee'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="grampanchayatId">
                     <mat-option>
@@ -169,40 +177,65 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">11. गाव</div>
+                <div class="form-label">11.{{'common.Village'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="" formControlName="village">
+                  <input matInput placeholder="" formControlName="village"
+                  (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
                 </mat-form-field>
               </div>
 
               <div class="col-sm-3">
-                <div class="form-label">12. पिन कोड </div>
+                <div class="form-label">12.{{'common.pin_Code'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="pinCode">
+                    <input matInput placeholder="" formControlName="pinCode" maxlength="6"
+                    (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+                    <mat-error *ngIf="f['pinCode']?.errors">
+                      <span class="text-danger"
+                        *ngIf="f['pinCode']?.hasError('maxLengthExceeded') || f['pinCode']?.hasError('pattern')">
+                        {{f['pinCode'].hasError('maxLengthExceeded') ? ('common.pin_limit'|translate) :
+                        ('marketRate.please_enter_valid_pinCode'|translate)}}
+                      </span>
+                    </mat-error>
                   </mat-form-field>
                 </div>
               </div>
               <div class="col-sm-6">
-                <div class="form-label">13. लाभर्त्याची वर्गवारी</div>
+                <div class="form-label">13.{{'approvalProcess.beneficiary_category'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select (click)="categoryDialogBox()">
                   </mat-select>
-                  <span>{{this.checkedItems[0]?.textEnglish}}</span>
+                  <mat-error *ngIf="f['categoryId']?.hasError('required')">{{'approvalProcess.please_select_category'|translate}}
+                  </mat-error>
                 </mat-form-field>
+                <div *ngIf="checkedItems.length">
+                  <div class="form-label">{{'approvalProcess.beneficiary_category_options'| translate}}</div>
+                  <div class="form-data mb-0" >
+                    {{this.checkedItems[0]?.textEnglish}}
+                  </div>
+                </div>
               </div>
               <div class="col-sm-3">
                 <div class="form-label">14. मतदान नोंदणी क्रं</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="sm_VoterRegistrationNo">
+                    <input matInput placeholder="" formControlName="sm_VoterRegistrationNo" maxlength="50"
+                    (keypress)="validation.noFirstSpaceAllow($event)">
                   </mat-form-field>
                 </div>
               </div>
               <div class="col-sm-3">
-                <mat-label>15. पत्ता</mat-label>
+                <mat-label>15.{{'common.address'| translate}}</mat-label>
                 <mat-form-field appearance="outline" class="w-100">
-                  <textarea matInput placeholder="" formControlName="address"></textarea>
+                  <textarea matInput placeholder="" formControlName="address"
+                  (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)"></textarea>
+                  <mat-error *ngIf="f['address']?.errors">
+                    <span class="text-danger"
+                      *ngIf="f['address']?.hasError('maxLengthExceeded') || f['address'].hasError('required')">
+                      {{f['address'].hasError('maxLengthExceeded') ? ('faq.question_maxLength'|translate) :
+                      ('common.please_enter_address'|translate)}}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-6">
@@ -224,15 +257,16 @@
       </mat-step>
       <!-- ////////////////// start 2 form -->
       <mat-step>
-        <ng-template matStepLabel>जमीन तपशील</ng-template>
+        <ng-template matStepLabel>{{'approvalProcess.land_details'| translate}}</ng-template>
         <form [formGroup]="landDetailsForm">
           <div class="container-fluid">
             <div class="row align-items-center g-3">
               <div class="col-sm-4">
-                <div class="form-label"> 17. लाभरट्याच्या नावे (8-A )प्रमाणे एकूण जमीन हेक्टर </div>
+                <div class="form-label"> 17.{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'| translate}} </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="benificiaryTotalFarm">
+                    <input matInput placeholder="" formControlName="benificiaryTotalFarm"
+                    (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
                   </mat-form-field>
                 </div>
               </div>
@@ -246,21 +280,28 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">19. जमिनीचा प्रकार </div>
+                <div class="form-label">19.{{'approvalProcess.type_of_land'| translate}} </div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="farmTypeId">
                     <mat-option *ngFor="let farmType of farmTypeArray"
-                      [value]="farmType.id">{{farmType.textEnglish}}</mat-option>
+                      [value]="farmType.id">{{lang != 'en' ? farmType.textMarathi :
+                      farmType.textEnglish}}</mat-option>
                   </mat-select>
+                  <mat-error *ngIf="fL['farmTypeId'].hasError('required') ">
+                    {{'approvalProcess.please_select_type_of_land'|translate}}</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">20. सिंचांनाची सुविधा </div>
+                <div class="form-label">20.{{'approvalProcess.irrigation_facilities'| translate}} </div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="irrigationFacilityId">
                     <mat-option *ngFor="let irrigationFacility of irrigationFacilityArray"
-                      [value]="irrigationFacility.id">{{irrigationFacility.textEnglish}}</mat-option>
+                      [value]="irrigationFacility.id">{{lang !=
+                        'en' ? irrigationFacility.textMarathi :
+                        irrigationFacility.textEnglish}}</mat-option>
                   </mat-select>
+                  <mat-error *ngIf="fL['irrigationFacilityId'].hasError('required') ">
+                    {{'approvalProcess.please_select_irrigation_facility'|translate}}</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
@@ -411,13 +452,15 @@
                   <div class="col-sm-4">
                     <div class="form-label">24.B. तुति लागवड अंतर फुट :</div>
                     <mat-form-field appearance="outline" class="w-100">
-                      <input matInput placeholder="" formControlName="sm_MulberryPlantingDistance">
+                      <input matInput placeholder="" formControlName="sm_MulberryPlantingDistance" maxlength="4"
+                      (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)" >
                     </mat-form-field>
                   </div>
                   <div class="col-sm-4">
                     <div class="form-label">24.C. तुति लागवडीचा भुमपण क्रमांक ( गत नं / सर्व्हे नं ) :</div>
                     <mat-form-field appearance="outline" class="w-100">
-                      <input matInput placeholder="" formControlName="sm_PlantationSurveyNo">
+                      <input matInput placeholder="" formControlName="sm_PlantationSurveyNo" maxlength="6"
+                      (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                     </mat-form-field>
                   </div>
                   <div class="col-sm-4">
@@ -502,7 +545,8 @@
                     <mat-label class="form-label">28.A. यापूर्वी रेशीम संचालनालय अंतर्गत कुठल्या योजनेचा लाभ घेतला आहे
                       ?</mat-label>
                     <mat-form-field appearance="outline" class="w-100">
-                      <textarea matInput placeholder="" rows="3" formControlName="internalSchemeName"></textarea>
+                      <textarea matInput placeholder="" rows="3" formControlName="internalSchemeName"
+                      (keypress)="validation.noFirstSpaceAllow($event)"></textarea>
                     </mat-form-field>
                   </div>
                   <div class="col-sm-4">
@@ -517,7 +561,8 @@
                   <div class="col-sm-4">
                     <mat-label class="form-label">28.C. एकूण घेतलेला लाभ ?</mat-label>
                     <mat-form-field appearance="outline" class="w-100">
-                      <textarea matInput placeholder="" rows="3" formControlName="totalBenefitTaken"></textarea>
+                      <textarea matInput placeholder="" rows="3" formControlName="totalBenefitTaken"
+                      (keypress)="validation.noFirstSpaceAllow($event)"></textarea>
                     </mat-form-field>
                   </div>
                   <div class="col-sm-auto">
@@ -592,44 +637,74 @@
 
       <!-- ////////////////// start 3 form -->
       <mat-step>
-        <ng-template matStepLabel>बँक तपशील</ng-template>
+        <ng-template matStepLabel>{{'approvalProcess.bank_details'|translate}}</ng-template>
         <form [formGroup]="bankDetailsForm">
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-4">
-                <div class="form-label">29. बँक निवडा</div>
+                <div class="form-label">29.{{'approvalProcess.bank_name'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="bankId" (selectionChange)="getBankBranch()">
-                    <mat-option *ngFor="let bank of bankArray" [value]="bank.id">{{bank.textEnglish}}</mat-option>
+                    <mat-option *ngFor="let bank of bankArray" [value]="bank.id">{{lang != 'en' ? bank.textMarathi :
+                      bank.textEnglish}}</mat-option>
                     <!-- <mat-option>Bank of maharashtra</mat-option>
                   <mat-option>Bank of Badoda</mat-option>
                   <mat-option>HDFC</mat-option> -->
                   </mat-select>
+                  <mat-error *ngIf="bL['bankId'].hasError('required') ">
+                    {{'approvalProcess.please_select_bank_name'|translate}}</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">30. बँक शाखा निवडा</div>
+                <div class="form-label">30.{{'approvalProcess.branch'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="bankBranchId">
-                    <mat-option *ngFor="let branch of branchArray" [value]="branch.id">{{branch.textEnglish}}
+                    <mat-option *ngFor="let branch of branchArray" [value]="branch.id">{{lang != 'en' ?
+                      branch.textMarathi :
+                      branch.textEnglish}}
                     </mat-option>
                     <!-- <mat-option>Dharahsiv</mat-option> -->
                   </mat-select>
+                  <mat-error *ngIf="bL['bankBranchId'].hasError('required') ">
+                    {{'approvalProcess.please_select_branch'|translate}}</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">31. आय एफ एस सी कोड </div>
+                <div class="form-label">31.{{'approvalProcess.IFSC_Code'|translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="bankIFSCCode">
+                    <input matInput placeholder="" formControlName="bankIFSCCode" maxlength="30"
+                    (keypress)="validation.noFirstSpaceAllow($event)">
+                    <mat-error
+                    *ngIf="bL['bankIFSCCode'].hasError('required') ">{{'approvalProcess.plese_enter_IFSC_Code'|translate}}</mat-error>
+                    <mat-error *ngIf="bL['bankIFSCCode']?.errors">
+                      <span class="text-danger"
+                        *ngIf="bL['bankIFSCCode']?.hasError('maxLengthExceeded') || bL['bankIFSCCode']?.hasError('pattern')">
+                        {{bL['bankIFSCCode'].hasError('maxLengthExceeded') ?
+                        ('approvalProcess.Maximum_11_characters_allowed'|translate) :
+                        ('approvalProcess.plese_enter_valid_IFSC_Code'|translate)}}
+                      </span>
+                    </mat-error>
                   </mat-form-field>
+
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">32. राष्ट्रीय बँक खाते क्रमांक </div>
+                <div class="form-label">32.{{'approvalProcess.nationalise_bank_accountno'|translate}} </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="bankAccountNo">
+                    <input matInput placeholder="" formControlName="bankAccountNo" maxlength="30"
+                    (keypress)="validation.noFirstSpaceAllow($event)">
+                    <mat-error
+                    *ngIf="bL['bankAccountNo'].hasError('required') ">{{'approvalProcess.please_nationalise_bank_accountno'|translate}}</mat-error>
+                    <mat-error *ngIf="bL['bankAccountNo']?.errors">
+                      <span class="text-danger"
+                        *ngIf="bL['bankAccountNo']?.hasError('maxLengthExceeded') || bL['bankAccountNo']?.hasError('pattern')">
+                        {{bL['bankAccountNo'].hasError('maxLengthExceeded') ?
+                        ('approvalProcess.maximum_30_character'|translate) :
+                        ('approvalProcess.please_valid_nationalise_bank_accountno'|translate)}}
+                      </span>
+                    </mat-error>
                   </mat-form-field>
                 </div>
               </div>
