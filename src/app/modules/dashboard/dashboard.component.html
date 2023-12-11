@@ -94,7 +94,7 @@
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <h2>{{dashboardData?.responseData?.totalApplications}}</h2>
-                            <p>Total Applications</p>
+                            <p>{{'dashboard.total_applications'| translate}}</p>
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <h2>{{dashboardData?.responseData?.totalBeneficiaries}}</h2>
-                            <p>Total Beneficiaries</p>
+                            <p>{{'dashboard.total_beneficiaries'| translate}}</p>
                         </div>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <h2>{{dashboardData?.responseData?.totalLandCultivatedHectors}}</h2>
-                            <p>Land Cultivated <small class="text-muted">(Hector)</small></p>
+                            <p>{{'dashboard.land_cultivated'| translate}}<small class="text-muted">{{'dashboard.hector'| translate}}</small></p>
                         </div>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <h2>{{dashboardData?.responseData?.totalDBT}}</h2>
-                            <p>Total DBT (INR)</p>
+                            <p>{{'dashboard.total_DBT'| translate}}</p>
                         </div>
                     </div>
                 </div>
@@ -153,7 +153,7 @@
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <h2>{{manaregaCount}}</h2>
-                            <p>{{manaregaArray[0]?.schemeType}}</p>
+                            <p>{{lang == 'en' ? manaregaArray[0]?.schemeType : manaregaArray[0]?.m_SchemeType}}</p>
                         </div>
                     </div>
                 </div>
@@ -162,17 +162,17 @@
                 <table class="table dashboard-table mb-0">
                     <thead>
                         <tr>
-                            <th>Action</th>
-                            <th>Approved</th>
-                            <th>Pending</th>
-                            <th>Resend</th>
-                            <th>Rejected</th>
+                            <th>{{'common.action'| translate}}</th>
+                            <th>{{'dashboard.approved'| translate}}</th>
+                            <th>{{'dashboard.pending'| translate}}</th>
+                            <th>{{'dashboard.resend'| translate}}</th>
+                            <th>{{'dashboard.rejected'| translate}}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let res of manaregaArray">
                             <tr>
-                                <td>{{res?.actionName}}</td>
+                                <td>{{lang == 'en' ? res?.actionName : res?.m_ActionName}}</td>
                                 <td>
 
                                     <a class="text-main text-decoration-underline" (click)="redToAppPage(res,12)"
@@ -212,7 +212,7 @@
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <h2>{{samgraCount}}</h2>
-                            <p>{{samgraArray[0]?.schemeType}}</p>
+                            <p>{{lang == 'en' ? samgraArray[0]?.schemeType : samgraArray[0]?.m_SchemeType}}</p>
                         </div>
                     </div>
                 </div>
@@ -221,17 +221,17 @@
                 <table class="table dashboard-table mb-0">
                     <thead>
                         <tr>
-                            <th>Action</th>
-                            <th>Approved</th>
-                            <th>Pending</th>
-                            <th>Resend</th>
-                            <th>Rejected</th>
+                            <th>{{'common.action'| translate}}</th>
+                            <th>{{'dashboard.approved'| translate}}</th>
+                            <th>{{'dashboard.pending'| translate}}</th>
+                            <th>{{'dashboard.resend'| translate}}</th>
+                            <th>{{'dashboard.rejected'| translate}}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let res of samgraArray">
                             <tr>
-                                <td>{{res?.actionName}}</td>
+                                <td>{{lang == 'en' ? res?.actionName : res?.m_ActionName}}</td>
                                 <td>
 
                                     <a class="text-main text-decoration-underline" (click)="redToAppPage(res,12)"
