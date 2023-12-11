@@ -6,8 +6,9 @@
   </mat-card-header>
   <mat-card-content class=" card-body form-container">
     <!-- linear -->
+    <!-- [stepControl]="manaregaFrm" -->
     <mat-stepper  #stepper linear>
-      <mat-step [stepControl]="manaregaFrm">
+      <mat-step>
         <ng-template matStepLabel>मूळ तपशील</ng-template>
         <form [formGroup]="manaregaFrm">
           <div class="container-fluid">
@@ -298,8 +299,8 @@
           </div>
         </form>
       </mat-step>
-
-      <mat-step [stepControl]="farmInfoFrm">
+      <!-- [stepControl]="farmInfoFrm" -->
+      <mat-step >
         <ng-template matStepLabel>{{'approvalProcess.land_details'| translate}}</ng-template>
         <form [formGroup]="farmInfoFrm">
           <div class="container-fluid">
@@ -685,8 +686,8 @@
           </div>
         </form>
       </mat-step>
-
-      <mat-step [stepControl]="bankInfoFrm">
+      <!-- [stepControl]="bankInfoFrm" -->
+      <mat-step >
         <ng-template matStepLabel>{{'approvalProcess.bank_details'|translate}}</ng-template>
         <form [formGroup]="bankInfoFrm">
           <div class="container-fluid">

@@ -696,7 +696,77 @@
     "submit":"Submit",
     "congratulations":"Congratulations !",
     "application_submitted":"Your application has been successfully submitted."
-  
+  },
+
+  "addSamgra":{
+    "Election_Card_No" : "Election Card No.",
+    "below_the_poverty_line" : "Are you below the poverty line?",
+    "Bhudran_category" : "Select Bhudran category",
+    "select_Bhudran_category":"Please select Bhudran category",
+    "Irrigation_period" : "Irrigation period",
+    "select_Irrigation_period":"Please select Irrigation period",
+    "planted_under_the_government_scheme" : "Has mulberry been planted under the government scheme?",
+    "Plantation_years":"Plantation years",
+    "Cultivation_area":"Cultivation area",
+    "Survey_No":"Survey No.",
+    "Current_crop_and_production_details":"Current crop and production details",
+    "Add_details":"Add details",
+    "Mulberry_Plantatio_Details":"Mulberry Plantation Details",
+    "Varieties_of_Mulberr_Trees":"Varieties of Mulberry Trees",
+    "Mulberry_Planting_Distance_(feet)":"Mulberry Planting Distance (feet)",
+    "Plantation_land_Survey_No":"Plantation land Survey No./Group No.",
+    "Mulberry_Plantation_Area_in_acre":"Mulberry Plantation Area in acre",
+    "Mulberry_Plantation_Method":"Mulberry Plantation Method",
+    "experience_in_silk_industry":"Do you have experience in silk industry?",
+    "How_many_years":"How many years",
+    "training_in_silk_industry":"Have you taken training in silk industry?",
+    "benefited_from_any_scheme_under_Silk_Directorate_before_this":"Have you benefited from any scheme under Silk Directorate before this?",
+    "Scheme_Name":"Scheme Name",
+    "Year":"Year",
+    "Total_Benefit_Amount" :"Total Benefit Amount",   
+    "Aadhaar_card" : "Aadhar Card",
+    "Land_7/12_with_Mulberry_Note_Talathi_Certificate" : "Land 7/12 with Mulberry Note or Talathi Certificate",
+    "8_A_track_of_Land" : "8 A track of Land",
+    "Land_boundary_map" : "Land boundary map"
+
+
+ 
+
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   }
+
 }
