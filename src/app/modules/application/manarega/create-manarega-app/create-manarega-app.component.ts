@@ -236,7 +236,7 @@ viewPreviewDocument11(documentPath: string) {
       "id": [0],
       "farmerId": [10],
       "schemeTypeId": [1],
-      "applicationNo": [1],
+      "applicationNo": [0],
       "mobileNo1": [''],
       "aadharNo": [''],
       "profilePhotoPath": ['',[Validators.required]],
@@ -493,7 +493,6 @@ getPreviewData(){
   
 // this.viewMsgFlag=false;
   onSubmit(flag?:any) {
-    debugger
     let mergeDocumentArray = [... this.docArray,...this.OtherDocUploadImg];
     
     if (this.manaregaFrm.invalid && flag == 'farmerInfo') {

@@ -1,5 +1,5 @@
 
-import { Component, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -40,8 +40,8 @@ export class TechnicalEstimateComponent {
     totalUnskill: []
   };
   technicalUnSkillObj: any = {
-    action1 : 'सीमेंट पत्रे ऐवजी लोखंडी पत्रे, सीमेंट पाइप / कॉलम ऐवजी लोखंडी पाइप,आधिक मुलाच्या वस्तु तसेच सीमेंट, वाळू करिता इस्टिमेटपेक्षा जास्त खर्च शेतकरी स्वछ करू शकतील.',
-    action2 : 'विटा/रेती/सीमेंटच्या फळकवर योजनेचे नाव शेतकरी नाव कामाचा कोड व एकूण रक्कम व आदि रक्कम नमूद असावी.'
+    action1: 'सीमेंट पत्रे ऐवजी लोखंडी पत्रे, सीमेंट पाइप / कॉलम ऐवजी लोखंडी पाइप,आधिक मुलाच्या वस्तु तसेच सीमेंट, वाळू करिता इस्टिमेटपेक्षा जास्त खर्च शेतकरी स्वछ करू शकतील.',
+    action2: 'विटा/रेती/सीमेंटच्या फळकवर योजनेचे नाव शेतकरी नाव कामाचा कोड व एकूण रक्कम व आदि रक्कम नमूद असावी.'
   }
 
   skillDataArray: any = {
@@ -53,10 +53,11 @@ export class TechnicalEstimateComponent {
     totalData: [],
     totalDataSingally: []
   }
-  skillYr1obj:any;
-  skillYr2obj:any;
-  skillYr3obj:any;
-  acceptTermsValue!:boolean;
+  skillYr1obj: any;
+  skillYr2obj: any;
+  skillYr3obj: any;
+  acceptTermsValue!: boolean;
+  bindTableDiv:any;
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -64,22 +65,21 @@ export class TechnicalEstimateComponent {
       private commonMethod: CommonMethodsService,
       private errorHandler: ErrorHandlingService,
       public encryptdecrypt: AesencryptDecryptService,
-      private route: ActivatedRoute,
-      private _elementRef: ElementRef
-  ) { }
+      private route: ActivatedRoute
+    ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.routingData = params.get('data');
     });
-    let id =this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
-     this.applicationId = id
-     this.getEstimateData();
+    let id = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
+    this.applicationId = id
+    this.getEstimateData();
     this.getAnotherEstimateData();
   }
 
   getEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId=2' , false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId=2', false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -111,16 +111,16 @@ export class TechnicalEstimateComponent {
       }
     })
 
-    this.newDataArray.totalSkill.filter((res:any)=>{
-      if(res.yearId == 1){
-        this.skillYr1obj=res;
-      }else if(res.yearId == 2){
-        this.skillYr2obj=res;
-      }else{
-        this.skillYr3obj=res;
+    this.newDataArray.totalSkill.filter((res: any) => {
+      if (res.yearId == 1) {
+        this.skillYr1obj = res;
+      } else if (res.yearId == 2) {
+        this.skillYr2obj = res;
+      } else {
+        this.skillYr3obj = res;
       }
     })
-    
+
     this.newDataArray.totalUnskill.filter((res: any) => {
       if (res.yearId == 1) {
         this.year1Obj = res;
@@ -139,7 +139,7 @@ export class TechnicalEstimateComponent {
         this.totalUnSkillObject = res;
       }
     })
-    
+
     tableData.responseData7.filter((res: any) => {
       if (res.yearId == 1) {
         this.skillYear1Obj = res;
@@ -153,8 +153,9 @@ export class TechnicalEstimateComponent {
     tableData.responseData9.filter((res: any) => {
       this.finalTotalRes = res;
     })
-  }
 
+   
+  }
 
   getAnotherEstimateData() {
     this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId=2', false, false, false, 'masterUrl');
@@ -187,11 +188,11 @@ export class TechnicalEstimateComponent {
     data.responseData3.filter((ev: any) => {
       this.skillDataArray.totalUnskill.push(ev)
     })
-    
+
   }
 
   acceptTerms(event?: any) {
-    this.acceptTermsValue = event.target.checked;    
+    this.acceptTermsValue = event.target.checked;
   }
 
   confirm() {
@@ -203,15 +204,13 @@ export class TechnicalEstimateComponent {
   }
 
   generate_PDF() {
-    let doc = this._elementRef.nativeElement.querySelector(`#document`);
-    console.log(doc)
-    let obj = { htmlData: JSON.stringify(doc) }
-    this.apiService.setHttp('POST', 'api/TechnicalEstimate/Generate-PDF_V1', false, obj, false, 'masterUrl');
+    let html = this.bindTableDiv;
+    let obj = { htmlData:html, };
+    this.apiService.setHttp('POST', 'api/TechnicalEstimate/Generate-PDF', false, obj, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          console.log('resss',res);
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
