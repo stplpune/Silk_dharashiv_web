@@ -110,7 +110,7 @@ export class RegisterOfficerComponent {
       mobNo1: [this.data?.mobNo1 || '', [Validators.required, Validators.pattern(this.validator.mobile_No)]],
       emailId: [this.data?.emailId || '', [Validators.required, Validators.email, this.validator.maxLengthValidator(50)]],
       address: [this.data?.address || '', [this.validator.maxLengthValidator(100)]],
-      m_Address: [this.data?.m_Address || '', [this.validator.maxLengthValidator(100), Validators.pattern(this.validator.marathi)]],
+      m_Address: [this.data?.m_Address || '', [this.validator.maxLengthValidator(100), Validators.pattern(this.validator.marathiquestion)]],
       flag: [this.data ? "u" : "i"],
       createdBy: [this.WebStorageService.getUserId()]
     })
