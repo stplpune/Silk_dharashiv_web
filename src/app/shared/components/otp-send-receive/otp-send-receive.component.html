@@ -12,7 +12,7 @@
           <label class="form-label">{{'farmerSignUp.Enter_OTP'|translate}}</label>
           <div class="d-flex gap-2 no-subscript-wrapper mb-1">
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput maxlength="5" [formControl]="otpFormControl"
+              <input matInput maxlength="5" [formControl]="otpFormControl"  (keyup.enter)="verifyOTP()"
                 (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
             </mat-form-field>
           </div>
@@ -27,7 +27,7 @@
       </div>
 
       <div class="forgotPwd mb-1 d-flex align-items-center justify-content-between">
-          <button mat-flat-button type="button" class="btn-main"  (click)="verifyOTP()">{{data.button}}</button>
+          <button mat-flat-button type="submit" class="btn-main"  (keyup.enter)="verifyOTP()">{{data.button}}</button>
       </div>
 </ng-container>
   </mat-dialog-content>
