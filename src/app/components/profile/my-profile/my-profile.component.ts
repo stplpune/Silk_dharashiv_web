@@ -98,10 +98,10 @@ export class MyProfileComponent {
 
   onEditProfile() {
     this.editFlag = true;
-    this.f['name'].setValue(this.profilDetailsArr.name);
-    this.f['m_Name'].setValue(this.profilDetailsArr.m_Name);
-    this.f['mobileNo'].setValue(this.profilDetailsArr.mobNo1);
-    this.f['address'].setValue(this.profilDetailsArr.address);
+    this.f['name'].setValue(this.profilDetailsArr?.name);
+    this.f['m_Name'].setValue(this.profilDetailsArr?.m_Name);
+    this.f['mobileNo'].setValue(this.profilDetailsArr?.mobNo1);
+    this.f['address'].setValue(this.profilDetailsArr?.address);
   }
 
   onSubmit() {
