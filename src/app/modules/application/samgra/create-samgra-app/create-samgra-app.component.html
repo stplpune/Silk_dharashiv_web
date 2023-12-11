@@ -29,13 +29,23 @@
                   <div class="col-sm-6">
                     <div class="d-flex gap-2">
                       <div class="form-label">Mobile Number</div>
-                      <div class="form-data">: 8669264767</div>
+                      <!-- <div class="form-data">: 8669264767</div> -->
+                      <mat-form-field appearance="outline" class="w-100">
+                        <input matInput placeholder="" formControlName="mobileNo1" maxlength="10"
+                          (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+                           <mat-error *ngIf="f['mobileNo1'].hasError('maxLength') "> Maximum limit is 10</mat-error>
+                      </mat-form-field>
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <div class="d-flex gap-2">
                       <div class="form-label">Aadhar Number</div>
-                      <div class="form-data">: 8669 2647 6774</div>
+                      <!-- <div class="form-data">: 8669 2647 6774</div> -->
+                      <mat-form-field appearance="outline" class="w-100">
+                        <input matInput placeholder="" formControlName="aadharNo" maxlength="12"
+                        (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+                        <mat-error *ngIf="f['aadharNo'].hasError('maxLength') "> Maximum limit is 12</mat-error>
+                      </mat-form-field>
                     </div>
                   </div>
                   <!-- <div class="col-sm-12">
@@ -52,8 +62,8 @@
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="fullName"
                           (keypress)="validation.noFirstSpaceAllow($event);validation.onlyAlphabetsWithSpace($event)">
-                      </mat-form-field>
-                      <!-- <mat-error *ngIf="f['fullName'].hasError('required') ">Please enter  applicant name</mat-error> -->
+                          <mat-error *ngIf="f['fullName'].hasError('required') ">Please enter applicant name</mat-error>
+                      </mat-form-field>                      
                     </div>
                   </div>
                   <!-- <div class="col-sm-12">
@@ -76,8 +86,8 @@
                 <div class="form-label">3. पर्यायी मोबाइल क्रमांक</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="mobileNo1" maxlength="10">
-                    <!-- <mat-error *ngIf="f['mobileNo2'].hasError('required') ">Please enter valid mobile No.</mat-error> -->
+                    <input matInput placeholder="" formControlName="mobileNo2" maxlength="10">
+                    <mat-error *ngIf="f['mobileNo2'].hasError('maxlength')">Please enter valid mobile No.</mat-error>
                   </mat-form-field>
                 </div>
               </div>
@@ -88,7 +98,7 @@
                     [max]="todayDate">
                   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
-                  <!-- <mat-error *ngIf="f['birthDate'].hasError('required') ">Please select birthdate</mat-error> -->
+                  <mat-error *ngIf="f['birthDate'].hasError('required') ">Please select birthdate</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
@@ -107,6 +117,7 @@
                     <mat-option *ngFor="let qualification of qualificationArray"
                       [value]="qualification.id">{{qualification.textEnglish}}</mat-option>
                   </mat-select>
+                  <mat-error *ngIf="f['qualificationId'].hasError('required') ">Please select qualification </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
@@ -115,7 +126,7 @@
                   [class]="WebStorageService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
                   <mat-select formControlName="stateId" (selectionChange)="getDisrict()">
                     <mat-option *ngFor="let state of stateArray" [value]="state.id">{{state.textEnglish}}</mat-option>
-                  </mat-select>
+                  </mat-select>                  
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
@@ -125,6 +136,7 @@
                     <mat-option *ngFor="let district of districtArray"
                       [value]="district.id">{{district.textEnglish}}</mat-option>
                   </mat-select>
+                  <mat-error *ngIf="f['districtId'].hasError('required') ">Please select birthdate</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
@@ -390,7 +402,7 @@
                   <div class="col-sm-4">
                     <div class="form-label">24.A. तुतीची सुधारित जात निवडा</div>
                     <mat-form-field appearance="outline" class="w-100">
-                      <mat-select>
+                      <mat-select formControlName="sm_ImprovedMulberryCast">
                         <mat-option *ngFor="let mulberryCast of mulberryCastArray"
                           [value]="mulberryCast.id">{{mulberryCast.textEnglish}}</mat-option>
                       </mat-select>
@@ -405,7 +417,7 @@
                   <div class="col-sm-4">
                     <div class="form-label">24.C. तुति लागवडीचा भुमपण क्रमांक ( गत नं / सर्व्हे नं ) :</div>
                     <mat-form-field appearance="outline" class="w-100">
-                      <input matInput placeholder="" formControlName="sm_LandSurveyNo">
+                      <input matInput placeholder="" formControlName="sm_PlantationSurveyNo">
                     </mat-form-field>
                   </div>
                   <div class="col-sm-4">
@@ -1064,11 +1076,7 @@
                       <div class="form-label">1. अर्जदाराचे नाव</div>
                       <span class=" form-data rounded-pill">:{{previewData?.fullName | dash}}</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">2. माझ्या शेतावर रेशीम विकास योजनेअंतर्गत तुती लागवड विभाग मार्फत करण्यात
-                        यावी
-                      </div>
-                    </li>
+                   
                   </ul>
                 </div>
                 <div class="col-sm-6">
@@ -1136,11 +1144,15 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">पिन कोड</div>
                   <span class=" form-data rounded-pill">:{{previewData?.pinCode | dash}}</span>
-                </li>
+                </li>   
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">मनरेगा जॉब कार्ड क्रं</div>
-                  <span class=" form-data rounded-pill">:{{previewData?.mn_JobCardNo | dash}}</span>
-                </li>
+                  <div class="form-label">मतदान नोंदणी क्रं</div>
+                  <span class=" form-data rounded-pill">:{{previewData?.sm_VoterRegistrationNo | dash}}</span>
+                </li>   
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="form-label">लाभार्थी दारिद्र्यरेशेखालील आहे का</div>
+                  <span class=" form-data rounded-pill">:{{previewData?.sm_IsBelowPovertyLine | dash}}</span>
+                </li>           
               </ul>
             </div>
             <div class="col-sm-8">
@@ -1153,126 +1165,188 @@
                       <span class="form-data  rounded-pill">:{{previewData?.benificiaryTotalFarm | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">लागवडीचा भुयांपान क्रं</div>
-                      <span class="form-data  rounded-pill">:{{previewData?.mulberryCultivatedSurveyNo | dash}}</span>
+                      <div class="form-label">भुदरन वर्गवारी निवडा</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_LandTenureCategories | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">लागवडीचा क्षेत्र हेक्टर ( मुद्दा क्रं 17 पेक्षा जसता नसावे)</div>
-                      <span class="form-data  rounded-pill">:{{previewData?.cultivatedFarmInHector | dash}}</span>
+                      <div class="form-label">जमिनीचा प्रकार</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.farmTypeId | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label"> संयक्त खातेदार आहात का? </div>
+                      <div class="form-label">सिंचांनाची सुविधा </div>
+                      <span class="form-data  rounded-pill">:{{previewData?.irrigationFacilityId | dash}}</span>                    
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">शासकीय योजने अंतर्गत तुति लागवड केली आहे का ?</div>
                       <span class="form-data  rounded-pill"
                         *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">:{{'approvalProcess.yes'|
-                        translate}}</span>
-                      <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.isAnyPlantedBeforeGovScheme == false">:{{'approvalProcess.no'|
-                        translate}}</span>
+                        translate}}</span>                    
                     </li>
                     <ng-container *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="d-flex gap-3">
-                          <div class="form-label">{{'approvalProcess.land_survey_no._of_land'| translate}}: </div>
-                          <div class="form-data">{{previewData?.applicantFarmSurveyNo | dash}}</div>
-                        </div>
-                        <div class="d-flex gap-2">
-                          <div class="form-label">{{'approvalProcess.its_area'| translate}}: </div>
-                          <div class="form-data">{{previewData?.applicantFarmArea | dash}}</div>
-                        </div>
-                      </li>
-                    </ng-container>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">जमिनीचा प्रकार </div>
-                      <span class="form-data  rounded-pill">{{lang == 'en' ? (previewData?.farmType | dash ) :
-                        (previewData?.m_FarmType | dash)}}</span>
+                      <div class="form-label"> लागवड वर्षं</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_YearOfPlanting | dash}}</span>                    
                     </li>
+
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">सिंचांनाची सोय </div>
-                      <span class="form-data  rounded-pill">{{lang == 'en' ? (previewData?.irrigationFacility | dash ) :
-                        (previewData?.m_IrrigationFacility | dash)}} </span>
+                      <div class="form-label">  लागवड क्षेत्र</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_CultivatedArea | dash}}</span>                    
                     </li>
+
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label"> रोजगार हमी व्यतिरिक्त इतर शासकीय योजना अंतर्गत पूर्वा फलबाग / फुलपिके /
-                        वृक्षकेली आहेत का ? </div>
-                      <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">{{this.lang == 'en' ? 'Yes' :
-                        'होय'}}</span>
-                      <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.isAnyPlantedBeforeGovScheme == false">{{this.lang == 'en' ? 'No' : 'नाही'}}
-                      </span>
+                      <div class="form-label"> भुमपण क्रमांक</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_LandSurveyNo | dash}}</span>                    
                     </li>
-                    <ng-container *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">
+                  </ng-container>
+                  <div class="form-label"> सध्या घेत असलेल्या पीक व उत्पादन तपशील</div>
+                    <ng-container >
                       <div class="table-responsive scrollbar">
-                        <table mat-table [dataSource]="previewData?.plantingDetails" class="dashboard-table">
+                        <table mat-table [dataSource]="previewData?.currentProducts" class="dashboard-table">
 
                           <!--- Note that these columns can be defined in any order.
                                 The actual rendered columns are set as a property on the row definition" -->
 
                           <!-- Position Column -->
-                          <ng-container matColumnDef="srNo">
-                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
-                            <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
+                          <ng-container matColumnDef="srno">
+                            <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
+                            <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
                           </ng-container>
-
-                          <ng-container matColumnDef="plantName">
-                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.orchard_flower_tree'| translate}}
-                            </th>
-                            <td mat-cell *matCellDef="let element"> {{element.plantName}} </td>
+      
+                          <ng-container matColumnDef="cropId">
+                            <th mat-header-cell *matHeaderCellDef> Crop Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element?.cropId || '-'}} </td>
                           </ng-container>
-
-                          <!-- Name Column -->
-                          <ng-container matColumnDef="gutNo">
-                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.group_no.'| translate}} </th>
-                            <td mat-cell *matCellDef="let element"> {{element.gutNo}} </td>
+      
+                          <ng-container matColumnDef="area">
+                            <th mat-header-cell *matHeaderCellDef> क्षेत्र एकर </th>
+                            <td mat-cell *matCellDef="let element"> {{element?.area || '-'}} </td>
                           </ng-container>
-
-                          <!-- Weight Column -->
-                          <ng-container matColumnDef="gutArea">
-                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.group_area'| translate}} </th>
-                            <td mat-cell *matCellDef="let element"> {{element.gutArea}} </td>
+      
+                          <ng-container matColumnDef="totalProduction">
+                            <th mat-header-cell *matHeaderCellDef> झालेले उत्पादन क्विंटल </th>
+                            <td mat-cell *matCellDef="let element"> {{element?.totalProduction || '-'}} </td>
                           </ng-container>
-
-                          <!-- Symbol Column -->
-                          <ng-container matColumnDef="cultivatedArea">
-                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.cultivated_area'| translate}}
-                            </th>
-                            <td mat-cell *matCellDef="let element"> {{element.cultivatedArea}} </td>
+                          <ng-container matColumnDef="averageRate">
+                            <th mat-header-cell *matHeaderCellDef> मिळालेला सरासरी दर प्रती क्विं रु </th>
+                            <td mat-cell *matCellDef="let element"> {{element?.averageRate || '-'}} </td>
                           </ng-container>
-
-                          <ng-container matColumnDef="cultivatedPlantsCount">
-                            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.number_of_trees_planted'|
-                              translate}} </th>
-                            <td mat-cell *matCellDef="let element"> {{element.cultivatedPlantsCount}} </td>
+                          <ng-container matColumnDef="totalProductionAmt">
+                            <th mat-header-cell *matHeaderCellDef> झालेला उत्पादन रु </th>
+                            <td mat-cell *matCellDef="let element"> {{element?.totalProductionAmt || '-'}} </td>
                           </ng-container>
-
-                          <tr mat-header-row *matHeaderRowDef="plantDisplayedColumns"></tr>
-                          <tr mat-row *matRowDef="let row; columns: plantDisplayedColumns;"></tr>
+                          <ng-container matColumnDef="totalExpenses">
+                            <th mat-header-cell *matHeaderCellDef> आलेला खर्चा रु </th>
+                            <td mat-cell *matCellDef="let element"> {{element?.totalExpenses || '-'}} </td>
+                          </ng-container>
+                          <ng-container matColumnDef="netIncome">
+                            <th mat-header-cell *matHeaderCellDef> झालेले निव्वळ उत्पन्न रु </th>
+                            <td mat-cell *matCellDef="let element"> {{element?.netIncome || '-'}} </td>
+                          </ng-container>
+                          <ng-container matColumnDef="acreNetIncome">
+                            <th mat-header-cell *matHeaderCellDef> प्रती एकर निव्वळ उत्पन्नरु </th>
+                            <td mat-cell *matCellDef="let element"> {{element?.acreNetIncome || '-'}} </td>
+                          </ng-container>
+      
+      
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns4;"></tr>
                         </table>
+                        <div *ngIf="!previewData?.currentProducts.length" class="alert alert-danger text-center mt-1 py-2 mb-0">
+                          <span> {{lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'}}</span>
+                        </div>
                       </div>
                     </ng-container>
 
+                    <div class="form-label"> तुति लागवड करावयाचा तपशील :</div>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label"> तुतीची सुधारित जात निवडा</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_ImprovedMulberryCast | dash}}</span>                    
+                    </li>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label"> रेशीम उद्योगाचे प्रशिक्षण स्वतः घेणार का उमेदवार पाठवणार ? </div>
-                      <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.isSelfTraining == true">{{'approvalProcess.send_candidate'|
-                        translate}}</span>
-                      <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.isSelfTraining == false">{{'approvalProcess.mySelf'| translate}}</span>
+                      <div class="form-label"> तुति लागवड अंतर फुट </div>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_MulberryPlantingDistance | dash}}</span>                    
                     </li>
-                    <ng-container *ngIf="previewData?.isSelfTraining == true">
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="d-flex gap-3">
-                          <div class="form-label">{{'approvalProcess.candidate_name'| translate}}: </div>
-                          <div class="form-data">{{previewData?.candidateName | dash}}</div>
-                        </div>
-                        <div class="d-flex gap-2">
-                          <div class="form-label">{{'approvalProcess.relation'| translate}}: </div>
-                          <div class="form-data">{{lang == 'en' ? (previewData?.relationName | dash ) :
-                            (previewData?.m_RelationName | dash)}}</div>
-                        </div>
-                      </li>
-                    </ng-container>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label"> तुति लागवडीचा भुमपण क्रमांक ( गत नं / सर्व्हे नं )</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_LandSurveyNo | dash}}</span>                    
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label"> तुति लागवड करावयाचे क्षेत्र ( एकर )</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_MulberryCultivationArea | dash}}</span>                    
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">  तुति लागवड करवायची पद्धत</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_PlantationMethod | dash}}</span>                    
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">रेशीम उद्योगातील अनुभव आहे का ?</div>
+                      <span class="form-data  rounded-pill"
+                        *ngIf="previewData?.sm_IsExperienceSilkIndustry == true">:{{'approvalProcess.yes'|
+                        translate}}</span>                    
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">रेशीम उद्योगातील प्रशिक्षण घेतले आहे ?</div>
+                      <span class="form-data  rounded-pill"
+                        *ngIf="previewData?.sm_IsSilkIndustrtyTrainingReceived == true">:{{'approvalProcess.yes'|
+                        translate}}</span>                    
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">रेशीम उद्योगातील घेतलेले प्रशिक्षण ?</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_SilkIndustrtyTrainingDetails}}</span>                    
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">रेशीम उद्योग करणार्‍या शेतकर्‍याकडे प्रत्यक्ष जाऊन माहिती घेतली आहे का</div>
+                      <span class="form-data  rounded-pill"
+                      *ngIf="previewData?.sm_IsEngagedInSilkIndustry == true">:{{'approvalProcess.yes'|
+                        translate}}</span>                    
+                    </li>
+                    
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label"> यापूर्वी रेशीम संचालनालय अंतर्गत कुठल्या योजनेचा लाभ घेतला आहे का</div>
+                      <span class="form-data  rounded-pill"
+                      *ngIf="previewData?.sm_IsTakenBenefitOfInternalScheme == true">:{{'approvalProcess.yes'|
+                        translate}}</span>                    
+                    </li>
+
+                    <div class="table-responsive scrollbar">
+                      <table mat-table [dataSource]="previewData?.internalSchemes" class="dashboard-table">
+    
+                        <ng-container matColumnDef="srno">
+                          <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
+                          <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="internalSchemeName">
+                          <th mat-header-cell *matHeaderCellDef> Crop Name </th>
+                          <td mat-cell *matCellDef="let element"> {{element?.internalSchemeName || '-'}} </td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="schemeTakenDate">
+                          <th mat-header-cell *matHeaderCellDef> क्षेत्र एकर </th>
+                          <td mat-cell *matCellDef="let element"> {{element?.schemeTakenDate || '-'}} </td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="totalBenefitTaken">
+                          <th mat-header-cell *matHeaderCellDef> झालेले उत्पादन क्विंटल </th>
+                          <td mat-cell *matCellDef="let element"> {{element?.totalBenefitTaken || '-'}} </td>
+                        </ng-container>  
+                        
+    
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns5"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns5;"></tr>
+                      </table>
+                      <div *ngIf="!internalSchemesArray.length" class="alert alert-danger text-center mt-1 py-2 mb-0">
+                        <span> {{lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'}}</span>
+                      </div>
+                    </div>
 
                   </ul>
                 </div>
@@ -1308,7 +1382,7 @@
                   <div class="text-main fw-bold">कागदपत्रे</div>
                   <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">मनरेगा जॉब कार्ड </div>
+                      <div class="form-label">1. आधारर कार्ड छायांकित प्रत</div>
                       <span class="form-data  rounded-pill">
                         <mat-icon class="material-symbols-outlined">
                           visibility
@@ -1316,7 +1390,7 @@
                       </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">जमिनीचा 8-अ </div>
+                      <div class="form-label">2. जमिनीचा 7/12 तुति नोंद असलेला किवा तलाठी प्रांणपतरा अपलोड करा</div>
                       <span class="form-data  rounded-pill">
                         <mat-icon class="material-symbols-outlined">
                           visibility
@@ -1324,7 +1398,7 @@
                       </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">जमींचा 7/12 उतारा </div>
+                      <div class="form-label">3. जमिनीचा 8-अ उतारा येथे जोडा </div>
                       <span class="form-data  rounded-pill">
                         <mat-icon class="material-symbols-outlined">
                           visibility
@@ -1332,7 +1406,31 @@
                       </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">बँक पासबूक/ किवा रद्द केलेला चेक </div>
+                      <div class="form-label">4.जमिनीचा चतुःसीमा नकाशा अपलोड करा</div>
+                      <span class="form-data  rounded-pill">
+                        <mat-icon class="material-symbols-outlined">
+                          visibility
+                        </mat-icon>
+                      </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">5. आधार संलग्न राष्ट्रीय बँक पासबूक प्रथम पानाची छायांकित प्रत (फोटोसहित ) अपलोड करा</div>
+                      <span class="form-data  rounded-pill">
+                        <mat-icon class="material-symbols-outlined">
+                          visibility
+                        </mat-icon>
+                      </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">6. जातीचे प्रमाणपत्र ( अनूजाती / अनू जमाती शेतकर्‍यांसाठी येथे अपलोड करा )</div>
+                      <span class="form-data  rounded-pill">
+                        <mat-icon class="material-symbols-outlined">
+                          visibility
+                        </mat-icon>
+                      </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">7. पाणी उपलब्धता प्रमाणपत्र अपलोड करा</div>
                       <span class="form-data  rounded-pill">
                         <mat-icon class="material-symbols-outlined">
                           visibility
@@ -1347,101 +1445,38 @@
 
           <div class="text-main fw-bold">स्वयंघोशापत्र</div>
 
-          <div class="d-flex align-items-center gap-2">
-            <!-- <mat-checkbox checked="true"></mat-checkbox> -->
-            <p class="form-label">
-              वरील प्रमाणे महात्मा गांधी रोजगार हमी योजनेशी निगडित रेशीम उद्योग विकास / तुती लागवड योजनेअंतर्गत मी अर्ज
-              केला आहे. त्यास मंजुरी मिळाल्यास त्याकरिता माझ्या / आमच्या मालकीच्या / जमिनीवर हि योजना राबविण्यास संमती
-              देत
-              आहे / आहोत
-            </p>
+          <div class="container-fluid">
+            <ul class="list-unstyled">
+              <li>
+                <div class="d-flex align-items-center  gap-2">
+                  <mat-checkbox class="example-margin" [checked]="previewData?.sm_IsReadyToPlantNewMulberries == true" ></mat-checkbox>
+                  <p class="form-label mb-0">
+                    नविन तुती लागवड मी स्वखर्चाने करण्यास तयार आहे रेशीम. □ संचालनालयाचे वेळोवेळी ठरवुन दिलेल्या नियम व
+                    अटी मला मान्य आहे.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="d-flex align-items-center  gap-2">
+                  <mat-checkbox class="example-margin" [checked]="previewData?.sm_IsHonestlyProtectPlan == true" ></mat-checkbox>
+                  <p class="form-label mb-0">
+                    योजने अंतर्गत ठरवुन दिलेल्या माणकाप्रमाणे तुती लागवडीस योग्य जमीनीत, सुधारित वाणाची तुती लागवड
+                    कार्यालयाने शिफारस □ केलेल्या अंतरावर करणेस व तुती लागवडीची सुयोग्य जोपासना करण्याची मी हमी देत आहे.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="d-flex align-items-center  gap-2">
+                  <mat-checkbox class="example-margin"  [checked]="previewData?.sm_IsRequestForYourPriorConsent == true" ></mat-checkbox>
+                  <p class="form-label mb-0">
+                    अर्जामध्ये वरिलप्रमाणे नमूद केलेली सर्व माहिती बरोबर असून त्यात काही चुकीची माहीती भरुन अनुदानाचा
+                    फायदा उचल केल्याचे निर्देशनास आल्यास मी कायदेशीर कारवाईस पात्र ठरेन □ तरी मला केंद्र पुरस्कृत 'सिल्क
+                    समग्र-2' योजने अंतर्गत 02 एकर तुती लागवड योजने सहभागी होणेस आपली पुर्वसंमती मिळावी हि विनंती
+                  </p>
+                </div>
+              </li>
+            </ul>
           </div>
-          <ul class="list-unstyled">
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isHonestLabor == true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  सदर ची योजना राबविण्याकरिता मी स्वतः / माझे कुटुंबातील कार्यक्षम व्यक्ती महात्मा गांधी राष्ट्रीय
-                  ग्रामीण रोजगार हमी योजनेतील प्रामाणिक मजूर म्हणून घोषित करीत आहे / आहोत.
-                  □ या योजनेकरिता होणारी सर्व कामे प्रामुख्याने पूर्ण करण्याची जबाबदारी माझी किव्हा जॉबकार्ड धारक
-                  मजुरांकडून करून
-                  घेण्याची जबाबदारी माझी / आमची राहील.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex  align-items-center gap-2">
-                <mat-checkbox [checked]="previewData?.isSelfTransport == true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  योजने अंतर्गत आवश्यक कलमे / रोपांची वाहतूक मला स्वतः
-                  करावी लागेल याची मला कल्पना देण्यात आलेली असून मला ते मान्य आहे
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isEligibleGettingInstallmentAmount == true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  झाडांची लागवड केल्यानंतर हप्ता रक्कम मिळण्यासाठीचे पात्रता निकष मला अवगत करून देण्यात आलेले असून ते
-                  मला मान्य राहतील,
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isBoundByConditions == true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  या योजनेचे नियम व अटी मला बंधनकारक आहे व त्यानुसार मी कलाम / रोपांची लागवड / संगोपन / संरक्षण करीन.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isPayMoreThanLimitedAmt == true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  सदर योजनेअंतर्गत एकूण क्षेत्राप्रमाणे व नमुन्याप्रमाणे शासनाने Ο प्रतिवर्षी मंजूर केलेल्या मयदिच्या
-                  प्रमाणकापेक्षा जास्त खर्च झाल् मी / स्वतः करील
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isSignedOnLetter == true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजनेशी निगडित
-
-                  रेशीम उद्योग विकास / तुती लागवड योजनेची माहिती मला / आम्हाला मान्य असल्याव काबुल क करून त्याप्रमाणे
-                  करार पत्रावर सह्या केल्या आहेत
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isChangedAcceptable == true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  या योजनेअंतर्गत शासन वेळोवेळी जे बदल करेल अथवा अटी ■ घालेल त्या अटी / बदल मला / आम्हाला मान्य राहतील.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isSchemeCorrectAsPerSatbara == true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  महात्मा गांधी राष्टीय ग्रामीण रोजगार हमी योजनेअंतर्गत रेशीम उद्योग विकास / तुती लागवड योजनेमध्ये
-                  समाविष्ठ करून / घ्या करीता मी / आम्ही दिलेला तपशील ७/१२ चे उताऱ्याप्रमाणे बरोबर आहे.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isJointAccHolderTermAcceptable == true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  मी / आम्ही संयुक्त खातेदार असून माझ्या / आमच्या हिश्याच्या □ भूमापन क्र. १२६० मध्ये १ हेक्टर
-                  क्षेत्रावर लागवड करण्यास परवानगी दिल्यास वरील अटी मला / आम्हाला मान्य राहतील
-                </p>
-              </div>
-            </li>
-          </ul>
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">Previous</button>

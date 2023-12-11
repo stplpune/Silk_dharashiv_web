@@ -67,7 +67,9 @@ export class CreateSamgraAppComponent {
   displayedColumns: string[] = ['srno', 'cropId', 'area', 'totalProduction', 'averageRate', 'totalProductionAmt', 'totalExpenses', 'netIncome', 'acreNetIncome', 'action'];
   displayedColumns1: string[] = ['srno', 'internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken', 'action'];
   displayedColumns2: string[] = ['srno', 'docname', 'docNo', 'action'];
-  plantDisplayedColumns = ['srNo', 'plantName', 'gutNo', 'gutArea', 'cultivatedArea', 'cultivatedPlantsCount'];
+  displayedColumns4: string[] = ['srno', 'cropId', 'area', 'totalProduction', 'averageRate', 'totalProductionAmt', 'totalExpenses', 'netIncome', 'acreNetIncome'];
+  displayedColumns5: string[] = ['srno', 'internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken'];
+  
 
   docUploadedPath: string = '';
   docArray = [{ id: 0, docTypeId: 16, docPath: '', docNo: '', docname: '' }, { id: 0, docTypeId: 18, docPath: '', docNo: '', docname: '' }, { id: 0, docTypeId: 19, docPath: '', docNo: '', docname: '' }, { id: 0, docTypeId: 21, docPath: '', docNo: '', docname: '' }, { id: 0, docTypeId: 11, docPath: '', docNo: '', docname: '' }, { id: 0, docTypeId: 25, docPath: '', docNo: '', docname: '' }, { id: 0, docTypeId: 14, docPath: '', docNo: '', docname: '' }, { id: 0, docTypeId: 8, docPath: '', docNo: '', docname: '' }]
@@ -142,6 +144,8 @@ export class CreateSamgraAppComponent {
     this.samgraForm = this.fb.group({
       "fullName": ['', [Validators.required, Validators.maxLength(100)]],
       "mobileNo1": ['', [Validators.maxLength(10)]],
+      "mobileNo2": ['', [Validators.maxLength(10)]],
+      "aadharNo": ['', [Validators.maxLength(12)]],
       "birthDate": ['', [Validators.required]],
       "gender": [1],
       "qualificationId": ['', [Validators.required]],
@@ -149,9 +153,9 @@ export class CreateSamgraAppComponent {
       "districtId": [this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],
       "talukaId": [this.WebStorageService.getTalukaId() == '' ? 0 : this.WebStorageService.getTalukaId(), [Validators.required]],
       "grampanchayatId": [this.WebStorageService.getGrampanchayatId() == '' ? 0 : this.WebStorageService.getGrampanchayatId(), [Validators.required]],
-      "village": ['', [Validators.required]],
+      "village": ['', [Validators.required,Validators.maxLength(30),Validators.pattern(this.validation.fullName)]],
       "pinCode": ['', [Validators.required, Validators.maxLength(6)]],//numeric
-      "sm_VoterRegistrationNo": [''],
+      "sm_VoterRegistrationNo": ['',Validators.maxLength(50)],
       "address": ['', [Validators.required, Validators.maxLength(200)]],
       "sm_IsBelowPovertyLine": false,
       // category validation remaning 
@@ -160,20 +164,22 @@ export class CreateSamgraAppComponent {
 
   landDetailsFormData() {
     this.landDetailsForm = this.fb.group({
-      "benificiaryTotalFarm": ['', [Validators.required, Validators.maxLength(5)]],
-      "sm_LandTenureCategories": 0,
+      "benificiaryTotalFarm": ['', [Validators.required, Validators.maxLength(4)]],
+      "sm_LandTenureCategories": ['', [Validators.required]],
       "farmTypeId": ['', [Validators.required]],
       "irrigationFacilityId": ['', [Validators.required]],
-      "sm_IrrigationPeriod": 0,
+      "sm_IrrigationPeriod": ['', [Validators.required]],
       "isAnyPlantedBeforeGovScheme": false,
       "sm_YearOfPlanting": [''],
       "sm_CultivatedArea": [''],
       "sm_LandSurveyNo": [''],
-      "sm_MulberryPlantingDistance": [''],
-      "sm_MulberryCultivationArea": [0],
-      "sm_PlantationMethod": [0],
+      "sm_ImprovedMulberryCast": ['', [Validators.required]],
+      "sm_MulberryPlantingDistance": ['',[Validators.required,Validators.maxLength(4)]],
+      "sm_PlantationSurveyNo": ['',Validators.required,Validators.maxLength(6)],
+      "sm_MulberryCultivationArea":  ['',Validators.required,Validators.maxLength(6)],
+      "sm_PlantationMethod": ['',[Validators.required]],
       "sm_IsExperienceSilkIndustry": false,
-      "sm_ExperienceYears": [''],
+      "sm_ExperienceYears": [''], //show hide on radio button
       "sm_IsSilkIndustrtyTrainingReceived": false,
       "sm_SilkIndustrtyTrainingDetails": [''],
       "sm_IsTakenBenefitOfInternalScheme": false,
@@ -185,8 +191,8 @@ export class CreateSamgraAppComponent {
     this.bankDetailsForm = this.fb.group({
       "bankId": ['', [Validators.required]],
       "bankBranchId": ['', [Validators.required]],
-      "bankIFSCCode": ['', [Validators.required, Validators.maxLength(30)]],
-      "bankAccountNo": ['', [Validators.required, Validators.maxLength(30)]],
+      "bankIFSCCode": ['', [Validators.required, Validators.maxLength(30),Validators.pattern(this.validation.alphaNumericWithSpace)]],
+      "bankAccountNo": ['', [Validators.required, Validators.maxLength(30),Validators.pattern(this.validation.alphaNumericWithSpace)]],
     })
   }
   get fIS() { return this.internalSchemes.controls }
@@ -455,10 +461,6 @@ export class CreateSamgraAppComponent {
 
   //#region -------------------------------------------------page submit method start heare-------------------------------------------------- 
   onSubmit(flag: any) {
-    console.log("flag", flag);
-
-    //internal scheem form validation remove remaning 
-
     let samgraFormValue = this.samgraForm.getRawValue();
     let landDetailsFormValue = this.landDetailsForm.value;
     let bankDetailsFormValue = this.bankDetailsForm.getRawValue();
@@ -470,8 +472,14 @@ export class CreateSamgraAppComponent {
     landDetailsFormValue.sm_MulberryPlantingDistance == '' ? landDetailsFormValue.sm_MulberryPlantingDistance = 0 : '';
     landDetailsFormValue.sm_YearOfPlanting == '' ? landDetailsFormValue.sm_YearOfPlanting = new Date() : '';
     landDetailsFormValue.sm_CultivatedArea == '' ? landDetailsFormValue.sm_CultivatedArea = 0 : '';
+    landDetailsFormValue.sm_ImprovedMulberryCast == '' ? landDetailsFormValue.sm_ImprovedMulberryCast = 0 : '';
+    landDetailsFormValue.sm_IrrigationPeriod == '' ? landDetailsFormValue.sm_IrrigationPeriod = 0 : '';
+    landDetailsFormValue.sm_MulberryCultivationArea == '' ? landDetailsFormValue.sm_MulberryCultivationArea = 0 : '';
+    landDetailsFormValue.sm_PlantationMethod == '' ? landDetailsFormValue.sm_PlantationMethod = 0 : '';
+    landDetailsFormValue.sm_LandTenureCategories == '' ? landDetailsFormValue.sm_LandTenureCategories = 0 : '';
     bankDetailsFormValue.bankId == '' ? bankDetailsFormValue.bankId = 0 : '';
     bankDetailsFormValue.bankBranchId == '' ? bankDetailsFormValue.bankBranchId = 0 : '';
+    
 
 
     let formDocuments = this.docArray.concat(this.otherDocArray);
@@ -492,8 +500,6 @@ export class CreateSamgraAppComponent {
       "profilePhotoPath": this.profileImageUrl || '',
       "m_FullName": "",
       "mn_DepartmentId": 0,
-      "mobileNo2": "",
-      "aadharNo": "",
       "isAgreeReadableInfo": true,
       "m_Address": "",
       "mn_JobCardNo": "",
@@ -507,8 +513,6 @@ export class CreateSamgraAppComponent {
       "gutArea": "",
       "plantCultivatedArea": 0,
       "noOfPlant": 0,
-      "sm_ImprovedMulberryCast": 0,
-      "sm_PlantationSurveyNo": "",
       "sm_ExperienceYears": 0,
       "isSelfTraining": true,
       "candidateName": "",
@@ -761,6 +765,8 @@ export class CreateSamgraAppComponent {
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.previewData = res.responseData;
+          console.log("this.previewData",this.previewData);
+          
         } else {
           this.previewData = [];
         }

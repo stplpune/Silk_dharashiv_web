@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { MasterService } from 'src/app/core/services/master.service';
+import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class AddDetailsComponent {
     private fb :FormBuilder,
     private masterService : MasterService,
     private WebStorageService : WebStorageService,
+    public validation :ValidationService,
     public dialogRef: MatDialogRef<AddDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
@@ -40,13 +42,13 @@ export class AddDetailsComponent {
       "id": [0  ],
       "applicationId": [0 ],
       "cropId": ['' || this.data?.cropId ,[Validators.required]],
-      "area": ['' || this.data?.area ,[Validators.required]],
-      "totalProduction": ['' || this.data?.totalProduction,[Validators.required]],
-      "averageRate": ['' || this.data?.averageRate,[Validators.required]],
-      "totalProductionAmt": ['' || this.data?.totalProductionAmt,[Validators.required]],
-      "totalExpenses": [''  || this.data?.totalExpenses,[Validators.required]],
-      "netIncome": ['' || this.data?.netIncome,[Validators.required]],
-      "acreNetIncome": ['' || this.data?.acreNetIncome,[Validators.required]],
+      "area": ['' || this.data?.area ,[Validators.required,Validators.maxLength(6),Validators.pattern('^([0-9 .])')]],
+      "totalProduction": ['' || this.data?.totalProduction,[Validators.required,Validators.maxLength(10),Validators.pattern(this.validation.onlyNumbers)]],
+      "averageRate": ['' || this.data?.averageRate,[Validators.required,Validators.maxLength(10),Validators.pattern(this.validation.onlyNumbers)]],
+      "totalProductionAmt": ['' || this.data?.totalProductionAmt,[Validators.required,Validators.maxLength(10),Validators.pattern(this.validation.onlyNumbers)]],
+      "totalExpenses": [''  || this.data?.totalExpenses,[Validators.required,Validators.maxLength(10),Validators.pattern(this.validation.onlyNumbers)]],
+      "netIncome": ['' || this.data?.netIncome,[Validators.required,Validators.maxLength(10),Validators.pattern(this.validation.onlyNumbers)]],
+      "acreNetIncome": ['' || this.data?.acreNetIncome,[Validators.required,Validators.maxLength(10),Validators.pattern(this.validation.onlyNumbers)]],
       "createdBy": 0,    
       "isDeleted": true,
     })
