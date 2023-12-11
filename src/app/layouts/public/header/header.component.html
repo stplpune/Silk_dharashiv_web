@@ -27,7 +27,7 @@
 </nav> -->
 <div class="container border-bottom border-secondary-subtle">
   <div class="row align-items-center g-2" id="topbar">
-    <div class="col-sm">
+    <div class="col-sm col">
       <div class="news-ticker">
         <div class="news-left">
           News
@@ -39,17 +39,23 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-auto">
+    <div class="col-sm-auto col-auto">
       <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
         <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-        <label class="btn btn-outline-primary" for="btnradio1">English</label>
+        <label class="btn btn-outline-primary" for="btnradio1">
+          <div class="d-lg-block d-none">English</div>
+          <div class="d-block d-lg-none">En</div>
+        </label>
         <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-        <label class="btn btn-outline-primary" for="btnradio2">मराठी</label>
+        <label class="btn btn-outline-primary" for="btnradio2">
+          <div class="d-lg-block d-none">मराठी</div>
+          <div class="d-block d-lg-none">म</div>
+        </label>
       </div>
     </div>
   </div>
 </div>
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg" [ngClass]="isNavbarFixed?'fixed':'notfixed'" (scroll)="onScroll()">
   <div class="container">
     <a class="navbar-brand" href="#">
       <img src="assets/images/logo-text.svg">
@@ -60,11 +66,11 @@
     </button>
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-between flex-grow-1 ms-3">
+        <ul class="navbar-nav justify-content-between flex-grow-1">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>

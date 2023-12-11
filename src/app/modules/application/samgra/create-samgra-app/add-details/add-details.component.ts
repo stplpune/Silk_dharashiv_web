@@ -37,8 +37,8 @@ export class AddDetailsComponent {
 
   cropDetailsFormData() {
     this.cropDetailsForm = this.fb.group({
-      "id": [0 || this.data?.id ],
-      "applicationId": [0 || this.data?.id ],
+      "id": [0  ],
+      "applicationId": [0 ],
       "cropId": ['' || this.data?.cropId ,[Validators.required]],
       "area": ['' || this.data?.area ,[Validators.required]],
       "totalProduction": ['' || this.data?.totalProduction,[Validators.required]],
@@ -69,7 +69,9 @@ export class AddDetailsComponent {
 
 
   onSubmit(){    
-    let formValue = this.cropDetailsForm.value;
+    let formValue = this.cropDetailsForm.getRawValue();
+    console.log("formValue",formValue);
+    
     if(this.cropDetailsForm.invalid){
       return;
     }else{

@@ -19,6 +19,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AddDetailsComponent } from './add-details/add-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -43,7 +45,9 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     MatDatepickerModule,        // <----- import(must)
     MatNativeDateModule,
     ReactiveFormsModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    DashPipe,
+    TranslateModule
   ]
 })
 export class CreateSamgraAppModule { }

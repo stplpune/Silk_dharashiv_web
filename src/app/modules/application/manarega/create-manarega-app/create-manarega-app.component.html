@@ -84,7 +84,7 @@
                       </mat-error>
                       <mat-error *ngIf="f['fullName']?.errors">
                         <span class="text-danger"
-                          *ngIf="f['fullName']?.hasError('maxLengthExceeded') || f['fullName']?.hasError('minLengthExceeded')">
+                          *ngIf="f['fullName']?.hasError('maxLengthExceeded') || f['fullName']?.hasError('minLengthNotMet')">
                           {{f['fullName'].hasError('maxLengthExceeded') ?
                           ('common.address_maximum_100_character_allowed'|translate) :
                           ('common.fullName_minLength'|translate)}}
@@ -1444,6 +1444,24 @@
                       </span>
                     </li>
                    </ng-container>
+                   <ng-container *ngIf="doc.docId == 7">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">Other Documents </div>
+                      <span class="form-data  rounded-pill" (click)="viewPreviewDocument(7)">
+                        <mat-icon class="material-symbols-outlined">
+                          visibility
+                        </mat-icon>
+                      </span>
+                    </li>
+                   </ng-container>
+                   <!-- <ng-container *ngIf="getDocumentsWithDocId7().length > 0 && doc.docId == 7">
+                    <li *ngFor="let doc of getDocumentsWithDocId7()" class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">{{ doc.documentName }}</div>
+                      <span class="form-data rounded-pill" (click)="viewPreviewDocument(doc.documentPath)">
+                        <mat-icon class="material-symbols-outlined">visibility</mat-icon>
+                      </span>
+                    </li>
+                  </ng-container> -->
                   </ul>
                 </div>
               </div>
@@ -1464,7 +1482,7 @@
           <ul class="list-unstyled">
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isHonestLabor == true"></mat-checkbox>
+                <mat-checkbox [class.disable]="true" [checked]="previewData?.isHonestLabor == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   सदर ची योजना राबविण्याकरिता मी स्वतः / माझे कुटुंबातील कार्यक्षम व्यक्ती महात्मा गांधी राष्ट्रीय
                   ग्रामीण रोजगार हमी योजनेतील प्रामाणिक मजूर म्हणून घोषित करीत आहे / आहोत.
@@ -1476,7 +1494,7 @@
             </li>
             <li>
               <div class="d-flex  align-items-center gap-2">
-                <mat-checkbox [checked]="previewData?.isSelfTransport == true"></mat-checkbox>
+                <mat-checkbox [class.disable]="true" [checked]="previewData?.isSelfTransport == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   योजने अंतर्गत आवश्यक कलमे / रोपांची वाहतूक मला स्वतः
                   करावी लागेल याची मला कल्पना देण्यात आलेली असून मला ते मान्य आहे
@@ -1485,7 +1503,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isEligibleGettingInstallmentAmount == true"></mat-checkbox>
+                <mat-checkbox [class.disable]="true" [checked]="previewData?.isEligibleGettingInstallmentAmount == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   झाडांची लागवड केल्यानंतर हप्ता रक्कम मिळण्यासाठीचे पात्रता निकष मला अवगत करून देण्यात आलेले असून ते
                   मला मान्य राहतील,
@@ -1494,7 +1512,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isBoundByConditions == true"></mat-checkbox>
+                <mat-checkbox [class.disable]="true" [checked]="previewData?.isBoundByConditions == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   या योजनेचे नियम व अटी मला बंधनकारक आहे व त्यानुसार मी कलाम / रोपांची लागवड / संगोपन / संरक्षण करीन.
                 </p>
@@ -1502,7 +1520,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isPayMoreThanLimitedAmt == true"></mat-checkbox>
+                <mat-checkbox [class.disable]="true" [checked]="previewData?.isPayMoreThanLimitedAmt == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   सदर योजनेअंतर्गत एकूण क्षेत्राप्रमाणे व नमुन्याप्रमाणे शासनाने Ο प्रतिवर्षी मंजूर केलेल्या मयदिच्या
                   प्रमाणकापेक्षा जास्त खर्च झाल् मी / स्वतः करील
@@ -1511,7 +1529,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isSignedOnLetter == true"></mat-checkbox>
+                <mat-checkbox [class.disable]="true" [checked]="previewData?.isSignedOnLetter == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजनेशी निगडित
 
@@ -1522,7 +1540,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isChangedAcceptable == true"></mat-checkbox>
+                <mat-checkbox [class.disable]="true" [checked]="previewData?.isChangedAcceptable == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   या योजनेअंतर्गत शासन वेळोवेळी जे बदल करेल अथवा अटी ■ घालेल त्या अटी / बदल मला / आम्हाला मान्य राहतील.
                 </p>
@@ -1530,7 +1548,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isSchemeCorrectAsPerSatbara == true"></mat-checkbox>
+                <mat-checkbox [class.disable]="true" [checked]="previewData?.isSchemeCorrectAsPerSatbara == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   महात्मा गांधी राष्टीय ग्रामीण रोजगार हमी योजनेअंतर्गत रेशीम उद्योग विकास / तुती लागवड योजनेमध्ये
                   समाविष्ठ करून / घ्या करीता मी / आम्ही दिलेला तपशील ७/१२ चे उताऱ्याप्रमाणे बरोबर आहे.
@@ -1539,7 +1557,7 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [checked]="previewData?.isJointAccHolderTermAcceptable == true"></mat-checkbox>
+                <mat-checkbox [class.disable]="true" [checked]="previewData?.isJointAccHolderTermAcceptable == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   मी / आम्ही संयुक्त खातेदार असून माझ्या / आमच्या हिश्याच्या □ भूमापन क्र. १२६० मध्ये १ हेक्टर
                   क्षेत्रावर लागवड करण्यास परवानगी दिल्यास वरील अटी मला / आम्हाला मान्य राहतील
@@ -1564,28 +1582,35 @@
           <div class="row align-items-center ">
             <div class="col-sm-4">
               <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
+                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                (click)="selImg7.value='';selImg7.click()">File
                   Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
+                <input type="file"  accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"  #selImg7
+                (change)="fileUpload($event,docArray[4].docTypeId,'documents')" />
+                <ng-container *ngIf="docArray[4].docPath">
                 <div class="d-flex gap-2">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
+                    matTooltip="view" (click)="viewimages(this.docArray[4].docPath)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
                   <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
+                    matTooltip="delete" (click)="deleteDocument(docArray[4].docTypeId)">
                     <mat-icon class="material-symbols-rounded">
                       delete
                     </mat-icon>
                   </button>
                 </div>
+                </ng-container>
               </div>
             </div>
+
+          
+
             <div class="col-sm">
-              <button mat-flat-button class="btn-main">प्रस्तुत करा</button>
+              <button mat-flat-button class="btn-main" type="submit" (click)="onSubmit()">प्रस्तुत करा</button>
             </div>
           </div>
         </div>

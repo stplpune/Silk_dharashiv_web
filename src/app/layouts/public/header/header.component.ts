@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
@@ -9,6 +9,16 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  sampleData: string = '';
+  isNavbarFixed: boolean = false;
+  @HostListener('window:scroll', ['$event']) onScroll() {
+    if (window.scrollY > 100) {
+      this.isNavbarFixed = true;
+    } else {
+      this.isNavbarFixed = false;
+    }
+  }
+
   language: string = 'English';
   lag = ['English', 'Marathi'];
   selLang!: string;
@@ -19,8 +29,8 @@ export class HeaderComponent {
 
   constructor(private webStorage: WebStorageService,
     private translate: TranslateService) {
-      localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
-      this.translate.use(this.getLangForLocalStor)
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor)
   }
 
   ngOnInit() {
