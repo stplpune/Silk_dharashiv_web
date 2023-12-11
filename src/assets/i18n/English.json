@@ -1,4 +1,19 @@
 {
+  "dashboard":{
+    "total_applications":"Total Applications",
+"total_beneficiaries":"Total Beneficiaries",
+"land_cultivated":"Land Cultivated",
+"hector":"(Hector)",
+"total_DBT":"Total DBT(INR)",
+"approved":"Approved",
+"pending":"Pending",
+"Resend":"Resend",
+"Rejected":"Rejected",
+"manrega":"Manrega",
+"silk_samgra":"SILK SAMGRA-2"
+
+  },
+
   "common": {
     "update": "Update",
     "edit": "Edit",

@@ -1,4 +1,18 @@
 {
+  "dashboard":{
+    "total_applications":"एकूण अर्ज",
+    "total_beneficiaries":"एकूण लाभार्थी",
+    "land_cultivated":"लागवड केलेली जमीन",
+    "hector":"(हेक्टर)",
+    "total_DBT":"एकूण DBT(INR)",
+    "approved":"मंजूर",
+    "pending":"प्रलंबित",
+    "resend":"पुन्हा पाठवा",
+    "rejected":"नाकारले",
+    "manrega":"मनरेगा",
+    "silk_samgra":"रेशीम समग्र-२"
+  },
+
   "common": {
     "update": "अपडेट",
     "edit": "संपादित",
