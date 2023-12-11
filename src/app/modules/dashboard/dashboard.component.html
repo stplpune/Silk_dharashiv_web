@@ -153,7 +153,7 @@
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <h2>{{manaregaCount}}</h2>
-                            <p>{{manaregaArray[0]?.schemeType}}</p>
+                            <p>{{lang == 'en' ? manaregaArray[0]?.schemeType : manaregaArray[0]?.m_SchemeType}}</p>
                         </div>
                     </div>
                 </div>
@@ -212,7 +212,7 @@
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <h2>{{samgraCount}}</h2>
-                            <p>{{samgraArray[0]?.schemeType}}</p>
+                            <p>{{lang == 'en' ? samgraArray[0]?.schemeType : samgraArray[0]?.m_SchemeType}}</p>
                         </div>
                     </div>
                 </div>
