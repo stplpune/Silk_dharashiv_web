@@ -496,7 +496,7 @@ export class CreateSamgraAppComponent {
         "applicationNo": "",
         "profilePhotoPath": this.profileImageUrl || '',
         "m_FullName": "",
-        "mn_DepartmentId": 0,
+        "mn_DepartmentId": 3,
         "isAgreeReadableInfo": true,
         "m_Address": "",
         "mn_JobCardNo": "",
