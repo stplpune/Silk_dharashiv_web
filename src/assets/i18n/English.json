@@ -767,6 +767,19 @@
 
 
 
+  },
+  "farmerLogin":{
+    "farmer_login":"Farmer Login",
+    "mobile": "Mobile No",
+    "please_enter_mobile_number": "Please enter mobile number",
+    "please_enter_valid_mobile_no": "Please enter valid mobile number",
+    "otp_will_be_send_to_your_registered_mobile_number":"OTP will be send to your registered mobile number",
+    "send_otp": "Send OTP",
+    "resend_otp": "Resend OTP?",
+    "enter_otp": "Enter OTP",
+    "verify_otp": "Verify OTP",
+    "back_to_login": "Back To Login"
   }
 
 }
+
