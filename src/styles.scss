@@ -119,20 +119,35 @@ a.text-main:hover {
     margin: 0 !important;
 }
 
-.page-heading {
+.page-header {
+    background-image: url('assets/images/page-bg.png');
+    height: 250px;
+    background-repeat: no-repeat;
+    background-size: contain;
     display: flex;
     align-items: center;
+    padding-inline: 3rem;
     justify-content: space-between;
-    font-size: 0.85rem;
-    margin-bottom: 10px;
+    margin-bottom: 2rem;
 }
 
-.page-heading .page-name {
-    font-weight: 500;
+.page-header .page-name {
+    color: #fff;
+    text-transform: capitalize;
+    font-size: 3rem;
 }
 
-.page-heading .mat-mdc-form-field-subscript-wrapper {
-    display: none;
+.page-header .breadcrumb {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.page-header .breadcrumb-item+.breadcrumb-item::before,
+.page-header .breadcrumb .breadcrumb-item,
+.page-header .breadcrumb .breadcrumb-item a {
+    color: #fff;
+    text-decoration: none;
 }
 
 .plain-card {
@@ -413,6 +428,6 @@ a {
 
 
 // for officer reg table status column
-.officer-table table tbody tr td:nth-child(8){
-  text-align: center !important;
+.officer-table table tbody tr td:nth-child(8) {
+    text-align: center !important;
 }
