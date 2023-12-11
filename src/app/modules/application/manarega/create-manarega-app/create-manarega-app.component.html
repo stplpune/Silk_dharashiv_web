@@ -84,7 +84,7 @@
                       </mat-error>
                       <mat-error *ngIf="f['fullName']?.errors">
                         <span class="text-danger"
-                          *ngIf="f['fullName']?.hasError('maxLengthExceeded') || f['fullName']?.hasError('minLengthExceeded')">
+                          *ngIf="f['fullName']?.hasError('maxLengthExceeded') || f['fullName']?.hasError('minLengthNotMet')">
                           {{f['fullName'].hasError('maxLengthExceeded') ?
                           ('common.address_maximum_100_character_allowed'|translate) :
                           ('common.fullName_minLength'|translate)}}
@@ -762,9 +762,9 @@
         </form>
       </mat-step>
 
-      <mat-step >
+      <mat-step [stepControl]="documentFrm">
         <ng-template matStepLabel>कागदपत्रे</ng-template>
-        <form >
+        <form [formGroup]="documentFrm">
         <div class="container-fluid">
           <div class="row align-items-center g-3">
            
