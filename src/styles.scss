@@ -410,3 +410,9 @@ button[disabled="true"] {
 a {
     cursor: pointer;
 }
+
+
+// for officer reg table status column
+.officer-table table tbody tr td:nth-child(8){
+  text-align: center !important;
+}
