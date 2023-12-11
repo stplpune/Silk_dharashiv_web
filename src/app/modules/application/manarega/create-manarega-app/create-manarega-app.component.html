@@ -4,10 +4,50 @@
   <mat-card-header class="card-header">
     <div class="text-main">Manarega Application</div>
   </mat-card-header>
+
+  <mat-card-content class=" card-body form-container">
+    <form [formGroup]="filterFrm">
+    <div class="row gx-2">
+      <div class="col-sm">
+        <div class="d-flex flex-column gap-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label class="form-label mb-0">{{'common.mobile'| translate}}</mat-label>
+            <input matInput placeholder="" maxlength="10" formControlName="mobileNo"
+              (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="d-flex flex-column gap-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label class="form-label mb-0">{{'approvalProcess.aadhar_number'| translate}}</mat-label>
+            <input matInput placeholder="" maxlength="12" formControlName="aadharNo"
+              (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-1">
+        <div class="d-flex gap-2">
+          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
+            <mat-icon class="material-symbols-rounded">
+              search
+            </mat-icon>
+          </button>
+          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+            <mat-icon class="material-symbols-rounded">
+              close
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    </form>
+  </mat-card-content>
+
   <mat-card-content class=" card-body form-container">
     <!-- linear -->
     <!-- [stepControl]="manaregaFrm" -->
-    <mat-stepper  #stepper >
+    <mat-stepper #stepper>
       <mat-step [stepControl]="manaregaFrm">
         <ng-template matStepLabel>मूळ तपशील</ng-template>
         <form [formGroup]="manaregaFrm">
@@ -42,7 +82,8 @@
                     </button>
                   </div>
                 </div>
-                <mat-error *ngIf="viewMsgFlag && !imageResponse">{{lang == 'en' ? "Please Add Applicant Image" : "कृपया अर्जदाराची प्रतिमा जोडा"}} </mat-error>
+                <mat-error *ngIf="viewMsgFlag && !imageResponse">{{lang == 'en' ? "Please Add Applicant Image" : "कृपया
+                  अर्जदाराची प्रतिमा जोडा"}} </mat-error>
               </div>
               <div class="col-sm">
 
@@ -251,10 +292,11 @@
                     <!-- <mat-label>Favorite food</mat-label> -->
                     <input matInput placeholder="" formControlName="mn_JobCardNo"
                       (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumericWithSpacesAndSpecChars($event)">
-                      <mat-error *ngIf="f['mn_JobCardNo']?.errors">
+                    <mat-error *ngIf="f['mn_JobCardNo']?.errors">
                       <span class="text-danger"
                         *ngIf="f['mn_JobCardNo']?.hasError('maxLengthExceeded') || f['mn_JobCardNo'].hasError('required')">
-                        {{f['mn_JobCardNo'].hasError('maxLengthExceeded') ? ('department.department_maxLength'|translate) :
+                        {{f['mn_JobCardNo'].hasError('maxLengthExceeded') ?
+                        ('department.department_maxLength'|translate) :
                         ('approvalProcess.please_enter_manarega_job_card_no'|translate)}}
                       </span>
                     </mat-error>
@@ -266,13 +308,13 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <textarea matInput placeholder="" formControlName="address"
                     (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumericWithSpacesAndSpecChars($event)"></textarea>
-                    <mat-error *ngIf="f['address']?.errors">
-                      <span class="text-danger"
-                        *ngIf="f['address']?.hasError('maxLengthExceeded') || f['address'].hasError('required')">
-                        {{f['address'].hasError('maxLengthExceeded') ? ('faq.question_maxLength'|translate) :
-                        ('common.please_enter_address'|translate)}}
-                      </span>
-                    </mat-error>
+                  <mat-error *ngIf="f['address']?.errors">
+                    <span class="text-danger"
+                      *ngIf="f['address']?.hasError('maxLengthExceeded') || f['address'].hasError('required')">
+                      {{f['address'].hasError('maxLengthExceeded') ? ('faq.question_maxLength'|translate) :
+                      ('common.please_enter_address'|translate)}}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-6">
@@ -280,7 +322,8 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select (click)="categoryDialogBox()" formControlName="categoryId">
                   </mat-select>
-                  <mat-error *ngIf="f['categoryId']?.hasError('required')">{{'approvalProcess.please_select_category'|translate}}
+                  <mat-error
+                    *ngIf="f['categoryId']?.hasError('required')">{{'approvalProcess.please_select_category'|translate}}
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -294,8 +337,8 @@
 
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button matStepperNext class="btn-main" type="button"
-              (click)="onSubmit('farmerInfo')" matStepperNext>Next</button>
+            <button mat-button matStepperNext class="btn-main" type="button" (click)="onSubmit('farmerInfo')"
+              matStepperNext>Next</button>
           </div>
         </form>
       </mat-step>
@@ -311,9 +354,9 @@
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="benificiaryTotalFarm"
-                    (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
+                      (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
                     <mat-error
-                    *ngIf="farmInfoFrm.controls['benificiaryTotalFarm'].hasError('required') ">{{'approvalProcess.enter_total_land_in_hectares_in_favor_of_beneciaries'|translate}}</mat-error>
+                      *ngIf="farmInfoFrm.controls['benificiaryTotalFarm'].hasError('required') ">{{'approvalProcess.enter_total_land_in_hectares_in_favor_of_beneciaries'|translate}}</mat-error>
                     <mat-error *ngIf="farmInfoFrm.controls['benificiaryTotalFarm']?.errors">
                       <span class="text-danger"
                         *ngIf="farmInfoFrm.controls['benificiaryTotalFarm']?.hasError('maxLengthExceeded') || farmInfoFrm.controls['benificiaryTotalFarm']?.hasError('pattern')">
@@ -327,13 +370,13 @@
               </div>
               <div class="col-sm-4">
                 <div class="form-label">{{'approvalProcess.cultivation_land_survey_number'| translate}}
- </div>
+                </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="mulberryCultivatedSurveyNo"
-                    (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+                      (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                     <mat-error
-                    *ngIf="farmInfoFrm.controls['mulberryCultivatedSurveyNo'].hasError('required') ">{{'approvalProcess.please_enter_cultivation_land_survey_number'|translate}}</mat-error>
+                      *ngIf="farmInfoFrm.controls['mulberryCultivatedSurveyNo'].hasError('required') ">{{'approvalProcess.please_enter_cultivation_land_survey_number'|translate}}</mat-error>
                     <mat-error *ngIf="farmInfoFrm.controls['mulberryCultivatedSurveyNo']?.errors">
                       <span class="text-danger"
                         *ngIf="farmInfoFrm.controls['mulberryCultivatedSurveyNo']?.hasError('maxLengthExceeded') || farmInfoFrm.controls['mulberryCultivatedSurveyNo']?.hasError('pattern')">
@@ -345,15 +388,15 @@
                   </mat-form-field>
                 </div>
               </div>
-             
+
               <div class="col-sm-4">
                 <div class="form-label">{{'approvalProcess.cultivated_area_in_hectaes'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="cultivatedFarmInHector"
-                    (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+                      (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                     <mat-error
-                    *ngIf="farmInfoFrm.controls['cultivatedFarmInHector'].hasError('required') ">{{'approvalProcess.please_enter_cultivated_area_in_hectaes'|translate}}</mat-error>
+                      *ngIf="farmInfoFrm.controls['cultivatedFarmInHector'].hasError('required') ">{{'approvalProcess.please_enter_cultivated_area_in_hectaes'|translate}}</mat-error>
                     <mat-error *ngIf="farmInfoFrm.controls['cultivatedFarmInHector']?.errors">
                       <span class="text-danger"
                         *ngIf="farmInfoFrm.controls['cultivatedFarmInHector']?.hasError('maxLengthExceeded') || farmInfoFrm.controls['cultivatedFarmInHector']?.hasError('pattern')">
@@ -365,11 +408,12 @@
                   </mat-form-field>
                 </div>
               </div>
-             <div class="col-sm-4">
+              <div class="col-sm-4">
                 <div class="d-flex align-items-center gap-3">
-                  <mat-label class="form-label">{{'approvalProcess.are_you_a_joined_account_Holder'| translate}}</mat-label>
-                  <mat-radio-group aria-label="Select an option" class="pe-3"
-                    formControlName="isJointAccHolder"   (change)="onClickAccountHolder(farmInfoFrm.controls['isJointAccHolder'].value)">
+                  <mat-label class="form-label">{{'approvalProcess.are_you_a_joined_account_Holder'|
+                    translate}}</mat-label>
+                  <mat-radio-group aria-label="Select an option" class="pe-3" formControlName="isJointAccHolder"
+                    (change)="onClickAccountHolder(farmInfoFrm.controls['isJointAccHolder'].value)">
                     <mat-radio-button *ngFor="let arr of checkedArray" [value]="arr.id" class="pe-3">
                       {{arr.name }}
                     </mat-radio-button>
@@ -383,15 +427,15 @@
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="applicantFarmSurveyNo">
                       <mat-error
-                    *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo'].hasError('required') ">{{'approvalProcess.please_enter_land_survey_no._of_land'|translate}}</mat-error>
-                    <mat-error *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo']?.errors">
-                      <span class="text-danger"
-                        *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo']?.hasError('maxLengthExceeded') || farmInfoFrm.controls['applicantFarmSurveyNo']?.hasError('pattern')">
-                        {{farmInfoFrm.controls['applicantFarmSurveyNo'].hasError('maxLengthExceeded') ?
-                        ('approvalProcess.fourmaxLength'|translate) :
-                        ('approvalProcess.please_enter_valid_land_survey_no._of_land'|translate)}}
-                      </span>
-                    </mat-error>
+                        *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo'].hasError('required') ">{{'approvalProcess.please_enter_land_survey_no._of_land'|translate}}</mat-error>
+                      <mat-error *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo']?.errors">
+                        <span class="text-danger"
+                          *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo']?.hasError('maxLengthExceeded') || farmInfoFrm.controls['applicantFarmSurveyNo']?.hasError('pattern')">
+                          {{farmInfoFrm.controls['applicantFarmSurveyNo'].hasError('maxLengthExceeded') ?
+                          ('approvalProcess.fourmaxLength'|translate) :
+                          ('approvalProcess.please_enter_valid_land_survey_no._of_land'|translate)}}
+                        </span>
+                      </mat-error>
                     </mat-form-field>
                   </div>
                 </div>
@@ -403,7 +447,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="applicantFarmArea">
                       <mat-error
-                      *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo'].hasError('required') ">{{'approvalProcess.please_enter_its_area'|translate}}</mat-error>
+                        *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo'].hasError('required') ">{{'approvalProcess.please_enter_its_area'|translate}}</mat-error>
                       <mat-error *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo']?.errors">
                         <span class="text-danger"
                           *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo']?.hasError('maxLengthExceeded') || farmInfoFrm.controls['applicantFarmSurveyNo']?.hasError('pattern')">
@@ -415,7 +459,7 @@
                     </mat-form-field>
                   </div>
                 </div>
-    
+
               </ng-container>
               <div class="col-sm-4">
                 <div class="form-label">{{'approvalProcess.type_of_land'| translate}}</div>
@@ -426,7 +470,7 @@
                   </mat-select>
                   <mat-error *ngIf="farmInfoFrm.controls['farmTypeId'].hasError('required') ">
                     {{'approvalProcess.please_select_type_of_land'|translate}}</mat-error>
-               
+
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
@@ -444,8 +488,9 @@
               <div class="col-sm-4">
                 <mat-label class="form-label">{{'approvalProcess.have_you_done_orchards'| translate}}</mat-label>
                 <div class="">
-                <mat-radio-group aria-label="Select an option" class="pb-0"
-                    formControlName="isAnyPlantedBeforeGovScheme" (change)="onClickPlantedBeforeGovScheme(farmInfoFrm.controls['isAnyPlantedBeforeGovScheme'].value)">
+                  <mat-radio-group aria-label="Select an option" class="pb-0"
+                    formControlName="isAnyPlantedBeforeGovScheme"
+                    (change)="onClickPlantedBeforeGovScheme(farmInfoFrm.controls['isAnyPlantedBeforeGovScheme'].value)">
                     <mat-radio-button *ngFor="let arr of checkedArray" [value]="arr.id" class="pe-3">
                       {{arr.name }}
                     </mat-radio-button>
@@ -454,188 +499,189 @@
               </div>
             </div>
             <ng-container *ngIf="farmInfoFrm.getRawValue()?.isAnyPlantedBeforeGovScheme">
-            <div class="card card-body my-4">
-              <form [formGroup]="farmDeatailsFrm" #formDirective="ngForm">
+              <div class="card card-body my-4">
+                <form [formGroup]="farmDeatailsFrm" #formDirective="ngForm">
 
-                <div class="row align-items-center">
-                  <div class="col-sm-4">
-                    <div class="form-label">{{'approvalProcess.orchard_flower_tree'| translate}}</div>
-                    <div class="form-label">
-                      <mat-form-field appearance="outline" class="w-100">
-                        <input matInput placeholder="" formControlName="plantName"
-                        (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumeric($event)">
-                        <mat-error
-                        *ngIf="farmDeatailsFrm.controls['plantName'].hasError('required') ">{{'approvalProcess.please_enter_orchard_flower_tree'|translate}}</mat-error>
-                        <mat-error *ngIf="farmDeatailsFrm.controls['plantName']?.errors">
-                          <span class="text-danger"
-                            *ngIf="farmDeatailsFrm.controls['plantName']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['plantName']?.hasError('pattern')">
-                            {{farmDeatailsFrm.controls['plantName'].hasError('maxLengthExceeded') ?
-                            ('common.officer_Name_limit'|translate) :
-                            ('approvalProcess.please_enter_valid_orchard_flower_tree'|translate)}}
-                          </span>
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="form-label">{{'approvalProcess.group_no.'| translate}}</div>
-                    <div class="form-label">
-                      <mat-form-field appearance="outline" class="w-100">
-                        <input matInput placeholder="" formControlName="gutNo"
-                         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
-                        <mat-error
-                        *ngIf="farmDeatailsFrm.controls['gutNo'].hasError('required') ">{{'approvalProcess.please_enter_group_no.'|translate}}</mat-error>
-                        <mat-error *ngIf="farmDeatailsFrm.controls['gutNo']?.errors">
-                          <span class="text-danger"
-                            *ngIf="farmDeatailsFrm.controls['gutNo']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['gutNo']?.hasError('pattern')">
-                            {{farmDeatailsFrm.controls['gutNo'].hasError('maxLengthExceeded') ?
-                            ('approvalProcess.sixmaxLength'|translate) :
-                            ('approvalProcess.please_enter_valid_group_no.'|translate)}}
-                          </span>
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                   <!-- "fourmaxLength": "Maximum 4 digits allowed",
-              "sixmaxLength": "Maximum 6 digits allowed", -->
-                  <div class="col-sm-4">
-                    <div class="form-label">{{'approvalProcess.group_area'| translate}}</div>
-                    <div class="form-label">
-                      <mat-form-field appearance="outline" class="w-100">
-                        <input matInput placeholder="" formControlName="gutArea"
-                        (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
-                        <mat-error
-                        *ngIf="farmDeatailsFrm.controls['gutArea'].hasError('required') ">{{'approvalProcess.please_enter_group_area'|translate}}</mat-error>
-                        <mat-error *ngIf="farmDeatailsFrm.controls['gutArea']?.errors">
-                          <span class="text-danger"
-                            *ngIf="farmDeatailsFrm.controls['gutArea']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['gutArea']?.hasError('pattern')">
-                            {{farmDeatailsFrm.controls['gutArea'].hasError('maxLengthExceeded') ?
-                            ('approvalProcess.sixmaxLength'|translate) :
-                            ('approvalProcess.please_enter_valid_group_area'|translate)}}
-                          </span>
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="form-label">{{'approvalProcess.cultivated_area'| translate}}</div>
-                    <div class="form-label">
-                      <mat-form-field appearance="outline" class="w-100">
-                        <input matInput placeholder="" formControlName="cultivatedArea"
-                        (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
-                        <mat-error
-                        *ngIf="farmDeatailsFrm.controls['cultivatedArea'].hasError('required') ">{{'approvalProcess.please_enter_cultivated_area'|translate}}</mat-error>
-                        <mat-error *ngIf="farmDeatailsFrm.controls['cultivatedArea']?.errors">
-                          <span class="text-danger"
-                            *ngIf="farmDeatailsFrm.controls['cultivatedArea']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['cultivatedArea']?.hasError('pattern')">
-                            {{farmDeatailsFrm.controls['cultivatedArea'].hasError('maxLengthExceeded') ?
-                            ('approvalProcess.maximum_10_Character_allowed'|translate) :
-                            ('approvalProcess.please_enter_valid_cultivated_area'|translate)}}
-                          </span>
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="form-label">{{'approvalProcess.number_of_trees_planted'| translate}}</div>
-                    <div class="form-label">
-                      <mat-form-field appearance="outline" class="w-100">
-                        <input matInput placeholder="" formControlName="cultivatedPlantsCount"
-                        (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
-                        <mat-error
-                        *ngIf="farmDeatailsFrm.controls['cultivatedPlantsCount'].hasError('required') ">{{'approvalProcess.please_enter_number_of_trees_planted'|translate}}</mat-error>
-                        <mat-error *ngIf="farmDeatailsFrm.controls['cultivatedPlantsCount']?.errors">
-                          <span class="text-danger"
-                            *ngIf="farmDeatailsFrm.controls['cultivatedPlantsCount']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['cultivatedPlantsCount']?.hasError('pattern')">
-                            {{farmDeatailsFrm.controls['cultivatedPlantsCount'].hasError('maxLengthExceeded') ?
-                            ('approvalProcess.sixmaxLength'|translate) :
-                            ('approvalProcess.please_enter_valid_number_of_trees_planted'|translate)}}
-                          </span>
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <button mat-flat-button class="btn-main"
-                      (click)="onAddFarmInfo()">{{'approvalProcess.add_more_details'| translate}}</button>
-                  </div>
-                </div>
-              </form>
-
-              <div class="table-responsive scrollbar">
-                <table mat-table [dataSource]="dataSource" class="dashboard-table">
-
-                  <ng-container matColumnDef="srNo">
-                    <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.sr_no'| translate}}</th>
-                    <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="plantName">
-                    <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.orchard_flower_tree'| translate}}</th>
-                    <td mat-cell *matCellDef="let element"> {{element.plantName}} </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="gutNo">
-                    <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.group_no.'| translate}}</th>
-                    <td mat-cell *matCellDef="let element"> {{element.gutNo}} </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="gutArea">
-                    <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.group_area'| translate}}</th>
-                    <td mat-cell *matCellDef="let element"> {{element.gutArea}} </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="cultivatedArea">
-                    <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.cultivated_area'| translate}}</th>
-                    <td mat-cell *matCellDef="let element"> {{element.cultivatedArea}} </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="cultivatedPlantsCount">
-                    <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.number_of_trees_planted'| translate}}</th>
-                    <td mat-cell *matCellDef="let element"> {{element.cultivatedPlantsCount}} </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="actions">
-                    <th mat-header-cell *matHeaderCellDef> {{'common.action'| translate}}</th>
-                    <td mat-cell *matCellDef="let element;let i = index">
-                      <div class="d-flex align-items-center gap-2">
-                        <button matTooltip="{{'common.edit' | translate}}" matTooltipPosition="below" mat-icon-button
-                          class=" btn-icon bg-warning bg-opacity-10">
-                          <!-- (click)="patchFarmInfo(element,i)" -->
-                          <span class="material-symbols-rounded text-warning">
-                            edit_square
-                          </span>
-                        </button>
-
-                        <button matTooltip="{{'common.delete' | translate}}" matTooltipPosition="below" mat-icon-button
-                          class=" btn-icon bg-danger bg-opacity-10" (click)="deleteFarmInfo(i)">
-                          <span class="material-symbols-rounded text-danger">
-                            delete
-                          </span>
-                        </button>
-
+                  <div class="row align-items-center">
+                    <div class="col-sm-4">
+                      <div class="form-label">{{'approvalProcess.orchard_flower_tree'| translate}}</div>
+                      <div class="form-label">
+                        <mat-form-field appearance="outline" class="w-100">
+                          <input matInput placeholder="" formControlName="plantName"
+                            (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumeric($event)">
+                          <mat-error
+                            *ngIf="farmDeatailsFrm.controls['plantName'].hasError('required') ">{{'approvalProcess.please_enter_orchard_flower_tree'|translate}}</mat-error>
+                          <mat-error *ngIf="farmDeatailsFrm.controls['plantName']?.errors">
+                            <span class="text-danger"
+                              *ngIf="farmDeatailsFrm.controls['plantName']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['plantName']?.hasError('pattern')">
+                              {{farmDeatailsFrm.controls['plantName'].hasError('maxLengthExceeded') ?
+                              ('common.officer_Name_limit'|translate) :
+                              ('approvalProcess.please_enter_valid_orchard_flower_tree'|translate)}}
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
                       </div>
-                    </td>
-                  </ng-container>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-label">{{'approvalProcess.group_no.'| translate}}</div>
+                      <div class="form-label">
+                        <mat-form-field appearance="outline" class="w-100">
+                          <input matInput placeholder="" formControlName="gutNo"
+                            (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+                          <mat-error
+                            *ngIf="farmDeatailsFrm.controls['gutNo'].hasError('required') ">{{'approvalProcess.please_enter_group_no.'|translate}}</mat-error>
+                          <mat-error *ngIf="farmDeatailsFrm.controls['gutNo']?.errors">
+                            <span class="text-danger"
+                              *ngIf="farmDeatailsFrm.controls['gutNo']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['gutNo']?.hasError('pattern')">
+                              {{farmDeatailsFrm.controls['gutNo'].hasError('maxLengthExceeded') ?
+                              ('approvalProcess.sixmaxLength'|translate) :
+                              ('approvalProcess.please_enter_valid_group_no.'|translate)}}
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <!-- "fourmaxLength": "Maximum 4 digits allowed",
+              "sixmaxLength": "Maximum 6 digits allowed", -->
+                    <div class="col-sm-4">
+                      <div class="form-label">{{'approvalProcess.group_area'| translate}}</div>
+                      <div class="form-label">
+                        <mat-form-field appearance="outline" class="w-100">
+                          <input matInput placeholder="" formControlName="gutArea"
+                            (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
+                          <mat-error
+                            *ngIf="farmDeatailsFrm.controls['gutArea'].hasError('required') ">{{'approvalProcess.please_enter_group_area'|translate}}</mat-error>
+                          <mat-error *ngIf="farmDeatailsFrm.controls['gutArea']?.errors">
+                            <span class="text-danger"
+                              *ngIf="farmDeatailsFrm.controls['gutArea']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['gutArea']?.hasError('pattern')">
+                              {{farmDeatailsFrm.controls['gutArea'].hasError('maxLengthExceeded') ?
+                              ('approvalProcess.sixmaxLength'|translate) :
+                              ('approvalProcess.please_enter_valid_group_area'|translate)}}
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-label">{{'approvalProcess.cultivated_area'| translate}}</div>
+                      <div class="form-label">
+                        <mat-form-field appearance="outline" class="w-100">
+                          <input matInput placeholder="" formControlName="cultivatedArea"
+                            (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
+                          <mat-error
+                            *ngIf="farmDeatailsFrm.controls['cultivatedArea'].hasError('required') ">{{'approvalProcess.please_enter_cultivated_area'|translate}}</mat-error>
+                          <mat-error *ngIf="farmDeatailsFrm.controls['cultivatedArea']?.errors">
+                            <span class="text-danger"
+                              *ngIf="farmDeatailsFrm.controls['cultivatedArea']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['cultivatedArea']?.hasError('pattern')">
+                              {{farmDeatailsFrm.controls['cultivatedArea'].hasError('maxLengthExceeded') ?
+                              ('approvalProcess.maximum_10_Character_allowed'|translate) :
+                              ('approvalProcess.please_enter_valid_cultivated_area'|translate)}}
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-label">{{'approvalProcess.number_of_trees_planted'| translate}}</div>
+                      <div class="form-label">
+                        <mat-form-field appearance="outline" class="w-100">
+                          <input matInput placeholder="" formControlName="cultivatedPlantsCount"
+                            (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+                          <mat-error
+                            *ngIf="farmDeatailsFrm.controls['cultivatedPlantsCount'].hasError('required') ">{{'approvalProcess.please_enter_number_of_trees_planted'|translate}}</mat-error>
+                          <mat-error *ngIf="farmDeatailsFrm.controls['cultivatedPlantsCount']?.errors">
+                            <span class="text-danger"
+                              *ngIf="farmDeatailsFrm.controls['cultivatedPlantsCount']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['cultivatedPlantsCount']?.hasError('pattern')">
+                              {{farmDeatailsFrm.controls['cultivatedPlantsCount'].hasError('maxLengthExceeded') ?
+                              ('approvalProcess.sixmaxLength'|translate) :
+                              ('approvalProcess.please_enter_valid_number_of_trees_planted'|translate)}}
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <button mat-flat-button class="btn-main"
+                        (click)="onAddFarmInfo()">{{'approvalProcess.add_more_details'| translate}}</button>
+                    </div>
+                  </div>
+                </form>
+
+                <div class="table-responsive scrollbar">
+                  <table mat-table [dataSource]="dataSource" class="dashboard-table">
+
+                    <ng-container matColumnDef="srNo">
+                      <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.sr_no'| translate}}</th>
+                      <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="plantName">
+                      <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.orchard_flower_tree'| translate}}</th>
+                      <td mat-cell *matCellDef="let element"> {{element.plantName}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="gutNo">
+                      <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.group_no.'| translate}}</th>
+                      <td mat-cell *matCellDef="let element"> {{element.gutNo}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="gutArea">
+                      <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.group_area'| translate}}</th>
+                      <td mat-cell *matCellDef="let element"> {{element.gutArea}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cultivatedArea">
+                      <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.cultivated_area'| translate}}</th>
+                      <td mat-cell *matCellDef="let element"> {{element.cultivatedArea}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cultivatedPlantsCount">
+                      <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.number_of_trees_planted'| translate}}
+                      </th>
+                      <td mat-cell *matCellDef="let element"> {{element.cultivatedPlantsCount}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions">
+                      <th mat-header-cell *matHeaderCellDef> {{'common.action'| translate}}</th>
+                      <td mat-cell *matCellDef="let element;let i = index">
+                        <div class="d-flex align-items-center gap-2">
+                          <button matTooltip="{{'common.edit' | translate}}" matTooltipPosition="below" mat-icon-button
+                            class=" btn-icon bg-warning bg-opacity-10">
+                            <!-- (click)="patchFarmInfo(element,i)" -->
+                            <span class="material-symbols-rounded text-warning">
+                              edit_square
+                            </span>
+                          </button>
+
+                          <button matTooltip="{{'common.delete' | translate}}" matTooltipPosition="below"
+                            mat-icon-button class=" btn-icon bg-danger bg-opacity-10" (click)="deleteFarmInfo(i)">
+                            <span class="material-symbols-rounded text-danger">
+                              delete
+                            </span>
+                          </button>
+
+                        </div>
+                      </td>
+                    </ng-container>
 
 
 
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-                <div *ngIf="!farmDetails.length" class="alert alert-danger text-center mt-1 py-2 mb-0">
-                  <span> {{lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'}}</span>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                  <div *ngIf="!farmDetails.length" class="alert alert-danger text-center mt-1 py-2 mb-0">
+                    <span> {{lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'}}</span>
+                  </div>
                 </div>
-              </div>
 
-            </div>
+              </div>
             </ng-container>
             <div class="row">
               <div class="col-sm-4">
                 <mat-label class="form-label">{{'approvalProcess.will_he_take_the_training'| translate}}</mat-label>
                 <div class="">
                   <mat-radio-group aria-label="Select an option" class="pb-0" formControlName="isSelfTraining"
-                  (change)="onClickSelfTraining(farmInfoFrm.controls['isSelfTraining'].value)">
+                    (change)="onClickSelfTraining(farmInfoFrm.controls['isSelfTraining'].value)">
                     <mat-radio-button *ngFor="let arr of selfTrainingArray" [value]="arr.id" class="pe-3">
                       {{arr.name }}
                     </mat-radio-button>
@@ -645,12 +691,12 @@
               <ng-container *ngIf="farmInfoFrm.getRawValue()?.isSelfTraining == false">
                 <div class="col-sm-4">
                   <div class="form-label">{{'approvalProcess.candidate_name'| translate}}</div>
-               <div class="form-label">
+                  <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="candidateName"
-                      (keypress)="validation.noFirstSpaceAllow($event);validation.onlyAlphabetsWithSpace($event)">
+                        (keypress)="validation.noFirstSpaceAllow($event);validation.onlyAlphabetsWithSpace($event)">
                       <mat-error
-                      *ngIf="farmInfoFrm.controls['candidateName'].hasError('required') ">{{'approvalProcess.please_enter_candidate_name'|translate}}</mat-error>
+                        *ngIf="farmInfoFrm.controls['candidateName'].hasError('required') ">{{'approvalProcess.please_enter_candidate_name'|translate}}</mat-error>
                       <mat-error *ngIf="farmInfoFrm.controls['candidateName']?.errors">
                         <span class="text-danger"
                           *ngIf="farmInfoFrm.controls['candidateName']?.hasError('maxLengthExceeded') || farmInfoFrm.controls['candidateName']?.hasError('pattern')">
@@ -672,7 +718,7 @@
                     </mat-select>
                     <mat-error
                       *ngIf="farmInfoFrm.controls['candidateRelationId'].hasError('required') ">{{'approvalProcess.please_select_relation'|translate}}</mat-error>
-                   
+
                   </mat-form-field>
                 </div>
               </ng-container>
@@ -701,7 +747,7 @@
                   </mat-select>
                   <mat-error *ngIf="bankInfoFrm.controls['bankId'].hasError('required') ">
                     {{'approvalProcess.please_select_bank_name'|translate}}</mat-error>
-              </mat-form-field>
+                </mat-form-field>
               </div>
               <div class="col-sm-4">
                 <div class="form-label">{{'approvalProcess.branch'|translate}}</div>
@@ -720,9 +766,9 @@
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="bankIFSCCode"
-                    (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumeric($event)">
+                      (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumeric($event)">
                     <mat-error
-                    *ngIf="bankInfoFrm.controls['bankIFSCCode'].hasError('required') ">{{'approvalProcess.plese_enter_IFSC_Code'|translate}}</mat-error>
+                      *ngIf="bankInfoFrm.controls['bankIFSCCode'].hasError('required') ">{{'approvalProcess.plese_enter_IFSC_Code'|translate}}</mat-error>
                     <mat-error *ngIf="bankInfoFrm.controls['bankIFSCCode']?.errors">
                       <span class="text-danger"
                         *ngIf="bankInfoFrm.controls['bankIFSCCode']?.hasError('maxLengthExceeded') || bankInfoFrm.controls['bankIFSCCode']?.hasError('pattern')">
@@ -742,7 +788,7 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="bankAccountNo">
                     <mat-error
-                    *ngIf="bankInfoFrm.controls['bankAccountNo'].hasError('required') ">{{'approvalProcess.please_nationalise_bank_accountno'|translate}}</mat-error>
+                      *ngIf="bankInfoFrm.controls['bankAccountNo'].hasError('required') ">{{'approvalProcess.please_nationalise_bank_accountno'|translate}}</mat-error>
                     <mat-error *ngIf="bankInfoFrm.controls['bankAccountNo']?.errors">
                       <span class="text-danger"
                         *ngIf="bankInfoFrm.controls['bankAccountNo']?.hasError('maxLengthExceeded') || bankInfoFrm.controls['bankAccountNo']?.hasError('pattern')">
@@ -766,269 +812,270 @@
       <mat-step [stepControl]="documentFrm">
         <ng-template matStepLabel>कागदपत्रे</ng-template>
         <form [formGroup]="documentFrm">
-        <div class="container-fluid">
-          <div class="row align-items-center g-3">
-           
+          <div class="container-fluid">
+            <div class="row align-items-center g-3">
 
-            <div class="col-sm-4">
-              <div class="form-label">{{'approvalProcess.manrega_job_card'|translate}}</div>
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                  (click)="selImg1.value='';selImg1.click()">File
-                  Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg1
-                  (change)="fileUpload($event,docArray[0].docTypeId,'documents')" />
-                <ng-container *ngIf="docArray[0].docPath">
-                  <div class="d-flex gap-2">
-                    <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                      matTooltip="view" (click)="viewimages(this.docArray[0].docPath)">
-                      <mat-icon class="material-symbols-rounded">
-                        preview
-                      </mat-icon>
-                    </button>
-                    <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                      matTooltip="delete" (click)="deleteDocument(docArray[0].docTypeId)">
-                      <mat-icon class="material-symbols-rounded">
-                        delete
-                      </mat-icon>
-                    </button>
-                  </div>
-                </ng-container>
 
+              <div class="col-sm-4">
+                <div class="form-label">{{'approvalProcess.manrega_job_card'|translate}}</div>
+                <div class="file-upload border rounded-2 p-1">
+                  <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                    (click)="selImg1.value='';selImg1.click()">File
+                    Upload<span class="text-danger fs-6">*</span>
+                  </button>
+                  <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg1
+                    (change)="fileUpload($event,docArray[0].docTypeId,'documents')" />
+                  <ng-container *ngIf="docArray[0].docPath">
+                    <div class="d-flex gap-2">
+                      <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+                        matTooltip="view" (click)="viewimages(this.docArray[0].docPath)">
+                        <mat-icon class="material-symbols-rounded">
+                          preview
+                        </mat-icon>
+                      </button>
+                      <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                        matTooltip="delete" (click)="deleteDocument(docArray[0].docTypeId)">
+                        <mat-icon class="material-symbols-rounded">
+                          delete
+                        </mat-icon>
+                      </button>
+                    </div>
+                  </ng-container>
+
+                </div>
               </div>
-            </div>
 
 
 
-            <div class="col-sm-4">
-              <div class="form-label">2. जमिनीचा 8-अ येथे जोडा </div>
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                  (click)="selImg2.value='';selImg2.click()">File
-                  Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg2
-                  (change)="fileUpload($event,docArray[1].docTypeId,'documents')" />
-                <ng-container *ngIf="docArray[1].docPath">
-                  <div class="d-flex gap-2">
-                    <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                      matTooltip="view" (click)="viewimages(this.docArray[1].docPath)">
-                      <mat-icon class="material-symbols-rounded">
-                        preview
-                      </mat-icon>
-                    </button>
-                    <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                      matTooltip="delete" (click)="deleteDocument(docArray[1].docTypeId)">
-                      <mat-icon class="material-symbols-rounded">
-                        delete
-                      </mat-icon>
-                    </button>
-                  </div>
-                </ng-container>
+              <div class="col-sm-4">
+                <div class="form-label">2. जमिनीचा 8-अ येथे जोडा </div>
+                <div class="file-upload border rounded-2 p-1">
+                  <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                    (click)="selImg2.value='';selImg2.click()">File
+                    Upload<span class="text-danger fs-6">*</span>
+                  </button>
+                  <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg2
+                    (change)="fileUpload($event,docArray[1].docTypeId,'documents')" />
+                  <ng-container *ngIf="docArray[1].docPath">
+                    <div class="d-flex gap-2">
+                      <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+                        matTooltip="view" (click)="viewimages(this.docArray[1].docPath)">
+                        <mat-icon class="material-symbols-rounded">
+                          preview
+                        </mat-icon>
+                      </button>
+                      <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                        matTooltip="delete" (click)="deleteDocument(docArray[1].docTypeId)">
+                        <mat-icon class="material-symbols-rounded">
+                          delete
+                        </mat-icon>
+                      </button>
+                    </div>
+                  </ng-container>
+                </div>
               </div>
-            </div>
 
 
 
 
 
 
-            <div class="col-sm-4">
-              <div class="form-label">3. जमिनीचा 7/12 उतारा येथे अपलोड करा </div>
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                  (click)="selImg3.value='';selImg3.click()">File
-                  Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg3
-                  (change)="fileUpload($event,docArray[2].docTypeId,'documents')" />
-                <ng-container *ngIf="docArray[2].docPath">
-                  <div class="d-flex gap-2">
-                    <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                      matTooltip="view" (click)="viewimages(this.docArray[2].docPath)">
-                      <mat-icon class="material-symbols-rounded">
-                        preview
-                      </mat-icon>
-                    </button>
-                    <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                      matTooltip="delete" (click)="deleteDocument(docArray[2].docTypeId)">
-                      <mat-icon class="material-symbols-rounded">
-                        delete
-                      </mat-icon>
-                    </button>
-                  </div>
-                </ng-container>
+              <div class="col-sm-4">
+                <div class="form-label">3. जमिनीचा 7/12 उतारा येथे अपलोड करा </div>
+                <div class="file-upload border rounded-2 p-1">
+                  <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                    (click)="selImg3.value='';selImg3.click()">File
+                    Upload<span class="text-danger fs-6">*</span>
+                  </button>
+                  <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg3
+                    (change)="fileUpload($event,docArray[2].docTypeId,'documents')" />
+                  <ng-container *ngIf="docArray[2].docPath">
+                    <div class="d-flex gap-2">
+                      <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+                        matTooltip="view" (click)="viewimages(this.docArray[2].docPath)">
+                        <mat-icon class="material-symbols-rounded">
+                          preview
+                        </mat-icon>
+                      </button>
+                      <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                        matTooltip="delete" (click)="deleteDocument(docArray[2].docTypeId)">
+                        <mat-icon class="material-symbols-rounded">
+                          delete
+                        </mat-icon>
+                      </button>
+                    </div>
+                  </ng-container>
+                </div>
               </div>
-            </div>
 
 
-            <div class="col-sm-4">
-              <div class="form-label">4. बँक पासबूक/ रद्द केलेला चेक अपलोड करा. </div>
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                  (click)="selImg4.value='';selImg4.click()">File
-                  Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg4
-                  (change)="fileUpload($event,docArray[3].docTypeId,'documents')" />
-                <ng-container *ngIf="docArray[3].docPath">
-                  <div class="d-flex gap-2">
-                    <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                      matTooltip="view" (click)="viewimages(this.docArray[3].docPath)">
-                      <mat-icon class="material-symbols-rounded">
-                        preview
-                      </mat-icon>
-                    </button>
-                    <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                      matTooltip="delete" (click)="deleteDocument(docArray[3].docTypeId)">
-                      <mat-icon class="material-symbols-rounded">
-                        delete
-                      </mat-icon>
-                    </button>
-                  </div>
-                </ng-container>
+              <div class="col-sm-4">
+                <div class="form-label">4. बँक पासबूक/ रद्द केलेला चेक अपलोड करा. </div>
+                <div class="file-upload border rounded-2 p-1">
+                  <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                    (click)="selImg4.value='';selImg4.click()">File
+                    Upload<span class="text-danger fs-6">*</span>
+                  </button>
+                  <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg4
+                    (change)="fileUpload($event,docArray[3].docTypeId,'documents')" />
+                  <ng-container *ngIf="docArray[3].docPath">
+                    <div class="d-flex gap-2">
+                      <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+                        matTooltip="view" (click)="viewimages(this.docArray[3].docPath)">
+                        <mat-icon class="material-symbols-rounded">
+                          preview
+                        </mat-icon>
+                      </button>
+                      <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                        matTooltip="delete" (click)="deleteDocument(docArray[3].docTypeId)">
+                        <mat-icon class="material-symbols-rounded">
+                          delete
+                        </mat-icon>
+                      </button>
+                    </div>
+                  </ng-container>
+                </div>
               </div>
-            </div>
 
 
-            <div class="col-sm-4">
-              <button mat-flat-button class="btn-main-light mt-3" type="button" (click)="onclick()">इतर कागदपत्रे
-                जोडा</button>
-            </div>
-            <div class="col-sm">
-              <div class="form-label">
-                 <mat-form-field appearance="outline" class="w-100" [hidden]="true">
-                   <!-- <mat-label>Favorite food</mat-label> -->
-                   <input matInput placeholder="" formControlName="allRequiredDocument">
-                 </mat-form-field>
-               </div>
-             </div>
-            <ng-container *ngIf="visible">
-              <div class="card card-body mb-4">
-                <div class="container-fluid">
-                  <form [formGroup]="otherDocumentFrm" #formDirectivess="ngForm">
-                    <div class="row g-2 row g-2 align-items-center">
-                      <div class="col-sm-3">
-                        <div class="form-label">{{'approvalProcess.document_name'|translate}} </div>
-                        <div class="form-label">
-                          <mat-form-field appearance="outline" class="w-100">
-                            <input matInput placeholder="" formControlName="docname">
-                            
-                          </mat-form-field>
-                        </div>
-                      </div>
-                      <div class="col-sm-3">
-                        <div class="form-label">{{'approvalProcess.document_number'|translate}}</div>
-                        <div class="form-label">
-                          <mat-form-field appearance="outline" class="w-100">
-                            <input matInput placeholder="" formControlName="docNo">
-                          </mat-form-field>
-                        </div>
-                      </div>
+              <div class="col-sm-4">
+                <button mat-flat-button class="btn-main-light mt-3" type="button" (click)="onclick()">इतर कागदपत्रे
+                  जोडा</button>
+              </div>
+              <div class="col-sm">
+                <div class="form-label">
+                  <mat-form-field appearance="outline" class="w-100" [hidden]="true">
+                    <!-- <mat-label>Favorite food</mat-label> -->
+                    <input matInput placeholder="" formControlName="allRequiredDocument">
+                  </mat-form-field>
+                </div>
+              </div>
+              <ng-container *ngIf="visible">
+                <div class="card card-body mb-4">
+                  <div class="container-fluid">
+                    <form [formGroup]="otherDocumentFrm" #formDirectivess="ngForm">
+                      <div class="row g-2 row g-2 align-items-center">
+                        <div class="col-sm-3">
+                          <div class="form-label">{{'approvalProcess.document_name'|translate}} </div>
+                          <div class="form-label">
+                            <mat-form-field appearance="outline" class="w-100">
+                              <input matInput placeholder="" formControlName="docname">
 
-
-                      <div class="col-sm-3">
-                        <div class="file-upload border rounded-2 p-1">
-                          <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                            (click)="otherDocImage.value='';otherDocImage.click()">
-                            {{'approvalProcess.upload_document'|translate}}<span class="text-danger fs-6">*</span>
-                          </button>
-                          <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
-                            (change)="fileUpload($event,7,'otherDocuments')" #otherDocImage />
-                          <div class="d-flex gap-2" *ngIf="otherDocumentFrm.getRawValue().docPath">
-                            <!-- *ngIf="otherDocumentFrm.getRawValue().docPath"  (click)="deleteOtherDocument()"
-                            (click)="viewImages(otherDocumentFrm.getRawValue().docPath)" -->
-                            <button type="button" mat-flat-button
-                              (click)="viewimages(otherDocumentFrm.getRawValue().docPath)"
-                              class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view">
-                              <mat-icon class="material-symbols-rounded">
-                                preview
-                              </mat-icon>
-                            </button>
-                            <button type="button" mat-flat-button (click)="deleteOtherDocument()"
-                              class="bg-danger-subtle text-danger btn-icon btn-action" matTooltip="delete">
-                              <mat-icon class="material-symbols-rounded">
-                                delete
-                              </mat-icon>
-                            </button>
+                            </mat-form-field>
                           </div>
                         </div>
-                      </div>
+                        <div class="col-sm-3">
+                          <div class="form-label">{{'approvalProcess.document_number'|translate}}</div>
+                          <div class="form-label">
+                            <mat-form-field appearance="outline" class="w-100">
+                              <input matInput placeholder="" formControlName="docNo">
+                            </mat-form-field>
+                          </div>
+                        </div>
 
-                      <div class="col-sm-auto">
-                        <button mat-flat-button class="btn-main" (click)="onOtherDocSubmit()">
-                          <mat-icon class="material-symbols-rounded">
-                            add
-                          </mat-icon> 
-                          {{'approvalProcess.add_document'|translate}}
-                         </button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
 
-                <div class="table-responsive">
-                  <table mat-table [dataSource]="otherDocArray" class="dashboard-table mb-0">
-                    <ng-container matColumnDef="srNo">
-                      <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
-                      <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
-                    </ng-container>
+                        <div class="col-sm-3">
+                          <div class="file-upload border rounded-2 p-1">
+                            <button type="button" mat-flat-button class="btn" id="fileupload-button"
+                              data-toggle="tooltip" (click)="otherDocImage.value='';otherDocImage.click()">
+                              {{'approvalProcess.upload_document'|translate}}<span class="text-danger fs-6">*</span>
+                            </button>
+                            <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
+                              (change)="fileUpload($event,7,'otherDocuments')" #otherDocImage />
+                            <div class="d-flex gap-2" *ngIf="otherDocumentFrm.getRawValue().docPath">
+                              <!-- *ngIf="otherDocumentFrm.getRawValue().docPath"  (click)="deleteOtherDocument()"
+                            (click)="viewImages(otherDocumentFrm.getRawValue().docPath)" -->
+                              <button type="button" mat-flat-button
+                                (click)="viewimages(otherDocumentFrm.getRawValue().docPath)"
+                                class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view">
+                                <mat-icon class="material-symbols-rounded">
+                                  preview
+                                </mat-icon>
+                              </button>
+                              <button type="button" mat-flat-button (click)="deleteOtherDocument()"
+                                class="bg-danger-subtle text-danger btn-icon btn-action" matTooltip="delete">
+                                <mat-icon class="material-symbols-rounded">
+                                  delete
+                                </mat-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
 
-                    <ng-container matColumnDef="documentType">
-                      <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.document_name'| translate}} </th>
-                      <td mat-cell *matCellDef="let element">{{element?.docname}}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="docNo">
-                      <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_number'| translate}}
-                      </th>
-                      <td mat-cell *matCellDef="let element"> {{element?.docNo}}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="action">
-                      <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
-                      <td mat-cell *matCellDef="let element; let i = index">
-                        <div class="d-flex gap-02">
-                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
-                            [disabled]="!element?.docPath">
-                            <!-- (click)="viewImages(element)" -->
-                            <span class="material-symbols-rounded text-dark">
-                              visibility
-                            </span>
-                          </button>
-                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
-                            (click)="deleteTableOtherDocument(i)">
-                            <span class="material-symbols-rounded text-danger">
-                              delete
-                            </span>
+                        <div class="col-sm-auto">
+                          <button mat-flat-button class="btn-main" (click)="onOtherDocSubmit()">
+                            <mat-icon class="material-symbols-rounded">
+                              add
+                            </mat-icon>
+                            {{'approvalProcess.add_document'|translate}}
                           </button>
                         </div>
-                      </td>
-                    </ng-container>
-                    <tr class="mat-row p-2 w-100" *matNoDataRow col>
-                      <td colspan="12">
-                        <div class="alert alert-danger text-center m-2 p-2" colspan="12">
-                          {{'approvalProcess.no_data_found'| translate}}
-                        </div>
-                      </td>
-                    </tr>
-                    <tr mat-header-row *matHeaderRowDef="documentdisplayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: documentdisplayedColumns;"></tr>
-                  </table>
+                      </div>
+                    </form>
+                  </div>
+
+                  <div class="table-responsive">
+                    <table mat-table [dataSource]="otherDocArray" class="dashboard-table mb-0">
+                      <ng-container matColumnDef="srNo">
+                        <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
+                        <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="documentType">
+                        <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.document_name'| translate}} </th>
+                        <td mat-cell *matCellDef="let element">{{element?.docname}}</td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="docNo">
+                        <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_number'| translate}}
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element?.docNo}}</td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
+                        <td mat-cell *matCellDef="let element; let i = index">
+                          <div class="d-flex gap-02">
+                            <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
+                              [disabled]="!element?.docPath">
+                              <!-- (click)="viewImages(element)" -->
+                              <span class="material-symbols-rounded text-dark">
+                                visibility
+                              </span>
+                            </button>
+                            <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
+                              (click)="deleteTableOtherDocument(i)">
+                              <span class="material-symbols-rounded text-danger">
+                                delete
+                              </span>
+                            </button>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <tr class="mat-row p-2 w-100" *matNoDataRow col>
+                        <td colspan="12">
+                          <div class="alert alert-danger text-center m-2 p-2" colspan="12">
+                            {{'approvalProcess.no_data_found'| translate}}
+                          </div>
+                        </td>
+                      </tr>
+                      <tr mat-header-row *matHeaderRowDef="documentdisplayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: documentdisplayedColumns;"></tr>
+                    </table>
+                  </div>
                 </div>
-              </div>
 
-            </ng-container>
+              </ng-container>
 
 
+            </div>
           </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-          <button mat-button matStepperPrevious class="btn-main">Back</button>
-          <button mat-button matStepperNext class="btn-main" type="button" (click)="onSubmit('document')">Next</button>
-        </div>
-      </form>
+          <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+            <button mat-button matStepperPrevious class="btn-main">Back</button>
+            <button mat-button matStepperNext class="btn-main" type="button"
+              (click)="onSubmit('document')">Next</button>
+          </div>
+        </form>
       </mat-step>
 
       <mat-step>
@@ -1406,56 +1453,56 @@
                   <div class="text-main fw-bold">कागदपत्रे</div>
                   <ul class="list-group" *ngFor="let doc of previewData?.documents">
                     <ng-container *ngIf="doc.docId == 12">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">मनरेगा जॉब कार्ड </div>
-                      <span class="form-data  rounded-pill"  (click)="viewPreviewDocument(12)">
-                        <mat-icon class="material-symbols-outlined">
-                          visibility
-                        </mat-icon>
-                      </span>
-                    </li>
-                  </ng-container>
-                  <ng-container *ngIf="doc.docId == 19">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">जमिनीचा 8-अ </div>
-                      <span class="form-data  rounded-pill" (click)="viewPreviewDocument(19)">
-                        <mat-icon class="material-symbols-outlined">
-                          visibility
-                        </mat-icon>
-                      </span>
-                    </li>
-                  </ng-container>
-                  <ng-container *ngIf="doc.docId == 18">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">जमींचा 7/12 उतारा </div>
-                      <span class="form-data  rounded-pill" (click)="viewPreviewDocument(18)">
-                        <mat-icon class="material-symbols-outlined">
-                          visibility
-                        </mat-icon>
-                      </span>
-                    </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="form-label">मनरेगा जॉब कार्ड </div>
+                        <span class="form-data  rounded-pill" (click)="viewPreviewDocument(12)">
+                          <mat-icon class="material-symbols-outlined">
+                            visibility
+                          </mat-icon>
+                        </span>
+                      </li>
+                    </ng-container>
+                    <ng-container *ngIf="doc.docId == 19">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="form-label">जमिनीचा 8-अ </div>
+                        <span class="form-data  rounded-pill" (click)="viewPreviewDocument(19)">
+                          <mat-icon class="material-symbols-outlined">
+                            visibility
+                          </mat-icon>
+                        </span>
+                      </li>
+                    </ng-container>
+                    <ng-container *ngIf="doc.docId == 18">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="form-label">जमींचा 7/12 उतारा </div>
+                        <span class="form-data  rounded-pill" (click)="viewPreviewDocument(18)">
+                          <mat-icon class="material-symbols-outlined">
+                            visibility
+                          </mat-icon>
+                        </span>
+                      </li>
                     </ng-container>
                     <ng-container *ngIf="doc.docId == 11">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">बँक पासबूक/ किवा रद्द केलेला चेक </div>
-                      <span class="form-data  rounded-pill" (click)="viewPreviewDocument(11)">
-                        <mat-icon class="material-symbols-outlined">
-                          visibility
-                        </mat-icon>
-                      </span>
-                    </li>
-                   </ng-container>
-                   <ng-container *ngIf="doc.docId == 7">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">Other Documents </div>
-                      <span class="form-data  rounded-pill" (click)="viewPreviewDocument(7)">
-                        <mat-icon class="material-symbols-outlined">
-                          visibility
-                        </mat-icon>
-                      </span>
-                    </li>
-                   </ng-container>
-                   <!-- <ng-container *ngIf="getDocumentsWithDocId7().length > 0 && doc.docId == 7">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="form-label">बँक पासबूक/ किवा रद्द केलेला चेक </div>
+                        <span class="form-data  rounded-pill" (click)="viewPreviewDocument(11)">
+                          <mat-icon class="material-symbols-outlined">
+                            visibility
+                          </mat-icon>
+                        </span>
+                      </li>
+                    </ng-container>
+                    <ng-container *ngIf="doc.docId == 7">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="form-label">Other Documents </div>
+                        <span class="form-data  rounded-pill" (click)="viewPreviewDocument(7)">
+                          <mat-icon class="material-symbols-outlined">
+                            visibility
+                          </mat-icon>
+                        </span>
+                      </li>
+                    </ng-container>
+                    <!-- <ng-container *ngIf="getDocumentsWithDocId7().length > 0 && doc.docId == 7">
                     <li *ngFor="let doc of getDocumentsWithDocId7()" class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{ doc.documentName }}</div>
                       <span class="form-data rounded-pill" (click)="viewPreviewDocument(doc.documentPath)">
@@ -1504,7 +1551,8 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [class.disable]="true" [checked]="previewData?.isEligibleGettingInstallmentAmount == true"></mat-checkbox>
+                <mat-checkbox [class.disable]="true"
+                  [checked]="previewData?.isEligibleGettingInstallmentAmount == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   झाडांची लागवड केल्यानंतर हप्ता रक्कम मिळण्यासाठीचे पात्रता निकष मला अवगत करून देण्यात आलेले असून ते
                   मला मान्य राहतील,
@@ -1513,7 +1561,8 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [class.disable]="true" [checked]="previewData?.isBoundByConditions == true"></mat-checkbox>
+                <mat-checkbox [class.disable]="true"
+                  [checked]="previewData?.isBoundByConditions == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   या योजनेचे नियम व अटी मला बंधनकारक आहे व त्यानुसार मी कलाम / रोपांची लागवड / संगोपन / संरक्षण करीन.
                 </p>
@@ -1521,7 +1570,8 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [class.disable]="true" [checked]="previewData?.isPayMoreThanLimitedAmt == true"></mat-checkbox>
+                <mat-checkbox [class.disable]="true"
+                  [checked]="previewData?.isPayMoreThanLimitedAmt == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   सदर योजनेअंतर्गत एकूण क्षेत्राप्रमाणे व नमुन्याप्रमाणे शासनाने Ο प्रतिवर्षी मंजूर केलेल्या मयदिच्या
                   प्रमाणकापेक्षा जास्त खर्च झाल् मी / स्वतः करील
@@ -1541,7 +1591,8 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [class.disable]="true" [checked]="previewData?.isChangedAcceptable == true"></mat-checkbox>
+                <mat-checkbox [class.disable]="true"
+                  [checked]="previewData?.isChangedAcceptable == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   या योजनेअंतर्गत शासन वेळोवेळी जे बदल करेल अथवा अटी ■ घालेल त्या अटी / बदल मला / आम्हाला मान्य राहतील.
                 </p>
@@ -1549,7 +1600,8 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [class.disable]="true" [checked]="previewData?.isSchemeCorrectAsPerSatbara == true"></mat-checkbox>
+                <mat-checkbox [class.disable]="true"
+                  [checked]="previewData?.isSchemeCorrectAsPerSatbara == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   महात्मा गांधी राष्टीय ग्रामीण रोजगार हमी योजनेअंतर्गत रेशीम उद्योग विकास / तुती लागवड योजनेमध्ये
                   समाविष्ठ करून / घ्या करीता मी / आम्ही दिलेला तपशील ७/१२ चे उताऱ्याप्रमाणे बरोबर आहे.
@@ -1558,7 +1610,8 @@
             </li>
             <li>
               <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox [class.disable]="true" [checked]="previewData?.isJointAccHolderTermAcceptable == true"></mat-checkbox>
+                <mat-checkbox [class.disable]="true"
+                  [checked]="previewData?.isJointAccHolderTermAcceptable == true"></mat-checkbox>
                 <p class="form-label mb-0">
                   मी / आम्ही संयुक्त खातेदार असून माझ्या / आमच्या हिश्याच्या □ भूमापन क्र. १२६० मध्ये १ हेक्टर
                   क्षेत्रावर लागवड करण्यास परवानगी दिल्यास वरील अटी मला / आम्हाला मान्य राहतील
@@ -1577,57 +1630,57 @@
       <mat-step [stepControl]="addRegistrationRecFrm">
         <ng-template matStepLabel>चलन जोडा</ng-template>
         <form [formGroup]="addRegistrationRecFrm">
-        <div class="container-fluid">
-          <h6 class="my-4">
-            संबंद्धित कार्यालय मध्ये जाऊन नोंदणी फी प्रती एकर 500 रु प्रमाणे भरून मिळालेली पावती येथे अपलोड करावी.
-          </h6>
-          <div class="row align-items-center ">
-            <div class="col-sm-4">
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                (click)="selImg7.value='';selImg7.click()">File
-                  Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file"  accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"  #selImg7
-                (change)="fileUpload($event,docArray[4].docTypeId,'documents')" />
-                <ng-container *ngIf="docArray[4].docPath">
-                <div class="d-flex gap-2">
-                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view" (click)="viewimages(this.docArray[4].docPath)">
-                    <mat-icon class="material-symbols-rounded">
-                      preview
-                    </mat-icon>
+          <div class="container-fluid">
+            <h6 class="my-4">
+              संबंद्धित कार्यालय मध्ये जाऊन नोंदणी फी प्रती एकर 500 रु प्रमाणे भरून मिळालेली पावती येथे अपलोड करावी.
+            </h6>
+            <div class="row align-items-center ">
+              <div class="col-sm-4">
+                <div class="file-upload border rounded-2 p-1">
+                  <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                    (click)="selImg7.value='';selImg7.click()">File
+                    Upload<span class="text-danger fs-6">*</span>
                   </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete" (click)="deleteDocument(docArray[4].docTypeId)">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
+                  <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg7
+                    (change)="fileUpload($event,docArray[4].docTypeId,'documents')" />
+                  <ng-container *ngIf="docArray[4].docPath">
+                    <div class="d-flex gap-2">
+                      <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+                        matTooltip="view" (click)="viewimages(this.docArray[4].docPath)">
+                        <mat-icon class="material-symbols-rounded">
+                          preview
+                        </mat-icon>
+                      </button>
+                      <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                        matTooltip="delete" (click)="deleteDocument(docArray[4].docTypeId)">
+                        <mat-icon class="material-symbols-rounded">
+                          delete
+                        </mat-icon>
+                      </button>
+                    </div>
+                  </ng-container>
                 </div>
-                </ng-container>
+              </div>
+
+              <div class="col-sm">
+                <div class="form-label">
+                  <mat-form-field appearance="outline" class="w-100" [hidden]="true">
+                    <!-- <mat-label>Favorite food</mat-label> -->
+                    <input matInput placeholder="" formControlName="registrationDocument">
+                  </mat-form-field>
+                </div>
+              </div>
+
+
+
+              <div class="col-sm">
+                <button mat-flat-button class="btn-main" type="button" (click)="onSubmit('challan')">प्रस्तुत करा</button>
               </div>
             </div>
-             
-            <div class="col-sm">
-              <div class="form-label">
-                 <mat-form-field appearance="outline" class="w-100" [hidden]="true">
-                   <!-- <mat-label>Favorite food</mat-label> -->
-                   <input matInput placeholder="" formControlName="registrationDocument">
-                 </mat-form-field>
-               </div>
-             </div>
-
-          
-
-            <div class="col-sm">
-              <button mat-flat-button class="btn-main" type="button" (click)="handleClick()">प्रस्तुत करा</button>
-            </div>
           </div>
-        </div>
         </form>
 
-<!-- 
+        <!-- 
         <div class="container-fluid">
           <div class="d-flex flex-column align-items-center gap-3">
             <img src="assets/images/success (1)/success/check.png" alt="" class="img-fluid" width="200px">
@@ -1647,1059 +1700,3 @@
     </mat-stepper>
   </mat-card-content>
 </mat-card>
-
-
-
-<!-- <p>create-manarega-app works!</p>
-<mat-card class="plain-card">
-  <mat-card-header class="card-header">
-    <div class="text-main">Manarega Application</div>
-  </mat-card-header>
-  <mat-card-content class=" card-body form-container">
-    <mat-stepper #stepper>
-      <mat-step>
-        <ng-template matStepLabel>मूळ तपशील</ng-template>
-        <div class="container-fluid">
-          <div class="row gx-2 mb-4">
-            <div class="col-sm-2">
-              <img src="https://demosilkapi.mahamining.com/Upload/profilePhoto/Farmer.png" alt="Applicant image"
-                class="img-fluid">
-            </div>
-            <div class="col-sm">
-
-              <div class="row gy-2 gx-2 align-items-center ">
-                <div class="col-sm-6">
-                  <div class="d-flex gap-2">
-                    <div class="form-label">Mobile Number</div>
-                    <div class="form-data">: 8669264767</div>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="d-flex gap-2">
-                    <div class="form-label">Aadhar Number</div>
-                    <div class="form-data">: 8669 2647 6774</div>
-                  </div>
-                </div>
-                <div class="col-sm-12">
-                  <div class="form-label"> 1. Applicant Name</div>
-                  <div class="form-label">
-                    <mat-form-field appearance="outline" class="w-100">
-                      <input matInput placeholder="">
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="col-sm-12">
-                  <div class="form-label">2. माझ्या शेतीवर रेशीम विकास योजने अंतर्गत तुति लागवड विभाग मार्फत करण्यात
-                    यावी
-                    (कोणतेही १ निवडा )</div>
-                  <mat-form-field appearance="outline" class="w-100">
-                    <mat-select>
-                      <mat-option>रेशीम संचालनाय</mat-option>
-                      <mat-option>कृषि व फलौत्पादन</mat-option>
-                      <mat-option>पंचायत समिती</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row gx-2 align-items-center">
-            <div class="col-sm-3">
-              <div class="form-label">3. पर्यायी मोबाइल क्रमांक</div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <mat-label class="form-label">4. जन्मतारीख</mat-label>
-              <mat-form-field appearance="outline" class="w-100">
-                <input matInput [matDatepicker]="picker">
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-              <div class="d-flex align-items-center gap-3">
-                <mat-label class="form-label">5. लिंग निवडा</mat-label>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1">Male</mat-radio-button>
-                  <mat-radio-button value="2">Female</mat-radio-button>
-                </mat-radio-group>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-label">6. शिक्षण</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>अशिक्षित</mat-option>
-                  <mat-option>10 वी</mat-option>
-                  <mat-option>12 वी</mat-option>
-                  <mat-option>डिप्लोमा</mat-option>
-                  <mat-option>पदवीधर</mat-option>
-                  <mat-option>उछपद्विधार</mat-option>
-                  <mat-option>इतर</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-label">7. राज्य</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>महाराष्ट्र</mat-option>
-                  <mat-option>गुजरात</mat-option>
-                  <mat-option>बिहार</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-label">8. जिल्हा</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>धारशीव</mat-option>
-                  <mat-option>गुजरात</mat-option>
-                  <mat-option>बिहार</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-label">9. तालुका</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>कळंब</mat-option>
-                  <mat-option>गुजरात</mat-option>
-                  <mat-option>बिहार</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-label">10. ग्रामपंचायत</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>निपाणी</mat-option>
-                  <mat-option>गुजरात</mat-option>
-                  <mat-option>बिहार</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-label">11. गाव</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>निपाणी</mat-option>
-                  <mat-option>गुजरात</mat-option>
-                  <mat-option>बिहार</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-
-            <div class="col-sm-3">
-              <div class="form-label">12. पिन कोड </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-label">13. मनरेगा जॉब कार्ड क्र</div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="MH-12-345--678-901/122-40">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <mat-label>14. पत्ता</mat-label>
-              <mat-form-field appearance="outline" class="w-100">
-                <textarea matInput placeholder="लक्ष्मी रोड प्राथमिक शाळेसमोर वर्ड क्रमांक १"></textarea>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-6">
-              <div class="form-label">15. लाभर्त्याची वर्गवारी</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>
-                    <mat-radio-button value="1">अनीसीचीत जाती</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-radio-button value="1">अनीसीचीत जमाती</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-radio-button value="1">भटक्या जमाती</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-radio-button value="1">निरधिसूचित जमाती</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-radio-button value="1">इतर मागसवर्ग</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-radio-button value="1">सर्वसाधारण</mat-radio-button>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">दारिद्र्य रेषेखालील कुटुंबे </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">स्त्री कुटुंब प्रमुख असेलेले कुटुंबे </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">दिव्यांग व्यक्ति प्रमुख असेलेले कुटुंबे </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">जमीन सुधरणांचे लाभार्थी </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">प्रधानमंत्री आवास योजना - ग्रामीण योजनेखालील लाभार्थी
-                    </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">अनिसूचित जमाती व इतर पारंपरिक वानवशि (वनहक्क मान्य करणे );
-                      आधिनियम २००६(2007) च 2 खलील पात्रलाभार्थी </mat-checkbox>
-                  </mat-option>
-                  <mat-option>
-                    <mat-checkbox class="example-margin">कृषि कर्ज माफी योजना सान 2008 नुसार अल्पभूधारक (1हेक्टर
-                      )पेक्स्गा कमी क्षेत्र. </mat-checkbox>
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-      </mat-step>
-
-      <mat-step>
-        <ng-template matStepLabel>जमीन तपशील</ng-template>
-        <div class="container-fluid">
-          <div class="row align-items-center">
-            <div class="col-sm-4">
-              <div class="form-label"> 16. लाभरट्याच्या नावे (8-A )प्रमाणे एकूण जमीन हेक्टर (2.0 हेक्टर पर्यंत) </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label"> 17. लागवडीचा भुयामापन क्रमांक </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label"> 17. लागवडीचा क्षेत्र हेक्टर (मुद्दा क्रमांक 16 पेक्षा जसता नसावे) </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="d-flex align-items-center gap-3">
-                <mat-label class="form-label">19. संयुक्तखातेदार आहात का ?</mat-label>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button class="pe-3" value="1" checked="true">होय</mat-radio-button>
-                  <mat-radio-button class="pe-3" value="2">नाही</mat-radio-button>
-                </mat-radio-group>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label"> 19.A. अर्जदारच्या हिष्याचे प्रमानुसार लागवड करवायच्या जमिनीचे भुमपण क्रमांक
-              </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label"> 19.B. त्याचे क्षेत्र (हेक्टर) (मुद्दा क्रमांक 16 पेक्षा जसता नसावे व 19 पेक्षा
-                कमी नसावे) </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">20. जमिनीचा प्रकार</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>हलकी</mat-option>
-                  <mat-option>माध्यम</mat-option>
-                  <mat-option>भारी</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">21. सिंचांनाची सुविधा</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>विहीर</mat-option>
-                  <mat-option>बोरवेल</mat-option>
-                  <mat-option>नदी</mat-option>
-                  <mat-option>कालवा</mat-option>
-                  <mat-option>पाट</mat-option>
-                  <mat-option>धरण</mat-option>
-                  <mat-option>इतर</mat-option>
-                  <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="इतर इथे लिहा">
-                  </mat-form-field>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-              <mat-label class="form-label">22. रोजगार हमी व्यतिरिक्त इतर शासकीय योजनेचे अंतर्गत पूर्वा फलबाग/ फुलपिके/
-                वृक्ष केली आहे का ?</mat-label>
-              <div class="">
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button class="pe-3" value="1" checked="true">होय</mat-radio-button>
-                  <mat-radio-button class="pe-3" value="2">नाही</mat-radio-button>
-                </mat-radio-group>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">22.A. फलबागचे/ फुलबाग/ वृक्ष नाव </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">22.B. गट क्रमांक </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">22.C. गटाचे क्षेत्र (हेक्टर) </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">22.D. लागवड क्षेत्र (हेक्टर) </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">22.E. लागवड केलेल्या झाडांची संख्या </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <button mat-flat-button class="btn-main">आणखी तपशील जोडा</button>
-            </div>
-            <div class="col-sm-4">
-              <mat-label class="form-label">23. रेशीम उद्योगाचे प्रशिक्षण स्वतः घेणार का उमेदवार पाठवणार ?</mat-label>
-              <div class="">
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button class="pe-3" value="1"> स्वतः घेणार</mat-radio-button>
-                  <mat-radio-button class="pe-3" value="2" checked="true"> उमेदवार पाठवणार</mat-radio-button>
-                </mat-radio-group>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">23.A. उमेदवारचे नाव </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">23.B. उमेदवाराशी नाते</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>भाऊ</mat-option>
-                  <mat-option>बहीण</mat-option>
-                  <mat-option>चुलत भाऊ</mat-option>
-                  <mat-option>काका</mat-option>
-                  <mat-option>मामा</mat-option>
-                  <mat-option>सासरे</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-          <button mat-button matStepperPrevious class="btn-main">Back</button>
-          <button mat-button matStepperNext class="btn-main">Next</button>
-        </div>
-      </mat-step>
-
-      <mat-step>
-        <ng-template matStepLabel>बँक तपशील</ng-template>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-4">
-              <div class="form-label">24. बँक निवडा</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>Bank of India</mat-option>
-                  <mat-option>Bank of maharashtra</mat-option>
-                  <mat-option>Bank of Badoda</mat-option>
-                  <mat-option>HDFC</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">25. बँक शाखा निवडा</div>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-select>
-                  <mat-option>Pune </mat-option>
-                  <mat-option>Dharahsiv</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">26. आय एफ एस सी कोड </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">27. राष्ट्रीय बँक खाते क्रमांक </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-          <button mat-button matStepperPrevious class="btn-main">Back</button>
-          <button mat-button matStepperNext class="btn-main">Next</button>
-        </div>
-      </mat-step>
-
-      <mat-step>
-        <ng-template matStepLabel>कागदपत्रे</ng-template>
-        <div class="container-fluid">
-          <div class="row align-items-center g-3">
-            <div class="col-sm-4">
-              <div class="form-label">1. मनरेगा जॉब कार्डइथे अपलोड करा (चित्रा किवा पीडीएफ अपलोड करा) </div>
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
-                  Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
-                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
-                    <mat-icon class="material-symbols-rounded">
-                      preview
-                    </mat-icon>
-                  </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">2. जमिनीचा 8-अ येथे जोडा </div>
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
-                  Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
-                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
-                    <mat-icon class="material-symbols-rounded">
-                      preview
-                    </mat-icon>
-                  </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">2. जमिनीचा 7/12 उतारा येथे अपलोड करा </div>
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
-                  Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
-                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
-                    <mat-icon class="material-symbols-rounded">
-                      preview
-                    </mat-icon>
-                  </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">3. बँक पासबूक/ रद्द केलेला चेक अपलोड करा. </div>
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
-                  Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
-                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
-                    <mat-icon class="material-symbols-rounded">
-                      preview
-                    </mat-icon>
-                  </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <button mat-flat-button class="btn-main-light" type="button">इतर कागदपत्रे जोडा</button>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">5.A. कागदपत्राचे नाव </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-label">5.B. क्रमांक </div>
-              <div class="form-label">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="">
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">Other
-                  docx File
-                  Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
-                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
-                    <mat-icon class="material-symbols-rounded">
-                      preview
-                    </mat-icon>
-                  </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-          <button mat-button matStepperPrevious class="btn-main">Back</button>
-          <button mat-button matStepperNext class="btn-main">Next</button>
-        </div>
-      </mat-step>
-
-      <mat-step>
-        <ng-template matStepLabel>स्वयंघोशापत्र</ng-template>
-        <div class="container-fluid">
-          <p class="form-label">
-            वरील प्रमाणे महात्मा गांधी रोजगार हमी योजनेशी निगडित रेशीम उद्योग विकास / तुती लागवड योजनेअंतर्गत मी अर्ज
-            केला आहे. त्यास मंजुरी मिळाल्यास त्याकरिता माझ्या / आमच्या मालकीच्या / जमिनीवर हि योजना राबविण्यास संमती देत
-            आहे / आहोत
-          </p>
-          <ul class="list-unstyled">
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
-                <p class="form-label mb-0">
-                  सदर ची योजना राबविण्याकरिता मी स्वतः / माझे कुटुंबातील कार्यक्षम व्यक्ती महात्मा गांधी राष्ट्रीय
-                  ग्रामीण रोजगार हमी योजनेतील प्रामाणिक मजूर म्हणून घोषित करीत आहे / आहोत.
-                  □ या योजनेकरिता होणारी सर्व कामे प्रामुख्याने पूर्ण करण्याची जबाबदारी माझी किव्हा जॉबकार्ड धारक
-                  मजुरांकडून करून
-                  घेण्याची जबाबदारी माझी / आमची राहील.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex  align-items-center gap-2">
-                <mat-checkbox></mat-checkbox>
-                <p class="form-label mb-0">
-                  योजने अंतर्गत आवश्यक कलमे / रोपांची वाहतूक मला स्वतः
-                  करावी लागेल याची मला कल्पना देण्यात आलेली असून मला ते मान्य आहे
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
-                <p class="form-label mb-0">
-                  झाडांची लागवड केल्यानंतर हप्ता रक्कम मिळण्यासाठीचे पात्रता निकष मला अवगत करून देण्यात आलेले असून ते
-                  मला मान्य राहतील,
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
-                <p class="form-label mb-0">
-                  या योजनेचे नियम व अटी मला बंधनकारक आहे व त्यानुसार मी कलाम / रोपांची लागवड / संगोपन / संरक्षण करीन.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
-                <p class="form-label mb-0">
-                  सदर योजनेअंतर्गत एकूण क्षेत्राप्रमाणे व नमुन्याप्रमाणे शासनाने Ο प्रतिवर्षी मंजूर केलेल्या मयदिच्या
-                  प्रमाणकापेक्षा जास्त खर्च झाल् मी / स्वतः करील
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
-                <p class="form-label mb-0">
-                  महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजनेशी निगडित
-
-                  रेशीम उद्योग विकास / तुती लागवड योजनेची माहिती मला / आम्हाला मान्य असल्याव काबुल क करून त्याप्रमाणे
-                  करार पत्रावर सह्या केल्या आहेत
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
-                <p class="form-label mb-0">
-                  या योजनेअंतर्गत शासन वेळोवेळी जे बदल करेल अथवा अटी ■ घालेल त्या अटी / बदल मला / आम्हाला मान्य राहतील.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
-                <p class="form-label mb-0">
-                  महात्मा गांधी राष्टीय ग्रामीण रोजगार हमी योजनेअंतर्गत रेशीम उद्योग विकास / तुती लागवड योजनेमध्ये
-                  समाविष्ठ करून / घ्या करीता मी / आम्ही दिलेला तपशील ७/१२ चे उताऱ्याप्रमाणे बरोबर आहे.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox></mat-checkbox>
-                <p class="form-label mb-0">
-                  मी / आम्ही संयुक्त खातेदार असून माझ्या / आमच्या हिश्याच्या □ भूमापन क्र. १२६० मध्ये १ हेक्टर
-                  क्षेत्रावर लागवड करण्यास परवानगी दिल्यास वरील अटी मला / आम्हाला मान्य राहतील
-                </p>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-          <button mat-button matStepperPrevious class="btn-main">मागे जा</button>
-          <button mat-button matStepperNext class="btn-main">पुरवलोकण करा </button>
-        </div>
-
-
-
-        <div class="container-fluid">
-          <div class="form-data">Individual Information</div>
-          <div class="row gx-2 mb-3">
-            <div class="col-sm-2">
-              <img src="https://demosilkapi.mahamining.com/Upload/profilePhoto/Farmer.png" alt="Applicant image"
-                class="img-fluid">
-            </div>
-            <div class="col-sm-10">
-              <div class="row gx-2">
-                <div class="col-sm-6">
-                  <div class="form-data text-main">Individual Information</div>
-                  <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">Mobile No.</div>
-                      <span class="form-data  rounded-pill">8669264767</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">Aadhar No.</div>
-                      <span class="form-data rounded-pill">: 8669 2647 6774</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">1. अर्जदाराचे नाव</div>
-                      <span class=" form-data rounded-pill">जयरम रमेश कांबळे</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">2. माझ्या शेतावर रेशीम विकास योजनेअंतर्गत तुती लागवड विभाग मार्फत करण्यात यावी
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-data text-main">लाभरट्याची वर्गावारी </div>
-                  <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">अनुसूचीत जाती</div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">दारिद्र्य रेशेखालील इतर कुटुंबे    प्रधानमंत्री आवास योजने - ग्रामीण योजनेखालील लाभार्थी</div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row gy-2 gx-2 mb-2">
-            <div class="col-sm-4">
-              <div class="form-data text-main">कृषि व फलौत्पादन </div>
-              <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">3. पर्यायी मोबाइल क्रं.</div>
-                  <span class="form-data  rounded-pill">8669264767</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">जन्मतारीक</div>
-                  <span class="form-data rounded-pill">: 06/10-2023</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">लिंग</div>
-                  <span class=" form-data rounded-pill">पुरुष</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">शिक्षण</div>
-                  <span class=" form-data rounded-pill">12वी</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">राज्य</div>
-                  <span class=" form-data rounded-pill">महाराष्ट्र</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">जिल्हा</div>
-                  <span class=" form-data rounded-pill">धरशीव</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">तालुका</div>
-                  <span class=" form-data rounded-pill">कळंब</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">ग्रामपंचायत</div>
-                  <span class=" form-data rounded-pill">कळंब</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">गाव</div>
-                  <span class=" form-data rounded-pill">कळंब</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">पत्ता</div>
-                  <span class=" form-data rounded-pill">कळंब</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">पिन कोड</div>
-                  <span class=" form-data rounded-pill">411011</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">मनरेगा जॉब कार्ड क्रं</div>
-                  <span class=" form-data rounded-pill">MH-12-345-678-901/122-00</span>
-                </li>
-              </ul>
-            </div>
-            <div class="col-sm-4">
-              <div class="row g-3">
-                <div class="col-sm-12">
-                  <div class="form-data text-main">जमिनीचा तपशील </div>
-                  <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">लाभरट्याची नवे (8-अ प्रमाणे ) एकूण जमीन हेक्टर.</div>
-                      <span class="form-data  rounded-pill">1.20</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">लागवडीचा भुयांपान क्रं</div>
-                      <span class="form-data  rounded-pill">1260</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">लागवडीचा क्षेत्र हेक्टर ( मुद्दा क्रं 17 पेक्षा जसता  नसावे)</div>
-                      <span class="form-data  rounded-pill">1260</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label"> संयक्त खातेदार आहात का? 	</div>
-                      <span class="form-data  rounded-pill">नाही </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">जमिनीचा प्रकार  	</div>
-                      <span class="form-data  rounded-pill">हलकी </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">सिंचांनाची सोय	</div>
-                      <span class="form-data  rounded-pill">विहीर </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label"> रोजगार हमी व्यतिरिक्त इतर शासकीय योजना अंतर्गत पूर्वा फलबाग / फुलपिके / वृक्षकेली आहेत का ? </div>
-                      <span class="form-data  rounded-pill">नाही </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label"> रेशीम उद्योगाचे प्रशिक्षण स्वतः घेणार का उमेदवार पाठवणार ? </div>
-                      <span class="form-data  rounded-pill">स्वतः घेणार</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="row gx-2 gy-3">
-                <div class="col-sm-12">
-                  <div class="text-main fw-bold">बँकेचे तपशील</div>
-                  <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">बंकेचे नाव </div>
-                      <span class="form-data  rounded-pill">भारतीय स्टेट बँक</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">शाखा </div>
-                      <span class="form-data  rounded-pill">धरशीव</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">आय एफएससी कोड </div>
-                      <span class="form-data  rounded-pill">SBIN0003900</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">राष्ट्रीय बँक खाते क्रं </div>
-                      <span class="form-data  rounded-pill">SBIN0003900</span>
-                    </li>
-
-                  </ul>
-                </div>
-                <div class="col-sm-12">
-                  <div class="text-main fw-bold">कागदपत्रे</div>
-                  <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">मनरेगा जॉब कार्ड </div>
-                      <span class="form-data  rounded-pill">
-                        <mat-icon class="material-symbols-outlined">
-                          visibility
-                          </mat-icon>
-                      </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">जमिनीचा 8-अ </div>
-                      <span class="form-data  rounded-pill">
-                        <mat-icon class="material-symbols-outlined">
-                          visibility
-                          </mat-icon>
-                      </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">जमींचा 7/12 उतारा </div>
-                      <span class="form-data  rounded-pill">
-                        <mat-icon class="material-symbols-outlined">
-                          visibility
-                          </mat-icon>
-                      </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">बँक पासबूक/ किवा रद्द केलेला चेक </div>
-                      <span class="form-data  rounded-pill">
-                        <mat-icon class="material-symbols-outlined">
-                          visibility
-                          </mat-icon>
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="text-main fw-bold">स्वयंघोशापत्र</div>
-          <div class="d-flex align-items-center gap-2">
-            <mat-checkbox checked="true"></mat-checkbox>
-            <p class="form-label">
-              वरील प्रमाणे महात्मा गांधी रोजगार हमी योजनेशी निगडित रेशीम उद्योग विकास / तुती लागवड योजनेअंतर्गत मी अर्ज
-              केला आहे. त्यास मंजुरी मिळाल्यास त्याकरिता माझ्या / आमच्या मालकीच्या / जमिनीवर हि योजना राबविण्यास संमती देत
-              आहे / आहोत
-            </p>
-          </div>
-          <ul class="list-unstyled">
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  सदर ची योजना राबविण्याकरिता मी स्वतः / माझे कुटुंबातील कार्यक्षम व्यक्ती महात्मा गांधी राष्ट्रीय
-                  ग्रामीण रोजगार हमी योजनेतील प्रामाणिक मजूर म्हणून घोषित करीत आहे / आहोत.
-                  □ या योजनेकरिता होणारी सर्व कामे प्रामुख्याने पूर्ण करण्याची जबाबदारी माझी किव्हा जॉबकार्ड धारक
-                  मजुरांकडून करून
-                  घेण्याची जबाबदारी माझी / आमची राहील.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex  align-items-center gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  योजने अंतर्गत आवश्यक कलमे / रोपांची वाहतूक मला स्वतः
-                  करावी लागेल याची मला कल्पना देण्यात आलेली असून मला ते मान्य आहे
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  झाडांची लागवड केल्यानंतर हप्ता रक्कम मिळण्यासाठीचे पात्रता निकष मला अवगत करून देण्यात आलेले असून ते
-                  मला मान्य राहतील,
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  या योजनेचे नियम व अटी मला बंधनकारक आहे व त्यानुसार मी कलाम / रोपांची लागवड / संगोपन / संरक्षण करीन.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  सदर योजनेअंतर्गत एकूण क्षेत्राप्रमाणे व नमुन्याप्रमाणे शासनाने Ο प्रतिवर्षी मंजूर केलेल्या मयदिच्या
-                  प्रमाणकापेक्षा जास्त खर्च झाल् मी / स्वतः करील
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजनेशी निगडित
-
-                  रेशीम उद्योग विकास / तुती लागवड योजनेची माहिती मला / आम्हाला मान्य असल्याव काबुल क करून त्याप्रमाणे
-                  करार पत्रावर सह्या केल्या आहेत
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  या योजनेअंतर्गत शासन वेळोवेळी जे बदल करेल अथवा अटी ■ घालेल त्या अटी / बदल मला / आम्हाला मान्य राहतील.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  महात्मा गांधी राष्टीय ग्रामीण रोजगार हमी योजनेअंतर्गत रेशीम उद्योग विकास / तुती लागवड योजनेमध्ये
-                  समाविष्ठ करून / घ्या करीता मी / आम्ही दिलेला तपशील ७/१२ चे उताऱ्याप्रमाणे बरोबर आहे.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex align-items-center  gap-2">
-                <mat-checkbox checked="true"></mat-checkbox>
-                <p class="form-label mb-0">
-                  मी / आम्ही संयुक्त खातेदार असून माझ्या / आमच्या हिश्याच्या □ भूमापन क्र. १२६० मध्ये १ हेक्टर
-                  क्षेत्रावर लागवड करण्यास परवानगी दिल्यास वरील अटी मला / आम्हाला मान्य राहतील
-                </p>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-          <button mat-button matStepperPrevious class="btn-main">Previous</button>
-          <button mat-button matStepperNext class="btn-main">Next</button>
-        </div>
-      </mat-step>
-
-      <mat-step>
-        <ng-template matStepLabel>चलन जोडा</ng-template>
-        <div class="container-fluid">
-          <h6 class="my-4">
-            संबंद्धित कार्यालय मध्ये जाऊन नोंदणी फी प्रती एकर 500 रु प्रमाणे भरून मिळालेली पावती येथे अपलोड करावी.
-          </h6>
-          <div class="row align-items-center ">
-            <div class="col-sm-4">
-              <div class="file-upload border rounded-2 p-1">
-                <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip">File
-                  Upload<span class="text-danger fs-6">*</span>
-                </button>
-                <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" />
-                <div class="d-flex gap-2">
-                  <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view">
-                    <mat-icon class="material-symbols-rounded">
-                      preview
-                    </mat-icon>
-                  </button>
-                  <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete">
-                    <mat-icon class="material-symbols-rounded">
-                      delete
-                    </mat-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm">
-              <button mat-flat-button class="btn-main">प्रस्तुत करा</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="container-fluid">
-          <div class="d-flex flex-column align-items-center gap-3">
-           <img src="assets/images/success (1)/success/check.png" alt="" class="img-fluid" width="200px">
-            <h2 class="fw-bold">अभिनंदन</h2>
-            <div class="form-label">आपला आरजा यशस्वी रित्या सादर झाला आहे.</div>
-            <div class="form-data">आरजा क्रं : MNR202306210859</div>
-            <div class="form-data">26/06/2023 11:22:10 AM</div>
-            <div>
-              <a href="">आरजा डाऊनलोड करा</a>
-            </div>
-            <button mat-flat-button class="btn-main">OK</button>
-          </div>
-        </div>
-      </mat-step>
-
-
-
-    </mat-stepper>
-
-
-
-
-  </mat-card-content>
-</mat-card> -->
