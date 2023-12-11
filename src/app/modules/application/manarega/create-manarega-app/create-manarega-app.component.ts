@@ -69,7 +69,7 @@ export class CreateManaregaAppComponent {
   //documnet form variable
   docUploadedPath: string = '';
   docArray = [{id:0,docTypeId:12,docPath:'',docNo:'',docname:'Job Card'},{id:0,docTypeId:19,docPath:'',docNo:'',docname:'8A Form'},{id:0,docTypeId:18,docPath:'',docNo:'',docname:'7-Dec'},
-  {id:0,docTypeId:11,docPath:'',docNo:'',docname:'Nationalized Bank Passbook'}, {id:0,docTypeId:17,docPath:'',docNo:'',docname:'Registration Fee Receipt'}]
+  {id:0,docTypeId:11,docPath:'',docNo:'',docname:'Nationalized Bank Passbook'}, {id:0,docTypeId:8,docPath:'',docNo:'',docname:'Registration Fee Receipt'}]
   visible:boolean = false;
   otherDocArray: any = new Array();
   @ViewChild('otherDocImage') OtherDocImg!: ElementRef;
@@ -160,20 +160,16 @@ export class CreateManaregaAppComponent {
   
 /////////////////preview patch data
 viewPreviewDocument(docId: any) {
-  //console.log("this.previewData?.documents",this.previewData?.documents)
-  let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.previewData?.documents,'docId',docId);
-//  console.log("indexByDocId",indexByDocId)
- let obj= this.previewData?.documents[indexByDocId].documentPath;
- //console.log("obj",this.previewData?.documents[2].documentPath)
- window.open(obj, '_blank')
+let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.previewData?.documents,'docId',docId);
+let obj= this.previewData?.documents[indexByDocId].documentPath;
+window.open(obj, '_blank')
 }
 
-// Define a function to filter and retrieve documents with docId 7
+
 getDocumentsWithDocId7() {
   return this.previewData?.documents.filter((doc:any) => doc.docId === 7);
 }
 
-// Function to open the document in a new tab
 viewPreviewDocument11(documentPath: string) {
   window.open(documentPath, '_blank');
 }
@@ -520,7 +516,7 @@ getPreviewData(){
     else if( this.documentFrm.invalid && flag == 'document'){
       for(let i=0 ;i< this.docArray.length;i++){
         this.documentFrm.controls['allRequiredDocument'].setValue('');
-        if(this.docArray[i].docPath == '' && this.docArray[i].docTypeId != 18 && this.docArray[i].docTypeId != 17){
+        if(this.docArray[i].docPath == '' && this.docArray[i].docTypeId != 18 && this.docArray[i].docTypeId != 8){
        this.docArray[i].docTypeId == 12 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Manrega Job Card Required' : 'मनरेगा जॉब कार्ड आवश्यक'), 1) : this.docArray[i].docTypeId == 19 ? this.commonMethod.snackBar((this.lang == 'en' ? '8 A track of Land Required' : 'जमिनीचा 8-अ आवश्यक'), 1) : this.docArray[i].docTypeId == 11  ? this.commonMethod.snackBar((this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque Required' : 'पासबुक / रद्द केलेला चेक आवश्यक'), 1) : '';
       //this.docArray[i].docTypeId == 12 ? (this.lang == 'en' ? 'Manrega Job Card' : 'मनरेगा जॉब कार्ड')   :  this.docArray[i].docTypeId == 19 ? (this.lang == 'en' ? '8 A track of Land' : 'जमिनीचा 8-अ') : this.docArray[i].docTypeId == 11  ? (this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque' : 'पासबुक / रद्द केलेला चेक') : ''
           // alert(str+ ' required')
@@ -534,7 +530,7 @@ getPreviewData(){
         for(let i=0 ;i< this.docArray.length;i++){
           this.addRegistrationRecFrm.controls['registrationDocument'].setValue('');
           if(this.docArray[i].docPath == ''){
-            this.docArray[i].docTypeId == 17 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Registration Fee Receipt Required' : 'नोंदणी फी पावती आवश्यक'), 1) : '';
+            this.docArray[i].docTypeId == 8 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Registration Fee Receipt Required' : 'नोंदणी फी पावती आवश्यक'), 1) : '';
             return;
            }
            else{
@@ -683,9 +679,10 @@ getPreviewData(){
           this.spinner.hide();
           if (res.statusCode == "200") {
             this.getId = res.responseData;
+            this.getPreviewData();
             this.appId = res.responseData1;
             this.appTime = res.responseData2;
-            console.log("this.getId",this.getId)
+            console.log("this.getId",this.appId)
             this.commonMethod.snackBar(res.statusMessage, 0);
             this.viewMsgFlag=false; 
             // this.dialogRef.close('Yes');
@@ -930,6 +927,7 @@ getPreviewData(){
   openDialog() {
     // let userEng = obj.status == false ? 'Active' : 'Deactive';
     // let userMara = obj.status == false ? 'सक्रिय' : 'निष्क्रिय';
+    if( this.appId != '' &&  this.appTime != ''){
     let dialoObj = {
       header: this.lang == 'mr-IN' ? 'अभिनंदन ' : 'Congratulations',
       title: this.lang == 'mr-IN' ? 'आपला आरजा यशस्वी रित्या सादर झाला आहे.आरजा क्रं : '+ this.appId + this.appTime : 'आपला आरजा यशस्वी रित्या सादर झाला आहे.आरजा क्रं : '+ this.appId + this.appTime,
@@ -943,9 +941,18 @@ getPreviewData(){
       disableClose: true,
       autoFocus: false
     })
+  }
     // deleteDialogRef.afterClosed().subscribe((result: any) => {
     //   result == 'Yes' ? this.blockAction(obj) : '';
     // })
+  }
+
+  handleClick() {
+    if (this.appId !== null) {
+      this.openDialog();
+    } else {
+      this.onSubmit('challan');
+    }
   }
 
   // <h2 class="fw-bold">अभिनंदन</h2>
