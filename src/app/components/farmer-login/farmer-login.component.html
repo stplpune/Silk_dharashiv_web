@@ -1,1 +1,96 @@
-<p>farmer-login works!</p>
+<div class="login-wrapper">
+
+</div>
+<div class="login-box form-container">
+  <div class="row">
+    <div class="col-sm-6">
+      <img src="assets/images/login.jpg" class="login-img">
+    </div>
+    <div class="col-sm-6">
+      <form>
+        <div class="login form-container">
+          <div class="mb-4 text-center">
+            <img src="assets/images/logo-text.svg" class="w-75">
+          </div>
+          <h4 class="fw-bold text-center mb-4">Farmer Login</h4>
+          <div class="mb-0">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="form-label">Mobile Number</mat-label>
+              <input id="usernameId" matInput placeholder="">
+            </mat-form-field>
+          </div>
+          <p class="small form-label mb-4 text-center">OTP will be send to your registered mobile number</p>
+          <button mat-flat-button class="btn-main w-100">Send OTP </button>
+          <!-- <div class="col-sm-6 text-end">
+              <a class="text-main" href="../forgot-password">{{'login.forgot_password'|translate}}?</a>
+            </div> -->
+        </div>
+      </form>
+      <!-- farmer login verify otp -->
+      <form>
+        <div class="login form-container">
+          <div class="mb-4 text-center">
+            <img src="assets/images/logo-text.svg" class="w-75">
+          </div>
+          <h4 class="fw-bold text-center mb-4">Farmer Login</h4>
+          <div class="mb-3">
+            <label class="form-label">Enter OTP</label>
+            <div class="d-flex gap-2 justify-content-center mb-1">
+              <div class="otp-text">
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput placeholder="X" maxlength="1" class="text-center">
+                </mat-form-field>
+              </div>
+              <div class="otp-text">
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput placeholder="X" maxlength="1" class="text-center">
+                </mat-form-field>
+              </div>
+              <div class="otp-text">
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput placeholder="X" maxlength="1" class="text-center">
+                </mat-form-field>
+              </div>
+              <div class="otp-text">
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput placeholder="X" maxlength="1" class="text-center">
+                </mat-form-field>
+              </div>
+
+              <div class="otp-text">
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput placeholder="X" maxlength="1" class="text-center">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="text-end">
+              <a class="text-main">Resend OTP?</a>
+            </div>
+            <div class="text-end">
+              <span class="mb-2 ml-4 text-main">
+                Wait for 60:00 Sec.</span>
+            </div>
+            <div class="text-center form-label">
+              <span>Please enter the OTP sent to your registered mobile number.</span>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between">
+              <a class="d-flex align-items-center justify-content-end text-main">
+                <mat-icon class="">chevron_left</mat-icon>
+                <span>Back To Login</span>
+              </a>
+              <button mat-flat-button type="submit" class="btn-main">Verify OTP</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
+
+
+
+</div>

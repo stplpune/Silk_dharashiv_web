@@ -13,6 +13,7 @@ import { MasterService } from 'src/app/core/services/master.service';
 import { CategoryDetailsComponent } from '../category-details/category-details.component';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 @Component({
   selector: 'app-create-manarega-app',
   templateUrl: './create-manarega-app.component.html',
@@ -25,6 +26,7 @@ export class CreateManaregaAppComponent {
   bankInfoFrm !: FormGroup;
   documentFrm !:FormGroup;
   otherDocumentFrm !: FormGroup;
+  addRegistrationRecFrm !: FormGroup;
   @ViewChild('uplodLogo') clearlogo!: any;
   imageResponse: string = '';
   subscription!: Subscription;//used  for lang conv
@@ -57,6 +59,9 @@ export class CreateManaregaAppComponent {
   maxDate = new Date();
   farmDetails = new Array();
   getId:any;
+  appId:any;
+  appTime:any;
+
   index:any;
   farmDeatailsEditObj:any
   dataSource :any;
@@ -64,7 +69,7 @@ export class CreateManaregaAppComponent {
   //documnet form variable
   docUploadedPath: string = '';
   docArray = [{id:0,docTypeId:12,docPath:'',docNo:'',docname:'Job Card'},{id:0,docTypeId:19,docPath:'',docNo:'',docname:'8A Form'},{id:0,docTypeId:18,docPath:'',docNo:'',docname:'7-Dec'},
-  {id:0,docTypeId:11,docPath:'',docNo:'',docname:'Nationalized Bank Passbook'}, {id:0,docTypeId:8,docPath:'',docNo:'',docname:'Registration Fee Receipt Path'}]
+  {id:0,docTypeId:11,docPath:'',docNo:'',docname:'Nationalized Bank Passbook'}, {id:0,docTypeId:17,docPath:'',docNo:'',docname:'Registration Fee Receipt'}]
   visible:boolean = false;
   otherDocArray: any = new Array();
   @ViewChild('otherDocImage') OtherDocImg!: ElementRef;
@@ -101,6 +106,7 @@ export class CreateManaregaAppComponent {
     this.addDocumentFrm() 
     this.addSelfDeclaration();
     this.addOtherDocument();
+    this.addRegistrationFrm();
     this.getDepartment();
     this.getQualification();
     this.getState();
@@ -110,7 +116,7 @@ export class CreateManaregaAppComponent {
     this.getCandidateRelation();
     this.getBank();
     this.searchDataZone();
-    this.getPreviewData();
+    
   }
     //#region  -----------------------------------------------------------doc upload section fn start heare-----------------------------------//
 
@@ -154,11 +160,11 @@ export class CreateManaregaAppComponent {
   
 /////////////////preview patch data
 viewPreviewDocument(docId: any) {
-  console.log("this.previewData?.documents",this.previewData?.documents)
+  //console.log("this.previewData?.documents",this.previewData?.documents)
   let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.previewData?.documents,'docId',docId);
-  console.log("indexByDocId",indexByDocId)
+//  console.log("indexByDocId",indexByDocId)
  let obj= this.previewData?.documents[indexByDocId].documentPath;
- console.log("obj",this.previewData?.documents[2].documentPath)
+ //console.log("obj",this.previewData?.documents[2].documentPath)
  window.open(obj, '_blank')
 }
 
@@ -261,6 +267,12 @@ viewPreviewDocument11(documentPath: string) {
   addDocumentFrm() {
     this.documentFrm = this.fb.group({
       'allRequiredDocument' : [ '',[Validators.required]]
+    })
+  }
+
+  addRegistrationFrm() {
+    this.addRegistrationRecFrm = this.fb.group({
+      'registrationDocument' : [ '',[Validators.required]]
     })
   }
 
@@ -458,8 +470,8 @@ viewPreviewDocument11(documentPath: string) {
   
 
 
-getPreviewData(){
-  this.apiService.setHttp('get','sericulture/api/Application/application-preview?Id=16&AadharNo=675676564545&MobileNo=8765456789&lan=en',false,false,false,'masterUrl');
+getPreviewData(){ 
+  this.apiService.setHttp('get','sericulture/api/Application/application-preview?Id='+(this.getId)+'&AadharNo='+( this.manaregaFrm.getRawValue()?.aadharNo)+'&MobileNo='+(this.manaregaFrm.getRawValue()?.mobileNo1)+'&lan='+this.lang,false,false,false,'masterUrl');
   this.apiService.getHttp().subscribe({
     next:((res:any)=>{
       if(res.statusCode == "200"){
@@ -508,16 +520,28 @@ getPreviewData(){
     else if( this.documentFrm.invalid && flag == 'document'){
       for(let i=0 ;i< this.docArray.length;i++){
         this.documentFrm.controls['allRequiredDocument'].setValue('');
-        if(this.docArray[i].docPath == '' && this.docArray[i].docTypeId != 18 && this.docArray[i].docTypeId != 8){
-          let str = this.docArray[i].docTypeId == 12 ? (this.lang == 'en' ? 'Manrega Job Card' : 'मनरेगा जॉब कार्ड')   :  this.docArray[i].docTypeId == 19 ? (this.lang == 'en' ? '8 A track of Land' : 'जमिनीचा 8-अ') : this.docArray[i].docTypeId == 11  ? (this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque' : 'पासबुक / रद्द केलेला चेक') : ''
-          alert(str+ ' required')
+        if(this.docArray[i].docPath == '' && this.docArray[i].docTypeId != 18 && this.docArray[i].docTypeId != 17){
+       this.docArray[i].docTypeId == 12 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Manrega Job Card Required' : 'मनरेगा जॉब कार्ड आवश्यक'), 1) : this.docArray[i].docTypeId == 19 ? this.commonMethod.snackBar((this.lang == 'en' ? '8 A track of Land Required' : 'जमिनीचा 8-अ आवश्यक'), 1) : this.docArray[i].docTypeId == 11  ? this.commonMethod.snackBar((this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque Required' : 'पासबुक / रद्द केलेला चेक आवश्यक'), 1) : '';
+      //this.docArray[i].docTypeId == 12 ? (this.lang == 'en' ? 'Manrega Job Card' : 'मनरेगा जॉब कार्ड')   :  this.docArray[i].docTypeId == 19 ? (this.lang == 'en' ? '8 A track of Land' : 'जमिनीचा 8-अ') : this.docArray[i].docTypeId == 11  ? (this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque' : 'पासबुक / रद्द केलेला चेक') : ''
+          // alert(str+ ' required')
           return
         }
       else{
         this.documentFrm.controls['allRequiredDocument'].setValue(1);
       }}
-
-     }
+      }
+      else if(this.addRegistrationRecFrm.invalid && flag == 'challan'){
+        for(let i=0 ;i< this.docArray.length;i++){
+          this.addRegistrationRecFrm.controls['registrationDocument'].setValue('');
+          if(this.docArray[i].docPath == ''){
+            this.docArray[i].docTypeId == 17 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Registration Fee Receipt Required' : 'नोंदणी फी पावती आवश्यक'), 1) : '';
+            return;
+           }
+           else{
+            this.addRegistrationRecFrm.controls['registrationDocument'].setValue(1);
+           }
+        }
+      }
     else {
       let formData = this.manaregaFrm?.getRawValue();
       //let farmDetails=this.farmDeatailsFrm.getRawValue();
@@ -527,6 +551,7 @@ getPreviewData(){
         this.docArray.map((ele:any)=>{
            ele.createdBy = 0;
            ele.isDeleted = false;
+           ele.applicationId = (this.getId || 0);
         })
      let obj ={
         "id": flag == 'farmerInfo' ? formData.id : this.getId,
@@ -609,7 +634,7 @@ getPreviewData(){
         "sm_IsRequestForYourPriorConsent": true,
         "registrationFeeReceiptPath": "string",
         "createdBy": 0,
-        "flag": flag == 'farmerInfo' ? 0 : flag == 'farmInfo'? 2 : flag == 'bankInfo' ?  3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'preview' ? 6 : 7,
+        "flag": flag == 'farmerInfo' ? 0 : flag == 'farmInfo'? 2 : flag == 'bankInfo' ?  3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'preview' ? 6 :  flag == 'challan' ? 7 : '',
         "isUpdate": true,
         "appDoc": mergeDocumentArray,
         // [{
@@ -658,6 +683,8 @@ getPreviewData(){
           this.spinner.hide();
           if (res.statusCode == "200") {
             this.getId = res.responseData;
+            this.appId = res.responseData1;
+            this.appTime = res.responseData2;
             console.log("this.getId",this.getId)
             this.commonMethod.snackBar(res.statusMessage, 0);
             this.viewMsgFlag=false; 
@@ -899,6 +926,36 @@ getPreviewData(){
         break;
     }
   }
+
+  openDialog() {
+    // let userEng = obj.status == false ? 'Active' : 'Deactive';
+    // let userMara = obj.status == false ? 'सक्रिय' : 'निष्क्रिय';
+    let dialoObj = {
+      header: this.lang == 'mr-IN' ? 'अभिनंदन ' : 'Congratulations',
+      title: this.lang == 'mr-IN' ? 'आपला आरजा यशस्वी रित्या सादर झाला आहे.आरजा क्रं : '+ this.appId + this.appTime : 'आपला आरजा यशस्वी रित्या सादर झाला आहे.आरजा क्रं : '+ this.appId + this.appTime,
+      cancelButton: '',
+      okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
+      headerImage: 'assets/images/success (1)/success/check.png'
+    }
+    this.dialog.open(GlobalDialogComponent, {
+      width: '320px',
+      data: dialoObj,
+      disableClose: true,
+      autoFocus: false
+    })
+    // deleteDialogRef.afterClosed().subscribe((result: any) => {
+    //   result == 'Yes' ? this.blockAction(obj) : '';
+    // })
+  }
+
+  // <h2 class="fw-bold">अभिनंदन</h2>
+  //           <div class="form-label">आपला आरजा यशस्वी रित्या सादर झाला आहे.</div>
+  //           <div class="form-data">आरजा क्रं : MNR202306210859</div>
+  //           <div class="form-data">26/06/2023 11:22:10 AM</div>
+  //           <div>
+  //             <a href="">आरजा डाऊनलोड करा</a>
+  //           </div>
+  //           <button mat-flat-button class="btn-main">OK</button>
 
 }
 
