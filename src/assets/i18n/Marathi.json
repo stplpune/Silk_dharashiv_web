@@ -691,6 +691,18 @@
     "congratulations":"अभिनंदन !",
     "application_submitted":"आपला अर्ज यशस्वीरीत्या सादर झाला आहे."
    
+  },
+  "farmerLogin":{
+    "farmer_login":"शेतकरी लॉगिन",
+    "mobile": "मोबाईल नंबर",
+    "please_enter_mobile_number": "कृपया मोबाईल नंबर टाका",
+    "please_enter_valid_mobile_no": "कृपया वैध मोबाईल नंबर प्रविष्ट करा",
+    "otp_will_be_send_to_your_registered_mobile_number":"तुमच्या नोंदणीकृत मोबाईल नंबरवर OTP पाठवला जाईल",
+    "send_otp": "OTP पाठवा",
+    "resend_otp": "OTP पुन्हा पाठवायचा?",
+    "enter_otp": "ओटीपी टाका",
+    "verify_otp": "OTP सत्यापित करा",
+    "back_to_login": "लॉगिन करण्यासाठी परत"
   }
 
 }
