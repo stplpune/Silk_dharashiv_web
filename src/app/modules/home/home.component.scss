@@ -48,6 +48,8 @@ section#blogs {
 }
 
 section#download {
+    background-color: var(--main-color);
+    padding: 3rem 4rem;
     color: #fff;
 }
 
@@ -317,6 +319,10 @@ a.read-more:hover span {
     font-weight: 900;
 }
 
+#download .download-app {
+    width: 75%;
+}
+
 #download h1 {
     font-size: 3rem;
 }
@@ -377,4 +383,80 @@ a.read-more:hover span {
 #blogs .card-text {
     font-size: 0.85rem;
     color: #555;
+}
+
+
+@media only screen and (max-width: 600px) {
+    header .carousel-item h1 {
+        font-size: 2.5rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        color: var(--main-color);
+        text-align: center;
+    }
+
+    header .carousel-item h1 span {
+        color: #E6670B;
+    }
+
+    header .carousel-item h3 {
+        font-size: 1.5rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        color: #353535;
+        text-align: center;
+    }
+
+    header .carousel-item p {
+        font-size: 0.85rem;
+        color: #353535;
+        line-height: 1.6rem;
+        text-align: center;
+    }
+
+    header .carousel-item img {
+        height: auto;
+    }
+
+    section p {
+        font-size: 0.85rem;
+    }
+
+    #news .news img {
+        width: 60px;
+        height: 55px;
+    }
+
+    #news .news small {
+        font-size: 0.75rem;
+    }
+
+    #download .download-app {
+        width: 100%;
+    }
+
+    section#download {
+        padding: 2rem 2rem;
+    }
+
+    #download h1 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    #download h2 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    #download p {
+        font-size: 0.85rem;
+        text-align: center;
+    }
+
+    #download .store {
+        width: 120px;
+    }
 }

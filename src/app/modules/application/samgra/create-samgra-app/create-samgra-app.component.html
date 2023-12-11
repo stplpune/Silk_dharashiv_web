@@ -30,16 +30,13 @@
           <div class="container-fluid">
             <div class="row gx-2 mb-4">
               <div class="col-sm-2">
-                <div class="position-relative">
+                <div class="position-relative applicant_img">
                   <img [src]="profileImageUrl ? profileImageUrl: 'assets/images/user.png' " alt="Applicant image"
                     class="img-fluid">
-                  <input type="file" #uplodLogo id="real-file" hidden="hidden"
-                    (change)="fileUpload($event,'','profilePhoto')" />
-                  <div class="upload-buttons">
-                    <button mat-icon-button class="btn-icon bg-primary-subtle text-primary"
-                      (click)="uplodLogo.value='';uplodLogo.click()" type="button">
-                      <mat-icon class="material-symbols-outlined"> {{!profileImageUrl ? 'add' :
-                        'edit_square'}}</mat-icon>
+                    <input type="file" #uplodLogo  id="real-file" hidden="hidden"   (change)="fileUpload($event,'','profilePhoto')" />                 
+                  <div class="upload-buttons">                    
+                    <button mat-icon-button class="btn-icon bg-primary-subtle text-primary" (click)="uplodLogo.value='';uplodLogo.click()" type="button">
+                      <mat-icon class="material-symbols-outlined"> {{!profileImageUrl ? 'add' : 'edit_square'}}</mat-icon>
                     </button>
                     <button mat-icon-button class="btn-icon bg-danger-subtle text-danger" type="button"
                       (click)="profileImageUrl = '' ">
@@ -51,8 +48,8 @@
               <div class="col-sm">
                 <div class="row gy-2 gx-2 align-items-center ">
                   <div class="col-sm-6">
-                    <div class="d-flex gap-2">
-                      <div class="form-label">{{'common.mobile'| translate}}</div>
+                    <div class="d-flex flex-column gap-2">
+                      <div class="form-label">Mobile Number</div>
                       <!-- <div class="form-data">: 8669264767</div> -->
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="mobileNo1" maxlength="10"
@@ -62,8 +59,8 @@
                     </div>
                   </div>
                   <div class="col-sm-6">
-                    <div class="d-flex gap-2">
-                      <div class="form-label">{{'approvalProcess.aadhar_number'| translate}}</div>
+                    <div class="d-flex flex-column gap-2">
+                      <div class="form-label">Aadhar Number</div>
                       <!-- <div class="form-data">: 8669 2647 6774</div> -->
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="aadharNo" maxlength="12"
@@ -86,12 +83,12 @@
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="fullName"
                           (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
-                        <mat-error *ngIf="f['fullName'].hasError('required') || f['fullName']?.hasError('pattern')">
-                          {{f['fullName'].hasError('required') ?
-                          ('approvalProcess.applicant_Required'|translate) :
-                          ('approvalProcess.please_enter_valid_application_name'|translate)}}
-                        </mat-error>
-                      </mat-form-field>
+                          <mat-error *ngIf="f['fullName'].hasError('required') || f['fullName']?.hasError('pattern')">
+                            {{f['fullName'].hasError('required') ?
+                            ('approvalProcess.applicant_Required'|translate) :
+                            ('approvalProcess.please_enter_valid_application_name'|translate)}}
+                          </mat-error>
+                      </mat-form-field>                      
                     </div>
                   </div>
                   <!-- <div class="col-sm-12">
@@ -163,7 +160,7 @@
                   <mat-select formControlName="stateId" (selectionChange)="getDisrict()">
                     <mat-option *ngFor="let state of stateArray" [value]="state.id">{{lang != 'en' ? state.textMarathi :
                       state.textEnglish}}</mat-option>
-                  </mat-select>
+                  </mat-select>                  
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
@@ -233,9 +230,8 @@
                 <div class="form-label">13.{{'approvalProcess.beneficiary_category'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select (click)="categoryDialogBox()">
-                  </mat-select>
-                  <mat-error
-                    *ngIf="f['categoryId']?.hasError('required')">{{'approvalProcess.please_select_category'|translate}}
+                  </mat-select>                  
+                  <mat-error *ngIf="f['categoryId']?.hasError('required')">{{'approvalProcess.please_select_category'|translate}}
                   </mat-error>
                 </mat-form-field>
                 <div *ngIf="checkedItems.length">
@@ -442,14 +438,14 @@
                       <th mat-header-cell *matHeaderCellDef>Action</th>
                       <td mat-cell *matCellDef="let element; let i = index">
                         <div class="d-flex gap-02">
-                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
-                            (click)="adddetails(element,i)">
+                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10" 
+                          (click)="adddetails(element,i)" >
                             <span class="material-symbols-rounded text-dark">
                               edit_square
                             </span>
                           </button>
-                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
-                            (click)="deleteInternalSchemes(i ,'currentCropDetails')">
+                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10" 
+                          (click)="deleteInternalSchemes(i ,'currentCropDetails')">
                             <span class="material-symbols-rounded text-danger">
                               delete
                             </span>
@@ -631,14 +627,14 @@
                       <th mat-header-cell *matHeaderCellDef>Action</th>
                       <td mat-cell *matCellDef="let element; let i = index">
                         <div class="d-flex gap-02">
-                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
-                            (click)="onEditInternalSchemes(element,i)">
+                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10" 
+                          (click)="onEditInternalSchemes(element,i)" >
                             <span class="material-symbols-rounded text-dark">
                               edit_square
                             </span>
                           </button>
-                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
-                            (click)="deleteInternalSchemes(i)">
+                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10" 
+                          (click)="deleteInternalSchemes(i)">
                             <span class="material-symbols-rounded text-danger">
                               delete
                             </span>
@@ -1292,23 +1288,23 @@
                         translate}}</span>
                     </li>
                     <ng-container *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="form-label"> लागवड वर्षं</div>
-                        <span class="form-data  rounded-pill">:{{previewData?.sm_YearOfPlanting | dash}}</span>
-                      </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label"> लागवड वर्षं</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_YearOfPlanting | dash}}</span>                    
+                    </li>
 
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="form-label"> लागवड क्षेत्र</div>
-                        <span class="form-data  rounded-pill">:{{previewData?.sm_CultivatedArea | dash}}</span>
-                      </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label">  लागवड क्षेत्र</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_CultivatedArea | dash}}</span>                    
+                    </li>
 
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="form-label"> भुमपण क्रमांक</div>
-                        <span class="form-data  rounded-pill">:{{previewData?.sm_LandSurveyNo | dash}}</span>
-                      </li>
-                    </ng-container>
-                    <div class="form-label"> सध्या घेत असलेल्या पीक व उत्पादन तपशील</div>
-                    <ng-container>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div class="form-label"> भुमपण क्रमांक</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_LandSurveyNo | dash}}</span>                    
+                    </li>
+                  </ng-container>
+                  <div class="form-label"> सध्या घेत असलेल्या पीक व उत्पादन तपशील</div>
+                    <ng-container >
                       <div class="table-responsive scrollbar">
                         <table mat-table [dataSource]="previewData?.currentProducts" class="dashboard-table">
 
@@ -1389,8 +1385,8 @@
                     </li>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label"> तुति लागवड करवायची पद्धत</div>
-                      <span class="form-data  rounded-pill">:{{previewData?.sm_PlantationMethod | dash}}</span>
+                      <div class="form-label">  तुति लागवड करवायची पद्धत</div>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_PlantationMethod | dash}}</span>                    
                     </li>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -1416,15 +1412,15 @@
                       <div class="form-label">रेशीम उद्योग करणार्‍या शेतकर्‍याकडे प्रत्यक्ष जाऊन माहिती घेतली आहे का
                       </div>
                       <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.sm_IsEngagedInSilkIndustry == true">:{{'approvalProcess.yes'|
-                        translate}}</span>
+                      *ngIf="previewData?.sm_IsEngagedInSilkIndustry == true">:{{'approvalProcess.yes'|
+                        translate}}</span>                    
                     </li>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label"> यापूर्वी रेशीम संचालनालय अंतर्गत कुठल्या योजनेचा लाभ घेतला आहे का</div>
                       <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.sm_IsTakenBenefitOfInternalScheme == true">:{{'approvalProcess.yes'|
-                        translate}}</span>
+                      *ngIf="previewData?.sm_IsTakenBenefitOfInternalScheme == true">:{{'approvalProcess.yes'|
+                        translate}}</span>                    
                     </li>
 
                     <div class="table-responsive scrollbar">
@@ -1614,8 +1610,8 @@
                   (click)="uplodLogo1.value='';uplodLogo1.click()">File
                   Upload<span class="text-danger fs-6">*</span>
                 </button>
-                <input type="file" #uplodLogo1 accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
-                  (change)="fileUpload($event,docArray[7].docTypeId)" />
+                <input type="file" #uplodLogo1 accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" 
+                (change)="fileUpload($event,docArray[7].docTypeId)"/>
                 <div class="d-flex gap-2" *ngIf="docArray[7]?.docPath">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
                     matTooltip="view" (click)="viewimage(docArray[7].docPath)">
