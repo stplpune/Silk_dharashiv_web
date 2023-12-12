@@ -107,8 +107,6 @@ export class ForgetPasswordComponent {
         "createdBy": 0,
         "loginFlag": "web"
       }
-     
-
       this.apiService.setHttp('post', 'sericulture/api/OtpTran/GenerateOTP', false, obj, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
