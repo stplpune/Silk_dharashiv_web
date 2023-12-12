@@ -386,6 +386,18 @@ export class MasterService {
       })
     })
   }
+
+  // sericulture/api/DropdownService/get-GetAllDepartmentWiseDesignation?DepartmentId=1&DepartmentLevelId=1&lan=en
+
+  getDesignationOnDeptID(deptId:number,deptLevelId:number){
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-GetAllDepartmentWiseDesignation?DepartmentId='+deptId+'&DepartmentLevelId='+deptLevelId, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
    
 
   refreshTokenJWT(obj: any) {

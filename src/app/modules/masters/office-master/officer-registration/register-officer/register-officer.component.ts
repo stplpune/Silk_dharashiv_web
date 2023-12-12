@@ -167,7 +167,7 @@ export class RegisterOfficerComponent {
     let deptId = this.officeForm.getRawValue().departmentId || 0;
     let deptLevelId = this.officeForm.getRawValue().departmentLevelId || 0;
     if (deptId != 0 && deptLevelId != 0) {
-      this.masterService.GetDesignationDropDownOnDeptLevel(deptId, deptLevelId).subscribe({
+      this.masterService.getDesignationOnDeptID(deptId, deptLevelId).subscribe({
         next: ((res: any) => {
           this.designationArray = res.responseData;
           this.commonMethod.filterArrayDataZone(this.designationArray, this.designationCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.designationSubject);
