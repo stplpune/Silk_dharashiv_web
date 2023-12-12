@@ -7,8 +7,8 @@
 "total_DBT":"Total DBT(INR)",
 "approved":"Approved",
 "pending":"Pending",
-"Resend":"Resend",
-"Rejected":"Rejected",
+"resend":"Resend",
+"rejected":"Rejected",
 "manrega":"Manrega",
 "silk_samgra":"SILK SAMGRA-2"
 
@@ -83,6 +83,7 @@
     "block_filter": "Block",
     "circle_filter": "Circle",
     "grampanchayat_filter": "Grampanchayat",
+    "grampanchayat_filter_all": "All Grampanchayat",
     "select_state": "Select State",
     "action": "Action",
     "remark": "Remark",

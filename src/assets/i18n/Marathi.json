@@ -82,6 +82,7 @@
     "block_filter":"ब्लॉक",
     "circle_filter":"मंडळ",
     "grampanchayat_filter":"ग्रामपंचायत",
+    "grampanchayat_filter_all": "सर्व ग्रामपंचायत",
     "select_state": "राज्य निवडा",
     "action": "कृती",
     "remark": " टिप्पणी",
