@@ -626,8 +626,6 @@ export class CreateSamgraAppComponent {
         return;
       } else if (result) {
         this.categoryArray = result;
-        console.log("categoryArray", this.categoryArray);
-
         this.checkedItems = this.categoryArray.filter(item => item.checked);
       }
     });
@@ -717,11 +715,7 @@ export class CreateSamgraAppComponent {
   //#region  -----------------------------------------------------------doc upload section fn start heare-----------------------------------//
 
   fileUpload(event: any, docId?: any, flag?: any) {
-    console.log("docId", docId);
-
     let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray, 'docTypeId', docId);
-    console.log("indexByDocId", indexByDocId);
-
     this.spinner.show();
     let type = 'jpg, jpeg, png, pdf'
     this.uploadService.uploadDocuments(event, 'ApplicationDocuments', type, '', '', this.lang).subscribe({
@@ -777,15 +771,11 @@ export class CreateSamgraAppComponent {
     flag == 'search' ? this.EditFlag = true : ''
 
     let filterformvalue = this.filterForm.value;
-    this.apiService.setHttp('get', `sericulture/api/Application/application-preview?Id=0&AadharNo=${filterformvalue?.addharNo}&MobileNo=${filterformvalue?.mobileNo}&lan=en`, false, false, false, 'masterUrl');
+    this.apiService.setHttp('get', `sericulture/api/Application/application-preview?Id=0&AadharNo=${filterformvalue?.addharNo || 0}&MobileNo=${filterformvalue?.mobileNo || 0}&lan=en`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
           this.previewData = res.responseData;
-          this.samgraformData(this.previewData);
-          this.landDetailsFormData(this.previewData);
-          this.bankDetailsFormData(this.previewData);
-          this.selfDeclarationFormData(this.previewData);
           this.onEdit(this.previewData);
           console.log("this.previewData", this.previewData);
         } else {
@@ -796,13 +786,21 @@ export class CreateSamgraAppComponent {
   }
 
   onEdit(data?: any) {
+    this.samgraformData(data);
+    this.landDetailsFormData(data);
+    this.bankDetailsFormData(data);
+    this.selfDeclarationFormData(data);
     this.getBankBranch();
     this.getTaluka();
     this.checkedItems = data.categoryOfBeneficiaries
     this.currentCropDetailsArray = data.currentProducts
     this.dataSource = new MatTableDataSource(this.currentCropDetailsArray);
     this.profileImageUrl = data.profilePhotoPath;
+
+
+    //patch documents 
     console.log("data.documents", data.documents);
+
     this.docArray.map((res: any, i: any) => {
       data.documents.map((ele: any) => {
         if (res.docTypeId == ele.docId) {
