@@ -13,7 +13,9 @@ import { CategoryDetailsComponent } from '../../manarega/category-details/catego
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ValidationService } from 'src/app/core/services/validation.service';
-// import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
+import { ActivatedRoute } from '@angular/router';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-create-samgra-app',
@@ -29,7 +31,6 @@ export class CreateSamgraAppComponent {
   selfDeclarationForm !: FormGroup;
   documentUploadForm !: FormGroup;
   filterForm !: FormGroup;
-
 
   stateArray = new Array();
   districtArray = new Array();
@@ -66,13 +67,11 @@ export class CreateSamgraAppComponent {
   gramPCtrl: FormControl = new FormControl();
   gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
 
-
   displayedColumns: string[] = ['srno', 'cropId', 'area', 'totalProduction', 'averageRate', 'totalProductionAmt', 'totalExpenses', 'netIncome', 'acreNetIncome', 'action'];
   displayedColumns1: string[] = ['srno', 'internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken', 'action'];
   displayedColumns2: string[] = ['srno', 'docname', 'docNo', 'action'];
   displayedColumns4: string[] = ['srno', 'cropId', 'area', 'totalProduction', 'averageRate', 'totalProductionAmt', 'totalExpenses', 'netIncome', 'acreNetIncome'];
   displayedColumns5: string[] = ['srno', 'internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken'];
-
 
   docUploadedPath: string = '';
   docArray = [{ id: 0, docTypeId: 16, docPath: '', docNo: '', docname: '' }, { id: 0, docTypeId: 18, docPath: '', docNo: '', docname: '' }, { id: 0, docTypeId: 19, docPath: '', docNo: '', docname: '' }, { id: 0, docTypeId: 21, docPath: '', docNo: '', docname: '' }, { id: 0, docTypeId: 11, docPath: '', docNo: '', docname: '' }, { id: 0, docTypeId: 25, docPath: '', docNo: '', docname: '' }, { id: 0, docTypeId: 14, docPath: '', docNo: '', docname: '' }, { id: 0, docTypeId: 8, docPath: '', docNo: '', docname: '' }]
@@ -86,11 +85,12 @@ export class CreateSamgraAppComponent {
   InternalSchemesIndex !: number
   previewData: any;
   EditFlag: boolean = false;
+  checkOtherDocumentFlag: boolean = false;
   isLinear = false;
+  samgraId: any;
 
   @ViewChild('ScheemDirective') private ScheemDirective: NgForm | undefined;
   @ViewChild('DocumentDirective') private DocumentDirective: NgForm | undefined;
-
 
   constructor(public dialog: MatDialog,
     private masterService: MasterService,
@@ -101,8 +101,16 @@ export class CreateSamgraAppComponent {
     private spinner: NgxSpinnerService,
     private errorHandler: ErrorHandlingService,
     private uploadService: FileUploadService,
-    public validation: ValidationService
-  ) { }
+    public validation: ValidationService,
+    public encryptdecrypt: AesencryptDecryptService,
+    private activatedRoute: ActivatedRoute,
+    private dateAdapter: DateAdapter<Date>
+  ) {
+    this.dateAdapter.setLocale('en-GB');
+    let Id: any;
+    this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
+    this.samgraId = +this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
+  }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
@@ -117,7 +125,6 @@ export class CreateSamgraAppComponent {
     this.internalSchemesFormData();
     this.otherDocumentFormData();
     this.selfDeclarationFormData();
-    this.documentUploadFormData();
     this.filterFormData();
     this.commonDropdown();
   }
@@ -134,18 +141,15 @@ export class CreateSamgraAppComponent {
     this.getImprovedMulberryCast();
     this.getPlantationMethod();
     this.getMulberryCultivationArea();
-    // this.getPreviewData(); 
+    this.samgraId ? this.getPreviewData() : ''
   }
-  get f() {
-    return this.samgraForm.controls
-  }
+  get f() { return this.samgraForm.controls }
+  get fL() { return this.landDetailsForm.controls }
+  get bL() { return this.bankDetailsForm.controls }
+  get fIS() { return this.internalSchemes.controls }
+  get fdp() { return this.otherDocForm.controls }
+  get fSD() { return this.selfDeclarationForm.controls }
 
-  get fL() {
-    return this.landDetailsForm.controls
-  }
-  get bL() {
-    return this.bankDetailsForm.controls
-  }
 
   samgraformData(data?: any) {
     this.samgraForm = this.fb.group({
@@ -183,7 +187,7 @@ export class CreateSamgraAppComponent {
       "sm_ImprovedMulberryCast": [data?.sm_ImprovedMulberryCast || '', [Validators.required]],
       "sm_MulberryPlantingDistance": [data?.sm_MulberryPlantingDistance || '', [Validators.required, Validators.maxLength(4)]],
       "sm_PlantationSurveyNo": [data?.sm_PlantationSurveyNo || '', [Validators.required, Validators.maxLength(6)]],
-      "sm_MulberryCultivationArea": [data?.sm_MulberryCultivationArea || '',[Validators.required, Validators.maxLength(6)]],
+      "sm_MulberryCultivationArea": [data?.sm_MulberryCultivationArea || '', [Validators.required, Validators.maxLength(6)]],
       "sm_PlantationMethod": [data?.sm_PlantationMethod || '', [Validators.required]],
       "sm_IsExperienceSilkIndustry": [data?.sm_IsExperienceSilkIndustry || false],
       "sm_ExperienceYears": [data?.sm_ExperienceYears || ''], //show hide on radio button
@@ -191,6 +195,7 @@ export class CreateSamgraAppComponent {
       "sm_SilkIndustrtyTrainingDetails": [data?.sm_SilkIndustrtyTrainingDetails || ''],
       "sm_IsTakenBenefitOfInternalScheme": [data?.sm_IsExperienceSilkIndustry || false],
       "sm_IsEngagedInSilkIndustry": [data?.sm_IsExperienceSilkIndustry || true],
+      "CheckCurrentcropproduction": ['']
     })
   }
 
@@ -202,7 +207,6 @@ export class CreateSamgraAppComponent {
       "bankAccountNo": [data?.bankAccountNo || '', [Validators.required, Validators.maxLength(30), Validators.pattern(this.validation.alphaNumericWithSpace)]],
     })
   }
-  get fIS() { return this.internalSchemes.controls }
 
   internalSchemesFormData(data?: any) {
     this.internalSchemes = this.fb.group({
@@ -214,31 +218,20 @@ export class CreateSamgraAppComponent {
       "createdBy": 0
     })
   }
-  get fdp() { return this.documentUploadForm.controls }
-  documentUploadFormData(){
-    this.documentUploadForm = this.fb.group({
-      checkDocument : ['',Validators.required]
-    })   
-  } 
-
-  // if(!this.docArray[1].docPath && !this.docArray[2].docPath && !this.docArray[2].docPath){      
-  //   let  setValArray = ['checkDocument']  
-  //   this.setValidation(setValArray, this.fdp);
-  // }
-
   otherDocumentFormData() {
     this.otherDocForm = this.fb.group({
+      checkDocument: ['', Validators.required],
       docname: [''],
-      docNo: ['']
+      docNo: [''],
+      checkOtherDocumentTable: ['']
     })
   }
 
-
   selfDeclarationFormData(data?: any) {
     this.selfDeclarationForm = this.fb.group({
-      sm_IsReadyToPlantNewMulberries: [data?.sm_IsReadyToPlantNewMulberries || ''],
-      sm_IsHonestlyProtectPlan: [data?.sm_IsHonestlyProtectPlan || ''],
-      sm_IsRequestForYourPriorConsent: [data?.sm_IsRequestForYourPriorConsent || '']
+      sm_IsReadyToPlantNewMulberries: [data?.sm_IsReadyToPlantNewMulberries || '', Validators.required],
+      sm_IsHonestlyProtectPlan: [data?.sm_IsHonestlyProtectPlan || '', Validators.required],
+      sm_IsRequestForYourPriorConsent: [data?.sm_IsRequestForYourPriorConsent || '', Validators.required]
     })
   }
 
@@ -254,12 +247,7 @@ export class CreateSamgraAppComponent {
     this.qualificationArray = [];
     this.masterService.GetQualification().subscribe({
       next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.qualificationArray = res.responseData;
-        }
-        else {
-          this.qualificationArray = [];
-        }
+        res.statusCode == "200" && res.responseData?.length ? this.qualificationArray = res.responseData : this.qualificationArray = [];
       })
     })
   }
@@ -268,13 +256,7 @@ export class CreateSamgraAppComponent {
     this.stateArray = [];
     this.masterService.GetAllState().subscribe({
       next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.stateArray = res.responseData;
-          this.getDisrict();
-        }
-        else {
-          this.stateArray = [];
-        }
+        res.statusCode == "200" && res.responseData?.length ? (this.stateArray = res.responseData, this.getDisrict()) : this.stateArray = [];
       })
     })
   }
@@ -285,13 +267,8 @@ export class CreateSamgraAppComponent {
     if (stateId != 0) {
       this.masterService.GetAllDistrict(1).subscribe({
         next: ((res: any) => {
-          if (res.statusCode == "200" && res.responseData?.length) {
-            this.districtArray = res.responseData;
-            this.getTaluka();
-          }
-          else {
-            this.districtArray = [];
-          }
+          res.statusCode == "200" && res.responseData?.length ? this.districtArray = res.responseData : this.districtArray = [];
+          !this.EditFlag ? this.getTaluka() : '';
         })
       })
     }
@@ -301,7 +278,6 @@ export class CreateSamgraAppComponent {
     this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, 'textEnglish', this.talukaSubject) });
     this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, 'textEnglish', this.gramPSubject) });
   }
-
 
   getTaluka() {
     this.talukaArray = [];
@@ -314,7 +290,6 @@ export class CreateSamgraAppComponent {
             this.talukaArray = res.responseData;
             this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, 'textEnglish', this.talukaSubject);
             this.EditFlag ? (this.f['talukaId'].setValue(this.previewData.talukaId), this.getGrampanchayat()) : '';
-            this.getGrampanchayat();
           }
           else {
             this.talukaArray = [];
@@ -328,20 +303,18 @@ export class CreateSamgraAppComponent {
   getGrampanchayat() {
     this.grampanchayatArray = [];
     let talukaId = this.samgraForm.getRawValue()?.talukaId;
-    if (talukaId != 0) {
-      this.masterService.GetGrampanchayat(talukaId).subscribe({
-        next: ((res: any) => {
-          if (res.statusCode == "200") {
-            this.grampanchayatArray = res.responseData;
-            this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, 'textEnglish', this.gramPSubject);
-            this.EditFlag ? (this.f['grampanchayatId'].setValue(this.previewData.grampanchayatId)) : '';
-          }
-          else {
-            this.grampanchayatArray = [];
-          }
-        })
+    this.masterService.GetGrampanchayat(talukaId).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.grampanchayatArray = res.responseData;
+          this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, 'textEnglish', this.gramPSubject);
+          this.EditFlag ? (this.f['grampanchayatId'].setValue(this.previewData.grampanchayatId)) : '';
+        }
+        else {
+          this.grampanchayatArray = [];
+        }
       })
-    }
+    })
   }
 
   getCategory() {
@@ -361,36 +334,21 @@ export class CreateSamgraAppComponent {
   getLandTenureCategories() {
     this.masterService.getLandTenureCategories().subscribe({
       next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.landTenureCatArray = res.responseData;
-        }
-        else {
-          this.landTenureCatArray = [];
-        }
+        res.statusCode == "200" && res.responseData?.length ? this.landTenureCatArray = res.responseData : this.landTenureCatArray = [];
       })
     })
   }
   getFarmType() {
     this.masterService.GetFarmType().subscribe({
       next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.farmTypeArray = res.responseData;
-        }
-        else {
-          this.farmTypeArray = [];
-        }
+        res.statusCode == "200" && res.responseData?.length ? this.farmTypeArray = res.responseData : this.farmTypeArray = [];
       })
     })
   }
   getIrrigationPeriod() {
     this.masterService.getIrrigationPeriod().subscribe({
       next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.irrigationPeriodArray = res.responseData;
-        }
-        else {
-          this.irrigationPeriodArray = [];
-        }
+        res.statusCode == "200" && res.responseData?.length ? this.irrigationPeriodArray = res.responseData : this.irrigationPeriodArray = [];
       })
     })
   }
@@ -398,12 +356,7 @@ export class CreateSamgraAppComponent {
     this.irrigationFacilityArray = [];
     this.masterService.GetIrrigationFacility().subscribe({
       next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.irrigationFacilityArray = res.responseData;
-        }
-        else {
-          this.irrigationFacilityArray = [];
-        }
+        res.statusCode == "200" && res.responseData?.length ? this.irrigationFacilityArray = res.responseData : this.irrigationFacilityArray = []
       })
     })
   }
@@ -411,12 +364,7 @@ export class CreateSamgraAppComponent {
     this.irrigationFacilityArray = [];
     this.masterService.getImprovedMulberryCast().subscribe({
       next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.mulberryCastArray = res.responseData;
-        }
-        else {
-          this.mulberryCastArray = [];
-        }
+        res.statusCode == "200" && res.responseData?.length ? this.mulberryCastArray = res.responseData : this.mulberryCastArray = [];
       })
     })
   }
@@ -424,12 +372,7 @@ export class CreateSamgraAppComponent {
     this.irrigationFacilityArray = [];
     this.masterService.getPlantationMethod().subscribe({
       next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.pantationMethodArray = res.responseData;
-        }
-        else {
-          this.pantationMethodArray = [];
-        }
+        res.statusCode == "200" && res.responseData?.length ? this.pantationMethodArray = res.responseData : this.pantationMethodArray = [];
       })
     })
   }
@@ -437,13 +380,7 @@ export class CreateSamgraAppComponent {
     this.irrigationFacilityArray = [];
     this.masterService.getMulberryCultivationArea().subscribe({
       next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.mulberryAreaArray = res.responseData;
-
-        }
-        else {
-          this.mulberryAreaArray = [];
-        }
+        res.statusCode == "200" && res.responseData?.length ? this.mulberryAreaArray = res.responseData : this.mulberryAreaArray = [];
       })
     })
   }
@@ -451,31 +388,19 @@ export class CreateSamgraAppComponent {
     this.bankArray = [];
     this.masterService.GetBank().subscribe({
       next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.bankArray = res.responseData;
-
-        }
-        else {
-          this.bankArray = [];
-        }
+        res.statusCode == "200" && res.responseData?.length ? this.bankArray = res.responseData : this.bankArray = [];
       })
     })
   }
   getBankBranch() {
-   
-    console.log("this.bankDetailsForm.value",this.bankDetailsForm.value);
-    
     this.branchArray = [];
     let bankId = this.bankDetailsForm.value.bankId;
-    console.log("bankId",bankId);
-    
     if (bankId != 0) {
       this.masterService.GetBankBranch(bankId).subscribe({
         next: ((res: any) => {
-          console.log("enter bank branch");
           if (res.statusCode == "200" && res.responseData?.length) {
             this.branchArray = res.responseData;
-            this.EditFlag ? (this.bL['bankBranchId'].setValue(this.previewData.bankBranchId), console.log("hii")) : '';
+            this.EditFlag ? this.bL['bankBranchId'].setValue(this.previewData.bankBranchId) : '';
           }
           else {
             this.branchArray = [];
@@ -487,11 +412,13 @@ export class CreateSamgraAppComponent {
 
   //#region -------------------------------------------------page submit method start heare-------------------------------------------------- 
   onSubmit(flag: any) {
-    console.log("falg", flag);
-    console.log("editFlag", this.EditFlag);
-    console.log("uplaod document form" ,this.documentUploadForm.controls);
-    return
+    let setValArraycurrentcrop = ['CheckCurrentcropproduction'];
+    !this.currentCropDetailsArray.length ? (this.setValidation(setValArraycurrentcrop, this.fL), this.commonMethod.snackBar("Please add current crop and production details", 1)) : this.clearValidation(setValArraycurrentcrop, this.fL)
 
+    let setValArray = ['docname', 'checkOtherDocumentTable'];
+    this.checkOtherDocumentFlag ? this.clearValidation(setValArray, this.fdp) : this.setValidation(setValArray, this.fdp);
+
+    // return
     let samgraFormValue = this.samgraForm.getRawValue();
     let landDetailsFormValue = this.landDetailsForm.value;
     let bankDetailsFormValue = this.bankDetailsForm.getRawValue();
@@ -673,11 +600,16 @@ export class CreateSamgraAppComponent {
       value == true ? this.setValidation(setValArray, this.fIS) : this.clearValidation(setValArray, this.fIS);
     } else if (flag == 'AnyPlantedBefor') {
       console.log("log enter anyPlanted before ");
-      console.log("value ",value );
+      console.log("value ", value);
       setValArray = ['sm_YearOfPlanting', 'sm_CultivatedArea', 'sm_LandSurveyNo']
       this.setValidation(setValArray, this.fL);
       this.clearValidation(setValArray, this.fL);
       value == true ? this.setValidation(setValArray, this.fL) : this.clearValidation(setValArray, this.fL);
+    } else if (flag == 'otherDoc') {
+      setValArray = ['docname', 'checkOtherDocumentTable']
+      this.setValidation(setValArray, this.fdp);
+      this.clearValidation(setValArray, this.fdp);
+      value == true ? this.setValidation(setValArray, this.fdp) : this.clearValidation(setValArray, this.fdp);
     }
   }
 
@@ -715,6 +647,7 @@ export class CreateSamgraAppComponent {
           this.ScheemDirective && this.ScheemDirective.resetForm();
         }
       }
+      this.internalSchemesFormData();
       this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
       this.InternalSchemesEditFlag = false
     }
@@ -747,10 +680,8 @@ export class CreateSamgraAppComponent {
       next: (res: any) => {
         if (res.statusCode == 200) {
           this.spinner.hide();
-          flag == 'otherDoc' ? this.uploadedDocUrl = res.responseData : flag == 'profilePhoto' ? this.profileImageUrl = res.responseData : (this.docArray[indexByDocId].docPath = res.responseData,this.clearDocumentValidation());
+          flag == 'otherDoc' ? this.uploadedDocUrl = res.responseData : flag == 'profilePhoto' ? this.profileImageUrl = res.responseData : (this.docArray[indexByDocId].docPath = res.responseData, this.clearDocumentValidation());
           this.commonMethod.snackBar(res.statusMessage, 0)
-          console.log("this.docArray", this.docArray);
-
         }
       },
       error: ((error: any) => {
@@ -758,20 +689,14 @@ export class CreateSamgraAppComponent {
         this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       })
     });
-    
-   
-   
-
   }
-   clearDocumentValidation(){
-    debugger;
-    if(this.docArray[0].docPath && this.docArray[1].docPath && this.docArray[2].docPath){
-      console.log("upload clear validator");
-      
-      let  setValArray = ['checkDocument']
+
+  clearDocumentValidation() {
+    if (this.docArray[0].docPath && this.docArray[1].docPath && this.docArray[2].docPath) {
+      let setValArray = ['checkDocument']
       this.clearValidation(setValArray, this.fdp);
     }
-   }
+  }
 
   viewimage(obj: any) {
     window.open(obj, '_blank')
@@ -780,6 +705,10 @@ export class CreateSamgraAppComponent {
   deleteDocument(docId: any) {
     let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray, 'docTypeId', docId);
     this.docArray[indexByDocId]['docPath'] = '';
+    if (!this.docArray[0].docPath || !this.docArray[1].docPath || !this.docArray[2].docPath) {
+      let setValArray = ['checkDocument']
+      this.setValidation(setValArray, this.fdp);
+    }
   }
 
   //#endregion  --------------------------------------------------------doc upload section fn end heare-----------------------------------//
@@ -793,33 +722,36 @@ export class CreateSamgraAppComponent {
       docNo: formValue.docNo,
       docname: formValue.docname
     }
-    this.otherDocArray.push(obj);
-    this.uploadedDocUrl = '';
-    this.dataSource2 = new MatTableDataSource(this.otherDocArray);
-    this.DocumentDirective && this.DocumentDirective.resetForm();
+    if (this.otherDocForm.invalid && !this.uploadedDocUrl) {
+      return
+    } else {
+      this.checkOtherDocumentFlag = true
+      this.otherDocArray.push(obj);
+      this.uploadedDocUrl = '';
+      this.dataSource2 = new MatTableDataSource(this.otherDocArray);
+      this.DocumentDirective && this.DocumentDirective.resetForm();
+    }
   }
 
   deleteOtherDoc(index: any) {
     this.otherDocArray.splice(index, 1)
     this.dataSource2 = new MatTableDataSource(this.otherDocArray);
+    !this.otherDocArray.length ? this.checkOtherDocumentFlag = false : '';
   }
 
-  getPreviewData(flag?: any) {
-    console.log(flag);
-    flag == 'search' ? this.EditFlag = true : ''
-
+  getPreviewData() {
+    this.EditFlag = true
     let filterformvalue = this.filterForm.value;
-    this.apiService.setHttp('get', `sericulture/api/Application/application-preview?Id=0&AadharNo=${filterformvalue?.addharNo || 0}&MobileNo=${filterformvalue?.mobileNo || 0}&lan=en`, false, false, false, 'masterUrl');
+    this.apiService.setHttp('get', `sericulture/api/Application/application-preview?Id=${this.samgraId || 0}&AadharNo=${filterformvalue?.addharNo || ''}&MobileNo=${filterformvalue?.mobileNo || ''}&lan=en`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
-          this.previewData = res.responseData;         
+          this.previewData = res.responseData;
           this.samgraformData(this.previewData);
           this.landDetailsFormData(this.previewData);
           this.bankDetailsFormData(this.previewData);
           this.selfDeclarationFormData(this.previewData);
           this.onEdit(this.previewData);
-          console.log("this.previewData", this.previewData);
         } else {
           this.previewData = [];
         }
@@ -837,8 +769,6 @@ export class CreateSamgraAppComponent {
     this.profileImageUrl = data.profilePhotoPath;
     this.internalSchemesArray = data.internalSchemes;
     this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
-
-
     this.docArray.find((ele: any, i: any) => {
       data.documents.find((item: any) => {
         if (ele.docTypeId == item.docId) {
@@ -852,15 +782,22 @@ export class CreateSamgraAppComponent {
         }
       })
     })
-    
     this.checkedItems.map((ele: any) => {
       ele['textEnglish'] = ele.categoryOfBeneficiary;
       ele['textMarathi'] = ele.m_CategoryOfBeneficiary;
     })
-
-
   }
 
+  checkBockCheck(event: any, flag: any) {
+    console.log("checkboxevent", event);
+    if (flag == 'PlantNewMulberries') {
+      !event.checked ? this.fSD['sm_IsReadyToPlantNewMulberries'].setValue('') : '';
+    } else if (flag == 'HonestlyProtectPlan') {
+      !event.checked ? this.fSD['sm_IsHonestlyProtectPlan'].setValue('') : '';
+    } else if (flag == 'RequestForYourPriorConsent') {
+      !event.checked ? this.fSD['sm_IsRequestForYourPriorConsent'].setValue('') : '';
+    }
+  }
 }
 
 
