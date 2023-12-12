@@ -28,7 +28,8 @@
         </div>
         <div class="col-sm-1">
           <div class="d-flex gap-2">
-            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
+            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"
+            (click)="getDataByMobileAadharNo('search')">
               <mat-icon class="material-symbols-rounded">
                 search
               </mat-icon>
@@ -311,7 +312,7 @@
                     *ngIf="f['categoryId']?.hasError('required')">{{'approvalProcess.please_select_category'|translate}}
                   </mat-error>
                 </mat-form-field>
-              </div>
+               </div>
               <div *ngIf="checkedItems.length">
                 <div class="form-label">{{'approvalProcess.beneficiary_category_options'| translate}}</div>
                 <div class="form-data mb-0" *ngFor="let data of checkedItems;let i=index">
