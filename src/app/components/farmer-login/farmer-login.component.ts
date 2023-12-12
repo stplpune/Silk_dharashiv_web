@@ -74,7 +74,8 @@ verifyOTPContainer: boolean = false;
         "mobileNo": this.farmerMobileNo.value,
         "otp": "",
         "pageName": "Login",
-        "createdBy":0
+        "createdBy":0,
+        "loginFlag":"web"
       }
       this.apiService.setHttp('post', 'sericulture/api/OtpTran/GenerateOTP?lan='+this.lang, false, obj, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
@@ -119,7 +120,7 @@ verifyOTPContainer: boolean = false;
       this.spinner.hide();
       return;
     } else{
-      this.apiService.setHttp('get', 'sericulture/api/OtpTran/VerifyOTP?MobileNo='+this.farmerMobileNo.value+'&OTP='+sendOtp+'&PageName=Login&CreatedBy=0&lan=en', false, false, false, 'baseUrl');
+      this.apiService.setHttp('get', 'sericulture/api/OtpTran/VerifyOTP?MobileNo='+this.farmerMobileNo.value+'&OTP='+sendOtp+'&PageName=Login&CreatedBy=0&lan='+this.lang+'&LoginFlag=web', false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.commonMethod.snackBar(res.statusMessage, 0);

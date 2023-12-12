@@ -20,7 +20,7 @@ export class SideBarComponent {
 
 
     let pageListData = this.webStorage.getAllPageName();
-    
+
     let pageUrls = pageListData.filter((ele: any) => {
       if (ele.isSideBarMenu) {
         return ele;
@@ -48,12 +48,12 @@ export class SideBarComponent {
     });
 
     pageList.find((ele: any) => {
-      
+
       if (this.pageListArray.length) {
         let findIndex: any = this.pageListArray.findIndex((item: any) => { return ele.mainMenuId == item.id });
-        findIndex != "-1" ? (this.pageListArray[findIndex].subMenu = true, this.pageListArray[findIndex]?.data?.push(ele)) : this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: false, mainMenu: ele.mainMenu, m_MainMenu : ele.m_MainMenu });
+        findIndex != "-1" ? (this.pageListArray[findIndex].subMenu = true, this.pageListArray[findIndex]?.data?.push(ele)) : this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: false, mainMenu: ele.mainMenu, m_MainMenu: ele.m_MainMenu,menuIcon:ele.menuIcon });
       } else {
-        this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: ele.pageURL.length > 1 ? true : false, mainMenu: ele.mainMenu, m_MainMenu : ele.m_MainMenu })
+        this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: ele.pageURL.length > 1 ? true : false, mainMenu: ele.mainMenu, m_MainMenu: ele.m_MainMenu,menuIcon:ele.menuIcon})
       }
     });
     this.setDefaultCollapse();
@@ -74,7 +74,7 @@ export class SideBarComponent {
           item.activeFlag = false;
         })
       }
-    })
+    });
   }
 
   onCloseSidebar() {

@@ -28,9 +28,7 @@ export class CreateManaregaAppComponent {
   otherDocumentFrm !: FormGroup;
   addRegistrationRecFrm !: FormGroup;
   filterFrm !: FormGroup;
-  // @ViewChild('uplodLogo') clearlogo!: any;
   profileImageUrl: any;
-  // imageResponse: string = '';
   subscription!: Subscription;//used  for lang conv
   lang: any;
   viewMsgFlag: boolean = false;//used for error msg show
@@ -60,10 +58,11 @@ export class CreateManaregaAppComponent {
   checkedItems: any[]=[]; // Define an array to store checked items
   maxDate = new Date();
   farmDetails = new Array();
-
   index:any;
   farmDeatailsEditObj:any
   dataSource :any;
+  EditFlag: boolean = false;
+  filterDataRes:any // used for store filter data res
  @ViewChild('formDirective') private formDirective!: NgForm;
   //documnet form variable
   docUploadedPath: string = '';
@@ -107,17 +106,20 @@ export class CreateManaregaAppComponent {
     this.addSelfDeclaration();
     this.addOtherDocument();
     this.addRegistrationFrm();
-    this.getDepartment();
-    this.getQualification();
-    this.getState();
-    this.getCategory();
-    this.getFarmType();
-    this.getIrrigationFacility();
-    this.getCandidateRelation();
-    this.getBank();
-    this.searchDataZone();
-    
-  }
+    this.EditFlag == false ?  this.commonDropdown() : '';
+    }
+
+    commonDropdown(){
+      this.getDepartment();
+      this.getQualification();
+      this.getState();
+      this.getCategory();
+      this.getFarmType();
+      this.getIrrigationFacility();
+      this.getCandidateRelation();
+      this.getBank();
+      this.searchDataZone();
+    }
     
   filterDefaultFrm() {
     this.filterFrm = this.fb.group({
@@ -126,12 +128,110 @@ export class CreateManaregaAppComponent {
     })
   }
   
+  //#region --------------form start here---------------------
+  addManaregaFrm(data?:any) {
+    this.manaregaFrm = this.fb.group({
+      "id": [data?.id || 0],
+      "farmerId": [data?.farmerId || 10],
+      "schemeTypeId": [1],
+      "applicationNo": [data?.applicationNo || 0],
+      "mobileNo1": [data?.mobileNo1 || ''],
+      "aadharNo": [data?.aadharNo || ''],
+      // "profilePhotoPath": ['',[Validators.required]],
+      "mn_DepartmentId": [data?.mn_DepartmentId || ''],
+      "fullName": [data?.fullName || '',[Validators.required,this.validation.minLengthValidator(5),this.validation.maxLengthValidator(100),Validators.pattern(this.validation.fullName)]],
+      "mobileNo2": [data?.mobileNo2 || '',[this.validation.maxLengthValidator(10),Validators.pattern(this.validation.mobile_No)]],
+      "birthDate": [data?.birthDate || '',[Validators.required]],
+      "gender": [data?.genderId || 1],//no
+      "qualificationId": [data?.qualificationId ||'',[Validators.required]],//no
+      "stateId": [data?.stateId || (this.WebStorageService.getStateId() == '' ? '' : this.WebStorageService.getStateId())],//no
+      "districtId": [data?.districtId || (this.WebStorageService.getDistrictId() == '' ? '': this.WebStorageService.getDistrictId())],//no
+      "talukaId": [data?.talukaId || (this.WebStorageService.getTalukaId() == '' ? '' : this.WebStorageService.getTalukaId()),[Validators.required]],//no
+      "grampanchayatId": [data?.grampanchayatId || (this.WebStorageService.getGrampanchayatId() == '' ? '' : this.WebStorageService.getGrampanchayatId()),[Validators.required]],//no
+      "village": [data?.village || '',[Validators.required]],
+      "address": [data?.address || '',[this.validation.maxLengthValidator(200),Validators.required]],//Mandetory Max:200, alphanumeric with special char
+      "pinCode": [data?.pinCode || '',[Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],//Mandetory  Max: 6 digit, numeric
+      "mn_JobCardNo": [data?.mn_JobCardNo || '',[Validators.required,this.validation.maxLengthValidator(30)] ],//Mandetory  Max: 30 alphanumeric with sepcial char
+      "categoryId": [''],//no, [Validators.required]
+    })
+  }
+
+  addDocumentFrm() {
+    this.documentFrm = this.fb.group({
+      'allRequiredDocument' : [ '',[Validators.required]]
+    })
+  }
+
+  addRegistrationFrm() {
+    this.addRegistrationRecFrm = this.fb.group({
+      'registrationDocument' : [ '',[Validators.required]]
+    })
+  }
+
+  addFarmInfo(data?:any){
+    this.farmInfoFrm = this.fb.group({
+      "benificiaryTotalFarm":[data?.benificiaryTotalFarm || '',[Validators.required,this.validation.maxLengthValidator(4),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]], //Mandetory  Hectory हेक्टर - Max: 4 digit, float  
+      "mulberryCultivatedSurveyNo": [data?.mulberryCultivatedSurveyNo || '',[Validators.required,this.validation.maxLengthValidator(6),Validators.pattern(this.validation.onlyNumbers)]],//Mandetory  Max: 6 digit, numeric
+      "cultivatedFarmInHector":[data?.cultivatedFarmInHector || '',[Validators.required,this.validation.maxLengthValidator(4),Validators.pattern(this.validation.onlyNumbers)]],//num  // Mandetory Hectory हेक्टर - Max: 4 digit, numeric
+      "isJointAccHolder": [data?.isJointAccHolder || false],//true //Default - No
+      "applicantFarmSurveyNo": [data?.applicantFarmSurveyNo || ''],//19 A Mandetory 4 digit, numeric
+      "applicantFarmArea": [data?.applicantFarmArea || ''],//num   19 B Mandetory Hectory हेक्टर - Max: 4 digit, float
+      "farmTypeId":[data?.farmTypeId || '',[Validators.required]],//num Mandetory
+    "irrigationFacilityId":[data?.irrigationFacilityId || '',[Validators.required]],//num Mandetory
+    "isAnyPlantedBeforeGovScheme": [data?.isAnyPlantedBeforeGovScheme || false],//true  //Default - No
+    "isSelfTraining":[data?.isSelfTraining || false],//true //Default - Own   Own स्वतः Candidate उमेदवार
+    "candidateName":[data?.candidateName || ''],//Mandetory  Max: 50, Alphabetic 
+    "candidateRelationId": [data?.candidateRelationId ||''],//num  Mandetory
+    })
+  }
   
+  addBankInfo(data?:any){
+    this.bankInfoFrm = this.fb.group({
+      "bankId": [data?.bankId || '',[Validators.required]],//num
+      "bankBranchId": [data?.bankBranchId || '',[Validators.required]],//num
+      "bankIFSCCode": [data?.bankIFSCCode || '',[Validators.required,this.validation.maxLengthValidator(11),Validators.pattern(this.validation.bankIFSCCodeVal)]],
+      "bankAccountNo": [data?.bankAccountNo || '',[Validators.required,this.validation.maxLengthValidator(30),Validators.pattern(this.validation.onlyNumbers)]]
+    })
+  }
+
+  addOtherDocument(){
+    this.otherDocumentFrm = this.fb.group({
+      "id": [0],
+      "docNo": [''],
+      "docname": [''],
+      "docPath": ['']
+    })
+  }
+
+  // addOtherDocument(res?:any){
+  //   this.otherDocumentFrm = this.fb.group({
+  //     "id": [res?.id || 0],
+  //     "docNo": [res?.docNo || ''],
+  //     "docname": [res?.docname || ''],
+  //     "docPath": [res?.docPath || '']
+  //   })
+  // }
+
+  addSelfDeclaration(res?:any){
+    this.selfDeclarationFrm = this.fb.group({
+      "isHonestLabor": [res?.isHonestLabor || false],
+        "isSelfTransport": [ res?.isSelfTransport || false],
+        "isEligibleGettingInstallmentAmount":[res?.isEligibleGettingInstallmentAmount || false],
+        "isBoundByConditions":[res?.isBoundByConditions || false],
+        "isPayMoreThanLimitedAmt": [res?.isPayMoreThanLimitedAmt || false],
+        "isSignedOnLetter":[res?.isSignedOnLetter || false],
+        "isChangedAcceptable": [res?.isChangedAcceptable || false],
+        "isSchemeCorrectAsPerSatbara": [res?.isSchemeCorrectAsPerSatbara || false],
+        "isJointAccHolderTermAcceptable": [res?.isJointAccHolderTermAcceptable || false]
+      })
+  }
+
+  get f() {
+    return this.manaregaFrm.controls
+  }
   
-  
-  
-  
-  //#region  -----------------------------------------------------------doc upload section fn start heare-----------------------------------//
+ //#endregion--------------------form end here------------------------------------------ 
+//#region  -----------------------------------------------------------doc upload section fn start heare-----------------------------------//
 
     fileUpload(event: any, docId: any,lable:any) {
     let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray,'docTypeId',docId);
@@ -168,19 +268,13 @@ let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.previewData?.do
 let obj= this.previewData?.documents[indexByDocId].documentPath;
 window.open(obj, '_blank')
 }
-
-
 getDocumentsWithDocId7() {  //preview other docment
   return this.previewData?.documents.filter((doc:any) => doc.docId === 7);
 }
-
 // viewPreviewDocument11(documentPath: string) {
 //   window.open(documentPath, '_blank');
 // }
-
-
-   
-  //#region -----------------other document upload functionality start --------------------------------------------------
+//#region -----------------other document upload functionality start --------------------------------------------------
      onOtherDocSubmit() {
     let uploadFrmValue = this.otherDocumentFrm.getRawValue();
     console.log(" uploadFrmValue", uploadFrmValue)
@@ -220,79 +314,17 @@ getDocumentsWithDocId7() {  //preview other docment
       this.OtherDocImg.nativeElement.value = '';
       this.otherDocumentFrm.controls['docPath'].setValue('');
     }
-
-
-  resetOtherDocForm() {
+resetOtherDocForm() {
     this.otherformDirective.resetForm();
     this.OtherDocImg.nativeElement.value = "";
-
-  }
-
-    deleteTableOtherDocument(i: any) { //logic for delete table document
+}
+deleteTableOtherDocument(i: any) { //logic for delete table document
     this.OtherDocUploadImg.splice(i,1)
     this.otherDocArray = new MatTableDataSource( this.OtherDocUploadImg);
   }
- //#endregion  --------------------------------------------------------other doc upload section fn end here-----------------------------------//
-
-    
-//#region -------------------------------Original Details------------------------------------------------
-  addManaregaFrm() {
-    this.manaregaFrm = this.fb.group({
-      "id": [0],
-      "farmerId": [10],
-      "schemeTypeId": [1],
-      "applicationNo": [0],
-      "mobileNo1": [''],
-      "aadharNo": [''],
-      // "profilePhotoPath": ['',[Validators.required]],
-      "mn_DepartmentId": [''],
-      "fullName": ['',[Validators.required,this.validation.minLengthValidator(5),this.validation.maxLengthValidator(100),Validators.pattern(this.validation.fullName)]],
-      "mobileNo2": ['',[this.validation.maxLengthValidator(10),Validators.pattern(this.validation.mobile_No)]],
-      "birthDate": ['',[Validators.required]],
-      "gender": [1],//no
-      "qualificationId": ['',[Validators.required]],//no
-      "stateId": [this.WebStorageService.getStateId() == '' ? '' : this.WebStorageService.getStateId()],//no
-      "districtId": [this.WebStorageService.getDistrictId() == '' ? '': this.WebStorageService.getDistrictId()],//no
-      "talukaId": [this.WebStorageService.getTalukaId() == '' ? '' : this.WebStorageService.getTalukaId(),[Validators.required]],//no
-      "grampanchayatId": [this.WebStorageService.getGrampanchayatId() == '' ? '' : this.WebStorageService.getGrampanchayatId(),[Validators.required]],//no
-      "village": ['',[Validators.required]],
-      "address": ['',[this.validation.maxLengthValidator(200),Validators.required]],//Mandetory Max:200, alphanumeric with special char
-      "pinCode": ['',[Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],//Mandetory  Max: 6 digit, numeric
-      "mn_JobCardNo": ['',[Validators.required,this.validation.maxLengthValidator(30)] ],//Mandetory  Max: 30 alphanumeric with sepcial char
-      "categoryId": [''],//no, [Validators.required]
-    })
-  }
-
-  addDocumentFrm() {
-    this.documentFrm = this.fb.group({
-      'allRequiredDocument' : [ '',[Validators.required]]
-    })
-  }
-
-  addRegistrationFrm() {
-    this.addRegistrationRecFrm = this.fb.group({
-      'registrationDocument' : [ '',[Validators.required]]
-    })
-  }
-
-  addFarmInfo(){
-    this.farmInfoFrm = this.fb.group({
-      "benificiaryTotalFarm":['',[Validators.required,this.validation.maxLengthValidator(4),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]], //Mandetory  Hectory हेक्टर - Max: 4 digit, float  
-      "mulberryCultivatedSurveyNo": ['',[Validators.required,this.validation.maxLengthValidator(6),Validators.pattern(this.validation.onlyNumbers)]],//Mandetory  Max: 6 digit, numeric
-      "cultivatedFarmInHector":['',[Validators.required,this.validation.maxLengthValidator(4),Validators.pattern(this.validation.onlyNumbers)]],//num  // Mandetory Hectory हेक्टर - Max: 4 digit, numeric
-      "isJointAccHolder": [false],//true //Default - No
-      "applicantFarmSurveyNo": [''],//19 A Mandetory 4 digit, numeric
-      "applicantFarmArea": [''],//num   19 B Mandetory Hectory हेक्टर - Max: 4 digit, float
-      "farmTypeId":['',[Validators.required]],//num Mandetory
-    "irrigationFacilityId":['',[Validators.required]],//num Mandetory
-    "isAnyPlantedBeforeGovScheme": [false],//true  //Default - No
-    "isSelfTraining":[false],//true //Default - Own   Own स्वतः Candidate उमेदवार
-    "candidateName":[''],//Mandetory  Max: 50, Alphabetic 
-    "candidateRelationId": [''],//num  Mandetory
-    })
-  }
-
-  onClickAccountHolder(val: any) {
+//#endregion  --------------------------------------------------------other doc upload section fn end here-----------------------------------//
+//#region -------------------------------on radio button click add remove validation fn start------------------------------------------------
+ onClickAccountHolder(val: any) {
     if (val == true) {
       this.farmInfoFrm.controls['applicantFarmSurveyNo'].setValidators([Validators.required,this.validation.maxLengthValidator(4),Validators.pattern(this.validation.onlyNumbers)]);
       this.farmInfoFrm.controls ['applicantFarmArea'].setValidators([Validators.required,this.validation.maxLengthValidator(4),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]);
@@ -336,53 +368,7 @@ getDocumentsWithDocId7() {  //preview other docment
     this.farmInfoFrm.controls['candidateName'].updateValueAndValidity();
     this.farmInfoFrm.controls ['candidateRelationId'].updateValueAndValidity();
    }
-
-
-
-
-  addBankInfo(){
-    this.bankInfoFrm = this.fb.group({
-      "bankId": ['',[Validators.required]],//num
-      "bankBranchId": ['',[Validators.required]],//num
-      "bankIFSCCode": ['',[Validators.required,this.validation.maxLengthValidator(11),Validators.pattern(this.validation.bankIFSCCodeVal)]],
-      "bankAccountNo": ['',[Validators.required,this.validation.maxLengthValidator(30),Validators.pattern(this.validation.onlyNumbers)]]
-    })
-  }
-
-  addOtherDocument(){
-    this.otherDocumentFrm = this.fb.group({
-      "id": [0],
-      "docNo": [''],
-      "docname": [''],
-      "docPath": ['']
-    })
-  }
-
-  addSelfDeclaration(){
-    this.selfDeclarationFrm = this.fb.group({
-      "isHonestLabor": [false],
-        "isSelfTransport": [false],
-        "isEligibleGettingInstallmentAmount":[false],
-        "isBoundByConditions":[false],
-        "isPayMoreThanLimitedAmt": [false],
-        "isSignedOnLetter":[false],
-        "isChangedAcceptable": [false],
-        "isSchemeCorrectAsPerSatbara": [false],
-        "isJointAccHolderTermAcceptable": [false]
-        // "sm_IsReadyToPlantNewMulberries": true,
-        // "sm_IsHonestlyProtectPlant": true,
-        // "sm_IsRequestForYourPriorConsent": true,
-    })
-  }
-
-  get f() {
-    return this.manaregaFrm.controls
-  }
-
-  
-  
-
-  
+//#endregion-----------------------on radio button click add remove validation fn start-------------------
 
   getFarmInfo(){
     this.farmDeatailsFrm = this.fb.group({
@@ -394,8 +380,7 @@ getDocumentsWithDocId7() {  //preview other docment
       "cultivatedPlantsCount":['',[Validators.required]] //Max 4 digit, Numeric
     })
   }
-
-  onAddFarmInfo(){
+   onAddFarmInfo(){
     let data = this.farmDeatailsFrm.getRawValue();
    // var newArray = new Array();
     if( this.farmDeatailsFrm.invalid){
@@ -403,7 +388,7 @@ getDocumentsWithDocId7() {  //preview other docment
     }
     else{
       let obj ={
-      "id": data.id,
+      "id": 0,
       "applicationId":0,
       "plantName": data.plantName,
       "gutNo": Number(data.gutNo),
@@ -419,35 +404,114 @@ getDocumentsWithDocId7() {  //preview other docment
     }
   }
 
-
-  deleteFarmInfo(i:number){
+ deleteFarmInfo(i:number){
     this.farmDetails.splice(i,1);
     this.dataSource= new MatTableDataSource(this.farmDetails);
    }
 
 
+getDataByMobileAadharNo(flag?:any){
+  flag == 'search' ? this.EditFlag = true : ''
+  let filterData = this.filterFrm.getRawValue();
+    this.apiService.setHttp('get', `sericulture/api/Application/application-preview?Id=0&AadharNo=${filterData?.aadharNo}&MobileNo=${filterData?.mobileNo}&lan=en`, false, false, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.filterDataRes = res.responseData;
+          this.onEdit(this.filterDataRes);
+      } else {
+          this.filterDataRes = [];
+        }
+      })
+    })
+}
+
+onEdit(data?:any){
+  this.addManaregaFrm(data);
+  this.addFarmInfo(data);
+  this.getState();
+  this.profileImageUrl = data.profilePhotoPath;
+  this.checkedItems = data.categoryOfBeneficiaries;
+  this.checkedItems.map((ele: any) => {
+        ele['textEnglish'] = ele.categoryOfBeneficiary;
+         ele['textMarathi'] = ele.m_CategoryOfBeneficiary;
+   })
+  this.addBankInfo(data); 
+  this.getBankBranch();
+  this.farmDetails = data.plantingDetails;
+  this.dataSource = new MatTableDataSource(this.farmDetails);
+  this.docArray.find((ele: any, i: any) => {
+    data.documents.find((item: any) => {
+      if (ele.docTypeId == item.docId) {
+        this.docArray[i].id = item.id
+        this.docArray[i].docPath = item.documentPath
+      } else {
+        if (item.docId == 7) { // 7 is other doc
+          // this.addOtherDocument(item);
+         }
+      }
+    })
+  })
+  this.addSelfDeclaration(data);
+}
+
+// onEdit(data?: any) {
+//   this.samgraformData(data);
+//   this.landDetailsFormData(data);
+//   this.bankDetailsFormData(data);
+//   this.selfDeclarationFormData(data);
+//   this.getBankBranch();
+//   this.getTaluka();
+//   this.checkedItems = data.categoryOfBeneficiaries
+//   this.currentCropDetailsArray = data.currentProducts
+//   this.dataSource = new MatTableDataSource(this.currentCropDetailsArray);
+//   this.profileImageUrl = data.profilePhotoPath;
+
+
+//   //patch documents 
+//   console.log("data.documents", data.documents);
+
+//   this.docArray.map((res: any, i: any) => {
+//     data.documents.map((ele: any) => {
+//       if (res.docTypeId == ele.docId) {
+//         this.docArray[i] = ele
+//       }
+//     });
+//   })
+//   this.docArray.map((res: any) => {
+//     res['docTypeId'] = res.docId;
+//     res['docPath'] = res.documentPath;
+//     res['docNo'] = '';
+//     res['docname'] = res.documentName;
+//   })
+//   console.log("documents", data.documents);
+//   console.log("docArray", this.docArray);
+
+//   // documents
+//   // this.docArray
+//   this.checkedItems.map((ele: any) => {
+//     ele['textEnglish'] = ele.categoryOfBeneficiary;
+//     ele['textMarathi'] = ele.m_CategoryOfBeneficiary;
+//   })
+// }
 
   
 
 
 getPreviewData(res:any){ 
-  this.apiService.setHttp('get','sericulture/api/Application/application-preview?Id='+(res)+'&AadharNo='+( this.manaregaFrm.getRawValue()?.aadharNo)+'&MobileNo='+(this.manaregaFrm.getRawValue()?.mobileNo1)+'&lan='+this.lang,false,false,false,'masterUrl');
+  this.apiService.setHttp('get','sericulture/api/Application/application-preview?Id='+(res)+'&lan='+this.lang,false,false,false,'masterUrl')
+  //this.apiService.setHttp('get','sericulture/api/Application/application-preview?Id='+(res)+'&AadharNo='+( this.manaregaFrm.getRawValue()?.aadharNo)+'&MobileNo='+(this.manaregaFrm.getRawValue()?.mobileNo1)+'&lan='+this.lang,false,false,false,'masterUrl');
   this.apiService.getHttp().subscribe({
     next:((res:any)=>{
       if(res.statusCode == "200"){
           this.previewData = res.responseData;
-        
-          let documentArray = new Array()
+         let documentArray = new Array()
           documentArray = res.responseData?.documents;
 
           documentArray.map((document:any) => {
             if(document.docId == 12){
-              this.previewManarega =  this.previewManarega?.push(document);
-             
-            }
-            console.log(" this.previewManarega", this.previewManarega)
-            // const docId = 12;
-            
+               this.previewManarega?.push(document);
+             }
           });
          }
       else{
@@ -457,8 +521,14 @@ getPreviewData(res:any){
   })
 }
 
+
+
   onSubmit(flag?:any) {
-    //let getId:any;
+    let formData = this.manaregaFrm?.getRawValue();
+    //let farmDetails=this.farmDeatailsFrm.getRawValue();
+    let farmInfo = this.farmInfoFrm.getRawValue();
+      let bankInfo=this.bankInfoFrm.getRawValue();
+      let declarationInfo=this.selfDeclarationFrm.getRawValue();
     let mergeDocumentArray = [... this.docArray,...this.OtherDocUploadImg];
     
     if (this.manaregaFrm.invalid && flag == 'farmerInfo') {
@@ -495,40 +565,20 @@ getPreviewData(res:any){
         }
       }
     else {
-      let formData = this.manaregaFrm?.getRawValue();
-      //let farmDetails=this.farmDeatailsFrm.getRawValue();
-      let farmInfo = this.farmInfoFrm.getRawValue();
-        let bankInfo=this.bankInfoFrm.getRawValue();
-        let declarationInfo=this.selfDeclarationFrm.getRawValue();
+      !bankInfo.bankId ? bankInfo.bankId = 0 : '';
+      !bankInfo.bankBranchId ? bankInfo.bankBranchId = 0 : '';
+       console.log(" this.farmDetails in submit", this.farmDetails)
+    
         this.docArray.map((ele:any)=>{
            ele.createdBy = 0;
            ele.isDeleted = false;
            ele.applicationId = formData.id;
         })
      let obj ={
-        "id":  formData.id,
-        "farmerId": formData.farmerId,
-        "schemeTypeId":formData.schemeTypeId,
-        "applicationNo":String(formData.applicationNo),
-        "profilePhotoPath":  this.profileImageUrl || '',
-        "fullName": formData.fullName,
-        "m_FullName": formData.fullName,//enter marathi name
-        "mn_DepartmentId":Number(formData.mn_DepartmentId),
-        "mobileNo1":formData.mobileNo1,
-        "mobileNo2": formData.mobileNo2,
-        "aadharNo": formData.aadharNo,
-        "birthDate": this.commonMethod.setDate(formData.birthDate) || null,
-        "gender":formData.gender,
-        "qualificationId": formData.qualificationId,
-        "stateId":formData.stateId,
-        "districtId":formData.districtId,
-        "talukaId":formData.talukaId,
-        "grampanchayatId":formData.grampanchayatId,
-        "village": formData.village,
-        "address": formData.address,
-        "m_Address":formData.address,
-        "pinCode":formData.pinCode,
-        "mn_JobCardNo":formData.mn_JobCardNo,
+      ...formData, ...declarationInfo,...bankInfo,
+        "m_Address": "",
+        "m_FullName": "",
+        "profilePhotoPath": this.profileImageUrl || '',
         "sm_VoterRegistrationNo": "string",
         "sm_IsBelowPovertyLine": true,
         "benificiaryTotalFarm": Number(farmInfo.benificiaryTotalFarm) || 0,
@@ -567,39 +617,15 @@ getPreviewData(res:any){
         "sm_NameOfPlan": "string",
         "sm_PlanTakenDate": "2023-11-24T09:55:29.130Z",
         "sm_TakenPlanBenefit": "string",
-        "bankId":Number(bankInfo.bankId),
-        "bankBranchId": Number(bankInfo.bankBranchId),
-        "bankIFSCCode": bankInfo.bankIFSCCode,
-        "bankAccountNo": bankInfo.bankAccountNo,
         "isHonestlyProtectPlant": true,
-        "isHonestLabor": declarationInfo.isHonestLabor,
-        "isSelfTransport": declarationInfo.isSelfTransport,
-        "isEligibleGettingInstallmentAmount": declarationInfo.isEligibleGettingInstallmentAmount,
-        "isBoundByConditions": declarationInfo.isBoundByConditions,
-        "isPayMoreThanLimitedAmt": declarationInfo.isPayMoreThanLimitedAmt,
-        "isSignedOnLetter": declarationInfo.isSignedOnLetter,
-        "isChangedAcceptable": declarationInfo.isChangedAcceptable,
-        "isSchemeCorrectAsPerSatbara": declarationInfo.isSchemeCorrectAsPerSatbara,
-        "isJointAccHolderTermAcceptable":declarationInfo.isJointAccHolderTermAcceptable,
         "sm_IsReadyToPlantNewMulberries": true,
         "sm_IsHonestlyProtectPlant": true,
         "sm_IsRequestForYourPriorConsent": true,
         "registrationFeeReceiptPath": "string",
         "createdBy": 0,
-        "flag": flag == 'farmerInfo' ? 0 : flag == 'farmInfo'? 2 : flag == 'bankInfo' ?  3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'preview' ? 6 :  flag == 'challan' ? 7 : '',
+        "flag": (flag == 'farmerInfo' && !this.EditFlag) ? 0 : (flag == 'farmerInfo' && this.EditFlag) ? 1 : flag == 'farmInfo'? 2 : flag == 'bankInfo' ?  3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'preview' ? 6 :  flag == 'challan' ? 7 : '',
         "isUpdate": true,
         "appDoc": mergeDocumentArray,
-        // [{
-        //     "id": 0,
-        //     "applicationId": 0,
-        //     "docTypeId": 0,
-        //     "docNo": "string",
-        //     "docname": "string",
-        //     "docPath": "string",
-        //     "createdBy": 0,
-        //     "isDeleted": true
-        //   }
-        // ],
         "categoryId": this.checkedItems.map((x:any)=>{return x.id}),
         "plantingDetails": this.farmDetails,
         "internalSchemes": [
@@ -741,8 +767,8 @@ getPreviewData(res:any){
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.stateArray = res.responseData;
-          //  this.data ? (this.f['stateId'].setValue(this.data?.stateId)) : '' ;  
-          this.getDisrict();
+         this.EditFlag ? (this.f['stateId'].setValue(this.filterDataRes?.stateId), this.getDisrict()) :  this.getDisrict() ;  
+        //  this.getDisrict();
         }
         else {
           this.stateArray = [];
@@ -759,8 +785,8 @@ getPreviewData(res:any){
         next: ((res: any) => {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.districtArray = res.responseData;
-            // this.data ? this.f['districtId'].setValue(this.data?.districtId) : ''
-            this.getTaluka();
+            this.EditFlag ? (this.f['districtId'].setValue(this.filterDataRes?.districtId),this.getTaluka()) : this.getTaluka() ;  
+           //this.getTaluka();
           }
           else {
             this.districtArray = [];
@@ -780,8 +806,8 @@ getPreviewData(res:any){
           if (res.statusCode == "200" && res.responseData?.length) {
             this.talukaArray = res.responseData;
             this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
-            //  this.data  ? this.f['talukaId'].setValue(this.data?.talId) : '';
-            this.getGrampanchayat()
+            this.EditFlag ? (this.f['talukaId'].setValue(this.filterDataRes.talukaId),this.getGrampanchayat()) :this.getGrampanchayat();
+            //this.getGrampanchayat()
           }
           else {
             this.talukaArray = [];
@@ -803,7 +829,7 @@ getPreviewData(res:any){
         if (res.statusCode == "200" && res.responseData?.length) {
           this.grampanchayatArray = res.responseData;
           this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
-          // this.data ? (this.f['grampanchayatId'].setValue(this.data?.grampanchayatId)) : '';
+           this.EditFlag ? (this.f['grampanchayatId'].setValue(this.filterDataRes?.grampanchayatId)) : '';
         }
         else {
           this.grampanchayatArray = [];

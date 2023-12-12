@@ -104,10 +104,9 @@ export class ForgetPasswordComponent {
         "mobileNo": formData.mobileno,
         "otp": "",
         "pageName": "forgotpassword",
-        "createdBy": 0
+        "createdBy": 0,
+        "loginFlag": "web"
       }
-     
-
       this.apiService.setHttp('post', 'sericulture/api/OtpTran/GenerateOTP', false, obj, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
@@ -143,8 +142,7 @@ export class ForgetPasswordComponent {
       "PageName": "forgotpassword",
       "CreatedBy": 0
     }
-
-    this.apiService.setHttp('get', 'sericulture/api/OtpTran/VerifyOTP?MobileNo=' + obj.MobileNo + '&OTP=' + obj.OTP + '&PageName=forgotpassword', false, false, false, 'baseUrl');
+    this.apiService.setHttp('get', 'sericulture/api/OtpTran/VerifyOTP?MobileNo=' + obj.MobileNo + '&OTP=' + obj.OTP + '&PageName=forgotpassword&LoginFlag=web', false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.commonMethods.snackBar(res.statusMessage, 0);
