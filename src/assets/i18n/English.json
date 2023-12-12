@@ -765,8 +765,9 @@
     "Pending":"Pending",
     "active":"Active",
     "expired":"Expired",
-    "blocked":"Blocked",
-    "rejected":"Rejected"
+    "deactive":"Deactive",
+    "rejected":"Rejected",
+    "search_by_Reg_No_CRC_Name/Owner_name_Mobile_No":"Search by Reg No/CRC Name/Owner name/Mobile No"
   }
 
 }

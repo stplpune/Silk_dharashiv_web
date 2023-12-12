@@ -26,7 +26,7 @@ export class BlogsComponent {
   subscription!: Subscription;//used  for lang conv
   lang: string = 'English';
   searchDataFlag: boolean = false;
-  pageAccessObject: object|any;
+  pageAccessObject: object | any;
 
   constructor(
     private apiService: ApiService,
@@ -40,7 +40,7 @@ export class BlogsComponent {
   ) { }
 
   ngOnInit() {
-    this.webStorage.getAllPageName().filter((ele:any) =>{return ele.pageName == "Blogs" ? this.pageAccessObject = ele :''})
+    this.webStorage.getAllPageName().filter((ele: any) => { return ele.pageName == "Blogs" ? this.pageAccessObject = ele : '' })
 
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : (sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English');
@@ -80,7 +80,7 @@ export class BlogsComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns =  ['srNo', 'thumbnailImage', 'title', 'publishDate', 'status', 'action'];
+    let displayedColumns = ['srNo', 'thumbnailImage', 'title', 'publishDate', 'status', 'action'];
     let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'लघुप्रतिमा', 'शीर्षक', 'प्रकाशित तारीख', 'स्थिती', 'कृती'] : ['Sr. No.', 'Thumbnail Image', 'Tittle', 'Publish Date', 'Status', 'Action'];
     let getTableData = {
       pageNumber: this.pageNumber,
@@ -94,10 +94,10 @@ export class BlogsComponent {
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
       // delete: true, edit: true, view: true,
-      view: this.pageAccessObject?.readRight == true ? true: false,
-      edit: this.pageAccessObject?.writeRight == true ? true: false,
-      delete: this.pageAccessObject?.deleteRight == true ? true: false
-     };
+      view: this.pageAccessObject?.readRight == true ? true : false,
+      edit: this.pageAccessObject?.writeRight == true ? true : false,
+      delete: this.pageAccessObject?.deleteRight == true ? true : false
+    };
     this.highLightRowFlag ? (getTableData.highlightedrow = true) : (getTableData.highlightedrow = false);
     this.apiService.tableData.next(getTableData);
   }
@@ -131,7 +131,7 @@ export class BlogsComponent {
       title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेला ब्लॉग ' + userMara + ' करू इच्छिता ?' : 'Do You Want To ' + userEng + ' The Selected Blog ?',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
-      headerImage: obj.status == false ?'assets/images/active_scheme@3x.png' : 'assets/images/inactive_scheme/inactive_scheme@3x.png'
+      headerImage: obj.status == false ? 'assets/images/active_scheme@3x.png' : 'assets/images/inactive_scheme.png'
     }
     const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -146,10 +146,10 @@ export class BlogsComponent {
 
   blockAction(obj: any) {
     let status = !obj.status
-    this.apiService.setHttp('PUT', 'sericulture/api/Blogs/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status+'&lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('PUT', 'sericulture/api/Blogs/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status + '&lan=' + this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
-        res.statusCode == "200" ? (this.commonMethod.snackBar(res.statusMessage, 0),this.getTableData()) : this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        res.statusCode == "200" ? (this.commonMethod.snackBar(res.statusMessage, 0), this.getTableData()) : this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
       },
       error: (error: any) => {
         this.errorHandler.handelError(error.status);
@@ -164,7 +164,7 @@ export class BlogsComponent {
       header: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       okButton: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
-      headerImage:'assets/images/delete.svg'
+      headerImage: 'assets/images/delete.svg'
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -174,7 +174,7 @@ export class BlogsComponent {
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('DELETE', 'sericulture/api/Blogs/delete-blogs?blogId=' + (delDataObj.id || 0)+'&lan='+this.lang, false, delDataObj, false, 'masterUrl');
+        this.apiService.setHttp('DELETE', 'sericulture/api/Blogs/delete-blogs?blogId=' + (delDataObj.id || 0) + '&lan=' + this.lang, false, delDataObj, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {

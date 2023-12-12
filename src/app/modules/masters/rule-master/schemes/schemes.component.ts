@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import {  FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
@@ -16,7 +16,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
   templateUrl: './schemes.component.html',
   styleUrls: ['./schemes.component.scss']
 })
-export class SchemesComponent implements OnDestroy{
+export class SchemesComponent implements OnDestroy {
 
   totalCount: number | any;
   tableDataArray = new Array();
@@ -27,7 +27,7 @@ export class SchemesComponent implements OnDestroy{
   filtarFlag: boolean = false;
   subscription!: Subscription;
   lang: string = 'English';
-  pageAccessObject: object|any;
+  pageAccessObject: object | any;
 
   constructor
     (
@@ -39,7 +39,7 @@ export class SchemesComponent implements OnDestroy{
       public dialog: MatDialog,
       public validator: ValidationService,
 
-  ) { }
+    ) { }
 
   addscheme(data?: any) {
     const dialogRef = this.dialog.open(AddSchemeComponent, {
@@ -53,7 +53,7 @@ export class SchemesComponent implements OnDestroy{
   }
 
   ngOnInit() {
-    this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == "Schemes" ? this.pageAccessObject = ele :''})
+    this.WebStorageService.getAllPageName().filter((ele: any) => { return ele.pageName == "Schemes" ? this.pageAccessObject = ele : '' })
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -105,9 +105,9 @@ export class SchemesComponent implements OnDestroy{
       tableHeaders: tableHeaders,
       displayedColumns: displayedColumns,
       pagination: this.totalCount > 10 ? true : false,
-      view: this.pageAccessObject?.readRight == true ? true: false,
-      edit: this.pageAccessObject?.writeRight == true ? true: false,
-      delete: this.pageAccessObject?.deleteRight == true ? true: false,
+      view: this.pageAccessObject?.readRight == true ? true : false,
+      edit: this.pageAccessObject?.writeRight == true ? true : false,
+      delete: this.pageAccessObject?.deleteRight == true ? true : false,
       reset: false,
     }
     this.highLightedFlag ? this.tableObj.highlightedrow = true : this.tableObj.highlightedrow = false;
@@ -124,7 +124,7 @@ export class SchemesComponent implements OnDestroy{
       case 'Edit':
         this.addscheme(obj);
         break;
-        case 'View':
+      case 'View':
         this.addscheme(obj);
         break;
       case 'Delete':
@@ -146,9 +146,9 @@ export class SchemesComponent implements OnDestroy{
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
       // statusFlag:this.lang == 'en' ? 'Toggle' : 'टॉगल'
-      headerImage: obj.isActive == false ?'assets/images/active_scheme@3x.png' : 'assets/images/inactive_scheme/inactive_scheme@3x.png'
+      headerImage: obj.isActive == false ? 'assets/images/active_scheme@3x.png' : 'assets/images/inactive_scheme.png'
     }
-    
+
     const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
       data: dialoObj,
@@ -177,10 +177,10 @@ export class SchemesComponent implements OnDestroy{
   deleteDialogOpen(delObj?: any) {
     let dialogObj = {
       title: this.lang == 'en' ? 'Do You Want To Delete Selected Scheme ?' : 'तुम्हाला निवडलेली योजना हटवायची आहे का ?',
-      header: this.lang == 'en' ?  'Delete Scheme' : 'योजना हटवा',
-      okButton: this.lang == 'en' ?  'Delete' : 'हटवा',
-      cancelButton:this.lang == 'en' ?  'Cancel' : 'रद्द करा',
-      headerImage:'assets/images/delete.svg'
+      header: this.lang == 'en' ? 'Delete Scheme' : 'योजना हटवा',
+      okButton: this.lang == 'en' ? 'Delete' : 'हटवा',
+      cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
+      headerImage: 'assets/images/delete.svg'
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '30%',

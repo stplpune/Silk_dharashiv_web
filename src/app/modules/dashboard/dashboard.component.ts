@@ -72,6 +72,11 @@ export class DashboardComponent {
     });
   }
 
+  clearFilter(){
+    this.filterDefaultFrm();   
+    this.getDashboardCount();
+  }
+
   get f() { return this.filterFrm.controls };
 
   clearDropdown(dropdown: string) {
