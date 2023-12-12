@@ -21,16 +21,14 @@ import { Router } from '@angular/router';
 })
 export class TrackApplicationComponent {
   appHistoryArray: any;
-  getBaseUrl!:string;
+  getBaseUrl!: string;
 
   constructor(
     private apiService: ApiService, private spinner: NgxSpinnerService, private commonMethods: CommonMethodsService, private error: ErrorHandlingService,
     @Optional() public dialogRef: MatDialogRef<TrackApplicationComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any, private router:Router) {
-
-      this.getBaseUrl = this.router.url;
-      console.log(this.getBaseUrl)
-    // this.getAppHistory(this.data.id)
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any, private router: Router) {
+    this.getBaseUrl = this.router.url;
+    this.getAppHistory(15)
   }
 
   getAppHistory(id: any) {

@@ -14,179 +14,179 @@
 <mat-dialog-content class="modal-body form-container">
     <div class="timeline">
         <ul>
-            <li>
+            <li *ngFor="let history of appHistoryArray">
                 <div class="content">
-                    <h3>What is Lorem Ipsum?</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+                    <h3>{{history?.actionName}}</h3>
+                    <p>Designation - {{history?.designationName ? history?.designationName :'-'}}</p>
+                    <p><small>Remark - {{history?.remark ? history?.remark:'-'}}</small> </p>
                 </div>
                 <div class="time">
-                    <h4>January 2018</h4>
-                </div>
-            </li>
-
-            <li>
-                <div class="content">
-                    <h3>What is Lorem Ipsum?</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                </div>
-                <div class="time">
-                    <h4>February 2018</h4>
-                </div>
-            </li>
-
-            <li>
-                <div class="content">
-                    <h3>What is Lorem Ipsum?</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                </div>
-                <div class="time">
-                    <h4>March 2018</h4>
-                </div>
-            </li>
-
-            <li>
-                <div class="content">
-                    <h3>What is Lorem Ipsum?</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                </div>
-                <div class="time">
-                    <h4>April 2018</h4>
-                </div>
-            </li>
-
-            <li>
-                <div class="content">
-                    <h3>What is Lorem Ipsum?</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                </div>
-                <div class="time">
-                    <h4>May 2018</h4>
-                </div>
-            </li>
-
-            <li>
-                <div class="content">
-                    <h3>What is Lorem Ipsum?</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                </div>
-                <div class="time">
-                    <h4>June 2018</h4>
-                </div>
-            </li>
-
-            <li>
-                <div class="content">
-                    <h3>What is Lorem Ipsum?</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                </div>
-                <div class="time">
-                    <h4>July 2018</h4>
-                </div>
-            </li>
-
-            <li>
-                <div class="content">
-                    <h3>What is Lorem Ipsum?</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                </div>
-                <div class="time">
-                    <h4>August 2018</h4>
-                </div>
-            </li>
-
-            <li>
-                <div class="content">
-                    <h3>What is Lorem Ipsum?</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                </div>
-                <div class="time">
-                    <h4>September 2018</h4>
-                </div>
-            </li>
-
-            <li>
-                <div class="content">
-                    <h3>What is Lorem Ipsum?</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                </div>
-                <div class="time">
-                    <h4>October 2018</h4>
-                </div>
-            </li>
-
-            <li>
-                <div class="content">
-                    <h3>What is Lorem Ipsum?</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                </div>
-                <div class="time">
-                    <h4>November 2018</h4>
-                </div>
-            </li>
-
-            <li>
-                <div class="content">
-                    <h3>What is Lorem Ipsum?</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                </div>
-                <div class="time">
-                    <h4>December 2018</h4>
+                    <h4>{{history?.approvalDate | date :'dd-MM-YYYY hh:mm a'}}</h4>
                 </div>
             </li>
             <div style="clear:both;"></div>
         </ul>
     </div>
-    <!-- <div class="container py-5">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="content">
-                    <ul class="timeline-1 text-black">
-                        <ng-container *ngFor="let history of appHistoryArray">
-                            <li class="event" [attr.data-date]="history?.approvalDate | date :'dd-MM-YYYY hh:mm a'">
-                                <h6 class="mb-3">{{history?.actionName}}</h6>
-                                <p><small>{{history?.designationName}}</small></p>
-                                <p><small>{{history?.remark}}</small></p>
-                            </li>
-                        </ng-container>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div> -->
+
 </mat-dialog-content>
+
+<!-- <div class="timeline">
+    <ul>
+        <li>
+            <div class="content">
+                <h3>What is Lorem Ipsum?</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                    of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+            </div>
+            <div class="time">
+                <h4>January 2018</h4>
+            </div>
+        </li>
+
+        <li>
+            <div class="content">
+                <h3>What is Lorem Ipsum?</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                    of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+            </div>
+            <div class="time">
+                <h4>February 2018</h4>
+            </div>
+        </li>
+
+        <li>
+            <div class="content">
+                <h3>What is Lorem Ipsum?</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                    of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+            </div>
+            <div class="time">
+                <h4>March 2018</h4>
+            </div>
+        </li>
+
+        <li>
+            <div class="content">
+                <h3>What is Lorem Ipsum?</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                    of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+            </div>
+            <div class="time">
+                <h4>April 2018</h4>
+            </div>
+        </li>
+
+        <li>
+            <div class="content">
+                <h3>What is Lorem Ipsum?</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                    of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+            </div>
+            <div class="time">
+                <h4>May 2018</h4>
+            </div>
+        </li>
+
+        <li>
+            <div class="content">
+                <h3>What is Lorem Ipsum?</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                    of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+            </div>
+            <div class="time">
+                <h4>June 2018</h4>
+            </div>
+        </li>
+
+        <li>
+            <div class="content">
+                <h3>What is Lorem Ipsum?</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                    of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+            </div>
+            <div class="time">
+                <h4>July 2018</h4>
+            </div>
+        </li>
+
+        <li>
+            <div class="content">
+                <h3>What is Lorem Ipsum?</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                    of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+            </div>
+            <div class="time">
+                <h4>August 2018</h4>
+            </div>
+        </li>
+
+        <li>
+            <div class="content">
+                <h3>What is Lorem Ipsum?</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                    of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+            </div>
+            <div class="time">
+                <h4>September 2018</h4>
+            </div>
+        </li>
+
+        <li>
+            <div class="content">
+                <h3>What is Lorem Ipsum?</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                    of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+            </div>
+            <div class="time">
+                <h4>October 2018</h4>
+            </div>
+        </li>
+
+        <li>
+            <div class="content">
+                <h3>What is Lorem Ipsum?</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                    of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+            </div>
+            <div class="time">
+                <h4>November 2018</h4>
+            </div>
+        </li>
+
+        <li>
+            <div class="content">
+                <h3>What is Lorem Ipsum?</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                    of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+            </div>
+            <div class="time">
+                <h4>December 2018</h4>
+            </div>
+        </li>
+        <div style="clear:both;"></div>
+    </ul>
+</div> -->
