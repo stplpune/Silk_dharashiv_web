@@ -929,7 +929,7 @@ getPreviewData(res:any){
       title: this.lang == 'mr-IN' ? 'आपला आरजा यशस्वी रित्या सादर झाला आहे.आरजा क्रं : '+ res.responseData1 + res.responseData2 : 'आपला आरजा यशस्वी रित्या सादर झाला आहे.आरजा क्रं : '+res.responseData1 + res.responseData2,
       cancelButton: '',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
-      headerImage: 'assets/images/success (1)/success/check.png'
+      headerImage: 'assets/images/check.png'
     }
     this.dialog.open(GlobalDialogComponent, {
       width: '320px',

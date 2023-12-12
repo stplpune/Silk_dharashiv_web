@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup  } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
@@ -26,7 +26,7 @@ export class FaqComponent implements OnDestroy {
   searchDataFlag: boolean = false
   subscription!: Subscription;//used  for lang conv
   lang: string = 'English';
-  pageAccessObject: object|any;
+  pageAccessObject: object | any;
 
   get fl() { return this.filterFrm.controls };
 
@@ -41,8 +41,8 @@ export class FaqComponent implements OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.webStorage.getAllPageName().filter((ele:any) =>{return ele.pageName == "FAQ's" ? this.pageAccessObject = ele :''})
-   this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+    this.webStorage.getAllPageName().filter((ele: any) => { return ele.pageName == "FAQ's" ? this.pageAccessObject = ele : '' })
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
@@ -62,7 +62,7 @@ export class FaqComponent implements OnDestroy {
     status == 'filter' ? ((this.pageNumber = 1), this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     let searchValue = this.filterFrm?.value || '';
-    this.apiService.setHttp('GET', 'sericulture/api/FAQ/get-faq-details?SeacrhText=' + (searchValue.textSearch || '') + str+'&lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/FAQ/get-faq-details?SeacrhText=' + (searchValue.textSearch || '') + str + '&lan=' + this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -103,9 +103,9 @@ export class FaqComponent implements OnDestroy {
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
       // edit: true,delete: true, view: true,
-      view: this.pageAccessObject?.readRight == true ? true: false,
-      edit: this.pageAccessObject?.writeRight == true ? true: false,
-      delete: this.pageAccessObject?.deleteRight == true ? true: false
+      view: this.pageAccessObject?.readRight == true ? true : false,
+      edit: this.pageAccessObject?.writeRight == true ? true : false,
+      delete: this.pageAccessObject?.deleteRight == true ? true : false
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
@@ -153,7 +153,7 @@ export class FaqComponent implements OnDestroy {
       title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेली एफएक्यू ' + userMara + ' करू इच्छिता' : 'Do You Want To ' + userEng + ' The Selected FAQ?',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
-      headerImage: obj.status == false ?'assets/images/active_scheme@3x.png' : 'assets/images/inactive_scheme/inactive_scheme@3x.png'
+      headerImage: obj.status == false ? 'assets/images/active_scheme@3x.png' : 'assets/images/inactive_scheme.png'
     }
     const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -168,7 +168,7 @@ export class FaqComponent implements OnDestroy {
 
   blockAction(obj: any) {
     let status = !obj.status
-    this.apiService.setHttp('PUT', 'sericulture/api/FAQ/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status+'&lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('PUT', 'sericulture/api/FAQ/FAQ-Action-Status?Id=' + obj.id + '&Status=' + status + '&lan=' + this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         res.statusCode == "200" ? (this.common.snackBar(res.statusMessage, 0), this.getTableData()) : this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : this.common.snackBar(res.statusMessage, 1);
@@ -186,7 +186,7 @@ export class FaqComponent implements OnDestroy {
       header: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       okButton: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
-      headerImage:'assets/images/delete.svg'
+      headerImage: 'assets/images/delete.svg'
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -196,7 +196,7 @@ export class FaqComponent implements OnDestroy {
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('DELETE', 'sericulture/api/FAQ/delete-faq?Id=' + (delDataObj.id || 0)+'&lan='+this.lang, false, delDataObj, false, 'masterUrl');
+        this.apiService.setHttp('DELETE', 'sericulture/api/FAQ/delete-faq?Id=' + (delDataObj.id || 0) + '&lan=' + this.lang, false, delDataObj, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
