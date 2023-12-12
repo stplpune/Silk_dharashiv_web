@@ -2,91 +2,115 @@
 
 </div>
 <div class="login-box form-container">
-  <div class="row">
-    <div class="col-sm-6">
-      <img src="assets/images/login.jpg" class="login-img">
-    </div>
-    <div class="col-sm-6">
-      <form>
-        <div class="login form-container">
-          <div class="mb-4 text-center">
-            <img src="assets/images/logo-text.svg" class="w-75">
-          </div>
-          <h4 class="fw-bold text-center mb-4">Farmer Login</h4>
-          <div class="mb-0">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label class="form-label">Mobile Number</mat-label>
-              <input id="usernameId" matInput placeholder="">
-            </mat-form-field>
-          </div>
-          <p class="small form-label mb-4 text-center">OTP will be send to your registered mobile number</p>
-          <button mat-flat-button class="btn-main w-100">Send OTP </button>
-          <!-- <div class="col-sm-6 text-end">
-              <a class="text-main" href="../forgot-password">{{'login.forgot_password'|translate}}?</a>
-            </div> -->
+    <div class="row">
+        <div class="col-sm-6">
+            <img src="assets/images/login.jpg" class="login-img">
         </div>
-      </form>
-      <!-- farmer login verify otp -->
-      <form>
-        <div class="login form-container">
-          <div class="mb-4 text-center">
-            <img src="assets/images/logo-text.svg" class="w-75">
-          </div>
-          <h4 class="fw-bold text-center mb-4">Farmer Login</h4>
-          <div class="mb-3">
-            <label class="form-label">Enter OTP</label>
-            <div class="d-flex gap-2 justify-content-center mb-1">
-              <div class="otp-text">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="X" maxlength="1" class="text-center">
-                </mat-form-field>
-              </div>
-              <div class="otp-text">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="X" maxlength="1" class="text-center">
-                </mat-form-field>
-              </div>
-              <div class="otp-text">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="X" maxlength="1" class="text-center">
-                </mat-form-field>
-              </div>
-              <div class="otp-text">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="X" maxlength="1" class="text-center">
-                </mat-form-field>
-              </div>
+        <div class="col-sm-6">
+            <div class="login form-container" *ngIf="!loginFlag">
+                <div class="mb-4 text-center">
+                    <img src="assets/images/logo-text.svg" class="w-75">
+                </div>
+                <h4 class="fw-bold text-center mb-4">Farmer Login</h4>
+                <div class="mb-0">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label class="form-label">Mobile Number</mat-label>
+                        <input [formControl]="farmerMobileNo" matInput placeholder="" maxlength="10" (keypress)="validation.noSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
+                      <mat-error class="text-danger" *ngIf="farmerMobileNo.hasError('required')">Please
+                            enter mobile number
+                        </mat-error>
+                          <mat-error class="text-danger" *ngIf="farmerMobileNo.hasError('pattern')">Please enter
+                            valid mobile number
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- <p class="small form-label mb-4 text-center">OTP will be send to your registered mobile number</p> -->
+                <button mat-flat-button class="btn-main w-100" type="submit" (click)="getOtpByMobileNo()">Send OTP </button>
+                <div class="text-end">
+                    <a class="text-main" (click)="redirectPage()">Sign up for farmer?</a>
+                </div>
+            </div>
+            <!-- farmer login verify otp -->
+            <form [formGroup]="otpForm" (ngSubmit)="validateOtp()">
+                <div class="login form-container" *ngIf="loginFlag">
+                    <div class="mb-4 text-center">
+                        <img src="assets/images/logo-text.svg" class="w-75">
+                    </div>
+                    <h4 class="fw-bold text-center mb-4">Farmer Login</h4>
+                    <div class="mb-3">
+                        <label class="form-label">Enter OTP</label>
+                        <div class="d-flex gap-2 justify-content-center mb-1">
+                            <div class="otp-text">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input matInput placeholder="X" maxlength="1" class="text-center"
+                                        formControlName="otpA" #input1
+                                        (keypress)="validation.acceptedOnlyNumbers($event)"
+                                        (keyup)="(input1.value.length == 1) ? input2.focus() : 'input1.focus()'">
+                                </mat-form-field>
+                            </div>
+                            <div class="otp-text">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input matInput placeholder="X" maxlength="1" class="text-center"
+                                        formControlName="otpB" #input2
+                                        (keypress)="validation.acceptedOnlyNumbers($event)"
+                                        (keyup)="(input2.value.length == 1) ? input3.focus() : 'input2.focus()'"
+                                        (keyup.backspace)="input1.focus()">
+                                </mat-form-field>
+                            </div>
+                            <div class="otp-text">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input matInput placeholder="X" maxlength="1" class="text-center"
+                                        formControlName="otpC" #input3
+                                        (keypress)="validation.acceptedOnlyNumbers($event)"
+                                        (keyup)="(input3.value.length == 1) ? input4.focus() : 'input3.focus()'"
+                                        (keyup.backspace)="input2.focus()">
+                                </mat-form-field>
+                            </div>
+                            <div class="otp-text">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input matInput placeholder="X" maxlength="1" class="text-center"
+                                        formControlName="otpD" #input4
+                                        (keypress)="validation.acceptedOnlyNumbers($event)"
+                                        (keyup)="(input4.value.length == 1) ? input5.focus() : 'input4.focus()'"
+                                        (keyup.backspace)="input3.focus()">
+                                </mat-form-field>
+                            </div>
 
-              <div class="otp-text">
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="X" maxlength="1" class="text-center">
-                </mat-form-field>
-              </div>
-            </div>
+                            <div class="otp-text">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input matInput placeholder="X" maxlength="1" class="text-center"
+                                        formControlName="otpE" #input5
+                                        (keypress)="validation.acceptedOnlyNumbers($event)"
+                                        (keyup)="(input5.value.length == 1) ? input5.focus() : ''"
+                                        (keyup.backspace)="input4.focus()">
+                                </mat-form-field>
+                            </div>
+                        </div>
 
-            <div class="text-end">
-              <a class="text-main">Resend OTP?</a>
-            </div>
-            <div class="text-end">
-              <span class="mb-2 ml-4 text-main">
-                Wait for 60:00 Sec.</span>
-            </div>
-            <div class="text-center form-label">
-              <span>Please enter the OTP sent to your registered mobile number.</span>
-            </div>
+                        <div class="text-end">
+                            <a class="text-main" (click)="loginFlag=true;getOtpByMobileNo()"
+                                *ngIf="otpTimerFlag == true">Resend OTP?</a>
+                        </div>
+                        <div class="text-end" *ngIf="!otpTimerFlag">
+                            <span class="mb-2 ml-4 text-main">
+                                Wait for 00:{{otpTimer}} Sec.</span>
+                        </div>
+                        <div class="text-center form-label">
+                            <span>Please enter the OTP sent to your registered mobile number.</span>
+                        </div>
 
-            <div class="d-flex align-items-center justify-content-between">
-              <a class="d-flex align-items-center justify-content-end text-main">
-                <mat-icon class="">chevron_left</mat-icon>
-                <span>Back To Login</span>
-              </a>
-              <button mat-flat-button type="submit" class="btn-main">Verify OTP</button>
-            </div>
-          </div>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <a class="d-flex align-items-center justify-content-end text-main">
+                                <mat-icon class="">chevron_left</mat-icon>
+                                <span (click)="loginFlag=false;farmerMobileNo.reset()">Back To Login</span>
+                            </a>
+                            <button mat-flat-button type="submit" class="btn-main">Verify OTP</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-      </form>
     </div>
-  </div>
 
 
 

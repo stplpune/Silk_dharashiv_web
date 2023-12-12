@@ -28,8 +28,9 @@ export class CreateManaregaAppComponent {
   otherDocumentFrm !: FormGroup;
   addRegistrationRecFrm !: FormGroup;
   filterFrm !: FormGroup;
-  @ViewChild('uplodLogo') clearlogo!: any;
-  imageResponse: string = '';
+  // @ViewChild('uplodLogo') clearlogo!: any;
+  profileImageUrl: any;
+  // imageResponse: string = '';
   subscription!: Subscription;//used  for lang conv
   lang: any;
   viewMsgFlag: boolean = false;//used for error msg show
@@ -133,33 +134,25 @@ export class CreateManaregaAppComponent {
   //#region  -----------------------------------------------------------doc upload section fn start heare-----------------------------------//
 
     fileUpload(event: any, docId: any,lable:any) {
-
-      let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray,'docTypeId',docId);
-  
+    let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray,'docTypeId',docId);
       this.spinner.show();
       let type = 'jpg, jpeg, png, pdf'
       this.fileUpl.uploadDocuments(event, 'ApplicationDocuments', type, '', '', this.lang).subscribe({
         next: (res: any) => {
           if (res.statusCode == 200) {
             this.spinner.hide();
-            if(lable == 'documents'){
-              this.docArray[indexByDocId].docPath = res.responseData;
-              console.log( this.docArray)
-            }
-            else if(lable == 'otherDocuments'){
-              this.otherDocumentFrm.controls['docPath'].setValue(res.responseData)
-              this.docArray[indexByDocId].docTypeId = 7; 
-            }
-           
-            this.commonMethod.snackBar(res.statusMessage, 0)
-          }
-        },
+            lable == 'documents' ? this.docArray[indexByDocId].docPath = res.responseData : lable == 'profilePhoto' ? this.profileImageUrl = res.responseData :
+            (this.otherDocumentFrm.controls['docPath'].setValue(res.responseData),this.docArray[indexByDocId].docTypeId = 7);//lable == 'otherDocuments'
+             }
+             this.commonMethod.snackBar(res.statusMessage, 0)
+          },
         error: ((error: any) => {
           this.spinner.hide();
           this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
         })
-      });
-    }
+        });
+      }
+    
   
     viewimages(obj: any) {
       window.open(obj, '_blank')
@@ -169,27 +162,25 @@ export class CreateManaregaAppComponent {
       let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray,'docTypeId',docId);
       this.docArray[indexByDocId]['docPath'] = '';
     }
-  
-/////////////////preview patch data
-viewPreviewDocument(docId: any) {
+ //#endregion  --------------------------------------------------------doc upload section fn end here-----------------------------------//
+viewPreviewDocument(docId: any) {//preview document
 let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.previewData?.documents,'docId',docId);
 let obj= this.previewData?.documents[indexByDocId].documentPath;
 window.open(obj, '_blank')
 }
 
 
-getDocumentsWithDocId7() {
+getDocumentsWithDocId7() {  //preview other docment
   return this.previewData?.documents.filter((doc:any) => doc.docId === 7);
 }
 
-viewPreviewDocument11(documentPath: string) {
-  window.open(documentPath, '_blank');
-}
+// viewPreviewDocument11(documentPath: string) {
+//   window.open(documentPath, '_blank');
+// }
 
 
-    //#endregion  --------------------------------------------------------doc upload section fn end heare-----------------------------------//
-
-    //#region -----------------other document upload functionality start --------------------------------------------------
+   
+  //#region -----------------other document upload functionality start --------------------------------------------------
      onOtherDocSubmit() {
     let uploadFrmValue = this.otherDocumentFrm.getRawValue();
     console.log(" uploadFrmValue", uploadFrmValue)
@@ -253,7 +244,7 @@ viewPreviewDocument11(documentPath: string) {
       "applicationNo": [0],
       "mobileNo1": [''],
       "aadharNo": [''],
-      "profilePhotoPath": ['',[Validators.required]],
+      // "profilePhotoPath": ['',[Validators.required]],
       "mn_DepartmentId": [''],
       "fullName": ['',[Validators.required,this.validation.minLengthValidator(5),this.validation.maxLengthValidator(100),Validators.pattern(this.validation.fullName)]],
       "mobileNo2": ['',[this.validation.maxLengthValidator(10),Validators.pattern(this.validation.mobile_No)]],
@@ -388,10 +379,7 @@ viewPreviewDocument11(documentPath: string) {
     return this.manaregaFrm.controls
   }
 
-  onclick()
-  {
-    this.visible = !this.visible
-  }
+  
   
 
   
@@ -439,40 +427,6 @@ viewPreviewDocument11(documentPath: string) {
 
 
 
-
-  imageUplod(event: any) {
-    this.spinner.show();
-    this.fileUpl.uploadDocuments(event, 'OtherImage', 'png,jpg,jpeg', '', '', this.lang).subscribe({
-      next: ((res: any) => {
-        this.spinner.hide();
-        if (res.statusCode == '200') {
-          this.imageResponse = res.responseData;
-          this.f['profilePhotoPath'].setValue(this.imageResponse)
-        }
-        else {
-          this.clearlogo.nativeElement.value = "";
-          this.imageResponse = "";
-        }
-      }),
-      error: (error: any) => {
-        this.clearlogo.nativeElement.value = "";
-        this.spinner.hide();
-        this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
-      }
-    })
-  }
-
-  viewimage() {
-    window.open(this.imageResponse, '_blank')
-  }
-
-  deleteImage() {
-    this.imageResponse = "";
-    this.f['profilePhotoPath'].setValue(this.imageResponse)
-    this.clearlogo.nativeElement.value = "";
-  }
-
-
   
 
 
@@ -502,6 +456,7 @@ getPreviewData(res:any){
     })
   })
 }
+
   onSubmit(flag?:any) {
     //let getId:any;
     let mergeDocumentArray = [... this.docArray,...this.OtherDocUploadImg];
@@ -555,7 +510,7 @@ getPreviewData(res:any){
         "farmerId": formData.farmerId,
         "schemeTypeId":formData.schemeTypeId,
         "applicationNo":String(formData.applicationNo),
-        "profilePhotoPath": formData.profilePhotoPath,
+        "profilePhotoPath":  this.profileImageUrl || '',
         "fullName": formData.fullName,
         "m_FullName": formData.fullName,//enter marathi name
         "mn_DepartmentId":Number(formData.mn_DepartmentId),

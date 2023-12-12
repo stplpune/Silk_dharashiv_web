@@ -202,6 +202,10 @@ export class FarmersignupComponent {
     this.f['grampanchayatId'].setValue('');
     this.grampanchayatArray = [];
   }
+
+  goToLoginPage(){
+    this.router.navigate(['farmer-login'])
+  }
 }
 
 

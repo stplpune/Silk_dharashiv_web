@@ -7,40 +7,40 @@
 
   <mat-card-content class=" card-body form-container">
     <form [formGroup]="filterFrm">
-    <div class="row gx-2">
-      <div class="col-sm">
-        <div class="d-flex flex-column gap-2">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label class="form-label mb-0">{{'common.mobile'| translate}}</mat-label>
-            <input matInput placeholder="" maxlength="10" formControlName="mobileNo"
-              (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
-          </mat-form-field>
+      <div class="row gx-2">
+        <div class="col-sm">
+          <div class="d-flex flex-column gap-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="form-label mb-0">{{'common.mobile'| translate}}</mat-label>
+              <input matInput placeholder="" maxlength="10" formControlName="mobileNo"
+                (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="d-flex flex-column gap-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label class="form-label mb-0">{{'approvalProcess.aadhar_number'| translate}}</mat-label>
+              <input matInput placeholder="" maxlength="12" formControlName="aadharNo"
+                (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-sm-1">
+          <div class="d-flex gap-2">
+            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
+              <mat-icon class="material-symbols-rounded">
+                search
+              </mat-icon>
+            </button>
+            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+              <mat-icon class="material-symbols-rounded">
+                close
+              </mat-icon>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="col-sm">
-        <div class="d-flex flex-column gap-2">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label class="form-label mb-0">{{'approvalProcess.aadhar_number'| translate}}</mat-label>
-            <input matInput placeholder="" maxlength="12" formControlName="aadharNo"
-              (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="col-sm-1">
-        <div class="d-flex gap-2">
-          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
-            <mat-icon class="material-symbols-rounded">
-              search
-            </mat-icon>
-          </button>
-          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
-            <mat-icon class="material-symbols-rounded">
-              close
-            </mat-icon>
-          </button>
-        </div>
-      </div>
-    </div>
     </form>
   </mat-card-content>
 
@@ -54,39 +54,29 @@
           <div class="container-fluid">
             <!-- <div class="container"> -->
             <div class="row gx-2 mb-2">
-              <!-- <div class="col-sm-2">
-              <img src="https://demosilkapi.mahamining.com/Upload/profilePhoto/Farmer.png" alt="Applicant image"
-                class="img-fluid">
-            </div> -->
               <div class="col-sm-2">
-                <mat-label class="form-label">Applicant Image</mat-label>
-                <div class="file-upload border rounded-2 p-1">
-                  <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                    data-placement="right" (click)="uplodLogo.click()">
-                    Applicant Image Upload
-                  </button>
-                  <input type="file" #uplodLogo accept=".jpg,.jpeg,.png" id="real-file" hidden="hidden"
-                    (change)="imageUplod($event)" />
-                  <div class="d-flex gap-2" *ngIf="imageResponse">
-                    <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                      matTooltip="view" (click)="viewimage()">
-                      <mat-icon class="material-symbols-rounded">
-                        preview
-                      </mat-icon>
+                <div class="position-relative applicant_img">
+                  <img [src]="profileImageUrl ? profileImageUrl: 'assets/images/user.png' " alt="Applicant image"
+                    class="img-fluid">
+                  <input type="file" #uplodLogo id="real-file" hidden="hidden"
+                    (change)="fileUpload($event,'','profilePhoto')" />
+                  <div class="upload-buttons">
+                    <button mat-icon-button class="btn-icon bg-primary-subtle text-primary"
+                      (click)="uplodLogo.value='';uplodLogo.click()" type="button">
+                      <mat-icon class="material-symbols-outlined"> {{!profileImageUrl ? 'add' :
+                        'edit_square'}}</mat-icon>
                     </button>
-                    <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                      matTooltip="delete" (click)="deleteImage()">
-                      <mat-icon class="material-symbols-rounded">
-                        delete
-                      </mat-icon>
+                    <button mat-icon-button class="btn-icon bg-danger-subtle text-danger" type="button"
+                      (click)="profileImageUrl = '' ">
+                      <mat-icon class="material-symbols-outlined">delete</mat-icon>
                     </button>
                   </div>
                 </div>
-                <mat-error *ngIf="viewMsgFlag && !imageResponse">{{lang == 'en' ? "Please Add Applicant Image" : "कृपया
+                <mat-error *ngIf="viewMsgFlag && !profileImageUrl">{{lang == 'en' ? "Please Add Applicant Image" : "कृपया
                   अर्जदाराची प्रतिमा जोडा"}} </mat-error>
               </div>
-              <div class="col-sm">
 
+              <div class="col-sm">
                 <div class="row gy-2 gx-2 align-items-center ">
                   <div class="col-sm-6">
                     <div class="form-label">{{'common.mobile'| translate}} </div>
@@ -102,51 +92,46 @@
                     <div class="form-label">{{'approvalProcess.aadhar_number'| translate}}</div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
-                        <!-- <mat-label>Favorite food</mat-label> -->
                         <input matInput placeholder="" formControlName="aadharNo"
                           (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                       </mat-form-field>
                     </div>
                   </div>
-
-                </div>
-
-              </div>
-              <div class="row gx-2 p-0 align-items-center">
-                <div class="col-sm-6">
-                  <div class="form-label">{{'addManrega.applicant_name'| translate}}</div>
-                  <div class="form-label">
-                    <mat-form-field appearance="outline" class="w-100">
-                      <input matInput placeholder="" formControlName="fullName"
-                        (keypress)="validation.noFirstSpaceAllow($event);validation.onlyAlphabetsWithSpace($event)">
-                      <mat-error *ngIf="f['fullName'].hasError('required') || f['fullName']?.hasError('pattern')">
-                        {{f['fullName'].hasError('required') ?
-                        ('approvalProcess.applicant_Required'|translate) :
-                        ('approvalProcess.please_enter_valid_application_name'|translate)}}
-                      </mat-error>
-                      <mat-error *ngIf="f['fullName']?.errors">
-                        <span class="text-danger"
-                          *ngIf="f['fullName']?.hasError('maxLengthExceeded') || f['fullName']?.hasError('minLengthNotMet')">
-                          {{f['fullName'].hasError('maxLengthExceeded') ?
-                          ('common.address_maximum_100_character_allowed'|translate) :
-                          ('common.fullName_minLength'|translate)}}
-                        </span>
-                      </mat-error>
-                    </mat-form-field>
+                  <div class="col-sm-12">
+                    <div class="form-label">{{'addManrega.applicant_name'| translate}}</div>
+                    <div class="form-label">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <input matInput placeholder="" formControlName="fullName"
+                          (keypress)="validation.noFirstSpaceAllow($event);validation.onlyAlphabetsWithSpace($event)">
+                        <mat-error *ngIf="f['fullName'].hasError('required') || f['fullName']?.hasError('pattern')">
+                          {{f['fullName'].hasError('required') ?
+                          ('approvalProcess.applicant_Required'|translate) :
+                          ('approvalProcess.please_enter_valid_application_name'|translate)}}
+                        </mat-error>
+                        <mat-error *ngIf="f['fullName']?.errors">
+                          <span class="text-danger"
+                            *ngIf="f['fullName']?.hasError('maxLengthExceeded') || f['fullName']?.hasError('minLengthNotMet')">
+                            {{f['fullName'].hasError('maxLengthExceeded') ?
+                            ('common.address_maximum_100_character_allowed'|translate) :
+                            ('common.fullName_minLength'|translate)}}
+                          </span>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
                   </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-label">{{'addManrega.mulberry_plantation_under_Silk'| translate}}</div>
-                  <mat-form-field appearance="outline" class="w-100">
-                    <mat-select formControlName="mn_DepartmentId">
-                      <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang == 'en' ?
-                        department.textEnglish : department.textMarathi}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
                 </div>
               </div>
             </div>
             <div class="row gx-2 align-items-center">
+              <div class="col-sm-6">
+                <div class="form-label">{{'addManrega.mulberry_plantation_under_Silk'| translate}}</div>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select formControlName="mn_DepartmentId">
+                    <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang == 'en' ?
+                      department.textEnglish : department.textMarathi}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
               <div class="col-sm-3">
                 <div class="form-label">{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
                 <div class="form-label">
@@ -939,7 +924,7 @@
 
 
               <div class="col-sm-4">
-                <button mat-flat-button class="btn-main-light mt-3" type="button" (click)="onclick()">इतर कागदपत्रे
+                <button mat-flat-button class="btn-main-light mt-3" type="button" (click)="visible = ! visible">इतर कागदपत्रे
                   जोडा</button>
               </div>
               <div class="col-sm">
@@ -1674,7 +1659,8 @@
 
 
               <div class="col-sm">
-                <button mat-flat-button class="btn-main" type="button" (click)="onSubmit('challan')">प्रस्तुत करा</button>
+                <button mat-flat-button class="btn-main" type="button" (click)="onSubmit('challan')">प्रस्तुत
+                  करा</button>
               </div>
             </div>
           </div>
