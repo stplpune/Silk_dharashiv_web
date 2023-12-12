@@ -87,7 +87,9 @@
     "action": "Action",
     "remark": "Remark",
     "select_grampanchayat": "Select Grampanchayat",
-    "fullName_minLength": "Minimum 5 character allowed"
+    "fullName_minLength": "Minimum 5 character allowed",
+    "status":"Status",
+    "search":"Search"
   },
   "approvalProcess": {
     "Add_Manarega":"Add Manrega",
@@ -745,7 +747,6 @@
     "checkBox2" : "I guarantee to plant mulberry of improved variety in the land suitable for mulberry cultivation as per the standard prescribed under the scheme at the distance recommended by the office and to carry out proper cultivation of mulberry plantation.",
     "checkBox3" :"All the information mentioned above in the application is correct and if it is directed that I have taken advantage of the subsidy by filling some wrong information in it, I will be eligible for legal action □ However, I request your prior consent to participate in the 02 acre Mulberry Plantation Scheme under the Centrally Sponsored 'Silk Samajra-2' scheme.",
     "pay_registration_fee_and_upload_the_receipt_here":"Go to Silk Directorate and pay registration fee Rs.500 per acre and upload the receipt here"
-
   },
   "farmerLogin":{
     "farmer_login":"Farmer Login",
@@ -758,6 +759,14 @@
     "enter_otp": "Enter OTP",
     "verify_otp": "Verify OTP",
     "back_to_login": "Back To Login"
+  },"crc":{
+    "crc_centers_list":"CRC Centers List",
+    "total_crc_center":"Total CRC Center",
+    "Pending":"Pending",
+    "active":"Active",
+    "expired":"Expired",
+    "blocked":"Blocked",
+    "rejected":"Rejected"
   }
 
 }
