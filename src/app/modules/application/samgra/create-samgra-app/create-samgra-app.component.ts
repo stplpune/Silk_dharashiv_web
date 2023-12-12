@@ -27,6 +27,7 @@ export class CreateSamgraAppComponent {
   internalSchemes !: FormGroup;
   otherDocForm !: FormGroup;
   selfDeclarationForm !: FormGroup;
+  documentUploadForm !: FormGroup;
   filterForm !: FormGroup;
 
 
@@ -85,6 +86,7 @@ export class CreateSamgraAppComponent {
   InternalSchemesIndex !: number
   previewData: any;
   EditFlag: boolean = false;
+  isLinear = false;
 
   @ViewChild('ScheemDirective') private ScheemDirective: NgForm | undefined;
   @ViewChild('DocumentDirective') private DocumentDirective: NgForm | undefined;
@@ -115,6 +117,7 @@ export class CreateSamgraAppComponent {
     this.internalSchemesFormData();
     this.otherDocumentFormData();
     this.selfDeclarationFormData();
+    this.documentUploadFormData();
     this.filterFormData();
     this.commonDropdown();
   }
@@ -131,7 +134,7 @@ export class CreateSamgraAppComponent {
     this.getImprovedMulberryCast();
     this.getPlantationMethod();
     this.getMulberryCultivationArea();
-    // this.getPreviewData();
+    // this.getPreviewData(); 
   }
   get f() {
     return this.samgraForm.controls
@@ -179,8 +182,8 @@ export class CreateSamgraAppComponent {
       "sm_LandSurveyNo": [data?.sm_LandSurveyNo || ''],
       "sm_ImprovedMulberryCast": [data?.sm_ImprovedMulberryCast || '', [Validators.required]],
       "sm_MulberryPlantingDistance": [data?.sm_MulberryPlantingDistance || '', [Validators.required, Validators.maxLength(4)]],
-      "sm_PlantationSurveyNo": [data?.sm_PlantationSurveyNo || '', Validators.required, Validators.maxLength(6)],
-      "sm_MulberryCultivationArea": [data?.sm_MulberryCultivationArea || '', Validators.required, Validators.maxLength(6)],
+      "sm_PlantationSurveyNo": [data?.sm_PlantationSurveyNo || '', [Validators.required, Validators.maxLength(6)]],
+      "sm_MulberryCultivationArea": [data?.sm_MulberryCultivationArea || '',[Validators.required, Validators.maxLength(6)]],
       "sm_PlantationMethod": [data?.sm_PlantationMethod || '', [Validators.required]],
       "sm_IsExperienceSilkIndustry": [data?.sm_IsExperienceSilkIndustry || false],
       "sm_ExperienceYears": [data?.sm_ExperienceYears || ''], //show hide on radio button
@@ -211,6 +214,17 @@ export class CreateSamgraAppComponent {
       "createdBy": 0
     })
   }
+  get fdp() { return this.documentUploadForm.controls }
+  documentUploadFormData(){
+    this.documentUploadForm = this.fb.group({
+      checkDocument : ['',Validators.required]
+    })   
+  } 
+
+  // if(!this.docArray[1].docPath && !this.docArray[2].docPath && !this.docArray[2].docPath){      
+  //   let  setValArray = ['checkDocument']  
+  //   this.setValidation(setValArray, this.fdp);
+  // }
 
   otherDocumentFormData() {
     this.otherDocForm = this.fb.group({
@@ -218,6 +232,7 @@ export class CreateSamgraAppComponent {
       docNo: ['']
     })
   }
+
 
   selfDeclarationFormData(data?: any) {
     this.selfDeclarationForm = this.fb.group({
@@ -447,11 +462,17 @@ export class CreateSamgraAppComponent {
     })
   }
   getBankBranch() {
+   
+    console.log("this.bankDetailsForm.value",this.bankDetailsForm.value);
+    
     this.branchArray = [];
-    let bankId = this.bankDetailsForm.getRawValue()?.bankId;
+    let bankId = this.bankDetailsForm.value.bankId;
+    console.log("bankId",bankId);
+    
     if (bankId != 0) {
       this.masterService.GetBankBranch(bankId).subscribe({
         next: ((res: any) => {
+          console.log("enter bank branch");
           if (res.statusCode == "200" && res.responseData?.length) {
             this.branchArray = res.responseData;
             this.EditFlag ? (this.bL['bankBranchId'].setValue(this.previewData.bankBranchId), console.log("hii")) : '';
@@ -468,7 +489,8 @@ export class CreateSamgraAppComponent {
   onSubmit(flag: any) {
     console.log("falg", flag);
     console.log("editFlag", this.EditFlag);
-
+    console.log("uplaod document form" ,this.documentUploadForm.controls);
+    return
 
     let samgraFormValue = this.samgraForm.getRawValue();
     let landDetailsFormValue = this.landDetailsForm.value;
@@ -492,6 +514,7 @@ export class CreateSamgraAppComponent {
     let formDocuments = this.docArray.concat(this.otherDocArray);
     this.showDocValidation = true;
     formDocuments.map((res: any) => {
+      res.applicationId = this.previewData?.id || 0
       res.createdBy = 0,
         res.isDeleted = true
     })
@@ -649,6 +672,8 @@ export class CreateSamgraAppComponent {
       this.clearValidation(setValArray, this.fIS);
       value == true ? this.setValidation(setValArray, this.fIS) : this.clearValidation(setValArray, this.fIS);
     } else if (flag == 'AnyPlantedBefor') {
+      console.log("log enter anyPlanted before ");
+      console.log("value ",value );
       setValArray = ['sm_YearOfPlanting', 'sm_CultivatedArea', 'sm_LandSurveyNo']
       this.setValidation(setValArray, this.fL);
       this.clearValidation(setValArray, this.fL);
@@ -722,7 +747,7 @@ export class CreateSamgraAppComponent {
       next: (res: any) => {
         if (res.statusCode == 200) {
           this.spinner.hide();
-          flag == 'otherDoc' ? this.uploadedDocUrl = res.responseData : flag == 'profilePhoto' ? this.profileImageUrl = res.responseData : this.docArray[indexByDocId].docPath = res.responseData;
+          flag == 'otherDoc' ? this.uploadedDocUrl = res.responseData : flag == 'profilePhoto' ? this.profileImageUrl = res.responseData : (this.docArray[indexByDocId].docPath = res.responseData,this.clearDocumentValidation());
           this.commonMethod.snackBar(res.statusMessage, 0)
           console.log("this.docArray", this.docArray);
 
@@ -733,7 +758,20 @@ export class CreateSamgraAppComponent {
         this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
       })
     });
+    
+   
+   
+
   }
+   clearDocumentValidation(){
+    debugger;
+    if(this.docArray[0].docPath && this.docArray[1].docPath && this.docArray[2].docPath){
+      console.log("upload clear validator");
+      
+      let  setValArray = ['checkDocument']
+      this.clearValidation(setValArray, this.fdp);
+    }
+   }
 
   viewimage(obj: any) {
     window.open(obj, '_blank')
@@ -775,7 +813,11 @@ export class CreateSamgraAppComponent {
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
-          this.previewData = res.responseData;
+          this.previewData = res.responseData;         
+          this.samgraformData(this.previewData);
+          this.landDetailsFormData(this.previewData);
+          this.bankDetailsFormData(this.previewData);
+          this.selfDeclarationFormData(this.previewData);
           this.onEdit(this.previewData);
           console.log("this.previewData", this.previewData);
         } else {
@@ -787,16 +829,15 @@ export class CreateSamgraAppComponent {
 
   onEdit(data?: any) {
     this.otherDocArray = [];
-    this.samgraformData(data);
-    this.landDetailsFormData(data);
-    this.bankDetailsFormData(data);
-    this.selfDeclarationFormData(data);
     this.getBankBranch();
     this.getTaluka();
     this.checkedItems = data.categoryOfBeneficiaries
     this.currentCropDetailsArray = data.currentProducts
     this.dataSource = new MatTableDataSource(this.currentCropDetailsArray);
     this.profileImageUrl = data.profilePhotoPath;
+    this.internalSchemesArray = data.internalSchemes;
+    this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
+
 
     this.docArray.find((ele: any, i: any) => {
       data.documents.find((item: any) => {
@@ -811,31 +852,13 @@ export class CreateSamgraAppComponent {
         }
       })
     })
-    //patch documents 
-    // console.log("data.documents", data.documents);
-
-    // this.docArray.map((res: any, i: any) => {
-    //   data.documents.map((ele: any) => {
-    //     if (res.docTypeId == ele.docId) {
-    //       this.docArray[i] = ele
-    //     }
-    //   });
-    // })
-    // this.docArray.map((res: any) => {
-    //   res['docTypeId'] = res.docId;
-    //   res['docPath'] = res.documentPath;
-    //   res['docNo'] = '';
-    //   res['docname'] = res.documentName;
-    // })
-    // console.log("documents", data.documents);
-    // console.log("docArray", this.docArray);
-
-    // documents
-    // this.docArray
+    
     this.checkedItems.map((ele: any) => {
       ele['textEnglish'] = ele.categoryOfBeneficiary;
       ele['textMarathi'] = ele.m_CategoryOfBeneficiary;
     })
+
+
   }
 
 }

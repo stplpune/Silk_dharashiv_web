@@ -75,7 +75,6 @@ export class SideBarComponent {
         })
       }
     });
-    console.log(this.pageListArray);
   }
 
   onCloseSidebar() {

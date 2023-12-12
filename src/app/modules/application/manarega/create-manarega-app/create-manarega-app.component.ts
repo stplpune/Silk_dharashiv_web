@@ -93,6 +93,7 @@ export class CreateManaregaAppComponent {
   ) { }
 
   ngOnInit() {
+    
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -436,7 +437,8 @@ onEdit(data?:any){
         ele['textEnglish'] = ele.categoryOfBeneficiary;
          ele['textMarathi'] = ele.m_CategoryOfBeneficiary;
    })
-  this.addBankInfo(data); 
+  this.addBankInfo(data);
+  this.getBank(); 
   this.getBankBranch();
   this.farmDetails = data.plantingDetails;
   this.dataSource = new MatTableDataSource(this.farmDetails);
@@ -720,6 +722,8 @@ getPreviewData(res:any){
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.bankArray = res.responseData;
+          this.EditFlag ? this.bankInfoFrm.controls['bankId'].setValue(this.filterDataRes?.bankId) : '' ;  
+    
         }
         else {
           this.bankArray = [];
@@ -736,6 +740,8 @@ getPreviewData(res:any){
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.branchArray = res.responseData;
+          this.EditFlag ? this.bankInfoFrm.controls['bankBranchId'].setValue(this.filterDataRes?.bankBranchId):  '' ;  
+    
         }
         else {
           this.branchArray = [];
@@ -845,6 +851,8 @@ getPreviewData(res:any){
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.farmTypeArray = res.responseData;
+          this.EditFlag ? (this.farmInfoFrm.controls['farmTypeId'].setValue(this.filterDataRes?.farmTypeId)) : '';
+     
           }
         else {
           this.farmTypeArray = [];
@@ -858,6 +866,8 @@ getPreviewData(res:any){
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.candidateRelationArray = res.responseData;
+          this.EditFlag ? (this.farmInfoFrm.controls['candidateRelationId'].setValue(this.filterDataRes?.candidateRelationId)) : '';
+     
           }
         else {
           this.candidateRelationArray = [];
