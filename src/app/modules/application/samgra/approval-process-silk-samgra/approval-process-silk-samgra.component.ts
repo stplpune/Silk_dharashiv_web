@@ -79,10 +79,10 @@ export class ApprovalProcessSilkSamgraComponent {
     this.route.queryParams.subscribe((queryParams: any) => {
       this.routingData = queryParams['id'];
     });
-
+    
     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
     let url = this.router.url;
-    let appProVal = (spliteUrl[1] == 's') && (url.split('?')[0] == '/approval-process-silk-samgra');
+    let appProVal = (spliteUrl[2] == 's') && (url.split('?')[0] == '/approval-process-silk-samgra');
     if (!appProVal) {
       this.router.navigate(['../application']);
       this.commonMethod.snackBar('Something went wrong please try again', 1);
