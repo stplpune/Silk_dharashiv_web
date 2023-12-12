@@ -699,10 +699,12 @@
   },
 
   "addSamgra":{
+    "Create_Samgra_Application":"Create Samgra Application",
+    "Original_details" : "Original Details",
     "Election_Card_No" : "Election Card No.",
     "below_the_poverty_line" : "Are you below the poverty line?",
-    "Bhudran_category" : "Select Bhudran category",
-    "select_Bhudran_category":"Please select Bhudran category",
+    "Bhudran_category" : "select Landholding Category",
+    "select_Bhudran_category":"Please select Landholding category",
     "Irrigation_period" : "Irrigation period",
     "select_Irrigation_period":"Please select Irrigation period",
     "planted_under_the_government_scheme" : "Has mulberry been planted under the government scheme?",
@@ -713,59 +715,35 @@
     "Add_details":"Add details",
     "Mulberry_Plantatio_Details":"Mulberry Plantation Details",
     "Varieties_of_Mulberr_Trees":"Varieties of Mulberry Trees",
-    "Mulberry_Planting_Distance_(feet)":"Mulberry Planting Distance (feet)",
+    "Mulberry_Planting_Distance":"Mulberry Planting Distance (feet)",
     "Plantation_land_Survey_No":"Plantation land Survey No./Group No.",
     "Mulberry_Plantation_Area_in_acre":"Mulberry Plantation Area in acre",
     "Mulberry_Plantation_Method":"Mulberry Plantation Method",
     "experience_in_silk_industry":"Do you have experience in silk industry?",
     "How_many_years":"How many years",
     "training_in_silk_industry":"Have you taken training in silk industry?",
-    "benefited_from_any_scheme_under_Silk_Directorate_before_this":"Have you benefited from any scheme under Silk Directorate before this?",
+    "silk_industry_farmer_and_taken_the_information":"Have you directly visited the silk industry farmer and taken the information ?",
+    "benefited_from_any_scheme_under_Silk_Directorate_before_this":"Have you benefited from any scheme under Silk Directorate before this ?",
+    "availed_under_Silk_Directorate_earlier":"Which scheme has been availed under Silk Directorate earlier ?",
     "Scheme_Name":"Scheme Name",
     "Year":"Year",
     "Total_Benefit_Amount" :"Total Benefit Amount",   
     "Aadhaar_card" : "Aadhar Card",
     "Land_7/12_with_Mulberry_Note_Talathi_Certificate" : "Land 7/12 with Mulberry Note or Talathi Certificate",
     "8_A_track_of_Land" : "8 A track of Land",
-    "Land_boundary_map" : "Land boundary map"
-
-
- 
-
-
-
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "Land_boundary_map" : "Upload the boundary map of the land",
+    "National_Bank_Passbook_attached_to_Aadhaar":"Upload the scanned copy (with photo) of first page of National Bank Passbook attached to Aadhaar",
+    "Caste_Certificate":"Caste Certificate (Upload here for Anujati / Anujati farmers)",
+    "Water_Availability_Certificate":"Upload Water Availability Certificate",
+    "Upload_Other_document" : "Upload Other Document",
+    "Name_of_the_document" : "Name of the document",
+    "document_No" : "Document No.",
+    "Attach_other_documents" : "Attach other documents",
+    "add_document" : "Add Document",
+    "checkBox1" :"I am ready to plant new mulberries at my own expense, silk. □ I agree to the terms and conditions prescribed by the Directorate from time to time.",
+    "checkBox2" : "I guarantee to plant mulberry of improved variety in the land suitable for mulberry cultivation as per the standard prescribed under the scheme at the distance recommended by the office and to carry out proper cultivation of mulberry plantation.",
+    "checkBox3" :"All the information mentioned above in the application is correct and if it is directed that I have taken advantage of the subsidy by filling some wrong information in it, I will be eligible for legal action □ However, I request your prior consent to participate in the 02 acre Mulberry Plantation Scheme under the Centrally Sponsored 'Silk Samajra-2' scheme.",
+    "pay_registration_fee_and_upload_the_receipt_here":"Go to Silk Directorate and pay registration fee Rs.500 per acre and upload the receipt here"
 
   },
   "farmerLogin":{
