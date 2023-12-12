@@ -786,6 +786,7 @@ export class CreateSamgraAppComponent {
   }
 
   onEdit(data?: any) {
+    this.otherDocArray = [];
     this.samgraformData(data);
     this.landDetailsFormData(data);
     this.bankDetailsFormData(data);
@@ -797,25 +798,37 @@ export class CreateSamgraAppComponent {
     this.dataSource = new MatTableDataSource(this.currentCropDetailsArray);
     this.profileImageUrl = data.profilePhotoPath;
 
-
-    //patch documents 
-    console.log("data.documents", data.documents);
-
-    this.docArray.map((res: any, i: any) => {
-      data.documents.map((ele: any) => {
-        if (res.docTypeId == ele.docId) {
-          this.docArray[i] = ele
+    this.docArray.find((ele: any, i: any) => {
+      data.documents.find((item: any) => {
+        if (ele.docTypeId == item.docId) {
+          this.docArray[i].id = item.id
+          this.docArray[i].docPath = item.documentPath
+        } else {
+          if (item.docId == 1) { // 1 is other doc
+            let obj = { id: item.id, docTypeId: 1, docPath: item.documentPath, docNo: item.docPath, docname: item.documentName }
+            this.otherDocArray.push(obj);
+          }
         }
-      });
+      })
     })
-    this.docArray.map((res: any) => {
-      res['docTypeId'] = res.docId;
-      res['docPath'] = res.documentPath;
-      res['docNo'] = '';
-      res['docname'] = res.documentName;
-    })
-    console.log("documents", data.documents);
-    console.log("docArray", this.docArray);
+    //patch documents 
+    // console.log("data.documents", data.documents);
+
+    // this.docArray.map((res: any, i: any) => {
+    //   data.documents.map((ele: any) => {
+    //     if (res.docTypeId == ele.docId) {
+    //       this.docArray[i] = ele
+    //     }
+    //   });
+    // })
+    // this.docArray.map((res: any) => {
+    //   res['docTypeId'] = res.docId;
+    //   res['docPath'] = res.documentPath;
+    //   res['docNo'] = '';
+    //   res['docname'] = res.documentName;
+    // })
+    // console.log("documents", data.documents);
+    // console.log("docArray", this.docArray);
 
     // documents
     // this.docArray
