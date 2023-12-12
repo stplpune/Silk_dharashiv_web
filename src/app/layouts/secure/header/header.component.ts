@@ -103,7 +103,7 @@ export class HeaderComponent {
   clearLocalStorage() {
     localStorage.clear();
     localStorage.removeItem('silkDharashivUserInfo');
-    this.commonMethods.routerLinkRedirect('/login');
+    this.commonMethods.routerLinkRedirect('/home');
   }
 
   openLogOutDialog() { //open logout dialog
