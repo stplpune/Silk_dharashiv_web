@@ -59,6 +59,8 @@ export class ApplicationComponent {
 
   ngOnInit() {
     this.getPageName = this.router.url;
+   // this.WebStorageService.getAllPageName().filter((ele: any) => { return ele.pageName == "Application" ? this.pageAccessObject = ele : '' })
+   
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -234,7 +236,7 @@ export class ApplicationComponent {
   setTableData() {
     this.highLightRowFlag = true;
     let displayedColumns = ['srNo', 'applicationNo', (this.lang == 'en' ? 'departmentName' : 'm_DepartmentName'), (this.lang == 'en' ? 'schemeType' : 'm_SchemeType'), (this.lang == 'en' ? 'fullName' : 'm_FullName'), 'mobileNo1', (this.lang == 'en' ? 'taluka' : 'm_Taluka'), (this.lang == 'en' ? 'grampanchayatName' : 'm_GrampanchayatName'), 'selfStatus', 'status1', 'action'];
-    let displayedheaders = this.lang == 'en' ? ['Sr.No.', 'Application ID', 'Process Department', 'Scheme Name', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Stage', 'Application Status', 'Action'] : ['अनुक्रमांक', 'अर्ज आयडी', 'प्रक्रिया विभाग', 'योजनेचे नाव', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'Stage', 'Application Status', 'कृती'];
+    let displayedheaders = this.lang == 'en' ? ['Sr.No.', 'Application ID', 'Process Department', 'Scheme Name', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Stage', 'Application Status', 'Action'] : ['अनुक्रमांक', 'अर्ज आयडी', 'प्रक्रिया विभाग', 'योजनेचे नाव', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'स्टेज', 'अर्जाची स्थिती', 'कृती'];
     //this.webStorage.getDesignationId() == 1 ? 
     if (this.webStorage.getDesignationId() === 1) {
       const selfStatusIndex = displayedColumns.indexOf('selfStatus');
@@ -253,13 +255,14 @@ export class ApplicationComponent {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      view: this.getPageName == '/track-application'? false: true,
+      view: this.getPageName == '/track-application' ? false : true,
       track: true,
+      edit:  true,
       date: 'applicationDate'
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
-
+    console.log("tableData",tableData)
   }
 
   childCompInfo(obj?: any) {
@@ -273,6 +276,9 @@ export class ApplicationComponent {
       case 'View':
         this.openApplicationDetails(obj);
         // this.router.navigate(['../approval-process']);
+        break;
+      case 'Edit':
+        this.openAddApplicationDetails(obj);
         break;
       case 'track':
         this.openTracKComp(obj);
@@ -290,33 +296,42 @@ export class ApplicationComponent {
     })
   }
 
+  openAddApplicationDetails(obj?: any) {
+    let Id: any = this.encryptdecrypt.encrypt(`${obj?.id}`);
+    this.router.navigate([obj.schemeTypeId == 1 ? '../create-manarega-app' : '../create-samgra-app'], {
+      queryParams: {
+        id: Id
+      },
+    })
+  }
+
   openTracKComp(obj: any) {
     this.dialog.open(TrackApplicationComponent, {
       data: obj,
     });
-}
-
-clearDropdown(dropdown: string) {
-  if (dropdown == 'Taluka') {
-    this.f['grampanchayatId'].setValue(0);
-    this.grampanchayatArray = [];
-    this.gramPSubject = new ReplaySubject<any>();
   }
-}
 
-clearSearchFilter() {  // for clear search field
-  this.filterFrm.reset();
-  this.filterDefaultFrm();
-  this.getTableData();
-  this.pageNumber = 1;
-  this.searchDataFlag = false;
-  this.spliteUrlData.length ? this.spliteUrlData = [] : '';
-}
+  clearDropdown(dropdown: string) {
+    if (dropdown == 'Taluka') {
+      this.f['grampanchayatId'].setValue(0);
+      this.grampanchayatArray = [];
+      this.gramPSubject = new ReplaySubject<any>();
+    }
+  }
 
-ngOnDestroy() {
-  this.subscription.unsubscribe();
-  this.gramPSubject.unsubscribe();
-  this.talukaSubject.unsubscribe();
-}
+  clearSearchFilter() {  // for clear search field
+    this.filterFrm.reset();
+    this.filterDefaultFrm();
+    this.getTableData();
+    this.pageNumber = 1;
+    this.searchDataFlag = false;
+    this.spliteUrlData.length ? this.spliteUrlData = [] : '';
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.gramPSubject.unsubscribe();
+    this.talukaSubject.unsubscribe();
+  }
 
 }
