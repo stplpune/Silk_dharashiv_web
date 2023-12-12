@@ -49,7 +49,7 @@ export class CRCListComponent {
     this.getFormData();
     this.searchDataZone();
     this.getDisrict();
-    this.getStatus();
+    // this.getStatus();
   }
 
   getFormData(){
@@ -92,16 +92,16 @@ export class CRCListComponent {
     })
   }
 
-  getStatus(){
-    this.talukaArray = [];
-    this.masterService.getCrcStatus().subscribe({
-      next: ((res: any) => {
-        this.statusArray = res.responseData;
-      }), error: (() => {
-        this.statusArray = [];
-      })
-    })
-  }
+  // getStatus(){
+  //   this.talukaArray = [];
+  //   this.masterService.getCrcStatus().subscribe({
+  //     next: ((res: any) => {
+  //       this.statusArray = res.responseData;
+  //     }), error: (() => {
+  //       this.statusArray = [];
+  //     })
+  //   })
+  // }
 
 
   getTableData(flag?: any) {
