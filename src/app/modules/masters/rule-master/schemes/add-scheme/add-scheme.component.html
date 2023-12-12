@@ -2,9 +2,9 @@
   <div class="d-flex align-items-center justify-content-between w-100">
     <div class="text-main">{{!data ? ('scheme.add_scheme' | translate ): isViewFlag ? ('scheme.view_scheme' | translate)
       : ('scheme.update_scheme' | translate )}}</div>
-    <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
-      <span class="material-symbols-rounded">close</span>
-    </button>
+    <!-- <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true"> -->
+      <span class="material-symbols-rounded" [mat-dialog-close]="true">close</span>
+    <!-- </button> -->
   </div>
 </div>
 

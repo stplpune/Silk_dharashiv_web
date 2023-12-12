@@ -1,7 +1,7 @@
 <!-- <p>category-details works!</p> -->
 <div mat-dialog-title class="modal-header">
     <div class="d-flex align-items-center justify-content-between">
-      <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
+      <button mat-icon-button class="btn-modal-close" mat-dialog-close="true" (click)="dialogRef.close(this.data)">
         <mat-icon class="material-symbols-outlined">
           close
         </mat-icon>
@@ -17,5 +17,5 @@
     <p> {{data.checked}}</p>
     </ng-container>
   
-    <button (click)="getSelectedItems()">Selected</button>
+    <button (click)="getSelectedItems()" class="btn-main-light btn-icon"  mat-flat-button  type="button">Selected</button>
   </mat-dialog-content>
