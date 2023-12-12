@@ -9,9 +9,9 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-// import { Router } from '@angular/router';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-otp-send-receive',
@@ -33,7 +33,7 @@ export class OtpSendReceiveComponent {
     private error: ErrorHandlingService, 
     public validator: ValidationService,
     private dialogRef: MatDialogRef<OtpSendReceiveComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
   ngOnInit() {
@@ -45,7 +45,8 @@ export class OtpSendReceiveComponent {
       "mobileNo": this.data.mobileNo,
       "otp": "",
       "pageName": this.data.pageName,
-      "createdBy":  this.data.createdBy
+      "createdBy":  this.data.createdBy,
+      "loginFlag":"web",
     }
 
     this.apiService.setHttp('post', 'sericulture/api/OtpTran/GenerateOTP', false, obj, false, 'baseUrl');
@@ -70,10 +71,11 @@ export class OtpSendReceiveComponent {
         "MobileNo": this.data.mobileNo,
         "OTP": this.otpFormControl.value,
         "PageName":  this.data.pageName,
-        "CreatedBy": this.data.createdBy
+        "CreatedBy": this.data.createdBy,
+        "loginFlag":"web",
       }
 
-      this.apiService.setHttp('get', 'sericulture/api/OtpTran/VerifyOTP?MobileNo=' + obj.MobileNo + '&OTP=' + obj.OTP + '&PageName='+obj.PageName, false, false, false, 'baseUrl');
+      this.apiService.setHttp('get', 'sericulture/api/OtpTran/VerifyOTP?MobileNo=' + obj.MobileNo + '&OTP=' + obj.OTP + '&PageName='+obj.PageName+'&LoginFlag=web', false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.commonMethods.snackBar(res.statusMessage, 0);

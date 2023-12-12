@@ -123,10 +123,11 @@ export class FarmersignupComponent {
       let dialogObj = {
         header: this.lang == "en" ? "Sign Up OTP" : "ओटीपी साइन अप करा",
         button: this.lang == "en" ? "Verify OTP" : "ओटीपी सत्यापित करा",
-        pageName: "farmer-signUp",
+        pageName: "signup",
         mobileNo: this.signUpForm.getRawValue().mobNo1,
         createdBy:0
       };
+      console.log('dialogObj',dialogObj);
       const dialogRef = this.dialog.open(OtpSendReceiveComponent, {
         width: '30%',
         data: dialogObj,
