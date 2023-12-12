@@ -58,12 +58,16 @@ export class MyProfileComponent {
     })
   }
 
+  // sericulture/api/Login/GetLoginDetails?Id=1
+
   getssProfileData() {
-    this.apiService.setHttp('get', `sericulture/api/UserRegistration/get-user-details?Id=${this.WebStorageService.getUserId()}&lan=${this.lang}`, false, false, false, 'masterUrl');
+    this.apiService.setHttp('get', `sericulture/api/Login/GetLoginDetails?Id=${this.WebStorageService.getUserId()}&lan=${this.lang}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == 200) {
-          this.profilDetailsArr = res.responseData.responseData1[0];
+          this.profilDetailsArr = res.responseData;
+          console.log(' this.profilDetailsArr', this.profilDetailsArr);
+          
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
@@ -100,7 +104,7 @@ export class MyProfileComponent {
     this.editFlag = true;
     this.f['name'].setValue(this.profilDetailsArr?.name);
     this.f['m_Name'].setValue(this.profilDetailsArr?.m_Name);
-    this.f['mobileNo'].setValue(this.profilDetailsArr?.mobNo1);
+    this.f['mobileNo'].setValue(this.profilDetailsArr?.mobileNo1);
     this.f['address'].setValue(this.profilDetailsArr?.address);
   }
 
@@ -121,8 +125,8 @@ export class MyProfileComponent {
       "aadharNumber": this.profilDetailsArr.aadharNumber,
       "gender": 0,
       "dob": null,
-      "mobNo1": this.profilDetailsArr.mobNo1,
-      "mobNo2": this.profilDetailsArr.mobNo2,
+      "mobNo1": this.profilDetailsArr.mobileNo1,
+      "mobNo2": this.profilDetailsArr.mobileNo2,
       "emailId": this.profilDetailsArr.emailId,
       "userName": this.profilDetailsArr.userName,
       "password": "string",
