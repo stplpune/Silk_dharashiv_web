@@ -9,7 +9,7 @@ import { ErrorComponent } from './modules/error/error.component';
 // import { PublicComponent } from './layouts/public/public.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   // { path: 'ref', component: ReferanceComponent },// For Testing purpose
   { path: '', canActivate: [CheckLoggedInGuard], component: PublicComponent, loadChildren: () => import('./layouts/public/public.module').then(m => m.PublicModule) },
   { path: '', canActivate: [AuthGuard], component: SecureComponent, loadChildren: () => import('./layouts/secure/secure.module').then(m => m.SecureModule) },
