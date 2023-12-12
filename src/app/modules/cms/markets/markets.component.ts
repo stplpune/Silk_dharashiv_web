@@ -17,7 +17,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
   templateUrl: './markets.component.html',
   styleUrls: ['./markets.component.scss']
 })
-export class MarketsComponent implements OnDestroy{
+export class MarketsComponent implements OnDestroy {
   filterFrm !: FormGroup;
   pageNumber: number = 1;
   totalPages!: number;
@@ -30,11 +30,11 @@ export class MarketsComponent implements OnDestroy{
   subscription!: Subscription;//used  for lang conv
   lang: any;
   searchDataFlag: boolean = false
-  pageAccessObject: object|any;
+  pageAccessObject: object | any;
   talukaCtrl: FormControl = new FormControl();
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   @ViewChild('formDirective') private formDirective!: NgForm;
-  
+
   constructor(public dialog: MatDialog,
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -46,7 +46,7 @@ export class MarketsComponent implements OnDestroy{
     public validation: ValidationService,) { }
 
   ngOnInit() {
-   this.WebStorageService.getAllPageName().filter((ele:any) =>{return ele.pageName == "Markets" ? this.pageAccessObject = ele :''})
+    this.WebStorageService.getAllPageName().filter((ele: any) => { return ele.pageName == "Markets" ? this.pageAccessObject = ele : '' })
 
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
@@ -55,13 +55,13 @@ export class MarketsComponent implements OnDestroy{
     })
     this.formData();
     this.getState();
-    this.bindTable();this.searchDataZone();
+    this.bindTable(); this.searchDataZone();
   }
 
   formData() {
     this.filterFrm = this.fb.group({
       stateId: [this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],
-      districtId: [ this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],
+      districtId: [this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],
       talukaId: [0],
       textSearch: ['']
     })
@@ -113,9 +113,9 @@ export class MarketsComponent implements OnDestroy{
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
       // delete: true, view: true, edit: true,
-      view: this.pageAccessObject?.readRight == true ? true: false,
-      edit: this.pageAccessObject?.writeRight == true ? true: false,
-      delete: this.pageAccessObject?.deleteRight == true ? true: false
+      view: this.pageAccessObject?.readRight == true ? true : false,
+      edit: this.pageAccessObject?.writeRight == true ? true : false,
+      delete: this.pageAccessObject?.deleteRight == true ? true : false
     };
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
     this.apiService.tableData.next(tableData);
@@ -138,8 +138,8 @@ export class MarketsComponent implements OnDestroy{
       case 'View':
         this.addMarket(obj);
         break;
-       case 'Block':
-          this.openBlockDialog(obj);
+      case 'Block':
+        this.openBlockDialog(obj);
     }
   }
 
@@ -151,7 +151,7 @@ export class MarketsComponent implements OnDestroy{
       title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेला बाजार  ' + userMara + ' करू इच्छिता?' : 'Do You Want To ' + userEng + ' The Selected Market?',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
-      headerImage: obj.status == false ?'assets/images/active_scheme@3x.png' : 'assets/images/inactive_scheme/inactive_scheme@3x.png'
+      headerImage: obj.status == false ? 'assets/images/active_scheme@3x.png' : 'assets/images/inactive_scheme.png'
     }
     const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -166,10 +166,10 @@ export class MarketsComponent implements OnDestroy{
 
   blockAction(obj: any) {
     let status = !obj.status
-   this.apiService.setHttp('PUT', 'sericulture/api/MarketCommittee/MarketCommittee-Status?Id=' + obj.id + '&Status=' + status+'&lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('PUT', 'sericulture/api/MarketCommittee/MarketCommittee-Status?Id=' + obj.id + '&Status=' + status + '&lan=' + this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
-        res.statusCode == "200" ? (this.commonMethod.snackBar(res.statusMessage, 0),this.bindTable()) : this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        res.statusCode == "200" ? (this.commonMethod.snackBar(res.statusMessage, 0), this.bindTable()) : this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
       },
       error: (error: any) => {
         this.errorHandler.handelError(error.status);
@@ -204,7 +204,7 @@ export class MarketsComponent implements OnDestroy{
       header: this.lang == 'mr-IN' ? 'बाजार सूची हटवा' : 'Delete',
       okButton: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
-      headerImage:'assets/images/delete.svg'
+      headerImage: 'assets/images/delete.svg'
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '30%',
@@ -263,7 +263,7 @@ export class MarketsComponent implements OnDestroy{
         next: ((res: any) => {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.districtArray = res.responseData;
-            this.districtArray.unshift({ "id": 0, "textEnglish": "All Districts","textMarathi": "सर्व जिल्हे"});
+            this.districtArray.unshift({ "id": 0, "textEnglish": "All Districts", "textMarathi": "सर्व जिल्हे" });
             (this.filterFrm.controls['districtId'].setValue(this.filterFrm.getRawValue()?.districtId), this.getTaluka());
           }
           else {
@@ -284,7 +284,7 @@ export class MarketsComponent implements OnDestroy{
           if (res.statusCode == "200" && res.responseData?.length) {
             this.talukaArray = res.responseData;
             this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
-            this.talukaArray.unshift({ "id": 0, "textEnglish": "All Talukas","textMarathi": "सर्व तालुके"});
+            this.talukaArray.unshift({ "id": 0, "textEnglish": "All Talukas", "textMarathi": "सर्व तालुके" });
           }
           else {
             this.talukaArray = [];

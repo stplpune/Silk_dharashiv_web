@@ -29,7 +29,7 @@
         <div class="col-sm-1">
           <div class="d-flex gap-2">
             <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"
-            (click)="getDataByMobileAadharNo('search')">
+              (click)="getDataByMobileAadharNo('search')">
               <mat-icon class="material-symbols-rounded">
                 search
               </mat-icon>
@@ -73,7 +73,8 @@
                     </button>
                   </div>
                 </div>
-                <mat-error *ngIf="viewMsgFlag && !profileImageUrl">{{lang == 'en' ? "Please Add Applicant Image" : "कृपया
+                <mat-error *ngIf="viewMsgFlag && !profileImageUrl">{{lang == 'en' ? "Please Add Applicant Image" :
+                  "कृपया
                   अर्जदाराची प्रतिमा जोडा"}} </mat-error>
               </div>
 
@@ -312,7 +313,7 @@
                     *ngIf="f['categoryId']?.hasError('required')">{{'approvalProcess.please_select_category'|translate}}
                   </mat-error>
                 </mat-form-field>
-               </div>
+              </div>
               <div *ngIf="checkedItems.length">
                 <div class="form-label">{{'approvalProcess.beneficiary_category_options'| translate}}</div>
                 <div class="form-data mb-0" *ngFor="let data of checkedItems;let i=index">
@@ -925,7 +926,8 @@
 
 
               <div class="col-sm-4">
-                <button mat-flat-button class="btn-main-light mt-3" type="button" (click)="visible = ! visible">इतर कागदपत्रे
+                <button mat-flat-button class="btn-main-light mt-3" type="button" (click)="visible = ! visible">इतर
+                  कागदपत्रे
                   जोडा</button>
               </div>
               <div class="col-sm">
@@ -1670,7 +1672,7 @@
         <!-- 
         <div class="container-fluid">
           <div class="d-flex flex-column align-items-center gap-3">
-            <img src="assets/images/success (1)/success/check.png" alt="" class="img-fluid" width="200px">
+            <img src="assets/images/check.png" alt="" class="img-fluid" width="200px">
             <h2 class="fw-bold">अभिनंदन</h2>
             <div class="form-label">आपला आरजा यशस्वी रित्या सादर झाला आहे.</div>
             <div class="form-data">आरजा क्रं : MNR202306210859</div>
