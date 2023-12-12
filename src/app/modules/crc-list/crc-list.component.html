@@ -1,1 +1,107 @@
-<p>crc-list works!</p>
+<mat-card class="plain-card">
+    <mat-card-header class="card-header">
+        <div class="text-main">{{'crc.crc_centers_list' | translate}}</div>
+    </mat-card-header>
+    <mat-card-content class="card-body">
+        <form [formGroup]="crcForm">
+            <div class="row gx-2">
+                <div class="col-sm-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'common.District' | translate}}</mat-label>
+                        <mat-select formControlName="districtId"
+                            [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
+                            <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
+                                district.textMarathi : district.textEnglish}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'common.taluka_filter' | translate}}</mat-label>
+                        <mat-select formControlName="talukaId">
+                        <mat-option>
+                          <ngx-mat-select-search [formControl]="talukaCtrl"
+                            placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
+                            noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ?
+                          taluka.textMarathi
+                          :taluka.textEnglish}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{'common.status' | translate}}</mat-label>
+                        <mat-select formControlName="statusId">
+                            <mat-option>Option 1 </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <div class="d-flex gap-2">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{'common.search' | translate}}</mat-label>
+                            <input matInput placeholder="Reg No/CRC Name/Owner name/Mobile No" (keypress)="validation.noFirstSpaceAllow($event)"
+                                formControlName="searchValue">
+                        </mat-form-field>
+                        <div class="d-flex gap-2">
+                            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
+                                <mat-icon class="material-symbols-rounded">
+                                    search
+                                </mat-icon>
+                            </button>
+                            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+                                <mat-icon class="material-symbols-rounded">
+                                    close
+                                </mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row gx-2">
+            <div class="col-sm-2">
+                <div class="d-flex gap-2">
+                    <div class="form-label text-primary">{{'crc.total_crc_center' | translate}}</div>
+                    <div class="form-data text-primary">: 10</div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="d-flex gap-2">
+                    <div class="form-label text-warning">{{'crc.Pending' | translate}}</div>
+                    <div class="form-data text-warning">: 10</div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="d-flex gap-2">
+                    <div class="form-label text-success">{{'crc.active' | translate}}</div>
+                    <div class="form-data text-success">: 10</div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="d-flex gap-2">
+                    <div class="form-label text-danger">{{'crc.expired' | translate}}</div>
+                    <div class="form-data text-danger">: 10</div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="d-flex gap-2">
+                    <div class="form-label text-danger">{{'crc.blocked' | translate}}</div>
+                    <div class="form-data text-danger">: 10</div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="d-flex gap-2">
+                    <div class="form-label text-secondary">{{'crc.rejected' | translate}}</div>
+                    <div class="form-data text-secondary">: 10</div>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive scrollbar">
+            <!-- <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table> -->
+        </div>
+    </mat-card-content>
+</mat-card>
