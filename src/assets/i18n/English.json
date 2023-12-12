@@ -87,7 +87,9 @@
     "action": "Action",
     "remark": "Remark",
     "select_grampanchayat": "Select Grampanchayat",
-    "fullName_minLength": "Minimum 5 character allowed"
+    "fullName_minLength": "Minimum 5 character allowed",
+    "status":"Status",
+    "search":"Search"
   },
   "approvalProcess": {
     "Add_Manarega":"Add Manrega",
@@ -729,45 +731,6 @@
     "Land_7/12_with_Mulberry_Note_Talathi_Certificate" : "Land 7/12 with Mulberry Note or Talathi Certificate",
     "8_A_track_of_Land" : "8 A track of Land",
     "Land_boundary_map" : "Land boundary map"
-
-
- 
-
-
-
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   },
   "farmerLogin":{
     "farmer_login":"Farmer Login",
@@ -780,6 +743,14 @@
     "enter_otp": "Enter OTP",
     "verify_otp": "Verify OTP",
     "back_to_login": "Back To Login"
+  },"crc":{
+    "crc_centers_list":"CRC Centers List",
+    "total_crc_center":"Total CRC Center",
+    "Pending":"Pending",
+    "active":"Active",
+    "expired":"Expired",
+    "blocked":"Blocked",
+    "rejected":"Rejected"
   }
 
 }

@@ -86,7 +86,9 @@
     "action": "कृती",
     "remark": " टिप्पणी",
     "select_grampanchayat":"ग्रामपंचायत निवडा",
-    "fullName_minLength": "किमान 5 वर्णांना अनुमती आहे"
+    "fullName_minLength": "किमान 5 वर्णांना अनुमती आहे",
+    "status":"स्थिती",
+    "search":"शोधा"
   },
   "approvalProcess"  : {
     "Add_Manarega":"मनरेगा जोडा",
@@ -704,6 +706,14 @@
     "enter_otp": "ओटीपी टाका",
     "verify_otp": "OTP सत्यापित करा",
     "back_to_login": "लॉगिन करण्यासाठी परत"
+  },"crc":{
+    "crc_centers_list":"CRC केंद्रांची यादी",
+    "total_crc_center":"एकूण CRC केंद्र",
+    "Pending":"प्रलंबित",
+    "active":"सक्रिय",
+    "expired":"कालबाह्य",
+    "blocked":"अवरोधित",
+    "rejected":"नाकारले"
   }
 
 }
