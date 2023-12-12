@@ -41,7 +41,7 @@ export class ApplicationComponent {
   gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
   routingData: any;
   spliteUrlData!: any;
-  getPageName: any;
+
 
   constructor(private fb: FormBuilder,
     private master: MasterService,
@@ -58,9 +58,6 @@ export class ApplicationComponent {
   ) { }
 
   ngOnInit() {
-    this.getPageName = this.router.url;
-   // this.WebStorageService.getAllPageName().filter((ele: any) => { return ele.pageName == "Application" ? this.pageAccessObject = ele : '' })
-   
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -206,7 +203,7 @@ export class ApplicationComponent {
     status == 'filter' ? ((this.pageNumber = 1), this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
     this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllDesignationWiseApplications?' + str + '&SchemeTypeId=' + (formData.schemeTypeId || 0) + '&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchayatId=' + (formData.grampanchayatId || 0) +
-      '&ApplicationStatus=' + (formData.statusId || 0) + '&UserId=' + (this.webStorage.checkUserIsLoggedIn() ? this.webStorage?.getUserId() : 0) + '&TextSearch=' + (formData.textSearch.trim() || '') + '&ActionId=' + (formData.actionId || 0) + '&lan=' + this.lang, false, false, false, 'masterUrl');
+      '&ApplicationStatus=' + (formData.statusId || 0) + '&UserId=' + (this.webStorage?.getUserId() || 0) + '&TextSearch=' + (formData.textSearch.trim() || '') + '&ActionId=' + (formData.actionId || 0) + '&lan=' + this.lang, false, false, false, 'masterUrl');
 
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -255,7 +252,7 @@ export class ApplicationComponent {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      view: this.getPageName == '/track-application' ? false : true,
+      view: true,
       track: true,
       edit:  true,
       date: 'applicationDate'
@@ -308,6 +305,8 @@ export class ApplicationComponent {
   openTracKComp(obj: any) {
     this.dialog.open(TrackApplicationComponent, {
       data: obj,
+      width: '40%',
+      disableClose: false,
     });
   }
 

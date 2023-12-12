@@ -9,9 +9,9 @@ const routes: Routes = [
   { path: 'farmer-signup', loadChildren: () => import('../../modules/farmer/farmersignup/farmersignup.module').then(m => m.FarmersignupModule), data: { breadcrumb: [{ title: 'Farmer Sign Up', active: true }] } },
   { path: 'home', loadChildren: () => import('../../modules/home/home.module').then(m => m.HomeModule), data: { breadcrumb: [{ title: 'Home', active: true }] } },
   { path: 'farmer-login', loadComponent: () => import('../../components/farmer-login/farmer-login.component').then(m => m.FarmerLoginComponent), data: { breadcrumb: [{ title: 'Farmer Login', active: true }] } },
-  { path: 'track-application', loadChildren: () => import('../../modules/application/application.module').then(m => m.ApplicationModule), data: { breadcrumb: [{ title: 'Track Application', active: true }] } },
   { path: 'contact-us', loadChildren: () => import('../../modules/contact-us/contact-us.module').then(m => m.ContactUsModule), data: { breadcrumb: [{ title: 'Contact Us', active: true }] } },
-  //import { FarmerLoginComponent } from './components/farmer-login/farmer-login.component';
+  { path: 'track-application', loadChildren: () => import('../../modules/track-app/track-app.module').then(m => m.TrackAppModule) },
+ 
 
 ];
 

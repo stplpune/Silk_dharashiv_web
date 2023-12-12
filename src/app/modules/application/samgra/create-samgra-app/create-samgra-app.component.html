@@ -1,6 +1,6 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
-    <div class="text-main">Create Samgra Application</div>
+    <div class="text-main">{{'addSamgra.Create_Samgra_Application'| translate}}</div>
   </mat-card-header>
   <mat-card-content class=" card-body form-container">
     <form [formGroup]="filterForm">
@@ -41,10 +41,11 @@
   </form>
 </mat-card-content>
   <mat-card-content class=" card-body form-container">
-    <mat-stepper #stepper>
-      <mat-step>
-        <ng-template matStepLabel>मूळ तपशील</ng-template>
-        <form [formGroup]="samgraForm">
+    <!-- [linear]="!isLinear" -->
+    <mat-stepper #stepper >
+      <mat-step [stepControl]="samgraForm">
+        <ng-template matStepLabel>{{'addSamgra.Original_details' | translate}}</ng-template>
+        <form [formGroup]="samgraForm" >
           <div class="container-fluid">
             <div class="row gx-2 mb-4">
 
@@ -69,7 +70,7 @@
                 <div class="row gy-2 gx-2 align-items-center ">
                   <div class="col-sm-6">
                     <div class="d-flex flex-column gap-2">
-                      <div class="form-label">Mobile Number</div>
+                      <div class="form-label">{{'common.mobile'| translate}}</div>
                       <!-- <div class="form-data">: 8669264767</div> -->
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="mobileNo1" maxlength="10"
@@ -80,7 +81,7 @@
                   </div>
                   <div class="col-sm-6">
                     <div class="d-flex flex-column gap-2">
-                      <div class="form-label">Aadhar Number</div>
+                      <div class="form-label">{{'approvalProcess.aadhar_number'| translate}}</div>
                       <!-- <div class="form-data">: 8669 2647 6774</div> -->
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="aadharNo" maxlength="12"
@@ -98,7 +99,7 @@
                   </div>
                 </div> -->
                   <div class="col-sm-12">
-                    <div class="form-label"> 2.{{'addManrega.applicant_name'| translate}}</div>
+                    <div class="form-label"> {{'addManrega.applicant_name'| translate}}</div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="fullName"
@@ -128,7 +129,7 @@
             </div>
             <div class="row gx-2 align-items-center">
               <div class="col-sm-3">
-                <div class="form-label">3.{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
+                <div class="form-label">{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="mobileNo2" maxlength="10"
@@ -143,7 +144,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <mat-label class="form-label">4.{{'approvalProcess.date_of_birth'| translate}}</mat-label>
+                <mat-label class="form-label">{{'approvalProcess.date_of_birth'| translate}}</mat-label>
                 <mat-form-field appearance="outline" class="w-100">
                   <input matInput [matDatepicker]="picker" formControlName="birthDate" (click)="picker.open()" readonly
                     [max]="todayDate">
@@ -155,7 +156,7 @@
               </div>
               <div class="col-sm-3">
                 <div class="d-flex align-items-center gap-3">
-                  <mat-label class="form-label">5.{{'addManrega.select_gender'| translate}}</mat-label>
+                  <mat-label class="form-label">{{'addManrega.select_gender'| translate}}</mat-label>
                   <mat-radio-group aria-label="Select an option" formControlName="gender">
                     <mat-radio-button *ngFor="let gender of genderArray"
                       [value]="gender.id">{{gender.name}}</mat-radio-button>
@@ -163,7 +164,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">6.{{'addManrega.education'| translate}}</div>
+                <div class="form-label">{{'addManrega.education'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="qualificationId">
                     <mat-option *ngFor="let qualification of qualificationArray" [value]="qualification.id">{{lang !=
@@ -174,7 +175,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">7.{{'common.State'| translate}}</div>
+                <div class="form-label">{{'common.State'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100"
                   [class]="WebStorageService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
                   <mat-select formControlName="stateId" (selectionChange)="getDisrict()">
@@ -184,7 +185,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">8.{{'common.District'| translate}}</div>
+                <div class="form-label">{{'common.District'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
                     <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
@@ -194,7 +195,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">9.{{'common.Taluka'| translate}}</div>
+                <div class="form-label">{{'common.Taluka'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="talukaId" (selectionChange)="getGrampanchayat()">
                     <mat-option>
@@ -210,7 +211,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">10.{{'approvalProcess.village_committee'| translate}}</div>
+                <div class="form-label">{{'approvalProcess.village_committee'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="grampanchayatId">
                     <mat-option>
@@ -223,7 +224,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">11.{{'common.Village'| translate}}</div>
+                <div class="form-label">{{'common.Village'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <input matInput placeholder="" formControlName="village"
                     (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
@@ -231,7 +232,7 @@
               </div>
 
               <div class="col-sm-3">
-                <div class="form-label">12.{{'common.pin_Code'| translate}}</div>
+                <div class="form-label">{{'common.pin_Code'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="pinCode" maxlength="6"
@@ -247,7 +248,7 @@
                 </div>
               </div>
               <div class="col-sm-6">
-                <div class="form-label">13.{{'approvalProcess.beneficiary_category'| translate}}</div>
+                <div class="form-label">{{'approvalProcess.beneficiary_category'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select (click)="categoryDialogBox()">
                   </mat-select>
@@ -262,7 +263,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">14. मतदान नोंदणी क्रं</div>
+                <div class="form-label">{{'addSamgra.Election_Card_No' | translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="sm_VoterRegistrationNo" maxlength="50"
@@ -271,7 +272,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <mat-label>15.{{'common.address'| translate}}</mat-label>
+                <mat-label>{{'common.address'| translate}}</mat-label>
                 <mat-form-field appearance="outline" class="w-100">
                   <textarea matInput placeholder="" formControlName="address"
                     (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)"></textarea>
@@ -286,7 +287,7 @@
               </div>
               <div class="col-sm-6">
                 <div class="d-flex align-items-center gap-3">
-                  <mat-label class="form-label">16. लाभार्थी दारिद्र्यरेशेखालील आहे का ?</mat-label>
+                  <mat-label class="form-label">{{'addSamgra.below_the_poverty_line' | translate}}</mat-label>
                   <mat-radio-group aria-label="Select an option" formControlName="sm_IsBelowPovertyLine">
                     <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id"
                       class="pe-3">{{check.name}}</mat-radio-button>
@@ -302,13 +303,13 @@
         </form>
       </mat-step>
       <!-- ////////////////// start 2 form -->
-      <mat-step>
+      <mat-step [stepControl]="landDetailsForm">
         <ng-template matStepLabel>{{'approvalProcess.land_details'| translate}}</ng-template>
         <form [formGroup]="landDetailsForm">
           <div class="container-fluid">
             <div class="row align-items-center g-3">
               <div class="col-sm-4">
-                <div class="form-label"> 17.{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'|
+                <div class="form-label">{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'|
                   translate}} </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
@@ -318,7 +319,7 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">18. भुदरन वर्गवारी निवडा</div>
+                <div class="form-label">{{'addSamgra.Bhudran_category' | translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="sm_LandTenureCategories">
                     <mat-option *ngFor="let landTenure of landTenureCatArray"
@@ -327,7 +328,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">19.{{'approvalProcess.type_of_land'| translate}} </div>
+                <div class="form-label">{{'approvalProcess.type_of_land'| translate}} </div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="farmTypeId">
                     <mat-option *ngFor="let farmType of farmTypeArray" [value]="farmType.id">{{lang != 'en' ?
@@ -339,7 +340,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">20.{{'approvalProcess.irrigation_facilities'| translate}} </div>
+                <div class="form-label">{{'approvalProcess.irrigation_facilities'| translate}} </div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="irrigationFacilityId">
                     <mat-option *ngFor="let irrigationFacility of irrigationFacilityArray"
@@ -352,7 +353,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">21. सिंचन कालावधी </div>
+                <div class="form-label">{{'addSamgra.Irrigation_period' | translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="sm_IrrigationPeriod">
                     <mat-option *ngFor="let irrigationPeriod of irrigationPeriodArray"
@@ -363,7 +364,7 @@
 
               <div class="col-sm-4">
                 <div class="d-flex flex-column">
-                  <mat-label class="form-label mb-0">22. शासकीय योजने अंतर्गत तुति लागवड केली आहे का ?</mat-label>
+                  <mat-label class="form-label mb-0">{{'addSamgra.planted_under_the_government_scheme' | translate}}</mat-label>
                   <mat-radio-group aria-label="Select an option" formControlName="isAnyPlantedBeforeGovScheme"
                     (click)="radioEvent(landDetailsForm.value.isAnyPlantedBeforeGovScheme,'AnyPlantedBefor')">
                     <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id"
@@ -373,7 +374,7 @@
               </div>
               <ng-container *ngIf="landDetailsForm.value.isAnyPlantedBeforeGovScheme">
                 <div class="col-sm-4">
-                  <mat-label class="form-label">22.A. लागवड वर्षं</mat-label>
+                  <mat-label class="form-label">{{'addSamgra.Plantation_years' | translate}}</mat-label>
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput [matDatepicker]="picker1" formControlName="sm_YearOfPlanting">
                     <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -381,7 +382,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-sm-4">
-                  <div class="form-label"> 22.B. लागवड क्षेत्र </div>
+                  <div class="form-label">{{'addSamgra.Cultivation_area' | translate}}</div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="sm_CultivatedArea">
@@ -389,7 +390,7 @@
                   </div>
                 </div>
                 <div class="col-sm-4">
-                  <div class="form-label"> 22.C. भुमपण क्रमांक </div>
+                  <div class="form-label"> {{'addSamgra.Survey_No' | translate}} </div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="sm_LandSurveyNo">
@@ -402,12 +403,12 @@
 
               <div class="col-sm-12">
                 <div class="d-flex align-items-center justify-content-between">
-                  <div class="form-label"> 23. सध्या घेत असलेल्या पीक व उत्पादन तपशील </div>
+                  <div class="form-label"> {{'addSamgra.Current_crop_and_production_details' | translate}} </div>
                   <button mat-flat-button class="btn-main" (click)="adddetails()">
                     <mat-icon class="material-symbols-rounded">
                       add
                     </mat-icon>
-                    तपशील जोडा
+                   {{'addSamgra.Add_details' | translate}}
                   </button>
                 </div>
                 <div class="table-responsive scrollbar">
@@ -484,11 +485,11 @@
                 </div>
               </div>
 
-              <div class="form-label">24. तुति लागवड करावयाचा तपशील :</div>
+              <div class="form-label">{{'addSamgra.Mulberry_Plantatio_Details' | translate}}:</div>
               <div class="card card-body">
                 <div class="row g-3">
                   <div class="col-sm-4">
-                    <div class="form-label">24.A. तुतीची सुधारित जात निवडा</div>
+                    <div class="form-label">{{'addSamgra.Varieties_of_Mulberr_Trees' | translate}}:</div>
                     <mat-form-field appearance="outline" class="w-100">
                       <mat-select formControlName="sm_ImprovedMulberryCast">
                         <mat-option *ngFor="let mulberryCast of mulberryCastArray"
@@ -497,21 +498,21 @@
                     </mat-form-field>
                   </div>
                   <div class="col-sm-4">
-                    <div class="form-label">24.B. तुति लागवड अंतर फुट :</div>
+                    <div class="form-label">{{'addSamgra.Mulberry_Planting_Distance' | translate}}:</div>
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="sm_MulberryPlantingDistance" maxlength="4"
                         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                     </mat-form-field>
                   </div>
                   <div class="col-sm-4">
-                    <div class="form-label">24.C. तुति लागवडीचा भुमपण क्रमांक ( गत नं / सर्व्हे नं ) :</div>
+                    <div class="form-label">{{'addSamgra.Plantation_land_Survey_No' | translate}}:</div>
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="sm_PlantationSurveyNo" maxlength="6"
                         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                     </mat-form-field>
                   </div>
                   <div class="col-sm-4">
-                    <div class="form-label">24.D. तुति लागवड करावयाचे क्षेत्र ( एकर )</div>
+                    <div class="form-label">{{'addSamgra.Mulberry_Plantation_Area_in_acre' | translate}}:</div>
                     <mat-form-field appearance="outline" class="w-100">
                       <mat-select formControlName="sm_MulberryCultivationArea">
                         <mat-option *ngFor="let mulberryArea of mulberryAreaArray"
@@ -520,7 +521,7 @@
                     </mat-form-field>
                   </div>
                   <div class="col-sm-4">
-                    <div class="form-label">24.E. तुति लागवड करवायची पद्धत :</div>
+                    <div class="form-label">{{'addSamgra.Mulberry_Plantation_Method' | translate}} :</div>
                     <mat-form-field appearance="outline" class="w-100">
                       <mat-select formControlName="sm_PlantationMethod">
                         <mat-option *ngFor="let pantationMethod of pantationMethodArray"
@@ -533,7 +534,7 @@
 
               <div class="col-sm-4">
                 <div class="d-flex align-items-center gap-3">
-                  <mat-label class="form-label">25. रेशीम उद्योगातील अनुभव आहे का ?</mat-label>
+                  <mat-label class="form-label">{{'addSamgra.experience_in_silk_industry' | translate}}</mat-label>
                   <mat-radio-group aria-label="Select an option" formControlName="sm_IsExperienceSilkIndustry"
                     (change)="radioEvent(landDetailsForm.value.sm_IsExperienceSilkIndustry,'isExperience')">
                     <mat-radio-button *ngFor="let check of checkedArray"
@@ -542,7 +543,7 @@
                 </div>
               </div>
               <div class="col-sm-4" *ngIf="landDetailsForm.value.sm_IsExperienceSilkIndustry">
-                <div class="form-label"> 25.A. किती वर्षाचा ते नमूद करावे : </div>
+                <div class="form-label"> {{'addSamgra.How_many_years' | translate}} </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="sm_ExperienceYears">
@@ -551,7 +552,7 @@
               </div>
               <div class="col-sm-4">
                 <div class="d-flex flex-column ">
-                  <mat-label class="form-label">26. रेशीम उद्योगातील प्रशिक्षण घेतले आहे ?</mat-label>
+                  <mat-label class="form-label"> {{'addSamgra.experience_in_silk_industry' | translate}}</mat-label>
                   <mat-radio-group aria-label="Select an option" formControlName="sm_IsSilkIndustrtyTrainingReceived"
                     (change)="radioEvent(landDetailsForm.value.sm_IsSilkIndustrtyTrainingReceived,'isTraining')">
                     <mat-radio-button *ngFor="let check of checkedArray"
@@ -560,7 +561,7 @@
                 </div>
               </div>
               <div class="col-sm-4" *ngIf="landDetailsForm.value.sm_IsSilkIndustrtyTrainingReceived">
-                <mat-label class="form-label">26.A. रेशीम उद्योगातील घेतलेले प्रशिक्षण </mat-label>
+                <mat-label class="form-label">{{'addSamgra.training_in_silk_industry' | translate}} </mat-label>
                 <mat-form-field appearance="outline" class="w-100">
                   <textarea matInput placeholder="" rows="3"
                     formControlName="sm_SilkIndustrtyTrainingDetails"></textarea>
@@ -568,8 +569,7 @@
               </div>
               <div class="col-sm-4">
                 <div class="d-flex flex-column">
-                  <mat-label class="form-label">27. रेशीम उद्योग करणार्‍या शेतकर्‍याकडे प्रत्यक्ष जाऊन माहिती घेतली आहे
-                    का ?</mat-label>
+                  <mat-label class="form-label">{{'addSamgra.silk_industry_farmer_and_taken_the_information' | translate}}</mat-label>
                   <mat-radio-group aria-label="Select an option" formControlName="sm_IsEngagedInSilkIndustry">
                     <mat-radio-button *ngFor="let check of checkedArray"
                       [value]="check.id">{{check.name}}</mat-radio-button>
@@ -684,7 +684,7 @@
       </mat-step>
 
       <!-- ////////////////// start 3 form -->
-      <mat-step>
+      <mat-step [stepControl]="bankDetailsForm">
         <ng-template matStepLabel>{{'approvalProcess.bank_details'|translate}}</ng-template>
         <form [formGroup]="bankDetailsForm">
           <div class="container-fluid">
@@ -764,8 +764,8 @@
           </div>
         </form>
       </mat-step>
-
-      <mat-step>
+      <!-- //////////////////start 4 form -->
+      <mat-step [stepControl]="documentUploadForm">
         <ng-template matStepLabel>कागदपत्रे</ng-template>
         <div class="container-fluid">
           <div class="row align-items-center g-3">
@@ -865,7 +865,7 @@
               <div class="file-upload border rounded-2 p-1">
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
                   (click)="selImg4.value='';selImg4.click()">File
-                  Upload<span class="text-danger fs-6">*</span>
+                  Upload
                 </button>
                 <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg4
                   (change)="fileUpload($event,docArray[3].docTypeId)" />
@@ -896,7 +896,7 @@
               <div class="file-upload border rounded-2 p-1">
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
                   (click)="selImg5.value='';selImg5.click()">File
-                  Upload<span class="text-danger fs-6">*</span>
+                  Upload
                 </button>
                 <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg5
                   (change)="fileUpload($event,docArray[4].docTypeId)" />
@@ -926,7 +926,7 @@
               <div class="file-upload border rounded-2 p-1">
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
                   (click)="selImg6.value='';selImg6.click()">File
-                  Upload<span class="text-danger fs-6">*</span>
+                  Upload
                 </button>
                 <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg6
                   (change)="fileUpload($event,docArray[5].docTypeId)" />
@@ -954,7 +954,7 @@
               <div class="file-upload border rounded-2 p-1">
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
                   (click)="selImg7.value='';selImg7.click()">File
-                  Upload<span class="text-danger fs-6">*</span>
+                  Upload
                 </button>
                 <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg7
                   (change)="fileUpload($event,docArray[6].docTypeId)" />
@@ -1133,8 +1133,8 @@
           <button mat-button matStepperNext class="btn-main" (click)="onSubmit('document')">Next</button>
         </div>
       </mat-step>
-
-      <mat-step>
+      <!-- ///////////////start 5 form -->
+      <mat-step [stepControl]="selfDeclarationForm">
         <ng-template matStepLabel>स्वयंघोशापत्र</ng-template>
         <form [formGroup]="selfDeclarationForm">
           <div class="container-fluid">
