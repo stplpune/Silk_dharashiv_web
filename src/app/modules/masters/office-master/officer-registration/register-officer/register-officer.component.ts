@@ -93,7 +93,7 @@ export class RegisterOfficerComponent {
       this.data.circleId = this.data?.circleId != 0 ? this.data?.circleId : ''
       this.data.grampanchayatId = this.data?.grampanchayatId != 0 ? this.data?.grampanchayatId : ''
       this.data.designationId = this.data?.designationId != 0 ? this.data?.designationId : ''
-    }
+    }``
     this.officeForm = this.fb.group({
       id: [this.data ? this.data?.id : 0],
       departmentId: [this.data ? this.data?.departmentId : '', [Validators.required]],
@@ -314,7 +314,10 @@ export class RegisterOfficerComponent {
         password: "",
         profileImagePath: this.imageResponse? this.imageResponse : this.data?.profileImagePath ,
         userTypeId: 2, // officer register
-        village: "0"
+        village: "0",
+        certificateExpiryDate:new Date(),
+        certificateIssueDate: new Date(),
+        certificatePath: "",
       }
 
       this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan=' + this.lang, false, obj, false, 'masterUrl');
