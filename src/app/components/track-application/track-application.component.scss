@@ -2,18 +2,29 @@
     position: relative;
     margin: 10px auto 50px;
     padding: 40px 0;
-    width: 1000px;
+    // width: 1000px;
     box-sizing: border-box;
+    font-family: 'Public Sans', sans-serif !important;
 }
 
 .timeline:before {
-    content: '';
+    content: "";
     position: absolute;
     left: 50%;
     width: 2px;
-    height: 100%;
+    height: 94%;
     background: #c5c5c5;
-    top: 20px;
+    top: 64px;
+}
+
+.timeline ul li.start .time {
+    background-color: rgb(4, 117, 247) !important;
+    box-shadow: 0 0 0 3px rgb(0, 70, 150) !important;
+}
+
+.timeline ul li.end .time {
+    background-color: rgb(252, 56, 56) !important;
+    box-shadow: 0 0 0 3px rgb(223, 0, 0) !important;
 }
 
 .timeline ul {
@@ -25,7 +36,7 @@
     list-style: none;
     position: relative;
     width: 50%;
-    padding: 20px 40px;
+    padding: 20px 20px;
     box-sizing: border-box;
 }
 
@@ -74,19 +85,36 @@
     margin: 0;
     color: var(--main-color);
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    font-family: 'Public Sans', sans-serif !important;
 }
 
 .timeline ul li p {
-    margin: 10px 0 0;
+    margin: 5px 0 0;
     padding: 0;
     font-size: 0.85rem;
+    font-family: 'Public Sans', sans-serif !important;
+}
+
+.timeline ul li p small {
+    margin: 5px 0 0;
+    padding: 0;
+    font-size: 0.85rem;
+    font-family: 'Public Sans', sans-serif !important;
+    line-height: 18px;
+    color: #111;
 }
 
 .timeline ul li .time h4 {
     margin: 0;
     padding: 0;
     font-size: 0.85rem;
+    font-family: 'Public Sans', sans-serif !important;
+}
+
+.timeline ul li:nth-child(odd).end .time,
+.timeline ul li:nth-child(odd).start .time {
+    right: -85px !important;
 }
 
 .timeline ul li:nth-child(odd) .time {
@@ -99,6 +127,11 @@
     color: #fff;
     border-radius: 18px;
     box-shadow: 0 0 0 3px var(--main-dark-color);
+}
+
+
+.timeline ul li:nth-child(even).end .time {
+    left: -89px !important;
 }
 
 .timeline ul li:nth-child(even) .time {
@@ -127,7 +160,13 @@
 
     .timeline:before {
         left: 20px;
-        height: 99%;
+        height: 95.8%;
+        top: 20px;
+    }
+
+    .timeline ul li.start .time,
+    .timeline ul li.end .time {
+        width: fit-content !important;
     }
 
     .timeline ul li:nth-child(odd),
