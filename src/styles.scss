@@ -431,3 +431,36 @@ a {
 .officer-table table tbody tr td:nth-child(8) {
     text-align: center !important;
 }
+
+@media only screen and (max-width: 600px) {
+    .page-header {
+        background-image: url('assets/images/page-bg.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+    }
+
+    .page-header .page-name {
+        color: #fff;
+        text-transform: capitalize;
+        font-size: 1.5rem;
+    }
+
+    .page-header .breadcrumb {
+        margin: 0;
+        font-size: 0.85rem;
+        color: #fff;
+    }
+
+    .page-header .breadcrumb-item+.breadcrumb-item::before,
+    .page-header .breadcrumb .breadcrumb-item,
+    .page-header .breadcrumb .breadcrumb-item a {
+        color: #fff;
+        text-decoration: none;
+    }
+}
