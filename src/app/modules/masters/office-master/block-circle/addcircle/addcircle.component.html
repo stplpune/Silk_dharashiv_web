@@ -107,24 +107,24 @@
     <ul class="list-group list-group-flush">
       <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
         <div class="form-label mb-0">{{'common.State'|translate}} </div>
-        <div class="form-data">{{lang == 'en' ? (data?.state || '-') : (data?.m_State || '-')}}</div>
+        <div class="form-data">: {{lang == 'en' ? (data?.state || '-') : (data?.m_State || '-')}}</div>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
         <div class="form-label mb-0">{{'common.District'|translate}} </div>
-        <div class="form-data">{{lang == 'en' ? (data?.district || '-') : (data?.m_District || '-')}}</div>
+        <div class="form-data">: {{lang == 'en' ? (data?.district || '-') : (data?.m_District || '-')}}</div>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
         <div class="form-label mb-0">{{'common.Taluka'|translate}}</div>
         <div class="form-data">
           <span *ngFor="let taluka of data.getTalukaModel">
-            {{lang == 'en' ? (taluka?.taluka || '-'): (taluka?.m_Taluka || '-')}},
+           : {{lang == 'en' ? (taluka?.taluka || '-'): (taluka?.m_Taluka || '-')}},
           </span>
         </div>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
         <div class="form-label mb-0">{{'talukaBlock.block_name'|translate}}</div>
         <div class="form-data">
-          {{lang == 'en' ? ( data?.blockName || '-'): (data?.m_BlockName ||'-' )}}
+          : {{lang == 'en' ? ( data?.blockName || '-'): (data?.m_BlockName ||'-' )}}
         </div>
       </li>
     </ul>
