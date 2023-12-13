@@ -143,8 +143,8 @@ export class CreateManaregaAppComponent {
       //   this.router.navigate(['../application']);
       //   this.commonMethod.snackBar('Something went wrong please try again', 1);
       // }
-
-     this.getPreviewData1('edit',spliteUrl[0]);
+      
+      this.getPreviewData1('edit',spliteUrl[0]);
       
   
     }
@@ -163,8 +163,8 @@ export class CreateManaregaAppComponent {
       "farmerId": [data?.farmerId || 10],
       "schemeTypeId": [1],
       "applicationNo": [data?.applicationNo || ''],
-      "mobileNo1": [data?.mobileNo1 || ''],
-      "aadharNo": [data?.aadharNo || ''],
+      "mobileNo1": [data?.mobileNo1 || '',[Validators.required,this.validation.maxLengthValidator(10),Validators.pattern(this.validation.mobile_No)]],
+      "aadharNo": [data?.aadharNo || '',[Validators.required,this.validation.maxLengthValidator(12),Validators.pattern(this.validation.aadhar_card)]],
       // "profilePhotoPath": ['',[Validators.required]],
       "mn_DepartmentId": [data?.mn_DepartmentId || ''],
       "fullName": [data?.fullName || '',[Validators.required,this.validation.minLengthValidator(5),this.validation.maxLengthValidator(100),Validators.pattern(this.validation.fullName)]],
@@ -308,7 +308,7 @@ getDocumentsWithDocId7() {  //preview other docment
     else {
       let obj = {
         "id": 0,
-        "applicationId":this.manaregaFrm.getRawValue()?.id,//remove 0
+        "applicationId":this.manaregaFrm.getRawValue()?.id || 0,//remove 0
         "docTypeId":7,
         "docNo":uploadFrmValue.docNo,
         "docname": uploadFrmValue.docname,
@@ -529,7 +529,7 @@ onEdit(data?:any){
         this.docArray[i].id = item.id
         this.docArray[i].docPath = item.documentPath
       } else {
-        if (item.docId == 7) { // 7 is other doc
+        if (item.docTypeId == 7) { // 7 is other doc
           let checkValue =  this.OtherDocUploadImg.some((ele:any)=>ele.id == item.id)
           !checkValue ? this.OtherDocUploadImg.push(item): '';
          }
@@ -692,7 +692,7 @@ onEdit(data?:any){
             (res.responseData  && flag == 'challan')? this.handleClick(res):"";
             this.commonMethod.snackBar(res.statusMessage, 0);
             this.viewMsgFlag=false; 
-            this.router.navigate(['../application']); 
+            flag == 'challan'? this.router.navigate(['../application']) : ''; 
             
             // this.dialogRef.close('Yes');
             // this.clearMainForm();

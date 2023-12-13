@@ -23,7 +23,7 @@ export class TechnicalEstimateComponent {
   estimateArray = new Array();
   estimateSkillArray = new Array();
   routingData: any;
-  applicationId: any;
+  actionID: any;
   year1Obj: any;
   year2Obj: any;
   year3Obj: any;
@@ -57,7 +57,7 @@ export class TechnicalEstimateComponent {
   skillYr2obj: any;
   skillYr3obj: any;
   acceptTermsValue!: boolean;
-  bindTableDiv:any;
+  bindTableDiv: any;
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -69,17 +69,17 @@ export class TechnicalEstimateComponent {
     ) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.routingData = params.get('data');
+    this.route.queryParams.subscribe((queryParams: any) => {
+      this.routingData = queryParams['id'];
     });
     let id = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
-    this.applicationId = id
-    this.getEstimateData();
-    this.getAnotherEstimateData();
+    this.actionID = id;
+    // this.getEstimateData();
+    // this.getAnotherEstimateData();
   }
 
   getEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId=' + this.actionID, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -156,7 +156,7 @@ export class TechnicalEstimateComponent {
   }
 
   getAnotherEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId=' + this.actionID, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -203,7 +203,7 @@ export class TechnicalEstimateComponent {
 
   generate_PDF() {
     let html = this.bindTableDiv;
-    let obj = { htmlData:html, };
+    let obj = { htmlData: html, };
     this.apiService.setHttp('POST', 'api/TechnicalEstimate/Generate-PDF', false, obj, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -221,4 +221,7 @@ export class TechnicalEstimateComponent {
     });
   }
 
+  print() {
+
+  }
 }

@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -34,7 +34,7 @@ export class ApprovalProcessManaregaComponent {
   applicationId: any;
   dataSource: any = new Array()
   displayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action'];
-  displayedColumn: string[] = ['srNo','plantName', 'gutNo', 'gutArea', 'plantCultivatedArea','noOfPlant'];
+  displayedColumn: string[] = ['srNo', 'plantName', 'gutNo', 'gutArea', 'plantCultivatedArea', 'noOfPlant'];
   approvalStatus: any = new Array()
   otherDocArray: any = new Array()
   displayColumnRemark: string[] = ['sr_no', 'actionName', 'designationName', 'status', 'modifiedDate', 'remark', 'action'];
@@ -76,7 +76,7 @@ export class ApprovalProcessManaregaComponent {
     let url = this.router.url;
     let appProVal = (spliteUrl[2] == 'm') && (url.split('?')[0] == '/approval-process-manarega');
     if (!appProVal) {
-      
+
       this.router.navigate(['../application']);
       this.commonMethod.snackBar('Something went wrong please try again', 1);
     }
@@ -122,7 +122,7 @@ export class ApprovalProcessManaregaComponent {
           this.appDataClonedArray = JSON.parse(JSON.stringify(res.responseData))
           this.applicationData = res.responseData;
           this.applicantDetails = this.applicationData?.applicationModel;
-         // this.openEstimateDetails(res.responseData);
+          // this.openEstimateDetails(res.responseData);
           res.responseData.allApplicationApproval.map((ele: any) => {
             res.responseData.allApprovalDocument.find((item: any) => {
               ele.uploadDocTypeId == item.docTypeId ? (ele.documnetApprovalPath = item?.docPath) : ''
@@ -386,34 +386,34 @@ export class ApprovalProcessManaregaComponent {
     // ele.docPath ? this.imageData = ele.docPath:'';
   }
 
-  deleteOtherDocument(i: any, element:any) {
-    if(element.id == 0){
-      this.pushOtherDocArray.splice(i,1)
-    }else{
+  deleteOtherDocument(i: any, element: any) {
+    if (element.id == 0) {
+      this.pushOtherDocArray.splice(i, 1)
+    } else {
       this.pushOtherDocArray[i].isDeleted = true;
     }
     this.updateMatTable();
   }
 
-updateMatTable(){
-  let array: any = [];
-  this.pushOtherDocArray.map((ele: any) => {
-    if (!ele.isDeleted) {
-      array.push(ele)
-    }
-  });
-  this.otherDocArray = new MatTableDataSource(array);
-}
+  updateMatTable() {
+    let array: any = [];
+    this.pushOtherDocArray.map((ele: any) => {
+      if (!ele.isDeleted) {
+        array.push(ele)
+      }
+    });
+    this.otherDocArray = new MatTableDataSource(array);
+  }
 
   //#endregion -----------------------------------------------------------other doc section end heare ---------------------------------//
 
-   
+
   generate_PDF() {
     this.spinner.show();
     let obj = {
       ApplicationId: this.applicationId
     }
-  
+
     this.apiService.setHttp('POST', 'api/TechnicalEstimate/Generate-PDF', false, obj, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -426,7 +426,7 @@ updateMatTable(){
             "docTypeId": this.applicationData.uploadDocTypeId,
             "documentType": "",
             "docNo": "",
-            "docPath":  res.responseData,
+            "docPath": res.responseData,
             "isVerified": false
           }
           this.uploadedDepDoc = obj;
@@ -452,36 +452,36 @@ updateMatTable(){
     } else if ((approvalFrmVal.applicationStatus == 11 || approvalFrmVal.applicationStatus == 5) && !approvalFrmVal?.reason) {
       this.commonMethod.snackBar('Application reason is  required', 1);
       return
-    } 
-    else if(!approvalFrmVal?.remark){
+    }
+    else if (!approvalFrmVal?.remark) {
       this.commonMethod.snackBar('Application remark is  required', 1);
       return
     }
     else if (this.actionNameLabel && !this.uploadedDepDoc && this.applicationData?.isEdit && approvalFrmVal.applicationStatus == 12) {
       // actionId == 2 is Gramcommittee Approval	Gram Sevak
-      this.commonMethod.snackBar(this.applicationData?.actionId == 2 ? this.actionNameLabel + ' document is required' : 'Generate '+this.actionNameLabel +' document' , 1);
+      // this.commonMethod.snackBar(this.applicationData?.actionId == 2 ? this.actionNameLabel + ' document is required' : 'Generate '+this.actionNameLabel +' document' , 1);
+      this.commonMethod.snackBar(this.actionNameLabel + ' document is required', 1);
       return;
     }
     else {
-      return
       let newUploadedDoc: any = [];
       let mergeArray: any;
       mergeArray = [...this.pushAppDocArray, ...this.pushOtherDocArray];
 
       mergeArray.find((ele: any) => {
-        if(this.appDataClonedArray?.allDocument.length){
+        if (this.appDataClonedArray?.allDocument.length) {
           this.appDataClonedArray?.allDocument.find((item: any) => { //1 is other doc
             if (ele.docTypeId == 1 && ((item.id == ele.id && ele?.docPath != item.docPath) || (ele.id != 0 && ele.isDeleted) || (ele.id == 0 && !ele.isDeleted))) {
               if (!newUploadedDoc.length) {
                 newUploadedDoc.push(ele)
               } else {
-                let checkPrevValue = newUploadedDoc.some((i: any) => {return  i.id == ele.id && i?.documentType == ele.documentType && i?.docNo == ele.docNo});
+                let checkPrevValue = newUploadedDoc.some((i: any) => { return i.id == ele.id && i?.documentType == ele.documentType && i?.docNo == ele.docNo });
                 checkPrevValue == '-1' || !checkPrevValue ? newUploadedDoc.push(ele) : '';
               }
             }
           })
-        }else{
-          newUploadedDoc.push(ele) 
+        } else {
+          newUploadedDoc.push(ele)
         }
       });
       this.actionNameLabel && this.uploadedDepDoc && this.applicationData?.isEdit ? newUploadedDoc.push(this.uploadedDepDoc) : '';//uploaded  Department Document
@@ -550,5 +550,15 @@ updateMatTable(){
     this.getByApplicationId();
     this.formDirective.resetForm();
     this.formDirectives.resetForm();
+  }
+
+  viewPdf() {
+    let data: any = this.encryptdecrypt.encrypt(this.applicationData?.actionId.toString());
+    // this.router.navigate(['../technical-estimate'], {
+    //   queryParams: {
+    //     id: data
+    //   },
+    // })
+    window.open('technical-estimate?id='+data, '_blank')
   }
 }
