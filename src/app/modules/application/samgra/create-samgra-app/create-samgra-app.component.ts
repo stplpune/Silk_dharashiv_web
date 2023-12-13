@@ -108,8 +108,10 @@ export class CreateSamgraAppComponent {
   ) {
     this.dateAdapter.setLocale('en-GB');
     let Id: any;
+    let value : any;
     this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
-    this.samgraId = +this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
+    value = this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
+    this.samgraId = value.split('.');  
   }
 
   ngOnInit() {
@@ -424,7 +426,6 @@ export class CreateSamgraAppComponent {
 
     let setValArray = ['docname', 'checkOtherDocumentTable'];
     this.checkOtherDocumentFlag ? this.clearValidation(setValArray, this.fdp) : this.setValidation(setValArray, this.fdp);
-
     // return
     let samgraFormValue = this.samgraForm.getRawValue();
     let landDetailsFormValue = this.landDetailsForm.value;
@@ -570,6 +571,7 @@ export class CreateSamgraAppComponent {
         if (existedRecord && !obj) {
           this.commonMethod.snackBar("this  Crop already exist", 1)
         } else {
+          // let formvalue = {result}
           obj ? (this.currentCropDetailsArray[index] = result, this.commonMethod.snackBar("Update successfully", 0)) : (this.currentCropDetailsArray.push(result), this.commonMethod.snackBar("Add successfully", 0));
         }
         this.dataSource = new MatTableDataSource(this.currentCropDetailsArray);
@@ -612,8 +614,6 @@ export class CreateSamgraAppComponent {
       this.clearValidation(setValArray, this.fIS);
       value == true ? this.setValidation(setValArray, this.fIS) : this.clearValidation(setValArray, this.fIS);
     } else if (flag == 'AnyPlantedBefor') {
-      console.log("log enter anyPlanted before ");
-      console.log("value ", value);
       setValArray = ['sm_YearOfPlanting', 'sm_CultivatedArea', 'sm_LandSurveyNo']
       this.setValidation(setValArray, this.fL);
       this.clearValidation(setValArray, this.fL);
@@ -673,7 +673,6 @@ export class CreateSamgraAppComponent {
   }
 
   deleteInternalSchemes(index: any, flag?: any) {
-    console.log("falg", flag);
     if (flag == 'currentCropDetails') {
       this.currentCropDetailsArray.splice(index, 1)
       this.dataSource = new MatTableDataSource(this.currentCropDetailsArray);
@@ -693,7 +692,7 @@ export class CreateSamgraAppComponent {
       next: (res: any) => {
         if (res.statusCode == 200) {
           this.spinner.hide();
-          flag == 'otherDoc' ? this.uploadedDocUrl = res.responseData : flag == 'profilePhoto' ? this.profileImageUrl = res.responseData : (this.docArray[indexByDocId].docPath = res.responseData, this.clearDocumentValidation());
+          flag == 'otherDoc' ? this.uploadedDocUrl = res.responseData : flag == 'profilePhoto' ? this.profileImageUrl = res.responseData : (this.docArray[indexByDocId].docPath = res.responseData,this.docArray[indexByDocId].isDeleted = false, this.clearDocumentValidation());
           this.commonMethod.snackBar(res.statusMessage, 0)
         }
       },
@@ -733,7 +732,7 @@ export class CreateSamgraAppComponent {
       id: 0,
       docTypeId: 7,
       docPath: this.uploadedDocUrl,
-      docNo: formValue.docNo || '',
+      docNo: formValue?.docNo || '',
       docname: formValue.docname,
       isDeleted : false
     }
@@ -751,7 +750,6 @@ export class CreateSamgraAppComponent {
 
   deleteOtherDoc(index: any) {
     this.otherDocArray.splice(index, 1)
-    // this.otherDocArray[index].isDeleted = true;
     this.dataSource2 = new MatTableDataSource(this.otherDocArray);
     !this.otherDocArray.length ? this.checkOtherDocumentFlag = false : '';
   }
@@ -760,7 +758,7 @@ export class CreateSamgraAppComponent {
     this.EditFlag = true
     let filterformvalue = this.filterForm.value;
 
-    this.apiService.setHttp('get', `sericulture/api/Application/application-preview?Id=${this.samgraId || 0}&AadharNo=${filterformvalue?.filterAddharNo || ''}&MobileNo=${filterformvalue?.filterMobileNo || ''}&lan=en`, false, false, false, 'masterUrl');
+    this.apiService.setHttp('get', `sericulture/api/Application/application-preview?Id=${+this.samgraId[0] || 0}&AadharNo=${filterformvalue?.filterAddharNo || ''}&MobileNo=${filterformvalue?.filterMobileNo || ''}&lan=en`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200") {
@@ -793,13 +791,17 @@ export class CreateSamgraAppComponent {
           this.docArray[i].id = item.id
           this.docArray[i].docPath = item.documentPath
         } else {
-          // if (item.docId == 7) { // 7 is other doc
-          //   let obj = { id: item.id, docTypeId: 7, docPath: item.documentPath, docNo: item.docPath, docname: item.documentName }
-          //   this.otherDocArray.push(obj);
-          // }
+          if (item.docId == 7) { // 7 is other doc
+             let existingValue =  this.otherDocArray.find((ele:any)=>ele.id == item.id)          
+            let obj = { id: item.id, docTypeId: 7, docPath: item.documentPath, docNo: item?.docNo || '', docname: item.documentName ,isDeleted : false }
+            !existingValue ? this.otherDocArray.push(obj) : '';
+            this.showOtherDoc = true;
+          }
         }
       })
     })
+    this.dataSource2 = new MatTableDataSource(this.otherDocArray);
+
     this.checkedItems.map((ele: any) => {
       ele['textEnglish'] = ele.categoryOfBeneficiary;
       ele['textMarathi'] = ele.m_CategoryOfBeneficiary;
@@ -807,7 +809,6 @@ export class CreateSamgraAppComponent {
   }
 
   checkBockCheck(event: any, flag: any) {
-    console.log("checkboxevent", event);
     if (flag == 'PlantNewMulberries') {
       !event.checked ? this.fSD['sm_IsReadyToPlantNewMulberries'].setValue('') : '';
     } else if (flag == 'HonestlyProtectPlan') {
