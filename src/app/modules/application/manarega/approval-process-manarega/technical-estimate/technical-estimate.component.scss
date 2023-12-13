@@ -1,30 +1,37 @@
+// CSS for Technical Estimate
 #report3 h4 {
     font-weight: 800;
     font-size: 1.1rem;
     margin-bottom: 3px;
 }
+
 #report3 h5 {
     font-weight: 700;
     font-size: 0.95rem;
     margin-bottom: 3px;
 }
+
 #report3 h6 {
     font-weight: 600;
     font-size: 0.85rem;
     margin-bottom: 3px;
 }
+
 #report3 p {
     font-size: 0.75rem;
     margin-bottom: 5px;
 }
+
 #report3 .table3 {
     font-size: 10pt;
     width: 100%;
 }
+
 #report3 .table31 {
     font-size: 10pt;
     width: 30%;
 }
+
 #report4 .table4 th,
 #report4 .table41 th,
 #report3 .table3 th,
@@ -35,18 +42,23 @@
 #report3 .table31 td {
     padding-block: 3px;
 }
+
 #report3 .table31 td {
     text-align: center;
 }
+
 #report3 .table3 tr th:nth-child(1) {
     width: 30px;
-}s
-#report3 .table3 tr th:nth-child(n+3) {
+}
+
+s #report3 .table3 tr th:nth-child(n+3) {
     width: 50px;
 }
+
 #report3 .table31 tr th:nth-child(n+2) {
     width: 50px;
 }
+
 #report4 .table4,
 #report4 .table41 {
     font-size: 10pt;
@@ -54,94 +66,94 @@
 }
 
 
-// CSS for Tantrik Manjuri Aadesh (Technical Approval Order)
-// #tao {
-//     width: 100%;
-//     border: solid 1px #353535;
-// }
+// CSS for Technical Sanction
+#tao {
+    width: 100%;
+    border: solid 1px #353535;
+}
 
-// #tao .letterhead {
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     padding: 10px;
-//     column-gap: 15px;
-// }
+#tao .letterhead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    column-gap: 15px;
+}
 
-// #tao .letterhead .letter-text {
-//     text-align: center;
-//     width: 100%;
-// }
+#tao .letterhead .letter-text {
+    text-align: center;
+    width: 100%;
+}
 
-// #tao .letterhead img {
-//     height: 80px;
-// }
+#tao .letterhead img {
+    height: 80px;
+}
 
-// #tao .letterhead h4 {
-//     font-size: 1.2rem;
-//     font-weight: 600;
-// }
+#tao .letterhead h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
 
-// #tao .letterhead h6 {
-//     font-size: 0.95rem;
-//     font-weight: 600;
-// }
+#tao .letterhead h6 {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
 
-// #tao .letterhead p {
-//     font-size: 0.9rem;
-//     margin-bottom: 0;
-//     display: flex;
-//     justify-content: space-between;
-// }
+#tao .letterhead p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+}
 
-// #tao .letter-bg {
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     background-color: #555;
-//     color: #fff;
-//     font-size: 10pt;
-//     padding: 10px;
-// }
+#tao .letter-bg {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #555;
+    color: #fff;
+    font-size: 10pt;
+    padding: 10px;
+}
 
-// #tao .letter-content {
-//     padding: 15px;
-//     font-size: 10pt;
-// }
+#tao .letter-content {
+    padding: 15px;
+    font-size: 10pt;
+}
 
-// #tao .letter-content h4 {
-//     text-align: center;
-//     margin-bottom: 2rem;
-//     font-weight: 600;
-//     font-size: 1.2rem;
-// }
+#tao .letter-content h4 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
 
-// #tao .report-table {
-//     width: 100%;
-//     border: 1px solid #aaa;
-//     border-collapse: collapse;
-//     margin-bottom: 1rem;
-// }
+#tao .report-table {
+    width: 100%;
+    border: 1px solid #aaa;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
 
-// #tao .report-table th,
-// #tao .report-table td {
-//     border: 1px solid #aaa;
-//     border-collapse: collapse;
-//     text-align: center;
-//     padding: 5px;
-// }
+#tao .report-table th,
+#tao .report-table td {
+    border: 1px solid #aaa;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 5px;
+}
 
-// #tao .bottom {
-//     display: flex;
-//     flex-direction: column;
-//     margin-top: 3rem;
-//     row-gap: 30px;
-//     align-items: flex-end;
-//     font-weight: 600;
-// }
+#tao .bottom {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+    row-gap: 30px;
+    align-items: flex-end;
+    font-weight: 600;
+}
 
 
-// Administrative Approval Letter
+// CSS for Administrative Approval Letter
 #aal {
     font-size: 10pt;
     width: 100%;
@@ -227,4 +239,86 @@
     font-size: 10pt;
     font-weight: 600;
     margin-top: 3rem;
+}
+
+// CSS for Work Order Letter AND Geo Tagging Work Code Generate
+#geo .geo-head,
+#wol .wol-head {
+    text-align: center;
+}
+
+#geo .geo-head,
+#wol .wol-head {
+    border-bottom: solid 1px #aaa;
+}
+
+#geo .geo-head h4,
+#wol .wol-head h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+#geo .geo-head h6,
+#wol .wol-head h6 {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+#geo .geo-head .geo-contact,
+#wol .wol-head .wol-contact {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10pt;
+    padding-bottom: 5px;
+}
+
+#geo .geo-serial,
+#wol .wol-serial {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10pt;
+    margin-top: 10px;
+}
+
+#geo .geo-content,
+#wol .wol-content {
+    font-size: 10pt;
+}
+
+#geo .geo-content .sec-head,
+#wol .wol-content .sec-head {
+    font-weight: 600;
+}
+
+#geo .geo-content ol,
+#geo .geo-content p,
+#wol .wol-content ol,
+#wol .wol-content p {
+    line-height: 18pt;
+    text-align: justify;
+    margin-bottom: 10px;
+}
+
+#geo table,
+#wol table {
+    width: 100%;
+    margin-bottom: 10px;
+    border-collapse: collapse;
+}
+
+#geo table th,
+#geo table td,
+#wol table th,
+#wol table td {
+    border: solid 1px #aaa;
+    text-align: center;
+    padding-block: 3px;
+}
+
+#geo .sign,
+#wol .sign {
+    display: flex;
+    justify-content: end;
+    font-weight: 600;
+    margin-block: 3rem;
 }
