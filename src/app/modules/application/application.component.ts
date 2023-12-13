@@ -112,7 +112,7 @@ export class ApplicationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.schemeFilterArr.unshift({ id: 0, textEnglish: "All Scheme", textMarathi: "सर्व योजना" }, ...res.responseData);
-          this.spliteUrlData ? this.filterFrm.controls['schemeTypeId'].setValue(+this.filterFrm.getRawValue().schemeTypeId) : '';
+          this.spliteUrlData ? (this.filterFrm.controls['schemeTypeId'].setValue(+this.filterFrm.getRawValue().schemeTypeId), this.getAction()) : '';
 
         } else {
           this.schemeFilterArr = [];
