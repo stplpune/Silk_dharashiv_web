@@ -306,7 +306,7 @@ export class ApplicationComponent {
   openTracKComp(obj: any) {
     this.dialog.open(TrackApplicationComponent, {
       data: obj,
-      width: '40%',
+      width: '50%',
       disableClose: false,
     });
   }
