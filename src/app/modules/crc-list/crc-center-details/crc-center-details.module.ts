@@ -11,12 +11,14 @@ import { CrcChawkiOrderComponent } from './crc-chawki-order/crc-chawki-order.com
 import { CrcChawkiOrderDetailsComponent } from './crc-chawki-order-details/crc-chawki-order-details.component';
 import { ChowkiOrderDetailsComponent } from './crc-chawki-order/chowki-order-details/chowki-order-details.component';
 import { MatButtonModule } from '@angular/material/button';
+import { GrainageOrderDetailsComponent } from './crc-grainage-order/grainage-order-details/grainage-order-details.component';
 
 
 @NgModule({
   declarations: [
     CrcCenterDetailsComponent,
-    ChowkiOrderDetailsComponent
+    ChowkiOrderDetailsComponent,
+    GrainageOrderDetailsComponent
   ],
   imports: [
     CommonModule,
