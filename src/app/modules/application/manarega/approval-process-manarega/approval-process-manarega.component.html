@@ -805,8 +805,8 @@
       <div class="card-body">
         <form [formGroup]="approvalFrm" (ngSubmit)="onSubmitApprovalDetails()" #formDirectives="ngForm">
           <div class="row g-2">
-            <div class="col-sm-auto">
-              <div class="d-flex gap-2">
+            <div class="col-sm-12">
+              <div class="d-flex gap-2 align-items-start">
                 <div>
                   <label class="form-label">{{'approvalProcess.select_status'| translate}}</label>
                   <mat-form-field appearance="outline" class="w-100">
@@ -826,8 +826,9 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-              </div>
-              <div class="file-upload border rounded-2 p-1"
+                <button  mat-flat-button class="btn-main mt-md-4" type="button"  *ngIf="applicationData?.uploadDocTypeId !=0 && approvalFrm.value.applicationStatus == 12"  (click)="viewPdf()">{{actionNameLabel}} Document</button>
+              
+                <div class="file-upload border rounded-2 p-1 mt-md-4 gap-2"
                 *ngIf="applicationData?.uploadDocTypeId !=0 && approvalFrm.value.applicationStatus == 12">
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
                   data-placement="right" (click)="uploadDepDocument.value=''; uploadDepDocument.click()">
@@ -849,7 +850,8 @@
                   </button>
                 </div>
               </div>
-              <button  mat-flat-button class="btn-main-light" type="button"  *ngIf="applicationData?.uploadDocTypeId !=0 && approvalFrm.value.applicationStatus == 12"  (click)="viewPdf()">Generate PDF</button>
+              
+              </div>
               <!-- <ng-container *ngIf="applicationData?.actionId != 2 && approvalFrm.value.applicationStatus == 12">
                 <button mat-flat-button class="btn-main" type="button" (click)="generate_PDF()" [disabled]="uploadedDepDoc?.docPath">
                   Generate {{actionNameLabel}} Doc
@@ -866,7 +868,7 @@
               </ng-container> -->
             </div>
 
-            <div class="col-sm">
+            <div class="col-sm-12">
               <label class="form-label"> {{'common.remark'| translate}}</label>
               <mat-form-field appearance="outline" class="w-100">
                 <textarea matInput placeholder="" formControlName="remark"
