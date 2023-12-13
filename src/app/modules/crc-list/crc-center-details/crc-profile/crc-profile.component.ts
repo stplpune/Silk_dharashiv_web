@@ -14,6 +14,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-crc-profile',
@@ -35,7 +36,7 @@ export class CrcProfileComponent {
   tableDataArray:any;
   subscription!: Subscription;
   lang: string = 'English';
-  data:any;
+  routingData:any;
   constructor
   (
     private apiService: ApiService,
@@ -43,6 +44,8 @@ export class CrcProfileComponent {
     private errorHandler: ErrorHandlingService,
     private commonMethod: CommonMethodsService,
     public WebStorageService: WebStorageService,
+    private route: ActivatedRoute
+
   ){}
 
   ngOnInit(){
@@ -51,6 +54,11 @@ export class CrcProfileComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
     this.getTableDataById();
+    this.route.paramMap.subscribe(params => {
+      this.routingData = params.get('data');
+    });
+    console.log('this.routingData',this.routingData);
+    
   }
 
   // sericulture/api/CRCCenter/get-crc-center-profile?Id=1
@@ -58,7 +66,7 @@ export class CrcProfileComponent {
   getTableDataById(){
     this.spinner.show();
     
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/get-crc-center-profile?Id='+this.data?.id, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/get-crc-center-profile?Id=', false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
