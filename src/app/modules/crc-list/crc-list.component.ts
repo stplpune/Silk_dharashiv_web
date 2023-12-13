@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -44,8 +44,7 @@ export class CRCListComponent {
       private errorHandler: ErrorHandlingService,
       public validation: ValidationService,
       public dialog: MatDialog,
-      private router: Router,
-      private route:ActivatedRoute
+      private router: Router
 
   ) { }
 
@@ -184,7 +183,7 @@ export class CRCListComponent {
 
  viewCRCList(obj?: any) {
   console.log('obj',obj);
-  this.router.navigate(['crc-profile'], {relativeTo:this.route});
+  this.router.navigate(['crc-profile'], { queryParams: { data: obj } });
   }
 
   openBlockDialog(obj?: any) {
