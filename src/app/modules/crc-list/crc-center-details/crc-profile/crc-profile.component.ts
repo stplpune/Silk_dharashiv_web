@@ -24,6 +24,6 @@ import { MatTableModule } from '@angular/material/table';
   templateUrl: './crc-profile.component.html',
   styleUrls: ['./crc-profile.component.scss']
 })
-export class CRCProfileComponent {
+export class CrcProfileComponent {
 
 }

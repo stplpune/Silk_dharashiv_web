@@ -86,29 +86,6 @@ export class ApprovalProcessManaregaComponent {
     this.addDefaultFrm();
     this.addApprovalFrm();
   }
- 
-  generate_PDF() {
-    let obj = {
-      ApplicationId: this.applicationId
-    }
-    console.log(obj);
-    return
-    this.apiService.setHttp('POST', 'api/TechnicalEstimate/Generate-PDF', false, obj, false, 'masterUrl');
-    this.apiService.getHttp().subscribe({
-      next: (res: any) => {
-        this.spinner.hide();
-        if (res.statusCode == '200') {
-        } else {
-          this.spinner.hide();
-          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
-        }
-      },
-      error: (err: any) => {
-        this.spinner.hide();
-        this.errorHandler.handelError(err.status);
-      },
-    });
-  }
 
   addApprovalFrm() {
     this.approvalFrm = this.fb.group({
@@ -430,6 +407,43 @@ updateMatTable(){
 
   //#endregion -----------------------------------------------------------other doc section end heare ---------------------------------//
 
+   
+  generate_PDF() {
+    this.spinner.show();
+    let obj = {
+      ApplicationId: this.applicationId
+    }
+  
+    this.apiService.setHttp('POST', 'api/TechnicalEstimate/Generate-PDF', false, obj, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == '200') {
+          this.spinner.hide();
+          let obj = {
+            "id": 0,
+            "applicationId": this.applicationData.applicationId,
+            "docTypeId": this.applicationData.uploadDocTypeId,
+            "documentType": "",
+            "docNo": "",
+            "docPath":  res.responseData,
+            "isVerified": false
+          }
+          this.uploadedDepDoc = obj;
+          this.deleteImage();
+        } else {
+          this.spinner.hide();
+          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
+        }
+      },
+      error: (err: any) => {
+        this.spinner.hide();
+        this.errorHandler.handelError(err.status);
+      },
+    });
+  }
+
+
   onSubmitApprovalDetails() {
     let approvalFrmVal = this.approvalFrm.getRawValue();
     if (!approvalFrmVal?.applicationStatus) {
@@ -444,10 +458,12 @@ updateMatTable(){
       return
     }
     else if (this.actionNameLabel && !this.uploadedDepDoc && this.applicationData?.isEdit && approvalFrmVal.applicationStatus == 12) {
-      this.commonMethod.snackBar(this.actionNameLabel + ' document is required', 1);
+      // actionId == 2 is Gramcommittee Approval	Gram Sevak
+      this.commonMethod.snackBar(this.applicationData?.actionId == 2 ? this.actionNameLabel + ' document is required' : 'Generate '+this.actionNameLabel +' document' , 1);
       return;
     }
     else {
+      return
       let newUploadedDoc: any = [];
       let mergeArray: any;
       mergeArray = [...this.pushAppDocArray, ...this.pushOtherDocArray];
