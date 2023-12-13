@@ -221,7 +221,13 @@ export class TechnicalEstimateComponent {
     });
   }
 
-  print() {
-
+  // (click)="print('report3')"
+  print(divName?: any) {
+    let doc: any = document.getElementById(divName);
+    const printContents = doc.innerHTML;
+    const originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
   }
 }
