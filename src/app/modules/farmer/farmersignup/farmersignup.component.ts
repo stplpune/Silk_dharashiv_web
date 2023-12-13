@@ -178,7 +178,10 @@ export class FarmersignupComponent {
       "profileImagePath": "",
       "userTypeId": 1,
       "createdBy": 0,
-      "flag": "i"
+      "flag": "i",
+      certificateExpiryDate:new Date(),
+      certificateIssueDate: new Date(),
+      certificatePath: "",
     }
 
     let postObj = {...obj, ...formValue};
@@ -187,7 +190,7 @@ export class FarmersignupComponent {
       if (res.statusCode == "200") {
         this.spinner.hide();
         this.commonMethods.snackBar(res.statusMessage, 0);
-        this.router.navigate(['/login']);
+        this.router.navigate(['farmer-login']);
       }
       else {
         this.spinner.hide();
