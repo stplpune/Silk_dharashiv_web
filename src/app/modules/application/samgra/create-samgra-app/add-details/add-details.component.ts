@@ -50,7 +50,7 @@ export class AddDetailsComponent {
       "netIncome": ['' || this.data?.netIncome,[Validators.required,Validators.maxLength(10),Validators.pattern(this.validation.onlyNumbers)]],
       "acreNetIncome": ['' || this.data?.acreNetIncome,[Validators.required,Validators.maxLength(10),Validators.pattern(this.validation.onlyNumbers)]],
       "createdBy": 0,    
-      "isDeleted": true,
+      "isDeleted": false,
     })
   }
 
