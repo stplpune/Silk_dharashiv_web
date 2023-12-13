@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'approval-process-silk-samgra', loadChildren: () => import('../../modules/application/samgra/approval-process-silk-samgra/approval-process-silk-samgra.module').then(m => m.ApprovalProcessSilkSamgraModule), data: { breadcrumb: [{ title: 'Approval Process Silk Samgra', active: true }] }, canActivate: [ExpenseGuard] },
   { path: 'create-manarega-app', loadChildren: () => import('../../modules/application/manarega/create-manarega-app/create-manarega-app.module').then(m => m.CreateManaregaAppModule), data: { breadcrumb: [{ title: 'Create Manarega App', active: true }] }, canActivate: [ExpenseGuard] },
   { path: 'create-samgra-app', loadChildren: () => import('../../modules/application/samgra/create-samgra-app/create-samgra-app.module').then(m => m.CreateSamgraAppModule), data: { breadcrumb: [{ title: 'Create Samgra App', active: true }] } },
-  { path: 'technical-estimate', loadComponent: () => import('../../modules/application/manarega/approval-process-manarega/technical-estimate/technical-estimate.component').then(m => m.TechnicalEstimateComponent), data: { breadcrumb: [{ title: 'Technical Estimate', active: true }] }, canActivate: [ExpenseGuard] },
+  { path: 'technical-estimate', loadComponent: () => import('../../modules/application/manarega/approval-process-manarega/technical-estimate/technical-estimate.component').then(m => m.TechnicalEstimateComponent), data: { breadcrumb: [{ title: 'Technical Estimate', active: true }] }, canActivate: [] },
 
   //farmer
   //{ path: 'farmersignup', loadChildren: () => import('../../modules/farmer/farmersignup/farmersignup.module').then(m => m.FarmersignupModule), data: { breadcrumb: [{ title: 'Farmer Sign Up', active: true }] }, canActivate: [ExpenseGuard]  },
@@ -47,7 +47,7 @@ const routes: Routes = [
   { path: 'beneficiery-list', loadChildren: () => import('../../modules/beneficiery-list/beneficiery-list.module').then(m => m.BeneficieryListModule), data: { breadcrumb: [{ title: 'Beneficiery List', active: true }] }, canActivate: [ExpenseGuard] },
   { path: 'crc-center-details', loadChildren: () => import('../../modules/crc-list/crc-center-details/crc-center-details.module').then(m => m.CrcCenterDetailsModule), data: { breadcrumb: [{ title: 'CRC Center Details', active: true }] }, canActivate: [ExpenseGuard] },
   //Application
-  
+
   { path: 'access-denied', loadChildren: () => import('../../modules/error/error.module').then(m => m.ErrorModule), data: { breadcrumb: [{ title: 'Access Denied', active: true }] } },
 ];
 
