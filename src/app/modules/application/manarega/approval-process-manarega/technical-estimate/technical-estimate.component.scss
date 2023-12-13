@@ -241,25 +241,30 @@ s #report3 .table3 tr th:nth-child(n+3) {
     margin-top: 3rem;
 }
 
-// Work Order Letter
+// CSS for Work Order Letter AND Geo Tagging Work Code Generate
+#geo .geo-head,
 #wol .wol-head {
     text-align: center;
 }
 
+#geo .geo-head,
 #wol .wol-head {
     border-bottom: solid 1px #aaa;
 }
 
+#geo .geo-head h4,
 #wol .wol-head h4 {
     font-size: 1.2rem;
     font-weight: 600;
 }
 
+#geo .geo-head h6,
 #wol .wol-head h6 {
     font-size: 0.95rem;
     font-weight: 500;
 }
 
+#geo .geo-head .geo-contact,
 #wol .wol-head .wol-contact {
     display: flex;
     justify-content: space-between;
@@ -267,6 +272,7 @@ s #report3 .table3 tr th:nth-child(n+3) {
     padding-bottom: 5px;
 }
 
+#geo .geo-serial,
 #wol .wol-serial {
     display: flex;
     justify-content: space-between;
@@ -274,14 +280,18 @@ s #report3 .table3 tr th:nth-child(n+3) {
     margin-top: 10px;
 }
 
+#geo .geo-content,
 #wol .wol-content {
     font-size: 10pt;
 }
 
+#geo .geo-content .sec-head,
 #wol .wol-content .sec-head {
     font-weight: 600;
 }
 
+#geo .geo-content ol,
+#geo .geo-content p,
 #wol .wol-content ol,
 #wol .wol-content p {
     line-height: 18pt;
@@ -289,12 +299,15 @@ s #report3 .table3 tr th:nth-child(n+3) {
     margin-bottom: 10px;
 }
 
+#geo table,
 #wol table {
     width: 100%;
     margin-bottom: 10px;
     border-collapse: collapse;
 }
 
+#geo table th,
+#geo table td,
 #wol table th,
 #wol table td {
     border: solid 1px #aaa;
@@ -302,6 +315,7 @@ s #report3 .table3 tr th:nth-child(n+3) {
     padding-block: 3px;
 }
 
+#geo .sign,
 #wol .sign {
     display: flex;
     justify-content: end;
