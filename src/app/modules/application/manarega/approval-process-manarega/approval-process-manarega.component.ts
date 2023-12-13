@@ -86,11 +86,29 @@ export class ApprovalProcessManaregaComponent {
     this.addDefaultFrm();
     this.addApprovalFrm();
   }
-  openEstimateDetails() {
-    const sendData=this.encryptdecrypt.encrypt(`${decodeURIComponent(this.applicationData.applicationId)}`).split('.');
-    this.router.navigate(['../technical-estimate', { data: sendData }]);
+ 
+  generate_PDF() {
+    let obj = {
+      ApplicationId: this.applicationId
+    }
+    console.log(obj);
+    return
+    this.apiService.setHttp('POST', 'api/TechnicalEstimate/Generate-PDF', false, obj, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == '200') {
+        } else {
+          this.spinner.hide();
+          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
+        }
+      },
+      error: (err: any) => {
+        this.spinner.hide();
+        this.errorHandler.handelError(err.status);
+      },
+    });
   }
-
 
   addApprovalFrm() {
     this.approvalFrm = this.fb.group({

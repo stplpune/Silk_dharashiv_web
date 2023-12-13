@@ -1,4 +1,4 @@
-import { Component, Inject, Optional } from '@angular/core';
+import { Component, Inject, Optional,Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,25 +22,31 @@ import { Router } from '@angular/router';
 export class TrackApplicationComponent {
   appHistoryArray: any;
   getBaseUrl!: string;
+  @Input() childMessage: any;
 
   constructor(
     private apiService: ApiService, private spinner: NgxSpinnerService, private commonMethods: CommonMethodsService, private error: ErrorHandlingService,
     @Optional() public dialogRef: MatDialogRef<TrackApplicationComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any, private router: Router) {
     this.getBaseUrl = this.router.url;
-    this.getAppHistory(15)
+    debugger;
+   this.router.url != '/track-application' ? this.getAppHistory(data.applicationNo):'';
+  }
+
+  ngOnChanges(): void {
+    this.router.url == '/track-application' && this.childMessage ? this.getAppHistory(this.childMessage) : ''
   }
 
   getAppHistory(id: any) {
     this.spinner.show();
-    this.apiService?.setHttp('get', 'sericulture/api/ApprovalMaster/GetApprovalHistoryDetails?Id=' + id, false, false, false, 'baseUrl');
+    this.apiService?.setHttp('get', 'sericulture/api/ApprovalMaster/GetApprovalHistoryDetails?ApplicationNo=' + id, false, false, false, 'baseUrl');
     this.apiService?.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.appHistoryArray = res.responseData;
-        console.log(this.appHistoryArray);
         this.spinner.hide();
       }
       else {
+        this.appHistoryArray = [];
         this.spinner.hide();
         this.commonMethods.snackBar(res.statusMessage, 1)
       }

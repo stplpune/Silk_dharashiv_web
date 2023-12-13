@@ -16,21 +16,19 @@
         </div>
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-5">
         <div class="col-sm-4">
             <div class="card p-2 plain-card">
                 <div class="card-header-control">
                     <div class="d-flex gap-2 align-items-start">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Enter Application ID</mat-label>
-                            <input matInput placeholder="Application ID">
-                            <mat-icon matPrefix class="material-symbols-rounded ps-2">find_in_page</mat-icon>
+                            <input matInput placeholder="Application ID" [formControl]="appId">
                         </mat-form-field>
-                        <button mat-flat-button class="btn-main">Search</button>
+                        <button mat-flat-button class="btn-main" (click)="searchAppliation()" >Search</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-  <app-track-application></app-track-application>
+    <app-track-application [childMessage]="applicationId"></app-track-application>
 </div>

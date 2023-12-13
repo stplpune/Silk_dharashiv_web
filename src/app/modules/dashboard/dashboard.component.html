@@ -21,7 +21,7 @@
                             [class]="WebStorageService.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })">
                             <mat-option>
                                 <ngx-mat-select-search [formControl]="talukaCtrl"
-                                    placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                                    placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
                                     noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
                             </mat-option>
                             <mat-option *ngFor=" let taluka of talukaSubject | async" [value]="taluka.id">{{lang == 'en'
@@ -32,9 +32,9 @@
                 </div>
                 <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label>
+                        <mat-label>{{'common.grampanchayat_filter_all'| translate}} </mat-label>
                         <mat-select formControlName="grampanchayatId"
-                            placeholder="{{lang == 'en' ? 'Grampanchayat' :'ग्रामपंचायत'}}"
+                            placeholder="{{lang == 'en' ? 'All Grampanchayat' :'सर्व ग्रामपंचायत'}}"
                             [class]="WebStorageService.getGrampanchayatId() || !filterFrm.getRawValue().talukaId ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
                             <mat-option>
                                 <ngx-mat-select-search [formControl]="gramPCtrl"
@@ -73,7 +73,7 @@
                                 search
                             </mat-icon>
                         </button>
-                        <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+                        <button mat-flat-button class="btn-main-light btn-icon" (click)="clearFilter()" matTooltip="edit" type="button">
                             <mat-icon class="material-symbols-rounded">
                                 close
                             </mat-icon>
