@@ -47,6 +47,7 @@ const routes: Routes = [
   { path: 'beneficiery-list', loadChildren: () => import('../../modules/beneficiery-list/beneficiery-list.module').then(m => m.BeneficieryListModule), data: { breadcrumb: [{ title: 'Beneficiery List', active: true }] }, canActivate: [ExpenseGuard] },
   { path: 'crc-center-details', loadChildren: () => import('../../modules/crc-list/crc-center-details/crc-center-details.module').then(m => m.CrcCenterDetailsModule) },
   //Application
+  
   { path: 'access-denied', loadChildren: () => import('../../modules/error/error.module').then(m => m.ErrorModule), data: { breadcrumb: [{ title: 'Access Denied', active: true }] } },
 ];
 
