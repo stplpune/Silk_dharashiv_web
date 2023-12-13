@@ -1,4 +1,4 @@
-<!-- <mat-card class="plain-card form-container">
+<mat-card class="plain-card form-container" *ngIf="actionID == 3">
     <mat-card-content class="card-body" id="report3">
         <div class="row">
             <div class="col-sm-12 text-center">
@@ -489,13 +489,13 @@
             </div>
         </div>
     </mat-card-content>
-</mat-card> -->
+</mat-card>
 
 
 
 
 <!-- Technical Estimate Report -->
-<!-- <div style="font-size: 0.85rem;"  id="document">
+<!-- <div style="font-size: 0.85rem;"  id="document" *ngIf="actionID == 4">
     <div id="report3">
         <div style="text-align: center;">
             <h4 style="font-weight: 800;font-size: 1.1rem;margin-bottom: 3px;">परिशिष्ट - ३</h4>
@@ -1028,7 +1028,7 @@
 
 
 <!-- Tantrik Manjuri Aadesh (Technical Approval Order) -->
-<!-- <div id="tao">
+<div id="tao"  *ngIf="actionID == 4">
     <div class="letterhead">
         <img src="assets/images/Seal_of_Maharashtra.svg">
         <div class="letter-text">
@@ -1150,11 +1150,11 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 
 <!-- Administrative Approval Letter -->
-<div id="aal">
+<div id="aal" *ngIf="actionID == 5">
     <div class="letterhead">
         <h6>महाराष्ट्र शासन</h6>
         <h4>जिल्हा रेशीम कार्यालय</h4>
