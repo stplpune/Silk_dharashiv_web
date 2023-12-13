@@ -269,7 +269,7 @@ export class ApprovalProcessManaregaComponent {
 
 
   imageUplod(event: any, label: string, i?: any) {
-    this.fileUplService.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc').subscribe({
+    this.fileUplService.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc,pdf').subscribe({
       next: ((res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
@@ -553,12 +553,6 @@ export class ApprovalProcessManaregaComponent {
   }
 
   viewPdf() {
-    let data: any = this.encryptdecrypt.encrypt(this.applicationData?.actionId.toString());
-    // this.router.navigate(['../technical-estimate'], {
-    //   queryParams: {
-    //     id: data
-    //   },
-    // })
-    window.open('technical-estimate?id='+data, '_blank')
+    window.open('technical-estimate?id='+this.applicationData?.actionId, '_blank')
   }
 }

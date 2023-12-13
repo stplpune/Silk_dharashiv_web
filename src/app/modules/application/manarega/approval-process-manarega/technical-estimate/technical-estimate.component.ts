@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -10,7 +10,9 @@ import { CommonModule } from '@angular/common';
 import { DashPipe } from "../../../../../core/Pipes/dash.pipe";
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { ActivatedRoute } from '@angular/router';
+import jsPDF from 'jspdf';
 
+// declare var jsPDF: any;
 @Component({
   standalone: true,
   selector: 'app-technical-estimate',
@@ -19,6 +21,8 @@ import { ActivatedRoute } from '@angular/router';
   imports: [CommonModule, MatCardModule, MatButtonModule, DashPipe]
 })
 export class TechnicalEstimateComponent {
+  @ViewChild('printDiv', { static: false }) printDiv!: ElementRef;
+
   tableDataArray: any;
   estimateArray = new Array();
   estimateSkillArray = new Array();
@@ -58,6 +62,7 @@ export class TechnicalEstimateComponent {
   skillYr3obj: any;
   acceptTermsValue!: boolean;
   bindTableDiv: any;
+  id: any
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -69,11 +74,7 @@ export class TechnicalEstimateComponent {
     ) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe((queryParams: any) => {
-      this.routingData = queryParams['id'];
-    });
-    let id = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
-    this.actionID = id;
+    this.actionID = this.route.snapshot.queryParamMap.get('id');
     // this.getEstimateData();
     // this.getAnotherEstimateData();
   }
@@ -221,13 +222,24 @@ export class TechnicalEstimateComponent {
     });
   }
 
-  // (click)="print('report3')"
-  print(divName?: any) {
-    let doc: any = document.getElementById(divName);
-    const printContents = doc.innerHTML;
-    const originalContents = document.body.innerHTML;
-    document.body.innerHTML = printContents;
+  print() {
     window.print();
-    document.body.innerHTML = originalContents;
+    jsPDF
+    // let doc = new jsPDF();
+    // doc.addFileToVFS('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Marathi&display=swap', 'Tiro Devanagari Marathi')
+    // doc.setFont('Tiro Devanagari Marathi');
+
+    // let elementHTML: any = document.querySelector("#report3");
+    // let fileName = this.actionID == 3 ? 'technical_estimate' : this.actionID == 4 ? 'technical_sanction' : 'administrative_approval';
+
+    // doc.html(elementHTML, {
+    //   callback: function (doc) {
+    //     doc.save(fileName + '.pdf');
+    //   },
+    //   x: 15,
+    //   y: 15,
+    //   width: 170, //target width in the PDF document
+    //   windowWidth: 650 //window width in CSS pixels
+    // });
   }
 }

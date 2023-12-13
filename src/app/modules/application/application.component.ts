@@ -85,7 +85,7 @@ export class ApplicationComponent {
     this.getAllScheme();
     this.getDisrict();
     this.getStatus();
-    this.getAction();
+    // this.getAction();
     this.searchDataZone();
   }
 
@@ -112,7 +112,7 @@ export class ApplicationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.schemeFilterArr.unshift({ id: 0, textEnglish: "All Scheme", textMarathi: "सर्व योजना" }, ...res.responseData);
-          this.spliteUrlData ? this.filterFrm.controls['schemeTypeId'].setValue(+this.filterFrm.getRawValue().schemeTypeId) : '';
+          this.spliteUrlData ? (this.filterFrm.controls['schemeTypeId'].setValue(+this.filterFrm.getRawValue().schemeTypeId), this.getAction()) : '';
 
         } else {
           this.schemeFilterArr = [];
@@ -185,8 +185,16 @@ export class ApplicationComponent {
   }
 
   getAction() {
+    if(this.filterFrm.getRawValue().schemeTypeId == 0){
+      this.filterFrm.controls['actionId'].setValue(0);
+      return
+    }
+    let obj = {
+      lan:this.lang,
+      SchemeId:this.filterFrm.getRawValue().schemeTypeId
+    }
     this.actionArr = [];
-    this.master.GetActionDropDown().subscribe({
+    this.master.getActionDropDownWithObj(obj).subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.actionArr.unshift({ id: 0, textEnglish: "All Action", textMarathi: "सर्व कृती" }, ...res.responseData);
