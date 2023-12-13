@@ -260,11 +260,9 @@ export class ApplicationComponent {
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
-    console.log("tableData",tableData)
   }
 
   childCompInfo(obj?: any) {
-    console.log(obj);
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
