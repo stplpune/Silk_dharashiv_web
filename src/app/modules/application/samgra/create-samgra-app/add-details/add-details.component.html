@@ -25,13 +25,13 @@
       <div class="form-label">क्षेत्र एकर</div>
       <mat-form-field appearance="outline" class="w-100">
         <input matInput placeholder=""  formControlName="area" maxlength="10" 
-        (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
+        (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="form-label">झालेले उत्पादन ( क्विंटल ) </div>
       <mat-form-field appearance="outline" class="w-100" >
-        <input matInput placeholder="" formControlName="totalProduction"
+        <input matInput placeholder="" formControlName="totalProduction" 
         maxlength="10"  (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
       </mat-form-field>
     </div>

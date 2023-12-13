@@ -39,10 +39,10 @@ export class AddDetailsComponent {
 
   cropDetailsFormData() {
     this.cropDetailsForm = this.fb.group({
-      "id": [0  ],
-      "applicationId": [0 ],
+      "id": [this.data?.id || 0],
+      "applicationId": [this.data?.applicationId || 0 ],
       "cropId": ['' || this.data?.cropId ,[Validators.required]],
-      "area": ['' || this.data?.area ,[Validators.required,Validators.maxLength(6),Validators.pattern('^([0-9 .])')]],
+      "area": ['' || this.data?.area ,[Validators.required,Validators.maxLength(6),Validators.pattern(this.validation.onlyNumbers)]],
       "totalProduction": ['' || this.data?.totalProduction,[Validators.required,Validators.maxLength(10),Validators.pattern(this.validation.onlyNumbers)]],
       "averageRate": ['' || this.data?.averageRate,[Validators.required,Validators.maxLength(10),Validators.pattern(this.validation.onlyNumbers)]],
       "totalProductionAmt": ['' || this.data?.totalProductionAmt,[Validators.required,Validators.maxLength(10),Validators.pattern(this.validation.onlyNumbers)]],
@@ -51,9 +51,13 @@ export class AddDetailsComponent {
       "acreNetIncome": ['' || this.data?.acreNetIncome,[Validators.required,Validators.maxLength(10),Validators.pattern(this.validation.onlyNumbers)]],
       "createdBy": 0,    
       "isDeleted": false,
+      "cropName": [''],
+      "m_CropName": [''],
+
     })
   }
 
+  get f(){return this.cropDetailsForm.controls}
 
   getAllfarmsGood(){
     this.farmsGoodArray = [];
@@ -72,8 +76,11 @@ export class AddDetailsComponent {
 
   onSubmit(){    
     let formValue = this.cropDetailsForm.getRawValue();
-    console.log("formValue",formValue);
-    
+   let obj:any =  this.farmsGoodArray.filter((ele:any)=>{return ele.id == formValue.cropId})
+   console.log("obj",obj,"ttttttttt",obj[0].textEnglish);
+   this.f['cropName'].setValue(obj[0].textEnglish);
+   this.f['m_CropName'].setValue(obj[0].textMarathi);
+
     if(this.cropDetailsForm.invalid){
       return;
     }else{
