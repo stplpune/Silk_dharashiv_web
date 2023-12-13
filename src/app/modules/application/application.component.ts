@@ -294,7 +294,7 @@ export class ApplicationComponent {
   }
 
   openAddApplicationDetails(obj?: any) {
-    let Id: any = this.encryptdecrypt.encrypt(`${obj?.id}`);
+    let Id: any = this.encryptdecrypt.encrypt(`${obj?.applicationId}`+ '.' + `${obj.schemeTypeId == 1 ? 'm' : 's'}`);
     this.router.navigate([obj.schemeTypeId == 1 ? '../create-manarega-app' : '../create-samgra-app'], {
       queryParams: {
         id: Id

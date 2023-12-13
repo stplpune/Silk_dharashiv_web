@@ -29,7 +29,7 @@
         <div class="col-sm-1">
           <div class="d-flex gap-2">
             <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"
-              (click)="getDataByMobileAadharNo('search')">
+              (click)="getPreviewData1('search')">
               <mat-icon class="material-symbols-rounded">
                 search
               </mat-icon>
@@ -104,7 +104,7 @@
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="fullName"
-                          (keypress)="validation.noFirstSpaceAllow($event);validation.onlyAlphabetsWithSpace($event)">
+                          (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
                         <mat-error *ngIf="f['fullName'].hasError('required') || f['fullName']?.hasError('pattern')">
                           {{f['fullName'].hasError('required') ?
                           ('approvalProcess.applicant_Required'|translate) :
