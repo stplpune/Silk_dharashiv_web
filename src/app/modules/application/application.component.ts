@@ -150,6 +150,7 @@ export class ApplicationComponent {
     })
   }
 
+  
   getGrampanchayat() {
     this.gramPSubject = new ReplaySubject<any>();
     this.grampanchayatArray = [];
