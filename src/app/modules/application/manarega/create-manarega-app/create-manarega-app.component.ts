@@ -312,21 +312,14 @@ getDocumentsWithDocId7() {  //preview other docment
 
       if (!this.OtherDocUploadImg.length) {
         this.OtherDocUploadImg.push(obj);
-        this.commonMethod.snackBar("Document added successfully", 0)
+        this.commonMethod.snackBar((this.lang == 'en' ? "Document added successfully" : "दस्तऐवज यशस्वीरित्या जोडला गेला"), 0)
        //reset form code remainingresetForm();
       }
       else{
         let existedName = this.OtherDocUploadImg.find((res: any) => res.docname == uploadFrmValue.docname);
-        let existedPath = this.OtherDocUploadImg.find((res: any) => res.docname == uploadFrmValue.docname);
-      
-        if (existedName) {
-          this.commonMethod.snackBar("Document Name Already exist", 1);
-          return
-        }
-        else if(existedPath){
-          this.commonMethod.snackBar("Document Path Already exist", 1);
-          return
-        }
+        let existedPath = this.OtherDocUploadImg.find((res: any) => res.docPath == uploadFrmValue.docPath);
+       if (existedName) {  this.commonMethod.snackBar((this.lang == 'en' ? "Document Name Already exist" : "दस्तऐवजाचे नाव आधीपासून अस्तित्वात आहे."), 1) ; return ; }
+       else if(existedPath){ this.commonMethod.snackBar((this.lang == 'en' ? "Document Path Already exist" : "दस्तऐवज मार्ग आधीपासून अस्तित्वात आहे."), 1) ; return ; }
         else {
           this.OtherDocUploadImg.push(obj);
         }
@@ -422,7 +415,24 @@ deleteTableOtherDocument(i: any) { //logic for delete table document
       "cultivatedPlantsCount": Number(data.cultivatedPlantsCount),
       "createdBy":this.WebStorageService.getUserId(),
       }
-      this.farmDetails.push(obj);
+      // this.farmDetails.push(obj);
+      // this.dataSource = new MatTableDataSource( this.farmDetails);
+      // this.onClickPlantedBeforeGovScheme(false);
+      // this.formDirective?.resetForm();
+      if (!this.farmDetails.length) {
+        this.farmDetails.push(obj);
+        this.commonMethod.snackBar("Data added successfully", 0)
+      }
+      else{
+        let existedName = this.farmDetails.find((res: any) => res.plantName == data.plantName);  
+        if (existedName) {
+          this.commonMethod.snackBar("Plant Name Already exist", 1);
+          return
+        }
+        else {
+          this.farmDetails.push(obj);
+        }
+      }
       this.dataSource = new MatTableDataSource( this.farmDetails);
       this.onClickPlantedBeforeGovScheme(false);
       this.formDirective?.resetForm();
