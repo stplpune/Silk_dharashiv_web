@@ -85,7 +85,7 @@ export class ApplicationComponent {
     this.getAllScheme();
     this.getDisrict();
     this.getStatus();
-    this.getAction();
+    // this.getAction();
     this.searchDataZone();
   }
 
@@ -112,7 +112,7 @@ export class ApplicationComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.schemeFilterArr.unshift({ id: 0, textEnglish: "All Scheme", textMarathi: "सर्व योजना" }, ...res.responseData);
-          this.spliteUrlData ? this.filterFrm.controls['schemeTypeId'].setValue(+this.filterFrm.getRawValue().schemeTypeId) : '';
+          this.spliteUrlData ? (this.filterFrm.controls['schemeTypeId'].setValue(+this.filterFrm.getRawValue().schemeTypeId), this.getAction()) : '';
 
         } else {
           this.schemeFilterArr = [];
@@ -185,8 +185,16 @@ export class ApplicationComponent {
   }
 
   getAction() {
+    if(this.filterFrm.getRawValue().schemeTypeId == 0){
+      this.filterFrm.controls['actionId'].setValue(0);
+      return
+    }
+    let obj = {
+      lan:this.lang,
+      SchemeId:this.filterFrm.getRawValue().schemeTypeId
+    }
     this.actionArr = [];
-    this.master.GetActionDropDown().subscribe({
+    this.master.getActionDropDownWithObj(obj).subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.actionArr.unshift({ id: 0, textEnglish: "All Action", textMarathi: "सर्व कृती" }, ...res.responseData);
@@ -234,7 +242,7 @@ export class ApplicationComponent {
   setTableData() {
     this.highLightRowFlag = true;
     let displayedColumns = ['srNo', 'applicationNo', (this.lang == 'en' ? 'departmentName' : 'm_DepartmentName'), (this.lang == 'en' ? 'schemeType' : 'm_SchemeType'), (this.lang == 'en' ? 'fullName' : 'm_FullName'), 'mobileNo1', (this.lang == 'en' ? 'taluka' : 'm_Taluka'), (this.lang == 'en' ? 'grampanchayatName' : 'm_GrampanchayatName'), 'selfStatus', 'status1', 'action'];
-    let displayedheaders = this.lang == 'en' ? ['Sr.No.', 'Application ID', 'Process Department', 'Scheme Name', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Stage', 'Application Status', 'Action'] : ['अनुक्रमांक', 'अर्ज आयडी', 'प्रक्रिया विभाग', 'योजनेचे नाव', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'स्टेज', 'अर्जाची स्थिती', 'कृती'];
+    let displayedheaders = this.lang == 'en' ? ['Sr.No.', 'Application ID', 'Process Department', 'Scheme Name', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Stage', 'Application Status', 'Action'] : ['अनुक्रमांक', 'अर्ज आयडी', 'प्रक्रिया विभाग', 'योजनेचे नाव', 'शेतकरी नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'ग्रामपंचायत स्टेज', 'अर्जाची स्थिती', 'कृती'];
     //this.webStorage.getDesignationId() == 1 ? 
     if (this.webStorage.getDesignationId() === 1) {
       const selfStatusIndex = displayedColumns.indexOf('selfStatus');
@@ -260,11 +268,9 @@ export class ApplicationComponent {
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
-    console.log("tableData",tableData)
   }
 
   childCompInfo(obj?: any) {
-    console.log(obj);
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
@@ -306,7 +312,7 @@ export class ApplicationComponent {
   openTracKComp(obj: any) {
     this.dialog.open(TrackApplicationComponent, {
       data: obj,
-      width: '40%',
+      width: '50%',
       disableClose: false,
     });
   }

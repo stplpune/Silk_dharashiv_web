@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -10,7 +10,9 @@ import { CommonModule } from '@angular/common';
 import { DashPipe } from "../../../../../core/Pipes/dash.pipe";
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { ActivatedRoute } from '@angular/router';
+import jsPDF from 'jspdf';
 
+// declare var jsPDF: any;
 @Component({
   standalone: true,
   selector: 'app-technical-estimate',
@@ -19,11 +21,13 @@ import { ActivatedRoute } from '@angular/router';
   imports: [CommonModule, MatCardModule, MatButtonModule, DashPipe]
 })
 export class TechnicalEstimateComponent {
+  @ViewChild('printDiv', { static: false }) printDiv!: ElementRef;
+
   tableDataArray: any;
   estimateArray = new Array();
   estimateSkillArray = new Array();
   routingData: any;
-  applicationId: any;
+  actionID: any;
   year1Obj: any;
   year2Obj: any;
   year3Obj: any;
@@ -57,7 +61,8 @@ export class TechnicalEstimateComponent {
   skillYr2obj: any;
   skillYr3obj: any;
   acceptTermsValue!: boolean;
-  bindTableDiv:any;
+  bindTableDiv: any;
+  id: any
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -69,17 +74,13 @@ export class TechnicalEstimateComponent {
     ) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.routingData = params.get('data');
-    });
-    let id = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
-    this.applicationId = id
-    this.getEstimateData();
-    this.getAnotherEstimateData();
+    this.actionID = this.route.snapshot.queryParamMap.get('id');
+    // this.getEstimateData();
+    // this.getAnotherEstimateData();
   }
 
   getEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId=' + this.actionID, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -156,7 +157,7 @@ export class TechnicalEstimateComponent {
   }
 
   getAnotherEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId=' + this.actionID, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -203,7 +204,7 @@ export class TechnicalEstimateComponent {
 
   generate_PDF() {
     let html = this.bindTableDiv;
-    let obj = { htmlData:html, };
+    let obj = { htmlData: html, };
     this.apiService.setHttp('POST', 'api/TechnicalEstimate/Generate-PDF', false, obj, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -221,4 +222,24 @@ export class TechnicalEstimateComponent {
     });
   }
 
+  print() {
+    window.print();
+    jsPDF
+    // let doc = new jsPDF();
+    // doc.addFileToVFS('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Marathi&display=swap', 'Tiro Devanagari Marathi')
+    // doc.setFont('Tiro Devanagari Marathi');
+
+    // let elementHTML: any = document.querySelector("#report3");
+    // let fileName = this.actionID == 3 ? 'technical_estimate' : this.actionID == 4 ? 'technical_sanction' : 'administrative_approval';
+
+    // doc.html(elementHTML, {
+    //   callback: function (doc) {
+    //     doc.save(fileName + '.pdf');
+    //   },
+    //   x: 15,
+    //   y: 15,
+    //   width: 170, //target width in the PDF document
+    //   windowWidth: 650 //window width in CSS pixels
+    // });
+  }
 }

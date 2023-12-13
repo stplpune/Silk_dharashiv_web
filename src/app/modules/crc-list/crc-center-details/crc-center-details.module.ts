@@ -9,11 +9,16 @@ import { CrcGrainageOrderComponent } from './crc-grainage-order/crc-grainage-ord
 import { CrcDeliverySlabsComponent } from './crc-delivery-slabs/crc-delivery-slabs.component';
 import { CrcChawkiOrderComponent } from './crc-chawki-order/crc-chawki-order.component';
 import { CrcChawkiOrderDetailsComponent } from './crc-chawki-order-details/crc-chawki-order-details.component';
+import { ChowkiOrderDetailsComponent } from './crc-chawki-order/chowki-order-details/chowki-order-details.component';
+import { MatButtonModule } from '@angular/material/button';
+import { GrainageOrderDetailsComponent } from './crc-grainage-order/grainage-order-details/grainage-order-details.component';
 
 
 @NgModule({
   declarations: [
-    CrcCenterDetailsComponent
+    CrcCenterDetailsComponent,
+    ChowkiOrderDetailsComponent,
+    GrainageOrderDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +28,8 @@ import { CrcChawkiOrderDetailsComponent } from './crc-chawki-order-details/crc-c
     CrcGrainageOrderComponent,
     CrcDeliverySlabsComponent,
     CrcChawkiOrderComponent,
-    CrcChawkiOrderDetailsComponent
+    CrcChawkiOrderDetailsComponent,
+    MatButtonModule
   ]
 })
 export class CrcCenterDetailsModule { }

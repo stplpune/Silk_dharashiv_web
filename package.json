@@ -25,6 +25,7 @@
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "angular-crypto-js": "^1.0.7",
+    "jspdf": "^2.5.1",
     "ngx-mat-select-search": "^7.0.5",
     "ngx-spinner": "^14.0.0",
     "rxjs": "~7.5.0",

@@ -2,7 +2,7 @@
   <mat-card-header class="card-header">
     <div class="text-main">Chowki Orders</div>
   </mat-card-header>
-  <mat-card-content class="card-body">
+  <mat-card-content class="card-body form-container">
     <div class="row gx-2">
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
@@ -54,6 +54,29 @@
               close
             </mat-icon>
           </button>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <button mat-flat-button class="btn-main" (click)="chowkiorderdetails()">Chowki Order details</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="d-flex gap-2">
+          <div class="form-data">Total Chowki Order</div>
+          <div class="form-data">: 50</div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="d-flex gap-2 ">
+          <div class="form-label text-warning">Pending</div>
+          <div class="form-data text-warning">: 40</div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="d-flex gap-2 ">
+          <div class="form-label text-success">Delivered</div>
+          <div class="form-data text-success">: 40</div>
         </div>
       </div>
     </div>

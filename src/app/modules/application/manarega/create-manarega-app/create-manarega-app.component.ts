@@ -99,8 +99,7 @@ export class CreateManaregaAppComponent {
   ) { }
 
   ngOnInit() {
-    
-    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
@@ -134,19 +133,14 @@ export class CreateManaregaAppComponent {
         this.routingData = queryParams['id'];
       });
     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
-     console.log("spliteUrl",spliteUrl);
-      let url = this.router.url;
-      console.log("url",url);
-      let appProVal = (spliteUrl[1] == 'm') && (url.split('?')[0] == '/create-manarega-app');
-      console.log("appProVal",appProVal)
+      // let url = this.router.url;
+      // console.log("url",url);
+      //let appProVal = (spliteUrl[1] == 'm') && (url.split('?')[0] == '/create-manarega-app');
       // if (!appProVal) {
       //   this.router.navigate(['../application']);
       //   this.commonMethod.snackBar('Something went wrong please try again', 1);
       // }
-      
       this.getPreviewData1('edit',spliteUrl[0]);
-      
-  
     }
     
   filterDefaultFrm() {
@@ -294,7 +288,6 @@ getDocumentsWithDocId7() {  //preview other docment
 //#region -----------------other document upload functionality start --------------------------------------------------
      onOtherDocSubmit() {
     let uploadFrmValue = this.otherDocumentFrm.getRawValue();
-    console.log(" uploadFrmValue", uploadFrmValue)
     if (!uploadFrmValue?.docname) {
       this.commonMethod.snackBar('Document name is  required', 1);
       return
@@ -319,24 +312,16 @@ getDocumentsWithDocId7() {  //preview other docment
 
       if (!this.OtherDocUploadImg.length) {
         this.OtherDocUploadImg.push(obj);
-        this.commonMethod.snackBar("Add successfully", 0)
+        this.commonMethod.snackBar((this.lang == 'en' ? "Document added successfully" : "दस्तऐवज यशस्वीरित्या जोडला गेला"), 0)
        //reset form code remainingresetForm();
       }
       else{
         let existedName = this.OtherDocUploadImg.find((res: any) => res.docname == uploadFrmValue.docname);
-        let existedPath = this.OtherDocUploadImg.find((res: any) => res.docname == uploadFrmValue.docname);
-      
-        if (existedName) {
-          this.commonMethod.snackBar("Document Name Already exist", 1);
-          return
-        }
-        else if(existedPath){
-          this.commonMethod.snackBar("Document Path Already exist", 1);
-          return
-        }
+        let existedPath = this.OtherDocUploadImg.find((res: any) => res.docPath == uploadFrmValue.docPath);
+       if (existedName) {  this.commonMethod.snackBar((this.lang == 'en' ? "Document Name Already exist" : "दस्तऐवजाचे नाव आधीपासून अस्तित्वात आहे."), 1) ; return ; }
+       else if(existedPath){ this.commonMethod.snackBar((this.lang == 'en' ? "Document Path Already exist" : "दस्तऐवज मार्ग आधीपासून अस्तित्वात आहे."), 1) ; return ; }
         else {
           this.OtherDocUploadImg.push(obj);
-          //reset form code remainingresetForm();
         }
       }
       this.otherDocArray = new MatTableDataSource(this.OtherDocUploadImg);
@@ -430,11 +415,27 @@ deleteTableOtherDocument(i: any) { //logic for delete table document
       "cultivatedPlantsCount": Number(data.cultivatedPlantsCount),
       "createdBy":this.WebStorageService.getUserId(),
       }
-      this.farmDetails.push(obj);
+      // this.farmDetails.push(obj);
+      // this.dataSource = new MatTableDataSource( this.farmDetails);
+      // this.onClickPlantedBeforeGovScheme(false);
+      // this.formDirective?.resetForm();
+      if (!this.farmDetails.length) {
+        this.farmDetails.push(obj);
+        this.commonMethod.snackBar("Data added successfully", 0)
+      }
+      else{
+        let existedName = this.farmDetails.find((res: any) => res.plantName == data.plantName);  
+        if (existedName) {
+          this.commonMethod.snackBar("Plant Name Already exist", 1);
+          return
+        }
+        else {
+          this.farmDetails.push(obj);
+        }
+      }
       this.dataSource = new MatTableDataSource( this.farmDetails);
       this.onClickPlantedBeforeGovScheme(false);
       this.formDirective?.resetForm();
-      console.log("farmDetails",this.farmDetails)
     }
   }
 
@@ -497,15 +498,12 @@ getPreviewData(res?:any){
 
 
 onEdit(data?:any){
-  console.log(data);
   this.EditFlag = true;
   this.addManaregaFrm(data);
   this.addFarmInfo(data);
-  this.getState();
+ // this.getState();
   this.profileImageUrl = data.profilePhotoPath;
-
   this.checkedItems = data.categoryOfBeneficiaries;
-
   this.categoryArray.map((ele:any)=>{
     this.checkedItems .find((item:any)=>{
       if(ele.id == item.id){
@@ -513,14 +511,13 @@ onEdit(data?:any){
       }
     })
   })
-
   this.checkedItems.map((ele: any) => {
         ele['textEnglish'] = ele.categoryOfBeneficiary;
          ele['textMarathi'] = ele.m_CategoryOfBeneficiary;
    })
   this.addBankInfo(data);
-  this.getBank(); 
-  this.getBankBranch();
+ // this.getBank(); 
+ // this.getBankBranch();
   this.farmDetails = data.plantingDetails;
   this.dataSource = new MatTableDataSource(this.farmDetails);
     data.documents.find((item: any) => {
@@ -541,23 +538,12 @@ onEdit(data?:any){
   this.addSelfDeclaration(data);
 }
 
-
-// 6853535353  668686838835
-  
-
-
-
-
-
-
-  onSubmit(flag?:any) {
+onSubmit(flag?:any) {
     let formData = this.manaregaFrm?.getRawValue();
-    //let farmDetails=this.farmDeatailsFrm.getRawValue();
     let farmInfo = this.farmInfoFrm.getRawValue();
-      let bankInfo=this.bankInfoFrm.getRawValue();
-      let declarationInfo=this.selfDeclarationFrm.getRawValue();
+    let bankInfo=this.bankInfoFrm.getRawValue();
+    let declarationInfo=this.selfDeclarationFrm.getRawValue();
     let mergeDocumentArray = [... this.docArray,...this.OtherDocUploadImg];
-    
     if (this.manaregaFrm.invalid && flag == 'farmerInfo') {
       this.viewMsgFlag = true;
       return;
@@ -594,7 +580,6 @@ onEdit(data?:any){
     else {
       !bankInfo.bankId ? bankInfo.bankId = 0 : '';
       !bankInfo.bankBranchId ? bankInfo.bankBranchId = 0 : '';
-       console.log(" this.farmDetails in submit", this.farmDetails)
         this.docArray.map((ele:any)=>{
            ele.createdBy = this.WebStorageService.getUserId();
            ele.isDeleted = false;
@@ -748,8 +733,7 @@ onEdit(data?:any){
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.bankArray = res.responseData;
-          this.EditFlag ? this.bankInfoFrm.controls['bankId'].setValue(this.previewData?.bankId) : '' ;  
-    
+          this.EditFlag ? (this.bankInfoFrm.controls['bankId'].setValue(this.previewData?.bankId),this.getBankBranch()) : '' ;  
         }
         else {
           this.bankArray = [];
@@ -767,8 +751,7 @@ onEdit(data?:any){
         if (res.statusCode == "200" && res.responseData?.length) {
           this.branchArray = res.responseData;
           this.EditFlag ? this.bankInfoFrm.controls['bankBranchId'].setValue(this.previewData?.bankBranchId):  '' ;  
-    
-        }
+          }
         else {
           this.branchArray = [];
         }
@@ -948,11 +931,9 @@ onEdit(data?:any){
   }
 
   openDialog(res?:any) {
-    // let userEng = obj.status == false ? 'Active' : 'Deactive';
-    // let userMara = obj.status == false ? 'सक्रिय' : 'निष्क्रिय';
-    let dialoObj = {
+      let dialoObj = {
       header: this.lang == 'mr-IN' ? 'अभिनंदन ' : 'Congratulations',
-      title: this.lang == 'mr-IN' ? 'आपला आरजा यशस्वी रित्या सादर झाला आहे.आरजा क्रं : '+ res.responseData1 + res.responseData2 : 'आपला आरजा यशस्वी रित्या सादर झाला आहे.आरजा क्रं : '+res.responseData1 + res.responseData2,
+      title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .अर्ज क्रमांक  : '+ res.responseData1 + res.responseData2 :'Your application has been successfully submitted. Application no: '+ res.responseData1 + res.responseData2,
       cancelButton: '',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
       headerImage: 'assets/images/check.png'
@@ -963,24 +944,11 @@ onEdit(data?:any){
       disableClose: true,
       autoFocus: false
     })
-
-    // deleteDialogRef.afterClosed().subscribe((result: any) => {
-    //   result == 'Yes' ? this.blockAction(obj) : '';
-    // })
   }
 
   handleClick(res:any) {
     this.openDialog(res);
   }
-
-  // <h2 class="fw-bold">अभिनंदन</h2>
-  //           <div class="form-label">आपला आरजा यशस्वी रित्या सादर झाला आहे.</div>
-  //           <div class="form-data">आरजा क्रं : MNR202306210859</div>
-  //           <div class="form-data">26/06/2023 11:22:10 AM</div>
-  //           <div>
-  //             <a href="">आरजा डाऊनलोड करा</a>
-  //           </div>
-  //           <button mat-flat-button class="btn-main">OK</button>
 
 }
 

@@ -78,7 +78,7 @@
               <div class="col-sm-3">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>{{'manrega.scheme'| translate}}</mat-label>
-                  <mat-select formControlName="schemeTypeId" placeholder="All Scheme">
+                  <mat-select formControlName="schemeTypeId" placeholder="All Scheme" (selectionChange)="getAction()">
                     <mat-option *ngFor=" let scheme of schemeFilterArr" [value]="scheme.id">{{lang == 'en' ?
                       scheme.textEnglish : scheme.textMarathi}}</mat-option>
                   </mat-select>
@@ -97,7 +97,7 @@
               <div class="col-sm-3">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>{{'common.action'| translate}}</mat-label>
-                  <mat-select formControlName="actionId" placeholder="All Status">
+                  <mat-select formControlName="actionId" placeholder="All Status"  [class]="!filterFrm.getRawValue().schemeTypeId ? f['actionId'].disable({ onlySelf: true }) : f['actionId'].enable({ onlySelf: true })">
                     <mat-option *ngFor=" let action of actionArr" [value]="action.id">{{lang == 'en' ?
                       action.textEnglish : action.textMarathi}}</mat-option>
                   </mat-select>
