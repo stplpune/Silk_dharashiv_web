@@ -55,87 +55,176 @@
 
 
 // CSS for Tantrik Manjuri Aadesh (Technical Approval Order)
-#tao {
-    width: 100%;
-    border: solid 1px #353535;
-}
+// #tao {
+//     width: 100%;
+//     border: solid 1px #353535;
+// }
 
-#tao .letterhead {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    column-gap: 15px;
-}
+// #tao .letterhead {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     padding: 10px;
+//     column-gap: 15px;
+// }
 
-#tao .letterhead .letter-text {
-    text-align: center;
-    width: 100%;
-}
+// #tao .letterhead .letter-text {
+//     text-align: center;
+//     width: 100%;
+// }
 
-#tao .letterhead img {
-    height: 80px;
-}
+// #tao .letterhead img {
+//     height: 80px;
+// }
 
-#tao .letterhead h4 {
-    font-size: 1.2rem;
-    font-weight: 600;
-}
+// #tao .letterhead h4 {
+//     font-size: 1.2rem;
+//     font-weight: 600;
+// }
 
-#tao .letterhead h6 {
-    font-size: 0.95rem;
-    font-weight: 600;
-}
+// #tao .letterhead h6 {
+//     font-size: 0.95rem;
+//     font-weight: 600;
+// }
 
-#tao .letterhead p {
-    font-size: 0.9rem;
-    margin-bottom: 0;
-    display: flex;
-    justify-content: space-between;
-}
+// #tao .letterhead p {
+//     font-size: 0.9rem;
+//     margin-bottom: 0;
+//     display: flex;
+//     justify-content: space-between;
+// }
 
-#tao .letter-bg {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #555;
-    color: #fff;
+// #tao .letter-bg {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     background-color: #555;
+//     color: #fff;
+//     font-size: 10pt;
+//     padding: 10px;
+// }
+
+// #tao .letter-content {
+//     padding: 15px;
+//     font-size: 10pt;
+// }
+
+// #tao .letter-content h4 {
+//     text-align: center;
+//     margin-bottom: 2rem;
+//     font-weight: 600;
+//     font-size: 1.2rem;
+// }
+
+// #tao .report-table {
+//     width: 100%;
+//     border: 1px solid #aaa;
+//     border-collapse: collapse;
+//     margin-bottom: 1rem;
+// }
+
+// #tao .report-table th,
+// #tao .report-table td {
+//     border: 1px solid #aaa;
+//     border-collapse: collapse;
+//     text-align: center;
+//     padding: 5px;
+// }
+
+// #tao .bottom {
+//     display: flex;
+//     flex-direction: column;
+//     margin-top: 3rem;
+//     row-gap: 30px;
+//     align-items: flex-end;
+//     font-weight: 600;
+// }
+
+
+// Administrative Approval Letter
+#aal {
     font-size: 10pt;
-    padding: 10px;
-}
-
-#tao .letter-content {
-    padding: 15px;
-    font-size: 10pt;
-}
-
-#tao .letter-content h4 {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-weight: 600;
-    font-size: 1.2rem;
-}
-
-#tao .report-table {
     width: 100%;
-    border: 1px solid #aaa;
-    border-collapse: collapse;
-    margin-bottom: 1rem;
 }
 
-#tao .report-table th,
-#tao .report-table td {
-    border: 1px solid #aaa;
-    border-collapse: collapse;
+#aal .letterhead {
     text-align: center;
-    padding: 5px;
+    border-bottom: solid 1px #aaa;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
 }
 
-#tao .bottom {
+#aal .letterhead h4 {
+    font-weight: 600;
+    font-size: 14pt;
+}
+
+#aal .letterhead h6 {
+    font-weight: 500;
+    font-size: 11pt;
+}
+
+#aal .letterhead .contact {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+}
+
+#aal .letter-header {
+    margin-bottom: 10px;
+}
+
+#aal .letter-header h6 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 11pt;
+    text-decoration: underline;
+}
+
+#aal .main-content .head-date {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+#aal .main-content h6 {
+    font-weight: 600;
+    font-size: 10pt;
+    text-decoration: underline;
+}
+
+#aal .main-content p {
+    text-indent: 4rem;
+}
+
+#aal .main-content ol,
+#aal .main-content p {
+    font-size: 10pt;
+    line-height: 18pt;
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+#aal .main-content table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10pt;
+    border: solid 1px #aaa;
+    margin-bottom: 10px;
+}
+
+#aal .main-content table th,
+#aal .main-content table td {
+    border-collapse: collapse;
+    border: solid 1px #aaa;
+    padding-block: 3px;
+    text-align: center;
+}
+
+#aal .main-content .sign {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    font-size: 10pt;
+    font-weight: 600;
     margin-top: 3rem;
-    row-gap: 30px;
-    align-items: flex-end;
-    font-weight: 600;
 }
