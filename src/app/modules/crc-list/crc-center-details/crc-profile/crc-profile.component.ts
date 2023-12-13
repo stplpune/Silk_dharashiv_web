@@ -1,8 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -14,6 +14,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-crc-profile',
@@ -31,18 +32,20 @@ import { Subscription } from 'rxjs';
   templateUrl: './crc-profile.component.html',
   styleUrls: ['./crc-profile.component.scss']
 })
-export class CRCProfileComponent {
+export class CrcProfileComponent {
   tableDataArray:any;
   subscription!: Subscription;
   lang: string = 'English';
+  routingData:any;
   constructor
   (
-    private dialogRef: MatDialogRef<CRCProfileComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
     private errorHandler: ErrorHandlingService,
     private commonMethod: CommonMethodsService,
     public WebStorageService: WebStorageService,
+    private route: ActivatedRoute
+
   ){}
 
   ngOnInit(){
@@ -50,15 +53,20 @@ export class CRCProfileComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-    console.log(this.dialogRef,'dattt',this.data);
     this.getTableDataById();
+    this.route.paramMap.subscribe(params => {
+      this.routingData = params.get('data');
+    });
+    console.log('this.routingData',this.routingData);
+    
   }
 
   // sericulture/api/CRCCenter/get-crc-center-profile?Id=1
 
   getTableDataById(){
     this.spinner.show();
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/get-crc-center-profile?Id='+this.data?.id, false, false, false, 'masterUrl');
+    
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/get-crc-center-profile?Id=', false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
