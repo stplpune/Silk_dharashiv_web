@@ -36,7 +36,7 @@ import { TranslateModule } from '@ngx-translate/core';
         ReactiveFormsModule,
         NgxMatSelectSearchModule,
         GlobalTableComponent,
-        TranslateModule
+        TranslateModule,
     ]
 })
 export class CRCListModule { 

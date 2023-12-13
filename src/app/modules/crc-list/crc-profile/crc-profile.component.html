@@ -8,7 +8,7 @@
         <div class="text-center">
           <img src="assets/images/user.png" alt="" class="img-fluid">
           <h6 class="form-data">Abhay Chowki Rearing Center</h6>
-          <p class="bg-success-subtle text-success p-2 rounded-2">Active</p>
+          <p class="bg-success-subtle text-success p-2 rounded-2"> {{tableDataArray?.status || '-'}}</p>
         </div>
       </div>
       <div class="col-sm-10">
@@ -17,37 +17,37 @@
           <div class="col-sm-6">
             <div class="row gx-2">
               <div class="col-sm-auto form-label">Registration No.</div>
-              <div class="col-sm form-data">: MH/01/RCR/45</div>
+              <div class="col-sm form-data">: {{tableDataArray?.crcRegNo || '-'}}</div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="row justify-content-end">
               <div class="col-sm-2 form-label">Certificate.</div>
-              <div class="col-sm form-data">: pdf</div>
+              <div class="col-sm form-data">: {{tableDataArray?.crcRegNo || '-'}}</div>
             </div>
           </div>
           <div class="col-sm-3">
             <div class="row gx-2">
               <div class="col-sm-4 form-label">State</div>
-              <div class="col-sm-8 form-data">: Maharashtra</div>
+              <div class="col-sm-8 form-data">: {{lang == 'en' ?  tableDataArray?.state : tableDataArray?.m_State || '-'}}</div>
             </div>
           </div>
           <div class="col-sm-3">
             <div class="d-flex gap-2">
               <div class="form-label">District</div>
-              <div class="form-data">: Dharahsiv</div>
+              <div class="form-data">:  {{lang == 'en' ?  tableDataArray?.district : tableDataArray?.m_District || '-'}}</div>
             </div>
           </div>
           <div class="col-sm-3">
             <div class="d-flex gap-2">
               <div class="form-label">Taluka</div>
-              <div class="form-data">: Kalamb</div>
+              <div class="form-data">:  {{lang == 'en' ?  tableDataArray?.taluka : tableDataArray?.m_Taluka || '-'}}</div>
             </div>
           </div>
           <div class="col-sm-3">
             <div class="d-flex gap-2">
               <div class="form-label">Village</div>
-              <div class="form-data">: Kalamb</div>
+              <div class="form-data">:  {{lang == 'en' ?  tableDataArray?.village : tableDataArray?.m_Village || '-'}}</div>
             </div>
           </div>
           <div class="col-sm-3">
@@ -59,7 +59,7 @@
           <div class="col-sm-12">
             <div class="row gx-2">
               <div class="col-sm-1 form-label">Address</div>
-              <div class="col-sm-11 form-data">: vjdnfglijgpgjhrgp</div>
+              <div class="col-sm-11 form-data">:  {{lang == 'en' ?  tableDataArray?.address : tableDataArray?.m_Address || '-'}}</div>
             </div>
           </div>
 
@@ -67,11 +67,11 @@
         <div class="d-flex align-items-center justify-content-between w-100 mb-3">
           <div class="d-flex gap-2">
             <div class="form-label">Certificate Issue Date</div>
-            <div class="form-data">: 25/11/2019</div>
+            <div class="form-data">: {{tableDataArray?.certificateIssueDate || '-'}}</div>
           </div>
           <div class="d-flex gap-2">
             <div class="form-label">Certificate Expiry Date</div>
-            <div class="form-data">: 12/08/2024</div>
+            <div class="form-data">: {{tableDataArray?.certificateExpiryDate || '-'}}</div>
           </div>
         </div>
         <section>
@@ -80,43 +80,43 @@
             <div class="col-sm-12">
               <div class="row gx-2 gy-2">
                 <div class="col-sm-1 form-label">Owner Name</div>
-                <div class="col-sm-11 form-data">: Sudhakar Shrihari Jadhav</div>
+                <div class="col-sm-11 form-data">: {{lang == 'en' ?  tableDataArray?.ownerName : tableDataArray?.m_OwnerName || '-'}}</div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="row gx-2">
                 <div class="col-sm-3 form-label">Mobile No</div>
-                <div class="col-sm-9 form-data">: 8669264767</div>
+                <div class="col-sm-9 form-data">:  {{tableDataArray?.mobileNo || '-'}}</div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="row gx-2">
                 <div class="col-sm-4 form-label">Alt Mobile No</div>
-                <div class="col-sm-8 form-data">: 8669264767</div>
+                <div class="col-sm-8 form-data">:  {{tableDataArray?.altMobileNo || '-'}}</div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="row gx-2">
                 <div class="col-sm-4 form-label">Aadhar Card No.</div>
-                <div class="col-sm-8 form-data">: 5589 4521 66902</div>
+                <div class="col-sm-8 form-data">:  {{tableDataArray?.aadharNumber || '-'}}</div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="row gx-2">
                 <div class="col-sm-3 form-label">Email Id.</div>
-                <div class="col-sm-9 form-data">: abhay@gmail.com</div>
+                <div class="col-sm-9 form-data">:  {{tableDataArray?.emailId || '-'}}</div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="row gx-2">
                 <div class="col-sm-4 form-label">Gender</div>
-                <div class="col-sm-8 form-data">: Male</div>
+                <div class="col-sm-8 form-data">:  {{tableDataArray?.gender || '-'}}</div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="row gx-2">
                 <div class="col-sm-4 form-label">Date of Birth</div>
-                <div class="col-sm-8 form-data">: 15/03/1997</div>
+                <div class="col-sm-8 form-data">:  {{tableDataArray?.dob | date:'dd-MM-yyyy' || '-'}}</div>
               </div>
             </div>
           </div>
@@ -127,25 +127,25 @@
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-4 form-label">Total area available for CRC</div>
-                <div class="col-sm-8 form-data">: 400 Sq. Ft.</div>
+                <div class="col-sm-8 form-data">:  {{tableDataArray?.totalAreaForCRC || '-'}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-4 form-label">area Under CRC</div>
-                <div class="col-sm-8 form-data">: 300 Sq. Ft</div>
+                <div class="col-sm-8 form-data">:  {{tableDataArray?.areaUnderCRC || '-'}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-4 form-label">Select Status</div>
-                <div class="col-sm-8 form-data">:Approved</div>
+                <div class="col-sm-8 form-data">: {{tableDataArray?.status || '-'}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
                 <div class="col-sm-4 form-label">Rearing Capacity</div>
-                <div class="col-sm-4 form-data">:5000 DFL</div>
+                <div class="col-sm-4 form-data">: {{tableDataArray?.areaUnderCRC || '-'}}</div>
               </div>
             </div>
             <div class="col-sm-6">

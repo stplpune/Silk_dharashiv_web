@@ -35,24 +35,25 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.status' | translate}}</mat-label>
                         <mat-select formControlName="statusId">
-                            <mat-option>Option 1 </mat-option>
+                            <mat-option  [value]="0">{{lang == 'en' ? 'All Status' : 'सर्व स्थिती'}}</mat-option>
+                            <mat-option *ngFor="let arr of statusArray" [value]="arr.id">{{lang == 'en' ? arr.textEnglish : arr.textMarathi}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="col-sm-4">
                     <div class="d-flex gap-2">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'common.search' | translate}}</mat-label>
-                            <input matInput placeholder="Reg No/CRC Name/Owner name/Mobile No" (keypress)="validation.noFirstSpaceAllow($event)"
+                            <mat-label>{{'crc.search_by_Reg_No_CRC_Name/Owner_name_Mobile_No' | translate}}</mat-label>
+                            <input matInput  (keypress)="validation.noFirstSpaceAllow($event)"
                                 formControlName="searchValue">
                         </mat-form-field>
                         <div class="d-flex gap-2">
-                            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
+                            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit" (click)="filterFlag=true;getTableData()">
                                 <mat-icon class="material-symbols-rounded">
                                     search
                                 </mat-icon>
                             </button>
-                            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+                            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="filterFlag=false;clearFormData()">
                                 <mat-icon class="material-symbols-rounded">
                                     close
                                 </mat-icon>
@@ -66,42 +67,42 @@
             <div class="col-sm-2">
                 <div class="d-flex gap-2">
                     <div class="form-label text-primary">{{'crc.total_crc_center' | translate}}</div>
-                    <div class="form-data text-primary">: 10</div>
+                    <div class="form-data text-primary">: {{countObject?.totalCount}}</div>
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="d-flex gap-2">
                     <div class="form-label text-warning">{{'crc.Pending' | translate}}</div>
-                    <div class="form-data text-warning">: 10</div>
+                    <div class="form-data text-warning">: {{countObject?.pending}}</div>
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="d-flex gap-2">
                     <div class="form-label text-success">{{'crc.active' | translate}}</div>
-                    <div class="form-data text-success">: 10</div>
+                    <div class="form-data text-success">: {{countObject?.active}}</div>
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="d-flex gap-2">
                     <div class="form-label text-danger">{{'crc.expired' | translate}}</div>
-                    <div class="form-data text-danger">: 10</div>
+                    <div class="form-data text-danger">: {{countObject?.expired}}</div>
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="d-flex gap-2">
-                    <div class="form-label text-danger">{{'crc.blocked' | translate}}</div>
-                    <div class="form-data text-danger">: 10</div>
+                    <div class="form-label text-danger">{{'crc.deactive' | translate}}</div>
+                    <div class="form-data text-danger">: {{countObject?.blocked}}</div>
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="d-flex gap-2">
                     <div class="form-label text-secondary">{{'crc.rejected' | translate}}</div>
-                    <div class="form-data text-secondary">: 10</div>
+                    <div class="form-data text-secondary">: {{countObject?.rejected}}</div>
                 </div>
             </div>
         </div>
         <div class="table-responsive scrollbar">
-            <!-- <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table> -->
+            <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
         </div>
     </mat-card-content>
 </mat-card>
