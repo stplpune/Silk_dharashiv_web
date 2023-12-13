@@ -553,12 +553,6 @@ export class ApprovalProcessManaregaComponent {
   }
 
   viewPdf() {
-    let data: any = this.encryptdecrypt.encrypt(this.applicationData?.actionId.toString());
-    // this.router.navigate(['../technical-estimate'], {
-    //   queryParams: {
-    //     id: data
-    //   },
-    // })
-    window.open('technical-estimate?id='+data, '_blank')
+    window.open('technical-estimate?id='+this.applicationData?.actionId, '_blank')
   }
 }

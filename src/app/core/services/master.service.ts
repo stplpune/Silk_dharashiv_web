@@ -64,6 +64,16 @@ export class MasterService {
     })
   }
 
+  getActionDropDownWithObj(object:any) {
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-ActionDropDown?lan=' +object?.lan+'&SchemeId='+object?.SchemeId, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
   getOrderLevel(lan: any) {
     return new Observable((obj) => {
       this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-MasterLevelApproval?lan=' + lan, false, false, false, 'masterUrl')

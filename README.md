@@ -29,4 +29,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 <!-- 
 https://chat.openai.com/share/d1709e52-ff4b-45b4-be98-d598b2ba1269
+npm install jspdf
+npm install jspdf-unicode Marathi
  -->

@@ -55,9 +55,10 @@ export class DashboardComponent {
     this.getDisrict();
     this.filterDefaultFrm();
     this.getAllScheme();
-    this.getAction();
+  
     this.getDashboardCount();
     this.searchDataZone();
+    this.WebStorageService.getLocalstorageData();
   }
 
 
@@ -144,8 +145,16 @@ export class DashboardComponent {
   }
 
   getAction() {
+    if(this.filterFrm.getRawValue().schemeTypeId == 0){
+      this.filterFrm.controls['actionId'].setValue(0);
+      return
+    }
     this.actionArr = [];
-    this.master.GetActionDropDown().subscribe({
+    let obj = {
+      lan:this.lang,
+      SchemeId:this.filterFrm.getRawValue().schemeTypeId
+    }
+    this.master.getActionDropDownWithObj(obj).subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.actionArr.unshift({ id: 0, textEnglish: "All Action", textMarathi: "सर्व कृती" }, ...res.responseData);
