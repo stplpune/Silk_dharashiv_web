@@ -209,6 +209,7 @@ export class CreateSamgraAppComponent {
       "sm_IsTakenBenefitOfInternalScheme": [data?.sm_IsExperienceSilkIndustry || false],
       "sm_IsEngagedInSilkIndustry": [data?.sm_IsEngagedInSilkIndustry || true],
       "CheckCurrentcropproduction": [''],
+      "checkinternalSchemes" : ['',Validators.required]
 
     })
   }
@@ -426,11 +427,9 @@ export class CreateSamgraAppComponent {
   //#endregion------------------------------------------------- dropdown_End-------------------------------------------------------
   //#region -------------------------------------------------page submit method start heare-------------------------------------------------- 
   onSubmit(flag: any) {
-    if (flag == 'landDetailsForm') {
-      let setValArraycurrentcrop = ['CheckCurrentcropproduction'];
-      !this.currentCropDetailsArray.length ? (this.setValidation(setValArraycurrentcrop, this.fL), this.commonMethod.snackBar("Please add current crop and production details", 1)) : this.clearValidation(setValArraycurrentcrop, this.fL)
-
-    }
+ 
+    console.log("thisfdfdfsdfd",this.landDetailsForm.controls);
+    
 
     let setValArray = ['docname', 'checkOtherDocumentTable'];
     this.checkOtherDocumentFlag ? this.clearValidation(setValArray, this.fdp) : this.setValidation(setValArray, this.fdp);
@@ -439,6 +438,12 @@ export class CreateSamgraAppComponent {
     let landDetailsFormValue = this.landDetailsForm.value;
     let bankDetailsFormValue = this.bankDetailsForm.getRawValue();
     let selfDeclarationFormValue = this.selfDeclarationForm.getRawValue();
+
+    if (flag == 'landDetailsForm') {
+      let setValArraycurrentcrop = ['CheckCurrentcropproduction'];
+      !this.currentCropDetailsArray.length ? (this.setValidation(setValArraycurrentcrop, this.fL), this.commonMethod.snackBar("Please add current crop and production details", 1)) : this.clearValidation(setValArraycurrentcrop, this.fL)
+      landDetailsFormValue.sm_IsTakenBenefitOfInternalScheme == true && this.internalSchemesArray.length ? this.fL['checkinternalSchemes'].setValue(1) :  landDetailsFormValue.sm_IsTakenBenefitOfInternalScheme == true && !this.internalSchemesArray.length ? this.fL['checkinternalSchemes'].setValue('') :  this.fL['checkinternalSchemes'].setValue(1)
+    }
 
     !landDetailsFormValue.benificiaryTotalFarm ? landDetailsFormValue.benificiaryTotalFarm = 0 : '';
     !landDetailsFormValue.farmTypeId ? landDetailsFormValue.farmTypeId = 0 : '';
@@ -462,6 +467,10 @@ export class CreateSamgraAppComponent {
       res.createdBy = 0
       // res.isDeleted = true
     })
+    let documets = formDocuments.filter((res:any)=> {return res.docPath})
+
+    console.log("documets",documets);
+    
 
     // return;
     if (this.samgraForm.invalid && flag == 'samgraForm') {
@@ -526,7 +535,7 @@ export class CreateSamgraAppComponent {
         "createdBy": 0,
         "flag": (flag == 'samgraForm' && !this.EditFlag) ? 0 : (flag == 'samgraForm' && this.EditFlag) ? 1 : flag == 'landDetailsForm' ? 2 : flag == 'bankDetailsForm' ? 3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'preview' ? 6 : flag == 'addCurrency' ? 7 : '',
         "isUpdate": true,
-        "appDoc": formDocuments,
+        "appDoc": documets,
         "categoryId": this.checkedItems.map((x: any) => { return x.id }),
         "plantingDetails": [{
           "id": 0,
@@ -621,7 +630,7 @@ export class CreateSamgraAppComponent {
       setValArray = ['internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken']
       this.setValidation(setValArray, this.fIS);
       this.clearValidation(setValArray, this.fIS);
-      value == true ? (this.setValidation(setValArray, this.fIS),this.checkinternalSchemesflag = true) :( this.clearValidation(setValArray, this.fIS),this.checkinternalSchemesflag = false);
+      value == true ? (this.setValidation(setValArray, this.fIS)) :( this.clearValidation(setValArray, this.fIS));
     } else if (flag == 'AnyPlantedBefor') {
       setValArray = ['sm_YearOfPlanting', 'sm_CultivatedArea', 'sm_LandSurveyNo']
       this.setValidation(setValArray, this.fL);
@@ -647,6 +656,14 @@ export class CreateSamgraAppComponent {
       control[res]?.updateValueAndValidity();
     })
   }
+
+  checkInternalInternalscheme(){
+    console.log("hiiii");
+    
+   this.internalSchemesArray.length ? this.fL['checkinternalSchemes'].setValue(1) : this.fL['checkinternalSchemes'].setValue('')
+  }
+
+
 
   addInternalSchemes() {
     let setValArray = ['internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken']
