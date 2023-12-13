@@ -240,3 +240,71 @@ s #report3 .table3 tr th:nth-child(n+3) {
     font-weight: 600;
     margin-top: 3rem;
 }
+
+// Work Order Letter
+#wol .wol-head {
+    text-align: center;
+}
+
+#wol .wol-head {
+    border-bottom: solid 1px #aaa;
+}
+
+#wol .wol-head h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+#wol .wol-head h6 {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+#wol .wol-head .wol-contact {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10pt;
+    padding-bottom: 5px;
+}
+
+#wol .wol-serial {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10pt;
+    margin-top: 10px;
+}
+
+#wol .wol-content {
+    font-size: 10pt;
+}
+
+#wol .wol-content .sec-head {
+    font-weight: 600;
+}
+
+#wol .wol-content ol,
+#wol .wol-content p {
+    line-height: 18pt;
+    text-align: justify;
+    margin-bottom: 10px;
+}
+
+#wol table {
+    width: 100%;
+    margin-bottom: 10px;
+    border-collapse: collapse;
+}
+
+#wol table th,
+#wol table td {
+    border: solid 1px #aaa;
+    text-align: center;
+    padding-block: 3px;
+}
+
+#wol .sign {
+    display: flex;
+    justify-content: end;
+    font-weight: 600;
+    margin-block: 3rem;
+}
