@@ -144,7 +144,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
     let deptId = this.filterForm.getRawValue().departmentId;
     let deptLevelId = this.filterForm.getRawValue().departmentLevelId;
     if (deptId != 0 && deptLevelId != 0) {
-      this.masterService.GetDesignationDropDownOnDeptLevel((deptId || 0), (deptLevelId || 0)).subscribe({
+      this.masterService.getDesignationOnDeptID((deptId || 0), (deptLevelId || 0)).subscribe({
         next: ((res: any) => {
           this.designationArray = res.responseData;
           this.designationArray.unshift({ id: 0, textEnglish: 'All Designation', textMarathi: 'सर्व पदनाम' }),
