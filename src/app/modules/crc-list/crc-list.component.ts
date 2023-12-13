@@ -183,7 +183,7 @@ export class CRCListComponent {
 
  viewCRCList(obj?: any) {
   console.log('obj',obj);
-  this.router.navigate(['crc-profile'], { queryParams: { data: obj } });
+  this.router.navigate(['crc-center-details'], { queryParams: { data: obj } });
   }
 
   openBlockDialog(obj?: any) {
