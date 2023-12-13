@@ -82,7 +82,6 @@
     "block_filter":"ब्लॉक",
     "circle_filter":"मंडळ",
     "grampanchayat_filter":"ग्रामपंचायत",
-    "grampanchayat_filter_all": "सर्व ग्रामपंचायत",
     "select_state": "राज्य निवडा",
     "action": "कृती",
     "remark": " टिप्पणी",
@@ -761,8 +760,9 @@
     "Pending":"प्रलंबित",
     "active":"सक्रिय",
     "expired":"कालबाह्य",
-    "blocked":"अवरोधित",
-    "rejected":"नाकारले"
+    "deactive":"निष्क्रिय",
+    "rejected":"नाकारले",
+    "search_by_Reg_No_CRC_Name/Owner_name_Mobile_No":"नोंदणी क्रमांक/CRC नाव/मालकाचे नाव/मोबाईल नंबर द्वारे शोधा"
   }
 
 }
