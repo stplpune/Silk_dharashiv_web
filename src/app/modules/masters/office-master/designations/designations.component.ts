@@ -46,27 +46,21 @@ export class DesignationsComponent implements OnDestroy {
   ngOnInit() {
     this.WebStorageService.getAllPageName().filter((ele: any) => { return ele.pageName == "Designation" ? this.pageAccessObject = ele : '' })
 
-    // this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
-    //   this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
-    //   this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-    //   console.log("this.lang",this.lang)
-    //   this.setTableData();
-    // })
-    
-      this.subscription =  this.WebStorageService.setLanguage.subscribe((res: any) => {
-      this.lang = res || localStorage.getItem('language') || 'English';
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-       console.log("this.lang",this.lang)
-    });
-   
-
+      this.setTableData();
+    })
+    
+    //  this.subscription =  this.WebStorageService.setLanguage.subscribe((res: any) => {
+    //   this.lang = res || localStorage.getItem('language') || 'English';
+    //   this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+    // });
     this.getDepartment();
     this.getDepartmentLevel();
     this.filterDefaultFrm();
     this.bindTable();
-    // this.lang = this.WebStorageService.setLanguageCallback();//testing code lang for common
-    // this.setTableData();
-  }
+   }
 
   filterDefaultFrm() {
     this.filterFrm = this.fb.group({
