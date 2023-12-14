@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 import { MasterService } from 'src/app/core/services/master.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
@@ -32,7 +33,8 @@ import { ValidationService } from 'src/app/core/services/validation.service';
     MatIconModule,
     MatTableModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   templateUrl: './crc-profile.component.html',
   styleUrls: ['./crc-profile.component.scss'],

@@ -10,7 +10,7 @@
                 <td mat-cell *matCellDef="let element let i=index">
                     <ng-container *ngIf="'srNo'==columns">{{(((pageNumber + 1) * 10 + i + 1)-20)}}</ng-container>
 
-                    <ng-container *ngIf="'srNo' != columns && tableInfo?.isBlock != columns  && tableInfo?.img != columns && tableInfo?.date != columns && 'status1' != columns && 'selfStatus' != columns">
+                    <ng-container *ngIf="'srNo' != columns && tableInfo?.isBlock != columns  && tableInfo?.img != columns && tableInfo?.date != columns && 'status1' != columns && 'selfStatus' != columns && tableInfo?.dates !=columns" >
                         {{element[columns] ? element[columns] : '-' }}
                     </ng-container>
                       <!-- used for toggle  -->
@@ -21,9 +21,9 @@
                     <!-- used for image -->
                     <ng-container *ngIf="tableInfo?.img == columns"><img src="{{element[columns] ? element[columns] : 'assets/images/user.png'}}"></ng-container>
                       <!-- used for date -->
-                      <ng-container *ngIf="tableInfo?.date == columns">
-                        {{ (tableInfo?.time ? (element[columns] | date:'dd-MM-yyyy hh:mm a'):(element[columns] | date:'dd-MM-yyyy')) }}</ng-container>
-                     <!-- add badge with color for status -->
+                      <ng-container *ngIf="tableInfo?.date == columns">{{ (tableInfo?.time ? (element[columns] | date:'dd-MM-yyyy hh:mm a'):(element[columns] | date:'dd-MM-yyyy')) }}</ng-container>
+                      <ng-container *ngIf="tableInfo?.dates ==columns">{{ (tableInfo?.times ? (element[columns] | date:'dd-MM-yyyy hh:mm a'):(element[columns] | date:'dd-MM-yyyy')) }}</ng-container>
+                     <!-- add badge with color for status
                      <ng-container *ngIf="'status1' == columns">
                         <span class="p-2"  [ngClass]=" lang =='en' ? (element.status=='Approved' ? 'badge bg-success-subtle text-success' : (element.status == 'Pending') ? 'badge bg-warning-subtle text-dark' :(element.status == 'Re-Send') ? 'badge bg-primary-subtle text-primary' : (element.status == 'Rejected')? 'badge bg-danger-subtle text-danger' : '') :
                         (element.m_Status=='मान्यता प्राप्त' ? 'badge bg-success-subtle text-success' : (element.m_Status == 'प्रलंबित') ? 'badge bg-warning-subtle text-dark' : (element.m_Status == 'पुन्हा पाठवा') ? 'badge bg-primary-subtle text-primary' : (element.m_Status == 'नाकारले')? 'badge bg-danger-subtle text-danger' : '')">
