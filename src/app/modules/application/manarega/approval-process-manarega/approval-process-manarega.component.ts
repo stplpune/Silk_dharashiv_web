@@ -450,6 +450,11 @@ export class ApprovalProcessManaregaComponent {
     if (!approvalFrmVal?.applicationStatus) {
       this.commonMethod.snackBar('Application status is  required', 1);
       return
+    } else if (this.actionNameLabel && !this.uploadedDepDoc && this.applicationData?.isEdit && approvalFrmVal.applicationStatus == 12) {
+      // actionId == 2 is Gramcommittee Approval	Gram Sevak
+      this.commonMethod.snackBar(this.applicationData?.actionId == 2 ? this.actionNameLabel + ' document is required' : 'Generate '+this.actionNameLabel +' Letter' , 1);
+      // this.commonMethod.snackBar(this.actionNameLabel + ' document is required', 1);
+      return;
     } else if ((approvalFrmVal.applicationStatus == 11 || approvalFrmVal.applicationStatus == 5) && !approvalFrmVal?.reason) {
       this.commonMethod.snackBar('Application reason is  required', 1);
       return
@@ -458,12 +463,7 @@ export class ApprovalProcessManaregaComponent {
       this.commonMethod.snackBar('Application remark is  required', 1);
       return
     }
-    else if (this.actionNameLabel && !this.uploadedDepDoc && this.applicationData?.isEdit && approvalFrmVal.applicationStatus == 12) {
-      // actionId == 2 is Gramcommittee Approval	Gram Sevak
-      // this.commonMethod.snackBar(this.applicationData?.actionId == 2 ? this.actionNameLabel + ' document is required' : 'Generate '+this.actionNameLabel +' document' , 1);
-      this.commonMethod.snackBar(this.actionNameLabel + ' document is required', 1);
-      return;
-    }
+
     else {
       let newUploadedDoc: any = [];
       let mergeArray: any;

@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 import { DashPipe } from "../../../../../core/Pipes/dash.pipe";
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { ActivatedRoute } from '@angular/router';
-import jsPDF from 'jspdf';
+declare var html2pdf: any;
 
 @Component({
   selector: 'app-generate-pdf',
@@ -73,7 +73,7 @@ export class GeneratePdfComponent {
 
   ngOnInit() {
     this.actionID = this.route.snapshot.queryParamMap.get('id');
-    this.actionID=5
+    // this.actionID=5
     this.getEstimateData();
     this.getAnotherEstimateData();
   }
@@ -223,23 +223,26 @@ export class GeneratePdfComponent {
 
   print() {
     window.print();
-    jsPDF
-    // let doc = new jsPDF();
-    // doc.addFileToVFS('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Marathi&display=swap', 'Tiro Devanagari Marathi')
-    // doc.setFont('Tiro Devanagari Marathi');
+  }
 
-    // let elementHTML: any = document.querySelector("#report3");
-    // let fileName = this.actionID == 3 ? 'technical_estimate' : this.actionID == 4 ? 'technical_sanction' : 'administrative_approval';
+  download() {
+    this.spinner.show();
+    var element = document.getElementById('printArea');
+    let fileName = this.actionID == 3 ? 'technical_estimate' : this.actionID == 4 ? 'technical_sanction' : 'administrative_approval';
+    var opt = {
+      margin: 0,
+      filename: fileName + '.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 1 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
 
-    // doc.html(elementHTML, {
-    //   callback: function (doc) {
-    //     doc.save(fileName + '.pdf');
-    //   },
-    //   x: 15,
-    //   y: 15,
-    //   width: 170, //target width in the PDF document
-    //   windowWidth: 650 //window width in CSS pixels
-    // });
+    // New Promise-based usage:
+    html2pdf()?.set(opt)?.from(element).save();
+
+    // Old monolithic-style usage:
+    html2pdf(element, opt);
+    this.spinner.hide();
   }
 
 }
