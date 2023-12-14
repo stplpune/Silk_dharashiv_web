@@ -28,6 +28,7 @@ export class TrackApplicationComponent {
   @Input() childMessage: any;
   subscription!: Subscription;//used  for lang conv
   lang: any;
+  trackEndFlag:boolean = false
 
   constructor(
     private apiService: ApiService, private spinner: NgxSpinnerService, private commonMethods: CommonMethodsService, private error: ErrorHandlingService, private WebStorageService: WebStorageService,
@@ -52,7 +53,7 @@ export class TrackApplicationComponent {
     this.apiService?.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.appHistoryArray = res.responseData;
-        console.log(this.appHistoryArray);
+        this.trackEndFlag = this.appHistoryArray.every((ele:any)=>  ele.status == 'Approved');
         this.spinner.hide();
       }
       else {

@@ -41,19 +41,19 @@
     </div>
     <div class="col-sm-auto col-auto">
       <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" (click)="changeLanguage('English')" >
         <label class="btn btn-outline-primary" for="btnradio1">
           <div class="d-lg-block d-none">English</div>
-          <div class="d-block d-lg-none">En</div>
+          <!-- <div class="d-block d-lg-none">En</div> -->
         </label>
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" (click)="changeLanguage('Marathi')" >
         <label class="btn btn-outline-primary" for="btnradio2">
           <div class="d-lg-block d-none">मराठी</div>
-          <div class="d-block d-lg-none">म</div>
+          <!-- <div class="d-block d-lg-none">म</div> -->
         </label>
       </div>
     </div>
-  </div>
+ </div>
 </div>
 <nav class="navbar navbar-expand-lg" [ngClass]="isNavbarFixed?'fixed':'notfixed'" (scroll)="onScroll()">
   <div class="container">

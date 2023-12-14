@@ -21,16 +21,21 @@
                 </li>
                 <li *ngFor="let history of appHistoryArray">
                     <div class="content">
-                        <h3 [ngClass]="{'text-success':history.status =='Approved','text-warning':history.status !='Approved'}">{{(lang == 'en' ? history?.actionName : history?.m_ActionName) | dash }}</h3>
-                        <p >{{'common.designation_n'|translate}} : {{ (lang == 'en' ? history?.designationName : history?.m_DesignationName) | dash }}</p> 
-                        <p><small>{{'common.remark'|translate}} : {{ (lang == 'en' ? history?.remark : history?.m_Remark) | dash }}</small></p>   
-                   </div> 
-                    <div  [ngClass]="{'time':history.status =='Approved','time1':history.status !='Approved'}">
-                        <h4>{{history?.approvalDate ? (history?.approvalDate | date :'dd-MM-YYYY hh:mm a') : (date | date :'dd-MM-YYYY hh:mm a')}}</h4>
+                        <h3
+                            [ngClass]="{'text-success':history.status =='Approved','text-warn':history.status !='Approved'}">
+                            {{(lang == 'en' ? history?.actionName : history?.m_ActionName) | dash }}</h3>
+                        <p>{{'common.designation_n'|translate}} : {{ (lang == 'en' ? history?.designationName :
+                            history?.m_DesignationName) | dash }}</p>
+                        <p><small>{{'common.remark'|translate}} : {{ (lang == 'en' ? history?.remark :
+                                history?.m_Remark) | dash }}</small></p>
+                    </div>
+                    <div [ngClass]="{'time':history.status =='Approved','time1':history.status !='Approved'}">
+                        <h4>{{history?.approvalDate ? (history?.approvalDate | date :'dd-MM-YYYY hh:mm a') : (date |
+                            date :'dd-MM-YYYY hh:mm a')}}</h4>
                     </div>
                 </li>
-                <li class="end">
-                    <div>
+                <li class="end" *ngIf="trackEndFlag">
+                    <div class="time">
                         <h4>{{'approvalProcess.end'|translate}}</h4>
                     </div>
                 </li>
