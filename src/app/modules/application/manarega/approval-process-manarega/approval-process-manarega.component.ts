@@ -293,6 +293,7 @@ export class ApprovalProcessManaregaComponent {
               "isVerified": false
             }
             this.uploadedDepDoc = obj;
+            console.log(this.uploadedDepDoc);
             this.deleteImage();
           }
         }
