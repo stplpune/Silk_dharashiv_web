@@ -11,6 +11,8 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 export class HeaderComponent {
   sampleData: string = '';
   isNavbarFixed: boolean = false;
+  getLang = ["English", "Marathi"];
+
   @HostListener('window:scroll', ['$event']) onScroll() {
     if (window.scrollY > 100) {
       this.isNavbarFixed = true;
@@ -19,7 +21,7 @@ export class HeaderComponent {
     }
   }
 
-  language: string = 'English';
+  language!: string;
   lag = ['English', 'Marathi'];
   selLang!: string;
   subscription!: Subscription;
@@ -36,6 +38,7 @@ export class HeaderComponent {
   ngOnInit() {
     let language: any = localStorage.getItem('language');
     language = language ? language : 'English';
+    console.log(language);
     // sessionStorage.setItem('language', language)
     this.webStorage.setLanguage.next(language);
     this.translate.use(language);
