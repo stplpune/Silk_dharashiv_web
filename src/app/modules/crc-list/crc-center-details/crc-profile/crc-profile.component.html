@@ -7,7 +7,7 @@
       <div class="row gy-2">
         <div class="col-sm-2">
           <div class="text-center">
-            <img src="assets/images/user.png" alt="" class="img-fluid">
+            <img [src]="tableDataArray?.profileImagePath ? tableDataArray?.profileImagePath :  'assets/images/user.png'" alt="" class="img-fluid">
             <h6 class="form-data">Abhay Chowki Rearing Center</h6>
             <p class="bg-success-subtle text-success p-2 rounded-2"> {{tableDataArray?.status || '-'}}</p>
           </div>

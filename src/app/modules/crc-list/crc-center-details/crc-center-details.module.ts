@@ -18,7 +18,7 @@ import { GrainageOrderDetailsComponent } from './crc-grainage-order/grainage-ord
   declarations: [
     CrcCenterDetailsComponent,
     ChowkiOrderDetailsComponent,
-    GrainageOrderDetailsComponent
+    GrainageOrderDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -29,7 +29,9 @@ import { GrainageOrderDetailsComponent } from './crc-grainage-order/grainage-ord
     CrcDeliverySlabsComponent,
     CrcChawkiOrderComponent,
     CrcChawkiOrderDetailsComponent,
-    MatButtonModule
+    MatButtonModule,
+      
+
   ]
 })
 export class CrcCenterDetailsModule { }

@@ -149,6 +149,16 @@ export class CreateManaregaAppComponent {
      aadharNo: [''],
     })
   }
+
+  clearForm(){
+ this.addManaregaFrm();
+   this.addRegistrationFrm();this.addFarmInfo();
+   this.addDocumentFrm();this.addBankInfo();
+   this.getFarmInfo();this.filterDefaultFrm();  
+   this.addSelfDeclaration(); this.addOtherDocument();
+   this.otherDocArray = [];this.farmDetails = [];
+    this.checkedItems = []; this.previewData =[];
+ }
   
   //#region --------------form start here---------------------
   addManaregaFrm(data?:any) {
@@ -693,6 +703,7 @@ onSubmit(flag?:any) {
     }
   }
 
+  
   // ---------------Dropdown bind functionality start here--------------------
   searchDataZone() {
     this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
