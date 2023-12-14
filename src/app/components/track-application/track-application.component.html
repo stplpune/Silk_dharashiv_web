@@ -22,9 +22,9 @@
                 <li *ngFor="let history of appHistoryArray">
                     <div class="content">
                         <h3>{{(lang == 'en' ? history?.actionName : history?.m_ActionName) | dash }}</h3>
-                        <p>{{'common.designation_n'|translate}} - {{(lang == 'en' ? history?.designationName : history?.m_DesignationName) | dash }}</p> 
-                        <p><small>{{'common.remark'|translate}} - {{(lang == 'en' ? history?.remark : history?.m_Remark) | dash }}</small></p>   
-                   </div>
+                        <p>{{'common.designation_n'|translate}} : {{ (lang == 'en' ? history?.designationName : history?.m_DesignationName) | dash }}</p> 
+                        <p><small>{{'common.remark'|translate}} : {{ (lang == 'en' ? history?.remark : history?.m_Remark) | dash }}</small></p>   
+                   </div> 
                     <div class="time">
                         <h4>{{history?.approvalDate | date :'dd-MM-YYYY hh:mm a'}}</h4>
                     </div>
