@@ -34,7 +34,7 @@
                             date :'dd-MM-YYYY hh:mm a')}}</h4>
                     </div>
                 </li>
-                <li class="end">
+                <li class="end" *ngIf="trackEndFlag">
                     <div class="time">
                         <h4>{{'approvalProcess.end'|translate}}</h4>
                     </div>
