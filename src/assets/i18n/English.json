@@ -94,6 +94,9 @@
     "search":"Search"
   },
   "approvalProcess": {
+    "track_application" : "Track Application",
+    "start":"Start",
+    "end" : "End",
     "Add_Manarega":"Add Manrega",
     "applicant_id": "Application ID",
     "mulberry_id": "Mulberry Id (Date)",

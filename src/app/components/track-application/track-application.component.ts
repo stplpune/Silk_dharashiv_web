@@ -11,11 +11,13 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
-
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { Subscription } from 'rxjs';
+import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
 @Component({
   selector: 'app-track-application',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatIconModule, MatInputModule, MatButtonModule, ReactiveFormsModule, TranslateModule],
+  imports: [CommonModule, MatDialogModule, MatIconModule, MatInputModule, MatButtonModule, ReactiveFormsModule, TranslateModule,DashPipe],
   templateUrl: './track-application.component.html',
   styleUrls: ['./track-application.component.scss']
 })
@@ -23,18 +25,24 @@ export class TrackApplicationComponent {
   appHistoryArray: any;
   getBaseUrl!: string;
   @Input() childMessage: any;
+  subscription!: Subscription;//used  for lang conv
+  lang: any;
 
   constructor(
-    private apiService: ApiService, private spinner: NgxSpinnerService, private commonMethods: CommonMethodsService, private error: ErrorHandlingService,
+    private apiService: ApiService, private spinner: NgxSpinnerService, private commonMethods: CommonMethodsService, private error: ErrorHandlingService, private WebStorageService: WebStorageService,
     @Optional() public dialogRef: MatDialogRef<TrackApplicationComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any, private router: Router) {
     this.getBaseUrl = this.router.url;
-    debugger;
    this.router.url != '/track-application' ? this.getAppHistory(data.applicationNo):'';
   }
 
   ngOnChanges(): void {
-    this.router.url == '/track-application' && this.childMessage ? this.getAppHistory(this.childMessage) : ''
+    this.router.url == '/track-application' && this.childMessage ? this.getAppHistory(this.childMessage) : '';
+   
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+    })
   }
 
   getAppHistory(id: any) {

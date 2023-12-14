@@ -828,7 +828,7 @@
                 </div>
                 <button mat-flat-button class="btn-main mt-md-4" type="button"
                   *ngIf="applicationData?.uploadDocTypeId !=0 && approvalFrm.value.applicationStatus == 12 && applicationData.actionId !=2"
-                  (click)="viewPdf()">{{actionNameLabel}} Document</button>
+                  (click)="viewPdf()">Generate {{actionNameLabel}} Document</button>
 
                 <div class="file-upload border rounded-2 p-1 mt-md-4 gap-2"
                   *ngIf="applicationData?.uploadDocTypeId !=0 && approvalFrm.value.applicationStatus == 12">
