@@ -554,6 +554,6 @@ export class ApprovalProcessManaregaComponent {
   }
 
   viewPdf() {
-    window.open('technical-estimate?id='+this.applicationData?.actionId, '_blank')
+    window.open('generate-pdf?id='+this.applicationData?.actionId, '_blank')
   }
 }
