@@ -75,12 +75,13 @@ export class TechnicalEstimateComponent {
 
   ngOnInit() {
     this.actionID = this.route.snapshot.queryParamMap.get('id');
-    // this.getEstimateData();
-    // this.getAnotherEstimateData();
+    this.actionID=5
+    this.getEstimateData();
+    this.getAnotherEstimateData();
   }
 
   getEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId=' + this.actionID, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId=2', false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -157,7 +158,7 @@ export class TechnicalEstimateComponent {
   }
 
   getAnotherEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId=' + this.actionID, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId=2' + this.actionID, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
