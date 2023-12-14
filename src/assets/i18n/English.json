@@ -88,6 +88,7 @@
     "action": "Action",
     "remark": "Remark",
     "select_grampanchayat": "Select Grampanchayat",
+    "grampanchayat_filter_all":"All Grampanchayat",
     "fullName_minLength": "Minimum 5 character allowed",
     "status":"Status",
     "search":"Search"
