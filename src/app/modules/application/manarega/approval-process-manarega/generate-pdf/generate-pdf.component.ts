@@ -234,7 +234,8 @@ export class GeneratePdfComponent {
       filename: fileName + '.pdf',
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 1 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+      font: { size: 9 }
     };
 
     // New Promise-based usage:
@@ -242,7 +243,9 @@ export class GeneratePdfComponent {
 
     // Old monolithic-style usage:
     html2pdf(element, opt);
-    this.spinner.hide();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1000);
   }
 
 }
