@@ -34,7 +34,7 @@
                 search
               </mat-icon>
             </button>
-            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="clearForm()">
               <mat-icon class="material-symbols-rounded">
                 close
               </mat-icon>
@@ -1159,9 +1159,9 @@
             </ul>
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button matStepperPrevious class="btn-main">मागे जा</button>
+            <button mat-button matStepperPrevious class="btn-main">Previous</button>
             <button mat-button matStepperNext class="btn-main" type="button"
-              (click)="onSubmit('selfDeclaration')">पुरवलोकण करा </button>
+              (click)="onSubmit('selfDeclaration')">Next</button>
           </div>
         </form>
 
@@ -1636,7 +1636,8 @@
 
 
 
-              <div class="col-sm">
+              <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+                <button mat-button matStepperPrevious class="btn-main">Previous</button>
                 <button mat-flat-button class="btn-main" type="button" (click)="onSubmit('challan')">प्रस्तुत
                   करा</button>
               </div>
