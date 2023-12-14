@@ -56,8 +56,8 @@ export class CreateSamgraAppComponent {
   dataSource: any;
   dataSource1: any;
   dataSource2: any;
-  genderArray: any = [{ id: 1, name: 'Male' }, { id: 2, name: 'Female' }];
-  checkedArray: any = [{ id: true, name: 'Yes' }, { id: false, name: 'No' }];
+  genderArray: any = [{ id: 1, name: 'Male' , m_name:'पुरुष' }, { id: 2, name: 'Female',m_name:'स्त्री' }];
+  checkedArray: any = [{ id: true, name: 'Yes' ,m_name:'हो' }, { id: false, name: 'No',m_name:'नाही' }];
 
   showOtherDoc: boolean = false;
   currentRecordId: number = 0;
