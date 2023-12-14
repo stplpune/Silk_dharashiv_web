@@ -150,11 +150,13 @@ export class CreateSamgraAppComponent {
     this.getPlantationMethod();
     this.getMulberryCultivationArea();
     this.samgraId[0] ? this.getPreviewData() : '';
+    setTimeout(() => {
       if (!this.docArray[0].docPath || !this.docArray[1].docPath || !this.docArray[2].docPath) {
         let setValArray = ['checkDocument']
         this.setValidation(setValArray, this.fdp);
       }  
-   
+    }, 1000); 
+
     let setvalidation = ['CheckCurrentcropproduction']
     !this.currentCropDetailsArray.length ? (this.setValidation(setvalidation, this.fL)) : this.clearValidation(setvalidation, this.fL)
   
@@ -430,9 +432,6 @@ export class CreateSamgraAppComponent {
   //#endregion------------------------------------------------- dropdown_End-------------------------------------------------------
   //#region -------------------------------------------------page submit method start heare-------------------------------------------------- 
   onSubmit(flag: any) {
-    console.log("documentnd form conngtrol",this.otherDocForm.controls);
-    
-
 
     let setValArray = ['docname', 'checkOtherDocumentTable'];
     this.checkOtherDocumentFlag ? this.clearValidation(setValArray, this.fdp) : this.setValidation(setValArray, this.fdp);
@@ -468,7 +467,6 @@ export class CreateSamgraAppComponent {
     formDocuments.map((res: any) => {
       res.applicationId = this.previewData?.id || this.currentRecordId || 0
       res.createdBy = 0
-      // res.isDeleted = true
     })
     let documets = formDocuments.filter((res:any)=> {return res.docPath})
 
@@ -537,17 +535,7 @@ export class CreateSamgraAppComponent {
         "isUpdate": true,
         "appDoc": documets,
         "categoryId": this.checkedItems.map((x: any) => { return x.id }),
-        "plantingDetails": [{
-          "id": 0,
-          "applicationId": 0,
-          "plantName": "",
-          "gutNo": 0,
-          "gutArea": 0,
-          "cultivatedArea": 0,
-          "cultivatedPlantsCount": 0,
-          "createdBy": 0,
-          "isDeleted": true
-        }],
+        "plantingDetails": [],
         "currentProducts": this.currentCropDetailsArray,
         "internalSchemes": this.internalSchemesArray
       }
@@ -666,11 +654,9 @@ export class CreateSamgraAppComponent {
     console.log("array value",this.internalSchemesArray);
      let setValArray = ['checkinternalSchemes'];
     this.setValidation(setValArray, this.fL);
-    this.clearValidation(setValArray, this.fL);
-    
+    this.clearValidation(setValArray, this.fL);  
 
-    (landDetailsFormValue.sm_IsTakenBenefitOfInternalScheme == true && this.internalSchemesArray.length) ?  ( this.clearValidation(setValArray, this.fL),console.log("hii 1")):  (landDetailsFormValue.sm_IsTakenBenefitOfInternalScheme == true && !this.internalSchemesArray.length) ? (this.setValidation(setValArray, this.fL),console.log("hii 2")) :    (this.clearValidation(setValArray, this.fL),console.log("hii 2"));
-    
+    (landDetailsFormValue.sm_IsTakenBenefitOfInternalScheme == true && this.internalSchemesArray.length) ?  ( this.clearValidation(setValArray, this.fL),console.log("hii 1")):  (landDetailsFormValue.sm_IsTakenBenefitOfInternalScheme == true && !this.internalSchemesArray.length) ? (this.setValidation(setValArray, this.fL),console.log("hii 2")) :    (this.clearValidation(setValArray, this.fL),console.log("hii 2"));    
    
   }
 
