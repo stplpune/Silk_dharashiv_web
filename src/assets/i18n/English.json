@@ -760,7 +760,25 @@
     "checkBox1" :"I am ready to plant new mulberries at my own expense, silk. □ I agree to the terms and conditions prescribed by the Directorate from time to time.",
     "checkBox2" : "I guarantee to plant mulberry of improved variety in the land suitable for mulberry cultivation as per the standard prescribed under the scheme at the distance recommended by the office and to carry out proper cultivation of mulberry plantation.",
     "checkBox3" :"All the information mentioned above in the application is correct and if it is directed that I have taken advantage of the subsidy by filling some wrong information in it, I will be eligible for legal action □ However, I request your prior consent to participate in the 02 acre Mulberry Plantation Scheme under the Centrally Sponsored 'Silk Samajra-2' scheme.",
-    "pay_registration_fee_and_upload_the_receipt_here":"Go to Silk Directorate and pay registration fee Rs.500 per acre and upload the receipt here"
+    "pay_registration_fee_and_upload_the_receipt_here":"Go to Silk Directorate and pay registration fee Rs.500 per acre and upload the receipt here",
+    "sr_No":"Sr. No.",
+    "Crop_Name":"Crop Name",
+    "Area":"Area(Hector)",
+    "Crop_Production":"Crop Production (quintal)",
+    "average_rate":"The average rate obtained per kg (Rs)",
+    "Produced_Amount ":"Produced  Amount (Rs.)",
+    "expenditure_incurred ":"The expenditure incurred is (Rs.)",
+    "net_income" :"The net income",
+    "income_per_acre" :"Net income per acre is (Rs.)",
+    "Action" :"Action",
+    "Scheme_Name":"Scheme Name",
+    "date":"Date",
+    "Total_Benefit":"Total Benefit Amount (Rs.)",
+    "Document_Name":"Document Name",
+    "Document_No":"Document No.",
+    "Attach_Document":"Attach Document"
+
+
   },
   "farmerLogin":{
     "farmer_login":"Farmer Login",

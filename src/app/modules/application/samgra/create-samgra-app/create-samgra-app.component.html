@@ -421,48 +421,48 @@
                   <table mat-table [dataSource]="dataSource" class="dashboard-table">
 
                     <ng-container matColumnDef="srno">
-                      <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
+                      <th mat-header-cell *matHeaderCellDef>  {{'addSamgra.sr_No' | translate}} </th>
                       <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="cropId">
-                      <th mat-header-cell *matHeaderCellDef> Crop Name </th>
+                      <th mat-header-cell *matHeaderCellDef>  {{'addSamgra.Crop_Name' | translate}}</th>
                       <td mat-cell *matCellDef="let element"> {{element?.cropName || '-'}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="area">
-                      <th mat-header-cell *matHeaderCellDef> क्षेत्र एकर </th>
+                      <th mat-header-cell *matHeaderCellDef> {{'addSamgra.Area' | translate}} </th>
                       <td mat-cell *matCellDef="let element"> {{element?.area || '-'}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="totalProduction">
-                      <th mat-header-cell *matHeaderCellDef> झालेले उत्पादन क्विंटल </th>
+                      <th mat-header-cell *matHeaderCellDef>  {{'addSamgra.Crop_Production' | translate}} </th>
                       <td mat-cell *matCellDef="let element"> {{element?.totalProduction || '-'}} </td>
                     </ng-container>
                     <ng-container matColumnDef="averageRate">
-                      <th mat-header-cell *matHeaderCellDef> मिळालेला सरासरी दर प्रती क्विं रु </th>
+                      <th mat-header-cell *matHeaderCellDef> {{'addSamgra.average_rate' | translate}} </th>
                       <td mat-cell *matCellDef="let element"> {{element?.averageRate || '-'}} </td>
                     </ng-container>
                     <ng-container matColumnDef="totalProductionAmt">
-                      <th mat-header-cell *matHeaderCellDef> झालेला उत्पादन रु </th>
+                      <th mat-header-cell *matHeaderCellDef> {{'addSamgra.Produced_Amount' | translate}} </th>
                       <td mat-cell *matCellDef="let element"> {{element?.totalProductionAmt || '-'}} </td>
                     </ng-container>
                     <ng-container matColumnDef="totalExpenses">
-                      <th mat-header-cell *matHeaderCellDef> आलेला खर्चा रु </th>
+                      <th mat-header-cell *matHeaderCellDef>{{'addSamgra.expenditure_incurred' | translate}}</th>
                       <td mat-cell *matCellDef="let element"> {{element?.totalExpenses || '-'}} </td>
                     </ng-container>
                     <ng-container matColumnDef="netIncome">
-                      <th mat-header-cell *matHeaderCellDef> झालेले निव्वळ उत्पन्न रु </th>
+                      <th mat-header-cell *matHeaderCellDef> {{'addSamgra.net_income' | translate}}</th>
                       <td mat-cell *matCellDef="let element"> {{element?.netIncome || '-'}} </td>
                     </ng-container>
                     <ng-container matColumnDef="acreNetIncome">
-                      <th mat-header-cell *matHeaderCellDef> प्रती एकर निव्वळ उत्पन्नरु </th>
+                      <th mat-header-cell *matHeaderCellDef> {{'addSamgra.income_per_acre' | translate}} </th>
                       <td mat-cell *matCellDef="let element"> {{element?.acreNetIncome || '-'}} </td>
                     </ng-container>
 
 
                     <ng-container matColumnDef="action">
-                      <th mat-header-cell *matHeaderCellDef>Action</th>
+                      <th mat-header-cell *matHeaderCellDef>{{'addSamgra.Action' | translate}}</th>
                       <td mat-cell *matCellDef="let element; let i = index">
                         <div class="d-flex gap-02">
                           <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
@@ -632,27 +632,27 @@
                   <table mat-table [dataSource]="dataSource1" class="dashboard-table">
 
                     <ng-container matColumnDef="srno">
-                      <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
+                      <th mat-header-cell *matHeaderCellDef> {{'addSamgra.sr_No' | translate}} </th>
                       <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="internalSchemeName">
-                      <th mat-header-cell *matHeaderCellDef> Crop Name </th>
+                      <th mat-header-cell *matHeaderCellDef> {{'addSamgra.Scheme_Name' | translate}}</th>
                       <td mat-cell *matCellDef="let element"> {{element?.internalSchemeName || '-'}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="schemeTakenDate">
-                      <th mat-header-cell *matHeaderCellDef> क्षेत्र एकर </th>
+                      <th mat-header-cell *matHeaderCellDef> {{'addSamgra.date' | translate}} </th>
                       <td mat-cell *matCellDef="let element"> {{element?.schemeTakenDate || '-' | date:'dd-MM-YYYY' }} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="totalBenefitTaken">
-                      <th mat-header-cell *matHeaderCellDef> झालेले उत्पादन क्विंटल </th>
+                      <th mat-header-cell *matHeaderCellDef> {{'addSamgra.Total_Benefit' | translate}} </th>
                       <td mat-cell *matCellDef="let element"> {{element?.totalBenefitTaken || '-'}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="action">
-                      <th mat-header-cell *matHeaderCellDef>Action</th>
+                      <th mat-header-cell *matHeaderCellDef>{{'addSamgra.Action' | translate}}</th>
                       <td mat-cell *matCellDef="let element; let i = index">
                         <div class="d-flex gap-02">
                           <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
@@ -1009,7 +1009,7 @@
                       </div>
                     </div>
                     <div class="col-sm-3">
-                      <div class="form-label">{{'addSamgra.Attach_other_documents'|translate}} </div>
+                      <div class="form-label">{{'addSamgra.Attach_Document'|translate}} </div>
                       <div class="file-upload border rounded-2 p-1">
                         <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
                           (click)="otherDoc.value='';otherDoc.click()">File
@@ -1050,22 +1050,22 @@
               <div class="table-responsive">
                 <table mat-table [dataSource]="dataSource2" class="dashboard-table mb-0">
                   <ng-container matColumnDef="srno">
-                    <th mat-header-cell *matHeaderCellDef> Sr No</th>
+                    <th mat-header-cell *matHeaderCellDef>{{'addSamgra.sr_No'|translate}}</th>
                     <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="docname">
-                    <th mat-header-cell *matHeaderCellDef> Document Name </th>
+                    <th mat-header-cell *matHeaderCellDef>{{'addSamgra.Document_Name'|translate}}</th>
                     <td mat-cell *matCellDef="let element">{{element?.docname}}</td>
                   </ng-container>
 
                   <ng-container matColumnDef="docNo">
-                    <th mat-header-cell *matHeaderCellDef> Document Number </th>
+                    <th mat-header-cell *matHeaderCellDef>{{'addSamgra.Document_No'|translate}}</th>
                     <td mat-cell *matCellDef="let element">{{element?.docNo | dash}}</td>
                   </ng-container>
 
                   <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <th mat-header-cell *matHeaderCellDef>{{'addSamgra.Action'|translate}}</th>
                     <td mat-cell *matCellDef="let element; let i = index">
                       <div class="d-flex gap-02">
                         <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
