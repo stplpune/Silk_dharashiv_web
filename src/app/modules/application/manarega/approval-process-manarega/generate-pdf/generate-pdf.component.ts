@@ -1,4 +1,3 @@
-
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,15 +11,14 @@ import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decry
 import { ActivatedRoute } from '@angular/router';
 import jsPDF from 'jspdf';
 
-// declare var jsPDF: any;
 @Component({
+  selector: 'app-generate-pdf',
   standalone: true,
-  selector: 'app-technical-estimate',
-  templateUrl: './technical-estimate.component.html',
-  styleUrls: ['./technical-estimate.component.scss'],
-  imports: [CommonModule, MatCardModule, MatButtonModule, DashPipe]
+  imports: [CommonModule, MatButtonModule, MatCardModule, DashPipe],
+  templateUrl: './generate-pdf.component.html',
+  styleUrls: ['./generate-pdf.component.scss']
 })
-export class TechnicalEstimateComponent {
+export class GeneratePdfComponent {
   @ViewChild('printDiv', { static: false }) printDiv!: ElementRef;
 
   tableDataArray: any;
@@ -243,4 +241,5 @@ export class TechnicalEstimateComponent {
     //   windowWidth: 650 //window width in CSS pixels
     // });
   }
+
 }
