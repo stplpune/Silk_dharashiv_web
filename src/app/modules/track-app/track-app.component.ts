@@ -29,7 +29,7 @@ export class TrackAppComponent {
     if (this.appId.status == 'VALID') {
       this.applicationId = this.appId.getRawValue()
     }else{
-      this.commonMethods.snackBar('Please enter valid Application Id', 1)
+      this.commonMethods.snackBar(this.lang == 'en' ? 'Please enter valid Application Id' : 'कृपया वैध अर्ज आयडी प्रविष्ट करा', 1)
     }
   }
 }

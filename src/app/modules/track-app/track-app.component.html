@@ -22,7 +22,7 @@
                 <div class="card-header-control">
                     <div class="d-flex gap-2 align-items-start">
                         <mat-form-field appearance="outline" class="w-100">
-                            <input matInput placeholder="Application ID" [formControl]="appId" maxlength="20"  (keypress)="validation.noSpaceAllow($event)">
+                            <input matInput placeholder="{{lang == 'en' ? 'Application ID':'अर्ज आयडी'}}" [formControl]="appId" maxlength="20"  (keypress)="validation.noSpaceAllow($event)">
                         </mat-form-field>
                         <button mat-flat-button class="btn-main" (click)="searchAppliation()" >{{lang == "en" ? 'Search' : 'शोधा'}}</button>
                     </div>

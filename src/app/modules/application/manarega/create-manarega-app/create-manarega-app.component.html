@@ -34,7 +34,7 @@
                 search
               </mat-icon>
             </button>
-            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="clearForm()">
               <mat-icon class="material-symbols-rounded">
                 close
               </mat-icon>
@@ -1078,25 +1078,18 @@
       </mat-step>
 
       <mat-step>
-        <ng-template matStepLabel>स्वयंघोशापत्र</ng-template>
+        <ng-template matStepLabel> {{'approvalProcess.declaration'| translate}}</ng-template>
         <form [formGroup]="selfDeclarationFrm" #selfformDirective="ngForm">
           <div class="container-fluid">
             <p class="form-label">
-              वरील प्रमाणे महात्मा गांधी रोजगार हमी योजनेशी निगडित रेशीम उद्योग विकास / तुती लागवड योजनेअंतर्गत मी अर्ज
-              केला आहे. त्यास मंजुरी मिळाल्यास त्याकरिता माझ्या / आमच्या मालकीच्या / जमिनीवर हि योजना राबविण्यास संमती
-              देत
-              आहे / आहोत
+              {{'approvalProcess.title'| translate}}
             </p>
             <ul class="list-unstyled">
               <li>
                 <div class="d-flex align-items-center  gap-2">
                   <mat-checkbox formControlName="isHonestLabor"></mat-checkbox>
                   <p class="form-label mb-0">
-                    सदर ची योजना राबविण्याकरिता मी स्वतः / माझे कुटुंबातील कार्यक्षम व्यक्ती महात्मा गांधी राष्ट्रीय
-                    ग्रामीण रोजगार हमी योजनेतील प्रामाणिक मजूर म्हणून घोषित करीत आहे / आहोत.
-                    □ या योजनेकरिता होणारी सर्व कामे प्रामुख्याने पूर्ण करण्याची जबाबदारी माझी किव्हा जॉबकार्ड धारक
-                    मजुरांकडून करून
-                    घेण्याची जबाबदारी माझी / आमची राहील.
+                    {{'approvalProcess.checkbox1'| translate}}
                   </p>
                 </div>
               </li>
@@ -1104,8 +1097,7 @@
                 <div class="d-flex  align-items-center gap-2">
                   <mat-checkbox formControlName="isSelfTransport"></mat-checkbox>
                   <p class="form-label mb-0">
-                    योजने अंतर्गत आवश्यक कलमे / रोपांची वाहतूक मला स्वतः
-                    करावी लागेल याची मला कल्पना देण्यात आलेली असून मला ते मान्य आहे
+                    {{'approvalProcess.checkbox2'| translate}}
                   </p>
                 </div>
               </li>
@@ -1113,8 +1105,7 @@
                 <div class="d-flex align-items-center  gap-2">
                   <mat-checkbox formControlName="isEligibleGettingInstallmentAmount"></mat-checkbox>
                   <p class="form-label mb-0">
-                    झाडांची लागवड केल्यानंतर हप्ता रक्कम मिळण्यासाठीचे पात्रता निकष मला अवगत करून देण्यात आलेले असून ते
-                    मला मान्य राहतील,
+                    {{'approvalProcess.checkbox3'| translate}}
                   </p>
                 </div>
               </li>
@@ -1122,16 +1113,14 @@
                 <div class="d-flex align-items-center  gap-2">
                   <mat-checkbox formControlName="isBoundByConditions"></mat-checkbox>
                   <p class="form-label mb-0">
-                    या योजनेचे नियम व अटी मला बंधनकारक आहे व त्यानुसार मी कलाम / रोपांची लागवड / संगोपन / संरक्षण करीन.
-                  </p>
+                    {{'approvalProcess.checkbox4'| translate}}  </p>
                 </div>
               </li>
               <li>
                 <div class="d-flex align-items-center  gap-2">
                   <mat-checkbox formControlName="isPayMoreThanLimitedAmt"></mat-checkbox>
                   <p class="form-label mb-0">
-                    सदर योजनेअंतर्गत एकूण क्षेत्राप्रमाणे व नमुन्याप्रमाणे शासनाने Ο प्रतिवर्षी मंजूर केलेल्या मयदिच्या
-                    प्रमाणकापेक्षा जास्त खर्च झाल् मी / स्वतः करील
+                    {{'approvalProcess.checkbox5'| translate}}
                   </p>
                 </div>
               </li>
@@ -1139,9 +1128,7 @@
                 <div class="d-flex align-items-center  gap-2">
                   <mat-checkbox formControlName="isSignedOnLetter"></mat-checkbox>
                   <p class="form-label mb-0">
-                    महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजनेशी निगडित रेशीम उद्योग विकास / तुती लागवड योजनेची
-                    माहिती मला / आम्हाला मान्य असल्याव काबुल क करून त्याप्रमाणे
-                    करार पत्रावर सह्या केल्या आहेत
+                    {{'approvalProcess.checkbox6'| translate}}
                   </p>
                 </div>
               </li>
@@ -1149,8 +1136,7 @@
                 <div class="d-flex align-items-center  gap-2">
                   <mat-checkbox formControlName="isChangedAcceptable"></mat-checkbox>
                   <p class="form-label mb-0">
-                    या योजनेअंतर्गत शासन वेळोवेळी जे बदल करेल अथवा अटी ■ घालेल त्या अटी / बदल मला / आम्हाला मान्य
-                    राहतील.
+                    {{'approvalProcess.checkbox7'| translate}}
                   </p>
                 </div>
               </li>
@@ -1158,8 +1144,7 @@
                 <div class="d-flex align-items-center  gap-2">
                   <mat-checkbox formControlName="isSchemeCorrectAsPerSatbara"></mat-checkbox>
                   <p class="form-label mb-0">
-                    महात्मा गांधी राष्टीय ग्रामीण रोजगार हमी योजनेअंतर्गत रेशीम उद्योग विकास / तुती लागवड योजनेमध्ये
-                    समाविष्ठ करून / घ्या करीता मी / आम्ही दिलेला तपशील ७/१२ चे उताऱ्याप्रमाणे बरोबर आहे.
+                    {{'approvalProcess.checkbox8'| translate}}
                   </p>
                 </div>
               </li>
@@ -1167,17 +1152,16 @@
                 <div class="d-flex align-items-center  gap-2">
                   <mat-checkbox formControlName="isJointAccHolderTermAcceptable"></mat-checkbox>
                   <p class="form-label mb-0">
-                    मी / आम्ही संयुक्त खातेदार असून माझ्या / आमच्या हिश्याच्या □ भूमापन क्र. १२६० मध्ये १ हेक्टर
-                    क्षेत्रावर लागवड करण्यास परवानगी दिल्यास वरील अटी मला / आम्हाला मान्य राहतील
+                    {{'approvalProcess.checkbox9'| translate}}
                   </p>
                 </div>
               </li>
             </ul>
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button matStepperPrevious class="btn-main">मागे जा</button>
+            <button mat-button matStepperPrevious class="btn-main">Previous</button>
             <button mat-button matStepperNext class="btn-main" type="button"
-              (click)="onSubmit('selfDeclaration')">पुरवलोकण करा </button>
+              (click)="onSubmit('selfDeclaration')">Next</button>
           </div>
         </form>
 
@@ -1248,7 +1232,7 @@
                     previewData?.m_Qualification) | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">{{'common.state' | translate}}य</div>
+                  <div class="form-label">{{'common.state' | translate}}</div>
                   <span class=" form-data rounded-pill">:{{(lang == 'en' ? previewData?.state :
                     previewData?.m_State) | dash}}</span>
                 </li>
@@ -1513,15 +1497,12 @@
             </div>
           </div>
 
-          <div class="text-main fw-bold">स्वयंघोशापत्र</div>
+          <div class="text-main fw-bold"> {{'approvalProcess.declaration'| translate}}</div>
 
           <div class="d-flex align-items-center gap-2">
             <!-- <mat-checkbox checked="true"></mat-checkbox> -->
             <p class="form-label">
-              वरील प्रमाणे महात्मा गांधी रोजगार हमी योजनेशी निगडित रेशीम उद्योग विकास / तुती लागवड योजनेअंतर्गत मी अर्ज
-              केला आहे. त्यास मंजुरी मिळाल्यास त्याकरिता माझ्या / आमच्या मालकीच्या / जमिनीवर हि योजना राबविण्यास संमती
-              देत
-              आहे / आहोत
+              {{'approvalProcess.title'| translate}}
             </p>
           </div>
           <ul class="list-unstyled">
@@ -1529,11 +1510,7 @@
               <div class="d-flex align-items-center  gap-2">
                 <mat-checkbox [class.disable]="true" [checked]="previewData?.isHonestLabor == true"></mat-checkbox>
                 <p class="form-label mb-0">
-                  सदर ची योजना राबविण्याकरिता मी स्वतः / माझे कुटुंबातील कार्यक्षम व्यक्ती महात्मा गांधी राष्ट्रीय
-                  ग्रामीण रोजगार हमी योजनेतील प्रामाणिक मजूर म्हणून घोषित करीत आहे / आहोत.
-                  □ या योजनेकरिता होणारी सर्व कामे प्रामुख्याने पूर्ण करण्याची जबाबदारी माझी किव्हा जॉबकार्ड धारक
-                  मजुरांकडून करून
-                  घेण्याची जबाबदारी माझी / आमची राहील.
+                  {{'approvalProcess.checkbox1'| translate}}
                 </p>
               </div>
             </li>
@@ -1541,8 +1518,7 @@
               <div class="d-flex  align-items-center gap-2">
                 <mat-checkbox [class.disable]="true" [checked]="previewData?.isSelfTransport == true"></mat-checkbox>
                 <p class="form-label mb-0">
-                  योजने अंतर्गत आवश्यक कलमे / रोपांची वाहतूक मला स्वतः
-                  करावी लागेल याची मला कल्पना देण्यात आलेली असून मला ते मान्य आहे
+                  {{'approvalProcess.checkbox2'| translate}}
                 </p>
               </div>
             </li>
@@ -1551,8 +1527,7 @@
                 <mat-checkbox [class.disable]="true"
                   [checked]="previewData?.isEligibleGettingInstallmentAmount == true"></mat-checkbox>
                 <p class="form-label mb-0">
-                  झाडांची लागवड केल्यानंतर हप्ता रक्कम मिळण्यासाठीचे पात्रता निकष मला अवगत करून देण्यात आलेले असून ते
-                  मला मान्य राहतील,
+                  {{'approvalProcess.checkbox3'| translate}}
                 </p>
               </div>
             </li>
@@ -1561,7 +1536,7 @@
                 <mat-checkbox [class.disable]="true"
                   [checked]="previewData?.isBoundByConditions == true"></mat-checkbox>
                 <p class="form-label mb-0">
-                  या योजनेचे नियम व अटी मला बंधनकारक आहे व त्यानुसार मी कलाम / रोपांची लागवड / संगोपन / संरक्षण करीन.
+                  {{'approvalProcess.checkbox4'| translate}}
                 </p>
               </div>
             </li>
@@ -1570,8 +1545,7 @@
                 <mat-checkbox [class.disable]="true"
                   [checked]="previewData?.isPayMoreThanLimitedAmt == true"></mat-checkbox>
                 <p class="form-label mb-0">
-                  सदर योजनेअंतर्गत एकूण क्षेत्राप्रमाणे व नमुन्याप्रमाणे शासनाने Ο प्रतिवर्षी मंजूर केलेल्या मयदिच्या
-                  प्रमाणकापेक्षा जास्त खर्च झाल् मी / स्वतः करील
+                  {{'approvalProcess.checkbox5'| translate}}
                 </p>
               </div>
             </li>
@@ -1579,10 +1553,7 @@
               <div class="d-flex align-items-center  gap-2">
                 <mat-checkbox [class.disable]="true" [checked]="previewData?.isSignedOnLetter == true"></mat-checkbox>
                 <p class="form-label mb-0">
-                  महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजनेशी निगडित
-
-                  रेशीम उद्योग विकास / तुती लागवड योजनेची माहिती मला / आम्हाला मान्य असल्याव काबुल क करून त्याप्रमाणे
-                  करार पत्रावर सह्या केल्या आहेत
+                  {{'approvalProcess.checkbox6'| translate}}
                 </p>
               </div>
             </li>
@@ -1591,8 +1562,7 @@
                 <mat-checkbox [class.disable]="true"
                   [checked]="previewData?.isChangedAcceptable == true"></mat-checkbox>
                 <p class="form-label mb-0">
-                  या योजनेअंतर्गत शासन वेळोवेळी जे बदल करेल अथवा अटी ■ घालेल त्या अटी / बदल मला / आम्हाला मान्य राहतील.
-                </p>
+                  {{'approvalProcess.checkbox7'| translate}}  </p>
               </div>
             </li>
             <li>
@@ -1600,9 +1570,7 @@
                 <mat-checkbox [class.disable]="true"
                   [checked]="previewData?.isSchemeCorrectAsPerSatbara == true"></mat-checkbox>
                 <p class="form-label mb-0">
-                  महात्मा गांधी राष्टीय ग्रामीण रोजगार हमी योजनेअंतर्गत रेशीम उद्योग विकास / तुती लागवड योजनेमध्ये
-                  समाविष्ठ करून / घ्या करीता मी / आम्ही दिलेला तपशील ७/१२ चे उताऱ्याप्रमाणे बरोबर आहे.
-                </p>
+                  {{'approvalProcess.checkbox8'| translate}}  </p>
               </div>
             </li>
             <li>
@@ -1610,9 +1578,7 @@
                 <mat-checkbox [class.disable]="true"
                   [checked]="previewData?.isJointAccHolderTermAcceptable == true"></mat-checkbox>
                 <p class="form-label mb-0">
-                  मी / आम्ही संयुक्त खातेदार असून माझ्या / आमच्या हिश्याच्या □ भूमापन क्र. १२६० मध्ये १ हेक्टर
-                  क्षेत्रावर लागवड करण्यास परवानगी दिल्यास वरील अटी मला / आम्हाला मान्य राहतील
-                </p>
+                  {{'approvalProcess.checkbox9'| translate}} </p>
               </div>
             </li>
           </ul>
@@ -1629,7 +1595,7 @@
         <form [formGroup]="addRegistrationRecFrm">
           <div class="container-fluid">
             <h6 class="my-4">
-              संबंद्धित कार्यालय मध्ये जाऊन नोंदणी फी प्रती एकर 500 रु प्रमाणे भरून मिळालेली पावती येथे अपलोड करावी.
+              {{'approvalProcess.receipt'| translate}}
             </h6>
             <div class="row align-items-center ">
               <div class="col-sm-4">
@@ -1670,7 +1636,8 @@
 
 
 
-              <div class="col-sm">
+              <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+                <button mat-button matStepperPrevious class="btn-main">Previous</button>
                 <button mat-flat-button class="btn-main" type="button" (click)="onSubmit('challan')">प्रस्तुत
                   करा</button>
               </div>

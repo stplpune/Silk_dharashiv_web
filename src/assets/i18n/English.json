@@ -244,7 +244,7 @@
     "nationalise_bank_accountno":"Nationalise Bank Account No.",
     "please_nationalise_bank_accountno":"Please Enter Nationalise Bank Account No.",
     "please_valid_nationalise_bank_accountno":"Please Enter Valid Nationalise Bank Account No.",
-    "manrega_job_card" :"Upload Mgnrega Job Card Here (Upload Image or PDF)",
+    "manrega_job_card" :"Upload Mgnrega Job Card Here",
     "maximum_30_character":"Maximum 30 digit allowed",
     "Please_upload_manrega":"Please upload manrega job card",
     "please_upload_track_of_land":"Please upload 8 A track of Land",
@@ -253,14 +253,25 @@
     "upload_bank_passbook_canceled_cheque":"Upload Bank Passbook / Canceled Cheque",
     "please_upload_bank_passbook_canceled_cheque":"Please upload bank passbook / canceled cheque",
     "alphanumeric_with_special_char":"Alphanumeric with special char",
-    "declaration":"Declaration",
     "please_enter_document_name":"Please enter document name",
     "please_enter_valid_document_name":"Please enter valid document name",
     "manarega" : "Mgnrega job card",  
     "8_A" : "8 A track of Land",
     "7_12" : "Land 7/12",
     "bank_passbook" : "Bank Passbook / Canceled Cheque",
-    "other_documents" : "Other documents"
+    "other_documents" : "Other documents",
+"declaration":"Declaration",
+"title":"As above I have applied under the Silk Industry Development / Mulberry Plantation Scheme related to the Mahatma Gandhi Employment Guarantee Scheme. If the same is approved, I/we consent to implement this scheme on my/our owned/land",
+"checkbox1" : "To implement the said scheme, I/we declare myself/the efficient persons of my family as bona fide labourers under Mahatma Gandhi National Rural Employment Guarantee Scheme. It will be my / our responsibility to carry out all the work done for this scheme mainly by me or by the job card holder labourers.",
+"checkbox2" : "I have been given the idea that I have to transport the cuttings/plants required under the scheme and I agree to the same.",
+"checkbox3" : "I know the eligibility criteria for getting installment amounts after the plantation of Mulberry trees",
+"checkbox4" : "I am bound by the terms and conditions of this scheme and shall plant/nurture/protect the kalam/saplings accordingly.",
+"checkbox5" : "If the expenditure under the scheme is more than the standard of limit sanctioned by the Government per year as per the total area and sample, the expenditure shall be borne by me/myself.",
+"checkbox6" : "I / We have signed the agreement letter acknowledging that I/we agree to the information about the Silk Industry Development / Mulberry Plantation Scheme related to the Mahatma Gandhi National Rural Employment Guarantee Scheme.",
+"checkbox7" : "Any changes or conditions imposed by the Government from time to time under this scheme shall remain acceptable to me/us.",
+"checkbox8" : "The particulars given by me/we are correct as per the extract dated 7/12 for inclusion/take in Silk Industry Development/Mulberry Plantation Scheme under Mahatma Gandhi National Rural Employment Guarantee Scheme.",
+"checkbox9" : "I / We are joint account holders and my / our share has land survey no. 1260 in case of permission for Plantation on a 1-hectare area above conditions shall remain acceptable to me/us.",
+"receipt" : "Go to the concerned office and pay the registration fee Rs 500 per acre and upload the receipt here."
     
   
   },
@@ -794,19 +805,6 @@
     "please_enter_Plantation_land_Survey_No": "Please enter plantation land survey no./group no.",
     "Plantation_land_Survey_No_maximum_12_digit_allowed": "Maximun 6 digit allowed",
     "please_enter_valid_Plantation_land_Survey_No": "Please enter valid plantation land survey no./group no."
-
-
-
-
-
-
-   
-    
-
-
-
-
-
   },
   "farmerLogin":{
     "farmer_login":"Farmer Login",
@@ -827,7 +825,17 @@
     "expired":"Expired",
     "deactive":"Deactive",
     "rejected":"Rejected",
-    "search_by_Reg_No_CRC_Name/Owner_name_Mobile_No":"Search by Reg No/CRC Name/Owner name/Mobile No"
+    "search_by_Reg_No_CRC_Name/Owner_name_Mobile_No":"Search by Reg No/CRC Name/Owner name/Mobile No",
+    "profile":"Profile",
+    "crc_center_details":"CRC Center Details",
+    "crc_owner_details":"CRC Owner Details",
+    "rearing_area_details":"Rearing Area Details"
+  },"deliverySlab":{
+    "delivery_slab":"Delivery Slab",
+    "grainage":"Grainage",
+    "all_grainage":"All Grainage",
+    "status":"Status",
+    "all_status":"All Status"
   }
 
 }

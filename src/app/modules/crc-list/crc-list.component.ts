@@ -124,8 +124,8 @@ export class CRCListComponent {
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData1;
           this.countObject = res.responseData;
-          this.tableDatasize = res.responseData.responseData3?.totalCount;
-          this.totalPages = res.responseData.responseData3?.totalPages;
+          this.tableDatasize = res.responseData2.totalCount;
+          this.totalPages = res.responseData2.totalPages;
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
@@ -142,15 +142,15 @@ export class CRCListComponent {
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'en' ? ['srNo', 'crcRegNo', 'crcName', 'ownerName', 'mobNo1', 'village', 'taluka', 'expireOn', 'status', 'action']
-      : ['srNo', 'crcRegNo', 'm_CRCName', 'm_OwnerName', 'mobNo1', 'm_Village', 'm_Taluka', 'expireOn', 'status', 'action'];
+    let displayedColumns = this.lang == 'en' ? ['srNo', 'crcRegNo', 'crcName', 'ownerName', 'mobNo1', 'village', 'taluka', 'expireOn', 'isActive', 'action']
+      : ['srNo', 'crcRegNo', 'm_CRCName', 'm_OwnerName', 'mobNo1', 'm_Village', 'm_Taluka', 'expireOn', 'isActive', 'action'];
     let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Reg No', 'CRC Name', 'Owner Name', 'Mobile No', 'Village', 'Taluka', 'Expire On', 'Status', 'Action'] :
       ['अनुक्रमांक', 'नोंदणी क्रमांक', 'CRC नाव', 'मालकाचे नाव', 'मोबाईल नंबर', 'गाव', 'तालुका', 'कालबाह्य', 'स्थिती', 'कृती'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
       highlightedrow: true,
-      isBlock: 'status',
+      isBlock: 'isActive',
       date: 'expireOn',
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
@@ -181,19 +181,18 @@ export class CRCListComponent {
   }
 
  viewCRCList(obj: any) {
-  console.log('objjj',obj.id);
   this.router.navigate(['crc-center-details'], { queryParams: { data: obj.id } });
   }
 
   openBlockDialog(obj?: any) {
-    let userEng = obj.activeStatus == false ? 'Active' : 'DeActive';
-    let userMara = obj.activeStatus == false ? 'सक्रिय' : 'निष्क्रिय';
+    let userEng = obj.isActive == false ? 'Block' : 'Unblock';
+    let userMara = obj.isActive == false ? 'सक्रिय' : 'निष्क्रिय';
     let dialoObj = {
-      header: this.lang == 'mr-IN' ? 'खाते स्थिती ' + userMara + ' करा' : userEng + ' Acount Status',
-      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेली खाते स्थिती' + userMara + ' करू इच्छिता ?' : 'Do You Want To ' + userEng + ' The Selected Acount Status?',
+      header: this.lang == 'mr-IN' ? 'CRC केंद्र स्थिती ' + userMara + ' करा' : userEng + ' CRC Center',
+      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेली CRC केंद्र ' + userMara + ' करू इच्छिता ?' : 'Do You Want To ' + userEng + ' The Selected CRC Centers?',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
-      headerImage: obj.activeStatus == false ? 'assets/images/active_scheme@3x.png' : 'assets/images/inactive_scheme.png'
+      headerImage: obj.isActive == false ? 'assets/images/active_scheme@3x.png' : 'assets/images/inactive_scheme.png'
     }
     const deleteDialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -204,10 +203,12 @@ export class CRCListComponent {
     deleteDialogRef.afterClosed().subscribe((result: any) => {
       let statusObj = {
         "id": obj?.id,
-        "isActive": !obj.activeStatus,
+        "isActive": !obj.isActive,
         "reason": ""
       }
-      result.flag == 'Yes' ? this.blockScheme(statusObj) : '';
+      console.log('statusObj',statusObj);
+      
+      result == 'Yes' ? this.blockScheme(statusObj) : '';
     })
   }
 
