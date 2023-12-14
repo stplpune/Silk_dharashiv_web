@@ -23,6 +23,7 @@ import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
 })
 export class TrackApplicationComponent {
   appHistoryArray: any;
+  date = new Date();
   getBaseUrl!: string;
   @Input() childMessage: any;
   subscription!: Subscription;//used  for lang conv
@@ -51,6 +52,7 @@ export class TrackApplicationComponent {
     this.apiService?.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.appHistoryArray = res.responseData;
+        console.log(this.appHistoryArray);
         this.spinner.hide();
       }
       else {
