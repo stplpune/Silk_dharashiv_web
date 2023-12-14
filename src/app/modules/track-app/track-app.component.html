@@ -24,7 +24,7 @@
                         <mat-form-field appearance="outline" class="w-100">
                             <input matInput placeholder="Application ID" [formControl]="appId">
                         </mat-form-field>
-                        <button mat-flat-button class="btn-main" (click)="searchAppliation()" >Search</button>
+                        <button mat-flat-button class="btn-main" (click)="searchAppliation()" >{{lang == "en" ? 'Search' : 'शोधा'}}</button>
                     </div>
                 </div>
             </div>
