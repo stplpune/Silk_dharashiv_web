@@ -20,7 +20,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  language: string = 'English'
+  language!: string;
   lag = ['English', 'Marathi']
   selLang!: string;
   loginData: any;
@@ -43,30 +43,20 @@ export class HeaderComponent {
 
   ngOnInit() {
     this.loginData = this.webStorage.getLoggedInLocalstorageData();
-    // let language: any = localStorage.getItem('language');
-    // language = language ? language : 'English';
-    // this.webStorage.setLanguage.next(language);
-    // this.translate.use(language);
-
-    // this.webStorage.setLanguage.subscribe((res: any) => {
-    //   this.setLang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
-    // });
-
-    // this.setLang = localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
-
     const language = localStorage.getItem('language') || 'English';
      this.translate.use(language);
      this.webStorage.setLanguage.subscribe((res: any) => {
       this.setLang = res || localStorage.getItem('language') || 'English';
     });
     this.setLang = language;
-
+    console.log(this.setLang);
 
     this.webStorage.getProfileData().subscribe((res: any) => {
       this.userName = res.name;
       this.designationName = res.designationName
       this.profileImg = res.profile;
     })
+  
   }
 
 
