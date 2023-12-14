@@ -16,11 +16,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { ChowkiOrderDetailsComponent } from './beneficiery-order-history/chowki-order-details/chowki-order-details.component';
 
 
 @NgModule({
   declarations: [
     BeneficieryDetailsComponent,
+    ChowkiOrderDetailsComponent,
 
   ],
   imports: [
