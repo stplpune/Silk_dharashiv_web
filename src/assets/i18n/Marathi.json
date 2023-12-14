@@ -92,6 +92,9 @@
     "search":"शोधा"
   },
   "approvalProcess"  : {
+    "track_application" : "अर्ज स्थिती",
+    "start":"प्रारंभ",
+    "end" : "शेवट",
     "Add_Manarega":"मनरेगा जोडा",
     "applicant_id":"अर्ज क्रमांक",
     "mulberry_id":"तुती क्रमांक (तारीख)",
