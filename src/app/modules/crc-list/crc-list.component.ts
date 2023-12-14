@@ -103,7 +103,6 @@ export class CRCListComponent {
   }
 
   getStatus() {
-    this.talukaArray = [];
     this.masterService.getCRCStatus().subscribe({
       next: ((res: any) => {
         this.statusArray = res.responseData;
@@ -123,8 +122,8 @@ export class CRCListComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData2;
-          this.countObject = res.responseData1;
+          this.tableDataArray = res.responseData1;
+          this.countObject = res.responseData;
           this.tableDatasize = res.responseData.responseData3?.totalCount;
           this.totalPages = res.responseData.responseData3?.totalPages;
         } else {
@@ -181,9 +180,9 @@ export class CRCListComponent {
     }
   }
 
- viewCRCList(obj?: any) {
-  console.log('obj',obj);
-  this.router.navigate(['crc-center-details'], { queryParams: { data: obj } });
+ viewCRCList(obj: any) {
+  console.log('objjj',obj.id);
+  this.router.navigate(['crc-center-details'], { queryParams: { data: obj.id } });
   }
 
   openBlockDialog(obj?: any) {
