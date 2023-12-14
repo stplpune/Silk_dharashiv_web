@@ -34,7 +34,7 @@ export class CreateManaregaAppComponent {
   subscription!: Subscription;//used  for lang conv
   lang: any;
   viewMsgFlag: boolean = false;//used for error msg show
-  genderArray: any = [{ id: 1, name: 'Male' }, { id: 0, name: 'Female' }];
+  genderArray: any = [{ id: 1, name: 'Male',m_name : 'पुरुष' }, { id: 0, name: 'Female' ,m_name : 'स्त्री  '}]; 
   checkedArray:any = [{id:true,name:'Yes'},{id:false,name:'No'}];
   selfTrainingArray:any = [{id:true,name:'Own'},{id:false,name:'Candidate'}];
   displayedColumns = ['srNo','plantName','gutNo','gutArea','cultivatedArea','cultivatedPlantsCount','actions'];
@@ -820,6 +820,7 @@ onSubmit(flag?:any) {
         next: ((res: any) => {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.talukaArray = res.responseData;
+            console.log("talukaSubject",this.talukaSubject)
             this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
             this.EditFlag ? (this.f['talukaId'].setValue(this.previewData.talukaId),this.getGrampanchayat()) :this.getGrampanchayat();
             //this.getGrampanchayat()
