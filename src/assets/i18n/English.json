@@ -805,19 +805,6 @@
     "please_enter_Plantation_land_Survey_No": "Please enter plantation land survey no./group no.",
     "Plantation_land_Survey_No_maximum_12_digit_allowed": "Maximun 6 digit allowed",
     "please_enter_valid_Plantation_land_Survey_No": "Please enter valid plantation land survey no./group no."
-
-
-
-
-
-
-   
-    
-
-
-
-
-
   },
   "farmerLogin":{
     "farmer_login":"Farmer Login",
@@ -838,7 +825,17 @@
     "expired":"Expired",
     "deactive":"Deactive",
     "rejected":"Rejected",
-    "search_by_Reg_No_CRC_Name/Owner_name_Mobile_No":"Search by Reg No/CRC Name/Owner name/Mobile No"
+    "search_by_Reg_No_CRC_Name/Owner_name_Mobile_No":"Search by Reg No/CRC Name/Owner name/Mobile No",
+    "profile":"Profile",
+    "crc_center_details":"CRC Center Details",
+    "crc_owner_details":"CRC Owner Details",
+    "rearing_area_details":"Rearing Area Details"
+  },"deliverySlab":{
+    "delivery_slab":"Delivery Slab",
+    "grainage":"Grainage",
+    "all_grainage":"All Grainage",
+    "status":"Status",
+    "all_status":"All Status"
   }
 
 }
