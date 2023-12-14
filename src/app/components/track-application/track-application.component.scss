@@ -105,6 +105,7 @@
     color: #111;
 }
 
+.timeline ul li .time1 h4,
 .timeline ul li .time h4 {
     margin: 0;
     padding: 0;
@@ -129,6 +130,17 @@
     box-shadow: 0 0 0 3px var(--main-dark-color);
 }
 
+.timeline ul li:nth-child(odd) .time1 {
+    position: absolute;
+    top: 12px;
+    right: -190px;
+    margin: 0;
+    padding: 8px 16px;
+    background: orange;
+    color: #fff;
+    border-radius: 18px;
+    box-shadow: 0 0 0 3px orangered;
+}
 
 .timeline ul li:nth-child(even).end .time {
     left: -89px !important;
@@ -144,6 +156,18 @@
     color: #fff;
     border-radius: 18px;
     box-shadow: 0 0 0 3px var(--main-dark-color);
+}
+
+.timeline ul li:nth-child(even) .time1 {
+    position: absolute;
+    top: 12px;
+    left: -190px;
+    margin: 0;
+    padding: 8px 16px;
+    background: orange;
+    color: #fff;
+    border-radius: 18px;
+    box-shadow: 0 0 0 3px orangered;
 }
 
 @media(max-width:1000px) {
@@ -183,6 +207,8 @@
         left: 16px;
     }
 
+    .timeline ul li:nth-child(odd) .time1,
+    .timeline ul li:nth-child(even) .time1,
     .timeline ul li:nth-child(odd) .time,
     .timeline ul li:nth-child(even) .time {
         top: -30px;
