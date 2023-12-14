@@ -90,7 +90,8 @@
     "grampanchayat_filter_all":"सर्व ग्रामपंचायती",
     "fullName_minLength": "किमान 5 वर्णांना अनुमती आहे",
     "status":"स्थिती",
-    "search":"शोधा"
+    "search":"शोधा",
+    "documents":"कागदपत्रे"
   },
   "approvalProcess"  : {
     "track_application" : "अर्ज स्थिती",
@@ -252,7 +253,12 @@
     "alphanumeric_with_special_char":"विशेष वर्णासह अल्फान्यूमेरिक",
     "declaration":"स्वयंघोषणापत्र",
     "please_enter_document_name":"कृपया दस्तऐवजाचे नाव प्रविष्ट करा",
-    "please_enter_valid_document_name":"कृपया वैध दस्तऐवज नाव प्रविष्ट करा"
+    "please_enter_valid_document_name":"कृपया वैध दस्तऐवज नाव प्रविष्ट करा",
+    "manarega" : "मनरेगा जॉब कार्ड",
+    "8_A" : "जमिनीचा 8-अ",
+    "7_12" : "जमिनीचा 7/12 उतारा",
+    "bank_passbook" : "बँक पासबुक / रद्द केलेला चेक",
+    "other_documents" : "इतर कागदपत्रे"
 
   },
   "manrega": {
@@ -660,7 +666,7 @@
     "original_details":"मूळ तपशील",
     "applicant_name":"अर्जदाराचे नाव ",
     "mulberry_plantation_under_Silk":"माझ्या शेतावर रेशीम विकास योजनेअंतर्गत तुती लागवड विभाग मार्फत करण्यात यावी",
-    "select_gender":"लिंग निवडा",
+    "select_gender":"लिंग",
     "education":"शिक्षण",
     "category_of_Beneficiaries":"लाभार्थ्यांची वर्गवारी",
     "land_details":"जमीन तपशील",
@@ -670,9 +676,7 @@
     "are_you_a_joint_account_holder":"संयुक्त खातेदार आहात का ?",
     "land_survey_number_of_the_land":"अर्जदाराच्या हिश्याचे प्रमाणानुसार  लागवड करावयाच्या जमिनेचे भूमापन क्रमांक",
     "its_Area":"त्याचे क्षेत्र(हेक्टर) (मुद्दा क्रमांक 18 पेक्षा जास्त नसावे व 19 पेक्षा कमी नसावे)",
-    
-
-    "Have_orchards/flower_crops/trees_been_planted":"रोजगार हमी व्यतिरिक्त इतर शासकीय योजने अंतर्गत पूर्वी फळबाग/फुलपिके/वृक्ष केली आहेत का ?",
+     "Have_orchards/flower_crops/trees_been_planted":"रोजगार हमी व्यतिरिक्त इतर शासकीय योजने अंतर्गत पूर्वी फळबाग/फुलपिके/वृक्ष केली आहेत का ?",
     "orchard/Flower/Tree_Name":"फळबाग/फुलपिके/वृक्ष नाव",
     "group_no.":"गट क्र.",
     "group_area":"गटाचे क्षेत्र(हेक्टर)",

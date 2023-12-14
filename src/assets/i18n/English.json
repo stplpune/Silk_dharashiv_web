@@ -9,7 +9,7 @@
 "pending":"Pending",
 "resend":"Resend",
 "rejected":"Rejected",
-"manrega":"Manrega",
+"manrega":"Mgnrega",
 "silk_samgra":"SILK SAMGRA-2"
 
   },
@@ -91,13 +91,14 @@
     "grampanchayat_filter_all":"All Grampanchayat",
     "fullName_minLength": "Minimum 5 character allowed",
     "status":"Status",
-    "search":"Search"
+    "search":"Search",
+    "documents":"Documents"
   },
   "approvalProcess": {
     "track_application" : "Track Application",
     "start":"Start",
     "end" : "End",
-    "Add_Manarega":"Add Manrega",
+    "Add_Manarega":"Add Mgnrega",
     "applicant_id": "Application ID",
     "mulberry_id": "Mulberry Id (Date)",
     "date": "Date",
@@ -114,7 +115,7 @@
     "approval_remark": "Approval Remark",
     "no_data_found": "No Data Found",
     "applicant_details": "Applicant Details",
-    "manarega_job_card_no.": "Manrega Job Card No.",
+    "manarega_job_card_no.": "Mgnrega Job Card No.",
     "please_enter_manarega_job_card_no":"Please enter manrega job card no. ",
     "please_select_category":"Please select category",
     "aadhar_number": "Aadhar Number",
@@ -243,7 +244,7 @@
     "nationalise_bank_accountno":"Nationalise Bank Account No.",
     "please_nationalise_bank_accountno":"Please Enter Nationalise Bank Account No.",
     "please_valid_nationalise_bank_accountno":"Please Enter Valid Nationalise Bank Account No.",
-    "manrega_job_card" :"Upload Manrega Job Card Here (Upload Image or PDF)",
+    "manrega_job_card" :"Upload Mgnrega Job Card Here (Upload Image or PDF)",
     "maximum_30_character":"Maximum 30 digit allowed",
     "Please_upload_manrega":"Please upload manrega job card",
     "please_upload_track_of_land":"Please upload 8 A track of Land",
@@ -254,7 +255,12 @@
     "alphanumeric_with_special_char":"Alphanumeric with special char",
     "declaration":"Declaration",
     "please_enter_document_name":"Please enter document name",
-    "please_enter_valid_document_name":"Please enter valid document name"
+    "please_enter_valid_document_name":"Please enter valid document name",
+    "manarega" : "Mgnrega job card",  
+    "8_A" : "8 A track of Land",
+    "7_12" : "Land 7/12",
+    "bank_passbook" : "Bank Passbook / Canceled Cheque",
+    "other_documents" : "Other documents"
     
   
   },
@@ -664,7 +670,7 @@
     "original_details":"Original Details",
     "applicant_name":"Applicant's Name",
     "mulberry_plantation_under_Silk":"Mulberry plantation under Silk Development Scheme on my farm should be done through Department",
-    "select_gender":"Select Gender",
+    "select_gender":"Gender",
     "education":"Education",
     "category_of_Beneficiaries":"Category of Beneficiaries",
     "land_details":"Land Details",

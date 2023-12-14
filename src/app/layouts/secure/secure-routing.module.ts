@@ -44,7 +44,8 @@ const routes: Routes = [
   //CRC
 
   { path: 'crc-list', loadChildren: () => import('../../modules/crc-list/crc-list.module').then(m => m.CRCListModule), data: { breadcrumb: [{ title: 'CRC List ', active: true }] }, canActivate: [ExpenseGuard] },
-  { path: 'beneficiery-list', loadChildren: () => import('../../modules/beneficiery-list/beneficiery-list.module').then(m => m.BeneficieryListModule), data: { breadcrumb: [{ title: 'Beneficiery List', active: true }] }, canActivate: [ExpenseGuard] },
+  { path: 'beneficiery-list', loadChildren: () => import('../../modules/beneficiery/beneficiery.module').then(m => m.BeneficieryModule), data: { breadcrumb: [{ title: 'Beneficiery List', active: true }] }, canActivate: [ExpenseGuard] },
+  { path: 'beneficiery-details', loadChildren: () => import('../../modules/beneficiery/beneficiery-details/beneficiery-details.module').then(m => m.BeneficieryDetailsModule), data: { breadcrumb: [{ title: 'Beneficiery List', active: true }] }, canActivate: [ExpenseGuard] },
   { path: 'crc-center-details', loadChildren: () => import('../../modules/crc-list/crc-center-details/crc-center-details.module').then(m => m.CrcCenterDetailsModule), data: { breadcrumb: [{ title: 'CRC Center Details', active: true }] }, canActivate: [ExpenseGuard] },
   //Application
 
