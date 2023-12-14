@@ -17,6 +17,7 @@ export class ValidationService {
   alphabetWithSpace = '^[a-zA-Z][a-zA-Z ]*$';
   bankIFSCCodeVal = "^[A-Z]{4}0[A-Z0-9]{6}$";
   alphaNumericWithSpace = '^[a-zA-Z0-9 -][a-zA-Z0-9 -]*$';
+  alphaNumericWithoutSpace = '^[a-zA-Z0-9-][a-zA-Z0-9-]*$';
   valPinCode = '^[1-9][0-9]{5}$';
   alphabetsWithSpecChar = `^([a-zA-Z0-9 /(,)&.+-=\n'])*$`;
   latValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
