@@ -65,14 +65,7 @@ s #report3 .table3 tr th:nth-child(n+3) {
     width: 100%;
 }
 
-
-// CSS for Technical Sanction
-#tao {
-    width: 100%;
-    border: solid 1px #353535;
-}
-
-#tao .letterhead {
+.letterhead {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -80,40 +73,47 @@ s #report3 .table3 tr th:nth-child(n+3) {
     column-gap: 15px;
 }
 
-#tao .letterhead .letter-text {
+.letterhead .letter-text {
     text-align: center;
     width: 100%;
 }
 
-#tao .letterhead img {
+.letterhead img {
     height: 80px;
 }
 
-#tao .letterhead h4 {
+.letterhead h4 {
     font-size: 1.2rem;
     font-weight: 600;
 }
 
-#tao .letterhead h6 {
+.letterhead h6 {
     font-size: 0.95rem;
     font-weight: 600;
 }
 
-#tao .letterhead p {
+.letterhead p {
     font-size: 0.9rem;
     margin-bottom: 0;
     display: flex;
     justify-content: space-between;
 }
 
-#tao .letter-bg {
+.letter-bg {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #555;
     color: #fff;
     font-size: 10pt;
-    padding: 10px;
+    padding: 7px 10px;
+    margin-bottom: 0.5rem;
+}
+
+// CSS for Technical Sanction
+#tao {
+    width: 100%;
+    border: solid 1px #353535;
 }
 
 #tao .letter-content {
@@ -157,28 +157,6 @@ s #report3 .table3 tr th:nth-child(n+3) {
 #aal {
     font-size: 10pt;
     width: 100%;
-}
-
-#aal .letterhead {
-    text-align: center;
-    border-bottom: solid 1px #aaa;
-    padding-bottom: 5px;
-    margin-bottom: 5px;
-}
-
-#aal .letterhead h4 {
-    font-weight: 600;
-    font-size: 14pt;
-}
-
-#aal .letterhead h6 {
-    font-weight: 500;
-    font-size: 11pt;
-}
-
-#aal .letterhead .contact {
-    display: flex;
-    justify-content: space-between;
 }
 
 #aal .letter-header {
@@ -242,36 +220,6 @@ s #report3 .table3 tr th:nth-child(n+3) {
 }
 
 // CSS for Work Order Letter AND Geo Tagging Work Code Generate
-#geo .geo-head,
-#wol .wol-head {
-    text-align: center;
-}
-
-#geo .geo-head,
-#wol .wol-head {
-    border-bottom: solid 1px #aaa;
-}
-
-#geo .geo-head h4,
-#wol .wol-head h4 {
-    font-size: 1.2rem;
-    font-weight: 600;
-}
-
-#geo .geo-head h6,
-#wol .wol-head h6 {
-    font-size: 0.95rem;
-    font-weight: 500;
-}
-
-#geo .geo-head .geo-contact,
-#wol .wol-head .wol-contact {
-    display: flex;
-    justify-content: space-between;
-    font-size: 10pt;
-    padding-bottom: 5px;
-}
-
 #geo .geo-serial,
 #wol .wol-serial {
     display: flex;
