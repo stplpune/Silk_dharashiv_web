@@ -776,7 +776,35 @@
     "Total_Benefit":"Total Benefit Amount (Rs.)",
     "Document_Name":"Document Name",
     "Document_No":"Document No.",
-    "Attach_Document":"Attach Document"
+    "Attach_Document":"Attach Document",
+
+    "please_enter_village": "Please enter valid village name",
+    "village_maximum_12_digit_allowed": "Maximun 30 digit allowed",
+    "voterId_maximum_12_digit_allowed": "Maximun 50 digit allowed",
+    "Please_select_Landholding": "Please select landholding category",
+    "Please_select_Irrigation_Period": "Please select irrigation period",
+    "Please_select_Varieties": "Please select varieties of mulberry trees",
+    "Please_select_Mulberry_Plantation_Area": "Please select mulberry plantation area in acre",
+    "Please_select_Mulberry_Mulberry_Plantation_Method": "Please select mulberry plantation method",
+
+    "please_enter_Planting_Distance": "Please enter Mulberry Planting Distance (feet)",
+    "Planting_Distance_maximum_12_digit_allowed": "Maximun 4 digit allowed",
+    "please_enter_valid_Planting_Distance": "Please enter valid Mulberry Planting Distance (feet)",
+
+    "please_enter_Plantation_land_Survey_No": "Please enter plantation land survey no./group no.",
+    "Plantation_land_Survey_No_maximum_12_digit_allowed": "Maximun 6 digit allowed",
+    "please_enter_valid_Plantation_land_Survey_No": "Please enter valid plantation land survey no./group no."
+
+
+
+
+
+
+   
+    
+
+
+
 
 
   },

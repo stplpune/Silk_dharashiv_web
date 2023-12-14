@@ -171,10 +171,10 @@ export class CreateSamgraAppComponent {
 
   samgraformData(data?: any) {
     this.samgraForm = this.fb.group({
-      "fullName": [data?.fullName || '', [Validators.required, Validators.maxLength(100)]],
-      "mobileNo1": [data?.mobileNo1 || '', [Validators.required, Validators.maxLength(10), Validators.pattern(this.validation.mobile_No)]],
-      "mobileNo2": [data?.mobileNo2 || '', [Validators.maxLength(10), Validators.pattern(this.validation.mobile_No)]],
-      "aadharNo": [data?.aadharNo || '', [Validators.required, Validators.maxLength(12), Validators.pattern(this.validation.aadhar_card)]],
+      "fullName": [data?.fullName || '', [Validators.required, this.validation.maxLengthValidator(100)]],
+      "mobileNo1": [data?.mobileNo1 || '', [Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
+      "mobileNo2": [data?.mobileNo2 || '', [this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
+      "aadharNo": [data?.aadharNo || '', [Validators.required, this.validation.maxLengthValidator(12), Validators.pattern(this.validation.aadhar_card)]],
       "birthDate": [data?.birthDate || '', [Validators.required]],
       "gender": [data?.genderId || 1],
       "qualificationId": [data?.qualificationId || '', [Validators.required]],
@@ -182,10 +182,10 @@ export class CreateSamgraAppComponent {
       "districtId": [this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],
       "talukaId": [this.WebStorageService.getTalukaId() == '' ? 0 : this.WebStorageService.getTalukaId(), [Validators.required]],
       "grampanchayatId": [this.WebStorageService.getGrampanchayatId() == '' ? 0 : this.WebStorageService.getGrampanchayatId(), [Validators.required]],
-      "village": [data?.village || '', [Validators.maxLength(30), Validators.pattern(this.validation.fullName)]],
-      "pinCode": [data?.pinCode || '', [Validators.required, Validators.maxLength(6)]],//numeric
-      "sm_VoterRegistrationNo": [data?.sm_VoterRegistrationNo || '', Validators.maxLength(50)],
-      "address": [data?.address || '', [Validators.required, Validators.maxLength(200)]],
+      "village": [data?.village || '', [this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]],
+      "pinCode": [data?.pinCode || '', [Validators.required, this.validation.maxLengthValidator(6)]],//numeric
+      "sm_VoterRegistrationNo": [data?.sm_VoterRegistrationNo || '', this.validation.maxLengthValidator(50)],
+      "address": [data?.address || '', [Validators.required, this.validation.maxLengthValidator(200)]],
       "sm_IsBelowPovertyLine": [data?.sm_IsBelowPovertyLine || false],
       // category validation remaning 
     })
@@ -193,7 +193,7 @@ export class CreateSamgraAppComponent {
 
   landDetailsFormData(data?: any) {
     this.landDetailsForm = this.fb.group({
-      "benificiaryTotalFarm": [data?.benificiaryTotalFarm || '', [Validators.required, Validators.maxLength(4),Validators.pattern(this.validation.onlyNumbers)]],
+      "benificiaryTotalFarm": [data?.benificiaryTotalFarm || '', [Validators.required, this.validation.maxLengthValidator(4),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]],
       "sm_LandTenureCategories": [data?.sm_LandTenureCategories || '', [Validators.required]],
       "farmTypeId": [data?.farmTypeId || '', [Validators.required]],
       "irrigationFacilityId": [data?.sm_IrrigationPeriod || '', [Validators.required]],
@@ -203,9 +203,9 @@ export class CreateSamgraAppComponent {
       "sm_CultivatedArea": [data?.sm_CultivatedArea || ''],
       "sm_LandSurveyNo": [data?.sm_LandSurveyNo || ''],
       "sm_ImprovedMulberryCast": [data?.sm_ImprovedMulberryCast || '', [Validators.required]],
-      "sm_MulberryPlantingDistance": [data?.sm_MulberryPlantingDistance || '', [Validators.required, Validators.maxLength(4),Validators.pattern(this.validation.onlyNumbers)]],
-      "sm_PlantationSurveyNo": [data?.sm_PlantationSurveyNo || '', [Validators.required, Validators.maxLength(6),Validators.pattern(this.validation.onlyNumbers)]],
-      "sm_MulberryCultivationArea": [data?.sm_MulberryCultivationArea || '', [Validators.required, Validators.maxLength(6),Validators.pattern(this.validation.onlyNumbers)]],
+      "sm_MulberryPlantingDistance": [data?.sm_MulberryPlantingDistance || '', [Validators.required, this.validation.maxLengthValidator(4),Validators.pattern(this.validation.onlyNumbers)]],
+      "sm_PlantationSurveyNo": [data?.sm_PlantationSurveyNo || '', [Validators.required, this.validation.maxLengthValidator(6),Validators.pattern(this.validation.onlyNumbers)]],
+      "sm_MulberryCultivationArea": [data?.sm_MulberryCultivationArea || '', [Validators.required]],
       "sm_PlantationMethod": [data?.sm_PlantationMethod || '', [Validators.required]],
       "sm_IsExperienceSilkIndustry": [data?.sm_IsExperienceSilkIndustry || false],
       "sm_ExperienceYears": [data?.sm_ExperienceYears || ''], //show hide on radio button
@@ -223,8 +223,8 @@ export class CreateSamgraAppComponent {
     this.bankDetailsForm = this.fb.group({
       "bankId": [data?.bankId || '', [Validators.required]],
       "bankBranchId": [data?.bankBranchId || '', [Validators.required]],
-      "bankIFSCCode": [data?.bankIFSCCode || '', [Validators.required, Validators.maxLength(30), Validators.pattern(this.validation.alphaNumericWithSpace)]],
-      "bankAccountNo": [data?.bankAccountNo || '', [Validators.required, Validators.maxLength(30), Validators.pattern(this.validation.alphaNumericWithSpace)]],
+      "bankIFSCCode": [data?.bankIFSCCode || '', [Validators.required, this.validation.maxLengthValidator(30), Validators.pattern(this.validation.alphaNumericWithSpace)]],
+      "bankAccountNo": [data?.bankAccountNo || '', [Validators.required, this.validation.maxLengthValidator(30), Validators.pattern(this.validation.alphaNumericWithSpace)]],
     })
   }
 
