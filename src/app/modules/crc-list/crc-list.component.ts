@@ -144,7 +144,7 @@ export class CRCListComponent {
     this.highLightedFlag = true;
     let displayedColumns = this.lang == 'en' ? ['srNo', 'crcRegNo', 'crcName', 'ownerName', 'mobNo1', 'village', 'taluka', 'expireOn', 'isActive', 'action']
       : ['srNo', 'crcRegNo', 'm_CRCName', 'm_OwnerName', 'mobNo1', 'm_Village', 'm_Taluka', 'expireOn', 'isActive', 'action'];
-    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Reg No', 'CRC Name', 'Owner Name', 'Mobile No', 'Village', 'Taluka', 'Expire On', 'Status', 'Action'] :
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Reg No', 'CRC Name', 'Owner Name', 'Mobile No', 'Village', 'Taluka', 'Expire On', 'Block/Unblock', 'Action'] :
       ['अनुक्रमांक', 'नोंदणी क्रमांक', 'CRC नाव', 'मालकाचे नाव', 'मोबाईल नंबर', 'गाव', 'तालुका', 'कालबाह्य', 'स्थिती', 'कृती'];
     let tableData = {
       pageNumber: this.pageNumber,

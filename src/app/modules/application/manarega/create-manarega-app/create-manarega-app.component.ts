@@ -261,9 +261,10 @@ export class CreateManaregaAppComponent {
           if (res.statusCode == 200) {
             this.spinner.hide();
             lable == 'documents' ? this.docArray[indexByDocId].docPath = res.responseData : lable == 'profilePhoto' ? this.manaregaFrm.controls['profilePhotoPath'].setValue(res.responseData) :
-            (this.otherDocumentFrm.controls['docPath'].setValue(res.responseData),this.docArray[indexByDocId].docTypeId = 7);//lable == 'otherDocuments'
-             }
-             this.commonMethod.snackBar(res.statusMessage, 0)
+            (this.otherDocumentFrm.controls['docPath'].setValue(res.responseData));//lable == 'otherDocuments'
+            // ,this.docArray[indexByDocId].docTypeId = 7
+          }
+             //this.commonMethod.snackBar(res.statusMessage, 0)
           },
         error: ((error: any) => {
           this.spinner.hide();
@@ -314,7 +315,7 @@ getDocumentsWithDocId7() {  //preview other docment
         "docname": uploadFrmValue.docname,
         "docPath": uploadFrmValue.docPath,
         "createdBy":this.WebStorageService.getUserId(),
-        "isDeleted":true
+        "isDeleted": false
       }
 
       if (!this.OtherDocUploadImg.length) {
@@ -392,6 +393,27 @@ deleteTableOtherDocument(i: any) { //logic for delete table document
     this.farmInfoFrm.controls ['candidateRelationId'].updateValueAndValidity();
    }
 //#endregion-----------------------on radio button click add remove validation fn start-------------------
+// benificiaryTotalFarm
+FarmValidations(key: any){
+  if (key == 'cultivatedFarmInHector') {
+  if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector >= this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
+    this.commonMethod.snackBar((this.lang == 'en' ? "Total Land in Hectares Should be Less Than Cultivation Area in Hectares" : "हेक्टरमधील एकूण जमीन हे हेक्टरमधील लागवड क्षेत्रापेक्षा कमी असावी"), 1);
+    this.farmInfoFrm.controls['cultivatedFarmInHector'].setValue('');
+  }
+ }
+ else if (key == 'applicantFarmArea') {
+  if (this.farmInfoFrm.getRawValue()?.applicantFarmArea  >= this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
+    this.commonMethod.snackBar("Total Land in Hectares Should be Less Than Its area Hectares", 1);
+    this.farmInfoFrm.controls['applicantFarmArea'].setValue('');
+  }
+  else if(this.farmInfoFrm.getRawValue()?.applicantFarmArea <= this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector){
+    this.commonMethod.snackBar("Its area Hectares Should be Greater Than Total Land in Hectares", 1);
+    this.farmInfoFrm.controls['applicantFarmArea'].setValue('');
+  }
+}
+}
+
+//-----------------------------------
 
   getFarmInfo(){
     this.farmDeatailsFrm = this.fb.group({
@@ -438,10 +460,7 @@ deleteTableOtherDocument(i: any) { //logic for delete table document
       "cultivatedPlantsCount": Number(data.cultivatedPlantsCount),
       "createdBy":this.WebStorageService.getUserId(),
       }
-      // this.farmDetails.push(obj);
-      // this.dataSource = new MatTableDataSource( this.farmDetails);
-      // this.onClickPlantedBeforeGovScheme(false);
-      // this.formDirective?.resetForm();
+    
       if (!this.farmDetails.length) {
         this.farmDetails.push(obj);
        // this.commonMethod.snackBar("Data added successfully", 0)
@@ -497,33 +516,6 @@ getPreviewData1(flag?:any,id?:any){
 }
 
 
-
-
-// getPreviewData(res?:any){ 
-//    this.apiService.setHttp('get','sericulture/api/Application/application-preview?Id='+(res)+'&lan='+this.lang,false,false,false,'masterUrl')
-//    this.apiService.getHttp().subscribe({
-//     next:((res:any)=>{
-//       if(res.statusCode == "200"){
-//           this.previewData = res.responseData;
-//           this.onEdit(this.previewData);
-//          let documentArray = new Array()
-//           documentArray = res.responseData?.documents;
-
-//           documentArray.map((document:any) => {
-//             if(document.docId == 12){
-//                this.previewManarega?.push(document);
-//              }
-//           });
-//          }
-//       else{
-//         this.previewData = [];
-//       }
-//     })
-//   })
-// }
-
-
-
 onEdit(data?:any){
   this.EditFlag = true;
   this.addManaregaFrm(data);
@@ -544,7 +536,7 @@ onEdit(data?:any){
          ele['textMarathi'] = ele.m_CategoryOfBeneficiary;
    })
   this.addBankInfo(data);
- // this.getBank(); 
+   this.getBank(); 
  // this.getBankBranch();
   this.farmDetails = data.plantingDetails;
   this.dataSource = new MatTableDataSource(this.farmDetails);
@@ -554,13 +546,14 @@ onEdit(data?:any){
         this.docArray[i].id = item.id
         this.docArray[i].docPath = item.documentPath
       } else {
-        if (item.docTypeId == 7) { // 7 is other doc
+        if (item.docId == 7) { // 7 is other doc
           let checkValue =  this.OtherDocUploadImg.some((ele:any)=>ele.id == item.id)
           !checkValue ? this.OtherDocUploadImg.push(item): '';
          }
       }
     })
   })
+  console.log("this.OtherDocUploadImg",this.OtherDocUploadImg);
   this.OtherDocUploadImg.length ? this.visible = true :  this.visible = false; 
   this.otherDocArray = new MatTableDataSource(this.OtherDocUploadImg);
   this.addSelfDeclaration(data);
@@ -587,7 +580,8 @@ onSubmit(flag?:any) {
     let bankInfo=this.bankInfoFrm.getRawValue();
     let declarationInfo=this.selfDeclarationFrm.getRawValue();
     let mergeDocumentArray = [... this.docArray,...this.OtherDocUploadImg];
-
+    
+     
     flag == 'farmerInfo' ? this.manaregaFrmVal('checkedcategory'):'';
 
     if ((this.manaregaFrm.invalid && flag == 'farmerInfo')) {
