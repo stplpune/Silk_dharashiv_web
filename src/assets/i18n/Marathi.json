@@ -91,7 +91,8 @@
     "fullName_minLength": "किमान 5 वर्णांना अनुमती आहे",
     "status":"स्थिती",
     "search":"शोधा",
-    "documents":"कागदपत्रे"
+    "documents":"कागदपत्रे",
+    "file_upload":"फाइल अपलोड"
   },
   "approvalProcess"  : {
     "track_application" : "अर्ज स्थिती",
