@@ -3,31 +3,38 @@
     <div class="text-main">Delivery Slabs</div>
   </mat-card-header>
   <mat-card-content class="card-body">
+    <form [formGroup]="slabForm">
     <div class="row gx-2">
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Grainage</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
+          <mat-label>{{'deliverySlab.delivery_slab' | translate}}</mat-label>
+          <mat-select formControlName="grainageId">
+            <mat-option>
+              <ngx-mat-select-search [formControl]="grainageCtrl"
+                placeholderLabel="{{lang == 'en' ? 'Search Grainage Name' : 'धान्याचे नाव शोधा'}}"
+                noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let grg of grainageSubject | async" [value]="grg.id">{{lang != 'en' ?  grg.textMarathi  :grg.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Status</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-          </mat-select>
+          <mat-label>{{'deliverySlab.status' | translate}}</mat-label>
+          <mat-select formControlName="statusId">
+            <mat-option  [value]="0">{{lang == 'en' ? 'All Status' : 'सर्व स्थिती'}}</mat-option>
+            <mat-option *ngFor="let arr of statusArray" [value]="arr.id">{{lang == 'en' ? arr.textEnglish : arr.textMarathi}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-2">
         <div class="d-flex align-items-center gap-2">
-          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
+          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit" (click)="getTableData('filter')">
             <mat-icon class="material-symbols-rounded">
               search
             </mat-icon>
           </button>
-          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="clearFormData()">
             <mat-icon class="material-symbols-rounded">
               close
             </mat-icon>
@@ -35,8 +42,9 @@
         </div>
       </div>
     </div>
+  </form>
     <div class="table-responsive scrollbar">
-      table
+      <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
     </div>
   </mat-card-content>
 </mat-card>

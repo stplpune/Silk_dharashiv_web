@@ -1,6 +1,6 @@
 <mat-card class="plain-card">
     <mat-card-header class="card-header">
-      <div class="text-main">Profile</div>
+      <div class="text-main">{{lang == 'en' ? 'Profile' : 'प्रोफाइल'}}</div>
     </mat-card-header>
     <mat-card-content class="card-body form-container">
       <form [formGroup]="statusForm">
@@ -8,22 +8,22 @@
         <div class="col-sm-2">
           <div class="text-center">
             <img [src]="tableDataArray?.profileImagePath ? tableDataArray?.profileImagePath :  'assets/images/user.png'" alt="" class="img-fluid">
-            <h6 class="form-data">Abhay Chowki Rearing Center</h6>
-            <p class="bg-success-subtle text-success p-2 rounded-2"> {{tableDataArray?.status || '-'}}</p>
+            <h6 class="form-data">{{lang == 'en' ? tableDataArray?.crcName :  tableDataArray?.m_CRCName || '-'}}</h6>
+            <p class="bg-success-subtle text-success p-2 rounded-2"> {{lang == 'en' ? tableDataArray?.status : tableDataArray?.m_Status || '-'}}</p>
           </div>
         </div>
         <div class="col-sm-10">
-          <h6 class="text-main border-bottom border-success border-opacity-50">CRC Center Details</h6>
+          <h6 class="text-main border-bottom border-success border-opacity-50">{{'crc.crc_center_details' | translate}}</h6>
           <div class="row gx-2 gy-2 ">
             <div class="col-sm-6">
               <div class="row gx-2">
-                <div class="col-sm-auto form-label">Registration No.</div>
-                <div class="col-sm form-data">: {{tableDataArray?.crcRegNo || '-'}}</div>
+                <div class="col-sm-auto form-label">{{lang == 'en' ? 'Registration No': 'नोंदणी क्रमांक '}}</div>
+                <div class="col-sm form-data"> : &nbsp; {{ tableDataArray?.crcRegNo || '-'}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row justify-content-end">
-                <div class="col-sm-2 form-label">Certificate.</div>
+                <div class="col-sm-2 form-label">{{lang == 'en' ? 'Certificate': 'प्रमाणपत्र '}}</div>
                 <div class="col-sm">
                   <mat-icon class="material-symbols-outlined" (click)="viewPdf()">
                     visibility
@@ -33,129 +33,129 @@
             </div>
             <div class="col-sm-3">
               <div class="row gx-2">
-                <div class="col-sm-4 form-label">State</div>
-                <div class="col-sm-8 form-data">: {{lang == 'en' ?  tableDataArray?.state :  tableDataArray?.crcRegNo|| '-'}}</div>
+                <div class="col-sm-4 form-label">{{lang == 'en' ? 'State': 'राज्य'}}</div>
+                <div class="col-sm-8 form-data">: &nbsp; {{lang == 'en' ?  tableDataArray?.state :  tableDataArray?.m_State|| '-'}}</div>
               </div>
             </div>
             <div class="col-sm-3">
               <div class="d-flex gap-2">
-                <div class="form-label">District</div>
-                <div class="form-data">: {{lang == 'en' ?  tableDataArray?.district :  tableDataArray?.m_District|| '-'}}</div>
+                <div class="form-label"> {{lang == 'en' ? 'District': 'जिल्हा'}}</div>
+                <div class="form-data">:  &nbsp; {{lang == 'en' ?  tableDataArray?.district :  tableDataArray?.m_District|| '-'}}</div>
               </div>
             </div>
             <div class="col-sm-3">
               <div class="d-flex gap-2">
-                <div class="form-label">Taluka</div>
-                <div class="form-data">: {{lang == 'en' ?  tableDataArray?.taluka :  tableDataArray?.m_Taluka|| '-'}}</div>
+                <div class="form-label"> {{lang == 'en' ? 'Taluka': 'तालुका'}}</div>
+                <div class="form-data">:  &nbsp;   {{lang == 'en' ?  tableDataArray?.taluka :  tableDataArray?.m_Taluka|| '-'}}</div>
               </div>
             </div>
             <div class="col-sm-3">
               <div class="d-flex gap-2">
-                <div class="form-label">Village</div>
-                <div class="form-data">: {{lang == 'en' ?  tableDataArray?.village :  tableDataArray?.m_Village|| '-'}}</div>
+                <div class="form-label"> {{lang == 'en' ? 'Village': 'गाव'}}</div>
+                <div class="form-data">:  &nbsp;  {{lang == 'en' ?  tableDataArray?.village :  tableDataArray?.m_Village|| '-'}}</div>
               </div>
             </div>
             <div class="col-sm-3">
               <div class="row gx-2">
-                <div class="col-sm-4 form-label">Pincode</div>
-                <div class="col-sm-8 form-data">: {{tableDataArray?.pinCode || '-'}}</div>
+                <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Pincode': 'पिन कोड'}}</div>
+                <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.pinCode || '-'}}</div>
               </div>
             </div>
             <div class="col-sm-12">
               <div class="row gx-2">
-                <div class="col-sm-1 form-label">Address</div>
-                <div class="col-sm-11 form-data">: {{lang == 'en' ?  tableDataArray?.address :  tableDataArray?.m_Address|| '-'}}</div>
+                <div class="col-sm-1 form-label"> {{lang == 'en' ? 'Address': 'पत्ता'}}</div>
+                <div class="col-sm-11 form-data">:  &nbsp; {{lang == 'en' ?  tableDataArray?.address :  tableDataArray?.m_Address|| '-'}}</div>
               </div>
             </div>
-  
+
           </div>
           <div class="d-flex align-items-center justify-content-between w-100 mb-3">
             <div class="d-flex gap-2">
-              <div class="form-label">Certificate Issue Date</div>
-              <div class="form-data">: {{tableDataArray?.certificateIssueDate  | date:'dd-MM-yyyy' || '-'}}</div>
+              <div class="form-label"> {{lang == 'en' ? 'Certificate Issue Date': 'प्रमाणपत्र जारी करण्याची तारीख'}}</div>
+              <div class="form-data">:  &nbsp; {{tableDataArray?.certificateIssueDate  | date:'dd-MM-yyyy' || '-'}}</div>
             </div>
             <div class="d-flex gap-2">
-              <div class="form-label">Certificate Expiry Date</div>
-              <div class="form-data">: {{tableDataArray?.certificateExpiryDate  | date:'dd-MM-yyyy' || '-'}}</div>
+              <div class="form-label"> {{lang == 'en' ? 'Certificate Expiry Date': 'प्रमाणपत्र कालबाह्यता तारीख'}}</div>
+              <div class="form-data">:  &nbsp; {{tableDataArray?.certificateExpiryDate  | date:'dd-MM-yyyy' || '-'}}</div>
             </div>
           </div>
           <section>
-            <h6 class="text-main border-bottom border-success border-opacity-50">CRC Owner Details</h6>
+            <h6 class="text-main border-bottom border-success border-opacity-50"> {{lang == 'en' ? 'CRC Owner Details': 'CRC मालक तपशील'}}</h6>
             <div class="row gy-2 mb-3">
               <div class="col-sm-12">
                 <div class="row gx-2 gy-2">
-                  <div class="col-sm-1 form-label">Owner Name</div>
-                  <div class="col-sm-11 form-data">:{{lang == 'en' ?  tableDataArray?.ownerName :  tableDataArray?.m_OwnerName|| '-'}}</div>
+                  <div class="col-sm-1 form-label">{{lang == 'en' ? 'Owner Name': 'मालकाचे नाव'}}</div>
+                  <div class="col-sm-11 form-data"> :  &nbsp; {{lang == 'en' ?  tableDataArray?.ownerName :  tableDataArray?.m_OwnerName|| '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="row gx-2">
-                  <div class="col-sm-3 form-label">Mobile No</div>
-                  <div class="col-sm-9 form-data">: {{tableDataArray?.mobileNo || '-'}}</div>
+                  <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Mobile No': 'मोबाईल नंबर'}}</div>
+                  <div class="col-sm-9 form-data">:  &nbsp; {{tableDataArray?.mobileNo || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="row gx-2">
-                  <div class="col-sm-4 form-label">Alt Mobile No</div>
-                  <div class="col-sm-8 form-data">: {{tableDataArray?.altMobileNo || '-'}}</div>
+                  <div class="col-sm-4 form-label">{{lang == 'en' ? 'Alt Mobile No ': 'पर्यायी मोबाईल नंबर'}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.altMobileNo || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="row gx-2">
-                  <div class="col-sm-4 form-label">Aadhar Card No.</div>
-                  <div class="col-sm-8 form-data">: {{tableDataArray?.aadharNumber || '-'}}</div>
+                  <div class="col-sm-4 form-label">{{lang == 'en' ? 'Aadhar Card No': 'आधार कार्ड क्रमांक.'}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.aadharNumber || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="row gx-2">
-                  <div class="col-sm-3 form-label">Email Id.</div>
-                  <div class="col-sm-9 form-data">: {{tableDataArray?.emailId || '-'}}</div>
+                  <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Email Id': 'ई - मेल आयडी'}}</div>
+                  <div class="col-sm-9 form-data">:  &nbsp; {{tableDataArray?.emailId || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="row gx-2">
-                  <div class="col-sm-4 form-label">Gender</div>
-                  <div class="col-sm-8 form-data">: {{tableDataArray?.gender || '-'}}</div>
+                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Gender': 'लिंग'}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.gender || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="row gx-2">
-                  <div class="col-sm-4 form-label">Date of Birth</div>
-                  <div class="col-sm-8 form-data">: {{tableDataArray?.dob  | date:'dd-MM-yyyy' || '-'}}</div>
+                  <div class="col-sm-4 form-label">{{lang == 'en' ? 'Date of Birth ': 'Date of Birth '}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.dob  | date:'dd-MM-yyyy' || '-'}}</div>
                 </div>
               </div>
             </div>
           </section>
           <section>
-            <h6 class="text-main border-bottom border-success border-opacity-50">Rearing Area Details</h6>
+            <h6 class="text-main border-bottom border-success border-opacity-50"> {{lang == 'en' ? 'Rearing Area Details': 'संगोपन क्षेत्र तपशील'}}</h6>
             <div class="row gy-2">
               <div class="col-sm-6">
                 <div class="row gx-2">
-                  <div class="col-sm-4 form-label">Total area available for CRC</div>
-                  <div class="col-sm-8 form-data">: {{tableDataArray?.totalAreaForCRC || '-'}}</div>
+                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Total area available for CRC': 'CRC साठी उपलब्ध एकूण क्षेत्र'}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.totalAreaForCRC || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="row gx-2">
-                  <div class="col-sm-4 form-label">area Under CRC</div>
-                  <div class="col-sm-8 form-data">: {{tableDataArray?.areaUnderCRC || '-'}}</div>
+                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Area Under CRC': 'CRC अंतर्गत क्षेत्र'}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.areaUnderCRC || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="row gx-2">
-                  <div class="col-sm-4 form-label">Select Status</div>
-                  <div class="col-sm-8 form-data">: {{tableDataArray?.status || '-'}}</div>
+                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Status': 'स्थिती'}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.status || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="row gx-2">
-                  <div class="col-sm-4 form-label">Rearing Capacity</div>
-                  <div class="col-sm-4 form-data">: {{tableDataArray?.chalkyCapacity || '-'}}</div>
+                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Rearing Capacity': 'संगोपन क्षमता'}}</div>
+                  <div class="col-sm-4 form-data">:  &nbsp; {{tableDataArray?.chalkyCapacity || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-6">
                 <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Select Status</mat-label>
+                  <mat-label>{{lang == 'en' ? 'Select Status ': 'स्थिती निवडा'}}</mat-label>
                   <mat-select formControlName="status" (selectionChange)="addValidation(statusForm.value.status)">
                     <mat-option *ngFor="let arr of statusArray" [value]="arr.id">{{lang == 'en' ? arr.textEnglish : arr.textMarathi}}</mat-option>
                 </mat-select>
@@ -163,13 +163,13 @@
               </div>
               <div class="col-sm-6" *ngIf="statusForm.value.status == 2">
                 <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Rearing Capacity</mat-label>
+                  <mat-label> {{lang == 'en' ? 'Rearing Capacity': 'संगोपन क्षमता'}}</mat-label>
                   <input matInput placeholder="Rearing Capacity" formControlName="chalkyApprovedQty" maxlength="10"  (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
                 </mat-form-field>
               </div>
               <div class="col-sm-6" *ngIf="statusForm.value.status == 5">
                 <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Remark</mat-label>
+                  <mat-label> {{lang == 'en' ? 'Remark': 'शेरा'}}</mat-label>
                   <input matInput placeholder="Remark" formControlName="reason" maxlength="100"  (keypress)="validator.noFirstSpaceAllow($event)">
                 </mat-form-field>
               </div>
@@ -178,10 +178,14 @@
         </div>
       </div>
       <div class="d-flex align-items-center justify-content-end gap-2">
-        <button mat-flat-button class="btn-main-light" type="button" (click)="clearFormData()">Cancel</button>
-        <button mat-flat-button class="btn-main" type="submit" (click)="onSubmitData()">Edit</button>
+        <button mat-flat-button class="btn-main-light" type="button" (click)="clearFormData()">{{lang == 'en' ? 'Cancel' :'रद्द करा'}}</button>
+        <button mat-flat-button class="btn-main" type="submit" (click)="onSubmitData()"> {{lang == 'en' ? 'Edit' :'संपादित'}}</button>
       </div>
     </form>
     </mat-card-content>
   </mat-card>
-  
+
+
+
+
+

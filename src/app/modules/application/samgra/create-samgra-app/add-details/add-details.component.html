@@ -24,49 +24,49 @@
     <div class="col-sm-4">
       <div class="form-label">क्षेत्र एकर</div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder=""  formControlName="area" maxlength="10" 
+        <input matInput placeholder=""  formControlName="area" maxlength="10"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="form-label">झालेले उत्पादन ( क्विंटल ) </div>
       <mat-form-field appearance="outline" class="w-100" >
-        <input matInput placeholder="" formControlName="totalProduction" 
+        <input matInput placeholder="" formControlName="totalProduction"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
         maxlength="10"  (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="form-label">मिळालेला सरासरी दर प्रती रु  </div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="" formControlName="averageRate"
+        <input matInput placeholder="" formControlName="averageRate"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
         maxlength="10"  (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="form-label">झालेला उत्पादन रु </div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="" formControlName="totalProductionAmt"
+        <input matInput placeholder="" formControlName="totalProductionAmt"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
         maxlength="10"  (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="form-label">आलेला खर्च रु </div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="" formControlName="totalExpenses"
+        <input matInput placeholder="" formControlName="totalExpenses"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
         maxlength="10"  (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="form-label">झालेला निव्वळ उत्पन्न रु</div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="" formControlName="netIncome"
+        <input matInput placeholder="" formControlName="netIncome"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
         maxlength="10"  (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="form-label">प्रती एकर निव्वळ उत्पन्न रु</div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="" formControlName="acreNetIncome"
+        <input matInput placeholder="" formControlName="acreNetIncome"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
         maxlength="10"  (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
       </mat-form-field>
     </div>

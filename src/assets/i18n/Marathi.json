@@ -823,7 +823,17 @@
     "expired":"कालबाह्य",
     "deactive":"निष्क्रिय",
     "rejected":"नाकारले",
-    "search_by_Reg_No_CRC_Name/Owner_name_Mobile_No":"नोंदणी क्रमांक/CRC नाव/मालकाचे नाव/मोबाईल नंबर द्वारे शोधा"
+    "search_by_Reg_No_CRC_Name/Owner_name_Mobile_No":"नोंदणी क्रमांक/CRC नाव/मालकाचे नाव/मोबाईल नंबर द्वारे शोधा",
+    "profile":"प्रोफाइल",
+    "crc_center_details":"CRC केंद्र तपशील",
+    "crc_owner_details":"CRC मालक तपशील",
+    "rearing_area_details":"संगोपन क्षेत्र तपशील"
+  },"deliverySlab":{
+    "delivery_slab":"डिलिव्हरी स्लॅब",
+    "grainage":"धान्य",
+    "all_grainage":"सर्व धान्य",
+    "status":"स्थिती",
+    "all_status":"सर्व स्थिती"
   }
 
 }

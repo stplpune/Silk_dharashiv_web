@@ -17,12 +17,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { ChowkiOrderDetailsComponent } from './beneficiery-order-history/chowki-order-details/chowki-order-details.component';
+import { SilkSellDetailsComponent } from './beneficiery-silk-sell-history/silk-sell-details/silk-sell-details.component';
+import { BeneficieryTimelineComponent } from './beneficiery-timeline/beneficiery-timeline.component';
+import { BeneficierySubsidyHistoryComponent } from './beneficiery-subsidy-history/beneficiery-subsidy-history.component';
 
 
 @NgModule({
   declarations: [
     BeneficieryDetailsComponent,
     ChowkiOrderDetailsComponent,
+    SilkSellDetailsComponent,
 
   ],
   imports: [
@@ -33,6 +37,8 @@ import { ChowkiOrderDetailsComponent } from './beneficiery-order-history/chowki-
     BeneficieryApplicationHistoryComponent,
     BeneficieryOrderHistoryComponent,
     BeneficierySilkSellHistoryComponent,
+    BeneficieryTimelineComponent,
+    BeneficierySubsidyHistoryComponent,
     MatCardModule,
     MatDialogModule,
     MatFormFieldModule,
