@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row form-container " *ngFor="let data of blogDetails">
         <div class="col-sm-8">
-          <div class="card form-container">
+          <div class="card form-container border-0">
             <div class="card-header">
               <img src="{{data?.thumbnailImage}}" class="img-fluid m-1">
             </div>
@@ -24,7 +24,7 @@
               <div *ngFor="let data of allBlogDetails">
                 <a class="d-flex news text-muted text-decoration-none news_data" href="#">
                   <div class="flex-shrink-0">
-                    <img src="{{data?.thumbnailImage}}" class="img-thumbnail m-1">
+                    <img src="{{data?.thumbnailImage}}" class="img-fluid p-0 m-0">
                   </div>
                   <div class="flex-grow-1 ms-3">
                     <h4 class="form-data">{{data?.title}}</h4>
