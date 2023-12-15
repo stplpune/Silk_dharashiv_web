@@ -315,7 +315,7 @@ getDocumentsWithDocId7() {  //preview other docment
         "docname": uploadFrmValue.docname,
         "docPath": uploadFrmValue.docPath,
         "createdBy":this.WebStorageService.getUserId(),
-        "isDeleted": false
+        "isDeleted":false
       }
 
       if (!this.OtherDocUploadImg.length) {
@@ -342,8 +342,13 @@ resetOtherDocForm() {
     this.otherformDirective.resetForm();
     this.OtherDocImg.nativeElement.value = "";
 }
-deleteTableOtherDocument(i: any) { //logic for delete table document
-    this.OtherDocUploadImg.splice(i,1)
+deleteTableOtherDocument(i: any,element:any) { //logic for delete table document
+    // this.OtherDocUploadImg.splice(i,1)
+    if (element.id == 0) {
+      this.OtherDocUploadImg.splice(i, 1)
+    } else {
+      this.OtherDocUploadImg[i].isDeleted = true;
+    }
     this.otherDocArray = new MatTableDataSource( this.OtherDocUploadImg);
   }
 //#endregion  --------------------------------------------------------other doc upload section fn end here-----------------------------------//
@@ -482,7 +487,7 @@ FarmValidations(key: any){
   }
 
  deleteFarmInfo(i:number){
-    this.farmDetails.splice(i,1);
+  this.farmDetails.splice(i,1);
     this.dataSource= new MatTableDataSource(this.farmDetails);
    }
 

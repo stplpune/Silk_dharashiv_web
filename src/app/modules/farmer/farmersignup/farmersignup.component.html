@@ -44,7 +44,7 @@
                         <div class="col-sm-6">
                             <!-- <label class="form-label">{{'common.district'|translate}} <span class="text-danger">*</span></label> -->
                             <mat-form-field appearance="outline" class="w-100"
-                            [class]="f['districtId'].value ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
+                            [class]="f['districtId'].value ? f['districtId'] : f['districtId'].enable({ onlySelf: true })">
                             <mat-label class="form-label">{{'common.district'|translate}} <span class="text-danger">*</span></mat-label>
                                 <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
                                     <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang == 'en' ? district.textEnglish : district.textMarathi}}</mat-option>

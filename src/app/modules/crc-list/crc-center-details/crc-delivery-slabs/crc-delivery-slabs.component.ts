@@ -143,13 +143,13 @@ export class CrcDeliverySlabsComponent {
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'en' ? ['srNo', 'deliverySlab', 'grainage', 'capacity_DFL', 'rate_Silkworm', 'startDate', 'endDate', 'status', 'action']
-      : ['srNo', 'deliverySlab', 'm_Grainage', 'capacity_DFL', 'rate_Silkworm', 'startDate', 'endDate', 'm_Status', 'action'];
-    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Delivery Slab', 'Grainage', 'Capacity (DFL)', 'Rate/100DFLs', 'Start Date', 'End Date', 'Status', 'Action'] :
+    let displayedColumns = this.lang == 'en' ? ['srNo', 'deliverySlab', 'grainage', 'capacity_DFL', 'rate_Silkworm', 'startDate', 'endDate', 'status']
+      : ['srNo', 'deliverySlab', 'm_Grainage', 'capacity_DFL', 'rate_Silkworm', 'startDate', 'endDate', 'm_Status'];
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Delivery Slab', 'Grainage', 'Capacity (DFL)', 'Rate/100DFLs', 'Start Date', 'End Date', 'Status'] :
       ['अनुक्रमांक', 'डिलिव्हरी स्लॅब', 'धान्य', 'क्षमता (DFL)', 'दर/100DFLs', 'प्रारंभ तारीख', 'शेवटची तारीख', 'स्थिती', 'कृती'];
     let tableData = {
       pageNumber: this.pageNumber,
-      pagination: this.tableDatasize > 10 ? true : false,
+      pagination:   true,
       highlightedrow: true,
       isBlock: '',
       date: 'startDate',
@@ -158,7 +158,7 @@ export class CrcDeliverySlabsComponent {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      view: true,
+      view: false,
       edit: false,
       delete: false
     };

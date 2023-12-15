@@ -428,7 +428,17 @@ export class MasterService {
       })
     })
   }
-   
+
+
+  GetAllDistributionSlab(){
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetAllDistributionSlab', false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
 
   refreshTokenJWT(obj: any) {
     this.apiService.setHttp('POST', 'sericulture/api/Login/refresh-token', false, obj, false, 'masterUrl');

@@ -3,53 +3,78 @@
     <div class="text-main">Chowki Orders</div>
   </mat-card-header>
   <mat-card-content class="card-body form-container">
+    <form [formGroup]="filterForm">
     <div class="row gx-2">
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>District</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-          </mat-select>
+          <mat-select formControlName="districtId"
+          [class]="webService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
+          <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
+            district.textMarathi : district.textEnglish}}
+          </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Delivery Slab</mat-label>
+          <mat-select formControlName="deliveryslabId">
+          <mat-option >1</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Taluka</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
+          <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('gram');getGrampanchayat()">
+            <mat-option>
+              <ngx-mat-select-search [formControl]="talukaCtrl"
+                placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
+                noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ?
+              taluka.textMarathi
+              :taluka.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Village</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
+          <mat-select formControlName="grampanchayatId">
+            <mat-option>
+              <ngx-mat-select-search [formControl]="gramPCtrl"
+                placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?
+              village.textMarathi : village.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Status</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-          </mat-select>
+          <mat-select formControlName="statusId" >
+            <mat-option *ngFor="let arr of statusArray" [value]="arr.id">{{lang == 'en' ? arr.textEnglish : arr.textMarathi}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Search by order ID/Farmer Name/Mobile Number</mat-label>
-          <input matInput placeholder="Search by order ID/Farmer Name/Mobile Number">
+          <input matInput placeholder="Search by order ID/Farmer Name/Mobile Number" formControlName="searchValue">
         </mat-form-field>
       </div>
       <div class="col-sm-2">
         <div class="d-flex align-items-center gap-2">
-          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
+          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit" (click)="filterFlag=true;getTableData('filter')">
             <mat-icon class="material-symbols-rounded">
               search
             </mat-icon>
           </button>
-          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="filterFlag=false;clearFormData()">
             <mat-icon class="material-symbols-rounded">
               close
             </mat-icon>
@@ -57,31 +82,32 @@
         </div>
       </div>
       <div class="col-sm-2">
-        <button mat-flat-button class="btn-main" (click)="chowkiorderdetails()">Chowki Order details</button>
+        <!-- <button mat-flat-button class="btn-main" (click)="chowkiorderdetails()">Chowki Order details</button> -->
       </div>
     </div>
     <div class="row">
       <div class="col-sm-3">
         <div class="d-flex gap-2">
           <div class="form-data">Total Chowki Order</div>
-          <div class="form-data">: 50</div>
+          <div class="form-data">: {{counterObject?.totalChawkiOrders}}</div>
         </div>
       </div>
       <div class="col-sm-3">
         <div class="d-flex gap-2 ">
           <div class="form-label text-warning">Pending</div>
-          <div class="form-data text-warning">: 40</div>
+          <div class="form-data text-warning">: {{counterObject?.pending}}</div>
         </div>
       </div>
       <div class="col-sm-3">
         <div class="d-flex gap-2 ">
           <div class="form-label text-success">Delivered</div>
-          <div class="form-data text-success">: 40</div>
+          <div class="form-data text-success">: {{counterObject?.delivery}}</div>
         </div>
       </div>
     </div>
+  </form>
     <div class="table-responsive scrollbar">
-      Table
+      <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
     </div>
   </mat-card-content>
 </mat-card>

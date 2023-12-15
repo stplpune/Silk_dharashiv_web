@@ -9,7 +9,7 @@
 <mat-dialog-content class="modal-content form-container scrollbar">
   <div class="d-flex align-items-center justify-content-between py-1 mb-2 border-bottom">
     <div class="d-flex align-items-center gap-2 my-1">
-      <div class="form-label mb-0">View Place Details Date</div>
+      <div class="form-label mb-0">Visit (Geotagging)  Date</div>
       <div class="form-data">: {{data?.mulberryCultivationDate | date :'dd-MM-yyyy'}}</div>
     </div>
     <!-- <div class="d-flex align-items-center gap-2 text-danger">
@@ -64,7 +64,7 @@
                       <td class="form-data">{{data?.mulberryCultivationArea | dash}}</td>
                     </tr>
                     <tr>
-                      <td class="form-label">तुती लागवडचा प्रकार</td>
+                      <td class="form-label">तुती लागवडीचा प्रकार</td>
                       <td>
                         <p class="form-data">
                           {{data?.m_CultiverType| dash}}
@@ -72,16 +72,16 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="form-label">तुती लागवडची जात </td>
+                      <td class="form-label">तुती लागवडीचा जात </td>
                       <td class="form-data">{{data?.m_ImprovedMulberryCast | dash}}</td>
                       <!-- M_ImprovedMulberryCast -->
                     </tr>
                     <tr>
-                      <td class="form-label">तुती लागवडचे आंतर (फुट)</td>
+                      <td class="form-label">तुती लागवडीचे अंतर (फुट)</td>
                       <td class="form-data">{{data?.mulberryCultivationSpacing | dash}}</td>
                     </tr>
                     <tr>
-                      <td class="form-label">तुती लागवड क्षेत्राची (लंबी व रुंदी) फुट </td>
+                      <td class="form-label">तुती लागवड क्षेत्राची (लांबी व रुंदी) फुट </td>
                       <td class="form-data">{{(data?.mulberryCultivationLength | dash) + 'x' +
                         (data?.mulberryCultivationWidth | dash) }}</td>
                     </tr>
@@ -95,7 +95,7 @@
                 <table class="dashboard-table table table-sm table-bordered w-100 mb-0">
                   <tbody>
                     <tr>
-                      <td class="form-label">एकूणतुती रांग/ ओळींची संख्या</td>
+                      <td class="form-label">एकूण तुती रांगा/ ओळींची संख्या</td>
                       <td class="form-data">{{data?.totalCultiverLines | dash}}</td>
                     </tr>
                     <tr>
@@ -103,7 +103,7 @@
                       <td class="form-data">{{data?.totalServingMulberryTreesOneLine | dash}}</td>
                     </tr>
                     <tr>
-                      <td class="form-label">एका तुती रांगेतील / ओळीतिल हयात झाडांची संख्या </td>
+                      <td class="form-label">एका तुती रांगेतील / ओळीतील हयात झाडांची संख्या </td>
                       <td class="form-data">{{data?.totalServingMulberryTreesOneLine | dash}}</td>
                     </tr>
                     <tr>

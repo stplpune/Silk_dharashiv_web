@@ -47,7 +47,7 @@ export class CrcProfileComponent {
   id: any;
   statusArray = new Array();
   statusForm!: FormGroup;
-  editFlag:boolean=false;
+  editFlag: boolean = false;
   constructor
     (
       private apiService: ApiService,
@@ -60,7 +60,7 @@ export class CrcProfileComponent {
       private fb: FormBuilder,
       public validator: ValidationService,
 
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
@@ -73,10 +73,10 @@ export class CrcProfileComponent {
     this.getTableDataById();
   }
 
-  getFormData(data?:any) {
+  getFormData(data?: any) {
     this.statusForm = this.fb.group({
-      "status": [data ? data?.statusId : 0],  
-      "chalkyApprovedQty":[''],
+      "status": [data ? data?.statusId : 0],
+      "chalkyApprovedQty": [''],
       "reason": [''],
     })
   }
@@ -117,16 +117,17 @@ export class CrcProfileComponent {
     window.open(this.tableDataArray?.certificatePath)
   }
 
-  onSubmitData(){
+  onSubmitData() {
     let formData = this.statusForm.getRawValue();
-    formData.id=this.tableDataArray.id;
-    formData.createdBy=this.WebStorageService.getUserId();
-    formData.status == 5 ?  formData.chalkyApprovedQty = 0 : formData.status == 2 ?  this.statusForm.controls["reason"].setValue(" "):(formData.status != 2 &&  formData.status != 5) ? (formData.chalkyApprovedQty = 0,formData.reason="") :'';
+    formData.id = this.tableDataArray.id;
+    formData.createdBy = this.WebStorageService.getUserId();
+    // formData.status == 5 ? formData.chalkyApprovedQty = 0 : formData.status == 2 ? this.statusForm.controls["reason"].setValue(" ") : (formData.status != 2 && formData.status != 5) ? (formData.chalkyApprovedQty = 0, formData.reason = "") : '';
+    formData.status == 5 ? formData.chalkyApprovedQty = 0 : formData.reason ="";
     if (this.statusForm.invalid) {
       this.spinner.hide();
       return
     } else {
-      this.apiService.setHttp('put', 'sericulture/api/UserRegistration/CRC_Approval_Status?lan='+this.lang, false, formData, false, 'masterUrl');
+      this.apiService.setHttp('put', 'sericulture/api/UserRegistration/CRC_Approval_Status?lan=' + this.lang, false, formData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
@@ -147,22 +148,24 @@ export class CrcProfileComponent {
     }
   }
 
-  addValidation(id?:any){
-    if(id == 2){
+  addValidation(id?: any) {
+    if (id == 12) {
+      this.statusForm.controls["reason"].setValue("");
       this.statusForm.controls["chalkyApprovedQty"].clearValidators();
       this.statusForm.controls['chalkyApprovedQty'].setValidators([Validators.required]);
-      this.statusForm.controls["chalkyApprovedQty"].updateValueAndValidity(); 
-   }else if(id == 5){
-    this.statusForm.controls["reason"].clearValidators();
-    this.statusForm.controls['reason'].setValidators([Validators.required]);
-    this.statusForm.controls["reason"].updateValueAndValidity();
-   }
+      this.statusForm.controls["chalkyApprovedQty"].updateValueAndValidity();
+    } else if (id == 5) {
+      this.statusForm.controls["chalkyApprovedQty"].setValue(0);
+      this.statusForm.controls["reason"].clearValidators();
+      this.statusForm.controls['reason'].setValidators([Validators.required]);
+      this.statusForm.controls["reason"].updateValueAndValidity();
+    }
   }
 
-  clearFormData(){
+  clearFormData() {
     this.statusForm.reset({
-      "status": this.tableDataArray ? this.tableDataArray?.statusId : 0,  
-      "chalkyApprovedQty":[''],
+      "status": this.tableDataArray ? this.tableDataArray?.statusId : 0,
+      "chalkyApprovedQty": [''],
       "reason": [''],
     });
   }
