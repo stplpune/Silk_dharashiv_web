@@ -56,8 +56,8 @@ export class CreateSamgraAppComponent {
   dataSource: any;
   dataSource1: any;
   dataSource2: any;
-  genderArray: any = [{ id: 1, name: 'Male' , m_name:'पुरुष' }, { id: 2, name: 'Female',m_name:'स्त्री' }];
-  checkedArray: any = [{ id: true, name: 'Yes' ,m_name:'हो' }, { id: false, name: 'No',m_name:'नाही' }];
+  genderArray: any = [{ id: 1, name: 'Male', m_name: 'पुरुष' }, { id: 2, name: 'Female', m_name: 'स्त्री' }];
+  checkedArray: any = [{ id: true, name: 'Yes', m_name: 'हो' }, { id: false, name: 'No', m_name: 'नाही' }];
 
   showOtherDoc: boolean = false;
   currentRecordId: number = 0;
@@ -80,22 +80,21 @@ export class CreateSamgraAppComponent {
   profileImageUrl: any;
 
   showDocValidation: boolean = false;
-
   InternalSchemesEditFlag: boolean = false;
   InternalSchemesIndex !: number
   previewData: any;
   EditFlag: boolean = false;
   checkOtherDocumentFlag: boolean = false;
   isLinear = false;
-  checkinternalSchemesflag : boolean = false;
+  checkinternalSchemesflag: boolean = false;
   viewMsgFlag: boolean = false;
   samgraId: any;
+  registionFeeUrl: string = "";
 
   @ViewChild('samgraDirective') private samgraDirective: NgForm | any;
   @ViewChild('landDetailsDirective') private landDetailsDirective: NgForm | any;
   @ViewChild('bankDetailsDirective') private bankDetailsDirective: NgForm | any;
   @ViewChild('selfDeclarationDirective') private selfDeclarationDirective: NgForm | any;
-
   @ViewChild('ScheemDirective') private ScheemDirective: NgForm | any;
   @ViewChild('DocumentDirective') private DocumentDirective: NgForm | any;
 
@@ -152,22 +151,19 @@ export class CreateSamgraAppComponent {
     this.getMulberryCultivationArea();
     this.samgraId[0] ? this.getPreviewData() : '';
 
-    console.log("this.docArray",this.docArray);
-    
-    setTimeout(() => {    
-      if (!this.docArray[0].docPath || !this.docArray[1].docPath || !this.docArray[2].docPath) {   
-        console.log("hii enter docpath");     
+    setTimeout(() => {
+      if (!this.docArray[0].docPath || !this.docArray[1].docPath || !this.docArray[2].docPath) {
         let setValArray = ['checkDocument']
         this.setValidation(setValArray, this.fdp);
-      }  
-    }, 1000); 
+      }
+    }, 1000);
 
     let photoValidation = ['profilePhotoPath']
     !this.profileImageUrl ? (this.setValidation(photoValidation, this.f)) : this.clearValidation(photoValidation, this.f)
 
     let setvalidation = ['CheckCurrentcropproduction']
     !this.currentCropDetailsArray.length ? (this.setValidation(setvalidation, this.fL)) : this.clearValidation(setvalidation, this.fL)
-  
+
   }
   get f() { return this.samgraForm.controls }
   get fL() { return this.landDetailsForm.controls }
@@ -175,7 +171,6 @@ export class CreateSamgraAppComponent {
   get fIS() { return this.internalSchemes.controls }
   get fdp() { return this.otherDocForm.controls }
   get fSD() { return this.selfDeclarationForm.controls }
-
 
   samgraformData(data?: any) {
     this.samgraForm = this.fb.group({
@@ -186,23 +181,23 @@ export class CreateSamgraAppComponent {
       "birthDate": [data?.birthDate || '', [Validators.required]],
       "gender": [data?.genderId || 1],
       "qualificationId": [data?.qualificationId || '', [Validators.required]],
-      "stateId": [this.WebStorageService.getStateId() == '' ? 0 : this.WebStorageService.getStateId()],
-      "districtId": [this.WebStorageService.getDistrictId() == '' ? 0 : this.WebStorageService.getDistrictId()],
-      "talukaId": [this.WebStorageService.getTalukaId() == '' ? 0 : this.WebStorageService.getTalukaId(), [Validators.required]],
-      "grampanchayatId": [this.WebStorageService.getGrampanchayatId() == '' ? 0 : this.WebStorageService.getGrampanchayatId(), [Validators.required]],
+      "stateId": [this.WebStorageService.getStateId() == '' ? '' : this.WebStorageService.getStateId()],
+      "districtId": [this.WebStorageService.getDistrictId() == '' ? '' : this.WebStorageService.getDistrictId()],
+      "talukaId": [this.WebStorageService.getTalukaId() == '' ? '' : this.WebStorageService.getTalukaId(), [Validators.required]],
+      "grampanchayatId": [this.WebStorageService.getGrampanchayatId() == '' ? '' : this.WebStorageService.getGrampanchayatId(), [Validators.required]],
       "village": [data?.village || '', [this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]],
       "pinCode": [data?.pinCode || '', [Validators.required, this.validation.maxLengthValidator(6)]],//numeric
       "sm_VoterRegistrationNo": [data?.sm_VoterRegistrationNo || '', this.validation.maxLengthValidator(50)],
       "address": [data?.address || '', [Validators.required, this.validation.maxLengthValidator(200)]],
       "sm_IsBelowPovertyLine": [data?.sm_IsBelowPovertyLine || false],
-      "profilePhotoPath" : ['']
+      "profilePhotoPath": ['']
       // category validation remaning 
     })
   }
 
   landDetailsFormData(data?: any) {
     this.landDetailsForm = this.fb.group({
-      "benificiaryTotalFarm": [data?.benificiaryTotalFarm || '', [Validators.required, this.validation.maxLengthValidator(4),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]],
+      "benificiaryTotalFarm": [data?.benificiaryTotalFarm || '', [Validators.required, this.validation.maxLengthValidator(4), Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]],
       "sm_LandTenureCategories": [data?.sm_LandTenureCategories || '', [Validators.required]],
       "farmTypeId": [data?.farmTypeId || '', [Validators.required]],
       "irrigationFacilityId": [data?.sm_IrrigationPeriod || '', [Validators.required]],
@@ -212,8 +207,8 @@ export class CreateSamgraAppComponent {
       "sm_CultivatedArea": [data?.sm_CultivatedArea || ''],
       "sm_LandSurveyNo": [data?.sm_LandSurveyNo || ''],
       "sm_ImprovedMulberryCast": [data?.sm_ImprovedMulberryCast || '', [Validators.required]],
-      "sm_MulberryPlantingDistance": [data?.sm_MulberryPlantingDistance || '', [Validators.required, this.validation.maxLengthValidator(4),Validators.pattern(this.validation.onlyNumbers)]],
-      "sm_PlantationSurveyNo": [data?.sm_PlantationSurveyNo || '', [Validators.required, this.validation.maxLengthValidator(6),Validators.pattern(this.validation.onlyNumbers)]],
+      "sm_MulberryPlantingDistance": [data?.sm_MulberryPlantingDistance || '', [Validators.required, this.validation.maxLengthValidator(4), Validators.pattern(this.validation.onlyNumbers)]],
+      "sm_PlantationSurveyNo": [data?.sm_PlantationSurveyNo || '', [Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.onlyNumbers)]],
       "sm_MulberryCultivationArea": [data?.sm_MulberryCultivationArea || '', [Validators.required]],
       "sm_PlantationMethod": [data?.sm_PlantationMethod || '', [Validators.required]],
       "sm_IsExperienceSilkIndustry": [data?.sm_IsExperienceSilkIndustry || false],
@@ -223,8 +218,7 @@ export class CreateSamgraAppComponent {
       "sm_IsTakenBenefitOfInternalScheme": [data?.sm_IsExperienceSilkIndustry || false],
       "sm_IsEngagedInSilkIndustry": [data?.sm_IsEngagedInSilkIndustry || true],
       "CheckCurrentcropproduction": [''],
-      "checkinternalSchemes" : ['']
-
+      "checkinternalSchemes": ['']
     })
   }
 
@@ -329,7 +323,8 @@ export class CreateSamgraAppComponent {
     }
   }
 
-  getGrampanchayat() {
+  getGrampanchayat(flag?: any) {
+    (flag == 'gramp' && this.EditFlag) ? (this.f['grampanchayatId'].setValue(''), this.previewData.grampanchayatId = '') : flag == 'gramp' ? this.f['grampanchayatId'].setValue('') : ''
     this.grampanchayatArray = [];
     let talukaId = this.samgraForm.getRawValue()?.talukaId;
     this.masterService.GetGrampanchayat(talukaId).subscribe({
@@ -421,8 +416,8 @@ export class CreateSamgraAppComponent {
       })
     })
   }
-  getBankBranch(flag?:any) {
-    flag == 'branch' ?(this.previewData.bankBranchId = '', this.bL['bankBranchId'].setValue('')) : ''
+  getBankBranch(flag?: any) {
+    flag == 'branch' ? (this.previewData.bankBranchId = '', this.bL['bankBranchId'].setValue('')) : ''
     this.branchArray = [];
     let bankId = this.bankDetailsForm.value.bankId;
     if (bankId != 0) {
@@ -442,28 +437,23 @@ export class CreateSamgraAppComponent {
   //#endregion------------------------------------------------- dropdown_End-------------------------------------------------------
   //#region -------------------------------------------------page submit method start heare-------------------------------------------------- 
   onSubmit(flag: any) {
-    
-    
-if(flag == 'document'){
-  let setValArray = ['docname', 'checkOtherDocumentTable'];
-    this.checkOtherDocumentFlag ? this.clearValidation(setValArray, this.fdp) : this.setValidation(setValArray, this.fdp);
-}
-  
-    // return
     let samgraFormValue = this.samgraForm.getRawValue();
     let landDetailsFormValue = this.landDetailsForm.getRawValue();
     let bankDetailsFormValue = this.bankDetailsForm.getRawValue();
     let selfDeclarationFormValue = this.selfDeclarationForm.getRawValue();
 
-    if(flag == 'samgraForm'){   
+    if (flag == 'samgraForm') {
       let photoValidation = ['profilePhotoPath']
-    !this.profileImageUrl ? (this.setValidation(photoValidation, this.f)) : this.clearValidation(photoValidation, this.f)
-    }else if (flag == 'landDetailsForm') {
+      !this.profileImageUrl ? (this.setValidation(photoValidation, this.f)) : this.clearValidation(photoValidation, this.f)
+    } else if (flag == 'landDetailsForm') {
       let setValArraycurrentcrop = ['CheckCurrentcropproduction'];
       !this.currentCropDetailsArray.length ? (this.setValidation(setValArraycurrentcrop, this.fL), this.commonMethod.snackBar("Please add current crop and production details", 1)) : this.clearValidation(setValArraycurrentcrop, this.fL)
-     this.checkInternalInternalscheme();
+      this.checkInternalInternalscheme();
+      (landDetailsFormValue.sm_IsTakenBenefitOfInternalScheme == true && !this.internalSchemesArray.length) ? this.commonMethod.snackBar("Please add internal scheme details", 1) : ''
+    } else if (flag == 'document') {
+      let setValArray = ['docname', 'checkOtherDocumentTable'];
+      this.checkOtherDocumentFlag ? this.clearValidation(setValArray, this.fdp) : this.setValidation(setValArray, this.fdp);
     }
-    
 
     !landDetailsFormValue.benificiaryTotalFarm ? landDetailsFormValue.benificiaryTotalFarm = 0 : '';
     !landDetailsFormValue.farmTypeId ? landDetailsFormValue.farmTypeId = 0 : '';
@@ -486,11 +476,8 @@ if(flag == 'document'){
       res.applicationId = this.previewData?.id || this.currentRecordId || 0
       res.createdBy = 0
     })
-    let documets = formDocuments.filter((res:any)=> {return res.docPath})
+    let documets = formDocuments.filter((res: any) => { return res.docPath })
 
-    console.log("this.otherDocForm",this.otherDocForm.controls);
-    
-  
     if (this.samgraForm.invalid && flag == 'samgraForm') {
       this.viewMsgFlag = true
       return;
@@ -500,12 +487,20 @@ if(flag == 'document'){
     }
     else if (this.bankDetailsForm.invalid && flag == 'bankDetailsForm') {
       return
-    } else if (this.otherDocForm.invalid && flag == 'document') {
+    } else if (flag == 'document' && this.showOtherDoc && !this.otherDocArray.length) {
+      this.commonMethod.snackBar("Please add other document details", 1);
+      return
+    }
+    else if (this.otherDocForm.invalid && flag == 'document') {
       return
     }
     else if (this.selfDeclarationForm.invalid && flag == 'selfDeclaration') {
+      this.commonMethod.snackBar("Please accept all", 1);
       return
-    }else if(flag == 'preview' ){
+    } else if (flag == 'preview') {
+      return
+    } else if (flag == 'addCurrency' && !this.registionFeeUrl) {
+      this.viewMsgFlag = true
       return
     }
     else {
@@ -533,7 +528,6 @@ if(flag == 'document'){
         "gutArea": "",
         "plantCultivatedArea": 0,
         "noOfPlant": 0,
-        // "sm_ExperienceYears": 0,
         "isSelfTraining": true,
         "candidateName": "",
         "candidateRelationId": 0,
@@ -553,9 +547,9 @@ if(flag == 'document'){
         "sm_IsReadyToPlantNewMulberries": selfDeclarationFormValue.sm_IsReadyToPlantNewMulberries || false,
         "sm_IsHonestlyProtectPlant": selfDeclarationFormValue.sm_IsHonestlyProtectPlant || false,
         "sm_IsRequestForYourPriorConsent": selfDeclarationFormValue.sm_IsRequestForYourPriorConsent || false,
-        "registrationFeeReceiptPath": "",
+        "registrationFeeReceiptPath": this.registionFeeUrl || '',
         "createdBy": 0,
-        "flag": (flag == 'samgraForm' && !this.EditFlag) ? 0 : (flag == 'samgraForm' && this.EditFlag) ? 1 : flag == 'landDetailsForm' ? 2 : flag == 'bankDetailsForm' ? 3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 :  flag == 'addCurrency' ? 7 : '',
+        "flag": (flag == 'samgraForm' && !this.EditFlag) ? 0 : (flag == 'samgraForm' && this.EditFlag) ? 1 : flag == 'landDetailsForm' ? 2 : flag == 'bankDetailsForm' ? 3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'addCurrency' ? 7 : '',
         "isUpdate": true,
         "appDoc": documets,
         "categoryId": this.checkedItems.map((x: any) => { return x.id }),
@@ -571,7 +565,7 @@ if(flag == 'document'){
           if (res.statusCode == "200") {
             this.currentRecordId = res.responseData;
             this.commonMethod.snackBar(res.statusMessage, 0);
-            this.viewMsgFlag =false;
+            this.viewMsgFlag = false;
             flag == 'selfDeclaration' ? this.getPreviewData() : '';
           } else {
             this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -600,10 +594,10 @@ if(flag == 'document'){
         let existedRecord = this.currentCropDetailsArray.find((res: any) => res.cropId == result.cropId);
         if (existedRecord && !obj) {
           this.commonMethod.snackBar("this  Crop already exist", 1)
-        } else {    
+        } else {
           let formvalue = result
           formvalue.applicationId = this.previewData?.id || this.currentRecordId || 0
-            obj ? (this.currentCropDetailsArray[index] = result,this.commonMethod.snackBar("Update successfully", 0)) : (this.currentCropDetailsArray.push(result), this.commonMethod.snackBar("Add successfully", 0));
+          obj ? (this.currentCropDetailsArray[index] = result, this.commonMethod.snackBar("Update successfully", 0)) : (this.currentCropDetailsArray.push(result), this.commonMethod.snackBar("Add successfully", 0));
 
           let setValArraycurrentcrop = ['CheckCurrentcropproduction'];
           !this.currentCropDetailsArray.length ? (this.setValidation(setValArraycurrentcrop, this.fL), this.commonMethod.snackBar("Please add current crop and production details", 1)) : this.clearValidation(setValArraycurrentcrop, this.fL)
@@ -620,7 +614,7 @@ if(flag == 'document'){
       disableClose: true,
       autoFocus: true,
     });
-    dialogRef.afterClosed().subscribe((result: any) => {     
+    dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'true') {
         return;
       } else if (result) {
@@ -630,23 +624,27 @@ if(flag == 'document'){
     });
   }
 
-  clearValueRadioButton(flag?:any){
-    if(flag == 'ExperienceYears'){
+  clearValueRadioButton(flag?: any) {
+    if (flag == 'ExperienceYears') {
       this.fL['sm_ExperienceYears'].setValue('')
-    }else if(flag == 'SilkIndustrtyTrainingDetails'){
+    } else if (flag == 'SilkIndustrtyTrainingDetails') {
       this.fL['sm_SilkIndustrtyTrainingDetails'].setValue('')
-    }else if(flag == 'isBenefit'){
+    } else if (flag == 'isBenefit') {
       this.fIS['internalSchemeName'].setValue('')
       this.fIS['schemeTakenDate'].setValue('')
       this.fIS['totalBenefitTaken'].setValue('')
-      this.internalSchemesArray = []; 
-      this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);     
-    }else if(flag == 'AnyPlantedBefor'){
+      this.internalSchemesArray = [];
+      this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
+    } else if (flag == 'AnyPlantedBefor') {
       this.fL['sm_YearOfPlanting'].setValue('')
       this.fL['sm_CultivatedArea'].setValue('')
       this.fL['sm_LandSurveyNo'].setValue('')
+    } else if (flag == 'otherDoc') {
+      this.fdp['docname'].setValue('')
+      this.fdp['checkOtherDocumentTable'].setValue('')
+      this.otherDocArray = [];
+      this.dataSource2 = new MatTableDataSource(this.otherDocArray);
     }
-   
   }
 
   radioEvent(value: any, flag: any) {
@@ -655,27 +653,42 @@ if(flag == 'document'){
       setValArray = ['sm_ExperienceYears']
       this.setValidation(setValArray, this.fL);
       this.clearValidation(setValArray, this.fL);
-      value == true ? this.setValidation(setValArray, this.fL) : (this.clearValidation(setValArray, this.fL),this.clearValueRadioButton('ExperienceYears'));
+      value == true ? this.setValidation(setValArray, this.fL) : (this.clearValidation(setValArray, this.fL), this.clearValueRadioButton('ExperienceYears'));
     } else if (flag == 'isTraining') {
       setValArray = ['sm_SilkIndustrtyTrainingDetails']
       this.setValidation(setValArray, this.fL);
       this.clearValidation(setValArray, this.fL);
-      value == true ? this.setValidation(setValArray, this.fL) : (this.clearValidation(setValArray, this.fL),this.clearValueRadioButton('SilkIndustrtyTrainingDetails'));
+      value == true ? this.setValidation(setValArray, this.fL) : (this.clearValidation(setValArray, this.fL), this.clearValueRadioButton('SilkIndustrtyTrainingDetails'));
     } else if (flag == 'isBenefit') {
       setValArray = ['internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken']
       this.setValidation(setValArray, this.fIS);
       this.clearValidation(setValArray, this.fIS);
-      value == true ? (this.setValidation(setValArray, this.fIS),this.checkInternalInternalscheme()) :( this.clearValidation(setValArray, this.fIS),this.checkInternalInternalscheme(),this.clearValueRadioButton('isBenefit'));
+      value == true ? (this.setValidation(setValArray, this.fIS), this.checkInternalInternalscheme()) : (this.clearValidation(setValArray, this.fIS), this.checkInternalInternalscheme(), this.clearValueRadioButton('isBenefit'));
     } else if (flag == 'AnyPlantedBefor') {
-      setValArray = ['sm_YearOfPlanting', 'sm_CultivatedArea', 'sm_LandSurveyNo']
-      this.setValidation(setValArray, this.fL);
-      this.clearValidation(setValArray, this.fL);
-      value == true ? this.setValidation(setValArray, this.fL) : this.clearValidation(setValArray, this.fL),this.clearValueRadioButton('AnyPlantedBefor');
+      if (value == true) {
+        this.fL['sm_CultivatedArea'].setValidators((Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)))
+        this.fL['sm_LandSurveyNo'].setValidators((Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.onlyNumbers)))
+        this.fL['sm_YearOfPlanting'].setValidators(Validators.required)
+      } else if (value == false) {
+        this.viewMsgFlag = false;
+        this.fL['sm_CultivatedArea'].clearValidators();
+        this.fL['sm_LandSurveyNo'].clearValidators();
+        this.fL['sm_YearOfPlanting'].clearValidators();
+        this.clearValueRadioButton('AnyPlantedBefor')
+      }
+      this.fL['sm_CultivatedArea'].updateValueAndValidity();
+      this.fL['sm_LandSurveyNo'].updateValueAndValidity();
+      this.fL['sm_YearOfPlanting'].updateValueAndValidity()
+
+      // setValArray = ['sm_YearOfPlanting', 'sm_CultivatedArea', 'sm_LandSurveyNo']
+      // this.setValidation(setValArray, this.fL);
+      // this.clearValidation(setValArray, this.fL);
+      // value == true ? (this.setValidation(setValArray, this.fL)) : this.clearValidation(setValArray, this.fL),this.clearValueRadioButton('AnyPlantedBefor');
     } else if (flag == 'otherDoc') {
       setValArray = ['docname', 'checkOtherDocumentTable']
       this.setValidation(setValArray, this.fdp);
       this.clearValidation(setValArray, this.fdp);
-      value == true ? this.setValidation(setValArray, this.fdp) : this.clearValidation(setValArray, this.fdp);
+      value == true ? this.setValidation(setValArray, this.fdp) : (this.clearValidation(setValArray, this.fdp), this.clearValueRadioButton('otherDoc'));
     }
   }
 
@@ -692,17 +705,14 @@ if(flag == 'document'){
     })
   }
 
-  checkInternalInternalscheme(){
+  checkInternalInternalscheme() {
     let landDetailsFormValue = this.landDetailsForm.getRawValue();
-     let setValArray = ['checkinternalSchemes'];
+    let setValArray = ['checkinternalSchemes'];
     this.setValidation(setValArray, this.fL);
-    this.clearValidation(setValArray, this.fL);  
-    (landDetailsFormValue.sm_IsTakenBenefitOfInternalScheme == true && this.internalSchemesArray.length) ?  ( this.clearValidation(setValArray, this.fL)):  (landDetailsFormValue.sm_IsTakenBenefitOfInternalScheme == true && !this.internalSchemesArray.length) ? (this.setValidation(setValArray, this.fL)) :    (this.clearValidation(setValArray, this.fL));    
-   
+    this.clearValidation(setValArray, this.fL);
+    (landDetailsFormValue.sm_IsTakenBenefitOfInternalScheme == true && this.internalSchemesArray.length) ? (this.clearValidation(setValArray, this.fL)) : (landDetailsFormValue.sm_IsTakenBenefitOfInternalScheme == true && !this.internalSchemesArray.length) ? (this.setValidation(setValArray, this.fL)) : (this.clearValidation(setValArray, this.fL));
+
   }
-
-
-
   addInternalSchemes() {
     let setValArray = ['internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken']
     this.setValidation(setValArray, this.fIS);
@@ -725,7 +735,6 @@ if(flag == 'document'){
         }
       }
       this.internalSchemesArray.length ? this.checkinternalSchemesflag = true : '';
-
       this.internalSchemesFormData();
       this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
       this.InternalSchemesEditFlag = false;
@@ -743,9 +752,8 @@ if(flag == 'document'){
     if (flag == 'currentCropDetails') {
       this.currentCropDetailsArray.splice(index, 1)
       this.dataSource = new MatTableDataSource(this.currentCropDetailsArray);
-      let setValArraycurrentcrop = ['CheckCurrentcropproduction'];   
+      let setValArraycurrentcrop = ['CheckCurrentcropproduction'];
       !this.currentCropDetailsArray.length ? (this.setValidation(setValArraycurrentcrop, this.fL)) : this.clearValidation(setValArraycurrentcrop, this.fL)
-
     } else {
       this.internalSchemesArray.splice(index, 1);
       !this.internalSchemesArray.length ? this.checkinternalSchemesflag = false : '';
@@ -764,7 +772,7 @@ if(flag == 'document'){
       next: (res: any) => {
         if (res.statusCode == 200) {
           this.spinner.hide();
-          flag == 'otherDoc' ? this.uploadedDocUrl = res.responseData : flag == 'profilePhoto' ? (this.profileImageUrl = res.responseData,this.deleteProfilePhoto()): (this.docArray[indexByDocId].docPath = res.responseData, this.docArray[indexByDocId].isDeleted = false, this.clearDocumentValidation());
+          flag == 'otherDoc' ? this.uploadedDocUrl = res.responseData : flag == 'profilePhoto' ? (this.profileImageUrl = res.responseData, this.deleteProfilePhoto()) : flag == 'registionFee' ? this.registionFeeUrl = res.responseData : (this.docArray[indexByDocId].docPath = res.responseData, this.docArray[indexByDocId].isDeleted = false, this.clearDocumentValidation());
           this.commonMethod.snackBar(res.statusMessage, 0)
         }
       },
@@ -799,9 +807,10 @@ if(flag == 'document'){
   //#endregion  --------------------------------------------------------doc upload section fn end heare-----------------------------------//
 
   submitOtherDoc() {
+    let formValue = this.otherDocForm.value
     let setValArray = ['docname', 'checkOtherDocumentTable'];
     this.setValidation(setValArray, this.fdp);
-    let formValue = this.otherDocForm.value
+
     let obj = {
       id: 0,
       docTypeId: 7,
@@ -811,6 +820,7 @@ if(flag == 'document'){
       isDeleted: false
     }
     if (this.otherDocForm.invalid && !this.uploadedDocUrl) {
+      !this.uploadedDocUrl ? this.viewMsgFlag = true : ''
       return
     } else {
       if (!this.otherDocArray.length) {
@@ -818,17 +828,18 @@ if(flag == 'document'){
         this.commonMethod.snackBar("Add successfully", 0);
       } else {
         let existedRecord = this.otherDocArray.find((res: any) => res.docname == formValue.docname);
-        if (existedRecord ) {
+        if (existedRecord) {
           this.commonMethod.snackBar("This Document already exist", 1);
           return
         } else {
-           this.otherDocArray.push(obj), this.commonMethod.snackBar("Add successfully", 0);        
+          this.otherDocArray.push(obj), this.commonMethod.snackBar("Add successfully", 0);
         }
       }
-      this.checkOtherDocumentFlag = true  
+      this.checkOtherDocumentFlag = true;
       this.uploadedDocUrl = '';
+      this.viewMsgFlag = false;
       this.dataSource2 = new MatTableDataSource(this.otherDocArray);
-      this.DocumentDirective.resetForm();    
+      this.DocumentDirective.resetForm();
       this.otherDocumentFormData();
     }
   }
@@ -837,13 +848,13 @@ if(flag == 'document'){
   deleteOtherDoc(index: any) {
     this.otherDocArray[index].isDeleted = true
     this.otherDocArray.splice(index, 1)
-  
+
     this.dataSource2 = new MatTableDataSource(this.otherDocArray);
     !this.otherDocArray.length ? this.checkOtherDocumentFlag = false : '';
   }
 
-  deleteProfilePhoto(flag?:any){
-    flag=='delete' ? this.profileImageUrl = '' : ''
+  deleteProfilePhoto(flag?: any) {
+    flag == 'delete' ? this.profileImageUrl = '' : ''
     let photoValidation = ['profilePhotoPath']
     !this.profileImageUrl ? this.setValidation(photoValidation, this.f) : this.clearValidation(photoValidation, this.f)
   }
@@ -869,7 +880,11 @@ if(flag == 'document'){
             this.bankDetailsFormData(this.previewData);
             this.selfDeclarationFormData(this.previewData);
             this.onEdit(this.previewData);
-          } else {
+          } else if (res.statusCode == "500") {
+            this.clearForm();
+            this.commonMethod.snackBar("Data Not Found", 1)
+          }
+          else {
             this.previewData = [];
           }
         })
@@ -886,6 +901,7 @@ if(flag == 'document'){
     this.currentCropDetailsArray = data.currentProducts
     this.dataSource = new MatTableDataSource(this.currentCropDetailsArray);
     this.profileImageUrl = data.profilePhotoPath;
+    this.registionFeeUrl = data.registrationFeeReceiptPath;
     this.internalSchemesArray = data.internalSchemes;
     this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
     this.docArray.find((ele: any, i: any) => {
@@ -910,8 +926,6 @@ if(flag == 'document'){
       ele['textEnglish'] = ele.categoryOfBeneficiary;
       ele['textMarathi'] = ele.m_CategoryOfBeneficiary;
     })
-
-
   }
 
   checkBockCheck(event: any, flag: any) {
@@ -937,24 +951,26 @@ if(flag == 'document'){
     this.internalSchemesFormData();
     this.otherDocumentFormData();
     this.selfDeclarationFormData();
-
     this.profileImageUrl = ''
     this.docArray.map((ele: any) => {
       ele.docPath = ''
       ele.id = 0
     })
-
     this.showOtherDoc = false;
     this.EditFlag = false;
-
     this.currentCropDetailsArray = [];
     this.internalSchemesArray = [];
     this.otherDocArray = [];
     this.checkedItems = []
-
     this.dataSource2 = new MatTableDataSource(this.otherDocArray);
     this.dataSource = new MatTableDataSource(this.currentCropDetailsArray);
     this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
+  }
+
+  viewPreviewDocument(docId: any) {//preview document
+    let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.previewData?.documents, 'docId', docId);
+    let obj = this.previewData?.documents[indexByDocId].documentPath;
+    window.open(obj, '_blank')
   }
 }
 
