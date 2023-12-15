@@ -5,6 +5,7 @@ import {MatIconModule} from '@angular/material/icon';
 
 import { BlogDetailsRoutingModule } from './blog-details-routing.module';
 import { BlogDetailsComponent } from './blog-details.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { BlogDetailsComponent } from './blog-details.component';
     CommonModule,
     BlogDetailsRoutingModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule
   ]
 })
 export class BlogDetailsModule { }
