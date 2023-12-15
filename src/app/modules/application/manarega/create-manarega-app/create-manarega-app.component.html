@@ -384,7 +384,7 @@
                 </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="mulberryCultivatedSurveyNo"
+                    <input matInput placeholder="" formControlName="mulberryCultivatedSurveyNo" 
                       (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                     <mat-error
                       *ngIf="farmInfoFrm.controls['mulberryCultivatedSurveyNo'].hasError('required') ">{{'approvalProcess.please_enter_cultivation_land_survey_number'|translate}}</mat-error>
@@ -404,7 +404,7 @@
                 <div class="form-label">{{'approvalProcess.cultivated_area_in_hectaes'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="cultivatedFarmInHector"
+                    <input matInput placeholder="" formControlName="cultivatedFarmInHector"  (input)="FarmValidations('cultivatedFarmInHector')"
                       (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                     <mat-error
                       *ngIf="farmInfoFrm.controls['cultivatedFarmInHector'].hasError('required') ">{{'approvalProcess.please_enter_cultivated_area_in_hectaes'|translate}}</mat-error>
@@ -454,7 +454,8 @@
                     व 19 पेक्षा कमी नसावे) </div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
-                      <input matInput placeholder="" formControlName="applicantFarmArea">
+                      <input matInput placeholder="" formControlName="applicantFarmArea"
+                      (input)="FarmValidations('applicantFarmArea')">
                       <mat-error
                         *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo'].hasError('required') ">{{'approvalProcess.please_enter_its_area'|translate}}</mat-error>
                       <mat-error *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo']?.errors">
