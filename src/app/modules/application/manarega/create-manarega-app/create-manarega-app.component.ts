@@ -82,7 +82,7 @@ export class CreateManaregaAppComponent {
   previewData:any;
   previewManarega :any;
   routingData: any;//used for get routing data
-
+  
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
     public WebStorageService: WebStorageService,
@@ -103,7 +103,11 @@ export class CreateManaregaAppComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-    this.getRouteParam();
+    this.route.queryParams.subscribe((queryParams: any) => {
+      this.routingData = queryParams['id'];
+    });
+    this.routingData ?  this.getRouteParam() : '';
+
     this.addManaregaFrm();
     this.addFarmInfo();
     this.getFarmInfo();
@@ -114,6 +118,7 @@ export class CreateManaregaAppComponent {
     this.addOtherDocument();
     this.addRegistrationFrm();
     this.commonDropdown();
+   // this.getPreviewData1('search'); // temp
     }
 
     commonDropdown(){
@@ -128,25 +133,15 @@ export class CreateManaregaAppComponent {
       this.searchDataZone();
     }
 
-    getRouteParam(){
-      this.route.queryParams.subscribe((queryParams: any) => {
-        this.routingData = queryParams['id'];
-      });
+  getRouteParam() {
     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
-      // let url = this.router.url;
-      // console.log("url",url);
-      //let appProVal = (spliteUrl[1] == 'm') && (url.split('?')[0] == '/create-manarega-app');
-      // if (!appProVal) {
-      //   this.router.navigate(['../application']);
-      //   this.commonMethod.snackBar('Something went wrong please try again', 1);
-      // }
-      this.getPreviewData1('edit',spliteUrl[0]);
-    }
+    this.getPreviewData1('edit', spliteUrl[0]);
+  }
     
   filterDefaultFrm() {
     this.filterFrm = this.fb.group({
       mobileNo: [''],
-     aadharNo: [''],
+      aadharNo: [''],
     })
   }
 
@@ -184,7 +179,8 @@ export class CreateManaregaAppComponent {
       "address": [data?.address || '',[this.validation.maxLengthValidator(200),Validators.required]],//Mandetory Max:200, alphanumeric with special char
       "pinCode": [data?.pinCode || '',[Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],//Mandetory  Max: 6 digit, numeric
       "mn_JobCardNo": [data?.mn_JobCardNo || '',[Validators.required,this.validation.maxLengthValidator(30)] ],//Mandetory  Max: 30 alphanumeric with sepcial char
-      "categoryId": [''],//no, [Validators.required]
+      "categoryId": [''],//no, [Validators.required],
+      "profilePhotoPath":[data?.profilePhotoPath || '',[Validators.required]]
     })
   }
 
@@ -264,7 +260,7 @@ export class CreateManaregaAppComponent {
         next: (res: any) => {
           if (res.statusCode == 200) {
             this.spinner.hide();
-            lable == 'documents' ? this.docArray[indexByDocId].docPath = res.responseData : lable == 'profilePhoto' ? this.profileImageUrl = res.responseData :
+            lable == 'documents' ? this.docArray[indexByDocId].docPath = res.responseData : lable == 'profilePhoto' ? this.manaregaFrm.controls['profilePhotoPath'].setValue(res.responseData) :
             (this.otherDocumentFrm.controls['docPath'].setValue(res.responseData),this.docArray[indexByDocId].docTypeId = 7);//lable == 'otherDocuments'
              }
              this.commonMethod.snackBar(res.statusMessage, 0)
@@ -327,9 +323,9 @@ getDocumentsWithDocId7() {  //preview other docment
       }
       else{
         let existedName = this.OtherDocUploadImg.find((res: any) => res.docname == uploadFrmValue.docname);
-        let existedPath = this.OtherDocUploadImg.find((res: any) => res.docPath == uploadFrmValue.docPath);
+        // let existedPath = this.OtherDocUploadImg.find((res: any) => res.docPath == uploadFrmValue.docPath);
        if (existedName) {  this.commonMethod.snackBar((this.lang == 'en' ? "Document Name Already exist" : "दस्तऐवजाचे नाव आधीपासून अस्तित्वात आहे."), 1) ; return ; }
-       else if(existedPath){ this.commonMethod.snackBar((this.lang == 'en' ? "Document Path Already exist" : "दस्तऐवज मार्ग आधीपासून अस्तित्वात आहे."), 1) ; return ; }
+      //  else if(existedPath){ this.commonMethod.snackBar((this.lang == 'en' ? "Document Path Already exist" : "दस्तऐवज मार्ग आधीपासून अस्तित्वात आहे."), 1) ; return ; }
         else {
           this.OtherDocUploadImg.push(obj);
         }
@@ -366,11 +362,11 @@ deleteTableOtherDocument(i: any) { //logic for delete table document
 
    onClickPlantedBeforeGovScheme(val: any) {
     if (val == true) {
-      this.farmDeatailsFrm.controls ['plantName'].setValidators([Validators.required,this.validation.maxLengthValidator(50),Validators.pattern(this.validation.alphaNumericWithSpace)]);
-      this.farmDeatailsFrm.controls['gutNo'].setValidators([Validators.required,this.validation.maxLengthValidator(6),Validators.pattern(this.validation.onlyNumbers)]);
-      this.farmDeatailsFrm.controls ['gutArea'].setValidators([Validators.required,this.validation.maxLengthValidator(6),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]);
-      this.farmDeatailsFrm.controls['cultivatedArea'].setValidators([Validators.required,this.validation.maxLengthValidator(10),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]);
-      this.farmDeatailsFrm.controls ['cultivatedPlantsCount'].setValidators([Validators.required,this.validation.maxLengthValidator(6),Validators.pattern(this.validation.onlyNumbers)]);
+      this.farmDeatailsFrm.controls ['plantName'].setValidators([this.validation.maxLengthValidator(50),Validators.pattern(this.validation.alphaNumericWithSpace)]);
+      this.farmDeatailsFrm.controls['gutNo'].setValidators([this.validation.maxLengthValidator(6),Validators.pattern(this.validation.onlyNumbers)]);
+      this.farmDeatailsFrm.controls ['gutArea'].setValidators([this.validation.maxLengthValidator(6),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]);
+      this.farmDeatailsFrm.controls['cultivatedArea'].setValidators([this.validation.maxLengthValidator(10),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]);
+      this.farmDeatailsFrm.controls ['cultivatedPlantsCount'].setValidators([this.validation.maxLengthValidator(6),Validators.pattern(this.validation.onlyNumbers)]);
     } else {
       this.farmDeatailsFrm.controls ['plantName'].clearValidators();
       this.farmDeatailsFrm.controls['gutNo'].clearValidators();
@@ -411,7 +407,25 @@ deleteTableOtherDocument(i: any) { //logic for delete table document
    onAddFarmInfo(){
     this.onClickPlantedBeforeGovScheme(true);
     let data = this.farmDeatailsFrm.getRawValue();
-    if( this.farmDeatailsFrm.invalid){
+    if (!data?.plantName) {
+      this.commonMethod.snackBar('Please enter orchard/flower/tree Name', 1);
+      return
+    } else if (!data?.gutNo) {
+      this.commonMethod.snackBar('Please enter group no.', 1);
+      return
+    } else if (!data?.gutArea) {
+      this.commonMethod.snackBar('Please enter group area', 1);
+      return
+    }
+    else if (!data?.cultivatedArea) {
+      this.commonMethod.snackBar('Please enter cultivated area', 1);
+      return
+    } else if (!data?.cultivatedPlantsCount) {
+      this.commonMethod.snackBar('Please enter number of trees planted', 1);
+      return
+    } 
+
+    else if( this.farmDeatailsFrm.invalid){
       return;
     }
     else{
@@ -431,7 +445,7 @@ deleteTableOtherDocument(i: any) { //logic for delete table document
       // this.formDirective?.resetForm();
       if (!this.farmDetails.length) {
         this.farmDetails.push(obj);
-        this.commonMethod.snackBar("Data added successfully", 0)
+       // this.commonMethod.snackBar("Data added successfully", 0)
       }
       else{
         let existedName = this.farmDetails.find((res: any) => res.plantName == data.plantName);  
@@ -456,7 +470,11 @@ deleteTableOtherDocument(i: any) { //logic for delete table document
 
 getPreviewData1(flag?:any,id?:any){ 
  let filterData = this.filterFrm?.getRawValue();
-  let url = flag == 'search' ? `sericulture/api/Application/application-preview?Id=0&AadharNo=${filterData?.aadharNo}&MobileNo=${filterData?.mobileNo}&lan=${this.lang}` :'sericulture/api/Application/application-preview?Id='+(id)+'&lan='+this.lang ;
+  let str = `AadharNo=${filterData?.aadharNo}&MobileNo=${filterData?.mobileNo}&lan=${this.lang}`;
+  id ? str += `&Id=${id}`:'';
+  console.log(str);
+  let url = flag == 'search' ? `sericulture/api/Application/application-preview?`+str :'sericulture/api/Application/application-preview?Id='+(id)+'&lan='+this.lang ;
+  // let url = flag == 'search' ? `sericulture/api/Application/application-preview?Id=0&AadharNo=236985214781&MobileNo=9175515181&lan=${this.lang}` :'sericulture/api/Application/application-preview?Id='+(id)+'&lan='+this.lang ;
   this.apiService.setHttp('get',url,false,false,false,'masterUrl')
   this.apiService.getHttp().subscribe({
    next:((res:any)=>{
@@ -482,28 +500,28 @@ getPreviewData1(flag?:any,id?:any){
 
 
 
-getPreviewData(res?:any){ 
-   this.apiService.setHttp('get','sericulture/api/Application/application-preview?Id='+(res)+'&lan='+this.lang,false,false,false,'masterUrl')
-   this.apiService.getHttp().subscribe({
-    next:((res:any)=>{
-      if(res.statusCode == "200"){
-          this.previewData = res.responseData;
-          this.onEdit(this.previewData);
-         let documentArray = new Array()
-          documentArray = res.responseData?.documents;
+// getPreviewData(res?:any){ 
+//    this.apiService.setHttp('get','sericulture/api/Application/application-preview?Id='+(res)+'&lan='+this.lang,false,false,false,'masterUrl')
+//    this.apiService.getHttp().subscribe({
+//     next:((res:any)=>{
+//       if(res.statusCode == "200"){
+//           this.previewData = res.responseData;
+//           this.onEdit(this.previewData);
+//          let documentArray = new Array()
+//           documentArray = res.responseData?.documents;
 
-          documentArray.map((document:any) => {
-            if(document.docId == 12){
-               this.previewManarega?.push(document);
-             }
-          });
-         }
-      else{
-        this.previewData = [];
-      }
-    })
-  })
-}
+//           documentArray.map((document:any) => {
+//             if(document.docId == 12){
+//                this.previewManarega?.push(document);
+//              }
+//           });
+//          }
+//       else{
+//         this.previewData = [];
+//       }
+//     })
+//   })
+// }
 
 
 
@@ -512,7 +530,7 @@ onEdit(data?:any){
   this.addManaregaFrm(data);
   this.addFarmInfo(data);
  // this.getState();
-  this.profileImageUrl = data.profilePhotoPath;
+  //this.profileImageUrl = data.profilePhotoPath;
   this.checkedItems = data.categoryOfBeneficiaries;
   this.categoryArray.map((ele:any)=>{
     this.checkedItems .find((item:any)=>{
@@ -548,14 +566,31 @@ onEdit(data?:any){
   this.addSelfDeclaration(data);
 }
 
+manaregaFrmVal(flag:string){
+  if(flag == 'checkedcategory'){
+    let checkedcategory =  this.categoryArray.some((ele:any)=> ele.checked);
+    if(!checkedcategory){
+      this.manaregaFrm.controls['categoryId'].setValidators([Validators.required]);
+      this.manaregaFrm.controls['categoryId'].updateValueAndValidity();
+    }else{
+      this.manaregaFrm.controls['categoryId'].setValidators([]);
+      this.manaregaFrm.controls['categoryId'].updateValueAndValidity();
+    }
+  }else if(flag == 'profileImg'){
+    this.viewMsgFlag = true;
+  }
+  
+}
 onSubmit(flag?:any) {
     let formData = this.manaregaFrm?.getRawValue();
     let farmInfo = this.farmInfoFrm.getRawValue();
     let bankInfo=this.bankInfoFrm.getRawValue();
     let declarationInfo=this.selfDeclarationFrm.getRawValue();
     let mergeDocumentArray = [... this.docArray,...this.OtherDocUploadImg];
-    if (this.manaregaFrm.invalid && flag == 'farmerInfo') {
-      this.viewMsgFlag = true;
+
+    flag == 'farmerInfo' ? this.manaregaFrmVal('checkedcategory'):'';
+
+    if ((this.manaregaFrm.invalid && flag == 'farmerInfo')) {
       return;
     }
     else if(this.farmInfoFrm.invalid && flag == 'farmInfo'){
@@ -564,30 +599,34 @@ onSubmit(flag?:any) {
     else if(this.bankInfoFrm.invalid && flag == 'bankInfo'){
       return
     }
-    else if( this.documentFrm.invalid && flag == 'document'){
+    else if((this.documentFrm.invalid && flag == 'document') || (this.addRegistrationRecFrm.invalid && flag == 'challan')){
       for(let i=0 ;i< this.docArray.length;i++){
-        this.documentFrm.controls['allRequiredDocument'].setValue('');
-        if(this.docArray[i].docPath == '' && this.docArray[i].docTypeId != 18 && this.docArray[i].docTypeId != 8){
-       this.docArray[i].docTypeId == 12 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Manrega Job Card Required' : 'मनरेगा जॉब कार्ड आवश्यक'), 1) : this.docArray[i].docTypeId == 19 ? this.commonMethod.snackBar((this.lang == 'en' ? '8 A track of Land Required' : 'जमिनीचा 8-अ आवश्यक'), 1) : this.docArray[i].docTypeId == 11  ? this.commonMethod.snackBar((this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque Required' : 'पासबुक / रद्द केलेला चेक आवश्यक'), 1) : '';
-           return
-        }
+        flag == 'document'  ?  this.documentFrm.controls['allRequiredDocument'].setValue('') :  this.addRegistrationRecFrm.controls['registrationDocument'].setValue('');;
+      
+       if(this.docArray[i].docPath == '' && this.docArray[i].docTypeId != 18 && this.docArray[i].docTypeId != 8 && flag == 'document'){
+        this.docArray[i].docTypeId == 12 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Manrega Job Card Required' : 'मनरेगा जॉब कार्ड आवश्यक'), 1) : this.docArray[i].docTypeId == 19 ? this.commonMethod.snackBar((this.lang == 'en' ? '8 A track of Land Required' : 'जमिनीचा 8-अ आवश्यक'), 1) : this.docArray[i].docTypeId == 11  ? this.commonMethod.snackBar((this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque Required' : 'पासबुक / रद्द केलेला चेक आवश्यक'), 1) : '';
+        return
+      }else if(this.docArray[i].docPath == '' &&  this.docArray[i].docTypeId == 8 && flag == 'challan'){
+        this.commonMethod.snackBar((this.lang == 'en' ? 'Registration Fee Receipt Required' : 'नोंदणी फी पावती आवश्यक'), 1) ;
+        return;
+      }
       else{
-        this.documentFrm.controls['allRequiredDocument'].setValue(1);
+        flag == 'document' ?  this.documentFrm.controls['allRequiredDocument'].setValue(1) :  this.addRegistrationRecFrm.controls['registrationDocument'].setValue(1);;
       }}
       }
-      else if(this.addRegistrationRecFrm.invalid && flag == 'challan'){
-        for(let i=0 ;i< this.docArray.length;i++){
-          this.addRegistrationRecFrm.controls['registrationDocument'].setValue('');
-          if(this.docArray[i].docPath == ''){
-            this.docArray[i].docTypeId == 8 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Registration Fee Receipt Required' : 'नोंदणी फी पावती आवश्यक'), 1) : '';
-            return;
-           }
-           else{
-            this.addRegistrationRecFrm.controls['registrationDocument'].setValue(1);
-           }
-        }
-      }
-    else {
+      // else if(this.addRegistrationRecFrm.invalid && flag == 'challan'){
+      //   for(let i=0 ;i< this.docArray.length;i++){
+      //    
+      //     if(this.docArray[i].docPath == '' &&  this.docArray[i].docTypeId == 8){
+      //      this.commonMethod.snackBar((this.lang == 'en' ? 'Registration Fee Receipt Required' : 'नोंदणी फी पावती आवश्यक'), 1) ;
+      //       return;
+      //      }
+      //      else{
+      //       this.addRegistrationRecFrm.controls['registrationDocument'].setValue(1);
+      //      }
+      //   }
+      // }
+
       !bankInfo.bankId ? bankInfo.bankId = 0 : '';
       !bankInfo.bankBranchId ? bankInfo.bankBranchId = 0 : '';
         this.docArray.map((ele:any)=>{
@@ -599,7 +638,7 @@ onSubmit(flag?:any) {
       ...formData, ...declarationInfo,...bankInfo,
         "m_Address": "",
         "m_FullName": "",
-        "profilePhotoPath": this.profileImageUrl || '',
+        // "profilePhotoPath": this.profileImageUrl || '',
         "sm_VoterRegistrationNo": "string",
         "sm_IsBelowPovertyLine": true,
         "benificiaryTotalFarm": Number(farmInfo.benificiaryTotalFarm) || 0,
@@ -644,7 +683,7 @@ onSubmit(flag?:any) {
         "sm_IsRequestForYourPriorConsent": true,
         "registrationFeeReceiptPath": "string",
         "createdBy": this.WebStorageService.getUserId(),
-        "flag": (flag == 'farmerInfo' && !this.EditFlag) ? 0 : (flag == 'farmerInfo' && this.EditFlag) ? 1 : flag == 'farmInfo'? 2 : flag == 'bankInfo' ?  3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'preview' ? 6 :  flag == 'challan' ? 7 : '',
+        "flag": (flag == 'farmerInfo' && !this.EditFlag) ? 0 : (flag == 'farmerInfo' && this.EditFlag) ? 1 : flag == 'farmInfo'? 2 : flag == 'bankInfo' ?  3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 :  flag == 'challan' ? 7 : '',
         "isUpdate": true,
         "appDoc": mergeDocumentArray,
         "categoryId": this.checkedItems.map((x:any)=>{return x.id}),
@@ -681,11 +720,11 @@ onSubmit(flag?:any) {
         next: ((res: any) => {
           this.spinner.hide();
           if (res.statusCode == "200") {
-            this.getPreviewData(res.responseData);
+            flag == 'document'?  this.getPreviewData1(res.responseData) : "";
             //getId = res.responseData;
             this.manaregaFrm?.controls['id'].setValue(res.responseData);
-            (res.responseData  && flag == 'challan')? this.handleClick(res):"";
-            this.commonMethod.snackBar(res.statusMessage, 0);
+            (res.responseData  && flag == 'challan') ?   this.openDialog(res):"";
+            // this.commonMethod.snackBar(res.statusMessage, 0);
             this.viewMsgFlag=false; 
             flag == 'challan'? this.router.navigate(['../application']) : ''; 
             
@@ -700,7 +739,7 @@ onSubmit(flag?:any) {
           this.errorHandler.handelError(error.statusCode);
         }
       });
-    }
+  
   }
 
   
@@ -903,6 +942,7 @@ onSubmit(flag?:any) {
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.categoryArray = res.responseData;
+          this.categoryArray.map((ele:any)=>{  ele.checked = false});
         }
         else {
           this.categoryArray = [];
@@ -926,8 +966,8 @@ onSubmit(flag?:any) {
           if (item.checked) {
             this.checkedItems.push(item)
           }
-        }
-        );
+        });
+        this.manaregaFrmVal('checkedcategory')
       }
     });
   }
@@ -956,10 +996,6 @@ onSubmit(flag?:any) {
       disableClose: true,
       autoFocus: false
     })
-  }
-
-  handleClick(res:any) {
-    this.openDialog(res);
   }
 
 }
