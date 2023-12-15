@@ -40,7 +40,7 @@
                                 <span class="text-danger" *ngIf="f['password'].hasError('required')">
                                     {{'login.please_enter_password'|translate}}</span>
                                 <span class="text-danger" *ngIf="f['password'].hasError('pattern')">
-                                    {{'login.invalid_password'|translate}} 
+                                    {{'login.invalid_password'|translate}}
                                 </span>
                             </mat-error>
                             <button mat-icon-button matSuffix type="button" (click)="hide = !hide"
@@ -77,14 +77,14 @@
                         </div>
                     </div>
                     <div class="row align-items-center">
-                        <div class="col-sm-6">
-                            <button mat-flat-button class="btn-main w-100">
-                                {{'login.login'|translate}}
-                            </button>
-                        </div>
-                        <div class="col-sm-6 text-end">
+                        <div class="col-sm-6 ">
                             <a class="text-main" href="../forgot-password">{{'login.forgot_password'|translate}}?</a>
                         </div>
+                        <div class="col-sm-6">
+                          <button mat-flat-button class="btn-main w-100">
+                              {{'login.login'|translate}}
+                          </button>
+                      </div>
                     </div>
                 </div>
             </form>
