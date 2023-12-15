@@ -532,8 +532,9 @@ onEdit(data?:any){
  // this.getState();
   //this.profileImageUrl = data.profilePhotoPath;
   this.checkedItems = data.categoryOfBeneficiaries;
+  console.log(" this.checkedItems",data.categoryOfBeneficiaries)
   this.categoryArray.map((ele:any)=>{
-    this.checkedItems .find((item:any)=>{
+    this.checkedItems.find((item:any)=>{
       if(ele.id == item.id){
         ele.checked = true
       }
@@ -720,7 +721,8 @@ onSubmit(flag?:any) {
         next: ((res: any) => {
           this.spinner.hide();
           if (res.statusCode == "200") {
-            flag == 'document'?  this.getPreviewData1(res.responseData) : "";
+            // flag == 'document'?  this.getPreviewData1(res.responseData) : "";
+            this.getPreviewData1('edit',res.responseData)
             //getId = res.responseData;
             this.manaregaFrm?.controls['id'].setValue(res.responseData);
             (res.responseData  && flag == 'challan') ?   this.openDialog(res):"";
@@ -967,6 +969,7 @@ onSubmit(flag?:any) {
             this.checkedItems.push(item)
           }
         });
+        console.log(" this.checkedItems", this.checkedItems)
         this.manaregaFrmVal('checkedcategory')
       }
     });
