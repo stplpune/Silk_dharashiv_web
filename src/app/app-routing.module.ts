@@ -13,8 +13,6 @@ const routes: Routes = [
   // { path: 'ref', component: ReferanceComponent },// For Testing purpose
   { path: '', canActivate: [CheckLoggedInGuard], component: PublicComponent, loadChildren: () => import('./layouts/public/public.module').then(m => m.PublicModule) },
   { path: '', canActivate: [AuthGuard], component: SecureComponent, loadChildren: () => import('./layouts/secure/secure.module').then(m => m.SecureModule) },
-  { path: 'beneficiery', loadChildren: () => import('./modules/beneficiery/beneficiery.module').then(m => m.BeneficieryModule) },
-  { path: 'beneficiery-detailsy', loadChildren: () => import('./modules/beneficiery/beneficiery-details/beneficiery-details.module').then(m => m.BeneficieryDetailsModule) },
   { path: '**', component: ErrorComponent }
 ];
 
