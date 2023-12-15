@@ -554,8 +554,8 @@ export class ApprovalProcessManaregaComponent {
     // this.formDirectives.resetForm();
   }
 
-  viewPdf() {
-    window.open('generate-pdf?id='+this.applicationData?.actionId, '_blank')
+  viewPdf() {    
+    window.open('generate-pdf?id='+this.applicationData?.applicationId+'/'+this.applicationData?.actionId, '_blank')
   }
 
   clearReasonAndDoc(){
