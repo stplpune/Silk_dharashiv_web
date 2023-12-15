@@ -261,8 +261,9 @@ export class CreateManaregaAppComponent {
           if (res.statusCode == 200) {
             this.spinner.hide();
             lable == 'documents' ? this.docArray[indexByDocId].docPath = res.responseData : lable == 'profilePhoto' ? this.manaregaFrm.controls['profilePhotoPath'].setValue(res.responseData) :
-            (this.otherDocumentFrm.controls['docPath'].setValue(res.responseData),this.docArray[indexByDocId].docTypeId = 7);//lable == 'otherDocuments'
-             }
+            (this.otherDocumentFrm.controls['docPath'].setValue(res.responseData));//lable == 'otherDocuments'
+            // ,this.docArray[indexByDocId].docTypeId = 7
+          }
              this.commonMethod.snackBar(res.statusMessage, 0)
           },
         error: ((error: any) => {
@@ -393,6 +394,7 @@ deleteTableOtherDocument(i: any) { //logic for delete table document
    }
 //#endregion-----------------------on radio button click add remove validation fn start-------------------
 
+
   getFarmInfo(){
     this.farmDeatailsFrm = this.fb.group({
       "id": [0],
@@ -438,10 +440,7 @@ deleteTableOtherDocument(i: any) { //logic for delete table document
       "cultivatedPlantsCount": Number(data.cultivatedPlantsCount),
       "createdBy":this.WebStorageService.getUserId(),
       }
-      // this.farmDetails.push(obj);
-      // this.dataSource = new MatTableDataSource( this.farmDetails);
-      // this.onClickPlantedBeforeGovScheme(false);
-      // this.formDirective?.resetForm();
+    
       if (!this.farmDetails.length) {
         this.farmDetails.push(obj);
        // this.commonMethod.snackBar("Data added successfully", 0)
@@ -497,33 +496,6 @@ getPreviewData1(flag?:any,id?:any){
 }
 
 
-
-
-// getPreviewData(res?:any){ 
-//    this.apiService.setHttp('get','sericulture/api/Application/application-preview?Id='+(res)+'&lan='+this.lang,false,false,false,'masterUrl')
-//    this.apiService.getHttp().subscribe({
-//     next:((res:any)=>{
-//       if(res.statusCode == "200"){
-//           this.previewData = res.responseData;
-//           this.onEdit(this.previewData);
-//          let documentArray = new Array()
-//           documentArray = res.responseData?.documents;
-
-//           documentArray.map((document:any) => {
-//             if(document.docId == 12){
-//                this.previewManarega?.push(document);
-//              }
-//           });
-//          }
-//       else{
-//         this.previewData = [];
-//       }
-//     })
-//   })
-// }
-
-
-
 onEdit(data?:any){
   this.EditFlag = true;
   this.addManaregaFrm(data);
@@ -544,7 +516,7 @@ onEdit(data?:any){
          ele['textMarathi'] = ele.m_CategoryOfBeneficiary;
    })
   this.addBankInfo(data);
- // this.getBank(); 
+   this.getBank(); 
  // this.getBankBranch();
   this.farmDetails = data.plantingDetails;
   this.dataSource = new MatTableDataSource(this.farmDetails);
