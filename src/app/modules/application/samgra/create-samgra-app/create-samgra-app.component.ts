@@ -14,8 +14,9 @@ import { FileUploadService } from 'src/app/core/services/file-upload.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DateAdapter } from '@angular/material/core';
+import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 
 @Component({
   selector: 'app-create-samgra-app',
@@ -90,6 +91,8 @@ export class CreateSamgraAppComponent {
   viewMsgFlag: boolean = false;
   samgraId: any;
   registionFeeUrl: string = "";
+  applicationId:any;
+  submitDate:any;
 
   @ViewChild('samgraDirective') private samgraDirective: NgForm | any;
   @ViewChild('landDetailsDirective') private landDetailsDirective: NgForm | any;
@@ -110,7 +113,8 @@ export class CreateSamgraAppComponent {
     public validation: ValidationService,
     public encryptdecrypt: AesencryptDecryptService,
     private activatedRoute: ActivatedRoute,
-    private dateAdapter: DateAdapter<Date>
+    private dateAdapter: DateAdapter<Date>,
+    private router: Router
   ) {
     this.dateAdapter.setLocale('en-GB');
     let Id: any;
@@ -186,7 +190,7 @@ export class CreateSamgraAppComponent {
       "talukaId": [this.WebStorageService.getTalukaId() == '' ? '' : this.WebStorageService.getTalukaId(), [Validators.required]],
       "grampanchayatId": [this.WebStorageService.getGrampanchayatId() == '' ? '' : this.WebStorageService.getGrampanchayatId(), [Validators.required]],
       "village": [data?.village || '', [this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]],
-      "pinCode": [data?.pinCode || '', [Validators.required, this.validation.maxLengthValidator(6)]],//numeric
+      "pinCode": [data?.pinCode || '', [Validators.required, this.validation.maxLengthValidator(6),Validators.pattern(this.validation.valPinCode)]],//numeric
       "sm_VoterRegistrationNo": [data?.sm_VoterRegistrationNo || '', this.validation.maxLengthValidator(50)],
       "address": [data?.address || '', [Validators.required, this.validation.maxLengthValidator(200)]],
       "sm_IsBelowPovertyLine": [data?.sm_IsBelowPovertyLine || false],
@@ -564,7 +568,10 @@ export class CreateSamgraAppComponent {
           this.spinner.hide();
           if (res.statusCode == "200") {
             this.currentRecordId = res.responseData;
-            this.commonMethod.snackBar(res.statusMessage, 0);
+            (res.responseData  && flag == 'addCurrency') ?   this.openDialog(res): '';
+            flag == 'addCurrency' ?  this.commonMethod.snackBar(res.statusMessage, 0) : '';
+            this.viewMsgFlag=false; 
+            flag == 'addCurrency'? this.router.navigate(['../application']) : '';             
             this.viewMsgFlag = false;
             flag == 'selfDeclaration' ? this.getPreviewData() : '';
           } else {
@@ -598,7 +605,6 @@ export class CreateSamgraAppComponent {
           let formvalue = result
           formvalue.applicationId = this.previewData?.id || this.currentRecordId || 0
           obj ? (this.currentCropDetailsArray[index] = result, this.commonMethod.snackBar("Update successfully", 0)) : (this.currentCropDetailsArray.push(result), this.commonMethod.snackBar("Add successfully", 0));
-
           let setValArraycurrentcrop = ['CheckCurrentcropproduction'];
           !this.currentCropDetailsArray.length ? (this.setValidation(setValArraycurrentcrop, this.fL), this.commonMethod.snackBar("Please add current crop and production details", 1)) : this.clearValidation(setValArraycurrentcrop, this.fL)
         }
@@ -640,6 +646,7 @@ export class CreateSamgraAppComponent {
       this.fL['sm_CultivatedArea'].setValue('')
       this.fL['sm_LandSurveyNo'].setValue('')
     } else if (flag == 'otherDoc') {
+      this.viewMsgFlag = false;
       this.fdp['docname'].setValue('')
       this.fdp['checkOtherDocumentTable'].setValue('')
       this.otherDocArray = [];
@@ -670,7 +677,6 @@ export class CreateSamgraAppComponent {
         this.fL['sm_LandSurveyNo'].setValidators((Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.onlyNumbers)))
         this.fL['sm_YearOfPlanting'].setValidators(Validators.required)
       } else if (value == false) {
-        this.viewMsgFlag = false;
         this.fL['sm_CultivatedArea'].clearValidators();
         this.fL['sm_LandSurveyNo'].clearValidators();
         this.fL['sm_YearOfPlanting'].clearValidators();
@@ -727,7 +733,7 @@ export class CreateSamgraAppComponent {
       } else {
         let existedRecord = this.internalSchemesArray.find((res: any) => res.internalSchemeName == fromvalue.internalSchemeName);
         if (existedRecord && !this.InternalSchemesEditFlag) {
-          this.commonMethod.snackBar("this Scheem already exist", 0);
+          this.commonMethod.snackBar("This scheem already exist", 0);
           return
         } else {
           this.InternalSchemesEditFlag ? (this.internalSchemesArray[this.InternalSchemesIndex] = fromvalue, this.commonMethod.snackBar("Update successfully", 0)) : (this.internalSchemesArray.push(fromvalue), this.commonMethod.snackBar("Add successfully", 0));
@@ -972,6 +978,28 @@ export class CreateSamgraAppComponent {
     let obj = this.previewData?.documents[indexByDocId].documentPath;
     window.open(obj, '_blank')
   }
+
+  printDocument() {
+    window.print();
+  }
+
+  openDialog(res?:any) {
+    console.log("  private router: Router,");
+    
+    let dialoObj = {
+    header: this.lang == 'mr-IN' ? 'अभिनंदन ' : 'Congratulations',
+    title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .अर्ज क्रमांक  : '+ res.responseData1 + res.responseData2 :'Your application has been successfully submitted. Application no: '+ res.responseData1 + res.responseData2,
+    cancelButton: '',
+    okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
+    headerImage: 'assets/images/check.png'
+  }
+  this.dialog.open(GlobalDialogComponent, {
+    width: '320px',
+    data: dialoObj,
+    disableClose: true,
+    autoFocus: false
+  })
+}
 }
 
 

@@ -782,8 +782,8 @@
     "Area":"Area(Hector)",
     "Crop_Production":"Crop Production (quintal)",
     "average_rate":"The average rate obtained per kg (Rs)",
-    "Produced_Amount ":"Produced  Amount (Rs.)",
-    "expenditure_incurred ":"The expenditure incurred is (Rs.)",
+    "Produced_Amount":"Produced  Amount (Rs.)",
+    "expenditure_incurred":"The expenditure incurred is (Rs.)",
     "net_income" :"The net income",
     "income_per_acre" :"Net income per acre is (Rs.)",
     "Action" :"Action",
@@ -809,7 +809,16 @@
 
     "please_enter_Plantation_land_Survey_No": "Please enter plantation land survey no./group no.",
     "Plantation_land_Survey_No_maximum_12_digit_allowed": "Maximun 6 digit allowed",
-    "please_enter_valid_Plantation_land_Survey_No": "Please enter valid plantation land survey no./group no."
+    "please_enter_valid_Plantation_land_Survey_No": "Please enter valid plantation land survey no./group no.",
+
+    "back": "Back",
+    "next":"Save And Next",
+    "submit":"Submit"
+
+
+
+
+
   },
   "farmerLogin":{
     "farmer_login":"Farmer Login",

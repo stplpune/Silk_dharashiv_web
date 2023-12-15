@@ -802,8 +802,11 @@
 
     "please_enter_Plantation_land_Survey_No": "कृपया वृक्षारोपण जमीन सर्वेक्षण क्रमांक/गट क्रमांक प्रविष्ट करा.",
     "Plantation_land_Survey_No_maximum_12_digit_allowed": "कमाल 6 वर्णांना अनुमती आहे",
-    "please_enter_valid_Plantation_land_Survey_No": "कृपया वैध वृक्षारोपण जमीन सर्व्हे क्रमांक/गट क्रमांक प्रविष्ट करा."
+    "please_enter_valid_Plantation_land_Survey_No": "कृपया वैध वृक्षारोपण जमीन सर्व्हे क्रमांक/गट क्रमांक प्रविष्ट करा.",
 
+    "back": "मागे जा",
+    "next":"जतन करा आणि पुढे जा",
+    "submit":"प्रस्तुत करा"
 
   },
   "farmerLogin":{
