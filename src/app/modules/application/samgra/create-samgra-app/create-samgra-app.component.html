@@ -267,7 +267,7 @@
                 <div class="form-label">{{'common.pin_Code'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="pinCode" maxlength="6"   oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
+                    <input matInput placeholder="" formControlName="pinCode" maxlength="6"   
                       (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                       <mat-error
                       *ngIf="f['pinCode'].hasError('required')">{{'marketRate.please_enter_pinCode'|translate}}</mat-error>
@@ -282,7 +282,7 @@
                 </div>
               </div>
               <div class="col-sm-6">
-                <div class="form-label">{{'approvalProcess.beneficiary_category'| translate}}</div>
+                <div class="form-label">{{'approvalProcess.please_select_category'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select (click)="categoryDialogBox()">
                   </mat-select>
@@ -332,8 +332,8 @@
             </div>
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button matStepperPrevious class="btn-main">Back</button>
-            <button mat-button matStepperNext class="btn-main" >Next</button>
+            <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
+            <button mat-button matStepperNext class="btn-main" >{{'addSamgra.next' | translate}}</button>
           </div>
         </form>
       </mat-step>
@@ -757,8 +757,8 @@
             </div>
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button matStepperPrevious class="btn-main">Back</button>
-            <button mat-button matStepperNext class="btn-main" >Next</button>
+            <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
+            <button mat-button matStepperNext class="btn-main" >{{'addSamgra.next' | translate}}</button>
           </div>
         </form>
       </mat-step>
@@ -839,8 +839,8 @@
             </div>
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button matStepperPrevious class="btn-main">Back</button>
-            <button mat-button matStepperNext class="btn-main" >Next</button>
+            <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
+            <button mat-button matStepperNext class="btn-main" >{{'addSamgra.next' | translate}}</button>
           </div>
         </form>
       </mat-step>
@@ -876,7 +876,7 @@
                 </ng-container>
               </div>
               <mat-error *ngIf="docArray[0]?.docPath == '' && showDocValidation">
-                Please upload addhar card image
+               {{lang == 'en' ? 'Please upload addhar card document' : 'कृपया आधार कार्ड दस्तऐवज अपलोड करा'}}
               </mat-error>
             </div>
 
@@ -907,7 +907,7 @@
                 </ng-container>
               </div>
               <mat-error *ngIf="docArray[1]?.docPath == '' && showDocValidation">
-                Please upload sat bara image
+                {{lang == 'en' ? 'Please upload sat bara document' : 'कृपया सात बारा दस्तऐवज अपलोड करा'}}
               </mat-error>
             </div>
             <div class="col-sm-4">
@@ -937,7 +937,7 @@
                 </ng-container>
               </div>
               <mat-error *ngIf="docArray[2]?.docPath == '' && showDocValidation">
-                Please upload sat bara image
+                {{lang == 'en' ? 'Please upload 8A document' : 'कृपया ८अ  दस्तऐवज अपलोड करा'}}
               </mat-error>
             </div>
             <div class="col-sm-4">
@@ -1214,8 +1214,8 @@
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-          <button mat-button matStepperPrevious class="btn-main">Back</button>
-          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('document')">Next</button>
+          <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
+          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('document')">{{'addSamgra.next' | translate}}</button>
         </div>
       </mat-step>
       <!-- ///////////////start 5 form -->
@@ -1251,14 +1251,15 @@
             </ul>
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button matStepperPrevious class="btn-main">मागे जा</button>
-            <button mat-button matStepperNext class="btn-main" >पुरवलोकण करा
+            <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
+            <button mat-button matStepperNext class="btn-main" >{{'addSamgra.next' | translate}}
             </button>
           </div>
         </form>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Preview</ng-template>
+        <div class="myDivToPrint">        
         <div class="container-fluid">
           <div class="form-data">Individual Information</div>
           <div class="row gx-2 mb-3">
@@ -1532,22 +1533,22 @@
                       <table mat-table [dataSource]="previewData?.internalSchemes" class="dashboard-table">
 
                         <ng-container matColumnDef="srno">
-                          <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
+                          <th mat-header-cell *matHeaderCellDef> {{'addSamgra.sr_No' | translate}} </th>
                           <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="internalSchemeName">
-                          <th mat-header-cell *matHeaderCellDef> Crop Name </th>
+                          <th mat-header-cell *matHeaderCellDef> {{'addSamgra.Scheme_Name' | translate}}</th>
                           <td mat-cell *matCellDef="let element"> {{element?.internalSchemeName || '-'}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="schemeTakenDate">
-                          <th mat-header-cell *matHeaderCellDef> क्षेत्र एकर </th>
+                          <th mat-header-cell *matHeaderCellDef> {{'addSamgra.date' | translate}} </th>
                           <td mat-cell *matCellDef="let element"> {{element?.schemeTakenDate || '-' | date:'dd-MM-yyyy' }} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="totalBenefitTaken">
-                          <th mat-header-cell *matHeaderCellDef> झालेले उत्पादन क्विंटल </th>
+                          <th mat-header-cell *matHeaderCellDef> {{'addSamgra.Total_Benefit' | translate}} </th>
                           <td mat-cell *matCellDef="let element"> {{element?.totalBenefitTaken || '-'}} </td>
                         </ng-container>
 
@@ -1570,21 +1571,21 @@
                   <div class="text-main fw-bold">बँकेचे तपशील</div>
                   <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">बंकेचे नाव </div>
+                      <div class="form-label">{{'approvalProcess.bank_name'|translate}} </div>
                       <span class="form-data  rounded-pill">{{lang == 'en' ? (previewData?.bankName | dash ) :
                         (previewData?.m_BankName | dash)}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">शाखा </div>
+                      <div class="form-label">{{'approvalProcess.branch'|translate}} </div>
                       <span class="form-data  rounded-pill">{{lang == 'en' ? (previewData?.branchName | dash ) :
                         (previewData?.m_BranchName | dash)}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">आय एफएससी कोड </div>
+                      <div class="form-label">{{'approvalProcess.IFSC_Code'|translate}}</div>
                       <span class="form-data  rounded-pill">{{previewData?.bankIFSCCode | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">राष्ट्रीय बँक खाते क्रं </div>
+                      <div class="form-label">{{'approvalProcess.nationalise_bank_accountno'|translate}} </div>
                       <span class="form-data  rounded-pill">{{previewData?.bankAccountNo | dash}}</span>
                     </li>
 
@@ -1595,7 +1596,7 @@
                   <ul class="list-group" *ngFor="let doc of previewData?.documents">
                     <ng-container *ngIf="doc.docId == 16">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">1. आधारर कार्ड छायांकित प्रत</div>
+                      <div class="form-label">{{'addManrega.Documents'|translate}}</div>
                       <span class="form-data  rounded-pill" (click)="viewPreviewDocument(16)">
                         <mat-icon class="material-symbols-outlined">
                           visibility
@@ -1605,7 +1606,7 @@
                   </ng-container>
                   <ng-container *ngIf="doc.docId == 18">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">2. जमिनीचा 7/12 तुति नोंद असलेला किवा तलाठी प्रांणपतरा अपलोड करा</div>
+                      <div class="form-label">{{'addSamgra.Land_7/12_with_Mulberry_Note_Talathi_Certificate'|translate}}</div>
                       <span class="form-data  rounded-pill" (click)="viewPreviewDocument(18)">
                         <mat-icon class="material-symbols-outlined">
                           visibility
@@ -1615,7 +1616,7 @@
                   </ng-container>
                   <ng-container *ngIf="doc.docId == 19">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">3. जमिनीचा 8-अ उतारा येथे जोडा </div>
+                      <div class="form-label">{{'addSamgra.8_A_track_of_Land'|translate}} </div>
                       <span class="form-data  rounded-pill" (click)="viewPreviewDocument(19)">
                         <mat-icon class="material-symbols-outlined">
                           visibility
@@ -1625,7 +1626,7 @@
                   </ng-container>
                   <ng-container *ngIf="doc.docId == 21">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">4.जमिनीचा चतुःसीमा नकाशा अपलोड करा</div>
+                      <div class="form-label">{{'addSamgra.Land_boundary_map'|translate}}</div>
                       <span class="form-data  rounded-pill" (click)="viewPreviewDocument(21)">
                         <mat-icon class="material-symbols-outlined">
                           visibility
@@ -1635,8 +1636,7 @@
                   </ng-container>
                   <ng-container *ngIf="doc.docId == 11">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">5. आधार संलग्न राष्ट्रीय बँक पासबूक प्रथम पानाची छायांकित प्रत (फोटोसहित )
-                        अपलोड करा</div>
+                      <div class="form-label">{{'addSamgra.National_Bank_Passbook_attached_to_Aadhaar'|translate}}</div>
                       <span class="form-data  rounded-pill" (click)="viewPreviewDocument(11)">
                         <mat-icon class="material-symbols-outlined">
                           visibility
@@ -1646,7 +1646,7 @@
                     </ng-container>
                     <ng-container *ngIf="doc.docId == 25">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">6. जातीचे प्रमाणपत्र ( अनूजाती / अनू जमाती शेतकर्‍यांसाठी येथे अपलोड करा )
+                      <div class="form-label">{{'addSamgra.Caste_Certificate'|translate}}
                       </div>
                       <span class="form-data  rounded-pill" (click)="viewPreviewDocument(25)">
                         <mat-icon class="material-symbols-outlined">
@@ -1657,7 +1657,7 @@
                   </ng-container>
                   <ng-container *ngIf="doc.docId == 14">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">7. पाणी उपलब्धता प्रमाणपत्र अपलोड करा</div>
+                      <div class="form-label">{{'addSamgra.Water_Availability_Certificate'|translate}} </div>
                       <span class="form-data  rounded-pill" (click)="viewPreviewDocument(14)">
                         <mat-icon class="material-symbols-outlined">
                           visibility
@@ -1709,9 +1709,10 @@
             </ul>
           </div>
         </div>
+      </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-          <button mat-button matStepperPrevious class="btn-main">Previous</button>
-          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('preview')">Next</button>
+          <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
+          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('preview')">{{'addSamgra.next' | translate}}</button>
         </div>
 
       </mat-step>
@@ -1750,20 +1751,20 @@
                 "कृपया नोंदणी शुल्क रु. 500 पावती अपलोड करा"}} </mat-error>
             </div>
             <div class="col-sm">
-              <button mat-flat-button class="btn-main" (click)="onSubmit('addCurrency')">प्रस्तुत करा</button>
+              <button mat-flat-button class="btn-main" (click)="onSubmit('addCurrency')">{{'addSamgra.submit' | translate}}</button>
             </div>
           </div>
         </div>
 
-        <!-- <div class="container-fluid">
+        <!-- <div class="container-fluid" *ngIf="applicationId">
           <div class="d-flex flex-column align-items-center gap-3">
             <img src="assets/images/check.png" alt="" class="img-fluid" width="200px">
             <h2 class="fw-bold">अभिनंदन</h2>
             <div class="form-label">आपला आरजा यशस्वी रित्या सादर झाला आहे.</div>
-            <div class="form-data">आरजा क्रं : MNR202306210859</div>
-            <div class="form-data">26/06/2023 11:22:10 AM</div>
+            <div class="form-data">आरजा क्रं : {{applicationId}}</div>
+            <div class="form-data">{{submitDate | date:'dd/MM/yyyy hh:mm:ss'}}</div>
             <div>
-              <a href="">आरजा डाऊनलोड करा</a>
+              <a href="" (click)="printDocument()">आरजा डाऊनलोड करा</a>
             </div>
             <button mat-flat-button class="btn-main">OK</button>
           </div>
