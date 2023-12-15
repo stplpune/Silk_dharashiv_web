@@ -264,7 +264,7 @@ export class CreateManaregaAppComponent {
             (this.otherDocumentFrm.controls['docPath'].setValue(res.responseData));//lable == 'otherDocuments'
             // ,this.docArray[indexByDocId].docTypeId = 7
           }
-             this.commonMethod.snackBar(res.statusMessage, 0)
+             //this.commonMethod.snackBar(res.statusMessage, 0)
           },
         error: ((error: any) => {
           this.spinner.hide();
@@ -315,7 +315,7 @@ getDocumentsWithDocId7() {  //preview other docment
         "docname": uploadFrmValue.docname,
         "docPath": uploadFrmValue.docPath,
         "createdBy":this.WebStorageService.getUserId(),
-        "isDeleted":true
+        "isDeleted": false
       }
 
       if (!this.OtherDocUploadImg.length) {
@@ -393,7 +393,27 @@ deleteTableOtherDocument(i: any) { //logic for delete table document
     this.farmInfoFrm.controls ['candidateRelationId'].updateValueAndValidity();
    }
 //#endregion-----------------------on radio button click add remove validation fn start-------------------
+// benificiaryTotalFarm
+FarmValidations(key: any){
+  if (key == 'cultivatedFarmInHector') {
+  if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector >= this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
+    this.commonMethod.snackBar((this.lang == 'en' ? "Total Land in Hectares Should be Less Than Cultivation Area in Hectares" : "हेक्टरमधील एकूण जमीन हे हेक्टरमधील लागवड क्षेत्रापेक्षा कमी असावी"), 1);
+    this.farmInfoFrm.controls['cultivatedFarmInHector'].setValue('');
+  }
+ }
+ else if (key == 'applicantFarmArea') {
+  if (this.farmInfoFrm.getRawValue()?.applicantFarmArea  >= this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
+    this.commonMethod.snackBar("Total Land in Hectares Should be Less Than Its area Hectares", 1);
+    this.farmInfoFrm.controls['applicantFarmArea'].setValue('');
+  }
+  else if(this.farmInfoFrm.getRawValue()?.applicantFarmArea <= this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector){
+    this.commonMethod.snackBar("Its area Hectares Should be Greater Than Total Land in Hectares", 1);
+    this.farmInfoFrm.controls['applicantFarmArea'].setValue('');
+  }
+}
+}
 
+//-----------------------------------
 
   getFarmInfo(){
     this.farmDeatailsFrm = this.fb.group({
@@ -526,13 +546,14 @@ onEdit(data?:any){
         this.docArray[i].id = item.id
         this.docArray[i].docPath = item.documentPath
       } else {
-        if (item.docTypeId == 7) { // 7 is other doc
+        if (item.docId == 7) { // 7 is other doc
           let checkValue =  this.OtherDocUploadImg.some((ele:any)=>ele.id == item.id)
           !checkValue ? this.OtherDocUploadImg.push(item): '';
          }
       }
     })
   })
+  console.log("this.OtherDocUploadImg",this.OtherDocUploadImg);
   this.OtherDocUploadImg.length ? this.visible = true :  this.visible = false; 
   this.otherDocArray = new MatTableDataSource(this.OtherDocUploadImg);
   this.addSelfDeclaration(data);
@@ -559,7 +580,8 @@ onSubmit(flag?:any) {
     let bankInfo=this.bankInfoFrm.getRawValue();
     let declarationInfo=this.selfDeclarationFrm.getRawValue();
     let mergeDocumentArray = [... this.docArray,...this.OtherDocUploadImg];
-
+    
+     
     flag == 'farmerInfo' ? this.manaregaFrmVal('checkedcategory'):'';
 
     if ((this.manaregaFrm.invalid && flag == 'farmerInfo')) {
