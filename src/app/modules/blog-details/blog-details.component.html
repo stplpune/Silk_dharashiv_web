@@ -22,7 +22,7 @@
             </div>
             <div class="card-body p-0">
               <div *ngFor="let data of allBlogDetails">
-                <a class="d-flex news text-muted text-decoration-none news_data" href="#">
+                <a class="d-flex news text-muted text-decoration-none news_data" (click)="getBlogsDetailsById(data.id,'search')" >
                   <div class="flex-shrink-0">
                     <img src="{{data?.thumbnailImage}}" class="img-fluid p-0 m-0">
                   </div>

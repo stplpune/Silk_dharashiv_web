@@ -106,13 +106,14 @@
             <div class="col-sm-12">
                 <h2 class="section-head">Site Statistics</h2>
             </div>
+        <ng-container *ngFor="let data of getAppCountData">
             <div class="col-sm-3">
                 <div class="card">
                     <div class="card-body">
                         <div class="icon">
                             <img src="assets/images/home/applications.svg">
                         </div>
-                        <h2>152</h2>
+                        <h2>{{data?.totalApplications}}</h2>
                     </div>
                     <div class="card-footer">
                         <p>Applications</p>
@@ -125,7 +126,7 @@
                         <div class="icon">
                             <img src="assets/images/home/Beneficiaries.svg">
                         </div>
-                        <h2>152</h2>
+                        <h2>{{data?.totalBeneficiaries}}</h2>
                     </div>
                     <div class="card-footer">
                         <p>Beneficiaries</p>
@@ -139,7 +140,7 @@
                             <img src="assets/images/home/cultivation.svg">
                         </div>
                         <h2>
-                            152
+                            {{data?.totalLandCultivatedHectors}}
                             <small>(Hectare)</small>
                         </h2>
                     </div>
@@ -154,13 +155,14 @@
                         <div class="icon">
                             <img src="assets/images/home/distribution.svg">
                         </div>
-                        <h2>₹ 1525.00</h2>
+                        <h2>{{data?.totalDBT | currency :'INR'}}</h2>
                     </div>
                     <div class="card-footer">
                         <p>Subsidy Distributed</p>
                     </div>
                 </div>
             </div>
+        </ng-container>
         </div>
     </div>
 </section>
