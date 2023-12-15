@@ -1,35 +1,44 @@
 import { AgmCoreModule } from '@agm/core';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
+import { ApiService } from 'src/app/core/services/api.service';
+import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
+import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 declare var google: any;
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-geo-tagging',
   templateUrl: './geo-tagging.component.html',
   styleUrls: ['./geo-tagging.component.scss'],
-  imports: [DashPipe, MatDialogModule, AgmCoreModule, DatePipe, MatButtonModule]
+  imports: [DashPipe, MatDialogModule, AgmCoreModule, DatePipe, MatButtonModule, CommonModule]
 })
 export class GeoTaggingComponent {
-
-  constructor(public dialogRef: MatDialogRef<GeoTaggingComponent>, @Inject(MAT_DIALOG_DATA) public data: any){
-
-  }
-
+  subscription!: Subscription;//used  for lang conv
+  lang: any;
   lat = 18.1853;
   lng = 76.0420;
   map!: any;
   polygon: any;
 
+  constructor(public dialogRef: MatDialogRef<GeoTaggingComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private apiService: ApiService, private commonMethod: CommonMethodsService,
+    private errorHandler: ErrorHandlingService, private WebStorageService: WebStorageService) {
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+    });
+  }
 
   onMapReady(map: any) {
     this.map = map;
-  
-    this.data?.polygonText ?   this.drawPolygon():'';
+
+    this.data?.polygonText ? this.drawPolygon() : '';
   }
 
   drawPolygon() {
@@ -40,8 +49,8 @@ export class GeoTaggingComponent {
 
     splitLatLong.find((ele: any) => {
       let split = ele.split(' ');
-      paths.push({ lat: +split[1], lng: +split[0] })
-      bounds.extend(new google.maps.LatLng(+split[1], +split[0]));
+      paths.push({ lat: +split[0], lng: +split[1] })
+      bounds.extend(new google.maps.LatLng(+split[0], +split[1]));
     })
 
     this.polygon = new google.maps.Polygon({
@@ -61,5 +70,19 @@ export class GeoTaggingComponent {
 
   clear() {
     this.polygon.setMap(null);
+  }
+
+
+  getAppHistoryDetails() {
+    this.apiService.setHttp('get', 'sericulture/api/ApprovalMaster/GetApprovalHistoryDetails?Id=' + this.data.applicationId + '&lan=' + this.lang, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe((res: any) => {
+      if (res.statusCode == "200") {
+      }
+      else {
+        this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+      }
+    }, (error: any) => {
+      this.errorHandler.handelError(error.status);
+    })
   }
 }

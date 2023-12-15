@@ -99,8 +99,10 @@
         </div>
     </div>
 </section>
+<!-- count -->
 <section id="stats">
     <div class="container">
+        <ng-container *ngFor="let data of getAppCountData">
         <div class="row g-3">
             <div class="col-sm-12">
                 <h2 class="section-head">Site Statistics</h2>
@@ -111,7 +113,7 @@
                         <div class="icon">
                             <img src="assets/images/home/applications.svg">
                         </div>
-                        <h2>152</h2>
+                        <h2>{{data?.totalApplications}}</h2>
                     </div>
                     <div class="card-footer">
                         <p>Applications</p>
@@ -124,7 +126,7 @@
                         <div class="icon">
                             <img src="assets/images/home/Beneficiaries.svg">
                         </div>
-                        <h2>152</h2>
+                        <h2>{{data?.totalBeneficiaries}}</h2>
                     </div>
                     <div class="card-footer">
                         <p>Beneficiaries</p>
@@ -138,7 +140,7 @@
                             <img src="assets/images/home/cultivation.svg">
                         </div>
                         <h2>
-                            152
+                            {{data?.totalLandCultivatedHectors}}
                             <small>(Hectare)</small>
                         </h2>
                     </div>
@@ -153,7 +155,7 @@
                         <div class="icon">
                             <img src="assets/images/home/distribution.svg">
                         </div>
-                        <h2>₹ 1523453425.00</h2>
+                        <h2> {{data?.totalDBT | currency:'INR'}}</h2>
                     </div>
                     <div class="card-footer">
                         <p>Subsidy Distributed</p>
@@ -161,6 +163,7 @@
                 </div>
             </div>
         </div>
+      </ng-container>
     </div>
 </section>
 <section id="newssuccess">
@@ -290,58 +293,18 @@
         </div>
     </div>
 </section>
+<!-- Blogs -->
 <section id="blogs">
     <div class="container">
         <h2 class="section-head">Blogs</h2>
         <div class="row mb-4 g-2">
-            <div class="col-sm-3">
-                <a class="card h-100">
-                    <img src="https://agriculturereview.com/wp-content/uploads/2022/07/bombyx-mori.webp"
+            <div class="col-sm-3" *ngFor="let data of blogDetails;">
+                <a class="card h-100" (click)="redTo(data)">
+                    <img src="{{data?.thumbnailImage}}"
                         class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Guide On Sericulture: Know How It Can Uplift Farmer’s Life</h5>
-                        <p class="card-text">From this ultimate guide on sericulture you will be able to know what is
-                            sericulture, how to cultivate mulberry, silk rearing and production. If you are willing to
-                            gain good information on this topic then this article is definitely going to help you a lot.
-                        </p>
-                    </div>
-                </a>
-            </div>
-            <div class="col-sm-3">
-                <a class="card h-100">
-                    <img src="https://content.jdmagicbox.com/comp/def_content/sericulture/screenshot-3-sericulture-3-uxc0t.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">What is Sericulture? Process, Importance & Benefits of Sericulture</h5>
-                        <p class="card-text">From this ultimate guide on sericulture you will be able to know what is
-                            sericulture, how to cultivate mulberry, silk rearing and production. If you are willing to
-                            gain good information on this topic then this article is definitely going to help you a lot.
-                        </p>
-                    </div>
-                </a>
-            </div>
-            <div class="col-sm-3">
-                <a class="card h-100">
-                    <img src="https://img.etimg.com/thumb/width-1200,height-900,imgsize-139734,resizemode-75,msid-48854331/news/economy/agriculture/punjab-scheme-to-boost-sericulture-in-the-state.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Punjab scheme to boost sericulture in the state - The Economic Times</h5>
-                        <p class="card-text">From this ultimate guide on sericulture you will be able to know what is
-                            sericulture, how to cultivate mulberry, silk rearing and production. If you are willing to
-                            gain good information on this topic then this article is definitely going to help you a lot.
-                        </p>
-                    </div>
-                </a>
-            </div>
-            <div class="col-sm-3">
-                <a class="card h-100">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQki7anruPcaxmK9OvXbkNckjewo2iuMDLrJg&usqp=CAU"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Sericulture: A Profitable Agribusiness for Farmers</h5>
-                        <p class="card-text">From this ultimate guide on sericulture you will be able to know what is
-                            sericulture, how to cultivate mulberry, silk rearing and production. If you are willing to
-                            gain good information on this topic then this article is definitely going to help you a lot.
+                        <h5 class="card-title">{{data?.title}}</h5>
+                        <p class="card-text" [innerHTML]="data?.description">
                         </p>
                     </div>
                 </a>

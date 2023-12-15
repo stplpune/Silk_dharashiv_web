@@ -117,20 +117,16 @@ export class CrcDeliverySlabsComponent {
   getTableData(flag?: any) {
     this.spinner.show();
     let formData = this.slabForm.getRawValue();
-    console.log(formData);
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    console.log(str);
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/CRC-Centers_Delivery-Slab?Id=27', false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/CRC-Centers_Delivery-Slab?Id=27&Status='+(formData.statusId || 0)+'&GrainageId='+(formData.grainageId || 0)+str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;
-          console.log('  this.tableDataArray',  this.tableDataArray);
-          
-          this.tableDatasize = res.responseData.responseData3?.totalCount;
-          this.totalPages = res.responseData.responseData3?.totalPages;
+          this.tableDataArray = res.responseData.responseData1;          
+          this.tableDatasize = res.responseData.responseData2?.totalCount;
+          this.totalPages = res.responseData.responseData2?.totalPages;
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';

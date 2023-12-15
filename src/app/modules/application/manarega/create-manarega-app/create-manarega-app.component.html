@@ -5,7 +5,7 @@
     <div class="text-main">Manarega Application</div>
   </mat-card-header>
 
-  <mat-card-content class=" card-body form-container">
+  <mat-card-content class=" card-body form-container" *ngIf="!this.routingData">
     <form [formGroup]="filterFrm">
       <div class="row gx-2">
         <div class="col-sm">
@@ -48,7 +48,7 @@
   <mat-card-content class=" card-body form-container">
     <!-- linear -->
     <!-- [stepControl]="manaregaFrm" -->
-    <mat-stepper #stepper>
+    <mat-stepper #stepper linear >
       <mat-step [stepControl]="manaregaFrm">
         <ng-template matStepLabel>मूळ तपशील</ng-template>
         <form [formGroup]="manaregaFrm">
@@ -57,25 +57,27 @@
             <div class="row gx-2 mb-2">
               <div class="col-sm-2">
                 <div class="position-relative applicant_img">
-                  <img [src]="profileImageUrl ? profileImageUrl: 'assets/images/user.png' " alt="Applicant image"
+                  <img [src]="manaregaFrm.getRawValue()?.profilePhotoPath ? manaregaFrm.getRawValue()?.profilePhotoPath: 'assets/images/user.png' " alt="Applicant image"
                     class="img-fluid">
                   <input type="file" #uplodLogo id="real-file" hidden="hidden"
                     (change)="fileUpload($event,'','profilePhoto')" />
                   <div class="upload-buttons">
                     <button mat-icon-button class="btn-icon bg-primary-subtle text-primary"
                       (click)="uplodLogo.value='';uplodLogo.click()" type="button">
-                      <mat-icon class="material-symbols-outlined"> {{!profileImageUrl ? 'add' :
-                        'edit_square'}}</mat-icon>
+                      <mat-icon class="material-symbols-outlined"> {{'add'}}</mat-icon>
                     </button>
                     <button mat-icon-button class="btn-icon bg-danger-subtle text-danger" type="button"
-                      (click)="profileImageUrl = '' ">
+                      (click)="manaregaFrm.controls['profilePhotoPath'].setValue('')">
                       <mat-icon class="material-symbols-outlined">delete</mat-icon>
                     </button>
                   </div>
                 </div>
-                <mat-error *ngIf="viewMsgFlag && !profileImageUrl">{{lang == 'en' ? "Please Add Applicant Image" :
-                  "कृपया
-                  अर्जदाराची प्रतिमा जोडा"}} </mat-error>
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput placeholder="" formControlName="profilePhotoPath" class="d-none">
+                <mat-error *ngIf="f['profilePhotoPath']?.errors" >
+                <span *ngIf="f['profilePhotoPath'].hasError('required')">{{lang == 'en' ? "Please Add Applicant Image" :
+                  "कृपया अर्जदाराची प्रतिमा जोडा"}}</span> </mat-error>
+                  </mat-form-field>
               </div>
 
               <div class="col-sm">
@@ -192,7 +194,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'addManrega.education'| translate}}</div>
+                <div class="form-label">{{'approvalProcess.applicant_qualification_Required'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="qualificationId">
                     <mat-option *ngFor="let qua of qualificationArray" [value]="qua.id">{{lang != 'en' ? qua.textMarathi : qua.textEnglish}}</mat-option>
@@ -225,7 +227,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'common.Taluka'| translate}}</div>
+                <div class="form-label">{{'common.Please_select_taluka'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
                   <mat-select formControlName="talukaId"
@@ -248,7 +250,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'approvalProcess.village_committee'| translate}}</div>
+                <div class="form-label"> {{'officerreg.please_select_grampanchayat'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'officerreg.select_grampanchayat' | translate}}</mat-label> -->
                   <mat-select formControlName="grampanchayatId"
@@ -326,13 +328,14 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-6">
-                <div class="form-label">{{'approvalProcess.beneficiary_category'| translate}}</div>
+                <div class="form-label">{{'approvalProcess.please_select_category'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select (click)="categoryDialogBox()" formControlName="categoryId">
                   </mat-select>
                   <mat-error
                     *ngIf="f['categoryId']?.hasError('required')">{{'approvalProcess.please_select_category'|translate}}
                   </mat-error>
+                  
                 </mat-form-field>
               </div>
               <div *ngIf="checkedItems.length">
@@ -469,7 +472,7 @@
 
               </ng-container>
               <div class="col-sm-4">
-                <div class="form-label">{{'approvalProcess.type_of_land'| translate}}</div>
+                <div class="form-label">{{'approvalProcess.please_select_type_of_land'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="farmTypeId">
                     <mat-option *ngFor="let farm of farmTypeArray" [value]="farm.id">{{lang != 'en' ? farm.textMarathi :
@@ -481,7 +484,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">{{'approvalProcess.irrigation_facilities'| translate}}</div>
+                <div class="form-label"> {{'approvalProcess.please_select_irrigation_facility'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="irrigationFacilityId">
                     <mat-option *ngFor="let irrigation of irrigationFacilityArray" [value]="irrigation.id">{{lang !=
@@ -516,8 +519,8 @@
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="plantName"
                             (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumeric($event)">
-                          <mat-error
-                            *ngIf="farmDeatailsFrm.controls['plantName'].hasError('required') ">{{'approvalProcess.please_enter_orchard_flower_tree'|translate}}</mat-error>
+                          <!-- <mat-error
+                            *ngIf="farmDeatailsFrm.controls['plantName'].hasError('required') ">{{'approvalProcess.please_enter_orchard_flower_tree'|translate}}</mat-error> -->
                           <mat-error *ngIf="farmDeatailsFrm.controls['plantName']?.errors">
                             <span class="text-danger"
                               *ngIf="farmDeatailsFrm.controls['plantName']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['plantName']?.hasError('pattern')">
@@ -535,8 +538,8 @@
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="gutNo"
                             (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
-                          <mat-error
-                            *ngIf="farmDeatailsFrm.controls['gutNo'].hasError('required') ">{{'approvalProcess.please_enter_group_no.'|translate}}</mat-error>
+                          <!-- <mat-error
+                            *ngIf="farmDeatailsFrm.controls['gutNo'].hasError('required') ">{{'approvalProcess.please_enter_group_no.'|translate}}</mat-error> -->
                           <mat-error *ngIf="farmDeatailsFrm.controls['gutNo']?.errors">
                             <span class="text-danger"
                               *ngIf="farmDeatailsFrm.controls['gutNo']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['gutNo']?.hasError('pattern')">
@@ -556,8 +559,8 @@
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="gutArea"
                             (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
-                          <mat-error
-                            *ngIf="farmDeatailsFrm.controls['gutArea'].hasError('required') ">{{'approvalProcess.please_enter_group_area'|translate}}</mat-error>
+                          <!-- <mat-error
+                            *ngIf="farmDeatailsFrm.controls['gutArea'].hasError('required') ">{{'approvalProcess.please_enter_group_area'|translate}}</mat-error> -->
                           <mat-error *ngIf="farmDeatailsFrm.controls['gutArea']?.errors">
                             <span class="text-danger"
                               *ngIf="farmDeatailsFrm.controls['gutArea']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['gutArea']?.hasError('pattern')">
@@ -575,8 +578,8 @@
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="cultivatedArea"
                             (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
-                          <mat-error
-                            *ngIf="farmDeatailsFrm.controls['cultivatedArea'].hasError('required') ">{{'approvalProcess.please_enter_cultivated_area'|translate}}</mat-error>
+                          <!-- <mat-error
+                            *ngIf="farmDeatailsFrm.controls['cultivatedArea'].hasError('required') ">{{'approvalProcess.please_enter_cultivated_area'|translate}}</mat-error> -->
                           <mat-error *ngIf="farmDeatailsFrm.controls['cultivatedArea']?.errors">
                             <span class="text-danger"
                               *ngIf="farmDeatailsFrm.controls['cultivatedArea']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['cultivatedArea']?.hasError('pattern')">
@@ -594,8 +597,8 @@
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="cultivatedPlantsCount"
                             (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
-                          <mat-error
-                            *ngIf="farmDeatailsFrm.controls['cultivatedPlantsCount'].hasError('required') ">{{'approvalProcess.please_enter_number_of_trees_planted'|translate}}</mat-error>
+                          <!-- <mat-error
+                            *ngIf="farmDeatailsFrm.controls['cultivatedPlantsCount'].hasError('required') ">{{'approvalProcess.please_enter_number_of_trees_planted'|translate}}</mat-error> -->
                           <mat-error *ngIf="farmDeatailsFrm.controls['cultivatedPlantsCount']?.errors">
                             <span class="text-danger"
                               *ngIf="farmDeatailsFrm.controls['cultivatedPlantsCount']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['cultivatedPlantsCount']?.hasError('pattern')">
@@ -707,7 +710,7 @@
                   </div>
                 </div>
                 <div class="col-sm-4">
-                  <div class="form-label">{{'approvalProcess.relation'| translate}}</div>
+                  <div class="form-label">{{'approvalProcess.please_select_relation'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="candidateRelationId">
                       <mat-option *ngFor="let relation of candidateRelationArray" [value]="relation.id">{{lang != 'en' ?
@@ -737,7 +740,7 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-4">
-                <div class="form-label">{{'approvalProcess.bank_name'|translate}}</div>
+                <div class="form-label"> {{'approvalProcess.please_select_bank_name'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="bankId" (selectionChange)="getBankBranch()">
                     <mat-option *ngFor="let bank of bankArray" [value]="bank.id">{{lang != 'en' ? bank.textMarathi :
@@ -748,7 +751,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">{{'approvalProcess.branch'|translate}}</div>
+                <div class="form-label">{{'approvalProcess.please_select_branch'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="bankBranchId">
                     <mat-option *ngFor="let branch of branchArray" [value]="branch.id">{{lang != 'en' ?
@@ -818,8 +821,7 @@
                 <div class="form-label">{{'approvalProcess.manrega_job_card'|translate}}</div>
                 <div class="file-upload border rounded-2 p-1">
                   <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                    (click)="selImg1.value='';selImg1.click()">File
-                    Upload<span class="text-danger fs-6">*</span>
+                    (click)="selImg1.value='';selImg1.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span class="text-danger fs-6">*</span>
                   </button>
                   <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg1
                     (change)="fileUpload($event,docArray[0].docTypeId,'documents')" />
@@ -849,8 +851,7 @@
                 <div class="form-label">{{'approvalProcess.upload_track_of_land'|translate}}</div>
                 <div class="file-upload border rounded-2 p-1">
                   <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                    (click)="selImg2.value='';selImg2.click()">File
-                    Upload<span class="text-danger fs-6">*</span>
+                    (click)="selImg2.value='';selImg2.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span class="text-danger fs-6">*</span>
                   </button>
                   <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg2
                     (change)="fileUpload($event,docArray[1].docTypeId,'documents')" />
@@ -882,8 +883,8 @@
                 <div class="form-label">{{'approvalProcess.upload_land_7/12'|translate}} </div>
                 <div class="file-upload border rounded-2 p-1">
                   <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                    (click)="selImg3.value='';selImg3.click()">File Upload
-                    <span class="text-danger fs-6">*</span>
+                    (click)="selImg3.value='';selImg3.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}
+                    <!-- <span class="text-danger fs-6">*</span> -->
                   </button>
                   <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg3
                     (change)="fileUpload($event,docArray[2].docTypeId,'documents')" />
@@ -911,8 +912,7 @@
                 <div class="form-label">{{'approvalProcess.upload_bank_passbook_canceled_cheque'|translate}}</div>
                 <div class="file-upload border rounded-2 p-1">
                   <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                    (click)="selImg4.value='';selImg4.click()">File
-                    Upload<span class="text-danger fs-6">*</span>
+                    (click)="selImg4.value='';selImg4.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span class="text-danger fs-6">*</span>
                   </button>
                   <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg4
                     (change)="fileUpload($event,docArray[3].docTypeId,'documents')" />
@@ -1585,7 +1585,7 @@
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">Previous</button>
-          <button mat-button type="button" matStepperNext class="btn-main" (click)="onSubmit('preview')">Next</button>
+          <button mat-button type="button" matStepperNext class="btn-main">Next</button>
         </div>
 
       </mat-step>
@@ -1601,8 +1601,7 @@
               <div class="col-sm-4">
                 <div class="file-upload border rounded-2 p-1">
                   <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                    (click)="selImg7.value='';selImg7.click()">File
-                    Upload<span class="text-danger fs-6">*</span>
+                    (click)="selImg7.value='';selImg7.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span class="text-danger fs-6">*</span>
                   </button>
                   <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg7
                     (change)="fileUpload($event,docArray[4].docTypeId,'documents')" />
