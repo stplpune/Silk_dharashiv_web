@@ -60,7 +60,9 @@ export class GeneratePdfComponent {
   skillYr3obj: any;
   acceptTermsValue!: boolean;
   bindTableDiv: any;
-  id: any
+  id: any;
+  sanctionArray:any;
+  showDate=new Date();
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -73,9 +75,10 @@ export class GeneratePdfComponent {
 
   ngOnInit() {
     this.actionID = this.route.snapshot.queryParamMap.get('id');
-    // this.actionID=5
+    this.actionID=4
     this.getEstimateData();
     this.getAnotherEstimateData();
+    this.getEstimateSanctionData();
   }
 
   getEstimateData() {
@@ -89,6 +92,27 @@ export class GeneratePdfComponent {
           this.estimateSkillArray = res.responseData3;
           this.finaltotalArray = res.responseData10;
           this.totalMappingArray = res.responseData11;
+        } else {
+          this.spinner.hide();
+          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
+        }
+      },
+      error: (err: any) => {
+        this.spinner.hide();
+        this.errorHandler.handelError(err.status);
+      },
+    });
+  }
+
+  getEstimateSanctionData() {
+    this.apiService.setHttp('GET', 'sericulture/api/TechnicalSanctionLetter/GetTechnicalSanctionLetter?ApplicationId=2', false, false, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == '200') {
+            this.sanctionArray=res.responseData;
+            console.log(' this.sanctionArray', this.sanctionArray);
+            
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';

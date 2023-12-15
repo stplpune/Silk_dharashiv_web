@@ -92,7 +92,8 @@
     "fullName_minLength": "Minimum 5 character allowed",
     "status":"Status",
     "search":"Search",
-    "documents":"Documents"
+    "documents":"Documents",
+    "file_upload":"File Upload"
   },
   "approvalProcess": {
     "track_application" : "Track Application",
@@ -118,9 +119,9 @@
     "manarega_job_card_no.": "Mgnrega Job Card No.",
     "please_enter_manarega_job_card_no":"Please enter manrega job card no. ",
     "please_select_category":"Please select category",
-    "aadhar_number": "Aadhar Number",
-    "please_enter_aadhar_no":"Please enter aadhar number",
-    "please_enter_valid_aadhar_no":"Please enter valid aadhar number",
+    "aadhar_number": "Aadhaar Number",
+    "please_enter_aadhar_no":"Please enter Aadhaar number",
+    "please_enter_valid_aadhar_no":"Please enter valid Aadhaar number",
     "date_of_birth": "Date of Birth",
     "alternate_mobile_number.": "Alternate Mobile Number.",
     "gender": "Gender",
@@ -128,7 +129,7 @@
     "fourmaxLength": "Maximum 4 digits allowed",
     "sixmaxLength": "Maximum 6 digits allowed",
     "village_committee": "Village Committee (grampanchyat)",
-    "beneficiary_category": "Beneficiary Category",
+    "beneficiary_category": "please_select_category",
     "beneficiary_category_options":"Beneficiary Category (Selected Options)",
     "land_details": "Land Details",
     "total_land_in_hectares_in_favor_of_beneciaries": "Total Land in Hectares (up to 2.0 hectares) in favor of beneficiaries(as per 8-A)",
@@ -213,6 +214,8 @@
     "total_land_in_hectares_in_favor_of_beneficiaries": "Total land in hectares in favor of beneficiaries (as per 8-A)",
     "landholding_Category": "Landholding Category",
     "irrigation_Period": "Irrigation Period",
+    "please_select_irrigation_facility":"Please select irrigation facility",
+    "please_select_type_of_land":"Please select type of land",
     "mulberry_planting_details": "Mulberry Planting Details",
     "an_improved_breed_of_Mulberry": "An improved breed of Mulberry",
     "mulberry_Planting_Distance_(feet)": "Mulberry Planting Distance (feet)",
@@ -692,9 +695,10 @@
     "land_survey_number_of_the_land":"Land survey number of the land to be cultivated according to the proportion of the applicant's share",
     "its_Area":"Its Area (Hectares) (Item No. should not be more than 18 and not less than 19)",
     "type_of_land":"Type of land",
-    "please_select_type_of_land":"Please select type of land",
+    
+    
     "irrigation_facility":"Irrigation facility",
-    "please_select_irrigation_facility":"Please select irrigation facility",
+  
     "Have_orchards/flower_crops/trees_been_planted":"Have you done orchards/flowers/trees before under other government schemes other than employment guarantee ?",
     "orchard/Flower/Tree_Name":"Orchard/Flower/Tree Name",
     "group_no.":"Group No.",

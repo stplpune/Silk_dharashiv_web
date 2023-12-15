@@ -29,12 +29,12 @@
       </div>
       <div class="col-sm-2">
         <div class="d-flex align-items-center gap-2">
-          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit" (click)="getTableData('filter')">
+          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit" (click)="filterFlag=true;getTableData('filter')">
             <mat-icon class="material-symbols-rounded">
               search
             </mat-icon>
           </button>
-          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="clearFormData()">
+          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="filterFlag=false;clearFormData()">
             <mat-icon class="material-symbols-rounded">
               close
             </mat-icon>

@@ -43,7 +43,7 @@ export class ApprovalProcessManaregaComponent {
   approvalStatusArray: any = [];
   reasonArray: any = [];
   @ViewChild('formDirective') private formDirective!: NgForm;
-  @ViewChild('formDirectives') private formDirectives!: NgForm;
+  // @ViewChild('formDirectives') private formDirectives!: NgForm;
   appDataClonedArray: any;
   editOtherDocForm: boolean = false;
   selOtherDocIndex!: number;
@@ -548,12 +548,18 @@ export class ApprovalProcessManaregaComponent {
   }
 
   clearForm() {
-    this.getByApplicationId();
-    this.formDirective.resetForm();
-    this.formDirectives.resetForm();
+    this.router.navigate(['../application'], {relativeTo:this.route})
+    // this.getByApplicationId();
+    // this.formDirective.resetForm();
+    // this.formDirectives.resetForm();
   }
 
   viewPdf() {
     window.open('generate-pdf?id='+this.applicationData?.actionId, '_blank')
+  }
+
+  clearReasonAndDoc(){
+    this.uploadedDepDoc = '';
+    this.approvalFrm.controls['reason'].setValue(0);
   }
 }

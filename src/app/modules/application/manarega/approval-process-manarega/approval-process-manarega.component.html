@@ -5,7 +5,7 @@
   <mat-card-header class="card-header">
     <div class="d-flex align-items-center justify-content-between w-100">
       <!-- <div class="text-main fw-bold">Application / {{applicantDetails?.schemeType}} / View Application </div> -->
-      <div class="text-main fw-bold">{{lang == 'en' ? 'Manrega / Details' : 'मनरेगा / तपशील'}}</div>
+      <div class="text-main fw-bold">{{lang == 'en' ? 'Mgnrega / Details' : 'मनरेगा / तपशील'}}</div>
       <button mat-flat-button class="btn-main-light" (click)="commonMethod.locationBack()">
         <mat-icon class="material-symbols-rounded">
           chevron_left
@@ -644,7 +644,7 @@
           <mat-tab label="{{'approvalProcess.other_document'| translate}}">
             <div class="container-fluid">
               <!--  -->
-              <form [formGroup]="uploadFrm" #formDirective="ngForm" (ngSubmit)="onSubmit()" class="w-100 mt-2"
+              <form [formGroup]="uploadFrm"  #formDirective="ngForm" (ngSubmit)="onSubmit()" class="w-100 mt-2"
                 [class.disable]="!applicationData?.isEdit">
                 <div class="row g-2">
                   <div class="col-sm">
@@ -803,14 +803,15 @@
       </div> -->
     <div class="card" [class.d-none]="!applicationData?.isEdit">
       <div class="card-body">
-        <form [formGroup]="approvalFrm" (ngSubmit)="onSubmitApprovalDetails()" #formDirectives="ngForm">
+        <!-- #formDirectives="ngForm" -->
+        <form [formGroup]="approvalFrm" (ngSubmit)="onSubmitApprovalDetails()" >
           <div class="row g-2">
             <div class="col-sm-12">
               <div class="d-flex gap-2 align-items-start">
                 <div>
                   <label class="form-label">{{'approvalProcess.select_status'| translate}}</label>
                   <mat-form-field appearance="outline" class="w-100">
-                    <mat-select formControlName="applicationStatus" (selectionChange)="getReason()">
+                    <mat-select formControlName="applicationStatus" (selectionChange)="clearReasonAndDoc(); getReason()">
                       <mat-option *ngFor="let apporvalStatus of approvalStatusArray" [value]="apporvalStatus?.id">{{lang
                         =="en" ? apporvalStatus?.textEnglish : apporvalStatus?.textMarathi}}</mat-option>
                     </mat-select>

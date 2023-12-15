@@ -14,7 +14,7 @@
 </div>
 <div class="letter-bg">
     <div>जा.क्र. रेशीम/धा.शि./मनरेगा/तां. मं./2023-24/2433</div>
-    <div>दिनांक: 16/10/2023</div>
+    <div>दिनांक: {{showDate | date:'dd-MM-yyyy'}}</div>
 </div>
 
 <!-- (Technical Estimate) -->
@@ -528,10 +528,10 @@
         </ol>
         <p>
             उपरोक्त शासन निर्णयानुसार प्रधान केलेल्या शक्तीचा वापर करून रेशीम विकास अधिकारी श्रेणी - 2, उस्मानाबाद,
-            यांच्या द्वारे प्राप्त झालेल्या प्रथावा मधील अ. क्रं. *MN202312090001* नुसार *मौजे निपाणी, ता. कळंब, जिल्हा.
+            यांच्या द्वारे प्राप्त झालेल्या प्रथावा मधील अ. क्रं. *{{sanctionArray[0]?.applicationNo}}* नुसार *मौजे निपाणी, ता. कळंब, जिल्हा.
             उस्मानाबाद*. येथील रहिवाशी असणार्‍या व शासन निर्णयातील निकषानुसार पात्र ठरलेल्या लाभार्थ्यास पूढील तापसीला
-            प्रमाणे सन *2023 – 2024 व सन 2024 – 2025 व सन 2025 – 2026* या तीन वर्षा करिता प्रती एकर रक्कम रुपये
-            *397335/-* प्रमाणे खर्चास, महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजने (MGNREGS) अंतर्गत रेशीम उद्योग
+            प्रमाणे सन *{{sanctionArray[0]?.first}} – {{sanctionArray[0]?.second}} व सन {{sanctionArray[0]?.second}} – {{sanctionArray[0]?.third}} व सन {{sanctionArray[0]?.third}} – {{sanctionArray[0]?.third}}* या तीन वर्षा करिता प्रती एकर रक्कम रुपये
+            *{{sanctionArray[0]?.total}}* प्रमाणे खर्चास, महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजने (MGNREGS) अंतर्गत रेशीम उद्योग
             विकास योजनेचे नवीन कामाचे अंदाज पत्रकास शासन निर्णयात नमूद अटी व शर्तीस अधीन राहून तांत्रिक मंजूरी देण्यात
             येत आहे.
         </p>
@@ -554,18 +554,18 @@
                     <th>एकूण</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody *ngFor="let arr of sanctionArray;let i=index">
                 <tr>
-                    <td>1</td>
-                    <td>निपाणी</td>
-                    <td>राम कदम </td>
-                    <td>1</td>
-                    <td>1260</td>
-                    <td>ओबीसी</td>
-                    <td>0.40</td>
-                    <td>244335</td>
-                    <td>153000</td>
-                    <td>397335</td>
+                    <td>{{i + 1}}</td>
+                    <td>{{arr?.grampanchayatName}}</td>
+                    <td>{{arr?.fullName}}</td>
+                    <td>{{arr?.cultivatedFarmInHector}}</td>
+                    <td>{{arr?.mulberryCultivatedSurveyNo}}</td>
+                    <td>{{arr?.categoryOfBeneficiary}}</td>
+                    <td>{{arr?.grampanchayatName}}</td>
+                    <td>{{arr?.unskill}}</td>
+                    <td>{{arr?.skill}}</td>
+                    <td>{{arr?.total}}</td>
                 </tr>
             </tbody>
         </table>
@@ -594,15 +594,15 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>125</td>
-                    <td>125</td>
-                    <td>125</td>
-                    <td>125</td>
-                    <td>125</td>
-                    <td>125</td>
-                    <td>125</td>
-                    <td>125</td>
-                    <td>125</td>
+                    <td>{{sanctionArray[0]?.unskill}}</td>
+                    <td>{{sanctionArray[0]?.skill}}</td>
+                    <td>{{sanctionArray[0]?.total}}</td>
+                    <td>{{sanctionArray[0]?.unskill}}</td>
+                    <td>{{sanctionArray[0]?.skill}}</td>
+                    <td>{{sanctionArray[0]?.total}}</td>
+                    <td>{{sanctionArray[0]?.unskill}}</td>
+                    <td>{{sanctionArray[0]?.skill}}</td>
+                    <td>{{sanctionArray[0]?.total}}</td>
                 </tr>
             </tbody>
         </table>
@@ -1052,5 +1052,5 @@
 <div class="d-flex gap-2 justify-content-center w-100 d-print-none mt-3">
     <button mat-flat-button class="btn-main-light" type="button">Cancel</button>
     <button mat-flat-button class="btn-main" type="button" (click)="print()">Print</button>
-    <button mat-flat-button class="btn-main" type="button" (click)="download()">Download</button>
+    <!-- <button mat-flat-button class="btn-main" type="button" (click)="download()">Download</button> -->
 </div>
