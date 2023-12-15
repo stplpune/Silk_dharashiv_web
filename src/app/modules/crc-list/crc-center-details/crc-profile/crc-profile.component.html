@@ -162,7 +162,7 @@
                 </mat-select>
                 </mat-form-field>
               </div>
-              <div class="col-sm-3" *ngIf="statusForm.value.status == 2">
+              <div class="col-sm-3" *ngIf="statusForm.value.status == 12">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label> {{lang == 'en' ? 'Rearing Capacity': 'संगोपन क्षमता'}}</mat-label>
                   <input matInput placeholder="Rearing Capacity" formControlName="chalkyApprovedQty" maxlength="10"  (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
