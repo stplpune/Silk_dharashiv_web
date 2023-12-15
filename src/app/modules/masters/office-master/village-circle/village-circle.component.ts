@@ -194,8 +194,8 @@ export class VillageCircleComponent implements OnDestroy {
   }
   deleteDialogOpen(delObj?: any) {
     let dialogObj = {
-      title: this.lang == 'en' ? 'Do You Want To Delete Selected Circle ?' : 'तुम्हाला निवडलेले मंडळ हटवायचे आहे का ?',
-      header: this.lang == 'en' ? 'Delete Village Circle' : 'मंडळ हटवा',
+      title: this.lang == 'en' ? 'Do You Want To Delete Circle?' : 'तुम्हाला निवडलेले मंडळ हटवायचे आहे का?',
+      header: this.lang == 'en' ? 'Delete Circle' : 'मंडळ हटवा',
       okButton: this.lang == 'en' ? 'Delete' : 'हटवा',
       cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
       headerImage: 'assets/images/delete.svg'
