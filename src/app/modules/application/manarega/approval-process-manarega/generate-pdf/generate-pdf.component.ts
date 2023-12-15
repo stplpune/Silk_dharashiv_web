@@ -63,6 +63,8 @@ export class GeneratePdfComponent {
   id: any;
   sanctionArray:any;
   showDate=new Date();
+  routeData:any;
+  applicationId:any;
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -74,15 +76,16 @@ export class GeneratePdfComponent {
     ) { }
 
   ngOnInit() {
-    this.actionID = this.route.snapshot.queryParamMap.get('id');
-    this.actionID=4
+    this.routeData = this.route.snapshot.queryParamMap.get('id');
+    this.actionID= this.routeData.split('/')[1];
+    this.applicationId=this.routeData.split('/')[0]; 
     this.getEstimateData();
     this.getAnotherEstimateData();
     this.getEstimateSanctionData();
   }
 
   getEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId=2', false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -105,14 +108,12 @@ export class GeneratePdfComponent {
   }
 
   getEstimateSanctionData() {
-    this.apiService.setHttp('GET', 'sericulture/api/TechnicalSanctionLetter/GetTechnicalSanctionLetter?ApplicationId=2', false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/TechnicalSanctionLetter/GetTechnicalSanctionLetter?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-            this.sanctionArray=res.responseData;
-            console.log(' this.sanctionArray', this.sanctionArray);
-            
+            this.sanctionArray=res.responseData;            
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
@@ -180,7 +181,7 @@ export class GeneratePdfComponent {
   }
 
   getAnotherEstimateData() {
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId=2' + this.actionID, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
