@@ -5,7 +5,7 @@
     <div class="text-main">Manarega Application</div>
   </mat-card-header>
 
-  <mat-card-content class=" card-body form-container">
+  <mat-card-content class=" card-body form-container" *ngIf="!this.routingData">
     <form [formGroup]="filterFrm">
       <div class="row gx-2">
         <div class="col-sm">
@@ -48,7 +48,7 @@
   <mat-card-content class=" card-body form-container">
     <!-- linear -->
     <!-- [stepControl]="manaregaFrm" -->
-    <mat-stepper #stepper>
+    <mat-stepper #stepper linear >
       <mat-step [stepControl]="manaregaFrm">
         <ng-template matStepLabel>मूळ तपशील</ng-template>
         <form [formGroup]="manaregaFrm">
@@ -57,25 +57,27 @@
             <div class="row gx-2 mb-2">
               <div class="col-sm-2">
                 <div class="position-relative applicant_img">
-                  <img [src]="profileImageUrl ? profileImageUrl: 'assets/images/user.png' " alt="Applicant image"
+                  <img [src]="manaregaFrm.getRawValue()?.profilePhotoPath ? manaregaFrm.getRawValue()?.profilePhotoPath: 'assets/images/user.png' " alt="Applicant image"
                     class="img-fluid">
                   <input type="file" #uplodLogo id="real-file" hidden="hidden"
                     (change)="fileUpload($event,'','profilePhoto')" />
                   <div class="upload-buttons">
                     <button mat-icon-button class="btn-icon bg-primary-subtle text-primary"
                       (click)="uplodLogo.value='';uplodLogo.click()" type="button">
-                      <mat-icon class="material-symbols-outlined"> {{!profileImageUrl ? 'add' :
-                        'edit_square'}}</mat-icon>
+                      <mat-icon class="material-symbols-outlined"> {{'add'}}</mat-icon>
                     </button>
                     <button mat-icon-button class="btn-icon bg-danger-subtle text-danger" type="button"
-                      (click)="profileImageUrl = '' ">
+                      (click)="manaregaFrm.controls['profilePhotoPath'].setValue('')">
                       <mat-icon class="material-symbols-outlined">delete</mat-icon>
                     </button>
                   </div>
                 </div>
-                <mat-error *ngIf="viewMsgFlag && !profileImageUrl">{{lang == 'en' ? "Please Add Applicant Image" :
-                  "कृपया
-                  अर्जदाराची प्रतिमा जोडा"}} </mat-error>
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput placeholder="" formControlName="profilePhotoPath" class="d-none">
+                <mat-error *ngIf="f['profilePhotoPath']?.errors" >
+                <span *ngIf="f['profilePhotoPath'].hasError('required')">{{lang == 'en' ? "Please Add Applicant Image" :
+                  "कृपया अर्जदाराची प्रतिमा जोडा"}}</span> </mat-error>
+                  </mat-form-field>
               </div>
 
               <div class="col-sm">
@@ -333,6 +335,7 @@
                   <mat-error
                     *ngIf="f['categoryId']?.hasError('required')">{{'approvalProcess.please_select_category'|translate}}
                   </mat-error>
+                  
                 </mat-form-field>
               </div>
               <div *ngIf="checkedItems.length">
@@ -516,8 +519,8 @@
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="plantName"
                             (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumeric($event)">
-                          <mat-error
-                            *ngIf="farmDeatailsFrm.controls['plantName'].hasError('required') ">{{'approvalProcess.please_enter_orchard_flower_tree'|translate}}</mat-error>
+                          <!-- <mat-error
+                            *ngIf="farmDeatailsFrm.controls['plantName'].hasError('required') ">{{'approvalProcess.please_enter_orchard_flower_tree'|translate}}</mat-error> -->
                           <mat-error *ngIf="farmDeatailsFrm.controls['plantName']?.errors">
                             <span class="text-danger"
                               *ngIf="farmDeatailsFrm.controls['plantName']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['plantName']?.hasError('pattern')">
@@ -535,8 +538,8 @@
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="gutNo"
                             (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
-                          <mat-error
-                            *ngIf="farmDeatailsFrm.controls['gutNo'].hasError('required') ">{{'approvalProcess.please_enter_group_no.'|translate}}</mat-error>
+                          <!-- <mat-error
+                            *ngIf="farmDeatailsFrm.controls['gutNo'].hasError('required') ">{{'approvalProcess.please_enter_group_no.'|translate}}</mat-error> -->
                           <mat-error *ngIf="farmDeatailsFrm.controls['gutNo']?.errors">
                             <span class="text-danger"
                               *ngIf="farmDeatailsFrm.controls['gutNo']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['gutNo']?.hasError('pattern')">
@@ -556,8 +559,8 @@
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="gutArea"
                             (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
-                          <mat-error
-                            *ngIf="farmDeatailsFrm.controls['gutArea'].hasError('required') ">{{'approvalProcess.please_enter_group_area'|translate}}</mat-error>
+                          <!-- <mat-error
+                            *ngIf="farmDeatailsFrm.controls['gutArea'].hasError('required') ">{{'approvalProcess.please_enter_group_area'|translate}}</mat-error> -->
                           <mat-error *ngIf="farmDeatailsFrm.controls['gutArea']?.errors">
                             <span class="text-danger"
                               *ngIf="farmDeatailsFrm.controls['gutArea']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['gutArea']?.hasError('pattern')">
@@ -575,8 +578,8 @@
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="cultivatedArea"
                             (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
-                          <mat-error
-                            *ngIf="farmDeatailsFrm.controls['cultivatedArea'].hasError('required') ">{{'approvalProcess.please_enter_cultivated_area'|translate}}</mat-error>
+                          <!-- <mat-error
+                            *ngIf="farmDeatailsFrm.controls['cultivatedArea'].hasError('required') ">{{'approvalProcess.please_enter_cultivated_area'|translate}}</mat-error> -->
                           <mat-error *ngIf="farmDeatailsFrm.controls['cultivatedArea']?.errors">
                             <span class="text-danger"
                               *ngIf="farmDeatailsFrm.controls['cultivatedArea']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['cultivatedArea']?.hasError('pattern')">
@@ -594,8 +597,8 @@
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="cultivatedPlantsCount"
                             (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
-                          <mat-error
-                            *ngIf="farmDeatailsFrm.controls['cultivatedPlantsCount'].hasError('required') ">{{'approvalProcess.please_enter_number_of_trees_planted'|translate}}</mat-error>
+                          <!-- <mat-error
+                            *ngIf="farmDeatailsFrm.controls['cultivatedPlantsCount'].hasError('required') ">{{'approvalProcess.please_enter_number_of_trees_planted'|translate}}</mat-error> -->
                           <mat-error *ngIf="farmDeatailsFrm.controls['cultivatedPlantsCount']?.errors">
                             <span class="text-danger"
                               *ngIf="farmDeatailsFrm.controls['cultivatedPlantsCount']?.hasError('maxLengthExceeded') || farmDeatailsFrm.controls['cultivatedPlantsCount']?.hasError('pattern')">
@@ -1585,7 +1588,7 @@
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">Previous</button>
-          <button mat-button type="button" matStepperNext class="btn-main" (click)="onSubmit('preview')">Next</button>
+          <button mat-button type="button" matStepperNext class="btn-main">Next</button>
         </div>
 
       </mat-step>
