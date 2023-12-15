@@ -157,8 +157,8 @@ export class GrainageComponent {
 
   globalDialogOpen(delDataObj?: any) {
     let dialogObj = {
-      title: this.lang == 'mr-IN' ? 'तुम्हाला ग्रेनेज हटवायचा आहे का ?' : 'Do You Want To Delete Grainage ?',
-      header: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
+      title: this.lang == 'mr-IN' ? 'तुम्हाला ग्रेनेज हटवायचा आहे का ?' : 'Do You Want To Delete Grainage?',
+      header: this.lang == 'mr-IN' ? 'हटवा' : 'Delete Grainage',
       okButton: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       headerImage: 'assets/images/delete.svg'
