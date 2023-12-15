@@ -1,32 +1,64 @@
-<div class="container">
-    <div class="row g-lg-5 g-3 align-items-center" *ngFor="let data of blogDetails">
-        <div class="col-sm-8 demo">
-            <img src="{{data?.thumbnailImage}}" class="img-fluid m-1">
-            <h2 class="section-head mt-2">{{data?.title}}</h2>
-            <p class="card-text" [innerHTML]="data?.description"> </p>
-        </div>
-        <div class="col-sm-4 demo">
-            <div>
-                <div class="text-center">
-                    <h4 class="section-head">Case Studies</h4>
-                </div>
-                <div  *ngFor="let data of allBlogDetails">
-                    <div class="row text-center">
-                        <div class="col-md-6">
-                            <img src="{{data?.thumbnailImage}}" class="img-thumbnail m-1"
-                            style="max-width:80px; height:auto">
-                        </div>
-                        <div class="col-md-6">
-                            <a style="cursor: pointer;" (click)="getBlogsDetailsById(data.id, 'click')">
-                                <h5 class="section-head">{{data?.title}}</h5><span>
-                                    <mat-icon>calendar_today</mat-icon>{{data?.publishDate | date:'MMM d, y'}}</span>
-                            </a>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <mat-paginator class="hide-mdc-paginator-range" [length]="length" [pageSize]="10" hidePageSize="true" (page)="change($event)" showFirstLastButtons> </mat-paginator>
+<mat-card class="plain-card">
+  <mat-card-content class="card-body">
+    <div class="container">
+      <div class="row form-container " *ngFor="let data of blogDetails">
+        <div class="col-sm-8">
+          <div class="card form-container border-0">
+            <div class="card-header">
+              <img src="{{data?.thumbnailImage}}" class="img-fluid m-1">
             </div>
+            <div class="card-body">
+              <h2 class="fw-bold">{{data?.title}}</h2>
+              <p class="form-label" [innerHTML]="data?.description"> </p>
+            </div>
+          </div>
+
+
         </div>
+        <div class="col-sm-4 ">
+          <div class="card case_studies">
+            <div class="card-header">
+              <h2 class="text-main fw-bold">Case Studies</h2>
+            </div>
+            <div class="card-body p-0">
+              <div *ngFor="let data of allBlogDetails">
+                <a class="d-flex news text-muted text-decoration-none news_data" href="#">
+                  <div class="flex-shrink-0">
+                    <img src="{{data?.thumbnailImage}}" class="img-fluid p-0 m-0">
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <h4 class="form-data">{{data?.title}}</h4>
+                    <div class="d-flex align-items-center justify-content-end h-100 w-100">
+                      <!-- <small class="small"><mat-icon>calendar_today</mat-icon></small> -->
+                      <span class="form-label">{{data?.publishDate | date:'MMM d, y'}}</span>
+                    </div>
+                  </div>
+                </a>
+
+
+
+                <!-- <div class="d-flex gap-2">
+                  <div class="">
+                    <img src="{{data?.thumbnailImage}}" class="img-thumbnail m-1" >
+                  </div>
+                  <div class="d-flex flex-column w-100">
+                    <a style="cursor: pointer;" (click)="getBlogsDetailsById(data.id, 'click')">
+                      <h5 class="form-data">{{data?.title}}</h5>
+                      <div class="d-flex align-items-end justify-content-end h-100 w-100">
+                        <mat-icon>calendar_today</mat-icon>
+                        <span class="form-label">{{data?.publishDate | date:'MMM d, y'}}</span>
+                      </div>
+                    </a>
+                  </div>
+                </div> -->
+                <hr>
+              </div>
+              <mat-paginator class="hide-mdc-paginator-range" [length]="length" [pageSize]="10" hidePageSize="true"
+                (page)="change($event)" showFirstLastButtons> </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </mat-card-content>
+</mat-card>
