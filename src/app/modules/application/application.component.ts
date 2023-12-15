@@ -263,7 +263,7 @@ export class ApplicationComponent {
       tableHeaders: displayedheaders,
       view: true,
       track: true,
-      edit:  true,
+      // edit:  true,
       date: 'applicationDate'
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
@@ -281,9 +281,9 @@ export class ApplicationComponent {
         this.openApplicationDetails(obj);
         // this.router.navigate(['../approval-process']);
         break;
-      case 'Edit':
-        this.openAddApplicationDetails(obj);
-        break;
+      // case 'Edit':
+      //   this.openAddApplicationDetails(obj);
+      //   break;
       case 'track':
         this.openTracKComp(obj);
         // this.router.navigate(['../approval-process']);
