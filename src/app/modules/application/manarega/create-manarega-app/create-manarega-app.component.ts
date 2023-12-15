@@ -274,6 +274,7 @@ export class CreateManaregaAppComponent {
     
   
     viewimages(obj: any) {
+      console.log(obj)
       window.open(obj, '_blank')
     }
   
@@ -318,15 +319,13 @@ getDocumentsWithDocId7() {  //preview other docment
 
       if (!this.OtherDocUploadImg.length) {
         this.OtherDocUploadImg.push(obj);
-        this.commonMethod.snackBar((this.lang == 'en' ? "Document added successfully" : "दस्तऐवज यशस्वीरित्या जोडला गेला"), 0)
+        //this.commonMethod.snackBar((this.lang == 'en' ? "Document added successfully" : "दस्तऐवज यशस्वीरित्या जोडला गेला"), 0)
        //reset form code remainingresetForm();
       }
       else{
         let existedName = this.OtherDocUploadImg.find((res: any) => res.docname == uploadFrmValue.docname);
-        // let existedPath = this.OtherDocUploadImg.find((res: any) => res.docPath == uploadFrmValue.docPath);
-       if (existedName) {  this.commonMethod.snackBar((this.lang == 'en' ? "Document Name Already exist" : "दस्तऐवजाचे नाव आधीपासून अस्तित्वात आहे."), 1) ; return ; }
-      //  else if(existedPath){ this.commonMethod.snackBar((this.lang == 'en' ? "Document Path Already exist" : "दस्तऐवज मार्ग आधीपासून अस्तित्वात आहे."), 1) ; return ; }
-        else {
+         if (existedName) {  this.commonMethod.snackBar((this.lang == 'en' ? "Document Name Already exist" : "दस्तऐवजाचे नाव आधीपासून अस्तित्वात आहे."), 1) ; return ; }
+         else {
           this.OtherDocUploadImg.push(obj);
         }
       }
@@ -615,19 +614,7 @@ onSubmit(flag?:any) {
         flag == 'document' ?  this.documentFrm.controls['allRequiredDocument'].setValue(1) :  this.addRegistrationRecFrm.controls['registrationDocument'].setValue(1);;
       }}
       }
-      // else if(this.addRegistrationRecFrm.invalid && flag == 'challan'){
-      //   for(let i=0 ;i< this.docArray.length;i++){
-      //    
-      //     if(this.docArray[i].docPath == '' &&  this.docArray[i].docTypeId == 8){
-      //      this.commonMethod.snackBar((this.lang == 'en' ? 'Registration Fee Receipt Required' : 'नोंदणी फी पावती आवश्यक'), 1) ;
-      //       return;
-      //      }
-      //      else{
-      //       this.addRegistrationRecFrm.controls['registrationDocument'].setValue(1);
-      //      }
-      //   }
-      // }
-
+      
       !bankInfo.bankId ? bankInfo.bankId = 0 : '';
       !bankInfo.bankBranchId ? bankInfo.bankBranchId = 0 : '';
         this.docArray.map((ele:any)=>{
@@ -687,7 +674,8 @@ onSubmit(flag?:any) {
         "flag": (flag == 'farmerInfo' && !this.EditFlag) ? 0 : (flag == 'farmerInfo' && this.EditFlag) ? 1 : flag == 'farmInfo'? 2 : flag == 'bankInfo' ?  3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 :  flag == 'challan' ? 7 : '',
         "isUpdate": true,
         "appDoc": mergeDocumentArray,
-        "categoryId": this.checkedItems.map((x:any)=>{return x.id}),
+         "categoryId": this.checkedItems.map((x:any)=>{return x.id}),
+        //"categoryId":
         "plantingDetails": this.farmDetails,
         "internalSchemes": [
           {
@@ -723,10 +711,10 @@ onSubmit(flag?:any) {
           if (res.statusCode == "200") {
             // flag == 'document'?  this.getPreviewData1(res.responseData) : "";
             this.getPreviewData1('edit',res.responseData)
-            //getId = res.responseData;
+          
             this.manaregaFrm?.controls['id'].setValue(res.responseData);
-            (res.responseData  && flag == 'challan') ?   this.openDialog(res):"";
-            // this.commonMethod.snackBar(res.statusMessage, 0);
+            (res.responseData  && flag == 'challan') ?   this.openDialog(res): '';
+            flag == 'challan' ?  this.commonMethod.snackBar(res.statusMessage, 0) : '';
             this.viewMsgFlag=false; 
             flag == 'challan'? this.router.navigate(['../application']) : ''; 
             
@@ -944,7 +932,7 @@ onSubmit(flag?:any) {
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.categoryArray = res.responseData;
-          this.categoryArray.map((ele:any)=>{  ele.checked = false});
+         this.categoryArray.map((ele:any)=>{  ele.checked = false});
         }
         else {
           this.categoryArray = [];
@@ -964,6 +952,7 @@ onSubmit(flag?:any) {
       if (result) {
         this.checkedItems = [];
         this.categoryArray = result;
+        console.log(" this.categoryArray dialog", this.categoryArray)
         this.categoryArray?.find(item => {
           if (item.checked) {
             this.checkedItems.push(item)
