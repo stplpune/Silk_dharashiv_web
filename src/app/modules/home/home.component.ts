@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
+import { ApiService } from 'src/app/core/services/api.service';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +9,39 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
+  getAppCountData = new Array();
+  blogDetails = new Array();
 
+  constructor(private apiService: ApiService, private router: Router, public encryptDecryptService: AesencryptDecryptService) { }
+
+  ngOnInit() {
+    this.getTotalCount();
+    this.getBlogsDetails();
+  }
+
+  getTotalCount() {
+    let url = `sericulture/api/Action/GetOfficerDashboard?&SchemeTypeId=0&DistrictId=1&TalukaId=0&GrampanchayatId=0&UserId=1&actionId=0&lan=en`;
+    this.apiService.setHttp('GET', url, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        res.statusCode == 200 ? this.getAppCountData.push(res.responseData) : this.getAppCountData = [];
+      },
+      error: () => { this.getAppCountData = [] }
+    })
+  }
+
+  getBlogsDetails() {
+    let url = `sericulture/api/Blogs/get-blogs-details?SeacrhText=&PageNo=1&PageSize=10&lan=en`;
+    this.apiService.setHttp('GET', url, false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        res.statusCode == 200 ? this.blogDetails = res.responseData.responseData1.slice(0, 4) : this.blogDetails = [];
+      },
+      error: () => { this.blogDetails = [] }
+    })
+  }
+
+  redTo(data: any) {
+    this.router.navigate(['blog-details'], { queryParams: { id: this.encryptDecryptService.encrypt(data.id.toString()) } });
+  }
 }
