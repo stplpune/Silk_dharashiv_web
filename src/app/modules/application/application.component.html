@@ -5,18 +5,18 @@
             <div class="text-main">{{'manrega.manrega'| translate}}</div>
             <div class="d-flex gap-2">
 
-              <!-- <button mat-flat-button class="btn-main" [routerLink]="['/create-manarega-app']">
+              <button mat-flat-button class="btn-main" [routerLink]="['/create-manarega-app']">
                 <mat-icon class="material-symbols-rounded">
                   add
                 </mat-icon>
                 {{'approvalProcess.Add_Manarega' | translate}}
-              </button> -->
-              <!-- <button mat-flat-button class="btn-main" [routerLink]="['/create-samgra-app']">
+              </button>
+              <button mat-flat-button class="btn-main" [routerLink]="['/create-samgra-app']">
                 <mat-icon class="material-symbols-rounded">
                   add
                 </mat-icon>
                 Add Samgra
-              </button> -->
+              </button>
               <ng-container *ngIf="spliteUrlData.length">
                 <button mat-flat-button class="btn-main-light" (click)="common.locationBack()">
                   <mat-icon class="material-symbols-rounded">
