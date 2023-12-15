@@ -6,7 +6,7 @@
       <form [formGroup]="statusForm">
       <div class="row gy-2">
         <div class="col-sm-2">
-          <div class="text-center">
+          <div class="text-center crc-profile-img">
             <img [src]="tableDataArray?.profileImagePath ? tableDataArray?.profileImagePath :  'assets/images/user.png'" alt="" class="img-fluid">
             <h6 class="form-data">{{lang == 'en' ? tableDataArray?.crcName :  tableDataArray?.m_CRCName || '-'}}</h6>
             <p class="bg-success-subtle text-success p-2 rounded-2"> {{lang == 'en' ? tableDataArray?.status : tableDataArray?.m_Status || '-'}}</p>
@@ -17,13 +17,13 @@
           <div class="row gx-2 gy-2 ">
             <div class="col-sm-6">
               <div class="row gx-2">
-                <div class="col-sm-auto form-label">{{lang == 'en' ? 'Registration No': 'नोंदणी क्रमांक '}}</div>
+                <div class="col-sm-4 form-label">{{lang == 'en' ? 'Registration No': 'नोंदणी क्रमांक '}}</div>
                 <div class="col-sm form-data"> : &nbsp; {{ tableDataArray?.crcRegNo || '-'}}</div>
               </div>
             </div>
-            <div class="col-sm-6">
-              <div class="row justify-content-end">
-                <div class="col-sm-2 form-label">{{lang == 'en' ? 'Certificate': 'प्रमाणपत्र '}}</div>
+            <div class="col-sm-6 ">
+              <div class="row align-items-center float-end">
+                <div class="col-sm-auto form-label">{{lang == 'en' ? 'Certificate': 'प्रमाणपत्र '}}</div>
                 <div class="col-sm">
                   <mat-icon class="material-symbols-outlined" (click)="viewPdf()">
                     visibility
@@ -31,57 +31,58 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
               <div class="row gx-2">
-                <div class="col-sm-4 form-label">{{lang == 'en' ? 'State': 'राज्य'}}</div>
-                <div class="col-sm-8 form-data">: &nbsp; {{lang == 'en' ?  tableDataArray?.state :  tableDataArray?.m_State|| '-'}}</div>
+                <div class="col-sm-6 form-label">{{lang == 'en' ? 'State': 'राज्य'}}</div>
+                <div class="col-sm form-data">: &nbsp; {{lang == 'en' ?  tableDataArray?.state :  tableDataArray?.m_State|| '-'}}</div>
               </div>
             </div>
-            <div class="col-sm-3">
-              <div class="d-flex gap-2">
-                <div class="form-label"> {{lang == 'en' ? 'District': 'जिल्हा'}}</div>
-                <div class="form-data">:  &nbsp; {{lang == 'en' ?  tableDataArray?.district :  tableDataArray?.m_District|| '-'}}</div>
+            <div class="col-sm-4">
+              <div class="row gx-2 ">
+                <div class="col-sm-3 form-label"> {{lang == 'en' ? 'District': 'जिल्हा'}}</div>
+                <div class="col-sm-9 form-data">:  &nbsp; {{lang == 'en' ?  tableDataArray?.district :  tableDataArray?.m_District|| '-'}}</div>
               </div>
             </div>
-            <div class="col-sm-3">
-              <div class="d-flex gap-2">
-                <div class="form-label"> {{lang == 'en' ? 'Taluka': 'तालुका'}}</div>
-                <div class="form-data">:  &nbsp;   {{lang == 'en' ?  tableDataArray?.taluka :  tableDataArray?.m_Taluka|| '-'}}</div>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="d-flex gap-2">
-                <div class="form-label"> {{lang == 'en' ? 'Village': 'गाव'}}</div>
-                <div class="form-data">:  &nbsp;  {{lang == 'en' ?  tableDataArray?.village :  tableDataArray?.m_Village|| '-'}}</div>
-              </div>
-            </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
               <div class="row gx-2">
-                <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Pincode': 'पिन कोड'}}</div>
-                <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.pinCode || '-'}}</div>
+                <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Taluka': 'तालुका'}}</div>
+                <div class="col-sm-9 form-data">:  &nbsp;   {{lang == 'en' ?  tableDataArray?.taluka :  tableDataArray?.m_Taluka|| '-'}}</div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="row gx-2">
+                <div class="col-sm-6 form-label"> {{lang == 'en' ? 'Village': 'गाव'}}</div>
+                <div class="col-sm form-data">:  &nbsp;  {{lang == 'en' ?  tableDataArray?.village :  tableDataArray?.m_Village|| '-'}}</div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="row gx-2">
+                <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Pincode': 'पिन कोड'}}</div>
+                <div class="col-sm-9 form-data">:  &nbsp; {{tableDataArray?.pinCode || '-'}}</div>
               </div>
             </div>
             <div class="col-sm-12">
               <div class="row gx-2">
-                <div class="col-sm-1 form-label"> {{lang == 'en' ? 'Address': 'पत्ता'}}</div>
-                <div class="col-sm-11 form-data">:  &nbsp; {{lang == 'en' ?  tableDataArray?.address :  tableDataArray?.m_Address|| '-'}}</div>
+                <div class="col-sm-2 form-label"> {{lang == 'en' ? 'Address': 'पत्ता'}}</div>
+                <div class="col-sm-10 form-data">:  &nbsp; {{lang == 'en' ?  tableDataArray?.address :  tableDataArray?.m_Address|| '-'}}</div>
               </div>
             </div>
-
-          </div>
-          <div class="d-flex align-items-center justify-content-between w-100 mb-3">
-            <div class="d-flex gap-2">
-              <div class="form-label"> {{lang == 'en' ? 'Certificate Issue Date': 'प्रमाणपत्र जारी करण्याची तारीख'}}</div>
-              <div class="form-data">:  &nbsp; {{tableDataArray?.certificateIssueDate  | date:'dd-MM-yyyy' || '-'}}</div>
+            <div class="col-sm-6">
+              <div class="row gx-2">
+                <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Certificate Issue Date': 'प्रमाणपत्र जारी करण्याची तारीख'}}</div>
+                <div class="col-sm form-data">:  &nbsp; {{tableDataArray?.certificateIssueDate  | date:'dd-MM-yyyy' || '-'}}</div>
+              </div>
             </div>
-            <div class="d-flex gap-2">
-              <div class="form-label"> {{lang == 'en' ? 'Certificate Expiry Date': 'प्रमाणपत्र कालबाह्यता तारीख'}}</div>
-              <div class="form-data">:  &nbsp; {{tableDataArray?.certificateExpiryDate  | date:'dd-MM-yyyy' || '-'}}</div>
+            <div class="col-sm-6">
+              <div class="row gx-2">
+                <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Certificate Expiry Date': 'प्रमाणपत्र कालबाह्यता तारीख'}}</div>
+                <div class="col-sm form-data">:  &nbsp; {{tableDataArray?.certificateExpiryDate  | date:'dd-MM-yyyy' || '-'}}</div>
+              </div>
             </div>
           </div>
           <section>
             <h6 class="text-main border-bottom border-success border-opacity-50"> {{lang == 'en' ? 'CRC Owner Details': 'CRC मालक तपशील'}}</h6>
-            <div class="row gy-2 mb-3">
+            <div class="row gy-2 mb-3 gx-2">
               <div class="col-sm-12">
                 <div class="row gx-2 gy-2">
                   <div class="col-sm-1 form-label">{{lang == 'en' ? 'Owner Name': 'मालकाचे नाव'}}</div>
