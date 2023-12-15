@@ -63,42 +63,80 @@
                 </div>
             </div>
         </form>
-        <div class="row gx-2">
-            <div class="col-sm-2">
+        <div class="row gx-2 crc-list-img my-3">
+            <div class="col-sm-auto">
+              <div class="card card-body shadow">
                 <div class="d-flex gap-2">
-                    <div class="form-label text-primary">{{'crc.total_crc_center' | translate}}</div>
-                    <div class="form-data text-primary">: {{countObject?.totalCount}}</div>
+                  <img src="assets/images/dashboard-icons/applications.svg" alt="">
+                  <div class="d-flex flex-column gap-0">
+                    <h2 class="fw-bold text-primary mb-0"> {{countObject?.totalCount}}</h2>
+                    <div class="form-label text-primary mb-0">{{'crc.total_crc_center' | translate}}</div>
+                  </div>
                 </div>
+              </div>
+
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm">
+              <div class="card card-body shadow">
                 <div class="d-flex gap-2">
-                    <div class="form-label text-warning">{{'crc.Pending' | translate}}</div>
-                    <div class="form-data text-warning">: {{countObject?.pending}}</div>
+                  <img src="assets/images/dashboard-icons/applications.svg" alt="">
+                <div class="d-flex flex-column  gap-0">
+                  <h2 class="fw-bold text-warning mb-0">{{countObject?.pending}}</h2>
+                  <div class="form-label text-warning mb-0">{{'crc.Pending' | translate}}</div>
                 </div>
+              </div>
             </div>
-            <div class="col-sm-2">
-                <div class="d-flex gap-2">
-                    <div class="form-label text-success">{{'crc.active' | translate}}</div>
-                    <div class="form-data text-success">: {{countObject?.active}}</div>
-                </div>
+
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm">
+              <div class="card card-body shadow">
                 <div class="d-flex gap-2">
-                    <div class="form-label text-danger">{{'crc.expired' | translate}}</div>
-                    <div class="form-data text-danger">: {{countObject?.expired}}</div>
+                  <img src="assets/images/dashboard-icons/applications.svg" alt="">
+                  <div class="d-flex flex-column  gap-0">
+                    <h2 class="form-data text-success mb-0">{{countObject?.active}}</h2>
+                    <div class="form-label text-success mb-0">{{'crc.active' | translate}}</div>
                 </div>
+              </div>
             </div>
-            <div class="col-sm-2">
-                <div class="d-flex gap-2">
-                    <div class="form-label text-danger">{{'crc.deactive' | translate}}</div>
-                    <div class="form-data text-danger">: {{countObject?.blocked}}</div>
-                </div>
+
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm">
+              <div class="card card-body shadow">
+
                 <div class="d-flex gap-2">
-                    <div class="form-label text-secondary">{{'crc.rejected' | translate}}</div>
-                    <div class="form-data text-secondary">: {{countObject?.rejected}}</div>
+                  <img src="assets/images/dashboard-icons/applications.svg" alt="">
+                  <div class="d-flex flex-column  gap-0">
+                    <h2 class="fw-bold text-danger mb-0">{{countObject?.expired}}</h2>
+                    <div class="form-label text-danger mb-0">{{'crc.expired' | translate}}</div>
                 </div>
+              </div>
+            </div>
+
+            </div>
+            <div class="col-sm">
+              <div class="card card-body shadow">
+
+                <div class="d-flex gap-2">
+                  <img src="assets/images/dashboard-icons/applications.svg" alt="">
+                  <div class="d-flex flex-column  gap-0">
+                    <h2 class=" text-danger mb-0">{{countObject?.blocked}}</h2>
+                    <div class="form-label text-danger mb-0">{{'crc.deactive' | translate}}</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-sm">
+              <div class="card card-body shadow">
+                <div class="d-flex gap-2">
+                  <img src="assets/images/dashboard-icons/applications.svg" alt="">
+                  <div class="d-flex flex-column  gap-0">
+                    <h2 class="fw-bold text-secondary mb-0">{{countObject?.rejected}}</h2>
+                    <div class="form-label text-secondary mb-0">{{'crc.rejected' | translate}}</div>
+                </div>
+                </div>
+              </div>
+
             </div>
         </div>
         <div class="table-responsive scrollbar">
