@@ -673,8 +673,8 @@ export class CreateSamgraAppComponent {
       value == true ? (this.setValidation(setValArray, this.fIS), this.checkInternalInternalscheme()) : (this.clearValidation(setValArray, this.fIS), this.checkInternalInternalscheme(), this.clearValueRadioButton('isBenefit'));
     } else if (flag == 'AnyPlantedBefor') {
       if (value == true) {
-        this.fL['sm_CultivatedArea'].setValidators((Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)))
-        this.fL['sm_LandSurveyNo'].setValidators((Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.onlyNumbers)))
+        this.fL['sm_CultivatedArea'].setValidators([Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)])
+        this.fL['sm_LandSurveyNo'].setValidators([Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.onlyNumbers)])
         this.fL['sm_YearOfPlanting'].setValidators(Validators.required)
       } else if (value == false) {
         this.fL['sm_CultivatedArea'].clearValidators();

@@ -833,7 +833,37 @@
     "net_income_enter" : "कृपया निव्वळ उत्पन्न प्रविष्ट करा",
     "net_income_valid" :"कृपया वैध निव्वळ उत्पन्न प्रविष्ट करा",
     "income_per_acre_enter":"कृपया प्रति एकर निव्वळ उत्पन्न प्रविष्ट करा",
-    "income_per_acre_valid":"कृपया प्रति एकर वैध निव्वळ उत्पन्न प्रविष्ट करा"
+    "income_per_acre_valid":"कृपया प्रति एकर वैध निव्वळ उत्पन्न प्रविष्ट करा",
+
+
+    
+    "Plantation_years_select":"कृपया लागवड वर्ष निवडा",
+    "plant_maximum_10_digit_allowed": "कमाल 6 अंकांना परवानगी आहे",
+    "Cultivation_area_enter":"कृपया लागवड क्षेत्र प्रविष्ट करा",
+    "Cultivation_area_valid":"कृपया वैध लागवड क्षेत्र प्रविष्ट करा",
+    "Survey_No_enter":"कृपया सर्वेक्षण क्रमांक प्रविष्ट करा.",
+    "Survey_No_valid":"कृपया वैध सर्वेक्षण क्रमांक प्रविष्ट करा.",
+
+    "How_many_years_enter":"कृपया किती वर्षे प्रविष्ट करा",
+    "How_many_years_valid":"कृपया वैध किती वर्षे प्रविष्ट करा",
+    "How_many_years_maximum_10_digit_allowed": "कमाल 2 अंकांना अनुमती आहे",
+
+    "training_in_silk_industry_enter":"कृपया तुम्ही रेशीम उद्योगाचे प्रशिक्षण घेतले आहे का ते प्रविष्ट करा",
+    "training_maximum_10_digit_allowed": "कमाल 200 अंकांना अनुमती आहे",
+
+
+    "Scheme_Name_enter":"कृपया योजनेचे नाव प्रविष्ट करा",
+    "Scheme_Name_maximum_10_digit_allowed": "कमाल 100 अंकांना अनुमती आहे",
+    
+    "date_select":"कृपया तारीख निवडा",
+
+    "Total_Benefit_enter":"कृपया एकूण लाभाची रक्कम प्रविष्ट करा",
+    "Total_Benefit_valid":"कृपया वैध एकूण लाभ रक्कम प्रविष्ट करा",
+    "Total_Benefit_maximum_10_digit_allowed": "कमाल 10 अंकांना अनुमती आहे"
+
+
+
+
 
   },
   "farmerLogin":{

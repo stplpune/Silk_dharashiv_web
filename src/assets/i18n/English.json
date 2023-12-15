@@ -860,13 +860,13 @@
     "training_maximum_10_digit_allowed": "Maximun 200 digit allowed",
 
 
-    "Scheme_Name_enter":"Please enter Scheme Name",
+    "Scheme_Name_enter":"Please enter scheme Name",
     "Scheme_Name_maximum_10_digit_allowed": "Maximun 100 digit allowed",
     
     "date_select":"Please select Date",
 
-    "Total_Benefit_enter":"Total Benefit Amount (Rs.)",
-    "Total_Benefit_valid":"Total Benefit Amount (Rs.)",
+    "Total_Benefit_enter":"Please enter total Benefit Amount (Rs.)",
+    "Total_Benefit_valid":"Please enter valid total Benefit Amount (Rs.)",
     "Total_Benefit_maximum_10_digit_allowed": "Maximun 10 digit allowed"
 
 

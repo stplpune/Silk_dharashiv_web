@@ -429,6 +429,8 @@
                     <input matInput [matDatepicker]="picker1" formControlName="sm_YearOfPlanting" (click)="picker1.open()" readonly>
                     <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
+                    <mat-error
+                      *ngIf="fL['sm_YearOfPlanting'].hasError('required') ">{{'addSamgra.Plantation_years_select'|translate}}</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-sm-4">
@@ -437,6 +439,18 @@
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="sm_CultivatedArea" maxlength="6" 
                       (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
+
+                      <mat-error
+                      *ngIf="fL['sm_CultivatedArea'].hasError('required') ">{{'addSamgra.Cultivation_area_enter'|translate}}</mat-error>
+                    <mat-error *ngIf="fL['sm_CultivatedArea']?.errors">
+                      <span class="text-danger"
+                        *ngIf="fL['sm_CultivatedArea']?.hasError('maxLengthExceeded') || fL['sm_CultivatedArea']?.hasError('pattern')">
+                        {{fL['sm_CultivatedArea'].hasError('maxLengthExceeded') ?
+                        ('addSamgra.plant_maximum_10_digit_allowed'|translate) :
+                        ('addSamgra.Cultivation_area_valid'|translate)}}
+                      </span>
+                    </mat-error>
+
                     </mat-form-field>
                   </div>
                 </div>
@@ -446,6 +460,19 @@
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="sm_LandSurveyNo" maxlength="6"
                       (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+
+
+                      <mat-error
+                      *ngIf="fL['sm_CultivatedArea'].hasError('required') ">{{'addSamgra.Survey_No_enter'|translate}}</mat-error>
+                    <mat-error *ngIf="fL['sm_CultivatedArea']?.errors">
+                      <span class="text-danger"
+                        *ngIf="fL['sm_CultivatedArea']?.hasError('maxLengthExceeded') || fL['sm_CultivatedArea']?.hasError('pattern')">
+                        {{fL['sm_CultivatedArea'].hasError('maxLengthExceeded') ?
+                        ('addSamgra.plant_maximum_10_digit_allowed'|translate) :
+                        ('addSamgra.Survey_No_valid'|translate)}}
+                      </span>
+                    </mat-error>
+
                     </mat-form-field>
                   </div>
                 </div>
@@ -578,7 +605,7 @@
                       <mat-error *ngIf="fL['sm_PlantationSurveyNo']?.errors">
                         <span class="text-danger"
                           *ngIf="fL['sm_PlantationSurveyNo']?.hasError('maxLengthExceeded') || fL['sm_PlantationSurveyNo']?.hasError('pattern')">
-                          {{fL['benificiaryTotalFarm'].hasError('maxLengthExceeded') ?
+                          {{fL['sm_PlantationSurveyNo'].hasError('maxLengthExceeded') ?
                           ('addSamgra.Plantation_land_Survey_No_maximum_12_digit_allowed'|translate) :
                           ('addSamgra.please_enter_valid_Plantation_land_Survey_No'|translate)}}
                         </span>
@@ -625,6 +652,18 @@
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="sm_ExperienceYears">
+
+                    <mat-error
+                    *ngIf="fL['sm_ExperienceYears'].hasError('required') ">{{'addSamgra.How_many_years_enter'|translate}}</mat-error>
+                  <mat-error *ngIf="fL['sm_ExperienceYears']?.errors">
+                    <span class="text-danger"
+                      *ngIf="fL['sm_ExperienceYears']?.hasError('maxLengthExceeded') || fL['sm_ExperienceYears']?.hasError('pattern')">
+                      {{fL['sm_ExperienceYears'].hasError('maxLengthExceeded') ?
+                      ('addSamgra.How_many_years_maximum_10_digit_allowed'|translate) :
+                      ('addSamgra.How_many_years_valid'|translate)}}
+                    </span>
+                  </mat-error>
+
                   </mat-form-field>
                 </div>
               </div>
@@ -643,6 +682,17 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <textarea matInput placeholder="" rows="3"
                     formControlName="sm_SilkIndustrtyTrainingDetails"></textarea>
+
+                    <mat-error
+                    *ngIf="fL['sm_SilkIndustrtyTrainingDetails'].hasError('required') ">{{'addSamgra.training_in_silk_industry_enter'|translate}}</mat-error>
+                  <mat-error *ngIf="fL['sm_SilkIndustrtyTrainingDetails']?.errors">
+                    <span class="text-danger"
+                      *ngIf="fL['sm_SilkIndustrtyTrainingDetails']?.hasError('maxLengthExceeded') ">
+                      {{fL['sm_SilkIndustrtyTrainingDetails'].hasError('maxLengthExceeded') ?
+                      ('addSamgra.How_many_years_maximum_10_digit_allowed'|translate) :
+                      ''}}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
@@ -675,6 +725,19 @@
                     <mat-form-field appearance="outline" class="w-100">
                       <textarea matInput placeholder="" rows="3" formControlName="internalSchemeName"
                         (keypress)="validation.noFirstSpaceAllow($event)"></textarea>
+
+
+                        <mat-error
+                        *ngIf="fIS['internalSchemeName']?.hasError('required') ">{{'addSamgra.Scheme_Name_enter'|translate}}</mat-error>
+                      <!-- <mat-error *ngIf="fL['internalSchemeName']?.errors">
+                        <span class="text-danger"
+                          *ngIf="fL['internalSchemeName']?.hasError('maxLengthExceeded')">
+                          {{fL['internalSchemeName'].hasError('maxLengthExceeded') ?
+                          ('addSamgra.Scheme_Name_maximum_10_digit_allowed'|translate) :
+                          ''}}
+                        </span>
+                      </mat-error> -->
+
                     </mat-form-field>
                   </div>
                   <div class="col-sm-4">
@@ -684,13 +747,27 @@
                         (click)="datePicker.open()" readonly [max]="todayDate">
                       <mat-datepicker-toggle matIconSuffix [for]="datePicker"></mat-datepicker-toggle>
                       <mat-datepicker #datePicker></mat-datepicker>
+                      <mat-error
+                      *ngIf="fIS['schemeTakenDate']?.hasError('required') ">{{'addSamgra.date_select'|translate}}</mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-sm-4">
                     <mat-label class="form-label">{{'addSamgra.Total_Benefit_Amount' | translate}}</mat-label>
                     <mat-form-field appearance="outline" class="w-100">
-                      <textarea matInput placeholder="" rows="3" formControlName="totalBenefitTaken"
-                        (keypress)="validation.noFirstSpaceAllow($event)"></textarea>
+                      <input matInput placeholder="" rows="3" formControlName="totalBenefitTaken"
+                        (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+
+                        <mat-error
+                        *ngIf="fIS['totalBenefitTaken']?.hasError('required') ">{{'addSamgra.Total_Benefit_enter'|translate}}</mat-error>
+                      <!-- <mat-error *ngIf="fL['totalBenefitTaken']?.errors">
+                        <span class="text-danger"
+                          *ngIf="fL['totalBenefitTaken']?.hasError('maxLengthExceeded') || fL['totalBenefitTaken']?.hasError('pattern')">
+                          {{fL['totalBenefitTaken'].hasError('maxLengthExceeded') ?
+                          ('addSamgra.Total_Benefit_maximum_10_digit_allowed'|translate) :
+                          ('addSamgra.Total_Benefit_valid'|translate)}}
+                        </span>
+                      </mat-error> -->
+
                     </mat-form-field>
                   </div>
                   <div class="col-sm-auto">
