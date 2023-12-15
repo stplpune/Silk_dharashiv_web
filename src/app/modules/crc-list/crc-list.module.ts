@@ -19,7 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [
-        CRCListComponent
+        CRCListComponent,
     ],
     imports: [
         CommonModule,
