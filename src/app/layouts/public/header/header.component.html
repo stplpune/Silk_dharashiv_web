@@ -25,6 +25,9 @@
     </div>
   </div>
 </nav> -->
+<div class="top-bar">
+
+
 <div class="container border-bottom border-secondary-subtle">
   <div class="row align-items-center g-2" id="topbar">
     <div class="col-sm col">
@@ -52,6 +55,7 @@
     </div>
   </div>
 </div>
+</div>
 <nav class="navbar navbar-expand-lg" [ngClass]="isNavbarFixed?'fixed':'notfixed'" (scroll)="onScroll()">
   <div class="container">
     <a class="navbar-brand" routerLink="#">
@@ -78,14 +82,16 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" routerLink="#" routerLinkActive="active">About Us</a></li>
               <li><a class="dropdown-item" routerLink="#" routerLinkActive="active">Online Process</a></li>
+              <li><a class="dropdown-item" routerLink="#" routerLinkActive="active">Silk Business</a></li>
+              <li><a class="dropdown-item" routerLink="#" routerLinkActive="active">Schemes & Programs</a></li>
             </ul>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" routerLink="#" routerLinkActive="active">Silk Business</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="#" routerLinkActive="active">Schemes & Programs</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" routerLink="#" routerLinkActive="active">Success Stories</a>
           </li>
