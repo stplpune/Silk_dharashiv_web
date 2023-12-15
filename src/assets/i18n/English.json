@@ -130,6 +130,7 @@
     "sixmaxLength": "Maximum 6 digits allowed",
     "village_committee": "Village Committee (grampanchyat)",
     "beneficiary_category": "please_select_category",
+    "beneficiary_category_view":"Beneficiary Category",
     "beneficiary_category_options":"Beneficiary Category (Selected Options)",
     "land_details": "Land Details",
     "total_land_in_hectares_in_favor_of_beneciaries": "Total Land in Hectares (up to 2.0 hectares) in favor of beneficiaries(as per 8-A)",
