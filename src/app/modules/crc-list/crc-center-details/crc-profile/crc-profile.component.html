@@ -154,7 +154,7 @@
                   <div class="col-sm-4 form-data">:  &nbsp; {{tableDataArray?.chalkyCapacity || '-'}}</div>
                 </div>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-3">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>{{lang == 'en' ? 'Select Status ': 'स्थिती निवडा'}}</mat-label>
                   <mat-select formControlName="status" (selectionChange)="addValidation(statusForm.value.status)">
@@ -162,16 +162,16 @@
                 </mat-select>
                 </mat-form-field>
               </div>
-              <div class="col-sm-6" *ngIf="statusForm.value.status == 2">
+              <div class="col-sm-3" *ngIf="statusForm.value.status == 2">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label> {{lang == 'en' ? 'Rearing Capacity': 'संगोपन क्षमता'}}</mat-label>
                   <input matInput placeholder="Rearing Capacity" formControlName="chalkyApprovedQty" maxlength="10"  (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
                 </mat-form-field>
               </div>
-              <div class="col-sm-6" *ngIf="statusForm.value.status == 5">
+              <div class="col-sm-9" *ngIf="statusForm.value.status == 5">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label> {{lang == 'en' ? 'Remark': 'शेरा'}}</mat-label>
-                  <input matInput placeholder="Remark" formControlName="reason" maxlength="100"  (keypress)="validator.noFirstSpaceAllow($event)">
+                  <textarea matInput placeholder="Remark" formControlName="reason" maxlength="100"  (keypress)="validator.noFirstSpaceAllow($event)"></textarea>
                 </mat-form-field>
               </div>
             </div>

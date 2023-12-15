@@ -293,7 +293,7 @@
                   (applicantDetails?.m_Address | dash)}}</div>
               </div>
             </div>
-            <div class="form-label">{{'approvalProcess.beneficiary_category'| translate}}</div>
+            <div class="form-label">{{'approvalProcess.beneficiary_category_view'| translate}}</div>
             <div class="form-data mb-0" *ngFor="let data of applicationData?.categoryofBenificiaryModel;let i=index">
               {{(i+1)+". "+(lang == 'en' ? data?.categoryOfBeneficiary : data?.m_CategoryOfBeneficiary)}}
             </div>
