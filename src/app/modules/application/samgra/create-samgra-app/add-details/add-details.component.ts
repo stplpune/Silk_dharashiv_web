@@ -42,7 +42,7 @@ export class AddDetailsComponent {
       "id": [this.data?.id || 0],
       "applicationId": [this.data?.applicationId || 0 ],
       "cropId": ['' || this.data?.cropId ,[Validators.required]],
-      "area": ['' || this.data?.area ,[Validators.required,Validators.maxLength(6),Validators.pattern(this.validation.onlyNumbers)]],
+      "area": ['' || this.data?.area ,[Validators.required,Validators.maxLength(6),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]],
       "totalProduction": ['' || this.data?.totalProduction,[Validators.required,Validators.maxLength(10),Validators.pattern(this.validation.onlyNumbers)]],
       "averageRate": ['' || this.data?.averageRate,[Validators.required,Validators.maxLength(10),Validators.pattern(this.validation.onlyNumbers)]],
       "totalProductionAmt": ['' || this.data?.totalProductionAmt,[Validators.required,Validators.maxLength(10),Validators.pattern(this.validation.onlyNumbers)]],
@@ -57,7 +57,7 @@ export class AddDetailsComponent {
     })
   }
 
-  get f(){return this.cropDetailsForm.controls}
+  get fL(){return this.cropDetailsForm.controls}
 
   getAllfarmsGood(){
     this.farmsGoodArray = [];

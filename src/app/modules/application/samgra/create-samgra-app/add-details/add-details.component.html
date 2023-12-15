@@ -7,11 +7,11 @@
     </button>
   </div>
 </div>
-<form [formGroup]="cropDetailsForm">
+<form [formGroup]="cropDetailsForm" (ngSubmit)="onSubmit()">
 <div mat-dialog-content class="modal-body form-container"> 
   <div class="row g-3">
     <div class="col-sm-4">
-      <div class="form-label">पीक निवडा</div>
+      <div class="form-label">{{'addSamgra.select_Crop_Name' | translate}}</div>
       <mat-form-field appearance="outline" class="w-100">
         <mat-select formControlName="cropId">
           <mat-option *ngFor="let farmsGood of farmsGoodArray" [value]="farmsGood.id">{{farmsGood.textEnglish}}</mat-option>
@@ -19,61 +19,150 @@
           <mat-option>मध्यम</mat-option>
           <mat-option>उच्च भूधारक</mat-option> -->
         </mat-select>
+        <mat-error *ngIf="fL['cropId'].hasError('required') ">{{'addSamgra.select_Crop_Name_valid'|translate}}</mat-error>
       </mat-form-field>
     </div>
     <div class="col-sm-4">
-      <div class="form-label">क्षेत्र एकर</div>
+      <div class="form-label">{{'addSamgra.Area' | translate}}</div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder=""  formControlName="area" maxlength="10"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
-        (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+        <input matInput placeholder=""  formControlName="area" maxlength="10"  
+        (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
+        <mat-error
+        *ngIf="fL['area'].hasError('required') ">{{'addSamgra.Area_crop'|translate}}</mat-error>
+      <mat-error *ngIf="fL['area']?.errors">
+        <span class="text-danger"
+          *ngIf="fL['area']?.hasError('maxLengthExceeded') || fL['area']?.hasError('pattern')">
+          {{fL['area'].hasError('maxLengthExceeded') ?
+          ('addSamgra.Area_maximum_12_digit_allowed'|translate) :
+          ('addSamgra.Area_crop_valid'|translate)}}
+        </span>
+      </mat-error>
       </mat-form-field>
     </div>
     <div class="col-sm-4">
-      <div class="form-label">झालेले उत्पादन ( क्विंटल ) </div>
+      <div class="form-label">{{'addSamgra.Crop_Production' | translate}} </div>
       <mat-form-field appearance="outline" class="w-100" >
         <input matInput placeholder="" formControlName="totalProduction"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
         maxlength="10"  (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+
+
+        <mat-error
+        *ngIf="fL['totalProduction'].hasError('required') ">{{'addSamgra.Crop_Production_enter'|translate}}</mat-error>
+      <mat-error *ngIf="fL['totalProduction']?.errors">
+        <span class="text-danger"
+          *ngIf="fL['totalProduction']?.hasError('maxLengthExceeded') || fL['totalProduction']?.hasError('pattern')">
+          {{fL['totalProduction'].hasError('maxLengthExceeded') ?
+          ('addSamgra.maximum_10_digit_allowed'|translate) :
+          ('addSamgra.Crop_Production_valid'|translate)}}
+        </span>
+      </mat-error>
+
       </mat-form-field>
     </div>
     <div class="col-sm-4">
-      <div class="form-label">मिळालेला सरासरी दर प्रती रु  </div>
+      <div class="form-label">{{'addSamgra.average_rate' | translate}} </div>
       <mat-form-field appearance="outline" class="w-100">
         <input matInput placeholder="" formControlName="averageRate"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
         maxlength="10"  (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+
+        <mat-error
+        *ngIf="fL['averageRate'].hasError('required') ">{{'addSamgra.average_rate_enter'|translate}}</mat-error>
+      <mat-error *ngIf="fL['averageRate']?.errors">
+        <span class="text-danger"
+          *ngIf="fL['averageRate']?.hasError('maxLengthExceeded') || fL['averageRate']?.hasError('pattern')">
+          {{fL['averageRate'].hasError('maxLengthExceeded') ?
+          ('addSamgra.maximum_10_digit_allowed'|translate) :
+          ('addSamgra.average_rate_valid'|translate)}}
+        </span>
+      </mat-error>
       </mat-form-field>
     </div>
     <div class="col-sm-4">
-      <div class="form-label">झालेला उत्पादन रु </div>
+      <div class="form-label">{{'addSamgra.Produced_Amount' | translate}}</div>
       <mat-form-field appearance="outline" class="w-100">
         <input matInput placeholder="" formControlName="totalProductionAmt"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
         maxlength="10"  (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+
+        <mat-error
+        *ngIf="fL['totalProductionAmt'].hasError('required') ">{{'addSamgra.Produced_Amount_enter'|translate}}</mat-error>
+      <mat-error *ngIf="fL['totalProductionAmt']?.errors">
+        <span class="text-danger"
+          *ngIf="fL['totalProductionAmt']?.hasError('maxLengthExceeded') || fL['totalProductionAmt']?.hasError('pattern')">
+          {{fL['totalProductionAmt'].hasError('maxLengthExceeded') ?
+          ('addSamgra.maximum_10_digit_allowed'|translate) :
+          ('addSamgra.Produced_Amount_valid'|translate)}}
+        </span>
+      </mat-error>
+
+
       </mat-form-field>
     </div>
     <div class="col-sm-4">
-      <div class="form-label">आलेला खर्च रु </div>
+      <div class="form-label">{{'addSamgra.expenditure_incurred' | translate}}</div>
       <mat-form-field appearance="outline" class="w-100">
         <input matInput placeholder="" formControlName="totalExpenses"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
         maxlength="10"  (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+
+        <mat-error
+        *ngIf="fL['totalExpenses'].hasError('required') ">{{'addSamgra.expenditure_incurred_enter'|translate}}</mat-error>
+      <mat-error *ngIf="fL['totalExpenses']?.errors">
+        <span class="text-danger"
+          *ngIf="fL['totalExpenses']?.hasError('maxLengthExceeded') || fL['totalExpenses']?.hasError('pattern')">
+          {{fL['totalExpenses'].hasError('maxLengthExceeded') ?
+          ('addSamgra.maximum_10_digit_allowed'|translate) :
+          ('addSamgra.expenditure_incurred_valid'|translate)}}
+        </span>
+      </mat-error>
+
+
+
       </mat-form-field>
     </div>
     <div class="col-sm-4">
-      <div class="form-label">झालेला निव्वळ उत्पन्न रु</div>
+      <div class="form-label">{{'addSamgra.net_income' | translate}}</div>
       <mat-form-field appearance="outline" class="w-100">
         <input matInput placeholder="" formControlName="netIncome"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
         maxlength="10"  (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+
+        
+        <mat-error
+        *ngIf="fL['netIncome'].hasError('required') ">{{'addSamgra.net_income_enter'|translate}}</mat-error>
+      <mat-error *ngIf="fL['netIncome']?.errors">
+        <span class="text-danger"
+          *ngIf="fL['netIncome']?.hasError('maxLengthExceeded') || fL['netIncome']?.hasError('pattern')">
+          {{fL['netIncome'].hasError('maxLengthExceeded') ?
+          ('addSamgra.maximum_10_digit_allowed'|translate) :
+          ('addSamgra.net_income_valid'|translate)}}
+        </span>
+      </mat-error>
+
       </mat-form-field>
     </div>
     <div class="col-sm-4">
-      <div class="form-label">प्रती एकर निव्वळ उत्पन्न रु</div>
+      <div class="form-label">{{'addSamgra.income_per_acre' | translate}}</div>
       <mat-form-field appearance="outline" class="w-100">
         <input matInput placeholder="" formControlName="acreNetIncome"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
         maxlength="10"  (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+
+
+           
+        <mat-error
+        *ngIf="fL['acreNetIncome'].hasError('required') ">{{'addSamgra.income_per_acre_enter'|translate}}</mat-error>
+      <mat-error *ngIf="fL['acreNetIncome']?.errors">
+        <span class="text-danger"
+          *ngIf="fL['acreNetIncome']?.hasError('maxLengthExceeded') || fL['acreNetIncome']?.hasError('pattern')">
+          {{fL['acreNetIncome'].hasError('maxLengthExceeded') ?
+          ('addSamgra.maximum_10_digit_allowed'|translate) :
+          ('addSamgra.income_per_acre_valid'|translate)}}
+        </span>
+      </mat-error>
+
       </mat-form-field>
     </div>
 
   </div>
 </div>
 <div mat-dialog-actions class="modal-footer float-end">
-    <button mat-flat-button class="btn-main" (click)="onSubmit()">Save</button>
+    <button mat-flat-button class="btn-main" type="submit" >{{'addSamgra.add' | translate}}</button>
 </div>
 </form>

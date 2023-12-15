@@ -806,7 +806,34 @@
 
     "back": "मागे जा",
     "next":"जतन करा आणि पुढे जा",
-    "submit":"प्रस्तुत करा"
+    "submit":"प्रस्तुत करा",
+    "add": "जतन करा",
+
+
+    "self_declaration" : "स्वयंघोशापत्र",
+    "Preview" : "पूर्वावलोकन",
+    "Individual_Information" : "वैयक्तिक माहिती",
+    "Agriculture_and_Fruit_Production" : "शेती आणि फळ उत्पादन",
+    "Add_currency" : "चलन जोडा",
+
+
+    "select_Crop_Name_valid": "कृपया पिकाचे नाव निवडा",
+    "Area_crop": "कृपया क्षेत्र (हेक्टर) प्रविष्ट करा",
+    "Area_crop_valid": "कृपया वैध क्षेत्र प्रविष्ट करा",
+    "Area_maximum_12_digit_allowed": "कमाल 6 अंकांना परवानगी आहे",
+    "maximum_10_digit_allowed": "कमाल 10 अंकांना अनुमती आहे",
+    "Crop_Production_enter": "कृपया पीक उत्पादन प्रविष्ट करा (क्विंटल)",
+    "Crop_Production_valid": "कृपया वैध पीक उत्पादन प्रविष्ट करा (क्विंटल)",
+    "Produced_Amount_enter" :"कृपया उत्पादित रक्कम प्रविष्ट करा",
+    "Produced_Amount_valid" :"कृपया वैध उत्पादित रक्कम प्रविष्ट करा",
+    "average_rate_enter" :"कृपया प्रति किलो मिळवलेला सरासरी दर प्रविष्ट करा",
+    "average_rate_valid" :"कृपया प्रति किलो मिळवलेला वैध सरासरी दर प्रविष्ट करा",
+    "expenditure_incurred_enter" : "कृपया केलेला खर्च प्रविष्ट करा",
+    "expenditure_incurred_valid" :"कृपया केलेला खर्च वैध प्रविष्ट करा",
+    "net_income_enter" : "कृपया निव्वळ उत्पन्न प्रविष्ट करा",
+    "net_income_valid" :"कृपया वैध निव्वळ उत्पन्न प्रविष्ट करा",
+    "income_per_acre_enter":"कृपया प्रति एकर निव्वळ उत्पन्न प्रविष्ट करा",
+    "income_per_acre_valid":"कृपया प्रति एकर वैध निव्वळ उत्पन्न प्रविष्ट करा"
 
   },
   "farmerLogin":{
