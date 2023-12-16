@@ -69,13 +69,11 @@ export class CrcProfileComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-    // this.id = this.route.url.split('=')[1];
-
     this.route.queryParams.subscribe((queryParams: any) => {
       this.routingData = queryParams['id'];
     });
    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
-   this.id = spliteUrl[0];
+   this.id = spliteUrl;   
     this.getFormData();
     this.getStatus();
     this.getTableDataById();
@@ -99,7 +97,7 @@ export class CrcProfileComponent {
       })
     })
   }
-  getTableDataById() {
+  getTableDataById() {    
     this.spinner.show();
     this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/get-crc-center-profile?Id='+this.id, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
@@ -176,5 +174,9 @@ export class CrcProfileComponent {
       "chalkyApprovedQty": [''],
       "reason": [''],
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 }
