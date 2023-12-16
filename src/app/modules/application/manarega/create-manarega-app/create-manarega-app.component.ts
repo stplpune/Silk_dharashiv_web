@@ -38,8 +38,8 @@ export class CreateManaregaAppComponent {
   lang: any;
   viewMsgFlag: boolean = false;//used for error msg show
   genderArray: any = [{ id: 1, name: 'Male', m_name: 'पुरुष' }, { id: 0, name: 'Female', m_name: 'स्त्री  ' }];
-  checkedArray: any = [{ id: true, name: 'Yes' }, { id: false, name: 'No' }];
-  selfTrainingArray: any = [{ id: true, name: 'Own' }, { id: false, name: 'Candidate' }];
+  checkedArray: any = [{ id: true, name: 'Yes',m_name : 'होय' }, { id: false, name: 'No' ,m_name : 'नाही'}];
+  selfTrainingArray: any = [{ id: true, name: 'Own',m_name :'स्वत:' }, { id: false, name: 'Candidate' ,m_name : 'उमेदवार'}];
   displayedColumns = ['srNo', 'plantName', 'gutNo', 'gutArea', 'cultivatedArea', 'cultivatedPlantsCount', 'actions'];
   plantDisplayedColumns = ['srNo', 'plantName', 'gutNo', 'gutArea', 'cultivatedArea', 'cultivatedPlantsCount'];
   qualificationArray = new Array();
