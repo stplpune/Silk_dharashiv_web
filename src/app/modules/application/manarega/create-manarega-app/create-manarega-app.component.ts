@@ -485,7 +485,7 @@ export class CreateManaregaAppComponent {
       else {
         let existedName = this.farmDetails.find((res: any) => res.plantName == data.plantName);
         if (existedName) {
-          this.commonMethod.snackBar("Plant Name Already exist", 1);
+          this.commonMethod.snackBar( (this.lang == 'en' ? "orchard/flower/tree Name Already exist" : 'फळबाग/फुलपिके/वृक्ष नाव आधीच अस्तित्वात आहे'), 1)
           return
         }
         else {
