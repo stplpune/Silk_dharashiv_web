@@ -12,26 +12,26 @@ import { CrcChawkiOrderDetailsComponent } from './crc-chawki-order-details/crc-c
 import { ChowkiOrderDetailsComponent } from './crc-chawki-order/chowki-order-details/chowki-order-details.component';
 import { MatButtonModule } from '@angular/material/button';
 import { GrainageOrderDetailsComponent } from './crc-grainage-order/grainage-order-details/grainage-order-details.component';
+import { GlobalTableComponent } from "../../../shared/components/global-table/global-table.component";
 
 
 @NgModule({
-  declarations: [
-    CrcCenterDetailsComponent,
-    ChowkiOrderDetailsComponent,
-    GrainageOrderDetailsComponent,
-  ],
-  imports: [
-    CommonModule,
-    CrcCenterDetailsRoutingModule,
-    MatTabsModule,
-    CrcProfileComponent,
-    CrcGrainageOrderComponent,
-    CrcDeliverySlabsComponent,
-    CrcChawkiOrderComponent,
-    CrcChawkiOrderDetailsComponent,
-    MatButtonModule,
-      
-
-  ]
+    declarations: [
+        CrcCenterDetailsComponent,
+        ChowkiOrderDetailsComponent,
+        GrainageOrderDetailsComponent,
+    ],
+    imports: [
+        CommonModule,
+        CrcCenterDetailsRoutingModule,
+        MatTabsModule,
+        CrcProfileComponent,
+        CrcGrainageOrderComponent,
+        CrcDeliverySlabsComponent,
+        CrcChawkiOrderComponent,
+        CrcChawkiOrderDetailsComponent,
+        MatButtonModule,
+        GlobalTableComponent
+    ]
 })
 export class CrcCenterDetailsModule { }

@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main fw-bold">Chowki Order Details</div>
+    <div class="text-main fw-bold">{{lang == 'en' ? 'Chowki Order Details' : 'चौकी ऑर्डर तपशील'}}</div>
     <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
       <span class="material-symbols-rounded">close</span>
     </button>
@@ -8,62 +8,62 @@
   </div>
 </div>
 <div mat-dialog-content class="modal-body form-container">
-  <h6 class="text-main border-bottom border-success border-opacity-50">Booking Details</h6>
+  <h6 class="text-main border-bottom border-success border-opacity-50">{{lang == 'en' ? 'Booking Details' : 'बुकिंग तपशील'}}</h6>
   <div class="row">
     <div class="col-sm-8">
       <div class="row gy-2">
         <div class="col-sm-12">
           <div class="row gx-2">
-            <div class="col-sm-2 form-label">Farmer Name</div>
-            <div class="col-sm-10 form-data">: Jayram Ramesh Tandale</div>
+            <div class="col-sm-2 form-label">Farmer Name </div> 
+            <div class="col-sm-10 form-data">: {{lang == 'en' ? tableDataArray?.name : tableDataArray?.m_Name || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">Mobile No</div>
-            <div class="col-sm-8 form-data">: 8669264767</div>
+            <div class="col-sm-4 form-label">Mobile No</div> 
+            <div class="col-sm-8 form-data">: {{tableDataArray?.mobNo1 || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">Delivery Slab</div>
-            <div class="col-sm-8 form-data">: 13 December 2023</div>
+            <div class="col-sm-4 form-label">Delivery Slab</div> 
+            <div class="col-sm-8 form-data">: {{tableDataArray?.deliverySlab || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">District </div>
-            <div class="col-sm-8 form-data">: Dharahsiv</div>
+            <div class="col-sm-4 form-label">District </div>   
+            <div class="col-sm-8 form-data">: {{lang == 'en' ? tableDataArray?.district : tableDataArray?.m_District || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">Taluka </div>
-            <div class="col-sm-8 form-data">: Dharahsiv</div>
+            <div class="col-sm-4 form-label">Taluka </div>  
+            <div class="col-sm-8 form-data">: {{lang == 'en' ? tableDataArray?.taluka : tableDataArray?.m_Taluka || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
             <div class="col-sm-4 form-label">Village </div>
-            <div class="col-sm-8 form-data">: Dharahsiv Nagar</div>
+            <div class="col-sm-8 form-data">: {{lang == 'en' ? tableDataArray?.village : tableDataArray?.m_Village || '-'}}</div>  
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">Pincode </div>
-            <div class="col-sm-8 form-data">: 411053</div>
+            <div class="col-sm-4 form-label">Pincode </div> 
+            <div class="col-sm-8 form-data">: {{tableDataArray?.pinCode || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-12">
           <div class="row gx-2">
-            <div class="col-sm-2 form-label">Address </div>
-            <div class="col-sm-10 form-data">: </div>
+            <div class="col-sm-2 form-label">Address </div>   
+            <div class="col-sm-10 form-data">: {{lang == 'en' ? tableDataArray?.address : tableDataArray?.m_Address || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-12">
           <div class="row gx-2">
-            <div class="col-sm-2 form-label">Payment Reciept </div>
-            <div class="col-sm-10 form-data">:
+            <div class="col-sm-2 form-label">Payment Reciept </div> 
+            <div class="col-sm-10 form-data" (click)="viewreceipt()">:
               <a href="">View</a>
             </div>
           </div>
@@ -78,7 +78,7 @@
               <div class="form-label">Order ID</div>
             </th>
             <th>
-              <div class="form-label">202362518495</div>
+              <div class="form-label">{{orderDataArray?.orderId || '-'}}</div>
             </th>
           </tr>
           <tr>
@@ -86,7 +86,7 @@
               <div class="form-label">Order Date</div>
             </th>
             <th>
-              <div class="form-data">13-12-2023</div>
+              <div class="form-data">{{orderDataArray?.orderDate | date:'dd-MM-yyyy' || '-'}}</div>
             </th>
           </tr>
           <tr>
@@ -94,7 +94,7 @@
               <div class="form-label">Product Name</div>
             </th>
             <th>
-              <div class="form-data">Chowki</div>
+              <div class="form-data">{{orderDataArray?.productName || '-'}}</div>
             </th>
           </tr>
           <tr>
@@ -102,7 +102,7 @@
               <div class="form-label">Quantity</div>
             </th>
             <th>
-              <div class="form-data">200</div>
+              <div class="form-data">{{orderDataArray?.quantity || '-'}}</div>
             </th>
           </tr>
           <tr>
@@ -110,7 +110,7 @@
               <div class="form-label">Rate (INR)</div>
             </th>
             <th>
-              <div class="form-data">2700.00</div>
+              <div class="form-data">{{orderDataArray?.rate || '-'}}</div>
             </th>
           </tr>
           <tr>
@@ -118,7 +118,7 @@
               <div class="form-label">Total Amount ( INR )</div>
             </th>
             <th>
-              <div class="form-data">2700.00</div>
+              <div class="form-data">{{orderDataArray?.totalAmount || '-'}}</div>
             </th>
           </tr>
         </thead>
@@ -139,7 +139,7 @@
   </div>
 </section>
 <div class="table-responsive scrollbar">
-  table
+  <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
 </div>
 
 </div>
