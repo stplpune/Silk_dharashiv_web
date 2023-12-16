@@ -198,7 +198,7 @@
                 <div class="form-label">6.{{'approvalProcess.applicant_qualification_Required'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="qualificationId">
-                    <mat-option *ngFor="let qua of qualificationArray" [value]="qua.id">{{lang != 'en' ? qua.textMarathi : qua.textEnglish}}</mat-option>
+                    <mat-option *ngFor="let qua of qualificationArray" [value]="qua.id">{{lang == 'en' ?  qua.textEnglish : qua.textMarathi}}</mat-option>
                   </mat-select>
                   <mat-error
                     *ngIf="f['qualificationId'].hasError('required') ">{{'approvalProcess.applicant_qualification_Required'|translate}}</mat-error>
@@ -515,11 +515,11 @@
 
                   <div class="row align-items-center">
                     <div class="col-sm-4">
-                      <div class="form-label">{{'approvalProcess.orchard_flower_tree'| translate}}</div>
+                      <div class="form-label">22.A.{{'approvalProcess.orchard_flower_tree'| translate}}</div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="plantName"
-                            (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumeric($event)">
+                            (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumericWithSpaces($event)">
                           <!-- <mat-error
                             *ngIf="farmDeatailsFrm.controls['plantName'].hasError('required') ">{{'approvalProcess.please_enter_orchard_flower_tree'|translate}}</mat-error> -->
                           <mat-error *ngIf="farmDeatailsFrm.controls['plantName']?.errors">
@@ -534,7 +534,7 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">{{'approvalProcess.group_no.'| translate}}</div>
+                      <div class="form-label">22.B.{{'approvalProcess.group_no.'| translate}}</div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="gutNo"
@@ -555,7 +555,7 @@
                     <!-- "fourmaxLength": "Maximum 4 digits allowed",
               "sixmaxLength": "Maximum 6 digits allowed", -->
                     <div class="col-sm-4">
-                      <div class="form-label">{{'approvalProcess.group_area'| translate}}</div>
+                      <div class="form-label">22.C.{{'approvalProcess.group_area'| translate}}</div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="gutArea"
@@ -574,7 +574,7 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">{{'approvalProcess.cultivated_area'| translate}}</div>
+                      <div class="form-label">22.D.{{'approvalProcess.cultivated_area'| translate}}</div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="cultivatedArea"
@@ -593,7 +593,7 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">{{'approvalProcess.number_of_trees_planted'| translate}}</div>
+                      <div class="form-label">22.E.{{'approvalProcess.number_of_trees_planted'| translate}}</div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="cultivatedPlantsCount"
@@ -696,7 +696,7 @@
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="candidateName"
-                        (keypress)="validation.noFirstSpaceAllow($event);validation.onlyAlphabetsWithSpace($event)">
+                        (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
                       <mat-error
                         *ngIf="farmInfoFrm.controls['candidateName'].hasError('required') ">{{'approvalProcess.please_enter_candidate_name'|translate}}</mat-error>
                       <mat-error *ngIf="farmInfoFrm.controls['candidateName']?.errors">
@@ -806,7 +806,7 @@
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-            <button mat-button  class="btn-main"  (click)="checkStepCon(stepper, 'bankInfo')">{{'addSamgra.back' | translate}}</button>
+            <button mat-button  class="btn-main"  (click)="checkStepCon(stepper, 'bankInfo')">{{'addSamgra.next' | translate}}</button>
           </div>
         </form>
       </mat-step>
@@ -978,7 +978,7 @@
                           <div class="file-upload border rounded-2 p-1">
                             <button type="button" mat-flat-button class="btn" id="fileupload-button"
                               data-toggle="tooltip" (click)="otherDocImage.value='';otherDocImage.click()">
-                              {{'approvalProcess.upload_document'|translate}}<span class="text-danger fs-6">*</span>
+                              {{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span class="text-danger fs-6">*</span>
                             </button>
                             <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
                               (change)="fileUpload($event,7,'otherDocuments')" #otherDocImage />
