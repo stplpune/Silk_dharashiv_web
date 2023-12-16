@@ -14,7 +14,7 @@ import { FileUploadService } from 'src/app/core/services/file-upload.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { DateAdapter } from '@angular/material/core';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 
@@ -91,8 +91,8 @@ export class CreateSamgraAppComponent {
   viewMsgFlag: boolean = false;
   samgraId: any;
   registionFeeUrl: string = "";
-  applicationId:any;
-  submitDate:any;
+  applicationId: any;
+  submitDate: any;
 
   @ViewChild('samgraDirective') private samgraDirective: NgForm | any;
   @ViewChild('landDetailsDirective') private landDetailsDirective: NgForm | any;
@@ -114,7 +114,7 @@ export class CreateSamgraAppComponent {
     public encryptdecrypt: AesencryptDecryptService,
     private activatedRoute: ActivatedRoute,
     private dateAdapter: DateAdapter<Date>,
-    private router: Router
+    // private router: Router
   ) {
     this.dateAdapter.setLocale('en-GB');
     let Id: any;
@@ -190,7 +190,7 @@ export class CreateSamgraAppComponent {
       "talukaId": [this.WebStorageService.getTalukaId() == '' ? '' : this.WebStorageService.getTalukaId(), [Validators.required]],
       "grampanchayatId": [this.WebStorageService.getGrampanchayatId() == '' ? '' : this.WebStorageService.getGrampanchayatId(), [Validators.required]],
       "village": [data?.village || '', [this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]],
-      "pinCode": [data?.pinCode || '', [Validators.required, this.validation.maxLengthValidator(6),Validators.pattern(this.validation.valPinCode)]],//numeric
+      "pinCode": [data?.pinCode || '', [Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],//numeric
       "sm_VoterRegistrationNo": [data?.sm_VoterRegistrationNo || '', this.validation.maxLengthValidator(50)],
       "address": [data?.address || '', [Validators.required, this.validation.maxLengthValidator(200)]],
       "sm_IsBelowPovertyLine": [data?.sm_IsBelowPovertyLine || false],
@@ -350,7 +350,8 @@ export class CreateSamgraAppComponent {
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
-          this.categoryArray = res.responseData.filter((ele: any) => { return ele.isRadioButton == 1 })        }
+          this.categoryArray = res.responseData.filter((ele: any) => { return ele.isRadioButton == 1 })
+        }
         else {
           this.categoryArray = [];
         }
@@ -440,6 +441,10 @@ export class CreateSamgraAppComponent {
   //#endregion------------------------------------------------- dropdown_End-------------------------------------------------------
   //#region -------------------------------------------------page submit method start heare--------------------------------------------------
   onSubmit(flag: any) {
+
+    console.log("checkOtherDocumentFlag", this.checkOtherDocumentFlag);
+    console.log("otherDocForm", this.otherDocForm.controls);
+
     let samgraFormValue = this.samgraForm.getRawValue();
     let landDetailsFormValue = this.landDetailsForm.getRawValue();
     let bankDetailsFormValue = this.bankDetailsForm.getRawValue();
@@ -567,10 +572,8 @@ export class CreateSamgraAppComponent {
           this.spinner.hide();
           if (res.statusCode == "200") {
             this.currentRecordId = res.responseData;
-            (res.responseData  && flag == 'addCurrency') ?   this.openDialog(res): '';
-            flag == 'addCurrency' ?  this.commonMethod.snackBar(res.statusMessage, 0) : '';
-            this.viewMsgFlag=false;
-            flag == 'addCurrency'? this.router.navigate(['../application']) : '';
+            (res.responseData && flag == 'addCurrency') ? this.openDialog(res) : '';
+            flag == 'addCurrency' ? this.commonMethod.snackBar(res.statusMessage, 0) : '';
             this.viewMsgFlag = false;
             flag == 'selfDeclaration' ? this.getPreviewData() : '';
           } else {
@@ -631,24 +634,24 @@ export class CreateSamgraAppComponent {
 
   clearValueRadioButton(flag?: any) {
     if (flag == 'ExperienceYears') {
-      this.fL['sm_ExperienceYears'].setValue('')
+      this.fL['sm_ExperienceYears'].setValue('');
     } else if (flag == 'SilkIndustrtyTrainingDetails') {
-      this.fL['sm_SilkIndustrtyTrainingDetails'].setValue('')
+      this.fL['sm_SilkIndustrtyTrainingDetails'].setValue('');
     } else if (flag == 'isBenefit') {
-      this.fIS['internalSchemeName'].setValue('')
-      this.fIS['schemeTakenDate'].setValue('')
-      this.fIS['totalBenefitTaken'].setValue('')
+      this.fIS['internalSchemeName'].setValue('');
+      this.fIS['schemeTakenDate'].setValue('');
+      this.fIS['totalBenefitTaken'].setValue('');
       this.internalSchemesArray = [];
       this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
     } else if (flag == 'AnyPlantedBefor') {
-      this.fL['sm_YearOfPlanting'].setValue('')
-      this.fL['sm_CultivatedArea'].setValue('')
-      this.fL['sm_LandSurveyNo'].setValue('')
+      this.fL['sm_YearOfPlanting'].setValue('');
+      this.fL['sm_CultivatedArea'].setValue('');
+      this.fL['sm_LandSurveyNo'].setValue('');
     } else if (flag == 'otherDoc') {
       this.viewMsgFlag = false;
       this.checkOtherDocumentFlag = true;
-      this.fdp['docname'].setValue('')
-      this.fdp['checkOtherDocumentTable'].setValue('')
+      this.fdp['docname'].setValue('');
+      this.fdp['checkOtherDocumentTable'].setValue('');
       this.otherDocArray = [];
       this.dataSource2 = new MatTableDataSource(this.otherDocArray);
     }
@@ -657,12 +660,12 @@ export class CreateSamgraAppComponent {
   radioEvent(value: any, flag: any) {
     let setValArray: any = [];
     if (flag == 'isExperience') {
-      if(value == true){
+      if (value == true) {
         this.fL['sm_ExperienceYears'].setValidators([Validators.required, this.validation.maxLengthValidator(2), Validators.pattern(this.validation.onlyNumbers)])
-      }else if(value == false){
+      } else if (value == false) {
         this.fL['sm_ExperienceYears'].clearValidators();
       }
-      this.fL['sm_ExperienceYears'].updateValueAndValidity()
+      this.fL['sm_ExperienceYears'].updateValueAndValidity();
 
       // setValArray = ['sm_ExperienceYears']
       // this.setValidation(setValArray, this.fL);
@@ -674,20 +677,18 @@ export class CreateSamgraAppComponent {
       this.clearValidation(setValArray, this.fL);
       value == true ? this.setValidation(setValArray, this.fL) : (this.clearValidation(setValArray, this.fL), this.clearValueRadioButton('SilkIndustrtyTrainingDetails'));
     } else if (flag == 'isBenefit') {
-      if(value == true){
+      if (value == true) {
         this.fIS['internalSchemeName'].setValidators([Validators.required, this.validation.maxLengthValidator(100)])
         this.fIS['schemeTakenDate'].setValidators([Validators.required])
         this.fIS['totalBenefitTaken'].setValidators([Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.onlyNumbers)])
-      }else if(value == false){
+      } else if (value == false) {
         this.fIS['internalSchemeName'].clearValidators();
         this.fIS['schemeTakenDate'].clearValidators();
-        this.fIS['totalBenefitTaken'].clearValidators()
+        this.fIS['totalBenefitTaken'].clearValidators();
       }
       this.fIS['internalSchemeName'].updateValueAndValidity();
       this.fIS['schemeTakenDate'].updateValueAndValidity();
-      this.fIS['totalBenefitTaken'].updateValueAndValidity()
-
-
+      this.fIS['totalBenefitTaken'].updateValueAndValidity();
 
 
       // setValArray = ['internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken']
@@ -703,11 +704,11 @@ export class CreateSamgraAppComponent {
         this.fL['sm_CultivatedArea'].clearValidators();
         this.fL['sm_LandSurveyNo'].clearValidators();
         this.fL['sm_YearOfPlanting'].clearValidators();
-        this.clearValueRadioButton('AnyPlantedBefor')
+        this.clearValueRadioButton('AnyPlantedBefor');
       }
       this.fL['sm_CultivatedArea'].updateValueAndValidity();
       this.fL['sm_LandSurveyNo'].updateValueAndValidity();
-      this.fL['sm_YearOfPlanting'].updateValueAndValidity()
+      this.fL['sm_YearOfPlanting'].updateValueAndValidity();
 
       // setValArray = ['sm_YearOfPlanting', 'sm_CultivatedArea', 'sm_LandSurveyNo']
       // this.setValidation(setValArray, this.fL);
@@ -717,7 +718,7 @@ export class CreateSamgraAppComponent {
       setValArray = ['docname', 'checkOtherDocumentTable']
       this.setValidation(setValArray, this.fdp);
       this.clearValidation(setValArray, this.fdp);
-      value == true ? (this.setValidation(setValArray, this.fdp),this.checkOtherDocumentFlag = false) : (this.clearValidation(setValArray, this.fdp), this.clearValueRadioButton('otherDoc'));
+      value == true ? (this.setValidation(setValArray, this.fdp), this.checkOtherDocumentFlag = false) : (this.clearValidation(setValArray, this.fdp), this.clearValueRadioButton('otherDoc'));
     }
   }
 
@@ -871,15 +872,12 @@ export class CreateSamgraAppComponent {
       this.DocumentDirective.resetForm();
       this.otherDocumentFormData();
     }
-
-
   }
 
 
   deleteOtherDoc(index: any) {
     this.otherDocArray[index].isDeleted = true
     this.otherDocArray.splice(index, 1)
-
     this.dataSource2 = new MatTableDataSource(this.otherDocArray);
     let setValArray = ['docname', 'checkOtherDocumentTable'];
     !this.otherDocArray.length ? (this.checkOtherDocumentFlag = false, this.setValidation(setValArray, this.fdp)) : '';
@@ -1010,21 +1008,25 @@ export class CreateSamgraAppComponent {
     window.print();
   }
 
-  openDialog(res?:any) {
+  openDialog(res?: any) {
     let dialoObj = {
-    header: this.lang == 'mr-IN' ? 'अभिनंदन ' : 'Congratulations',
-    title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .अर्ज क्रमांक  : '+ res.responseData1 + res.responseData2 :'Your application has been successfully submitted. Application no: '+ res.responseData1 + res.responseData2,
-    cancelButton: '',
-    okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
-    headerImage: 'assets/images/check.png'
+      header: this.lang == 'mr-IN' ? 'अभिनंदन ' : 'Congratulations',
+      title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .अर्ज क्रमांक  : ' + res.responseData1 + res.responseData2 : 'Your application has been successfully submitted. Application no: ' + res.responseData1 + res.responseData2,
+      cancelButton: '',
+      okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
+      headerImage: 'assets/images/check.png'
+    }
+    const dialogRef = this.dialog.open(GlobalDialogComponent, {
+      width: '320px',
+      data: dialoObj,
+      disableClose: true,
+      autoFocus: false
+    })
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log("result", result);
+      // flag == 'addCurrency' ? this.router.navigate(['../application']) : '';
+    });
   }
-  this.dialog.open(GlobalDialogComponent, {
-    width: '320px',
-    data: dialoObj,
-    disableClose: true,
-    autoFocus: false
-  })
-}
 }
 
 
