@@ -77,8 +77,13 @@ export class GeneratePdfComponent {
 
   ngOnInit() {
     this.routeData = this.route.snapshot.queryParamMap.get('id');
+    console.log(' this.routeData', this.routeData);
+    
     this.actionID= this.routeData.split('/')[1];
     this.applicationId=this.routeData.split('/')[0]; 
+    console.log('   this.actionID',   this.actionID);
+    console.log('this.applicationId',this.applicationId);
+    
     this.getEstimateData();
     this.getAnotherEstimateData();
     this.getEstimateSanctionData();
@@ -113,7 +118,9 @@ export class GeneratePdfComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-            this.sanctionArray=res.responseData;            
+            this.sanctionArray=res.responseData.responseData1;   
+            console.log('this.sanctionArray',this.sanctionArray);
+                     
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
