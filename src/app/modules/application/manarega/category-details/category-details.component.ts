@@ -5,7 +5,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
+import { Subscription } from 'rxjs';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 @Component({
   selector: 'app-category-details',
   standalone: true,
@@ -14,12 +16,19 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
   styleUrls: ['./category-details.component.scss']
 })
 export class CategoryDetailsComponent {
-
+  subscription!: Subscription;
+  lang: any;
   constructor(
     public commonMethod: CommonMethodsService,
+    private WebStorageService : WebStorageService,
     public dialogRef: MatDialogRef<CategoryDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
+  ) {
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+    })
+  }
 
 
   onOptionChange(event: any, i: number, label: string) {

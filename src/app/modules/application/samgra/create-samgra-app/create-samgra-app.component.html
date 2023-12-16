@@ -37,7 +37,7 @@
               </mat-icon>
             </button>
           </div>
-        </div> 
+        </div>
         </div>
     </form>
   </mat-card-content>
@@ -67,7 +67,7 @@
                       <mat-icon class="material-symbols-outlined">delete</mat-icon>
                     </button>
                   </div>
-                </div>                         
+                </div>
                 <mat-error *ngIf="viewMsgFlag && !profileImageUrl">{{lang == 'en' ? "Please Add Applicant Image" :
                   "कृपया
                   अर्जदाराची प्रतिमा जोडा"}} </mat-error>
@@ -77,7 +77,7 @@
                 <div class="row gy-2 gx-2 align-items-center ">
                   <div class="col-sm-6">
                     <div class="d-flex flex-column gap-2">
-                      <div class="form-label">{{'common.mobile'| translate}}</div>
+                      <div class="form-label">1.{{'common.mobile'| translate}}</div>
                       <!-- <div class="form-data">: 8669264767</div> -->
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="mobileNo1" maxlength="10"
@@ -93,12 +93,12 @@
                             </span>
                           </mat-error>
                       </mat-form-field>
-                    
+
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <div class="d-flex flex-column gap-2">
-                      <div class="form-label">{{'approvalProcess.aadhar_number'| translate}}</div>
+                      <div class="form-label">2.{{'approvalProcess.aadhar_number'| translate}}</div>
                       <!-- <div class="form-data">: 8669 2647 6774</div> -->
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="aadharNo" maxlength="12"
@@ -113,8 +113,8 @@
                               ('approvalProcess.please_enter_valid_aadhar_no'|translate)}}
                             </span>
                           </mat-error>
-                      </mat-form-field>                    
-                      
+                      </mat-form-field>
+
                     </div>
                   </div>
                   <!-- <div class="col-sm-12">
@@ -126,7 +126,7 @@
                   </div>
                 </div> -->
                   <div class="col-sm-12">
-                    <div class="form-label"> {{'addManrega.applicant_name'| translate}}</div>
+                    <div class="form-label">3.{{'addManrega.applicant_name'| translate}}</div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="fullName" maxlength="100"
@@ -156,7 +156,7 @@
             </div>
             <div class="row gx-2 align-items-center">
               <div class="col-sm-3">
-                <div class="form-label">{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
+                <div class="form-label">4.{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="mobileNo2" maxlength="10"
@@ -173,7 +173,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <mat-label class="form-label">{{'approvalProcess.date_of_birth'| translate}}</mat-label>
+                <mat-label class="form-label">5.{{'approvalProcess.date_of_birth'| translate}}</mat-label>
                 <mat-form-field appearance="outline" class="w-100">
                   <input matInput [matDatepicker]="picker" formControlName="birthDate" (click)="picker.open()" readonly
                     [max]="todayDate">
@@ -185,7 +185,7 @@
               </div>
               <div class="col-sm-3">
                 <div class="d-flex align-items-center gap-3">
-                  <mat-label class="form-label">{{'addManrega.select_gender'| translate}}</mat-label>
+                  <mat-label class="form-label">6.{{'addManrega.select_gender'| translate}}</mat-label>
                   <mat-radio-group aria-label="Select an option" formControlName="gender">
                     <mat-radio-button *ngFor="let gender of genderArray"
                       [value]="gender.id"> {{lang == 'en' ? gender.name : gender.m_name}}</mat-radio-button>
@@ -193,7 +193,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'addManrega.education'| translate}}</div>
+                <div class="form-label">7.{{'addManrega.education'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="qualificationId">
                     <mat-option *ngFor="let qualification of qualificationArray" [value]="qualification.id">{{lang !=
@@ -204,7 +204,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'common.State'| translate}}</div>
+                <div class="form-label">8.{{'common.State'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100"
                   [class]="WebStorageService.getStateId() ? f['stateId'].disable({ onlySelf: true }) : f['stateId'].enable({ onlySelf: true })">
                   <mat-select formControlName="stateId" (selectionChange)="getDisrict()">
@@ -214,7 +214,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'common.District'| translate}}</div>
+                <div class="form-label">9.{{'common.District'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100"
                 [class]="WebStorageService.getStateId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
                   <mat-select formControlName="districtId" (selectionChange)="getTaluka()">
@@ -225,7 +225,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'common.Taluka'| translate}}</div>
+                <div class="form-label">10.{{'common.Taluka'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="talukaId" (selectionChange)="getGrampanchayat('gramp')">
                     <mat-option>
@@ -241,7 +241,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'approvalProcess.village_committee'| translate}}</div>
+                <div class="form-label">11.{{'approvalProcess.village_committee'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="grampanchayatId">
                     <mat-option>
@@ -256,7 +256,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'common.Village'| translate}}</div>
+                <div class="form-label">12.{{'common.Village'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <input matInput placeholder="" formControlName="village"
                     (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
@@ -264,10 +264,10 @@
               </div>
 
               <div class="col-sm-3">
-                <div class="form-label">{{'common.pin_Code'| translate}}</div>
+                <div class="form-label">13.{{'common.pin_Code'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="pinCode" maxlength="6"   
+                    <input matInput placeholder="" formControlName="pinCode" maxlength="6"
                       (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                       <mat-error
                       *ngIf="f['pinCode'].hasError('required')">{{'marketRate.please_enter_pinCode'|translate}}</mat-error>
@@ -282,12 +282,12 @@
                 </div>
               </div>
               <div class="col-sm-6">
-                <div class="form-label">{{'approvalProcess.please_select_category'| translate}}</div>
+                <div class="form-label">14.{{'approvalProcess.please_select_category'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select (click)="categoryDialogBox()">
                   </mat-select>
                   <mat-error
-                    *ngIf="!checkedItems.length">{{'approvalProcess.please_select_category'|translate}} 
+                    *ngIf="!checkedItems.length">{{'approvalProcess.please_select_category'|translate}}
                   </mat-error>
                 </mat-form-field>
                 <div *ngIf="checkedItems.length">
@@ -298,7 +298,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'addSamgra.Election_Card_No' | translate}}</div>
+                <div class="form-label">15.{{'addSamgra.Election_Card_No' | translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="sm_VoterRegistrationNo" maxlength="50"
@@ -307,7 +307,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <mat-label>{{'common.address'| translate}}</mat-label>
+                <mat-label>16.{{'common.address'| translate}}</mat-label>
                 <mat-form-field appearance="outline" class="w-100">
                   <textarea matInput placeholder="" formControlName="address" maxlength="200"
                     (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)"></textarea>
@@ -322,7 +322,7 @@
               </div>
               <div class="col-sm-6">
                 <div class="d-flex align-items-center gap-3">
-                  <mat-label class="form-label">{{'addSamgra.below_the_poverty_line' | translate}}</mat-label>
+                  <mat-label class="form-label">17.{{'addSamgra.below_the_poverty_line' | translate}}</mat-label>
                   <mat-radio-group aria-label="Select an option" formControlName="sm_IsBelowPovertyLine">
                     <mat-radio-button *ngFor="let check of checkedArray" [value]="check.id"
                       class="pe-3">{{lang == 'en' ? check.name : check.m_name}}</mat-radio-button>
@@ -371,7 +371,7 @@
                       [value]="landTenure.id">{{lang != 'en' ? landTenure.textMarathi : landTenure.textEnglish}}</mat-option>
                   </mat-select>
                   <mat-error
-                  *ngIf="fL['sm_LandTenureCategories'].hasError('required') ">{{'addSamgra.Please_select_Landholding'|translate}}</mat-error>                    
+                  *ngIf="fL['sm_LandTenureCategories'].hasError('required') ">{{'addSamgra.Please_select_Landholding'|translate}}</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
@@ -437,7 +437,7 @@
                   <div class="form-label">{{'addSamgra.Cultivation_area' | translate}}</div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
-                      <input matInput placeholder="" formControlName="sm_CultivatedArea" maxlength="6" 
+                      <input matInput placeholder="" formControlName="sm_CultivatedArea" maxlength="6"
                       (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
 
                       <mat-error
@@ -651,7 +651,8 @@
                 <div class="form-label"> {{'addSamgra.How_many_years' | translate}} </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="sm_ExperienceYears">
+                    <input matInput placeholder="" formControlName="sm_ExperienceYears" maxlength="2"
+                    (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)" >
 
                     <mat-error
                     *ngIf="fL['sm_ExperienceYears'].hasError('required') ">{{'addSamgra.How_many_years_enter'|translate}}</mat-error>
@@ -706,7 +707,7 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="d-flex flex-column">  
+                <div class="d-flex flex-column">
                   <mat-label class="form-label">{{'addSamgra.benefited_from_any_scheme_under_Silk_Directorate_before_this' |
                     translate}}</mat-label>
                   <mat-radio-group aria-label="Select an option" formControlName="sm_IsTakenBenefitOfInternalScheme"
@@ -729,14 +730,14 @@
 
                         <mat-error
                         *ngIf="fIS['internalSchemeName']?.hasError('required') ">{{'addSamgra.Scheme_Name_enter'|translate}}</mat-error>
-                      <!-- <mat-error *ngIf="fL['internalSchemeName']?.errors">
+                   <mat-error *ngIf="fIS['internalSchemeName']?.errors">
                         <span class="text-danger"
-                          *ngIf="fL['internalSchemeName']?.hasError('maxLengthExceeded')">
-                          {{fL['internalSchemeName'].hasError('maxLengthExceeded') ?
+                          *ngIf="fIS['internalSchemeName']?.hasError('maxLengthExceeded')">
+                          {{fIS['internalSchemeName'].hasError('maxLengthExceeded') ?
                           ('addSamgra.Scheme_Name_maximum_10_digit_allowed'|translate) :
                           ''}}
                         </span>
-                      </mat-error> -->
+                      </mat-error>
 
                     </mat-form-field>
                   </div>
@@ -759,14 +760,14 @@
 
                         <mat-error
                         *ngIf="fIS['totalBenefitTaken']?.hasError('required') ">{{'addSamgra.Total_Benefit_enter'|translate}}</mat-error>
-                      <!-- <mat-error *ngIf="fL['totalBenefitTaken']?.errors">
+                      <mat-error *ngIf="fIS['totalBenefitTaken']?.errors">
                         <span class="text-danger"
-                          *ngIf="fL['totalBenefitTaken']?.hasError('maxLengthExceeded') || fL['totalBenefitTaken']?.hasError('pattern')">
-                          {{fL['totalBenefitTaken'].hasError('maxLengthExceeded') ?
+                          *ngIf="fIS['totalBenefitTaken']?.hasError('maxLengthExceeded') || fIS['totalBenefitTaken']?.hasError('pattern')">
+                          {{fIS['totalBenefitTaken'].hasError('maxLengthExceeded') ?
                           ('addSamgra.Total_Benefit_maximum_10_digit_allowed'|translate) :
                           ('addSamgra.Total_Benefit_valid'|translate)}}
                         </span>
-                      </mat-error> -->
+                      </mat-error>
 
                     </mat-form-field>
                   </div>
@@ -898,8 +899,8 @@
                 <div class="form-label">32.{{'approvalProcess.nationalise_bank_accountno'|translate}} </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="bankAccountNo" maxlength="30"
-                      (keypress)="validation.noFirstSpaceAllow($event)">
+                    <input matInput placeholder="" formControlName="bankAccountNo" maxlength="30" oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
+                      (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                     <mat-error
                       *ngIf="bL['bankAccountNo'].hasError('required') ">{{'approvalProcess.please_nationalise_bank_accountno'|translate}}</mat-error>
                     <mat-error *ngIf="bL['bankAccountNo']?.errors">
@@ -1127,7 +1128,7 @@
               </mat-error> -->
             </div>
             <div class="col-sm-4">
-              <button mat-flat-button class="btn-main-light" type="button" (click)="showOtherDoc = ! showOtherDoc;radioEvent(showOtherDoc,'otherDoc')">इतर
+              <button mat-flat-button class="btn-main-light" type="button" (click)="showOtherDoc = ! showOtherDoc;radioEvent(showOtherDoc,'otherDoc')">
                 {{'addSamgra.Upload_Other_document'|translate}}</button>
             </div>
             <ng-container *ngIf="showOtherDoc">
@@ -1328,7 +1329,7 @@
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>{{'addSamgra.Preview' | translate}}</ng-template>
-        <div class="myDivToPrint">        
+        <div class="myDivToPrint">
         <div class="container-fluid">
           <div class="form-data">{{'addSamgra.Individual_Information' | translate}}</div>
           <div class="row gx-2 mb-3">
@@ -1456,9 +1457,7 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'addSamgra.planted_under_the_government_scheme' |
                         translate}}</div>
-                      <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">:{{'approvalProcess.yes'|
-                        translate}}</span>
+                      <span class="form-data  rounded-pill">:{{ previewData?.isAnyPlantedBeforeGovScheme == true ? ('approvalProcess.yes'| translate) : ('approvalProcess.no'| translate) }}</span>
                     </li>
                     <ng-container *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">
                       <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -1549,7 +1548,7 @@
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label"> {{'addSamgra.Plantation_land_Survey_No' | translate}}</div>
-                      <span class="form-data  rounded-pill">:{{previewData?.sm_LandSurveyNo | dash}}</span>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_PlantationSurveyNo | dash}}</span>
                     </li>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -1564,40 +1563,33 @@
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'addSamgra.experience_in_silk_industry' | translate}}</div>
-                      <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.sm_IsExperienceSilkIndustry == true">:{{'approvalProcess.yes'|
-                        translate}}</span>
+                      <span class="form-data  rounded-pill">:{{ previewData?.sm_IsExperienceSilkIndustry == true ? ('approvalProcess.yes'| translate) : ('approvalProcess.no'| translate) }}</span>
                     </li>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label"> {{'addSamgra.experience_in_silk_industry' | translate}}</div>
-                      <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.sm_IsSilkIndustrtyTrainingReceived == true">:{{'approvalProcess.yes'|
-                        translate}}</span>
+                      <span class="form-data  rounded-pill">:{{ previewData?.sm_IsSilkIndustrtyTrainingReceived == true ? ('approvalProcess.yes'| translate) : ('approvalProcess.no'| translate) }}</span>
                     </li>
-
+                    <ng-container *ngIf="previewData?.sm_IsSilkIndustrtyTrainingReceived == true">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'addSamgra.training_in_silk_industry' | translate}} </div>
                       <span class="form-data  rounded-pill">:{{previewData?.sm_SilkIndustrtyTrainingDetails}}</span>
                     </li>
-
+                  </ng-container>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'addSamgra.silk_industry_farmer_and_taken_the_information' |
                         translate}}
                       </div>
-                      <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.sm_IsEngagedInSilkIndustry == true">:{{'approvalProcess.yes'|
-                        translate}}</span>
+                      <span class="form-data  rounded-pill">:{{ previewData?.sm_IsEngagedInSilkIndustry == true ? ('approvalProcess.yes'| translate) : ('approvalProcess.no'| translate) }}</span>
                     </li>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label"> {{'addSamgra.benefited_from_any_scheme_under_Silk_Directorate_before_this' |
                         translate}}</div>
                       <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.sm_IsTakenBenefitOfInternalScheme == true">:{{'approvalProcess.yes'|
-                        translate}}</span>
+                      >:{{ previewData?.sm_IsTakenBenefitOfInternalScheme == true ? ('approvalProcess.yes'| translate) : ('approvalProcess.no'| translate) }}</span>
                     </li>
-
+                  <ng-container  *ngIf="previewData?.sm_IsTakenBenefitOfInternalScheme == true">
                     <div class="table-responsive scrollbar">
                       <table mat-table [dataSource]="previewData?.internalSchemes" class="dashboard-table">
 
@@ -1629,7 +1621,7 @@
                         <span> {{lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'}}</span>
                       </div>
                     </div>
-
+                  </ng-container>
                   </ul>
                 </div>
               </div>
@@ -1746,7 +1738,7 @@
             <ul class="list-unstyled">
               <li>
                 <div class="d-flex align-items-center  gap-2">
-                  <mat-checkbox class="example-margin"
+                  <mat-checkbox class="example-margin"  disabled
                     [checked]="previewData?.sm_IsReadyToPlantNewMulberries == true"></mat-checkbox>
                   <p class="form-label mb-0">
                     {{'addSamgra.checkBox1'|translate}}
@@ -1755,7 +1747,7 @@
               </li>
               <li>
                 <div class="d-flex align-items-center  gap-2">
-                  <mat-checkbox class="example-margin"
+                  <mat-checkbox class="example-margin" disabled
                     [checked]="previewData?.sm_IsHonestlyProtectPlant == true"></mat-checkbox>
                   <p class="form-label mb-0">
                     {{'addSamgra.checkBox2'|translate}}
@@ -1764,7 +1756,7 @@
               </li>
               <li>
                 <div class="d-flex align-items-center  gap-2">
-                  <mat-checkbox class="example-margin"
+                  <mat-checkbox class="example-margin" disabled
                     [checked]="previewData?.sm_IsRequestForYourPriorConsent == true"></mat-checkbox>
                   <p class="form-label mb-0">
                     {{'addSamgra.checkBox3'|translate}}

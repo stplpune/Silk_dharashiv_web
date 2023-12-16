@@ -195,7 +195,7 @@ export class CreateSamgraAppComponent {
       "address": [data?.address || '', [Validators.required, this.validation.maxLengthValidator(200)]],
       "sm_IsBelowPovertyLine": [data?.sm_IsBelowPovertyLine || false],
       "profilePhotoPath": ['']
-      // category validation remaning 
+      // category validation remaning
     })
   }
 
@@ -350,8 +350,7 @@ export class CreateSamgraAppComponent {
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == "200") {
-          this.categoryArray = res.responseData.filter((ele: any) => { return ele.isRadioButton == 1 })
-        }
+          this.categoryArray = res.responseData.filter((ele: any) => { return ele.isRadioButton == 1 })        }
         else {
           this.categoryArray = [];
         }
@@ -439,7 +438,7 @@ export class CreateSamgraAppComponent {
     }
   }
   //#endregion------------------------------------------------- dropdown_End-------------------------------------------------------
-  //#region -------------------------------------------------page submit method start heare-------------------------------------------------- 
+  //#region -------------------------------------------------page submit method start heare--------------------------------------------------
   onSubmit(flag: any) {
     let samgraFormValue = this.samgraForm.getRawValue();
     let landDetailsFormValue = this.landDetailsForm.getRawValue();
@@ -463,7 +462,7 @@ export class CreateSamgraAppComponent {
     !landDetailsFormValue.farmTypeId ? landDetailsFormValue.farmTypeId = 0 : '';
     !landDetailsFormValue.irrigationFacilityId ? landDetailsFormValue.irrigationFacilityId = 0 : '';
     !landDetailsFormValue.sm_MulberryPlantingDistance ? landDetailsFormValue.sm_MulberryPlantingDistance = 0 : '';
-    !landDetailsFormValue.sm_YearOfPlanting ? landDetailsFormValue.sm_YearOfPlanting = new Date() : '';
+    !landDetailsFormValue.sm_YearOfPlanting ? landDetailsFormValue.sm_YearOfPlanting = null : '';
     !landDetailsFormValue.sm_CultivatedArea ? landDetailsFormValue.sm_CultivatedArea = 0 : '';
     !landDetailsFormValue.sm_ImprovedMulberryCast ? landDetailsFormValue.sm_ImprovedMulberryCast = 0 : '';
     !landDetailsFormValue.sm_IrrigationPeriod ? landDetailsFormValue.sm_IrrigationPeriod = 0 : '';
@@ -570,8 +569,8 @@ export class CreateSamgraAppComponent {
             this.currentRecordId = res.responseData;
             (res.responseData  && flag == 'addCurrency') ?   this.openDialog(res): '';
             flag == 'addCurrency' ?  this.commonMethod.snackBar(res.statusMessage, 0) : '';
-            this.viewMsgFlag=false; 
-            flag == 'addCurrency'? this.router.navigate(['../application']) : '';             
+            this.viewMsgFlag=false;
+            flag == 'addCurrency'? this.router.navigate(['../application']) : '';
             this.viewMsgFlag = false;
             flag == 'selfDeclaration' ? this.getPreviewData() : '';
           } else {
@@ -647,6 +646,7 @@ export class CreateSamgraAppComponent {
       this.fL['sm_LandSurveyNo'].setValue('')
     } else if (flag == 'otherDoc') {
       this.viewMsgFlag = false;
+      this.checkOtherDocumentFlag = true;
       this.fdp['docname'].setValue('')
       this.fdp['checkOtherDocumentTable'].setValue('')
       this.otherDocArray = [];
@@ -657,20 +657,43 @@ export class CreateSamgraAppComponent {
   radioEvent(value: any, flag: any) {
     let setValArray: any = [];
     if (flag == 'isExperience') {
-      setValArray = ['sm_ExperienceYears']
-      this.setValidation(setValArray, this.fL);
-      this.clearValidation(setValArray, this.fL);
-      value == true ? this.setValidation(setValArray, this.fL) : (this.clearValidation(setValArray, this.fL), this.clearValueRadioButton('ExperienceYears'));
+      if(value == true){
+        this.fL['sm_ExperienceYears'].setValidators([Validators.required, this.validation.maxLengthValidator(2), Validators.pattern(this.validation.onlyNumbers)])
+      }else if(value == false){
+        this.fL['sm_ExperienceYears'].clearValidators();
+      }
+      this.fL['sm_ExperienceYears'].updateValueAndValidity()
+
+      // setValArray = ['sm_ExperienceYears']
+      // this.setValidation(setValArray, this.fL);
+      // this.clearValidation(setValArray, this.fL);
+      // value == true ? this.setValidation(setValArray, this.fL) : (this.clearValidation(setValArray, this.fL), this.clearValueRadioButton('ExperienceYears'));
     } else if (flag == 'isTraining') {
       setValArray = ['sm_SilkIndustrtyTrainingDetails']
       this.setValidation(setValArray, this.fL);
       this.clearValidation(setValArray, this.fL);
       value == true ? this.setValidation(setValArray, this.fL) : (this.clearValidation(setValArray, this.fL), this.clearValueRadioButton('SilkIndustrtyTrainingDetails'));
     } else if (flag == 'isBenefit') {
-      setValArray = ['internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken']
-      this.setValidation(setValArray, this.fIS);
-      this.clearValidation(setValArray, this.fIS);
-      value == true ? (this.setValidation(setValArray, this.fIS), this.checkInternalInternalscheme()) : (this.clearValidation(setValArray, this.fIS), this.checkInternalInternalscheme(), this.clearValueRadioButton('isBenefit'));
+      if(value == true){
+        this.fIS['internalSchemeName'].setValidators([Validators.required, this.validation.maxLengthValidator(100)])
+        this.fIS['schemeTakenDate'].setValidators([Validators.required])
+        this.fIS['totalBenefitTaken'].setValidators([Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.onlyNumbers)])
+      }else if(value == false){
+        this.fIS['internalSchemeName'].clearValidators();
+        this.fIS['schemeTakenDate'].clearValidators();
+        this.fIS['totalBenefitTaken'].clearValidators()
+      }
+      this.fIS['internalSchemeName'].updateValueAndValidity();
+      this.fIS['schemeTakenDate'].updateValueAndValidity();
+      this.fIS['totalBenefitTaken'].updateValueAndValidity()
+
+
+
+
+      // setValArray = ['internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken']
+      // this.setValidation(setValArray, this.fIS);
+      // this.clearValidation(setValArray, this.fIS);
+      // value == true ? (this.setValidation(setValArray, this.fIS), this.checkInternalInternalscheme()) : (this.clearValidation(setValArray, this.fIS), this.checkInternalInternalscheme(), this.clearValueRadioButton('isBenefit'));
     } else if (flag == 'AnyPlantedBefor') {
       if (value == true) {
         this.fL['sm_CultivatedArea'].setValidators([Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)])
@@ -694,7 +717,7 @@ export class CreateSamgraAppComponent {
       setValArray = ['docname', 'checkOtherDocumentTable']
       this.setValidation(setValArray, this.fdp);
       this.clearValidation(setValArray, this.fdp);
-      value == true ? this.setValidation(setValArray, this.fdp) : (this.clearValidation(setValArray, this.fdp), this.clearValueRadioButton('otherDoc'));
+      value == true ? (this.setValidation(setValArray, this.fdp),this.checkOtherDocumentFlag = false) : (this.clearValidation(setValArray, this.fdp), this.clearValueRadioButton('otherDoc'));
     }
   }
 
@@ -848,6 +871,8 @@ export class CreateSamgraAppComponent {
       this.DocumentDirective.resetForm();
       this.otherDocumentFormData();
     }
+
+
   }
 
 
@@ -856,7 +881,9 @@ export class CreateSamgraAppComponent {
     this.otherDocArray.splice(index, 1)
 
     this.dataSource2 = new MatTableDataSource(this.otherDocArray);
-    !this.otherDocArray.length ? this.checkOtherDocumentFlag = false : '';
+    let setValArray = ['docname', 'checkOtherDocumentTable'];
+    !this.otherDocArray.length ? (this.checkOtherDocumentFlag = false, this.setValidation(setValArray, this.fdp)) : '';
+
   }
 
   deleteProfilePhoto(flag?: any) {
@@ -984,8 +1011,6 @@ export class CreateSamgraAppComponent {
   }
 
   openDialog(res?:any) {
-    console.log("  private router: Router,");
-    
     let dialoObj = {
     header: this.lang == 'mr-IN' ? 'अभिनंदन ' : 'Congratulations',
     title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .अर्ज क्रमांक  : '+ res.responseData1 + res.responseData2 :'Your application has been successfully submitted. Application no: '+ res.responseData1 + res.responseData2,

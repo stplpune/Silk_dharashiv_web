@@ -20,7 +20,14 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Delivery Slab</mat-label>
           <mat-select formControlName="deliveryslabId">
-          <mat-option >1</mat-option>
+          <!-- <mat-option *ngFor="let arr of slabArray" [value]="arr.id">{{lang == 'en' ? arr.textEnglish : arr.textMarathi}}</mat-option> -->
+          <mat-option>
+            <ngx-mat-select-search [formControl]="slabCtrl"
+              placeholderLabel="{{lang == 'en' ? 'Search Delivery Slab Name' : 'डिलिव्हरी स्लॅब नाव शोधा'}}"
+              noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let village of slabSubject | async" [value]="village.id">{{lang != 'en' ?
+            village.textMarathi : village.textEnglish}}</mat-option>
         </mat-select>
         </mat-form-field>
       </div>
@@ -57,6 +64,7 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Status</mat-label>
           <mat-select formControlName="statusId" >
+            <mat-option  [value]="0">{{lang == 'en' ? 'All Status' : 'सर्व स्थिती'}}</mat-option>
             <mat-option *ngFor="let arr of statusArray" [value]="arr.id">{{lang == 'en' ? arr.textEnglish : arr.textMarathi}}</mat-option>
         </mat-select>
         </mat-form-field>
