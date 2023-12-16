@@ -14,11 +14,12 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MasterService } from 'src/app/core/services/master.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 
 
 @Component({
@@ -49,13 +50,14 @@ export class CrcProfileComponent {
   statusForm!: FormGroup;
   editFlag: boolean = false;
   constructor
-    (
+    ( private route: ActivatedRoute,
       private apiService: ApiService,
       private spinner: NgxSpinnerService,
       private errorHandler: ErrorHandlingService,
       private commonMethod: CommonMethodsService,
       public WebStorageService: WebStorageService,
-      private route: Router,
+      public encryptdecrypt: AesencryptDecryptService,
+      // private router: Router,
       private masterService: MasterService,
       private fb: FormBuilder,
       public validator: ValidationService,
@@ -67,7 +69,13 @@ export class CrcProfileComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-    this.id = this.route.url.split('=')[1];
+    // this.id = this.route.url.split('=')[1];
+
+    this.route.queryParams.subscribe((queryParams: any) => {
+      this.routingData = queryParams['id'];
+    });
+   let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
+   this.id = spliteUrl[0];
     this.getFormData();
     this.getStatus();
     this.getTableDataById();
@@ -93,7 +101,7 @@ export class CrcProfileComponent {
   }
   getTableDataById() {
     this.spinner.show();
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/get-crc-center-profile?Id=' + this.id, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/get-crc-center-profile?Id='+this.id, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
