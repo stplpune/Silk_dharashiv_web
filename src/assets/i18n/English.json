@@ -117,6 +117,7 @@
     "file_upload":"File Upload"
   },
   "approvalProcess": {
+    "original_details":"Original Details",
     "track_application" : "Track Application",
     "start":"Start",
     "end" : "End",

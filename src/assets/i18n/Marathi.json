@@ -115,6 +115,7 @@
     "file_upload": "फाइल अपलोड"
   },
   "approvalProcess": {
+    "original_details":"मूळ तपशील",
     "track_application": "अर्ज स्थिती",
     "start": "प्रारंभ",
     "end": "शेवट",
