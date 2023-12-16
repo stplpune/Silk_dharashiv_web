@@ -1,5 +1,5 @@
-import { Component,ElementRef,ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup,NgForm,Validators } from '@angular/forms';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -23,10 +23,11 @@ import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decry
 })
 export class CreateManaregaAppComponent {
   manaregaFrm !: FormGroup;
+  manFrmSubmitFlag: boolean = false;
   farmInfoFrm !: FormGroup;
   farmDeatailsFrm !: FormGroup;
   bankInfoFrm !: FormGroup;
-  documentFrm !:FormGroup;
+  documentFrm !: FormGroup;
   otherDocumentFrm !: FormGroup;
   addRegistrationRecFrm !: FormGroup;
   filterFrm !: FormGroup;
@@ -34,11 +35,11 @@ export class CreateManaregaAppComponent {
   subscription!: Subscription;//used  for lang conv
   lang: any;
   viewMsgFlag: boolean = false;//used for error msg show
-  genderArray: any = [{ id: 1, name: 'Male',m_name : 'पुरुष' }, { id: 0, name: 'Female' ,m_name : 'स्त्री  '}]; 
-  checkedArray:any = [{id:true,name:'Yes'},{id:false,name:'No'}];
-  selfTrainingArray:any = [{id:true,name:'Own'},{id:false,name:'Candidate'}];
-  displayedColumns = ['srNo','plantName','gutNo','gutArea','cultivatedArea','cultivatedPlantsCount','actions'];
-  plantDisplayedColumns = ['srNo','plantName','gutNo','gutArea','cultivatedArea','cultivatedPlantsCount'];
+  genderArray: any = [{ id: 1, name: 'Male', m_name: 'पुरुष' }, { id: 0, name: 'Female', m_name: 'स्त्री  ' }];
+  checkedArray: any = [{ id: true, name: 'Yes' }, { id: false, name: 'No' }];
+  selfTrainingArray: any = [{ id: true, name: 'Own' }, { id: false, name: 'Candidate' }];
+  displayedColumns = ['srNo', 'plantName', 'gutNo', 'gutArea', 'cultivatedArea', 'cultivatedPlantsCount', 'actions'];
+  plantDisplayedColumns = ['srNo', 'plantName', 'gutNo', 'gutArea', 'cultivatedArea', 'cultivatedPlantsCount'];
   qualificationArray = new Array();
   departmentArray = new Array();
   stateArray = new Array();
@@ -57,32 +58,32 @@ export class CreateManaregaAppComponent {
   gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
   dialogFlag: boolean = false;
   demoArray: any;
-  checkedItems: any[]=[]; // Define an array to store checked items
+  checkedItems: any[] = []; // Define an array to store checked items
   maxDate = new Date();
   farmDetails = new Array();
-  index:any;
-  farmDeatailsEditObj:any
-  dataSource :any;
+  index: any;
+  farmDeatailsEditObj: any
+  dataSource: any;
   EditFlag: boolean = false;
-  filterDataRes:any // used for store filter data res
- @ViewChild('formDirective') private formDirective!: NgForm;
+  filterDataRes: any // used for store filter data res
+  @ViewChild('formDirective') private formDirective!: NgForm;
   //documnet form variable
   docUploadedPath: string = '';
-  docArray = [{id:0,docTypeId:12,docPath:'',docNo:'',docname:'Job Card'},{id:0,docTypeId:19,docPath:'',docNo:'',docname:'8A Form'},{id:0,docTypeId:18,docPath:'',docNo:'',docname:'7-Dec'},
-  {id:0,docTypeId:11,docPath:'',docNo:'',docname:'Nationalized Bank Passbook'}, {id:0,docTypeId:8,docPath:'',docNo:'',docname:'Registration Fee Receipt'}]
-  visible:boolean = false;
+  docArray = [{ id: 0, docTypeId: 12, docPath: '', docNo: '', docname: 'Job Card' }, { id: 0, docTypeId: 19, docPath: '', docNo: '', docname: '8A Form' }, { id: 0, docTypeId: 18, docPath: '', docNo: '', docname: '7-Dec' },
+  { id: 0, docTypeId: 11, docPath: '', docNo: '', docname: 'Nationalized Bank Passbook' }, { id: 0, docTypeId: 8, docPath: '', docNo: '', docname: 'Registration Fee Receipt' }]
+  visible: boolean = false;
   otherDocArray: any = new Array();
   @ViewChild('otherDocImage') OtherDocImg!: ElementRef;
-   OtherDocUploadImg = new Array(); 
+  OtherDocUploadImg = new Array();
   @ViewChild('formDirectivess') private otherformDirective!: NgForm;
-  documentdisplayedColumns:string[] = ['srNo', 'documentType', 'docNo', 'action'];
- //selfDeckaration form variable
+  documentdisplayedColumns: string[] = ['srNo', 'documentType', 'docNo', 'action'];
+  //selfDeckaration form variable
   selfDeclarationFrm !: FormGroup
   //preview form variable
-  previewData:any;
-  previewManarega :any;
+  previewData: any;
+  previewManarega: any;
   routingData: any;//used for get routing data
-  
+
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
     public WebStorageService: WebStorageService,
@@ -93,51 +94,51 @@ export class CreateManaregaAppComponent {
     private commonMethod: CommonMethodsService,
     public validation: ValidationService,
     private masterService: MasterService,
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private router: Router,
     public encryptdecrypt: AesencryptDecryptService,
   ) { }
 
   ngOnInit() {
-     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
     this.route.queryParams.subscribe((queryParams: any) => {
       this.routingData = queryParams['id'];
     });
-    this.routingData ?  this.getRouteParam() : '';
 
     this.addManaregaFrm();
     this.addFarmInfo();
     this.getFarmInfo();
     this.addBankInfo();
     this.addDocumentFrm();
-    this.filterDefaultFrm();  
+    this.filterDefaultFrm();
     this.addSelfDeclaration();
     this.addOtherDocument();
     this.addRegistrationFrm();
     this.commonDropdown();
-   // this.getPreviewData1('search'); // temp
-    }
+    this.routingData ? this.getRouteParam() : '';
+    this.getPreviewData1('search'); // temp
+  }
 
-    commonDropdown(){
-      this.getDepartment();
-      this.getQualification();
-      this.getState();
-      this.getCategory();
-      this.getFarmType();
-      this.getIrrigationFacility();
-      this.getCandidateRelation();
-      this.getBank();
-      this.searchDataZone();
-    }
+  commonDropdown() {
+    this.getDepartment();
+    this.getQualification();
+    this.getState();
+    this.getCategory();
+    this.getFarmType();
+    this.getIrrigationFacility();
+    this.getCandidateRelation();
+    this.getBank();
+    this.searchDataZone();
+  }
 
   getRouteParam() {
     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
     this.getPreviewData1('edit', spliteUrl[0]);
   }
-    
+
   filterDefaultFrm() {
     this.filterFrm = this.fb.group({
       mobileNo: [''],
@@ -145,84 +146,85 @@ export class CreateManaregaAppComponent {
     })
   }
 
-  clearForm(){
- this.addManaregaFrm();
-   this.addRegistrationFrm();this.addFarmInfo();
-   this.addDocumentFrm();this.addBankInfo();
-   this.getFarmInfo();this.filterDefaultFrm();  
-   this.addSelfDeclaration(); this.addOtherDocument();
-   this.otherDocArray = [];this.farmDetails = [];
-    this.checkedItems = []; this.previewData =[];
- }
-  
+  clearForm() {
+    this.addManaregaFrm();
+    this.addRegistrationFrm(); this.addFarmInfo();
+    this.addDocumentFrm(); this.addBankInfo();
+    this.getFarmInfo(); this.filterDefaultFrm();
+    this.addSelfDeclaration(); this.addOtherDocument();
+    this.otherDocArray = []; this.farmDetails = [];
+    this.checkedItems = []; this.previewData = [];
+  }
+
   //#region --------------form start here---------------------
-  addManaregaFrm(data?:any) {
+  addManaregaFrm(data?: any) {
     this.manaregaFrm = this.fb.group({
       "id": [data?.id || 0],
       "farmerId": [data?.farmerId || 10],
       "schemeTypeId": [1],
       "applicationNo": [data?.applicationNo || ''],
-      "mobileNo1": [data?.mobileNo1 || '',[Validators.required,this.validation.maxLengthValidator(10),Validators.pattern(this.validation.mobile_No)]],
-      "aadharNo": [data?.aadharNo || '',[Validators.required,this.validation.maxLengthValidator(12),Validators.pattern(this.validation.aadhar_card)]],
+      "mobileNo1": [data?.mobileNo1 || '', [Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
+      "aadharNo": [data?.aadharNo || '', [Validators.required, this.validation.maxLengthValidator(12), Validators.pattern(this.validation.aadhar_card)]],
       // "profilePhotoPath": ['',[Validators.required]],
-      "mn_DepartmentId": [data?.mn_DepartmentId || ''],
-      "fullName": [data?.fullName || '',[Validators.required,this.validation.minLengthValidator(5),this.validation.maxLengthValidator(100),Validators.pattern(this.validation.fullName)]],
-      "mobileNo2": [data?.mobileNo2 || '',[this.validation.maxLengthValidator(10),Validators.pattern(this.validation.mobile_No)]],
-      "birthDate": [data?.birthDate || '',[Validators.required]],
+      "mn_DepartmentId": [data?.mn_DepartmentId || '', [Validators.required]],
+      "fullName": [data?.fullName || '', [Validators.required, this.validation.minLengthValidator(5), this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
+      "mobileNo2": [data?.mobileNo2 || '', [this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
+      "birthDate": [data?.birthDate || '', [Validators.required]],
       "gender": [data?.genderId || 1],//no
-      "qualificationId": [data?.qualificationId ||'',[Validators.required]],//no
+      "qualificationId": [data?.qualificationId || '', [Validators.required]],//no
       "stateId": [data?.stateId || (this.WebStorageService.getStateId() == '' ? '' : this.WebStorageService.getStateId())],//no
-      "districtId": [data?.districtId || (this.WebStorageService.getDistrictId() == '' ? '': this.WebStorageService.getDistrictId())],//no
-      "talukaId": [data?.talukaId || (this.WebStorageService.getTalukaId() == '' ? '' : this.WebStorageService.getTalukaId()),[Validators.required]],//no
-      "grampanchayatId": [data?.grampanchayatId || (this.WebStorageService.getGrampanchayatId() == '' ? '' : this.WebStorageService.getGrampanchayatId()),[Validators.required]],//no
-      "village": [data?.village || '',[Validators.required]],
-      "address": [data?.address || '',[this.validation.maxLengthValidator(200),Validators.required]],//Mandetory Max:200, alphanumeric with special char
-      "pinCode": [data?.pinCode || '',[Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],//Mandetory  Max: 6 digit, numeric
-      "mn_JobCardNo": [data?.mn_JobCardNo || '',[Validators.required,this.validation.maxLengthValidator(30)] ],//Mandetory  Max: 30 alphanumeric with sepcial char
+      "districtId": [data?.districtId || (this.WebStorageService.getDistrictId() == '' ? '' : this.WebStorageService.getDistrictId())],//no
+      "talukaId": [data?.talukaId || (this.WebStorageService.getTalukaId() == '' ? '' : this.WebStorageService.getTalukaId()), [Validators.required]],//no
+      "grampanchayatId": [data?.grampanchayatId || (this.WebStorageService.getGrampanchayatId() == '' ? '' : this.WebStorageService.getGrampanchayatId()), [Validators.required]],//no
+      "village": [data?.village || '', [Validators.required]],
+      "address": [data?.address || '', [this.validation.maxLengthValidator(200), Validators.required]],//Mandetory Max:200, alphanumeric with special char
+      "pinCode": [data?.pinCode || '', [Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],//Mandetory  Max: 6 digit, numeric
+      "mn_JobCardNo": [data?.mn_JobCardNo || '', [Validators.required, this.validation.maxLengthValidator(30)]],//Mandetory  Max: 30 alphanumeric with sepcial char
       "categoryId": [''],//no, [Validators.required],
-      "profilePhotoPath":[data?.profilePhotoPath || '',[Validators.required]]
+      "profilePhotoPath": [data?.profilePhotoPath || '', [Validators.required]]
     })
   }
 
   addDocumentFrm() {
     this.documentFrm = this.fb.group({
-      'allRequiredDocument' : [ '',[Validators.required]]
+      'allRequiredDocument': ['', [Validators.required]]
     })
   }
 
   addRegistrationFrm() {
     this.addRegistrationRecFrm = this.fb.group({
-      'registrationDocument' : [ '',[Validators.required]]
+      'registrationDocument': ['', [Validators.required]]
     })
   }
 
-  addFarmInfo(data?:any){
+  addFarmInfo(data?: any) {
     this.farmInfoFrm = this.fb.group({
-      "benificiaryTotalFarm":[data?.benificiaryTotalFarm || '',[Validators.required,this.validation.maxLengthValidator(4),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]], //Mandetory  Hectory हेक्टर - Max: 4 digit, float  
-      "mulberryCultivatedSurveyNo": [data?.mulberryCultivatedSurveyNo || '',[Validators.required,this.validation.maxLengthValidator(6),Validators.pattern(this.validation.onlyNumbers)]],//Mandetory  Max: 6 digit, numeric
-      "cultivatedFarmInHector":[data?.cultivatedFarmInHector || '',[Validators.required,this.validation.maxLengthValidator(4),Validators.pattern(this.validation.onlyNumbers)]],//num  // Mandetory Hectory हेक्टर - Max: 4 digit, numeric
+      "benificiaryTotalFarm": [data?.benificiaryTotalFarm || '', [Validators.required, this.validation.maxLengthValidator(4), Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]], //Mandetory  Hectory हेक्टर - Max: 4 digit, float  
+      "mulberryCultivatedSurveyNo": [data?.mulberryCultivatedSurveyNo || '', [Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.onlyNumbers)]],//Mandetory  Max: 6 digit, numeric
+      "cultivatedFarmInHector": [data?.cultivatedFarmInHector || '', [Validators.required, this.validation.maxLengthValidator(4), Validators.pattern(this.validation.onlyNumbers)]],//num  // Mandetory Hectory हेक्टर - Max: 4 digit, numeric
       "isJointAccHolder": [data?.isJointAccHolder || false],//true //Default - No
       "applicantFarmSurveyNo": [data?.applicantFarmSurveyNo || ''],//19 A Mandetory 4 digit, numeric
       "applicantFarmArea": [data?.applicantFarmArea || ''],//num   19 B Mandetory Hectory हेक्टर - Max: 4 digit, float
-      "farmTypeId":[data?.farmTypeId || '',[Validators.required]],//num Mandetory
-    "irrigationFacilityId":[data?.irrigationFacilityId || '',[Validators.required]],//num Mandetory
-    "isAnyPlantedBeforeGovScheme": [data?.isAnyPlantedBeforeGovScheme || false],//true  //Default - No
-    "isSelfTraining":[data?.isSelfTraining || false],//true //Default - Own   Own स्वतः Candidate उमेदवार
-    "candidateName":[data?.candidateName || ''],//Mandetory  Max: 50, Alphabetic 
-    "candidateRelationId": [data?.candidateRelationId ||''],//num  Mandetory
-    })
-  }
-  
-  addBankInfo(data?:any){
-    this.bankInfoFrm = this.fb.group({
-      "bankId": [data?.bankId || '',[Validators.required]],//num
-      "bankBranchId": [data?.bankBranchId || '',[Validators.required]],//num
-      "bankIFSCCode": [data?.bankIFSCCode || '',[Validators.required,this.validation.maxLengthValidator(11),Validators.pattern(this.validation.bankIFSCCodeVal)]],
-      "bankAccountNo": [data?.bankAccountNo || '',[Validators.required,this.validation.maxLengthValidator(30),Validators.pattern(this.validation.onlyNumbers)]]
+      "farmTypeId": [data?.farmTypeId || '', [Validators.required]],//num Mandetory
+      "irrigationFacilityId": [data?.irrigationFacilityId || '', [Validators.required]],//num Mandetory
+      "isAnyPlantedBeforeGovScheme": [data?.isAnyPlantedBeforeGovScheme || false],//true  //Default - No
+      "isAnyPlantedBeforeGovSchemeArray": [''],
+      "isSelfTraining": [data?.isSelfTraining || false],//true //Default - Own   Own स्वतः Candidate उमेदवार
+      "candidateName": [data?.candidateName || ''],//Mandetory  Max: 50, Alphabetic 
+      "candidateRelationId": [data?.candidateRelationId || ''],//num  Mandetory
     })
   }
 
-  addOtherDocument(){
+  addBankInfo(data?: any) {
+    this.bankInfoFrm = this.fb.group({
+      "bankId": [data?.bankId || '', [Validators.required]],//num
+      "bankBranchId": [data?.bankBranchId || '', [Validators.required]],//num
+      "bankIFSCCode": [data?.bankIFSCCode || '', [Validators.required, this.validation.maxLengthValidator(11), Validators.pattern(this.validation.bankIFSCCodeVal)]],
+      "bankAccountNo": [data?.bankAccountNo || '', [Validators.required, this.validation.maxLengthValidator(30), Validators.pattern(this.validation.onlyNumbers)]]
+    })
+  }
+
+  addOtherDocument() {
     this.otherDocumentFrm = this.fb.group({
       "id": [0],
       "docNo": [''],
@@ -231,70 +233,70 @@ export class CreateManaregaAppComponent {
     })
   }
 
-  addSelfDeclaration(res?:any){
+  addSelfDeclaration(res?: any) {
     this.selfDeclarationFrm = this.fb.group({
       "isHonestLabor": [res?.isHonestLabor || false],
-        "isSelfTransport": [ res?.isSelfTransport || false],
-        "isEligibleGettingInstallmentAmount":[res?.isEligibleGettingInstallmentAmount || false],
-        "isBoundByConditions":[res?.isBoundByConditions || false],
-        "isPayMoreThanLimitedAmt": [res?.isPayMoreThanLimitedAmt || false],
-        "isSignedOnLetter":[res?.isSignedOnLetter || false],
-        "isChangedAcceptable": [res?.isChangedAcceptable || false],
-        "isSchemeCorrectAsPerSatbara": [res?.isSchemeCorrectAsPerSatbara || false],
-        "isJointAccHolderTermAcceptable": [res?.isJointAccHolderTermAcceptable || false]
-      })
+      "isSelfTransport": [res?.isSelfTransport || false],
+      "isEligibleGettingInstallmentAmount": [res?.isEligibleGettingInstallmentAmount || false],
+      "isBoundByConditions": [res?.isBoundByConditions || false],
+      "isPayMoreThanLimitedAmt": [res?.isPayMoreThanLimitedAmt || false],
+      "isSignedOnLetter": [res?.isSignedOnLetter || false],
+      "isChangedAcceptable": [res?.isChangedAcceptable || false],
+      "isSchemeCorrectAsPerSatbara": [res?.isSchemeCorrectAsPerSatbara || false],
+      "isJointAccHolderTermAcceptable": [res?.isJointAccHolderTermAcceptable || false]
+    })
   }
 
   get f() {
     return this.manaregaFrm.controls
   }
-  
- //#endregion--------------------form end here------------------------------------------ 
-//#region  -----------------------------------------------------------doc upload section fn start heare-----------------------------------//
 
-    fileUpload(event: any, docId: any,lable:any) {
-    let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray,'docTypeId',docId);
-      this.spinner.show();
-      let type = 'jpg, jpeg, png, pdf'
-      this.fileUpl.uploadDocuments(event, 'ApplicationDocuments', type, '', '', this.lang).subscribe({
-        next: (res: any) => {
-          if (res.statusCode == 200) {
-            this.spinner.hide();
-            lable == 'documents' ? this.docArray[indexByDocId].docPath = res.responseData : lable == 'profilePhoto' ? this.manaregaFrm.controls['profilePhotoPath'].setValue(res.responseData) :
-            (this.otherDocumentFrm.controls['docPath'].setValue(res.responseData));//lable == 'otherDocuments'
-            // ,this.docArray[indexByDocId].docTypeId = 7
-          }
-             //this.commonMethod.snackBar(res.statusMessage, 0)
-          },
-        error: ((error: any) => {
+  //#endregion--------------------form end here------------------------------------------ 
+  //#region  -----------------------------------------------------------doc upload section fn start heare-----------------------------------//
+
+  fileUpload(event: any, docId: any, lable: any) {
+    let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray, 'docTypeId', docId);
+    this.spinner.show();
+    let type = lable == 'profilePhoto' ? 'jpg, jpeg, png' : 'jpg, jpeg, png, pdf';
+    this.fileUpl.uploadDocuments(event, 'ApplicationDocuments', type, '', '', this.lang).subscribe({
+      next: (res: any) => {
+        if (res.statusCode == 200) {
           this.spinner.hide();
-          this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
-        })
-        });
-      }
-    
-  
-    viewimages(obj: any) {
-      console.log(obj)
-      window.open(obj, '_blank')
-    }
-  
-    deleteDocument(docId: any) {
-      let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray,'docTypeId',docId);
-      this.docArray[indexByDocId]['docPath'] = '';
-    }
- //#endregion  --------------------------------------------------------doc upload section fn end here-----------------------------------//
-viewPreviewDocument(docId: any) {//preview document
-let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.previewData?.documents,'docId',docId);
-let obj= this.previewData?.documents[indexByDocId].documentPath;
-window.open(obj, '_blank')
-}
-getDocumentsWithDocId7() {  //preview other docment
-  return this.previewData?.documents.filter((doc:any) => doc.docId === 7);
-}
+          lable == 'documents' ? this.docArray[indexByDocId].docPath = res.responseData : lable == 'profilePhoto' ? this.manaregaFrm.controls['profilePhotoPath'].setValue(res.responseData) :
+            (this.otherDocumentFrm.controls['docPath'].setValue(res.responseData));//lable == 'otherDocuments'
+          // ,this.docArray[indexByDocId].docTypeId = 7
+        }
+        //this.commonMethod.snackBar(res.statusMessage, 0)
+      },
+      error: ((error: any) => {
+        this.spinner.hide();
+        this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
+      })
+    });
+  }
 
-//#region -----------------other document upload functionality start --------------------------------------------------
-     onOtherDocSubmit() {
+
+  viewimages(obj: any) {
+    window.open(obj, '_blank')
+  }
+
+  deleteDocument(docId: any) {
+    let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray, 'docTypeId', docId);
+    this.docArray[indexByDocId]['docPath'] = '';
+  }
+  //#endregion  --------------------------------------------------------doc upload section fn end here-----------------------------------//
+  viewPreviewDocument(docId: any) {//preview document
+    let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.previewData?.documents, 'docId', docId);
+    let obj = this.previewData?.documents[indexByDocId].documentPath;
+    window.open(obj, '_blank')
+  }
+  getDocumentsWithDocId7() {  //preview other docment
+    return this.previewData?.documents.filter((doc: any) => doc.docId === 7);
+  }
+
+  //#region -----------------other document upload functionality start --------------------------------------------------
+  onOtherDocSubmit() {
+    debugger;
     let uploadFrmValue = this.otherDocumentFrm.getRawValue();
     if (!uploadFrmValue?.docname) {
       this.commonMethod.snackBar('Document name is  required', 1);
@@ -309,24 +311,24 @@ getDocumentsWithDocId7() {  //preview other docment
     else {
       let obj = {
         "id": 0,
-        "applicationId":this.manaregaFrm.getRawValue()?.id || 0,//remove 0
-        "docTypeId":7,
-        "docNo":uploadFrmValue.docNo,
+        "applicationId": this.manaregaFrm.getRawValue()?.id || 0,//remove 0
+        "docTypeId": 7,
+        "docNo": uploadFrmValue.docNo,
         "docname": uploadFrmValue.docname,
         "docPath": uploadFrmValue.docPath,
-        "createdBy":this.WebStorageService.getUserId(),
-        "isDeleted":false
+        "createdBy": this.WebStorageService.getUserId(),
+        "isDeleted": false
       }
 
       if (!this.OtherDocUploadImg.length) {
         this.OtherDocUploadImg.push(obj);
         //this.commonMethod.snackBar((this.lang == 'en' ? "Document added successfully" : "दस्तऐवज यशस्वीरित्या जोडला गेला"), 0)
-       //reset form code remainingresetForm();
+        //reset form code remainingresetForm();
       }
-      else{
+      else {
         let existedName = this.OtherDocUploadImg.find((res: any) => res.docname == uploadFrmValue.docname);
-         if (existedName) {  this.commonMethod.snackBar((this.lang == 'en' ? "Document Name Already exist" : "दस्तऐवजाचे नाव आधीपासून अस्तित्वात आहे."), 1) ; return ; }
-         else {
+        if (existedName) { this.commonMethod.snackBar((this.lang == 'en' ? "Document Name Already exist" : "दस्तऐवजाचे नाव आधीपासून अस्तित्वात आहे."), 1); return; }
+        else {
           this.OtherDocUploadImg.push(obj);
         }
       }
@@ -334,104 +336,110 @@ getDocumentsWithDocId7() {  //preview other docment
       this.resetOtherDocForm();
     }
   }
-    deleteOtherDocument(){
-      this.OtherDocImg.nativeElement.value = '';
-      this.otherDocumentFrm.controls['docPath'].setValue('');
-    }
-resetOtherDocForm() {
+  deleteOtherDocument() {
+    this.OtherDocImg.nativeElement.value = '';
+    this.otherDocumentFrm.controls['docPath'].setValue('');
+  }
+  resetOtherDocForm() {
     this.otherformDirective.resetForm();
     this.OtherDocImg.nativeElement.value = "";
-}
-deleteTableOtherDocument(i: any,element:any) { //logic for delete table document
-    // this.OtherDocUploadImg.splice(i,1)
-    if (element.id == 0) {
-      this.OtherDocUploadImg.splice(i, 1)
-    } else {
-      this.OtherDocUploadImg[i].isDeleted = true;
-    }
-    this.otherDocArray = new MatTableDataSource( this.OtherDocUploadImg);
   }
-//#endregion  --------------------------------------------------------other doc upload section fn end here-----------------------------------//
-//#region -------------------------------on radio button click add remove validation fn start------------------------------------------------
- onClickAccountHolder(val: any) {
+
+  deleteTableOtherDocument(i: any, element: any) { //logic for delete table document
+    // this.OtherDocUploadImg.splice(i,1)
+    element.id == 0 ? this.OtherDocUploadImg.splice(i, 1) : this.OtherDocUploadImg[i].isDeleted = true;
+   let otherDoc: any = [];
+    this.OtherDocUploadImg.find((ele: any) => {
+      if (ele.isDeleted) {
+      } else {
+        otherDoc.push(ele);
+      }
+    })
+    this.otherDocArray = new MatTableDataSource(otherDoc);
+  }
+  //#endregion  --------------------------------------------------------other doc upload section fn end here-----------------------------------//
+  //#region -------------------------------on radio button click add remove validation fn start------------------------------------------------
+  onClickAccountHolder(val: any) {
     if (val == true) {
-      this.farmInfoFrm.controls['applicantFarmSurveyNo'].setValidators([Validators.required,this.validation.maxLengthValidator(4),Validators.pattern(this.validation.onlyNumbers)]);
-      this.farmInfoFrm.controls ['applicantFarmArea'].setValidators([Validators.required,this.validation.maxLengthValidator(4),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]);
+      this.farmInfoFrm.controls['applicantFarmSurveyNo'].setValidators([Validators.required, this.validation.maxLengthValidator(4), Validators.pattern(this.validation.onlyNumbers)]);
+      this.farmInfoFrm.controls['applicantFarmArea'].setValidators([Validators.required, this.validation.maxLengthValidator(4), Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]);
     } else {
       this.farmInfoFrm.controls['applicantFarmSurveyNo'].clearValidators();
       this.farmInfoFrm.controls['applicantFarmArea'].clearValidators();
-      }
+    }
     this.farmInfoFrm.controls['applicantFarmSurveyNo'].updateValueAndValidity();
-    this.farmInfoFrm.controls ['applicantFarmArea'].updateValueAndValidity();
-   }
+    this.farmInfoFrm.controls['applicantFarmArea'].updateValueAndValidity();
+  }
 
-   onClickPlantedBeforeGovScheme(val: any) {
-    if (val == true) {
-      this.farmDeatailsFrm.controls ['plantName'].setValidators([this.validation.maxLengthValidator(50),Validators.pattern(this.validation.alphaNumericWithSpace)]);
-      this.farmDeatailsFrm.controls['gutNo'].setValidators([this.validation.maxLengthValidator(6),Validators.pattern(this.validation.onlyNumbers)]);
-      this.farmDeatailsFrm.controls ['gutArea'].setValidators([this.validation.maxLengthValidator(6),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]);
-      this.farmDeatailsFrm.controls['cultivatedArea'].setValidators([this.validation.maxLengthValidator(10),Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]);
-      this.farmDeatailsFrm.controls ['cultivatedPlantsCount'].setValidators([this.validation.maxLengthValidator(6),Validators.pattern(this.validation.onlyNumbers)]);
+  onClickPlantedBeforeGovScheme(val: any) {
+    if (val) {
+      this.farmDeatailsFrm.controls['plantName'].setValidators([this.validation.maxLengthValidator(50), Validators.pattern(this.validation.alphaNumericWithSpace)]);
+      this.farmDeatailsFrm.controls['gutNo'].setValidators([this.validation.maxLengthValidator(6), Validators.pattern(this.validation.onlyNumbers)]);
+      this.farmDeatailsFrm.controls['gutArea'].setValidators([this.validation.maxLengthValidator(6), Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]);
+      this.farmDeatailsFrm.controls['cultivatedArea'].setValidators([this.validation.maxLengthValidator(10), Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]);
+      this.farmDeatailsFrm.controls['cultivatedPlantsCount'].setValidators([this.validation.maxLengthValidator(6), Validators.pattern(this.validation.onlyNumbers)]);
     } else {
-      this.farmDeatailsFrm.controls ['plantName'].clearValidators();
+      this.farmDeatailsFrm.controls['plantName'].clearValidators();
       this.farmDeatailsFrm.controls['gutNo'].clearValidators();
-      this.farmDeatailsFrm.controls ['gutArea'].clearValidators();
+      this.farmDeatailsFrm.controls['gutArea'].clearValidators();
       this.farmDeatailsFrm.controls['cultivatedArea'].clearValidators();
-      this.farmDeatailsFrm.controls ['cultivatedPlantsCount'].clearValidators();
-     }
-     this.farmDeatailsFrm.controls ['plantName'].updateValueAndValidity();
-     this.farmDeatailsFrm.controls['gutNo'].updateValueAndValidity();
-     this.farmDeatailsFrm.controls ['gutArea'].updateValueAndValidity();
-     this.farmDeatailsFrm.controls['cultivatedArea'].updateValueAndValidity();
-     this.farmDeatailsFrm.controls ['cultivatedPlantsCount'].updateValueAndValidity();
+      this.farmDeatailsFrm.controls['cultivatedPlantsCount'].clearValidators();
+      this.farmDetails = [];
+      this.dataSource = new MatTableDataSource(this.farmDetails);
+    }
+    this.farmDeatailsFrm.controls['plantName'].updateValueAndValidity();
+    this.farmDeatailsFrm.controls['gutNo'].updateValueAndValidity();
+    this.farmDeatailsFrm.controls['gutArea'].updateValueAndValidity();
+    this.farmDeatailsFrm.controls['cultivatedArea'].updateValueAndValidity();
+    this.farmDeatailsFrm.controls['cultivatedPlantsCount'].updateValueAndValidity();
   }
 
   onClickSelfTraining(val: any) {
     if (val == false) {
-      this.farmInfoFrm.controls['candidateName'].setValidators([Validators.required,this.validation.maxLengthValidator(50),Validators.pattern(this.validation.alphabetWithSpace)]);
-      this.farmInfoFrm.controls ['candidateRelationId'].setValidators([Validators.required]);
+      this.farmInfoFrm.controls['candidateName'].setValidators([Validators.required, this.validation.maxLengthValidator(50), Validators.pattern(this.validation.alphabetWithSpace)]);
+      this.farmInfoFrm.controls['candidateRelationId'].setValidators([Validators.required]);
     } else {
       this.farmInfoFrm.controls['candidateName'].clearValidators();
       this.farmInfoFrm.controls['candidateRelationId'].clearValidators();
-      }
+    }
     this.farmInfoFrm.controls['candidateName'].updateValueAndValidity();
-    this.farmInfoFrm.controls ['candidateRelationId'].updateValueAndValidity();
-   }
-//#endregion-----------------------on radio button click add remove validation fn start-------------------
-// benificiaryTotalFarm
-FarmValidations(key: any){
-  if (key == 'cultivatedFarmInHector') {
-  if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector >= this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
-    this.commonMethod.snackBar((this.lang == 'en' ? "Total Land in Hectares Should be Less Than Cultivation Area in Hectares" : "हेक्टरमधील एकूण जमीन हे हेक्टरमधील लागवड क्षेत्रापेक्षा कमी असावी"), 1);
-    this.farmInfoFrm.controls['cultivatedFarmInHector'].setValue('');
+    this.farmInfoFrm.controls['candidateRelationId'].updateValueAndValidity();
   }
- }
- else if (key == 'applicantFarmArea') {
-  if (this.farmInfoFrm.getRawValue()?.applicantFarmArea  >= this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
-    this.commonMethod.snackBar("Total Land in Hectares Should be Less Than Its area Hectares", 1);
-    this.farmInfoFrm.controls['applicantFarmArea'].setValue('');
+  //#endregion-----------------------on radio button click add remove validation fn start-------------------
+  // benificiaryTotalFarm
+  FarmValidations(key: any) {
+    if (key == 'cultivatedFarmInHector') {
+      if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector >= this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
+        this.commonMethod.snackBar((this.lang == 'en' ? "Total Land in Hectares Should be Less Than Cultivation Area in Hectares" : "हेक्टरमधील एकूण जमीन हे हेक्टरमधील लागवड क्षेत्रापेक्षा कमी असावी"), 1);
+        this.farmInfoFrm.controls['cultivatedFarmInHector'].setValue('');
+      }
+    }
+    else if (key == 'applicantFarmArea') {
+      if (this.farmInfoFrm.getRawValue()?.applicantFarmArea >= this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
+        this.commonMethod.snackBar("Total Land in Hectares Should be Less Than Its area Hectares", 1);
+        this.farmInfoFrm.controls['applicantFarmArea'].setValue('');
+      }
+      else if (this.farmInfoFrm.getRawValue()?.applicantFarmArea <= this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector) {
+        this.commonMethod.snackBar("Its area Hectares Should be Greater Than Total Land in Hectares", 1);
+        this.farmInfoFrm.controls['applicantFarmArea'].setValue('');
+      }
+    }
   }
-  else if(this.farmInfoFrm.getRawValue()?.applicantFarmArea <= this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector){
-    this.commonMethod.snackBar("Its area Hectares Should be Greater Than Total Land in Hectares", 1);
-    this.farmInfoFrm.controls['applicantFarmArea'].setValue('');
-  }
-}
-}
 
-//-----------------------------------
+  //-----------------------------------
 
-  getFarmInfo(){
+  getFarmInfo() {
     this.farmDeatailsFrm = this.fb.group({
       "id": [0],
       "plantName": [''],//Max 50, Alphanumeric
       "gutNo": [''],//6 digit, numeric
       "gutArea": [''],//6 digit, Float
-      "cultivatedArea":[''],//10 digit, Float
-      "cultivatedPlantsCount":[''] //Max 4 digit, Numeric
+      "cultivatedArea": [''],//10 digit, Float
+      "cultivatedPlantsCount": [''] //Max 4 digit, Numeric
     })
   }
-   onAddFarmInfo(){
-    this.onClickPlantedBeforeGovScheme(true);
+  onAddFarmInfo() {
+    //this.onClickPlantedBeforeGovScheme(true);
     let data = this.farmDeatailsFrm.getRawValue();
     if (!data?.plantName) {
       this.commonMethod.snackBar('Please enter orchard/flower/tree Name', 1);
@@ -449,29 +457,30 @@ FarmValidations(key: any){
     } else if (!data?.cultivatedPlantsCount) {
       this.commonMethod.snackBar('Please enter number of trees planted', 1);
       return
-    } 
+    }
 
-    else if( this.farmDeatailsFrm.invalid){
+    else if (this.farmDeatailsFrm.invalid) {
       return;
     }
-    else{
-      let obj ={
-      "id": 0,
-      "applicationId":this.manaregaFrm.getRawValue()?.id,
-      "plantName": data.plantName,
-      "gutNo": Number(data.gutNo),
-      "gutArea": Number(data.gutArea),
-      "cultivatedArea": Number(data.cultivatedArea),
-      "cultivatedPlantsCount": Number(data.cultivatedPlantsCount),
-      "createdBy":this.WebStorageService.getUserId(),
+    else {
+      let obj = {
+        "id": 0,
+        "applicationId": this.manaregaFrm.getRawValue()?.id,
+        "plantName": data.plantName,
+        "gutNo": Number(data.gutNo),
+        "gutArea": Number(data.gutArea),
+        "cultivatedArea": Number(data.cultivatedArea),
+        "cultivatedPlantsCount": Number(data.cultivatedPlantsCount),
+        "createdBy": this.WebStorageService.getUserId(),
+        "isDeleted": false
       }
-    
+
       if (!this.farmDetails.length) {
         this.farmDetails.push(obj);
-       // this.commonMethod.snackBar("Data added successfully", 0)
+        // this.commonMethod.snackBar("Data added successfully", 0)
       }
-      else{
-        let existedName = this.farmDetails.find((res: any) => res.plantName == data.plantName);  
+      else {
+        let existedName = this.farmDetails.find((res: any) => res.plantName == data.plantName);
         if (existedName) {
           this.commonMethod.snackBar("Plant Name Already exist", 1);
           return
@@ -480,258 +489,259 @@ FarmValidations(key: any){
           this.farmDetails.push(obj);
         }
       }
-      this.dataSource = new MatTableDataSource( this.farmDetails);
-      this.onClickPlantedBeforeGovScheme(false);
+      this.dataSource = new MatTableDataSource(this.farmDetails);
+      //this.onClickPlantedBeforeGovScheme(false);
       this.formDirective?.resetForm();
     }
   }
 
- deleteFarmInfo(i:number){
-  this.farmDetails.splice(i,1);
-    this.dataSource= new MatTableDataSource(this.farmDetails);
-   }
+  deleteFarmInfo(i: number) {
+    this.farmDetails[i].id != 0 ? this.farmDetails[i].isDeleted = true : this.farmDetails.splice(i, 1);
+    let arrayFarmDetails: any = [];
+    this.farmDetails.find((ele: any) => {
+      ele.isDeleted ? '' : arrayFarmDetails.push(ele)
+    })
+    this.dataSource = new MatTableDataSource(arrayFarmDetails);
+  }
 
-getPreviewData1(flag?:any,id?:any){ 
- let filterData = this.filterFrm?.getRawValue();
-  let str = `AadharNo=${filterData?.aadharNo}&MobileNo=${filterData?.mobileNo}&lan=${this.lang}`;
-  id ? str += `&Id=${id}`:'';
-  console.log(str);
-  let url = flag == 'search' ? `sericulture/api/Application/application-preview?`+str :'sericulture/api/Application/application-preview?Id='+(id)+'&lan='+this.lang ;
-  // let url = flag == 'search' ? `sericulture/api/Application/application-preview?Id=0&AadharNo=236985214781&MobileNo=9175515181&lan=${this.lang}` :'sericulture/api/Application/application-preview?Id='+(id)+'&lan='+this.lang ;
-  this.apiService.setHttp('get',url,false,false,false,'masterUrl')
-  this.apiService.getHttp().subscribe({
-   next:((res:any)=>{
-     if(res.statusCode == "200"){
-         this.previewData = res.responseData;
-         this.onEdit(this.previewData);
-        let documentArray = new Array()
-         documentArray = res.responseData?.documents;
+  getPreviewData1(flag?: any, id?: any) {
+    let filterData = this.filterFrm?.getRawValue();
+    let str = `AadharNo=${filterData?.aadharNo}&MobileNo=${filterData?.mobileNo}&lan=${this.lang}`;
+    id ? str += `&Id=${id}` : '';
+    // let url = flag == 'search' ? `sericulture/api/Application/application-preview?`+str :'sericulture/api/Application/application-preview?Id='+(id)+'&lan='+this.lang ;
+    let url = flag == 'search' ? `sericulture/api/Application/application-preview?Id=0&AadharNo=369852358981&MobileNo=9175515581&lan=${this.lang}` : 'sericulture/api/Application/application-preview?Id=' + (id) + '&lan=' + this.lang;
+    this.apiService.setHttp('get', url, false, false, false, 'masterUrl')
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.previewData = res.responseData;
+          this.onEdit(this.previewData);
+          let documentArray = new Array()
+          documentArray = res.responseData?.documents;
 
-         documentArray.map((document:any) => {
-           if(document.docId == 12){
+          documentArray.map((document: any) => {
+            if (document.docId == 12) {
               this.previewManarega?.push(document);
             }
-         });
+          });
         }
-     else{
-       this.previewData = [];
-     }
-   })
- })
-}
-
-
-onEdit(data?:any){
-  this.EditFlag = true;
-  this.addManaregaFrm(data);
-  this.addFarmInfo(data);
- // this.getState();
-  //this.profileImageUrl = data.profilePhotoPath;
-  this.checkedItems = data.categoryOfBeneficiaries;
-  console.log(" this.checkedItems",data.categoryOfBeneficiaries)
-  this.categoryArray.map((ele:any)=>{
-    this.checkedItems.find((item:any)=>{
-      if(ele.id == item.id){
-        ele.checked = true
-      }
+        else {
+          this.previewData = [];
+        }
+      })
     })
-  })
-  this.checkedItems.map((ele: any) => {
-        ele['textEnglish'] = ele.categoryOfBeneficiary;
-         ele['textMarathi'] = ele.m_CategoryOfBeneficiary;
-   })
-  this.addBankInfo(data);
-   this.getBank(); 
- // this.getBankBranch();
-  this.farmDetails = data.plantingDetails;
-  this.dataSource = new MatTableDataSource(this.farmDetails);
+  }
+
+
+  onEdit(data?: any) {
+    this.EditFlag = true;
+    this.addManaregaFrm(data);
+    this.addFarmInfo(data);
+    this.checkedItems = data.categoryOfBeneficiaries;
+
+    this.categoryArray.map((ele: any) => {
+      this.checkedItems.find((item: any) => {
+        if (ele.id == item.id) {
+          ele.checked = true
+        }
+      })
+    })
+    this.checkedItems.map((ele: any) => {
+      ele['textEnglish'] = ele.categoryOfBeneficiary;
+      ele['textMarathi'] = ele.m_CategoryOfBeneficiary;
+    })
+    this.addBankInfo(data);
+    this.getBank();
+    // this.getBankBranch();
+    this.farmDetails = data.plantingDetails;
+    this.dataSource = new MatTableDataSource(this.farmDetails);
     data.documents.find((item: any) => {
       this.docArray.find((ele: any, i: any) => {
-      if (ele.docTypeId == item.docId) {
-        this.docArray[i].id = item.id
-        this.docArray[i].docPath = item.documentPath
-      } else {
-        if (item.docId == 7) { // 7 is other doc
-          let checkValue =  this.OtherDocUploadImg.some((ele:any)=>ele.id == item.id)
-          !checkValue ? this.OtherDocUploadImg.push(item): '';
-         }
-      }
+        if (ele.docTypeId == item.docId) {
+          this.docArray[i].id = item.id
+          this.docArray[i].docPath = item.documentPath
+        } else {
+          if (item.docId == 7) { // 7 is other doc
+            let checkValue = this.OtherDocUploadImg.some((ele: any) => ele.id == item.id);
+            let obj = {
+              "id": item?.id,
+              "applicationId": item?.id,
+              "docTypeId": item?.docId,
+              "docNo": item?.docNo,
+              "docname": item?.documentName,
+              "docPath": item?.documentPath,
+              "isDeleted": false
+            }
+            !checkValue ? this.OtherDocUploadImg.push(obj) : '';
+          }
+        }
+      })
     })
-  })
-  console.log("this.OtherDocUploadImg",this.OtherDocUploadImg);
-  this.OtherDocUploadImg.length ? this.visible = true :  this.visible = false; 
-  this.otherDocArray = new MatTableDataSource(this.OtherDocUploadImg);
-  this.addSelfDeclaration(data);
-}
-
-manaregaFrmVal(flag:string){
-  if(flag == 'checkedcategory'){
-    let checkedcategory =  this.categoryArray.some((ele:any)=> ele.checked);
-    if(!checkedcategory){
-      this.manaregaFrm.controls['categoryId'].setValidators([Validators.required]);
-      this.manaregaFrm.controls['categoryId'].updateValueAndValidity();
-    }else{
-      this.manaregaFrm.controls['categoryId'].setValidators([]);
-      this.manaregaFrm.controls['categoryId'].updateValueAndValidity();
-    }
-  }else if(flag == 'profileImg'){
-    this.viewMsgFlag = true;
+    this.OtherDocUploadImg.length ? this.visible = true : this.visible = false;
+    this.otherDocArray = new MatTableDataSource(this.OtherDocUploadImg);
+    this.addSelfDeclaration(data);
   }
-  
-}
-onSubmit(flag?:any) {
+
+  manaregaFrmVal(flag: string) {
+    if (flag == 'checkedcategory') {
+      let checkedcategory = this.categoryArray.some((ele: any) => ele.checked);
+      if (!checkedcategory) {
+        this.manaregaFrm.controls['categoryId'].setValidators([Validators.required]);
+        this.manaregaFrm.controls['categoryId'].updateValueAndValidity();
+      } else {
+        this.manaregaFrm.controls['categoryId'].setValidators([]);
+        this.manaregaFrm.controls['categoryId'].updateValueAndValidity();
+      }
+    } else if (flag == 'isAnyPlantedBeforeGovSchemeArray') {
+      if (this.farmInfoFrm.getRawValue().isAnyPlantedBeforeGovScheme && this.farmDetails.length) {
+        this.farmInfoFrm.controls['isAnyPlantedBeforeGovSchemeArray'].setValidators([Validators.required]);
+        this.farmInfoFrm.controls['isAnyPlantedBeforeGovSchemeArray'].updateValueAndValidity();
+      } else {
+        this.farmInfoFrm.controls['isAnyPlantedBeforeGovSchemeArray'].setValue([])
+        this.farmInfoFrm.controls['isAnyPlantedBeforeGovSchemeArray'].updateValueAndValidity();
+      }
+    }
+
+  }
+  onSubmit(flag?: any) {
+    debugger;
+    this.manFrmSubmitFlag = true;
     let formData = this.manaregaFrm?.getRawValue();
     let farmInfo = this.farmInfoFrm.getRawValue();
-    let bankInfo=this.bankInfoFrm.getRawValue();
-    let declarationInfo=this.selfDeclarationFrm.getRawValue();
-    let mergeDocumentArray = [... this.docArray,...this.OtherDocUploadImg];
-    
-     
-    flag == 'farmerInfo' ? this.manaregaFrmVal('checkedcategory'):'';
+    let bankInfo = this.bankInfoFrm.getRawValue();
+    let declarationInfo = this.selfDeclarationFrm.getRawValue();
+    let mergeDocumentArray = [...this.docArray, ...this.OtherDocUploadImg];
+    let filterByDoc = mergeDocumentArray.filter((ele: any) => ele.docPath);
+    console.log(filterByDoc);
+    flag == 'farmerInfo' ? this.manaregaFrmVal('checkedcategory') :
+      flag == 'farmInfo' ? this.manaregaFrmVal('isAnyPlantedBeforeGovSchemeArray') : '';
 
     if ((this.manaregaFrm.invalid && flag == 'farmerInfo')) {
       return;
     }
-    else if(this.farmInfoFrm.invalid && flag == 'farmInfo'){
+
+    else if (this.farmInfoFrm.invalid && flag == 'farmInfo') {
       return
     }
-    else if(this.bankInfoFrm.invalid && flag == 'bankInfo'){
+
+    else if (this.bankInfoFrm.invalid && flag == 'bankInfo') {
       return
     }
-    else if((this.documentFrm.invalid && flag == 'document') || (this.addRegistrationRecFrm.invalid && flag == 'challan')){
-      for(let i=0 ;i< this.docArray.length;i++){
-        flag == 'document'  ?  this.documentFrm.controls['allRequiredDocument'].setValue('') :  this.addRegistrationRecFrm.controls['registrationDocument'].setValue('');;
-      
-       if(this.docArray[i].docPath == '' && this.docArray[i].docTypeId != 18 && this.docArray[i].docTypeId != 8 && flag == 'document'){
-        this.docArray[i].docTypeId == 12 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Manrega Job Card Required' : 'मनरेगा जॉब कार्ड आवश्यक'), 1) : this.docArray[i].docTypeId == 19 ? this.commonMethod.snackBar((this.lang == 'en' ? '8 A track of Land Required' : 'जमिनीचा 8-अ आवश्यक'), 1) : this.docArray[i].docTypeId == 11  ? this.commonMethod.snackBar((this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque Required' : 'पासबुक / रद्द केलेला चेक आवश्यक'), 1) : '';
-        return
-      }else if(this.docArray[i].docPath == '' &&  this.docArray[i].docTypeId == 8 && flag == 'challan'){
-        this.commonMethod.snackBar((this.lang == 'en' ? 'Registration Fee Receipt Required' : 'नोंदणी फी पावती आवश्यक'), 1) ;
-        return;
-      }
-      else{
-        flag == 'document' ?  this.documentFrm.controls['allRequiredDocument'].setValue(1) :  this.addRegistrationRecFrm.controls['registrationDocument'].setValue(1);;
-      }}
-      }
-      
-      !bankInfo.bankId ? bankInfo.bankId = 0 : '';
-      !bankInfo.bankBranchId ? bankInfo.bankBranchId = 0 : '';
-        this.docArray.map((ele:any)=>{
-           ele.createdBy = this.WebStorageService.getUserId();
-           ele.isDeleted = false;
-           ele.applicationId = formData.id;
-        })
-     let obj ={
-      ...formData, ...declarationInfo,...bankInfo,
-        "m_Address": "",
-        "m_FullName": "",
-        // "profilePhotoPath": this.profileImageUrl || '',
-        "sm_VoterRegistrationNo": "string",
-        "sm_IsBelowPovertyLine": true,
-        "benificiaryTotalFarm": Number(farmInfo.benificiaryTotalFarm) || 0,
-        "sm_LandTenureCategories": 0,
-        "mulberryCultivatedSurveyNo": farmInfo.mulberryCultivatedSurveyNo,
-        "cultivatedFarmInHector":  Number(farmInfo.cultivatedFarmInHector),
-        "isJointAccHolder":farmInfo.isJointAccHolder || false,
-        "applicantFarmSurveyNo": farmInfo.applicantFarmSurveyNo,
-        "applicantFarmArea": Number(farmInfo.applicantFarmArea),
-        "farmTypeId":Number(farmInfo.farmTypeId),
-        "irrigationFacilityId": Number(farmInfo.irrigationFacilityId),
-        "sm_IrrigationPeriod": 0,
-        "isAnyPlantedBeforeGovScheme":farmInfo.isAnyPlantedBeforeGovScheme || false,
-        "plantName": "string",
-        "gutNo": "string",
-        "gutArea": "string",
-        "plantCultivatedArea": 0,
-        "noOfPlant": 0,
-        "sm_YearOfPlanting": "2023-11-24T09:55:29.130Z",
-        "sm_CultivatedArea": 0,
-        "sm_LandSurveyNo": "string",
-        "sm_ImprovedMulberryCast": 0,
-        "sm_MulberryPlantingDistance": 0,
-        "sm_PlantationSurveyNo": "string",
-        "sm_MulberryCultivationArea": 0,
-        "sm_PlantationMethod": 0,
-        "sm_IsExperienceSilkIndustry": true,
-        "sm_ExperienceYears": 0,
-        "isSelfTraining": farmInfo.isSelfTraining || false,
-        "candidateName": farmInfo.candidateName,
-        "candidateRelationId":Number(farmInfo.candidateRelationId),
-        "sm_IsSilkIndustrtyTrainingReceived": true,
-        "sm_SilkIndustrtyTrainingDetails": "string",
-        "sm_IsEngagedInSilkIndustry": true,
-        "sm_IsTakenBenefitOfInternalScheme": true,
-        "sm_NameOfPlan": "string",
-        "sm_PlanTakenDate": "2023-11-24T09:55:29.130Z",
-        "sm_TakenPlanBenefit": "string",
-        "isHonestlyProtectPlant": true,
-        "sm_IsReadyToPlantNewMulberries": true,
-        "sm_IsHonestlyProtectPlant": true,
-        "sm_IsRequestForYourPriorConsent": true,
-        "registrationFeeReceiptPath": "string",
-        "createdBy": this.WebStorageService.getUserId(),
-        "flag": (flag == 'farmerInfo' && !this.EditFlag) ? 0 : (flag == 'farmerInfo' && this.EditFlag) ? 1 : flag == 'farmInfo'? 2 : flag == 'bankInfo' ?  3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 :  flag == 'challan' ? 7 : '',
-        "isUpdate": true,
-        "appDoc": mergeDocumentArray,
-         "categoryId": this.checkedItems.map((x:any)=>{return x.id}),
-        //"categoryId":
-        "plantingDetails": this.farmDetails,
-        "internalSchemes": [
-          {
-            "id": 0,
-            "applicationId": 0,
-            "internalSchemeName": "string",
-            "schemeTakenDate": "2023-11-24T09:55:29.130Z",
-            "totalBenefitTaken": 0,
-            "createdBy": 0
-          }
-        ],
-        "currentProducts": [
-          {
-            "id": 0,
-            "applicationId": 0,
-            "cropId": 0,
-            "area": 0,
-            "totalProduction": 0,
-            "averageRate": 0,
-            "totalProductionAmt": 0,
-            "totalExpenses": 0,
-            "netIncome": 0,
-            "acreNetIncome": 0,
-            "createdBy": 0,
-            "isDeleted": true
-          }
-        ]
-      }
-      this.apiService.setHttp('post', 'sericulture/api/Application/Insert-Update-Application?lan=' + this.lang, false, obj, false, 'masterUrl');
-      this.apiService.getHttp().subscribe({
-        next: ((res: any) => {
-          this.spinner.hide();
-          if (res.statusCode == "200") {
-            // flag == 'document'?  this.getPreviewData1(res.responseData) : "";
-            this.getPreviewData1('edit',res.responseData)
-          
-            this.manaregaFrm?.controls['id'].setValue(res.responseData);
-            (res.responseData  && flag == 'challan') ?   this.openDialog(res): '';
-            flag == 'challan' ?  this.commonMethod.snackBar(res.statusMessage, 0) : '';
-            this.viewMsgFlag=false; 
-            flag == 'challan'? this.router.navigate(['../application']) : ''; 
-            
-            // this.dialogRef.close('Yes');
-            // this.clearMainForm();
-          } else {
-            this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
-          }
-        }),
-        error: (error: any) => {
-          this.spinner.hide();
-          this.errorHandler.handelError(error.statusCode);
+
+    else if ((this.documentFrm.invalid && flag == 'document') || (this.addRegistrationRecFrm.invalid && flag == 'challan')) {
+      for (let i = 0; i < this.docArray.length; i++) {
+        flag == 'document' ? this.documentFrm.controls['allRequiredDocument'].setValue('') : this.addRegistrationRecFrm.controls['registrationDocument'].setValue('');;
+
+        if (this.docArray[i].docPath == '' && this.docArray[i].docTypeId != 18 && this.docArray[i].docTypeId != 8 && flag == 'document') {
+          this.docArray[i].docTypeId == 12 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Manrega Job Card Required' : 'मनरेगा जॉब कार्ड आवश्यक'), 1) : this.docArray[i].docTypeId == 19 ? this.commonMethod.snackBar((this.lang == 'en' ? '8 A track of Land Required' : 'जमिनीचा 8-अ आवश्यक'), 1) : this.docArray[i].docTypeId == 11 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque Required' : 'पासबुक / रद्द केलेला चेक आवश्यक'), 1) : '';
+          return
+        } else if (this.docArray[i].docPath == '' && this.docArray[i].docTypeId == 8 && flag == 'challan') {
+          this.commonMethod.snackBar((this.lang == 'en' ? 'Registration Fee Receipt Required' : 'नोंदणी फी पावती आवश्यक'), 1);
+          return;
         }
-      });
-  
+        else {
+          flag == 'document' ? this.documentFrm.controls['allRequiredDocument'].setValue(1) : this.addRegistrationRecFrm.controls['registrationDocument'].setValue(1);;
+        }
+      }
+    }
+
+    !bankInfo.bankId ? bankInfo.bankId = 0 : '';
+    !bankInfo.bankBranchId ? bankInfo.bankBranchId = 0 : '';
+    this.docArray.map((ele: any) => {
+      ele.createdBy = this.WebStorageService.getUserId();
+      ele.isDeleted = false;
+      ele.applicationId = formData.id;
+    })
+    let obj = {
+      ...formData, ...declarationInfo, ...bankInfo,
+      "m_Address": "",
+      "m_FullName": "",
+      // "profilePhotoPath": this.profileImageUrl || '',
+      "sm_VoterRegistrationNo": "string",
+      "sm_IsBelowPovertyLine": true,
+      "benificiaryTotalFarm": Number(farmInfo.benificiaryTotalFarm) || 0,
+      "sm_LandTenureCategories": 0,
+      "mulberryCultivatedSurveyNo": farmInfo.mulberryCultivatedSurveyNo,
+      "cultivatedFarmInHector": Number(farmInfo.cultivatedFarmInHector),
+      "isJointAccHolder": farmInfo.isJointAccHolder || false,
+      "applicantFarmSurveyNo": farmInfo.applicantFarmSurveyNo,
+      "applicantFarmArea": Number(farmInfo.applicantFarmArea),
+      "farmTypeId": Number(farmInfo.farmTypeId),
+      "irrigationFacilityId": Number(farmInfo.irrigationFacilityId),
+      "sm_IrrigationPeriod": 0,
+      "isAnyPlantedBeforeGovScheme": farmInfo.isAnyPlantedBeforeGovScheme || false,
+      "plantName": "string",
+      "gutNo": "string",
+      "gutArea": "string",
+      "plantCultivatedArea": 0,
+      "noOfPlant": 0,
+      "sm_YearOfPlanting": "2023-11-24T09:55:29.130Z",
+      "sm_CultivatedArea": 0,
+      "sm_LandSurveyNo": "string",
+      "sm_ImprovedMulberryCast": 0,
+      "sm_MulberryPlantingDistance": 0,
+      "sm_PlantationSurveyNo": "string",
+      "sm_MulberryCultivationArea": 0,
+      "sm_PlantationMethod": 0,
+      "sm_IsExperienceSilkIndustry": true,
+      "sm_ExperienceYears": 0,
+      "isSelfTraining": farmInfo.isSelfTraining || false,
+      "candidateName": farmInfo.candidateName,
+      "candidateRelationId": Number(farmInfo.candidateRelationId),
+      "sm_IsSilkIndustrtyTrainingReceived": true,
+      "sm_SilkIndustrtyTrainingDetails": "string",
+      "sm_IsEngagedInSilkIndustry": true,
+      "sm_IsTakenBenefitOfInternalScheme": true,
+      "sm_NameOfPlan": "string",
+      "sm_PlanTakenDate": "2023-11-24T09:55:29.130Z",
+      "sm_TakenPlanBenefit": "string",
+      "isHonestlyProtectPlant": true,
+      "sm_IsReadyToPlantNewMulberries": true,
+      "sm_IsHonestlyProtectPlant": true,
+      "sm_IsRequestForYourPriorConsent": true,
+      "registrationFeeReceiptPath": "string",
+      "createdBy": this.WebStorageService.getUserId(),
+      "flag": (flag == 'farmerInfo' && !this.EditFlag) ? 0 : (flag == 'farmerInfo' && this.EditFlag) ? 1 : flag == 'farmInfo' ? 2 : flag == 'bankInfo' ? 3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'challan' ? 7 : '',
+      "isUpdate": true,
+      "appDoc": filterByDoc,
+      // "appDoc": [],
+      "categoryId": this.checkedItems.map((x: any) => { return x.id }),
+      //"categoryId":
+      "plantingDetails": this.farmDetails,
+      "internalSchemes": [],
+      "currentProducts": []
+    }
+
+    this.apiService.setHttp('post', 'sericulture/api/Application/Insert-Update-Application?lan=' + this.lang, false, obj, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: ((res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == "200") {
+          // flag == 'document'?  this.getPreviewData1(res.responseData) : "";
+          flag == 'farmerInfo' ? this.manFrmSubmitFlag = false : '';
+          this.getPreviewData1('edit', res.responseData)
+
+          this.manaregaFrm?.controls['id'].setValue(res.responseData);
+          (res.responseData && flag == 'challan') ? this.openDialog(res) : '';
+          flag == 'challan' ? this.commonMethod.snackBar(res.statusMessage, 0) : '';
+          this.viewMsgFlag = false;
+          flag == 'challan' ? this.router.navigate(['../application']) : '';
+
+          // this.dialogRef.close('Yes');
+          // this.clearMainForm();
+        } else {
+          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
+        }
+      }),
+      error: (error: any) => {
+        this.spinner.hide();
+        this.errorHandler.handelError(error.statusCode);
+      }
+    });
+
   }
 
-  
+
   // ---------------Dropdown bind functionality start here--------------------
   searchDataZone() {
     this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
@@ -767,40 +777,40 @@ onSubmit(flag?:any) {
   }
 
   getBank() {
-    this.bankArray= [];
-    this.masterService. GetBank().subscribe({
+    this.bankArray = [];
+    this.masterService.GetBank().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.bankArray = res.responseData;
-          this.EditFlag ? (this.bankInfoFrm.controls['bankId'].setValue(this.previewData?.bankId),this.getBankBranch()) : '' ;  
+          this.EditFlag ? (this.bankInfoFrm.controls['bankId'].setValue(this.previewData?.bankId == 0 ? '' : this.previewData?.bankId), this.getBankBranch()) : '';
         }
         else {
           this.bankArray = [];
         }
       })
     })
-  } 
+  }
 
   getBankBranch() {
-    this.branchArray= [];
-    let bankId =  this.bankInfoFrm.getRawValue()?.bankId;
-    if(bankId != 0){
-    this.masterService.GetBankBranch(bankId).subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.branchArray = res.responseData;
-          this.EditFlag ? this.bankInfoFrm.controls['bankBranchId'].setValue(this.previewData?.bankBranchId):  '' ;  
+    this.branchArray = [];
+    let bankId = this.bankInfoFrm.getRawValue()?.bankId;
+    if (bankId != 0) {
+      this.masterService.GetBankBranch(bankId).subscribe({
+        next: ((res: any) => {
+          if (res.statusCode == "200" && res.responseData?.length) {
+            this.branchArray = res.responseData;
+            this.EditFlag ? this.bankInfoFrm.controls['bankBranchId'].setValue(this.previewData?.bankBranchId == 0 ? '' : this.previewData?.bankBranchId) : '';
           }
-        else {
-          this.branchArray = [];
-        }
+          else {
+            this.branchArray = [];
+          }
+        })
       })
-    })
-  }
+    }
   }
 
 
-  getQualification(){
+  getQualification() {
     this.qualificationArray = [];
     this.masterService.GetQualification().subscribe({
       next: ((res: any) => {
@@ -821,8 +831,8 @@ onSubmit(flag?:any) {
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.stateArray = res.responseData;
-         this.EditFlag ? (this.f['stateId'].setValue(this.previewData?.stateId), this.getDisrict()) :  this.getDisrict() ;  
-        //  this.getDisrict();
+          this.EditFlag ? (this.f['stateId'].setValue(this.previewData?.stateId), this.getDisrict()) : this.getDisrict();
+          //  this.getDisrict();
         }
         else {
           this.stateArray = [];
@@ -839,8 +849,8 @@ onSubmit(flag?:any) {
         next: ((res: any) => {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.districtArray = res.responseData;
-            this.EditFlag ? (this.f['districtId'].setValue(this.previewData?.districtId),this.getTaluka()) : this.getTaluka() ;  
-           //this.getTaluka();
+            this.EditFlag ? (this.f['districtId'].setValue(this.previewData?.districtId), this.getTaluka()) : this.getTaluka();
+            //this.getTaluka();
           }
           else {
             this.districtArray = [];
@@ -859,9 +869,8 @@ onSubmit(flag?:any) {
         next: ((res: any) => {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.talukaArray = res.responseData;
-            console.log("talukaSubject",this.talukaSubject)
             this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
-            this.EditFlag ? (this.f['talukaId'].setValue(this.previewData.talukaId),this.getGrampanchayat()) :this.getGrampanchayat();
+            this.EditFlag ? (this.f['talukaId'].setValue(this.previewData.talukaId), this.getGrampanchayat()) : this.getGrampanchayat();
             //this.getGrampanchayat()
           }
           else {
@@ -879,30 +888,30 @@ onSubmit(flag?:any) {
     this.grampanchayatArray = [];
     let talukaId = this.manaregaFrm.getRawValue()?.talukaId;
     if (talukaId != 0) {
-    this.masterService.GetGrampanchayat(talukaId).subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200" && res.responseData?.length) {
-          this.grampanchayatArray = res.responseData;
-          this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
-           this.EditFlag ? (this.f['grampanchayatId'].setValue(this.previewData?.grampanchayatId)) : '';
-        }
-        else {
-          this.grampanchayatArray = [];
-          this.gramPSubject.next(null);
-        }
+      this.masterService.GetGrampanchayat(talukaId).subscribe({
+        next: ((res: any) => {
+          if (res.statusCode == "200" && res.responseData?.length) {
+            this.grampanchayatArray = res.responseData;
+            this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
+            this.EditFlag ? (this.f['grampanchayatId'].setValue(this.previewData?.grampanchayatId)) : '';
+          }
+          else {
+            this.grampanchayatArray = [];
+            this.gramPSubject.next(null);
+          }
+        })
       })
-    })
     }
   }
- 
-  getFarmType(){
+
+  getFarmType() {
     this.masterService.GetFarmType().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.farmTypeArray = res.responseData;
           this.EditFlag ? (this.farmInfoFrm.controls['farmTypeId'].setValue(this.previewData?.farmTypeId)) : '';
-     
-          }
+
+        }
         else {
           this.farmTypeArray = [];
         }
@@ -910,14 +919,14 @@ onSubmit(flag?:any) {
     })
   }
 
- getCandidateRelation(){
+  getCandidateRelation() {
     this.masterService.GetCandidateRelation().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.candidateRelationArray = res.responseData;
           this.EditFlag ? (this.farmInfoFrm.controls['candidateRelationId'].setValue(this.previewData?.candidateRelationId)) : '';
-     
-          }
+
+        }
         else {
           this.candidateRelationArray = [];
         }
@@ -931,7 +940,7 @@ onSubmit(flag?:any) {
       next: (res: any) => {
         if (res.statusCode == "200") {
           this.categoryArray = res.responseData;
-         this.categoryArray.map((ele:any)=>{  ele.checked = false});
+          this.categoryArray.map((ele: any) => { ele.checked = false });
         }
         else {
           this.categoryArray = [];
@@ -951,13 +960,11 @@ onSubmit(flag?:any) {
       if (result) {
         this.checkedItems = [];
         this.categoryArray = result;
-        console.log(" this.categoryArray dialog", this.categoryArray)
         this.categoryArray?.find(item => {
           if (item.checked) {
             this.checkedItems.push(item)
           }
         });
-        console.log(" this.checkedItems", this.checkedItems)
         this.manaregaFrmVal('checkedcategory')
       }
     });
@@ -973,10 +980,10 @@ onSubmit(flag?:any) {
     }
   }
 
-  openDialog(res?:any) {
-      let dialoObj = {
+  openDialog(res?: any) {
+    let dialoObj = {
       header: this.lang == 'mr-IN' ? 'अभिनंदन ' : 'Congratulations',
-      title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .अर्ज क्रमांक  : '+ res.responseData1 + res.responseData2 :'Your application has been successfully submitted. Application no: '+ res.responseData1 + res.responseData2,
+      title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .अर्ज क्रमांक  : ' + res.responseData1 + res.responseData2 : 'Your application has been successfully submitted. Application no: ' + res.responseData1 + res.responseData2,
       cancelButton: '',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
       headerImage: 'assets/images/check.png'
@@ -988,257 +995,4 @@ onSubmit(flag?:any) {
       autoFocus: false
     })
   }
-
 }
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// fileUpload(event: any, photoName: string) {
-  //   this.spinner.show();
-  //   let documentObj: any
-  //   let type = photoName == 'img' ? 'jpg, jpeg, png' : 'pdf,mp3,mp4,jpg,jpeg,png,xls,xlsx,doc,docx';
-  //   this.fileUpl.uploadDocuments(event, 'ApplicationDocuments', type).subscribe({
-  //     next: (res: any) => {
-  //       if (res.statusCode == 200) {
-  //         this.spinner.hide();
-  //         console.log("res.responseData",res.responseData);
-  //         let fileName = res.responseData.split('/');
-  //         let imageName = fileName.pop();
-  //         console.log("imageName",imageName)
-  //          if (photoName == 'OtherDocImg') {
-  //           this.otherDocumentFrm.controls['docPath'].setValue(res.responseData)
-  //         } 
-  //         //let otherForm = this.otherDocumentFrm.getRawValue();
-  //         else{
-  //          documentObj = {
-  //           "id": 0,
-  //           "applicationId":this.getId  || 0,//remove 0
-  //           "docTypeId":photoName == 'manaregaJobImg' ? 12 : photoName == 'EightAImg' ?  19 : photoName == 'SevenTweImg' ?  18 :photoName == 'BankPassImg' ? 11 : '',//7
-  //           "docNo":'',
-  //           "docname": imageName,
-  //           "docPath": res.responseData,
-  //           "createdBy": 0,
-  //           // "isDeleted": true
-  //           "isDeleted": false
-  //         }
-  //         photoName == 'manaregaJobImg' ? (this.manaregaJobUploadImg.push(documentObj),console.log("this.manaregaJobUploadImg",this.manaregaJobUploadImg), this.ManaregaImg.nativeElement.value = '') :
-  //          photoName == 'EightAImg' ? (this.EightAUploadImg.push(documentObj),console.log("this.EightAUploadImg",this.EightAUploadImg), this.EightAImg.nativeElement.value = '') :
-  //          photoName == 'SevenTweImg' ? (this.SevenTweUploadImg.push(documentObj),console.log("this.SevenTweUploadImg",this.SevenTweUploadImg), this.SevenTweImg.nativeElement.value = '') :
-  //          photoName == 'BankPassImg' ? (this.BankPassUploadImg.push(documentObj),console.log("this.BankPassUploadImg",this.BankPassUploadImg),  this.BankPassImg.nativeElement.value = '') :
-  //          //photoName == 'OtherDocImg' ? (this.OtherDocUploadImg.push(documentObj),console.log("this.OtherDocUploadImg",this.OtherDocUploadImg),  this.OtherDocImg.nativeElement.value = '') :
-   
-  //         this.commonMethod.snackBar(res.statusMessage, 0)
-  //       }
-  //     }
-  //     },
-  //     error: ((error: any) => {
-  //       this.spinner.hide();
-  //       this.commonMethod.checkDataType(error.status) == false ? this.errorHandler.handelError(error.statusCode) : this.commonMethod.snackBar(error.statusText, 1);
-  //     })
-  //   });
-  // }
-  // viewImages(obj?: any) {
-  //   window.open(obj.docPath, 'blank');
-  // }
-
-  // deleteImges(photoName: string, i: number) {
-  //   if (photoName == 'manaregaJobImg') {
-  //     this.manaregaJobUploadImg.splice(i, 1);
-  //   } 
-  //   else if (photoName == 'EightAImg') {
-  //     this.EightAUploadImg.splice(i, 1);
-  //   }
-  //   else if (photoName == 'SevenTweImg') {
-  //     this.SevenTweUploadImg.splice(i, 1);
-  //   }
-  //   else if (photoName == 'BankPassImg') {
-  //     this.BankPassUploadImg.splice(i, 1);
-  //   }
-  //   }
-
- 
-
-

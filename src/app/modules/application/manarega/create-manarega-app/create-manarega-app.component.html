@@ -66,18 +66,14 @@
                       (click)="uplodLogo.value='';uplodLogo.click()" type="button">
                       <mat-icon class="material-symbols-outlined"> {{'add'}}</mat-icon>
                     </button>
-                    <button mat-icon-button class="btn-icon bg-danger-subtle text-danger" type="button"
+                    <button mat-icon-button class="btn-icon bg-danger-subtle text-danger" *ngIf="manaregaFrm.getRawValue()?.profilePhotoPath" type="button"
                       (click)="manaregaFrm.controls['profilePhotoPath'].setValue('')">
                       <mat-icon class="material-symbols-outlined">delete</mat-icon>
                     </button>
                   </div>
                 </div>
-                <mat-form-field appearance="outline" class="w-100">
-                  <input matInput placeholder="" formControlName="profilePhotoPath" class="d-none">
-                <mat-error *ngIf="f['profilePhotoPath']?.errors" >
-                <span *ngIf="f['profilePhotoPath'].hasError('required')">{{lang == 'en' ? "Please Add Applicant Image" :
-                  "कृपया अर्जदाराची प्रतिमा जोडा"}}</span> </mat-error>
-                  </mat-form-field>
+                <span *ngIf="f['profilePhotoPath'].hasError('required') && manFrmSubmitFlag" class="text-danger"><small style="font-size: 0.7rem;">{{lang == 'en' ? "Please Add Applicant Image" :
+                  "कृपया अर्जदाराची प्रतिमा जोडा"}}</small></span>
               </div>
 
               <div class="col-sm">
@@ -154,6 +150,11 @@
                     <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang == 'en' ?
                       department.textEnglish : department.textMarathi}}</mat-option>
                   </mat-select>
+                  <mat-error *ngIf="f['mn_DepartmentId']?.errors">
+                    <span class="text-danger"  *ngIf="f['mn_DepartmentId']?.hasError('required')">
+                      Please select
+                    </span>
+                  </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
@@ -314,6 +315,17 @@
                 </div>
               </div>
               <div class="col-sm-3">
+                <div class="form-label">{{'approvalProcess.please_select_category'|translate}}</div>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select (click)="categoryDialogBox()" formControlName="categoryId">
+                  </mat-select>
+                  <mat-error
+                    *ngIf="f['categoryId']?.hasError('required')">{{'approvalProcess.please_select_category'|translate}}
+                  </mat-error>
+                  
+                </mat-form-field>
+              </div>
+              <div class="col-sm-6">
                 <mat-label>{{'common.address'| translate}}</mat-label>
                 <mat-form-field appearance="outline" class="w-100">
                   <textarea matInput placeholder="" formControlName="address"
@@ -327,17 +339,7 @@
                   </mat-error>
                 </mat-form-field>
               </div>
-              <div class="col-sm-6">
-                <div class="form-label">{{'approvalProcess.please_select_category'|translate}}</div>
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-select (click)="categoryDialogBox()" formControlName="categoryId">
-                  </mat-select>
-                  <mat-error
-                    *ngIf="f['categoryId']?.hasError('required')">{{'approvalProcess.please_select_category'|translate}}
-                  </mat-error>
-                  
-                </mat-form-field>
-              </div>
+             
               <div *ngIf="checkedItems.length">
                 <div class="form-label">{{'approvalProcess.beneficiary_category_options'| translate}}</div>
                 <div class="form-data mb-0" *ngFor="let data of checkedItems;let i=index">
