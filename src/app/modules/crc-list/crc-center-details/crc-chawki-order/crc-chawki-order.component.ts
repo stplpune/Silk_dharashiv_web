@@ -43,11 +43,9 @@ export class CrcChawkiOrderComponent {
   grampanchayatArray = new Array();
   subscription!: Subscription;
   lang: string = 'English';
-  gramPCtrl: FormControl = new FormControl();
-  gramPSubject: ReplaySubject<any> = new ReplaySubject<any>(); talukaCtrl: FormControl = new FormControl();
-  talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   filterForm!: FormGroup;
   statusArray = new Array();
+  slabArray = new Array();
   tableDataArray: any;
   tableDatasize!: number;
   totalPages!: number;
@@ -55,6 +53,12 @@ export class CrcChawkiOrderComponent {
   filterFlag: boolean = false;
   pageNumber: number = 1;
   counterObject:any;
+  gramPCtrl: FormControl = new FormControl();
+  gramPSubject: ReplaySubject<any> = new ReplaySubject<any>(); 
+  talukaCtrl: FormControl = new FormControl();
+  talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  slabCtrl: FormControl = new FormControl();
+  slabSubject: ReplaySubject<any> = new ReplaySubject<any>();
   constructor
     (
       public dialog: MatDialog,
@@ -76,6 +80,7 @@ export class CrcChawkiOrderComponent {
     this.getFormData();
     this.getDisrict();
     this.getStatus();
+    this.getDistributionSlab();
     this.searchDataZone();
     this.getTableData();
   }
@@ -85,9 +90,9 @@ export class CrcChawkiOrderComponent {
       districtId: [this.webService.getDistrictId() == '' ? 0 : this.webService.getDistrictId()],
       talukaId: [this.webService.getTalukaId() ? this.webService.getTalukaId() : 0],
       grampanchayatId: [0],
-      statusId: [''],
+      statusId: [0],
       searchValue: [''],
-      deliveryslabId:['']
+      deliveryslabId:[0]
     })
   }
   get f() { return this.filterForm.controls; }
@@ -95,6 +100,7 @@ export class CrcChawkiOrderComponent {
   searchDataZone() {
     this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
     this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject) });
+    this.slabCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.slabArray, this.slabCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.slabSubject) });
   }
 
 
@@ -160,17 +166,27 @@ export class CrcChawkiOrderComponent {
       })
     })
   }
+
+  getDistributionSlab(){
+    this.masterService.GetAllDistributionSlab().subscribe({
+      next: ((res: any) => {
+        this.slabArray = res.responseData;
+        this.slabArray.unshift({ id: 0, textEnglish: 'All Delivery Slab', textMarathi: 'सर्व डिलिव्हरी स्लॅब' }),
+        this.commonMethod.filterArrayDataZone(this.slabArray, this.slabCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.slabSubject);
+      }), error: (() => {
+        this.slabArray = [];
+        this.slabSubject.next(null);
+      })
+    })
+  }
   
-
-  //  sericulture/api/CRCCenter/Get-CRC-Centers_Chawki-Orders?DistrictId='+(formData.districtId || 0)+'&TalukaId='+(formData.talukaId ||0)+'&GrampanchayatId=1&DistributionSlab='+(formData.deliveryslabId || 0)+'&Status='+(formData.statusId || 0)+str
-
   getTableData(flag?: any) {
     this.spinner.show();
     let formData = this.filterForm.getRawValue();    
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
     console.log(formData,str);
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-CRC-Centers_Chawki-Orders?DistrictId=1&TalukaId=1&GrampanchayatId=0&DistributionSlab=1&Status=0', false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-CRC-Centers_Chawki-Orders?DistrictId='+(formData.districtId || 0)+'&TalukaId='+(formData.talukaId ||0)+'&GrampanchayatId='+(formData.grampanchayatId || 0)+'&DistributionSlab='+(formData.deliveryslabId || 0)+'&Status='+(formData.statusId || 0)+str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -240,6 +256,8 @@ export class CrcChawkiOrderComponent {
   }
 
   clearFormData(){
-
+    this.pageNumber = 1;
+    this.getFormData();
+    this.getTableData();
   }
 }

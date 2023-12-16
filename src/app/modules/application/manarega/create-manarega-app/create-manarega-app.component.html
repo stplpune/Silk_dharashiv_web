@@ -118,7 +118,7 @@
                     </div>
                   </div>
                   <div class="col-sm-12">
-                    <div class="form-label">{{'addManrega.applicant_name'| translate}}</div>
+                    <div class="form-label">1.{{'addManrega.applicant_name'| translate}}</div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="fullName"
@@ -144,7 +144,7 @@
             </div>
             <div class="row gx-2 align-items-center">
               <div class="col-sm-6">
-                <div class="form-label">{{'addManrega.mulberry_plantation_under_Silk'| translate}}</div>
+                <div class="form-label">2.{{'addManrega.mulberry_plantation_under_Silk'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="mn_DepartmentId">
                     <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang == 'en' ?
@@ -158,7 +158,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
+                <div class="form-label">3.{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="mobileNo2"
@@ -175,7 +175,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <mat-label class="form-label">{{'approvalProcess.date_of_birth'| translate}}</mat-label>
+                <mat-label class="form-label">4.{{'approvalProcess.date_of_birth'| translate}}</mat-label>
                 <mat-form-field appearance="outline" class="w-100">
                   <input matInput [matDatepicker]="picker" formControlName="birthDate" (click)="picker.open()" readonly
                     [max]="maxDate">
@@ -187,7 +187,7 @@
               </div>
               <div class="col-sm-3">
                 <div class="d-flex align-items-center gap-3">
-                  <mat-label class="form-label">{{'addManrega.select_gender'| translate}}</mat-label>
+                  <mat-label class="form-label">5.{{'addManrega.select_gender'| translate}}</mat-label>
                   <mat-radio-group aria-label="Select an option" formControlName="gender">
                     <mat-radio-button *ngFor="let gen of genderArray" [value]="gen.id">{{lang == 'en' ? gen.name : gen.m_name }}
                     </mat-radio-button>
@@ -195,7 +195,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'approvalProcess.applicant_qualification_Required'|translate}}</div>
+                <div class="form-label">6.{{'approvalProcess.applicant_qualification_Required'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="qualificationId">
                     <mat-option *ngFor="let qua of qualificationArray" [value]="qua.id">{{lang != 'en' ? qua.textMarathi : qua.textEnglish}}</mat-option>
@@ -206,7 +206,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'common.State'| translate}}</div>
+                <div class="form-label">7.{{'common.State'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'common.state' | translate}}</mat-label> -->
                   <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
@@ -217,7 +217,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'common.District'| translate}}</div>
+                <div class="form-label">8.{{'common.District'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
                     [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
@@ -228,7 +228,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'common.Please_select_taluka'|translate}}</div>
+                <div class="form-label">9.{{'common.Please_select_taluka'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
                   <mat-select formControlName="talukaId"
@@ -251,7 +251,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label"> {{'officerreg.please_select_grampanchayat'|translate}}</div>
+                <div class="form-label"> 10.{{'officerreg.please_select_grampanchayat'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'officerreg.select_grampanchayat' | translate}}</mat-label> -->
                   <mat-select formControlName="grampanchayatId"
@@ -269,7 +269,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'common.Village'| translate}}</div>
+                <div class="form-label">11.{{'common.Village'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>Favorite food</mat-label> -->
                   <input matInput placeholder="" formControlName="village"
@@ -278,7 +278,7 @@
               </div>
 
               <div class="col-sm-3">
-                <div class="form-label">{{'common.pin_Code'| translate}} </div>
+                <div class="form-label">12.{{'common.pin_Code'| translate}} </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <!-- <mat-label>Favorite food</mat-label> -->
@@ -297,7 +297,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'approvalProcess.manarega_job_card_no.'| translate}}</div>
+                <div class="form-label">13.{{'approvalProcess.manarega_job_card_no.'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <!-- <mat-label>Favorite food</mat-label> -->
@@ -315,7 +315,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">{{'approvalProcess.please_select_category'|translate}}</div>
+                <div class="form-label">14.{{'approvalProcess.please_select_category'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select (click)="categoryDialogBox()" formControlName="categoryId">
                   </mat-select>
@@ -326,7 +326,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-6">
-                <mat-label>{{'common.address'| translate}}</mat-label>
+                <div class="form-label">15.{{'common.address'| translate}}</div>               
                 <mat-form-field appearance="outline" class="w-100">
                   <textarea matInput placeholder="" formControlName="address"
                     (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumericWithSpacesAndSpecChars($event)"></textarea>
@@ -362,7 +362,7 @@
           <div class="container-fluid">
             <div class="row align-items-center">
               <div class="col-sm-4">
-                <div class="form-label">{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'| translate}}
+                <div class="form-label">16.{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'| translate}}
                 </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
@@ -382,7 +382,7 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">{{'approvalProcess.cultivation_land_survey_number'| translate}}
+                <div class="form-label">17.{{'approvalProcess.cultivation_land_survey_number'| translate}}
                 </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
@@ -403,7 +403,7 @@
               </div>
 
               <div class="col-sm-4">
-                <div class="form-label">{{'approvalProcess.cultivated_area_in_hectaes'| translate}}</div>
+                <div class="form-label">18.{{'approvalProcess.cultivated_area_in_hectaes'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="cultivatedFarmInHector"  (input)="FarmValidations('cultivatedFarmInHector')"
@@ -423,7 +423,7 @@
               </div>
               <div class="col-sm-4">
                 <div class="d-flex align-items-center gap-3">
-                  <mat-label class="form-label">{{'approvalProcess.are_you_a_joined_account_Holder'| translate}}</mat-label>
+                  <mat-label class="form-label">19.{{'approvalProcess.are_you_a_joined_account_Holder'| translate}}</mat-label>
                   <mat-radio-group aria-label="Select an option" class="pe-3" formControlName="isJointAccHolder"
                     (change)="onClickAccountHolder(farmInfoFrm.controls['isJointAccHolder'].value)">
                     <mat-radio-button *ngFor="let arr of checkedArray" [value]="arr.id" class="pe-3">
@@ -434,7 +434,7 @@
               </div>
               <ng-container *ngIf="farmInfoFrm.getRawValue()?.isJointAccHolder">
                 <div class="col-sm-4">
-                  <div class="form-label">{{'approvalProcess.land_survey_no._of_land'| translate}} </div>
+                  <div class="form-label">19.A.{{'approvalProcess.land_survey_no._of_land'| translate}} </div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="applicantFarmSurveyNo">
@@ -452,7 +452,7 @@
                   </div>
                 </div>
                 <div class="col-sm-4">
-                  <div class="form-label">{{'approvalProcess.its_area'| translate}}(मुद्दा क्रमांक 18 पेक्षा जसता नसावे
+                  <div class="form-label">19.B.{{'approvalProcess.its_area'| translate}}(मुद्दा क्रमांक 18 पेक्षा जसता नसावे
                     व 19 पेक्षा कमी नसावे) </div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
@@ -474,7 +474,7 @@
 
               </ng-container>
               <div class="col-sm-4">
-                <div class="form-label">{{'approvalProcess.please_select_type_of_land'|translate}}</div>
+                <div class="form-label">20.{{'approvalProcess.please_select_type_of_land'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="farmTypeId">
                     <mat-option *ngFor="let farm of farmTypeArray" [value]="farm.id">{{lang == 'en' ?  
@@ -486,7 +486,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label"> {{'approvalProcess.please_select_irrigation_facility'|translate}}</div>
+                <div class="form-label">21.{{'approvalProcess.please_select_irrigation_facility'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="irrigationFacilityId">
                     <mat-option *ngFor="let irrigation of irrigationFacilityArray" [value]="irrigation.id">
@@ -497,7 +497,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <mat-label class="form-label">{{'approvalProcess.have_you_done_orchards'| translate}}</mat-label>
+                <mat-label class="form-label">22.{{'approvalProcess.have_you_done_orchards'| translate}}</mat-label>
                 <div class="">
                   <mat-radio-group aria-label="Select an option" class="pb-0"
                     formControlName="isAnyPlantedBeforeGovScheme"
@@ -680,7 +680,7 @@
             </ng-container>
             <div class="row">
               <div class="col-sm-4">
-                <mat-label class="form-label">{{'addManrega.will_he_take_the_training'| translate}}</mat-label>
+                <mat-label class="form-label">23.{{'addManrega.will_he_take_the_training'| translate}}</mat-label>
                 <div class="">
                   <mat-radio-group aria-label="Select an option" class="pb-0" formControlName="isSelfTraining"
                     (change)="onClickSelfTraining(farmInfoFrm.controls['isSelfTraining'].value)">
@@ -692,7 +692,7 @@
               </div>
               <ng-container *ngIf="farmInfoFrm.getRawValue()?.isSelfTraining == false">
                 <div class="col-sm-4">
-                  <div class="form-label">{{'approvalProcess.candidate_name'| translate}}</div>
+                  <div class="form-label">23.A.{{'approvalProcess.candidate_name'| translate}}</div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="candidateName"
@@ -711,7 +711,7 @@
                   </div>
                 </div>
                 <div class="col-sm-4">
-                  <div class="form-label">{{'approvalProcess.please_select_relation'|translate}}</div>
+                  <div class="form-label">23.B.{{'approvalProcess.please_select_relation'|translate}}</div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="candidateRelationId">
                       <mat-option *ngFor="let relation of candidateRelationArray" [value]="relation.id">
@@ -741,7 +741,7 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-4">
-                <div class="form-label"> {{'approvalProcess.please_select_bank_name'|translate}}</div>
+                <div class="form-label">24.{{'approvalProcess.please_select_bank_name'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="bankId" (selectionChange)="getBankBranch()">
                     <mat-option *ngFor="let bank of bankArray" [value]="bank.id">{{lang != 'en' ? bank.textMarathi :
@@ -752,7 +752,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">{{'approvalProcess.please_select_branch'|translate}}</div>
+                <div class="form-label">25.{{'approvalProcess.please_select_branch'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="bankBranchId">
                     <mat-option *ngFor="let branch of branchArray" [value]="branch.id">{{lang != 'en' ?
@@ -764,7 +764,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">{{'approvalProcess.IFSC_Code'|translate}} </div>
+                <div class="form-label">26.{{'approvalProcess.IFSC_Code'|translate}} </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="bankIFSCCode"
@@ -783,7 +783,7 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">{{'approvalProcess.nationalise_bank_accountno'|translate}} </div>
+                <div class="form-label">27.{{'approvalProcess.nationalise_bank_accountno'|translate}} </div>
 
 
                 <div class="form-label">

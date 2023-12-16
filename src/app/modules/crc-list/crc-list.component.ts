@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ReplaySubject, Subscription } from 'rxjs';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -44,7 +45,8 @@ export class CRCListComponent {
       private errorHandler: ErrorHandlingService,
       public validation: ValidationService,
       public dialog: MatDialog,
-      private router: Router
+      private router: Router,
+      public encryptdecrypt: AesencryptDecryptService,
 
   ) { }
 
@@ -143,9 +145,9 @@ export class CRCListComponent {
   setTableData() {
     this.highLightedFlag = true;
     let displayedColumns = this.lang == 'en' ? ['srNo', 'crcRegNo', 'crcName', 'ownerName', 'mobNo1', 'village', 'taluka', 'expireOn', 'isActive','status', 'action']
-      : ['srNo', 'crcRegNo', 'm_CRCName', 'm_OwnerName', 'mobNo1', 'm_Village', 'm_Taluka', 'expireOn', 'isActive', 'action'];
+      : ['srNo', 'crcRegNo', 'm_CRCName', 'm_OwnerName', 'mobNo1', 'm_Village', 'm_Taluka', 'expireOn', 'isActive','status', 'action'];
     let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Reg No', 'CRC Name', 'Owner Name', 'Mobile No', 'Village', 'Taluka', 'Expire On', 'Block/Unblock','Status','Action'] :
-      ['अनुक्रमांक', 'नोंदणी क्रमांक', 'CRC नाव', 'मालकाचे नाव', 'मोबाईल नंबर', 'गाव', 'तालुका', 'कालबाह्य', 'स्थिती', 'कृती'];
+      ['अनुक्रमांक', 'नोंदणी क्रमांक', 'CRC नाव', 'मालकाचे नाव', 'मोबाईल नंबर', 'गाव', 'तालुका', 'कालबाह्य','ब्लॉक/अनब्लॉक', 'स्थिती', 'कृती'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
@@ -182,7 +184,12 @@ export class CRCListComponent {
   }
 
  viewCRCList(obj: any) {
-  this.router.navigate(['crc-center-details'], { queryParams: { data: obj.id } });
+  let Id: any = this.encryptdecrypt.encrypt(`${obj?.id}`);
+  this.router.navigate(['crc-center-details'], {
+    queryParams: {
+      id: Id
+    },
+  })
   }
 
   openBlockDialog(obj?: any) {
@@ -206,9 +213,7 @@ export class CRCListComponent {
         "id": obj?.id,
         "isActive": !obj.isActive,
         "reason": ""
-      }
-      console.log('statusObj',statusObj);
-      
+      }      
       result == 'Yes' ? this.blockScheme(statusObj) : '';
     })
   }

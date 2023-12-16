@@ -16,10 +16,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { GlobalTableComponent } from 'src/app/shared/components/global-table/global-table.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { TranslateModule } from '@ngx-translate/core';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 
 @Component({
   selector: 'app-crc-delivery-slabs',
@@ -54,6 +55,7 @@ export class CrcDeliverySlabsComponent {
   id: any;
   grainageCtrl: FormControl = new FormControl();
   grainageSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  routingData:any;
   constructor
     (
       private fb: FormBuilder,
@@ -63,8 +65,8 @@ export class CrcDeliverySlabsComponent {
       private apiService: ApiService,
       private commonMethod: CommonMethodsService,
       private errorHandler: ErrorHandlingService,
-      private route: Router,
-
+      private route: ActivatedRoute,
+      public encryptdecrypt: AesencryptDecryptService,
   ) { }
 
   ngOnInit() {
@@ -73,12 +75,17 @@ export class CrcDeliverySlabsComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     });
-    this.id = this.route.url.split('=')[1];
+    
+    this.route.queryParams.subscribe((queryParams: any) => {
+      this.routingData = queryParams['id'];
+    });
+   let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
+   this.id = spliteUrl[0];
     this.getFormData();
     this.searchDataZone();
     this.getStatus();
     this.getGrainage();
-    this.getTableData();
+    this.bindTable();
   }
 
   searchDataZone() {
@@ -114,12 +121,12 @@ export class CrcDeliverySlabsComponent {
     })
   }
 
-  getTableData(flag?: any) {
+  bindTable(flag?: any) {
     this.spinner.show();
     let formData = this.slabForm.getRawValue();
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/CRC-Centers_Delivery-Slab?Id=27&Status='+(formData.statusId || 0)+'&GrainageId='+(formData.grainageId || 0)+str, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/CRC-Centers_Delivery-Slab?Id'+this.id+'&Status='+(formData.statusId || 0)+'&GrainageId='+(formData.grainageId || 0)+str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -160,7 +167,7 @@ export class CrcDeliverySlabsComponent {
       tableHeaders: displayedheaders,
       view: false,
       edit: false,
-      delete: false
+      delete: false,
     };
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
     console.log('tableDatatableData',tableData);
@@ -173,7 +180,7 @@ export class CrcDeliverySlabsComponent {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
         !this.filterFlag ? this.getFormData() : ''
-        this.getTableData();
+        this.bindTable();
         break;
       // case 'View':
       //   this.viewCRCList(obj);
@@ -187,6 +194,6 @@ export class CrcDeliverySlabsComponent {
   clearFormData() {
     this.pageNumber = 1;
     this.getFormData();
-    this.getTableData();
+    this.bindTable();
   }
 }
