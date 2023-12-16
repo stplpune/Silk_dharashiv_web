@@ -5,7 +5,7 @@
   <mat-card-content class=" card-body form-container">
     <form [formGroup]="filterForm">
       <div class="row gx-2">
-        <div class="col-sm">
+        <div class="col-sm-6">
           <div class="d-flex flex-column gap-2">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label class="form-label mb-0">{{'common.mobile'| translate}}</mat-label>
@@ -14,7 +14,7 @@
             </mat-form-field>
           </div>
         </div>
-        <div class="col-sm">
+        <!-- <div class="col-sm">
           <div class="d-flex flex-column gap-2">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label class="form-label mb-0">{{'approvalProcess.aadhar_number'| translate}}</mat-label>
@@ -22,7 +22,7 @@
                 (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
             </mat-form-field>
           </div>
-        </div>
+        </div> -->
         <div class="col-sm-1">
           <div class="d-flex gap-2">
             <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit"
@@ -46,7 +46,7 @@
     <mat-stepper #stepper [linear]="!isLinear">
       <mat-step [stepControl]="samgraForm"   >
         <ng-template matStepLabel>{{'addSamgra.Original_details' | translate}}</ng-template>
-        <form [formGroup]="samgraForm" (ngSubmit)="onSubmit('samgraForm')" #samgraDirective="ngForm" >
+        <form [formGroup]="samgraForm"  #samgraDirective="ngForm" >
           <div class="container-fluid">
             <div class="row gx-2 mb-4">
 
@@ -332,15 +332,15 @@
             </div>
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-            <button mat-button matStepperNext class="btn-main" >{{'addSamgra.next' | translate}}</button>
+            <!-- <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button> -->
+            <button mat-button  class="btn-main" (click)="checkStepCon(stepper,'samgraForm')" >{{'addSamgra.next' | translate}}</button>
           </div>
         </form>
       </mat-step>
       <!-- ////////////////// start 2 form -->
       <mat-step [stepControl]="landDetailsForm" >
         <ng-template matStepLabel>{{'approvalProcess.land_details'| translate}}</ng-template>
-        <form [formGroup]="landDetailsForm" #landDetailsDirective="ngForm" (ngSubmit)="onSubmit('landDetailsForm')">
+        <form [formGroup]="landDetailsForm" #landDetailsDirective="ngForm">
           <div class="container-fluid">
             <div class="row align-items-center g-3">
               <div class="col-sm-4">
@@ -545,7 +545,7 @@
                             </span>
                           </button>
                           <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
-                            (click)="deleteInternalSchemes(i ,'currentCropDetails')">
+                            (click)="deleteInternalSchemes(element,'currentCropDetails')">
                             <span class="material-symbols-rounded text-danger">
                               delete
                             </span>
@@ -719,16 +719,17 @@
               </div>
               <ng-container *ngIf="landDetailsForm.value.sm_IsTakenBenefitOfInternalScheme">
                 <form [formGroup]="internalSchemes" #ScheemDirective="ngForm" (ngSubmit)="addInternalSchemes()">
+                 <div class="row">
                   <div class="col-sm-4">
                     <mat-label class="form-label">{{'addSamgra.availed_under_Silk_Directorate_earlier' |
                       translate}}
                       </mat-label>
                     <mat-form-field appearance="outline" class="w-100">
                       <textarea matInput placeholder="" rows="3" formControlName="internalSchemeName"
-                        (keypress)="validation.noFirstSpaceAllow($event)"></textarea>
+                        (keypress)="validation.noFirstSpaceAllow($event)" maxlength="10"></textarea>
 
 
-                        <mat-error
+                        <!-- <mat-error
                         *ngIf="fIS['internalSchemeName']?.hasError('required') ">{{'addSamgra.Scheme_Name_enter'|translate}}</mat-error>
                    <mat-error *ngIf="fIS['internalSchemeName']?.errors">
                         <span class="text-danger"
@@ -737,43 +738,44 @@
                           ('addSamgra.Scheme_Name_maximum_10_digit_allowed'|translate) :
                           ''}}
                         </span>
-                      </mat-error>
+                      </mat-error> -->
 
                     </mat-form-field>
                   </div>
-                  <div class="col-sm-4">
+                  <div class="col-sm-2">
                     <mat-label class="form-label">{{'addSamgra.Year_date' | translate}}</mat-label>
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput [matDatepicker]="datePicker" formControlName="schemeTakenDate"
                         (click)="datePicker.open()" readonly [max]="todayDate">
                       <mat-datepicker-toggle matIconSuffix [for]="datePicker"></mat-datepicker-toggle>
                       <mat-datepicker #datePicker></mat-datepicker>
-                      <mat-error
-                      *ngIf="fIS['schemeTakenDate']?.hasError('required') ">{{'addSamgra.date_select'|translate}}</mat-error>
-                    </mat-form-field>
+                      <!-- <mat-error
+                      *ngIf="fIS['schemeTakenDate']?.hasError('required') ">{{'addSamgra.date_select'|translate}}</mat-error>-->
+                    </mat-form-field> 
                   </div>
-                  <div class="col-sm-4">
+                  <div class="col-sm-2">
                     <mat-label class="form-label">{{'addSamgra.Total_Benefit_Amount' | translate}}</mat-label>
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" rows="3" formControlName="totalBenefitTaken"
                         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
 
-                        <mat-error
+                       <!--   <mat-error
                         *ngIf="fIS['totalBenefitTaken']?.hasError('required') ">{{'addSamgra.Total_Benefit_enter'|translate}}</mat-error>
-                      <mat-error *ngIf="fIS['totalBenefitTaken']?.errors">
+                     <mat-error *ngIf="fIS['totalBenefitTaken']?.errors">
                         <span class="text-danger"
                           *ngIf="fIS['totalBenefitTaken']?.hasError('maxLengthExceeded') || fIS['totalBenefitTaken']?.hasError('pattern')">
                           {{fIS['totalBenefitTaken'].hasError('maxLengthExceeded') ?
                           ('addSamgra.Total_Benefit_maximum_10_digit_allowed'|translate) :
                           ('addSamgra.Total_Benefit_valid'|translate)}}
                         </span>
-                      </mat-error>
+                      </mat-error> -->
 
                     </mat-form-field>
                   </div>
                   <div class="col-sm-auto">
-                    <button mat-flat-button class="btn-main" type="submit">{{'addSamgra.Add_more_details' | translate}}</button>
+                    <button mat-flat-button class="btn-main mt-4" type="submit">{{'addSamgra.Add_more_details' | translate}}</button>
                   </div>
+                 </div>
                 </form>
 
 
@@ -836,7 +838,7 @@
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-            <button mat-button matStepperNext class="btn-main" >{{'addSamgra.next' | translate}}</button>
+            <button mat-button  class="btn-main"    (click)="checkStepCon(stepper, 'landDetailsForm')">{{'addSamgra.next' | translate}}</button>
           </div>
         </form>
       </mat-step>
@@ -844,7 +846,7 @@
       <!-- ////////////////// start 3 form -->
       <mat-step [stepControl]="bankDetailsForm" >
         <ng-template matStepLabel>{{'approvalProcess.bank_details'|translate}}</ng-template>
-        <form [formGroup]="bankDetailsForm" #bankDetailsDirective="ngForm" (ngSubmit)="onSubmit('bankDetailsForm')">
+        <form [formGroup]="bankDetailsForm" #bankDetailsDirective="ngForm" >
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-4">
@@ -918,7 +920,7 @@
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-            <button mat-button matStepperNext class="btn-main" >{{'addSamgra.next' | translate}}</button>
+            <button mat-button  class="btn-main" (click)="checkStepCon(stepper,'bankDetailsForm')">{{'addSamgra.next' | translate}}</button>
           </div>
         </form>
       </mat-step>
@@ -1140,9 +1142,9 @@
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="docname">
-                          <mat-error *ngIf="fdp['docname'].hasError('required') ">
+                          <!-- <mat-error *ngIf="fdp['docname'].hasError('required') ">
                             {{lang == 'en' ? "Please enter document name" :
-                            "कृपया दस्तऐवजाचे नाव प्रविष्ट करा"}}  </mat-error>
+                            "कृपया दस्तऐवजाचे नाव प्रविष्ट करा"}}  </mat-error> -->
                         </mat-form-field>
                       </div>
                     </div>
@@ -1178,8 +1180,8 @@
                     </button> -->
                         </div>
                       </div>
-                      <mat-error *ngIf="viewMsgFlag && !uploadedDocUrl">{{lang == 'en' ? "Please upload document" :
-                        "कृपया दस्तऐवज अपलोड करा"}} </mat-error>
+                      <!-- <mat-error *ngIf="viewMsgFlag && !uploadedDocUrl">{{lang == 'en' ? "Please upload document" :
+                        "कृपया दस्तऐवज अपलोड करा"}} </mat-error> -->
 
                     </div>
                     <div class="col-sm-auto">
@@ -1285,13 +1287,13 @@
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('document')">{{'addSamgra.next' | translate}}</button>
+          <button mat-button  class="btn-main" (click)="checkStepCon(stepper, 'document')">{{'addSamgra.next' | translate}}</button>
         </div>
       </mat-step>
       <!-- ///////////////start 5 form -->
       <mat-step [stepControl]="selfDeclarationForm">
         <ng-template matStepLabel>{{'addSamgra.self_declaration' | translate}}</ng-template>
-        <form [formGroup]="selfDeclarationForm"  #selfDeclarationDirective="ngForm" (ngSubmit)="onSubmit('selfDeclaration')">
+        <form [formGroup]="selfDeclarationForm"  #selfDeclarationDirective="ngForm" >
           <div class="container-fluid">
             <ul class="list-unstyled">
               <li>
@@ -1322,7 +1324,7 @@
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-            <button mat-button matStepperNext class="btn-main" >{{'addSamgra.next' | translate}}
+            <button mat-button class="btn-main" (click)="checkStepCon(stepper, 'selfDeclaration')">{{'addSamgra.next' | translate}}
             </button>
           </div>
         </form>
@@ -1769,7 +1771,7 @@
       </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-          <button mat-button matStepperNext class="btn-main" (click)="onSubmit('preview')">{{'addSamgra.next' | translate}}</button>
+          <button mat-button matStepperNext class="btn-main">{{'addSamgra.next' | translate}}</button>
         </div>
 
       </mat-step>
@@ -1787,27 +1789,27 @@
                   (click)="uplodLogo1.value='';uplodLogo1.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span class="text-danger fs-6">*</span>
                 </button>
                 <input type="file" #uplodLogo1 accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
-                  (change)="fileUpload($event,'','registionFee')" />
-                <div class="d-flex gap-2" *ngIf="registionFeeUrl">
+                  (change)="fileUpload($event,docArray[8].docTypeId)" />
+                <div class="d-flex gap-2" *ngIf="docArray[8]?.docPath">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view" (click)="viewimage(registionFeeUrl)">
+                    matTooltip="view" (click)="viewimage(docArray[8].docPath)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
                   <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete" (click)="registionFeeUrl = '' ">
+                    matTooltip="delete"  (click)="deleteDocument(docArray[8].docTypeId)">
                     <mat-icon class="material-symbols-rounded">
                       delete
                     </mat-icon>
                   </button>
                 </div>
               </div>
-              <mat-error *ngIf="viewMsgFlag && !registionFeeUrl">{{lang == 'en' ? "please upload registration fee Rs.500 receipt" :
-                "कृपया नोंदणी शुल्क रु. 500 पावती अपलोड करा"}} </mat-error>
+              <!-- <mat-error *ngIf="viewMsgFlag && !registionFeeUrl">{{lang == 'en' ? "please upload registration fee Rs.500 receipt" :
+                "कृपया नोंदणी शुल्क रु. 500 पावती अपलोड करा"}} </mat-error> -->
             </div>
             <div class="col-sm">
-              <button mat-flat-button class="btn-main" (click)="onSubmit('addCurrency')">{{'addSamgra.submit' | translate}}</button>
+              <button mat-flat-button class="btn-main" (click)="checkStepCon(stepper,'addCurrency')">{{'addSamgra.submit' | translate}}</button>
             </div>
           </div>
         </div>
