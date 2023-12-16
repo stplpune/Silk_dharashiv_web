@@ -1,4 +1,20 @@
 {
+
+  "geoTagging": {
+    "Mulberry_Plantation_Date": " Mulberry Plantation Date",
+    "Mulberry_Plantation_Area(Hectares)": "Mulberry Plantation Area (Hectares)",
+    "Mulberry_Plantation_Type_Through_Plant": "Mulberry Plantation Type, Through Plant",
+    "Planted_Mulberry_Cast": "Mulberry Plantation Type, Through Plant",
+    "Mulberry_Plantation_Area_Length": " Mulberry Plantation Area Length X Width(Feet)",
+    "Mulberry_Plantation_Distance(Feet)": "Mulberry Plantation Distance(Feet)",
+    "Total_Number_of_Mulberry_Rows/Lines": "Total Number of Mulberry Rows/Lines",
+    "Number_of_trees_in_mulberry_row/line": "Number of trees in a Mulberry Rows/Lines",
+    "Number_of_surviving_trees_mulberry_row/line": "Number of Surviving Trees in a Mulberry Rows/Lines",
+    "Total_number_of_mulberry_trees": "Total Number of Mulberry Trees",
+    "Total_number_of_surviving_mulberry_trees": "Total Number of Surviving Mulberry Trees",
+    "Percentage_of_surviving_mulberry_trees": "Percentage of Surviving Mulberry Trees"
+  },
+  
   "dashboard":{
     "total_applications":"Total Applications",
 "total_beneficiaries":"Total Beneficiaries",

@@ -56,15 +56,15 @@
                 <table class="dashboard-table table table-sm table-bordered w-100 mb-0">
                   <tbody>
                     <tr>
-                      <td class="form-label">तुती लागवड दिनांक</td>
+                      <td class="form-label">{{'geoTagging.Mulberry_Plantation_Date'| translate}}</td>
                       <td class="form-data">{{(data?.mulberryCultivationDate | date:"dd-MM-yyyy") | dash}}</td>
                     </tr>
                     <tr>
-                      <td class="form-label">तुती लागवड क्षेत्र (हेक्टर)</td>
+                      <td class="form-label">{{'geoTagging.Mulberry_Plantation_Area(Hectares)'| translate}}</td>
                       <td class="form-data">{{data?.mulberryCultivationArea | dash}}</td>
                     </tr>
                     <tr>
-                      <td class="form-label">तुती लागवडीचा प्रकार</td>
+                      <td class="form-label">{{'geoTagging.Mulberry_Plantation_Type_Through_Plant'| translate}}</td>
                       <td>
                         <p class="form-data">
                           {{data?.m_CultiverType| dash}}
@@ -72,16 +72,16 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="form-label">तुती लागवडीचा जात </td>
+                      <td class="form-label">{{'geoTagging.Planted_Mulberry_Cast'| translate}}</td>
                       <td class="form-data">{{data?.m_ImprovedMulberryCast | dash}}</td>
                       <!-- M_ImprovedMulberryCast -->
                     </tr>
                     <tr>
-                      <td class="form-label">तुती लागवडीचे अंतर (फुट)</td>
+                      <td class="form-label">{{'geoTagging.Mulberry_Plantation_Distance(Feet)'| translate}}</td>
                       <td class="form-data">{{data?.mulberryCultivationSpacing | dash}}</td>
                     </tr>
                     <tr>
-                      <td class="form-label">तुती लागवड क्षेत्राची (लांबी व रुंदी) फुट </td>
+                      <td class="form-label">{{'geoTagging.Mulberry_Plantation_Area_Length'| translate}}</td>
                       <td class="form-data">{{(data?.mulberryCultivationLength | dash) + 'x' +
                         (data?.mulberryCultivationWidth | dash) }}</td>
                     </tr>
@@ -89,13 +89,29 @@
                 </table>
               </div>
             </div>
+            <!-- "geoTagging": {
+              "Mulberry_Plantation_Date": "तुती लागवड तारीख",
+              "Mulberry_Plantation_Area(Hectares)": " तुती लागवड क्षेत्र (हेक्टर)",
+              "Mulberry_Plantation_Type_Through_Plant": "तुती लागवड प्रकार, वनस्पतीद्वारे",
+              "Planted_Mulberry_Cast": "लागवड केलेले तुती कास्ट, V1",
+              "Mulberry_Plantation_Area_Length": "तुती लागवड क्षेत्र लांबी X रुंदी(फूट)",
+              "Mulberry_Plantation_Distance(Feet)": "तुती लागवड अंतर (फूट)",
+
+              "Total_Number_of_Mulberry_Rows/Lines": "तुतीच्या पंक्ती/रेषांची एकूण संख्या",
+              "Number_of_trees_in_mulberry_row/line": "तुतीच्या रांगेत/ओळीतील झाडांची संख्या",
+              "Number_of_surviving_trees_mulberry_row/line": "तुतीच्या रांगेत/ओळीत जिवंत झाडांची संख्या",
+              "Total_number_of_mulberry_trees": "तुतीच्या झाडांची एकूण संख्या",
+              "Total_number_of_surviving_mulberry_trees": "हयात असलेल्या तुतीच्या झाडांची एकूण संख्या",
+              "Percentage_of_surviving_mulberry_trees": "तुतीच्या झाडांची टक्केवारी"
+            }, -->
+
             <div class="col-sm-6">
               <!-- <div class="form-data my-1"></div> -->
               <div class="table-responsive scrollbar mt-1">
                 <table class="dashboard-table table table-sm table-bordered w-100 mb-0">
                   <tbody>
                     <tr>
-                      <td class="form-label">एकूण तुती रांगा/ ओळींची संख्या</td>
+                      <td class="form-label">{{'geoTagging.Total_Number_of_Mulberry_Rows/Lines'| translate}}एकूण तुती रांगा/ ओळींची संख्या</td>
                       <td class="form-data">{{data?.totalCultiverLines | dash}}</td>
                     </tr>
                     <tr>
