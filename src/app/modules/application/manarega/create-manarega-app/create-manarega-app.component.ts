@@ -16,6 +16,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
+import { MatStepper } from '@angular/material/stepper';
+
 @Component({
   selector: 'app-create-manarega-app',
   templateUrl: './create-manarega-app.component.html',
@@ -83,6 +85,7 @@ export class CreateManaregaAppComponent {
   previewData: any;
   previewManarega: any;
   routingData: any;//used for get routing data
+  @ViewChild('stepper') private myStepper!: MatStepper;
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -119,7 +122,7 @@ export class CreateManaregaAppComponent {
     this.addRegistrationFrm();
     this.commonDropdown();
     this.routingData ? this.getRouteParam() : '';
-    this.getPreviewData1('search'); // temp
+    this.getPreviewData('search'); // temp
   }
 
   commonDropdown() {
@@ -136,7 +139,7 @@ export class CreateManaregaAppComponent {
 
   getRouteParam() {
     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
-    this.getPreviewData1('edit', spliteUrl[0]);
+    this.getPreviewData('edit', spliteUrl[0]);
   }
 
   filterDefaultFrm() {
@@ -235,15 +238,16 @@ export class CreateManaregaAppComponent {
 
   addSelfDeclaration(res?: any) {
     this.selfDeclarationFrm = this.fb.group({
-      "isHonestLabor": [res?.isHonestLabor || false],
-      "isSelfTransport": [res?.isSelfTransport || false],
-      "isEligibleGettingInstallmentAmount": [res?.isEligibleGettingInstallmentAmount || false],
-      "isBoundByConditions": [res?.isBoundByConditions || false],
-      "isPayMoreThanLimitedAmt": [res?.isPayMoreThanLimitedAmt || false],
-      "isSignedOnLetter": [res?.isSignedOnLetter || false],
-      "isChangedAcceptable": [res?.isChangedAcceptable || false],
-      "isSchemeCorrectAsPerSatbara": [res?.isSchemeCorrectAsPerSatbara || false],
-      "isJointAccHolderTermAcceptable": [res?.isJointAccHolderTermAcceptable || false]
+      "isHonestLabor": [res?.isHonestLabor || false, [Validators.required]],
+      "isSelfTransport": [res?.isSelfTransport || false,[Validators.required]],
+      "isEligibleGettingInstallmentAmount": [res?.isEligibleGettingInstallmentAmount || false,[Validators.required]],
+      "isBoundByConditions": [res?.isBoundByConditions || false,[Validators.required]],
+      "isPayMoreThanLimitedAmt": [res?.isPayMoreThanLimitedAmt || false,[Validators.required]],
+      "isSignedOnLetter": [res?.isSignedOnLetter || false,[Validators.required]],
+      "isChangedAcceptable": [res?.isChangedAcceptable || false,[Validators.required]],
+      "isSchemeCorrectAsPerSatbara": [res?.isSchemeCorrectAsPerSatbara || false,[Validators.required]],
+      "isJointAccHolderTermAcceptable": [res?.isJointAccHolderTermAcceptable || false,[Validators.required]],
+      "checkValue":['', Validators.required]
     })
   }
 
@@ -296,7 +300,6 @@ export class CreateManaregaAppComponent {
 
   //#region -----------------other document upload functionality start --------------------------------------------------
   onOtherDocSubmit() {
-    debugger;
     let uploadFrmValue = this.otherDocumentFrm.getRawValue();
     if (!uploadFrmValue?.docname) {
       this.commonMethod.snackBar('Document name is  required', 1);
@@ -504,7 +507,7 @@ export class CreateManaregaAppComponent {
     this.dataSource = new MatTableDataSource(arrayFarmDetails);
   }
 
-  getPreviewData1(flag?: any, id?: any) {
+  getPreviewData(flag?: any, id?: any) {
     let filterData = this.filterFrm?.getRawValue();
     let str = `AadharNo=${filterData?.aadharNo}&MobileNo=${filterData?.mobileNo}&lan=${this.lang}`;
     id ? str += `&Id=${id}` : '';
@@ -592,19 +595,73 @@ export class CreateManaregaAppComponent {
         this.manaregaFrm.controls['categoryId'].setValidators([]);
         this.manaregaFrm.controls['categoryId'].updateValueAndValidity();
       }
-    } else if (flag == 'isAnyPlantedBeforeGovSchemeArray') {
-      if (this.farmInfoFrm.getRawValue().isAnyPlantedBeforeGovScheme && this.farmDetails.length) {
-        this.farmInfoFrm.controls['isAnyPlantedBeforeGovSchemeArray'].setValidators([Validators.required]);
-        this.farmInfoFrm.controls['isAnyPlantedBeforeGovSchemeArray'].updateValueAndValidity();
-      } else {
-        this.farmInfoFrm.controls['isAnyPlantedBeforeGovSchemeArray'].setValue([])
-        this.farmInfoFrm.controls['isAnyPlantedBeforeGovSchemeArray'].updateValueAndValidity();
+    }
+  }
+
+  checkStepCon(stepper: MatStepper, lable: string) {
+    if (lable == 'farmerInfo' && this.manaregaFrm.valid) {
+      this.onSubmit(stepper, lable);
+    } else if (lable == 'farmInfo' && this.farmInfoFrm.valid) {
+      if(this.farmInfoFrm.getRawValue().isAnyPlantedBeforeGovScheme && !this.farmDetails.length){
+      this.commonMethod.snackBar('farmDetails d is required', 1)
+      return
+      }else{
+        this.onSubmit(stepper, lable);
       }
+    } else if (lable == 'bankInfo' && this.bankInfoFrm.valid) {
+      this.onSubmit(stepper, lable);
+    } else if (lable == 'document' && this.documentFrm.invalid) {
+      for (let i = 0; i < this.docArray.length; i++) { //check all doc path
+        if (this.docArray[i].docTypeId != 18 && this.docArray[i].docTypeId != 8 && this.docArray[i].docPath == '') {
+          this.docArray[i].docTypeId == 12 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Manrega Job Card Required' : 'मनरेगा जॉब कार्ड आवश्यक'), 1) : this.docArray[i].docTypeId == 19 ? this.commonMethod.snackBar((this.lang == 'en' ? '8 A track of Land Required' : 'जमिनीचा 8-अ आवश्यक'), 1) : this.docArray[i].docTypeId == 11 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque Required' : 'पासबुक / रद्द केलेला चेक आवश्यक'), 1) : '';
+          return
+        }
+      }
+      this.documentFrm.controls['allRequiredDocument'].setValue(1)
+      this.documentFrm.getRawValue().allRequiredDocument ? this.onSubmit(stepper, lable) : '';
+
+    } else if (lable == 'document' && this.documentFrm.valid) {
+      this.onSubmit(stepper, lable);
+    } else if (lable == 'selfDeclaration' && this.selfDeclarationFrm.valid) {
+      this.onSubmit(stepper, lable);
+    } else if (lable == 'selfDeclaration' && this.selfDeclarationFrm.invalid) {
+      let elfDeclarationFrmVal: any = this.selfDeclarationFrm.getRawValue();
+      delete elfDeclarationFrmVal.checkValue;
+      let val = Object.values(elfDeclarationFrmVal).every(item => item == true)
+      if (!val) {
+        this.selfDeclarationFrm.controls['checkValue'].setValue('');
+        this.commonMethod.snackBar('Self Declaration Frm field is required', 1)
+        return
+      } else {
+        this.selfDeclarationFrm.controls['checkValue'].setValue(true);
+        this.onSubmit(stepper, lable);
+      }
+    } else if (lable == 'preview') {
+      this.goForward(stepper);
+    } 
+    else if (lable == 'challan' && this.addRegistrationRecFrm.invalid) {
+      let findIndex =  this.docArray.findIndex((ele:any)=> ele.docTypeId == 8) //find index
+      if(!this.docArray[findIndex].docPath){
+        this.commonMethod.snackBar((this.lang == 'en' ? 'Registration Fee Receipt Required' : 'नोंदणी फी पावती आवश्यक'), 1);
+        return;
+      }
+      this.onSubmit(stepper, lable);
     }
 
+    else if (lable == 'challan' && this.addRegistrationRecFrm.valid) {
+      this.onSubmit(stepper, lable);
+    }
   }
-  onSubmit(flag?: any) {
-    debugger;
+
+  checkEveryFunction(array: any, val: any) {
+    return array.every((item: any) => item == val)
+  }
+
+  onSubmit(stepper:any,flag?: any) {
+    this.spinner.show();
+    let val =  Object.values(this.selfDeclarationFrm.getRawValue()).every(item => item == true)
+    !val ? this.selfDeclarationFrm.controls['checkValue'].setValue('') : this.selfDeclarationFrm.controls['checkValue'].setValue(true);
+
     this.manFrmSubmitFlag = true;
     let formData = this.manaregaFrm?.getRawValue();
     let farmInfo = this.farmInfoFrm.getRawValue();
@@ -612,38 +669,6 @@ export class CreateManaregaAppComponent {
     let declarationInfo = this.selfDeclarationFrm.getRawValue();
     let mergeDocumentArray = [...this.docArray, ...this.OtherDocUploadImg];
     let filterByDoc = mergeDocumentArray.filter((ele: any) => ele.docPath);
-    console.log(filterByDoc);
-    flag == 'farmerInfo' ? this.manaregaFrmVal('checkedcategory') :
-      flag == 'farmInfo' ? this.manaregaFrmVal('isAnyPlantedBeforeGovSchemeArray') : '';
-
-    if ((this.manaregaFrm.invalid && flag == 'farmerInfo')) {
-      return;
-    }
-
-    else if (this.farmInfoFrm.invalid && flag == 'farmInfo') {
-      return
-    }
-
-    else if (this.bankInfoFrm.invalid && flag == 'bankInfo') {
-      return
-    }
-
-    else if ((this.documentFrm.invalid && flag == 'document') || (this.addRegistrationRecFrm.invalid && flag == 'challan')) {
-      for (let i = 0; i < this.docArray.length; i++) {
-        flag == 'document' ? this.documentFrm.controls['allRequiredDocument'].setValue('') : this.addRegistrationRecFrm.controls['registrationDocument'].setValue('');;
-
-        if (this.docArray[i].docPath == '' && this.docArray[i].docTypeId != 18 && this.docArray[i].docTypeId != 8 && flag == 'document') {
-          this.docArray[i].docTypeId == 12 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Manrega Job Card Required' : 'मनरेगा जॉब कार्ड आवश्यक'), 1) : this.docArray[i].docTypeId == 19 ? this.commonMethod.snackBar((this.lang == 'en' ? '8 A track of Land Required' : 'जमिनीचा 8-अ आवश्यक'), 1) : this.docArray[i].docTypeId == 11 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque Required' : 'पासबुक / रद्द केलेला चेक आवश्यक'), 1) : '';
-          return
-        } else if (this.docArray[i].docPath == '' && this.docArray[i].docTypeId == 8 && flag == 'challan') {
-          this.commonMethod.snackBar((this.lang == 'en' ? 'Registration Fee Receipt Required' : 'नोंदणी फी पावती आवश्यक'), 1);
-          return;
-        }
-        else {
-          flag == 'document' ? this.documentFrm.controls['allRequiredDocument'].setValue(1) : this.addRegistrationRecFrm.controls['registrationDocument'].setValue(1);;
-        }
-      }
-    }
 
     !bankInfo.bankId ? bankInfo.bankId = 0 : '';
     !bankInfo.bankBranchId ? bankInfo.bankBranchId = 0 : '';
@@ -711,24 +736,17 @@ export class CreateManaregaAppComponent {
       "internalSchemes": [],
       "currentProducts": []
     }
-
+ 
     this.apiService.setHttp('post', 'sericulture/api/Application/Insert-Update-Application?lan=' + this.lang, false, obj, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
-          // flag == 'document'?  this.getPreviewData1(res.responseData) : "";
-          flag == 'farmerInfo' ? this.manFrmSubmitFlag = false : '';
-          this.getPreviewData1('edit', res.responseData)
-
+          this.goForward(stepper);
+          // this.OtherDocUploadImg = [];
+          this.getPreviewData('edit', res.responseData)
           this.manaregaFrm?.controls['id'].setValue(res.responseData);
-          (res.responseData && flag == 'challan') ? this.openDialog(res) : '';
-          flag == 'challan' ? this.commonMethod.snackBar(res.statusMessage, 0) : '';
-          this.viewMsgFlag = false;
-          flag == 'challan' ? this.router.navigate(['../application']) : '';
-
-          // this.dialogRef.close('Yes');
-          // this.clearMainForm();
+          res.responseData && flag == 'challan' ?  this.openDialog(res):'';
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
@@ -988,11 +1006,28 @@ export class CreateManaregaAppComponent {
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
       headerImage: 'assets/images/check.png'
     }
-    this.dialog.open(GlobalDialogComponent, {
+    let dialogRef = this.dialog.open(GlobalDialogComponent, {
+
       width: '320px',
       data: dialoObj,
       disableClose: true,
       autoFocus: false
     })
+    dialogRef.afterClosed().subscribe((result: any) => {
+      result == 'Yes' ?  this.router.navigate(['../application'])   : '';
+    });
+  }
+
+totalStepsCount!: number;
+
+  ngAfterViewInit() {
+    this.totalStepsCount = this.myStepper._steps.length;
+  }
+
+  goBack(stepper: MatStepper) {
+    stepper.previous();
+  }
+  goForward(stepper: MatStepper) {
+    stepper.next();
   }
 }
