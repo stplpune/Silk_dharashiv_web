@@ -12,7 +12,12 @@
     "Number_of_surviving_trees_mulberry_row/line": "Number of Surviving Trees in a Mulberry Rows/Lines",
     "Total_number_of_mulberry_trees": "Total Number of Mulberry Trees",
     "Total_number_of_surviving_mulberry_trees": "Total Number of Surviving Mulberry Trees",
-    "Percentage_of_surviving_mulberry_trees": "Percentage of Surviving Mulberry Trees"
+    "Percentage_of_surviving_mulberry_trees": "Percentage of Surviving Mulberry Trees",
+    "Mulberry_Cultivation_Details" : "Mulberry Cultivation Details",
+    "Photo_Tuti_Bagh_with_Shekari" : "Photo of Tuti Bagh with Shekari",
+    "Field_demarcation":"Field demarcation (after planting)",
+    "Geotagging_Visit_Date":"Geotagging Visit Date",
+    "Site_Inspection":"Site Inspection (After Planting)"
   },
   
   "dashboard":{

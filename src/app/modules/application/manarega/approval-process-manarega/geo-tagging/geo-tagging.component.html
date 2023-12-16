@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center gap-2 justify-content-between w-100">
-    <div class="text-main fw-bold">स्थळ पाहणी ( लागवडीनंतर  )</div>
+    <div class="text-main fw-bold">{{'geoTagging.Site_Inspection'| translate}}</div>
     <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
     </button>
@@ -9,7 +9,7 @@
 <mat-dialog-content class="modal-content form-container scrollbar">
   <div class="d-flex align-items-center justify-content-between py-1 mb-2 border-bottom">
     <div class="d-flex align-items-center gap-2 my-1">
-      <div class="form-label mb-0">Visit (Geotagging)  Date</div>
+      <div class="form-label mb-0">{{'geoTagging.Geotagging_Visit_Date'| translate}}</div>
       <div class="form-data">: {{data?.mulberryCultivationDate | date :'dd-MM-yyyy'}}</div>
     </div>
     <!-- <div class="d-flex align-items-center gap-2 text-danger">
@@ -22,7 +22,7 @@
     <div class="col-sm-4 border-end">
       <div class="container-flud">
 
-        <div class="form-data my-1">शेतीचे सिमांकन (लागवडीनंतर )</div>
+        <div class="form-data my-1">{{'geoTagging.Field_demarcation'| translate}}</div>
         <div class="container-fluid mt-2 p-0">
           <agm-map [latitude]="lat" [longitude]="lng" (mapReady)="onMapReady($event)">
           </agm-map>
@@ -32,7 +32,7 @@
     <div class="col-sm-8">
       <div class="row">
         <div class="container-fluid afterplantation-imgs">
-          <div class="form-data my-1">तुती बागेचे शेकर्‍यांसामवेत फोटो</div>
+          <div class="form-data my-1">{{'geoTagging.Photo_Tuti_Bagh_with_Shekari'| translate}}</div>
           <div class="row gx-2 pb-4 mb-3 border-bottom">
             <div class="col-sm-3" *ngFor="let img of data?.allSiteInspectionDocument">
               <img [src]="img?.docPath" alt="" class="img-fluid rounded">
@@ -49,7 +49,7 @@
           </div>
           <div class="row gx-2 line-height-update">
             <div class="col-md-12">
-              <div class="form-data my-1">तुती लागवडीचा तपशील</div>
+              <div class="form-data my-1">{{'geoTagging.Mulberry_Cultivation_Details'| translate}}</div>
             </div>
             <div class="col-sm-6">
               <div class="table-responsive scrollbar mt-1">
@@ -89,21 +89,7 @@
                 </table>
               </div>
             </div>
-            <!-- "geoTagging": {
-              "Mulberry_Plantation_Date": "तुती लागवड तारीख",
-              "Mulberry_Plantation_Area(Hectares)": " तुती लागवड क्षेत्र (हेक्टर)",
-              "Mulberry_Plantation_Type_Through_Plant": "तुती लागवड प्रकार, वनस्पतीद्वारे",
-              "Planted_Mulberry_Cast": "लागवड केलेले तुती कास्ट, V1",
-              "Mulberry_Plantation_Area_Length": "तुती लागवड क्षेत्र लांबी X रुंदी(फूट)",
-              "Mulberry_Plantation_Distance(Feet)": "तुती लागवड अंतर (फूट)",
-
-              "Total_Number_of_Mulberry_Rows/Lines": "तुतीच्या पंक्ती/रेषांची एकूण संख्या",
-              "Number_of_trees_in_mulberry_row/line": "तुतीच्या रांगेत/ओळीतील झाडांची संख्या",
-              "Number_of_surviving_trees_mulberry_row/line": "तुतीच्या रांगेत/ओळीत जिवंत झाडांची संख्या",
-              "Total_number_of_mulberry_trees": "तुतीच्या झाडांची एकूण संख्या",
-              "Total_number_of_surviving_mulberry_trees": "हयात असलेल्या तुतीच्या झाडांची एकूण संख्या",
-              "Percentage_of_surviving_mulberry_trees": "तुतीच्या झाडांची टक्केवारी"
-            }, -->
+           
 
             <div class="col-sm-6">
               <!-- <div class="form-data my-1"></div> -->
@@ -111,27 +97,27 @@
                 <table class="dashboard-table table table-sm table-bordered w-100 mb-0">
                   <tbody>
                     <tr>
-                      <td class="form-label">{{'geoTagging.Total_Number_of_Mulberry_Rows/Lines'| translate}}एकूण तुती रांगा/ ओळींची संख्या</td>
+                      <td class="form-label">{{'geoTagging.Total_Number_of_Mulberry_Rows/Lines'| translate}}</td>
                       <td class="form-data">{{data?.totalCultiverLines | dash}}</td>
                     </tr>
                     <tr>
-                      <td class="form-label">एका तुती रांगेतील / ओळीत झाडांची संख्या</td>
+                      <td class="form-label">{{'geoTagging.Number_of_trees_in_mulberry_row/line'| translate}}</td>
                       <td class="form-data">{{data?.totalServingMulberryTreesOneLine | dash}}</td>
                     </tr>
                     <tr>
-                      <td class="form-label">एका तुती रांगेतील / ओळीतील हयात झाडांची संख्या </td>
+                      <td class="form-label">{{'geoTagging.Number_of_surviving_trees_mulberry_row/line'| translate}}</td>
                       <td class="form-data">{{data?.totalServingMulberryTreesOneLine | dash}}</td>
                     </tr>
                     <tr>
-                      <td class="form-label">एकूण तुती झाडांची संख्या </td>
+                      <td class="form-label">{{'geoTagging.Total_number_of_mulberry_trees'| translate}}</td>
                       <td class="form-data">{{data?.totalMulberryTrees | dash}}</td>
                     </tr>
                     <tr>
-                      <td class="form-label">एकूण हयात तुती झाडांची संख्या</td>
+                      <td class="form-label">{{'geoTagging.Total_number_of_surviving_mulberry_trees'| translate}}</td>
                       <td class="form-data">{{data?.totalMulberryTreesAverage | dash}}</td>
                     </tr>
                     <tr>
-                      <td class="form-label"> हयात तुती झाडांची टक्केवारी</td>
+                      <td class="form-label">{{'geoTagging.Percentage_of_surviving_mulberry_trees'| translate}} </td>
                       <td class="form-data">{{(data?.totalMulberryTreesPercentage | dash)  +'%'}}</td>
                     </tr>
                   </tbody>
