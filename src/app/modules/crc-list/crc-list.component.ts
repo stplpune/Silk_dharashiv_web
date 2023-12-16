@@ -244,4 +244,8 @@ export class CRCListComponent {
     this.getFormData();
     this.getTableData();
   }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
 }

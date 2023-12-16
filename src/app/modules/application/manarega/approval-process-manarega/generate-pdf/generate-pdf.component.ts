@@ -79,8 +79,8 @@ export class GeneratePdfComponent {
     this.routeData = this.route.snapshot.queryParamMap.get('id');
     console.log(' this.routeData', this.routeData);
     
-    this.actionID= this.routeData.split('/')[1];
-    this.applicationId=this.routeData.split('/')[0]; 
+    this.actionID= this.routeData.split('.')[1];
+    this.applicationId=this.routeData.split('.')[0]; 
     console.log('   this.actionID',   this.actionID);
     console.log('this.applicationId',this.applicationId);
     
