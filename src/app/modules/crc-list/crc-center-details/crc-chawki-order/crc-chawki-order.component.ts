@@ -108,7 +108,7 @@ export class CrcChawkiOrderComponent {
     let dialogRef = this.dialog.open(ChowkiOrderDetailsComponent, {
       width: '90%',
       data: obj,
-      disableClose: true,
+      // disableClose: true,
       autoFocus: true,
     });
     dialogRef.afterClosed().subscribe(() => {

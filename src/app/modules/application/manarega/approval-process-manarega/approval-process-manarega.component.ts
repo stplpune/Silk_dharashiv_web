@@ -293,7 +293,6 @@ export class ApprovalProcessManaregaComponent {
               "isVerified": false
             }
             this.uploadedDepDoc = obj;
-            console.log(this.uploadedDepDoc);
             this.deleteImage();
           }
         }
@@ -554,10 +553,9 @@ export class ApprovalProcessManaregaComponent {
     // this.formDirectives.resetForm();
   }
 
+
   viewPdf() {    
-    window.open('generate-pdf?id='+this.applicationData?.applicationId+'.'+this.applicationData?.actionId, '_blank')
-    console.log('idddd',+this.applicationData?.applicationId+'.'+this.applicationData?.actionId);
-    
+    window.open('generate-pdf?id='+this.encryptdecrypt.encrypt(`${this.applicationData?.applicationId+'.'+this.applicationData?.actionId}`), '_blank')        
   }
 
   clearReasonAndDoc(){

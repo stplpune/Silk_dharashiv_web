@@ -242,14 +242,16 @@ export class ApplicationComponent {
   setTableData() {
     this.highLightRowFlag = true;
     let displayedColumns = ['srNo', 'applicationNo', (this.lang == 'en' ? 'departmentName' : 'm_DepartmentName'), (this.lang == 'en' ? 'schemeType' : 'm_SchemeType'), (this.lang == 'en' ? 'fullName' : 'm_FullName'), 'mobileNo1', (this.lang == 'en' ? 'taluka' : 'm_Taluka'), (this.lang == 'en' ? 'grampanchayatName' : 'm_GrampanchayatName'), 'selfStatus', 'status1', 'action'];
-    let displayedheaders = this.lang == 'en' ? ['Sr.No.', 'Application ID', 'Process Department', 'Scheme Name', 'Applicant Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Stage', 'Application Status', 'Action'] : ['अनुक्रमांक', 'अर्ज आयडी', 'प्रक्रिया विभाग', 'योजनेचे नाव', 'अर्जदाराचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'ग्रामपंचायत स्टेज', 'अर्जाची स्थिती', 'कृती'];
+    let displayedheaders = this.lang == 'en' ? ['Sr.No.', 'Application ID', 'Process Department', 'Scheme Name', 'Applicant Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Stage', 'Application Status', 'Action'] : ['अनुक्रमांक', 'अर्ज आयडी', 'प्रक्रिया विभाग', 'योजनेचे नाव', 'अर्जदाराचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'स्टेज', 'स्थिती', 'कृती'];
     //this.webStorage.getDesignationId() == 1 ? 
     if (this.webStorage.getDesignationId() === 1) {
       const selfStatusIndex = displayedColumns.indexOf('selfStatus');
       const headerselfStatusIndex = displayedheaders.indexOf('Stage');
+      const headerselfStatusMarIndex = displayedheaders.indexOf('स्टेज');
       if (selfStatusIndex !== -1 && headerselfStatusIndex !== -1) {
         displayedColumns.splice(selfStatusIndex, 1); // Remove selfStatus column
         displayedheaders.splice(headerselfStatusIndex, 1)
+        displayedheaders.splice(headerselfStatusMarIndex, 1)
       }
     }
 

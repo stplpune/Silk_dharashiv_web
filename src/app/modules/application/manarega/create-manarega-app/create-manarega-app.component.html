@@ -17,7 +17,7 @@
             </mat-form-field>
           </div>
         </div>
-        <div class="col-sm">
+        <!-- <div class="col-sm">
           <div class="d-flex flex-column gap-2">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label class="form-label mb-0">{{'approvalProcess.aadhar_number'| translate}}</mat-label>
@@ -25,7 +25,7 @@
                 (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
             </mat-form-field>
           </div>
-        </div>
+        </div> -->
         <div class="col-sm-1">
           <div class="d-flex gap-2">
             <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"
@@ -50,7 +50,7 @@
     <!-- [stepControl]="manaregaFrm" -->
     <mat-stepper #stepper linear>
       <mat-step [stepControl]="manaregaFrm">
-        <ng-template matStepLabel>मूळ तपशील</ng-template>
+        <ng-template matStepLabel>{{'approvalProcess.original_details'| translate}}</ng-template>
         <form [formGroup]="manaregaFrm">
           <div class="container-fluid">
             <!-- <div class="container"> -->
@@ -198,7 +198,7 @@
                 <div class="form-label">6.{{'approvalProcess.applicant_qualification_Required'|translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="qualificationId">
-                    <mat-option *ngFor="let qua of qualificationArray" [value]="qua.id">{{lang != 'en' ? qua.textMarathi : qua.textEnglish}}</mat-option>
+                    <mat-option *ngFor="let qua of qualificationArray" [value]="qua.id">{{lang == 'en' ?  qua.textEnglish : qua.textMarathi}}</mat-option>
                   </mat-select>
                   <mat-error
                     *ngIf="f['qualificationId'].hasError('required') ">{{'approvalProcess.applicant_qualification_Required'|translate}}</mat-error>
@@ -343,7 +343,7 @@
               <div *ngIf="checkedItems.length">
                 <div class="form-label">{{'approvalProcess.beneficiary_category_options'| translate}}</div>
                 <div class="form-data mb-0" *ngFor="let data of checkedItems;let i=index">
-                  {{(i+1)+". "+(data.textEnglish)}}
+                  {{(i+1)+". "+(lang == 'en' ? data.textEnglish : data.textMarathi)}}
                 </div>
               </div>
             </div>
@@ -351,7 +351,7 @@
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button  class="btn-main" type="button" 
-            (click)="checkStepCon(stepper, 'farmerInfo')">Next & Save</button>
+            (click)="checkStepCon(stepper, 'farmerInfo')">{{'addSamgra.next' | translate}}</button>
           </div>
         </form>
       </mat-step>
@@ -427,7 +427,7 @@
                   <mat-radio-group aria-label="Select an option" class="pe-3" formControlName="isJointAccHolder"
                     (change)="onClickAccountHolder(farmInfoFrm.controls['isJointAccHolder'].value)">
                     <mat-radio-button *ngFor="let arr of checkedArray" [value]="arr.id" class="pe-3">
-                      {{arr.name }}
+                      {{lang == 'en' ? arr.name : arr.m_name }}
                     </mat-radio-button>
                   </mat-radio-group>
                 </div>
@@ -503,7 +503,7 @@
                     formControlName="isAnyPlantedBeforeGovScheme"
                     (change)="onClickPlantedBeforeGovScheme(farmInfoFrm.controls['isAnyPlantedBeforeGovScheme'].value)">
                     <mat-radio-button *ngFor="let arr of checkedArray" [value]="arr.id" class="pe-3">
-                      {{arr.name }}
+                      {{lang == 'en' ? arr.name : arr.m_name }}
                     </mat-radio-button>
                   </mat-radio-group>
                 </div>
@@ -515,11 +515,11 @@
 
                   <div class="row align-items-center">
                     <div class="col-sm-4">
-                      <div class="form-label">{{'approvalProcess.orchard_flower_tree'| translate}}</div>
+                      <div class="form-label">22.A.{{'approvalProcess.orchard_flower_tree'| translate}}</div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="plantName"
-                            (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumeric($event)">
+                            (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumericWithSpaces($event)">
                           <!-- <mat-error
                             *ngIf="farmDeatailsFrm.controls['plantName'].hasError('required') ">{{'approvalProcess.please_enter_orchard_flower_tree'|translate}}</mat-error> -->
                           <mat-error *ngIf="farmDeatailsFrm.controls['plantName']?.errors">
@@ -534,7 +534,7 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">{{'approvalProcess.group_no.'| translate}}</div>
+                      <div class="form-label">22.B.{{'approvalProcess.group_no.'| translate}}</div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="gutNo"
@@ -555,7 +555,7 @@
                     <!-- "fourmaxLength": "Maximum 4 digits allowed",
               "sixmaxLength": "Maximum 6 digits allowed", -->
                     <div class="col-sm-4">
-                      <div class="form-label">{{'approvalProcess.group_area'| translate}}</div>
+                      <div class="form-label">22.C.{{'approvalProcess.group_area'| translate}}</div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="gutArea"
@@ -574,7 +574,7 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">{{'approvalProcess.cultivated_area'| translate}}</div>
+                      <div class="form-label">22.D.{{'approvalProcess.cultivated_area'| translate}}</div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="cultivatedArea"
@@ -593,7 +593,7 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">{{'approvalProcess.number_of_trees_planted'| translate}}</div>
+                      <div class="form-label">22.E.{{'approvalProcess.number_of_trees_planted'| translate}}</div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="cultivatedPlantsCount"
@@ -685,7 +685,7 @@
                   <mat-radio-group aria-label="Select an option" class="pb-0" formControlName="isSelfTraining"
                     (change)="onClickSelfTraining(farmInfoFrm.controls['isSelfTraining'].value)">
                     <mat-radio-button *ngFor="let arr of selfTrainingArray" [value]="arr.id" class="pe-3">
-                      {{arr.name }}
+                      {{lang == 'en' ? arr.name : arr.m_name }}
                     </mat-radio-button>
                   </mat-radio-group>
                 </div>
@@ -696,7 +696,7 @@
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="candidateName"
-                        (keypress)="validation.noFirstSpaceAllow($event);validation.onlyAlphabetsWithSpace($event)">
+                        (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
                       <mat-error
                         *ngIf="farmInfoFrm.controls['candidateName'].hasError('required') ">{{'approvalProcess.please_enter_candidate_name'|translate}}</mat-error>
                       <mat-error *ngIf="farmInfoFrm.controls['candidateName']?.errors">
@@ -728,9 +728,9 @@
           </div>
 
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button matStepperPrevious class="btn-main" type="button">Back</button>
+            <button mat-button matStepperPrevious class="btn-main" type="button">{{'addSamgra.back' | translate}}</button>
             <button mat-button class="btn-main" type="button"
-              (click)="checkStepCon(stepper, 'farmInfo')">Next & Save</button>
+              (click)="checkStepCon(stepper, 'farmInfo')">{{'addSamgra.next' | translate}}</button>
           </div>
         </form>
       </mat-step>
@@ -805,14 +805,14 @@
             </div>
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button matStepperPrevious class="btn-main">Back</button>
-            <button mat-button  class="btn-main"  (click)="checkStepCon(stepper, 'bankInfo')">Next & Save</button>
+            <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
+            <button mat-button  class="btn-main"  (click)="checkStepCon(stepper, 'bankInfo')">{{'addSamgra.next' | translate}}</button>
           </div>
         </form>
       </mat-step>
 
       <mat-step [stepControl]="documentFrm">
-        <ng-template matStepLabel>कागदपत्रे</ng-template>
+        <ng-template matStepLabel>{{'common.documents'|translate}}</ng-template>
         <form [formGroup]="documentFrm">
           <div class="container-fluid">
             <div class="row align-items-center g-3">
@@ -978,7 +978,7 @@
                           <div class="file-upload border rounded-2 p-1">
                             <button type="button" mat-flat-button class="btn" id="fileupload-button"
                               data-toggle="tooltip" (click)="otherDocImage.value='';otherDocImage.click()">
-                              {{'approvalProcess.upload_document'|translate}}<span class="text-danger fs-6">*</span>
+                              {{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span class="text-danger fs-6">*</span>
                             </button>
                             <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
                               (change)="fileUpload($event,7,'otherDocuments')" #otherDocImage />
@@ -1071,9 +1071,9 @@
             </div>
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button matStepperPrevious class="btn-main">Back</button>
+            <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
             <button mat-button  class="btn-main" type="button"
-             (click)="checkStepCon(stepper, 'document')">Next & Save</button>
+             (click)="checkStepCon(stepper, 'document')">{{'addSamgra.next' | translate}}</button>
           </div>
         </form>
       </mat-step>
@@ -1160,18 +1160,18 @@
             </ul>
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button matStepperPrevious class="btn-main">Previous</button>
+            <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
             <button mat-button  class="btn-main" type="button"
-               (click)="checkStepCon(stepper, 'selfDeclaration')">Next & Save</button>
+               (click)="checkStepCon(stepper, 'selfDeclaration')">{{'addSamgra.next' | translate}}</button>
           </div>
         </form>
 
       </mat-step>
 
       <mat-step>
-        <ng-template matStepLabel>Preview</ng-template>
+        <ng-template matStepLabel>{{'addSamgra.Preview'| translate}}</ng-template>
         <div class="container-fluid">
-          <div class="form-data">Individual Information</div>
+          <div class="form-data">{{'addSamgra.Individual_Information'| translate}}</div>
           <div class="row gx-2 mb-3">
             <div class="col-sm-2">
               <img src="{{previewData?.profilePhotoPath}}" alt="Applicant image" class="img-fluid">
@@ -1179,7 +1179,7 @@
             <div class="col-sm-10">
               <div class="row gx-2">
                 <div class="col-sm-6">
-                  <div class="form-data text-main">Individual Information</div>
+                  <div class="form-data text-main">{{'addSamgra.Individual_Information'| translate}}</div>
                   <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'common.mobile'| translate}} </div>
@@ -1212,7 +1212,7 @@
           </div>
           <div class="row gy-2 gx-2 mb-2">
             <div class="col-sm-4">
-              <div class="form-data text-main">कृषि व फलौत्पादन </div>
+              <div class="form-data text-main">{{'addSamgra.Agriculture_and_Fruit_Production'| translate}} </div>
               <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
@@ -1585,14 +1585,14 @@
           </ul>
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-          <button mat-button matStepperPrevious class="btn-main">Previous</button>
-          <button mat-button type="button"  class="btn-main" (click)="checkStepCon(stepper, 'preview')">Next & Save</button>
+          <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
+          <button mat-button type="button"  class="btn-main" (click)="checkStepCon(stepper, 'preview')">{{'addSamgra.next' | translate}}</button>
         </div>
 
       </mat-step>
 
       <mat-step [stepControl]="addRegistrationRecFrm">
-        <ng-template matStepLabel>चलन जोडा</ng-template>
+        <ng-template matStepLabel> {{'addSamgra.Add_currency'| translate}}</ng-template>
         <form [formGroup]="addRegistrationRecFrm">
           <div class="container-fluid">
             <h6 class="my-4">
@@ -1637,9 +1637,8 @@
 
 
               <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-                <button mat-button matStepperPrevious class="btn-main">Previous</button>
-                <button mat-flat-button class="btn-main" type="button"   (click)="checkStepCon(stepper, 'challan')">प्रस्तुत
-                  करा</button>
+                <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
+                <button mat-flat-button class="btn-main" type="button"   (click)="checkStepCon(stepper, 'challan')">{{'addSamgra.submit' | translate}}</button>
               </div>
             </div>
           </div>

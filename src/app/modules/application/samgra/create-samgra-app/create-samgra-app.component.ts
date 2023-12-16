@@ -14,7 +14,7 @@ import { FileUploadService } from 'src/app/core/services/file-upload.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { DateAdapter } from '@angular/material/core';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { MatStepper } from '@angular/material/stepper';
@@ -627,7 +627,7 @@ export class CreateSamgraAppComponent {
 
   clearValueRadioButton(flag?: any) {
     if (flag == 'ExperienceYears') {
-      this.fL['sm_ExperienceYears'].setValue('')
+      this.fL['sm_ExperienceYears'].setValue('');
     } else if (flag == 'SilkIndustrtyTrainingDetails') {
       this.fL['sm_SilkIndustrtyTrainingDetails'].setValue('')
     } else if (flag == 'isBenefit' && !this.landDetailsForm.getRawValue().sm_IsTakenBenefitOfInternalScheme) {
@@ -637,14 +637,14 @@ export class CreateSamgraAppComponent {
       this.internalSchemesArray = [];
       this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
     } else if (flag == 'AnyPlantedBefor') {
-      this.fL['sm_YearOfPlanting'].setValue('')
-      this.fL['sm_CultivatedArea'].setValue('')
-      this.fL['sm_LandSurveyNo'].setValue('')
+      this.fL['sm_YearOfPlanting'].setValue('');
+      this.fL['sm_CultivatedArea'].setValue('');
+      this.fL['sm_LandSurveyNo'].setValue('');
     } else if (flag == 'otherDoc') {
       this.viewMsgFlag = false;
       this.checkOtherDocumentFlag = true;
-      this.fdp['docname'].setValue('')
-      this.fdp['checkOtherDocumentTable'].setValue('')
+      this.fdp['docname'].setValue('');
+      this.fdp['checkOtherDocumentTable'].setValue('');
       this.otherDocArray = [];
       this.dataSource2 = new MatTableDataSource(this.otherDocArray);
     }
@@ -675,7 +675,7 @@ export class CreateSamgraAppComponent {
         this.fL['sm_CultivatedArea'].clearValidators();
         this.fL['sm_LandSurveyNo'].clearValidators();
         this.fL['sm_YearOfPlanting'].clearValidators();
-        this.clearValueRadioButton('AnyPlantedBefor')
+        this.clearValueRadioButton('AnyPlantedBefor');
       }
       this.fL['sm_CultivatedArea'].updateValueAndValidity();
       this.fL['sm_LandSurveyNo'].updateValueAndValidity();
@@ -868,7 +868,6 @@ export class CreateSamgraAppComponent {
   deleteOtherDoc(index: any) {
     this.otherDocArray[index].isDeleted = true
     this.otherDocArray.splice(index, 1)
-
     this.dataSource2 = new MatTableDataSource(this.otherDocArray);
   }
 

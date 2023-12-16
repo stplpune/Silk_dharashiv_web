@@ -38,8 +38,8 @@ export class CreateManaregaAppComponent {
   lang: any;
   viewMsgFlag: boolean = false;//used for error msg show
   genderArray: any = [{ id: 1, name: 'Male', m_name: 'पुरुष' }, { id: 0, name: 'Female', m_name: 'स्त्री  ' }];
-  checkedArray: any = [{ id: true, name: 'Yes' }, { id: false, name: 'No' }];
-  selfTrainingArray: any = [{ id: true, name: 'Own' }, { id: false, name: 'Candidate' }];
+  checkedArray: any = [{ id: true, name: 'Yes',m_name : 'होय' }, { id: false, name: 'No' ,m_name : 'नाही'}];
+  selfTrainingArray: any = [{ id: true, name: 'Own',m_name :'स्वत:' }, { id: false, name: 'Candidate' ,m_name : 'उमेदवार'}];
   displayedColumns = ['srNo', 'plantName', 'gutNo', 'gutArea', 'cultivatedArea', 'cultivatedPlantsCount', 'actions'];
   plantDisplayedColumns = ['srNo', 'plantName', 'gutNo', 'gutArea', 'cultivatedArea', 'cultivatedPlantsCount'];
   qualificationArray = new Array();
@@ -71,8 +71,8 @@ export class CreateManaregaAppComponent {
   @ViewChild('formDirective') private formDirective!: NgForm;
   //documnet form variable
   docUploadedPath: string = '';
-  docArray = [{ id: 0, docTypeId: 12, docPath: '', docNo: '', docname: 'Job Card' }, { id: 0, docTypeId: 19, docPath: '', docNo: '', docname: '8A Form' }, { id: 0, docTypeId: 18, docPath: '', docNo: '', docname: '7-Dec' },
-  { id: 0, docTypeId: 11, docPath: '', docNo: '', docname: 'Nationalized Bank Passbook' }, { id: 0, docTypeId: 8, docPath: '', docNo: '', docname: 'Registration Fee Receipt' }]
+  docArray = [{ id: 0, docTypeId: 12, docPath: '', docNo: '', docname: 'Job Card',isDeleted: false }, { id: 0, docTypeId: 19, docPath: '', docNo: '', docname: '8A Form' ,isDeleted: false}, { id: 0, docTypeId: 18, docPath: '', docNo: '', docname: '7-Dec' ,isDeleted: false},
+  { id: 0, docTypeId: 11, docPath: '', docNo: '', docname: 'Nationalized Bank Passbook' ,isDeleted: false}, { id: 0, docTypeId: 8, docPath: '', docNo: '', docname: 'Registration Fee Receipt' ,isDeleted: false}]
   visible: boolean = false;
   otherDocArray: any = new Array();
   @ViewChild('otherDocImage') OtherDocImg!: ElementRef;
@@ -122,7 +122,7 @@ export class CreateManaregaAppComponent {
     this.addRegistrationFrm();
     this.commonDropdown();
     this.routingData ? this.getRouteParam() : '';
-    this.getPreviewData('search'); // temp
+  // this.getPreviewData('search'); // temp
   }
 
   commonDropdown() {
@@ -145,7 +145,6 @@ export class CreateManaregaAppComponent {
   filterDefaultFrm() {
     this.filterFrm = this.fb.group({
       mobileNo: [''],
-      aadharNo: [''],
     })
   }
 
@@ -163,7 +162,7 @@ export class CreateManaregaAppComponent {
   addManaregaFrm(data?: any) {
     this.manaregaFrm = this.fb.group({
       "id": [data?.id || 0],
-      "farmerId": [data?.farmerId || 10],
+      "farmerId": [data?.farmerId || 91],
       "schemeTypeId": [1],
       "applicationNo": [data?.applicationNo || ''],
       "mobileNo1": [data?.mobileNo1 || '', [Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
@@ -239,15 +238,15 @@ export class CreateManaregaAppComponent {
   addSelfDeclaration(res?: any) {
     this.selfDeclarationFrm = this.fb.group({
       "isHonestLabor": [res?.isHonestLabor || false, [Validators.required]],
-      "isSelfTransport": [res?.isSelfTransport || false,[Validators.required]],
-      "isEligibleGettingInstallmentAmount": [res?.isEligibleGettingInstallmentAmount || false,[Validators.required]],
-      "isBoundByConditions": [res?.isBoundByConditions || false,[Validators.required]],
-      "isPayMoreThanLimitedAmt": [res?.isPayMoreThanLimitedAmt || false,[Validators.required]],
-      "isSignedOnLetter": [res?.isSignedOnLetter || false,[Validators.required]],
-      "isChangedAcceptable": [res?.isChangedAcceptable || false,[Validators.required]],
-      "isSchemeCorrectAsPerSatbara": [res?.isSchemeCorrectAsPerSatbara || false,[Validators.required]],
-      "isJointAccHolderTermAcceptable": [res?.isJointAccHolderTermAcceptable || false,[Validators.required]],
-      "checkValue":['', Validators.required]
+      "isSelfTransport": [res?.isSelfTransport || false, [Validators.required]],
+      "isEligibleGettingInstallmentAmount": [res?.isEligibleGettingInstallmentAmount || false, [Validators.required]],
+      "isBoundByConditions": [res?.isBoundByConditions || false, [Validators.required]],
+      "isPayMoreThanLimitedAmt": [res?.isPayMoreThanLimitedAmt || false, [Validators.required]],
+      "isSignedOnLetter": [res?.isSignedOnLetter || false, [Validators.required]],
+      "isChangedAcceptable": [res?.isChangedAcceptable || false, [Validators.required]],
+      "isSchemeCorrectAsPerSatbara": [res?.isSchemeCorrectAsPerSatbara || false, [Validators.required]],
+      "isJointAccHolderTermAcceptable": [res?.isJointAccHolderTermAcceptable || false, [Validators.required]],
+      "checkValue": ['', Validators.required]
     })
   }
 
@@ -302,13 +301,13 @@ export class CreateManaregaAppComponent {
   onOtherDocSubmit() {
     let uploadFrmValue = this.otherDocumentFrm.getRawValue();
     if (!uploadFrmValue?.docname) {
-      this.commonMethod.snackBar('Document name is  required', 1);
+      this.commonMethod.snackBar((this.lang == 'en' ? 'Document name is  required' : 'दस्तऐवजाचे नाव आवश्यक आहे'), 1);
       return
     } else if (!uploadFrmValue?.docNo) {
-      this.commonMethod.snackBar('Document number is  required', 1);
+      this.commonMethod.snackBar((this.lang == 'en' ? 'Document number is  required' : 'दस्तऐवज क्रमांक आवश्यक आहे' ), 1);
       return
     } else if (!uploadFrmValue?.docPath) {
-      this.commonMethod.snackBar('Document path is  required', 1);
+      this.commonMethod.snackBar((this.lang == 'en' ? 'Document path is  required' : 'दस्तऐवज मार्ग आवश्यक आहे' ), 1);
       return
     }
     else {
@@ -351,7 +350,7 @@ export class CreateManaregaAppComponent {
   deleteTableOtherDocument(i: any, element: any) { //logic for delete table document
     // this.OtherDocUploadImg.splice(i,1)
     element.id == 0 ? this.OtherDocUploadImg.splice(i, 1) : this.OtherDocUploadImg[i].isDeleted = true;
-   let otherDoc: any = [];
+    let otherDoc: any = [];
     this.OtherDocUploadImg.find((ele: any) => {
       if (ele.isDeleted) {
       } else {
@@ -411,19 +410,23 @@ export class CreateManaregaAppComponent {
   //#endregion-----------------------on radio button click add remove validation fn start-------------------
   // benificiaryTotalFarm
   FarmValidations(key: any) {
+
+    // 16>benificiaryTotalFarm
+    // 18>cultivatedFarmInHector  =>should not greater than point 16
+    // 19 b>applicantFarmArea   => should not greater than point 16  && not  less than pt 18
     if (key == 'cultivatedFarmInHector') {
-      if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector >= this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
-        this.commonMethod.snackBar((this.lang == 'en' ? "Total Land in Hectares Should be Less Than Cultivation Area in Hectares" : "हेक्टरमधील एकूण जमीन हे हेक्टरमधील लागवड क्षेत्रापेक्षा कमी असावी"), 1);
+      if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector >  this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
+        this.commonMethod.snackBar((this.lang == 'en' ? "Should not greater than point no. 16" : "मुद्धा क्रमांक १६ पेक्षा मोठा  नसावा"), 1);
         this.farmInfoFrm.controls['cultivatedFarmInHector'].setValue('');
       }
     }
     else if (key == 'applicantFarmArea') {
-      if (this.farmInfoFrm.getRawValue()?.applicantFarmArea >= this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
-        this.commonMethod.snackBar("Total Land in Hectares Should be Less Than Its area Hectares", 1);
+      if (this.farmInfoFrm.getRawValue()?.applicantFarmArea > this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
+       this.commonMethod.snackBar((this.lang == 'en' ? "Should not greater than point no. 16" : "मुद्धा क्रमांक १६ पेक्षा मोठा  नसावा"), 1);
         this.farmInfoFrm.controls['applicantFarmArea'].setValue('');
       }
-      else if (this.farmInfoFrm.getRawValue()?.applicantFarmArea <= this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector) {
-        this.commonMethod.snackBar("Its area Hectares Should be Greater Than Total Land in Hectares", 1);
+      else if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector >  this.farmInfoFrm.getRawValue()?.applicantFarmArea) {
+       this.commonMethod.snackBar((this.lang == 'en' ? "Not less than point no. 18" : "मुद्धा क्रमांक १८ पेक्षा कमी नसावा"), 1);
         this.farmInfoFrm.controls['applicantFarmArea'].setValue('');
       }
     }
@@ -445,20 +448,20 @@ export class CreateManaregaAppComponent {
     //this.onClickPlantedBeforeGovScheme(true);
     let data = this.farmDeatailsFrm.getRawValue();
     if (!data?.plantName) {
-      this.commonMethod.snackBar('Please enter orchard/flower/tree Name', 1);
+      this.commonMethod.snackBar((this.lang == 'en' ? 'Please enter orchard/flower/tree Name' : 'कृपया फळबाग/फुलपिके/वृक्ष नाव प्रविष्ट करा'), 1);
       return
     } else if (!data?.gutNo) {
-      this.commonMethod.snackBar('Please enter group no.', 1);
+      this.commonMethod.snackBar((this.lang == 'en' ? 'Please enter group no.' : 'कृपया गट क्र. प्रविष्ट करा'), 1);
       return
     } else if (!data?.gutArea) {
-      this.commonMethod.snackBar('Please enter group area', 1);
+      this.commonMethod.snackBar((this.lang == 'en' ? 'Please enter group area' : 'कृपया गट क्षेत्र प्रविष्ट करा'), 1);
       return
     }
     else if (!data?.cultivatedArea) {
-      this.commonMethod.snackBar('Please enter cultivated area', 1);
+      this.commonMethod.snackBar((this.lang == 'en' ? 'Please enter cultivated area' : 'कृपया लागवड केलेले क्षेत्र प्रविष्ट करा'), 1);
       return
     } else if (!data?.cultivatedPlantsCount) {
-      this.commonMethod.snackBar('Please enter number of trees planted', 1);
+      this.commonMethod.snackBar((this.lang == 'en' ? 'Please enter number of trees planted' : 'कृपया लागवड केलेल्या झाडांची संख्या प्रविष्ट करा'), 1);
       return
     }
 
@@ -485,7 +488,7 @@ export class CreateManaregaAppComponent {
       else {
         let existedName = this.farmDetails.find((res: any) => res.plantName == data.plantName);
         if (existedName) {
-          this.commonMethod.snackBar("Plant Name Already exist", 1);
+          this.commonMethod.snackBar((this.lang == 'en' ? "orchard/flower/tree Name Already exist" : 'फळबाग/फुलपिके/वृक्ष नाव आधीच अस्तित्वात आहे'), 1)
           return
         }
         else {
@@ -509,10 +512,10 @@ export class CreateManaregaAppComponent {
 
   getPreviewData(flag?: any, id?: any) {
     let filterData = this.filterFrm?.getRawValue();
-    let str = `AadharNo=${filterData?.aadharNo}&MobileNo=${filterData?.mobileNo}&lan=${this.lang}`;
+    let str = `MobileNo=${filterData?.mobileNo}&lan=${this.lang}`;
     id ? str += `&Id=${id}` : '';
-    // let url = flag == 'search' ? `sericulture/api/Application/application-preview?`+str :'sericulture/api/Application/application-preview?Id='+(id)+'&lan='+this.lang ;
-    let url = flag == 'search' ? `sericulture/api/Application/application-preview?Id=0&AadharNo=369852358981&MobileNo=9175515581&lan=${this.lang}` : 'sericulture/api/Application/application-preview?Id=' + (id) + '&lan=' + this.lang;
+     let url = flag == 'search' ? `sericulture/api/Application/application-preview?`+str :'sericulture/api/Application/application-preview?Id='+(id)+'&lan='+this.lang ;
+    //let url = flag == 'search' ? `sericulture/api/Application/application-preview?Id=0&MobileNo=9175515581&lan=${this.lang}` : 'sericulture/api/Application/application-preview?Id=' + (id) + '&lan=' + this.lang;
     this.apiService.setHttp('get', url, false, false, false, 'masterUrl')
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
@@ -602,12 +605,13 @@ export class CreateManaregaAppComponent {
     if (lable == 'farmerInfo' && this.manaregaFrm.valid) {
       this.onSubmit(stepper, lable);
     } else if (lable == 'farmInfo' && this.farmInfoFrm.valid) {
-      if(this.farmInfoFrm.getRawValue().isAnyPlantedBeforeGovScheme && !this.farmDetails.length){
-      this.commonMethod.snackBar('farmDetails d is required', 1)
-      return
-      }else{
+      if (this.farmInfoFrm.getRawValue().isAnyPlantedBeforeGovScheme && !this.farmDetails.length) {
+        this.commonMethod.snackBar((this.lang == 'en' ? "Please enter orchard/flower/tree Name details " : "कृपया बाग/फुल/झाडाचे नाव तपशील प्रविष्ट करा"), 1)
+        return
+      } else {
         this.onSubmit(stepper, lable);
       }
+
     } else if (lable == 'bankInfo' && this.bankInfoFrm.valid) {
       this.onSubmit(stepper, lable);
     } else if (lable == 'document' && this.documentFrm.invalid) {
@@ -630,7 +634,8 @@ export class CreateManaregaAppComponent {
       let val = Object.values(elfDeclarationFrmVal).every(item => item == true)
       if (!val) {
         this.selfDeclarationFrm.controls['checkValue'].setValue('');
-        this.commonMethod.snackBar('Self Declaration Frm field is required', 1)
+        this.commonMethod.snackBar((this.lang == 'en' ? "Please select all checkboxes" : "कृपया सर्व चेकबॉक्स निवडा"), 1)
+
         return
       } else {
         this.selfDeclarationFrm.controls['checkValue'].setValue(true);
@@ -638,10 +643,10 @@ export class CreateManaregaAppComponent {
       }
     } else if (lable == 'preview') {
       this.goForward(stepper);
-    } 
+    }
     else if (lable == 'challan' && this.addRegistrationRecFrm.invalid) {
-      let findIndex =  this.docArray.findIndex((ele:any)=> ele.docTypeId == 8) //find index
-      if(!this.docArray[findIndex].docPath){
+      let findIndex = this.docArray.findIndex((ele: any) => ele.docTypeId == 8) //find index
+      if (!this.docArray[findIndex].docPath) {
         this.commonMethod.snackBar((this.lang == 'en' ? 'Registration Fee Receipt Required' : 'नोंदणी फी पावती आवश्यक'), 1);
         return;
       }
@@ -657,9 +662,9 @@ export class CreateManaregaAppComponent {
     return array.every((item: any) => item == val)
   }
 
-  onSubmit(stepper:any,flag?: any) {
+  onSubmit(stepper: any, flag?: any) {
     this.spinner.show();
-    let val =  Object.values(this.selfDeclarationFrm.getRawValue()).every(item => item == true)
+    let val = Object.values(this.selfDeclarationFrm.getRawValue()).every(item => item == true)
     !val ? this.selfDeclarationFrm.controls['checkValue'].setValue('') : this.selfDeclarationFrm.controls['checkValue'].setValue(true);
 
     this.manFrmSubmitFlag = true;
@@ -674,14 +679,12 @@ export class CreateManaregaAppComponent {
     !bankInfo.bankBranchId ? bankInfo.bankBranchId = 0 : '';
     this.docArray.map((ele: any) => {
       ele.createdBy = this.WebStorageService.getUserId();
-      ele.isDeleted = false;
       ele.applicationId = formData.id;
     })
     let obj = {
       ...formData, ...declarationInfo, ...bankInfo,
       "m_Address": "",
       "m_FullName": "",
-      // "profilePhotoPath": this.profileImageUrl || '',
       "sm_VoterRegistrationNo": "string",
       "sm_IsBelowPovertyLine": true,
       "benificiaryTotalFarm": Number(farmInfo.benificiaryTotalFarm) || 0,
@@ -736,17 +739,17 @@ export class CreateManaregaAppComponent {
       "internalSchemes": [],
       "currentProducts": []
     }
- 
     this.apiService.setHttp('post', 'sericulture/api/Application/Insert-Update-Application?lan=' + this.lang, false, obj, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: ((res: any) => {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.goForward(stepper);
-          // this.OtherDocUploadImg = [];
+         this.OtherDocUploadImg = [];
           this.getPreviewData('edit', res.responseData)
           this.manaregaFrm?.controls['id'].setValue(res.responseData);
-          res.responseData && flag == 'challan' ?  this.openDialog(res):'';
+          res.responseData && flag == 'challan' ? this.openDialog(res) : '';
+          //this.EditFlag = false;
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
@@ -1008,17 +1011,17 @@ export class CreateManaregaAppComponent {
     }
     let dialogRef = this.dialog.open(GlobalDialogComponent, {
 
-      width: '320px',
+      width: '400px',
       data: dialoObj,
       disableClose: true,
       autoFocus: false
     })
     dialogRef.afterClosed().subscribe((result: any) => {
-      result == 'Yes' ?  this.router.navigate(['../application'])   : '';
+      result == 'Yes' ? this.router.navigate(['../application']) : '';
     });
   }
 
-totalStepsCount!: number;
+  totalStepsCount!: number;
 
   ngAfterViewInit() {
     this.totalStepsCount = this.myStepper._steps.length;

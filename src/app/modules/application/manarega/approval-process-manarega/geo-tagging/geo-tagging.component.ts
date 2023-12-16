@@ -9,6 +9,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 declare var google: any;
 
@@ -17,7 +18,7 @@ declare var google: any;
   selector: 'app-geo-tagging',
   templateUrl: './geo-tagging.component.html',
   styleUrls: ['./geo-tagging.component.scss'],
-  imports: [DashPipe, MatDialogModule, AgmCoreModule, DatePipe, MatButtonModule, CommonModule]
+  imports: [DashPipe, MatDialogModule, AgmCoreModule, DatePipe, MatButtonModule, CommonModule, TranslateModule]
 })
 export class GeoTaggingComponent {
   subscription!: Subscription;//used  for lang conv
