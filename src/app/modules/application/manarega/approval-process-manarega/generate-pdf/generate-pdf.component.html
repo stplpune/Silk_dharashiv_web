@@ -12,11 +12,15 @@
     </div>
     <img src="assets/images/logo.png">
 </div>
-<div class="letter-bg">
-    <div>जा.क्र. रेशीम/धा.शि./मनरेगा/तां. मं./{{sanctionArray[0]?.firstYear}}/2433</div>
+<div class="letter-bg" *ngIf="actionID !=3 && actionID ==4">
+    <div>जा.क्र. रेशीम/धा.शि./मनरेगा/तां. मं./{{sanctionArray[0]?.technicalSanctionId}}</div>
     <div>दिनांक: {{showDate | date:'dd-MM-yyyy'}}</div>
 </div>
-
+<div class="letter-bg" *ngIf="actionID ==5">
+    <div>{{sanctionArray[0]?.m_SchemeType}}/प्र.मं./{{sanctionArray[0]?.technicalSanctionId}}</div>
+    <div>दिनांक: {{showDate | date:'dd-MM-yyyy'}}</div>
+</div>
+<!-- जा.क्र.-2023 मग्रारोहयो//प्र.मं./2023-24/1506                              -->
 <!-- (Technical Estimate) -->
 <mat-card class="plain-card form-container" *ngIf="actionID == 3">
     <mat-card-content class="card-body" id="report3">
@@ -177,20 +181,20 @@
                     <td>{{year1Obj?.manPowerAllyear || 0}}</td>
                     <td>{{year1Obj?.wagesRateAllyear || 0}}</td>
                     <td>{{year1Obj?.wages_TotalAllyear || 0}}</td>
-                    <td></td>
-                    <td></td>
+                    <td>0</td>
+                    <td>0</td>
                     <td>{{year1Obj?.wages_TotalAllyear || 0}}</td>
                     <td>{{year2Obj?.manPowerAllyear || 0}}</td>
                     <td>{{year2Obj?.wagesRateAllyear || 0}}</td>
                     <td>{{year2Obj?.wages_TotalAllyear || 0}}</td>
-                    <td></td>
-                    <td></td>
+                    <td>0</td>
+                    <td>0</td>
                     <td>{{year2Obj?.wages_TotalAllyear || 0}}</td>
                     <td>{{year3Obj?.manPowerAllyear || 0}}</td>
                     <td>{{year3Obj?.wagesRateAllyear || 0}}</td>
                     <td>{{year3Obj?.wages_TotalAllyear || 0}}</td>
-                    <td></td>
-                    <td></td>
+                    <td>0</td>
+                    <td>0</td>
                     <td>{{year3Obj?.wages_TotalAllyear || 0}}</td>
 
                     <td>{{totalUnSkillObject?.totalManPower || 0}}</td>
@@ -266,26 +270,27 @@
                     <td></td>
                     <td>एकूण सामुग्री (ब)</td>
                     <td></td>
-                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr1obj?.manPowerAllyear || 0}}</td>
-                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr1obj?.wagesRateAllyear || 0}}</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
                     <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr1obj?.wages_TotalAllyear || 0}}</td>
-                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr1obj?.totalAllyear || 0}}</td>
                     <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr1obj?.accessoriesAmount_TotalAllyear || 0}}</td>
-                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr1obj?.benificiaryShares_TotalAllyear || 0}}</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">0</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr1obj?.totalAllyear || 0}}</td>
 
-                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr2obj?.manPowerAllyear || 0}}</td>
-                    <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr2obj?.wagesRateAllyear || 0}}</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">0</td>
+                    <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">0</td>
                     <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr2obj?.wages_TotalAllyear || 0}}</td>
-                    <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr2obj?.totalAllyear || 0}}</td>
                     <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr2obj?.accessoriesAmount_TotalAllyear || 0}}</td>
-                    <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr2obj?.benificiaryShares_TotalAllyear || 0}}</td>
+                    <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">0</td>
+                    <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr2obj?.totalAllyear || 0}}</td>
 
-                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr3obj?.manPowerAllyear || 0}}</td>
-                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr3obj?.wagesRateAllyear || 0}}</td>
-                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr3obj?.wages_TotalAllyear || 0}}</td>
-                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr3obj?.totalAllyear || 0}}</td>
-                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr3obj?.accessoriesAmount_TotalAllyear || 0}}</td>
-                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr3obj?.benificiaryShares_TotalAllyear || 0}}</td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                    <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr3obj?.wages_TotalAllyear || 0}}</td>
+                    <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr3obj?.accessoriesAmount_TotalAllyear || 0}}</td>
+                    <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">0</td>
+                    <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr3obj?.totalAllyear || 0}}</td>
+
 
                     <th>{{totalSkillObject?.totalManPower || 0}}</th>
                     <th>{{totalSkillObject?.wagesRate || 0}}</th>
@@ -302,25 +307,25 @@
                     <th></th>
                     <th>{{skillYear1Obj?.totalWages_A_B || 0}}</th>
                     <th>{{skillYear1Obj?.totalAccessoriesAmount_A_B || 0}}</th>
-                    <th></th>
+                    <th>0</th>
                     <th>{{skillYear1Obj?.total_A_B || 0}}</th>
                     <th></th>
                     <th></th>
                     <th>{{skillYear2Obj?.totalWages_A_B || 0}}</th>
                     <th>{{skillYear2Obj?.totalAccessoriesAmount_A_B || 0}}</th>
-                    <th></th>
+                    <th>0</th>
                     <th>{{skillYear2Obj?.total_A_B || 0}}</th>
                     <th></th>
                     <th></th>
                     <th>{{skillYear3Obj?.totalWages_A_B || 0}}</th>
                     <th>{{skillYear3Obj?.totalAccessoriesAmount_A_B || 0}}</th>
-                    <th></th>
+                    <th>0</th>
                     <th>{{skillYear3Obj?.total_A_B || 0}}</th>
                     <th></th>
                     <th></th>
                     <th>{{finalTotalRes?.wages || 0}}</th>
                     <th>{{finalTotalRes?.accessoriesAmount || 0}}</th>
-                    <th></th>
+                    <th>0</th>
                     <th>{{finalTotalRes?.total || 0}}</th>
                 </tr>
             </tbody>
@@ -367,10 +372,10 @@
                 रेशीम संचालनालय, महाराष्ट्र राज्य, नागपुर
             </h4>
             <h5 class="text-center mb-2">
-                मनरेगा अंतर्गत केंद्र शासनाची आधिसूचना दिनांक 23/04/2023 नुसार रेशीम किटक संगोपनसह 50x22 लांबxरुंद
+                मनरेगा अंतर्गत केंद्र शासनाची अधिसूचना दिनांक 23/04/2023 नुसार रेशीम किटक संगोपनगृह 50x22 लांबxरुंद
                 फुट
-                मोडेलसाठी
-                लागणार्‍या खर्चाचे एक एकर तुती लागवड नुसार सुधारीत आंदजपत्रक
+                मॉडेलसाठी
+                लागणार्‍या खर्चाचे एक एकर तुती लागवड नुसार सुधारीत अंदाजपत्रक
             </h5>
             <table class="table4 table-bordered">
                 <tbody style="text-align: center;">
@@ -486,8 +491,8 @@
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex flex-column align-items-center">
                     <div>--</div>
-                    <div style="font-size:10pt;font-weight: 600;">वरिष्ठ तांत्रिक सहा.</div>
-                    <div style="font-size:10pt;font-weight: 600;">रेशीम संचालनालय, नागपुर</div>
+                    <div style="font-size:10pt;font-weight: 600;">{{loginData?.m_DesignationName || '-'}}</div>
+                    <div style="font-size:10pt;font-weight: 600;">{{loginData?.m_DepartmentName || '-'}}</div>
                 </div>
                 <div class="d-flex flex-column align-items-center">
                     <div>--</div>
@@ -527,8 +532,8 @@
         </ol>
         <p>
             उपरोक्त शासन निर्णयानुसार प्रधान केलेल्या शक्तीचा वापर करून रेशीम विकास अधिकारी श्रेणी - 2, धाराशिव,
-            यांच्या द्वारे प्राप्त झालेल्या प्रथावा मधील अ. क्रं. {{sanctionArray[0]?.applicationNo}} नुसार मौजे निपाणी, ता. कळंब, जिल्हा.
-            धाराशिव. येथील रहिवाशी असणार्‍या व शासन निर्णयातील निकषानुसार पात्र ठरलेल्या लाभार्थ्यास पूढील तापसीला
+            यांच्या द्वारे प्राप्त झालेल्या प्रथावा मधील अ. क्रं. {{sanctionArray[0]?.applicationNo}} नुसार मौजे {{sanctionArray[0]?.m_GrampanchayatName}}, ता. {{sanctionArray[0]?.m_Taluka}}, जिल्हा.
+            {{sanctionArray[0]?.m_District}}. येथील रहिवाशी असणार्‍या व शासन निर्णयातील निकषानुसार पात्र ठरलेल्या लाभार्थ्यास पूढील तापसीला
             प्रमाणे सन {{sanctionArray[0]?.firstYear}} व सन {{sanctionArray[0]?.secondYear}} व सन {{sanctionArray[0]?.thirdYear}} या तीन वर्षा करिता प्रती एकर रक्कम रुपये
             {{sanctionArray[0]?.total}} प्रमाणे खर्चास, महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजने (MGNREGS) अंतर्गत रेशीम उद्योग
             विकास योजनेचे नवीन कामाचे अंदाज पत्रकास शासन निर्णयात नमूद अटी व शर्तीस अधीन राहून तांत्रिक मंजूरी देण्यात
@@ -556,12 +561,12 @@
             <tbody *ngFor="let arr of sanctionArray;let i=index">
                 <tr>
                     <td>{{i + 1}}</td>
-                    <td>{{arr?.grampanchayatName}}</td>
+                    <td>{{arr?.m_GrampanchayatName}}</td>
                     <td>{{arr?.fullName}}</td>
                     <td>{{arr?.cultivatedFarmInHector}}</td>
                     <td>{{arr?.mulberryCultivatedSurveyNo}}</td>
                     <td>{{arr?.categoryOfBeneficiary}}</td>
-                    <td>{{arr?.grampanchayatName}}</td>
+                    <td>{{arr?.cultivatedFarmInHector}}</td>
                     <td>{{arr?.unskill}}</td>
                     <td>{{arr?.skill}}</td>
                     <td>{{arr?.total}}</td>
@@ -608,10 +613,10 @@
 
         <div class="bottom">
             <div>
-                <अधिकार्‍याचे पद>
+                {{loginData?.m_DesignationName || '-'}}
             </div>
             <div>
-                <विभागाचे नाव>
+                {{loginData?.m_DepartmentName || '-'}}
             </div>
         </div>
     </div>
@@ -650,7 +655,7 @@
                     २०२३.<br>
                     १७) रेशीम विकास अधिकारी श्रेणी-१, उस्मानाबाद यांचे प.क्र.जा.क्र.
                     रेशीम/उस्मानाबाद/प्र.मा./२०२३-२४/११६१,११६२ दि. ११/०७/२०२३<br>
-                    १८) या कार्यालयाचे मान्य पृष्ठांक दिनांक: ________________<br>
+                    १८) या कार्यालयाचे मान्य पृष्ठांक दिनांक: {{showDate | date:'dd-MM-yyyy'}}<br>
 
                 </td>
             </tr>
@@ -658,16 +663,16 @@
     </div>
     <div class="main-content">
         <div class="head-date">
-            <div>जा.क्र.-2023 मग्रारोहयो//प्र.मं./{{sanctionArray[0]?.firstYear}}/1506</div>
-            <div>
-                दिनांक: ____/____/_______
-            </div>
+            <!-- <div>जा.क्र.-2023 मग्रारोहयो//प्र.मं./{{sanctionArray[0]?.technicalSanctionId}}</div> -->
+            <!-- <div>
+                दिनांक: {{showDate | date:'dd-MM-yyyy'}}
+            </div> -->
         </div>
         <h6>प्रशासकीय मान्यता आदेश</h6>
         <p>
             महात्मा गांधी राष्ट्रीय रोजगार हमी अधिनियमांतर्गत महाराष्ट्र ग्रामीण रोजगार हमी योजना अंतर्गत व कायदा-2005
             नुसार महाराष्ट्र ग्रामीण रोजगार हमी योजनेची अंबलबजावणी धाराशीव जिल्ह्यात 01/04/2007 पासून करण्यात येत आहे.
-            या अनुषंगाने रेशीम विकास अधिकारी ग्रेड-1, जिल्हा रेशीम कार्यालय, धाराशीव यांनी खालील ग्रामपंचायत करिताच्या
+            या अनुषंगाने {{loginData?.m_DesignationName || '-'}}, जिल्हा रेशीम कार्यालय, धाराशीव यांनी खालील ग्रामपंचायत करिताच्या
             तुती लागवड संवर्धन व कोष उत्पादन, रेशीम लागवड या कामाचे अंदाज पत्रक तयार करून तांत्रिक बाजूचे सर्वस्वी
             जबाबदारीवर सदर कामास तांत्रिक मान्यता देऊन प्रशासकीय मान्यता देणे बाबत प्रस्ताव सादर केलेला आहे. ते
             खालीलप्रमाणे.
@@ -751,9 +756,9 @@
             उक्त संदर्भिय शासन निर्णय व परिपत्रकातील निर्देशानुसार तसेच संदर्भ क्र. 16 च्या शासन निर्णय क्रं.
             मग्रारोहयो-2016/प्र.क्रं-34/रोहयो-10 मंत्रालय, मुंबई 400032, दि. 28 एप्रिल 2020 च्या पत्राच्या अधीन राहून
             महात्मा गांधी राष्ट्रीय रोजगार हमी अधिनियमांतर्गत महाराष्ट्र ग्रामीण रोजगार हमी योजनेच्या कामांना
-            रेशीम विकास अधिकारी ग्रेड १ धाराशीव यांनी तांत्रिक मान्यता
+            रेशीम विकास {{loginData?.m_DesignationName || '-'}} धाराशीव यांनी तांत्रिक मान्यता
             दिल्याच्या आधारे मी कार्यक्रम अधिकारी मग्रारोहयो तथा तहसिलदार,
-            कळंब प्राप्त अधिकाराचा वापर करुन वरील कामास <strong>मौजे निपाणी</strong> येथील वरील
+            कळंब प्राप्त अधिकाराचा वापर करुन वरील कामास <strong>मौजे {{sanctionArray[0]?.m_GrampanchayatName}}</strong> येथील वरील
             कामाची अकुशल रक्कम <strong>{{sanctionArray[0]?.unskill}}/-</strong> व कुशल रक्कम
             <strong>{{sanctionArray[0]?.skill}}/-</strong> एकूण रक्कम <strong>{{sanctionArray[0]?.total}}/-</strong>
             <strong>(अक्षरी तीन लक्ष सत्यानऊ हजार तीनशे पस्तीस रुपये फक्त)</strong> प्रस्तावास खालील
@@ -857,23 +862,26 @@
             </li>
         </ol>
         <div class="sign">
-            अधिकारी मग्रारोहयो<br>
-            Designation, Area
+            {{loginData?.m_DesignationName || '-'}}<br>
+            {{loginData?.m_DepartmentName || '-'}}
         </div>
         <h6>प्रतिलिपी :</h6>
         <ol>
             <li>मा. जिल्हा कार्यक्रम समन्वयक मग्रारोहयो तथा जिल्हाधिकारी, धाराशीव यांना माहितीस्तव सविनय सादर</li>
             <li>मा. उपजिल्हाधिकारी (रोहयो), जिल्हाधिकारी धाराशीव यांना माहितीस्तब सविनय सादर.</li>
-            <li>मा. उपविभागीय अधिकारी, Area यांना माहितीस्तव सविनय सादर.</li>
-            <li>सहगट कार्यक्रम अधिकारी मग्रारोहयो तथा गट विकास अधिकारी पंचायत समिती, Area यांना माहिती
+            <li>मा. उपविभागीय अधिकारी, {{loginData?.m_Taluka || '-'}} यांना माहितीस्तव सविनय सादर.</li>
+            <li>सहगट कार्यक्रम अधिकारी मग्रारोहयो तथा गट विकास अधिकारी पंचायत समिती, {{loginData?.m_Taluka || '-'}} यांना माहिती
                 व आवश्यक त्या कार्यवाहीस्तव.</li>
             <li>रैशीम विकासअधिकारी श्रेणी - १, जिल्हा रेशीम कार्यालय, धाराशीव यांना योग्य त्या कार्यवाहीस्तव देण्यात
-                येते.ग्रामसेवक, ग्रामपंचायत Name ता. कळंब (मार्फत गट विकास अधिकारी, Area) यांना आवश्यक
-                कार्यवाहीस्तव.</li>
+                येते.</li>
+                <li>
+                    ग्रामसेवक, ग्रामपंचायत {{loginData?.m_GrampanchayatName || '-'}} ता. {{loginData?.m_Taluka || '-'}} (मार्फत {{loginData?.m_DesignationName || '-'}}) यांना आवश्यक
+                कार्यवाहीस्तव.
+                </li>
         </ol>
         <div class="sign">
-            अधिकारी मग्रारोहयो<br>
-            Designation, Area
+            {{loginData?.m_DesignationName || '-'}}<br>
+            {{loginData?.m_DepartmentName || '-'}}
         </div>
     </div>
 </div>

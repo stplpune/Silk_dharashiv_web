@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { DashPipe } from "../../../../../core/Pipes/dash.pipe";
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { ActivatedRoute } from '@angular/router';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 declare var html2pdf: any;
 
 @Component({
@@ -43,7 +44,7 @@ export class GeneratePdfComponent {
   };
   technicalUnSkillObj: any = {
     action1: 'सीमेंट पत्रे ऐवजी लोखंडी पत्रे, सीमेंट पाइप / कॉलम ऐवजी लोखंडी पाइप,आधिक मुलाच्या वस्तु तसेच सीमेंट, वाळू करिता इस्टिमेटपेक्षा जास्त खर्च शेतकरी स्वछ करू शकतील.',
-    action2: 'विटा/रेती/सीमेंटच्या फळकवर योजनेचे नाव शेतकरी नाव कामाचा कोड व एकूण रक्कम व आदि रक्कम नमूद असावी.'
+    action2: 'विटा/रेती/सीमेंटच्या फळकवर योजनेचे नाव शेतकरी नाव कामाचा कोड व एकूण रक्कम व अदा रक्कम नमूद असावी.'
   }
 
   skillDataArray: any = {
@@ -65,6 +66,7 @@ export class GeneratePdfComponent {
   showDate=new Date();
   routeData:any;
   applicationId:any;
+  loginData:any;
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -72,14 +74,18 @@ export class GeneratePdfComponent {
       private commonMethod: CommonMethodsService,
       private errorHandler: ErrorHandlingService,
       public encryptdecrypt: AesencryptDecryptService,
-      private route: ActivatedRoute
+      private route: ActivatedRoute,
+      private web:WebStorageService
     ) { }
 
   ngOnInit() {
+    this.loginData=this.web.getLoggedInLocalstorageData()
     this.routeData = this.route.snapshot.queryParamMap.get('id');
-   let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routeData)}`);   
+     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routeData)}`);   
     this.actionID= spliteUrl.split('.')[1];
     this.applicationId=spliteUrl.split('.')[0]; 
+    // this.actionID= 5
+    // this.applicationId=2
     this.getEstimateData();
     this.getAnotherEstimateData();
     this.getEstimateSanctionData();
@@ -145,7 +151,9 @@ export class GeneratePdfComponent {
       } else {
         this.skillYr3obj = res;
       }
+      
     })
+    console.log('  this.skillYr1obj',  this.skillYr1obj);
 
     this.newDataArray.totalUnskill.filter((res: any) => {
       if (res.yearId == 1) {
