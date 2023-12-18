@@ -170,7 +170,7 @@ export class FarmerLoginComponent {
   }
 
   redirectPage() {
-    this.router.navigate(['farmer-signup']);
+    this.router.navigate(['/farmer-signup']);
   }
 
 
