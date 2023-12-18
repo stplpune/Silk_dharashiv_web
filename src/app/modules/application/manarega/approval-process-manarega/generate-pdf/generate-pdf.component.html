@@ -139,7 +139,7 @@
                 <ng-container *ngFor="let data of this.estimateArray;let i=index">
                     <tr style="text-align: center;">
                         <td style="text-align: center;">{{i + 1}}</td>
-                        <td>{{data.m_WorkDetail || '-'}}</td>
+                        <td style="text-align: left;">{{data.m_WorkDetail || '-'}}</td>
                         <td>{{data.m_Unit || '-'}}</td>
                         <td>{{data.manPower_1 || 0}}</td>
                         <td>{{data.wagesRate_1 || 0}}</td>
@@ -174,7 +174,7 @@
 
                     </tr>
                 </ng-container>
-                <tr style="text-align: center;">
+                <tr style="text-align: center;font-weight: bold;">
                     <td></td>
                     <td>एकूण मजूरी (अ)</td>
                     <td></td>
@@ -266,7 +266,7 @@
                         <td>{{evv.grandTotal || 0}}</td>
                     </tr>
                 </ng-container>
-                <tr style="text-align: center;">
+                <tr style="text-align: center;font-weight: bold;">
                     <td></td>
                     <td>एकूण सामुग्री (ब)</td>
                     <td></td>
@@ -410,7 +410,7 @@
                     <ng-container *ngFor="let ev of  skillDataArray.unSkillArray;let i=index">
                         <tr>
                             <td>{{i + 1}}</td>
-                            <td>{{ev.m_WorkDetail || '-'}}</td>
+                            <td class="text-align:left;">{{ev.m_WorkDetail || '-'}}</td>
                             <td>{{ev.m_Unit || '-'}}</td>
                             <td>{{ev.manPower || 0}}</td>
                             <td>{{ev.aroundDay || 0}}</td>
@@ -465,7 +465,7 @@
                     </tr>
                 </tbody>
                 <tbody>
-                    <tr>
+                    <tr class="fw-bold">
                         <td>8</td>
                         <td>ब.) एकूण कुशल रक्कम</td>
                         <td></td>
@@ -476,7 +476,7 @@
                     </tr>
                 </tbody>
                 <tbody>
-                    <tr>
+                    <tr class="fw-bold">
                         <td>9</td>
                         <td>एकूण रक्कम (अ + ब )</td>
                         <td></td>
@@ -488,6 +488,10 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="d-flex gap-2 py-1">
+              <div class="form-label small">टिप: </div>
+              <div class="form-label small">किटक संगोपन गृहाचे नीवरूत्तीकरण करणेसाठी किटक संगोपनगृहामध्ये कोबा/फरशी तसाच बाजूने 2.5-3 फुट उंचीचे भिंत बंधने आवश्यक आहे.</div>
+            </div>
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex flex-column align-items-center">
                     <div>--</div>
@@ -722,32 +726,32 @@
                        {{ arr?.m_Taluka}}
                     </td>
                     <td>
-                        {{ arr?.m_GrampanchayatName}} 
+                        {{ arr?.m_GrampanchayatName}}
                     </td>
                     <td>
-                         {{ arr?.fullName}} 
+                         {{ arr?.fullName}}
                     </td>
                     <td>
-                        {{ arr?.mulberryCultivatedSurveyNo}}  
+                        {{ arr?.mulberryCultivatedSurveyNo}}
                     </td>
                     <td>
-                        {{ arr?.cultivatedFarmInHector}}  
+                        {{ arr?.cultivatedFarmInHector}}
                     </td>
                     <td>
-                           {{ arr?.cultivatedFarmInHector}}  
+                           {{ arr?.cultivatedFarmInHector}}
                     </td>
                     <td>
                         {{showDate | date:'dd-MM-yyyy'}}
-                        
+
                     </td>
                     <td>
-                        {{ arr?.unskill}} 
+                        {{ arr?.unskill}}
                     </td>
                     <td>
-                        {{ arr?.skill}} 
+                        {{ arr?.skill}}
                     </td>
                     <td>
-                        {{ arr?.total}} 
+                        {{ arr?.total}}
                     </td>
                 </tr>
             </tbody>
