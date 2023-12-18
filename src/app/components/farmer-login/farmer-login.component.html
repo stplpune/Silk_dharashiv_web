@@ -13,21 +13,19 @@
                 </div>
                 <h4 class="fw-bold text-center mb-4">{{'farmerLogin.farmer_login' | translate}}</h4>
                 <div class="mb-0">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label class="form-label">Mobile Number</mat-label>
+                    <mat-form-field appearance="outline" class="w-100"> 
+                        <mat-label class="form-label">{{'farmerLogin.mobile_number' | translate}}</mat-label>
                         <input [formControl]="farmerMobileNo" matInput placeholder="" maxlength="10" (keypress)="validation.noSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
-                      <mat-error class="text-danger" *ngIf="farmerMobileNo.hasError('required')">Please
-                            enter mobile number
+                      <mat-error class="text-danger" *ngIf="farmerMobileNo.hasError('required')">{{'farmerLogin.please_enter_mobile_number' | translate}}
                         </mat-error>
-                          <mat-error class="text-danger" *ngIf="farmerMobileNo.hasError('pattern')">Please enter
-                            valid mobile number
+                          <mat-error class="text-danger" *ngIf="farmerMobileNo.hasError('pattern')">{{'farmerLogin.please_enter_valid_mobile_no' | translate}}
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <!-- <p class="small form-label mb-4 text-center">OTP will be send to your registered mobile number</p> -->
-                <button mat-flat-button class="btn-main w-100" type="submit" (click)="getOtpByMobileNo()">Send OTP </button>
+                <button mat-flat-button class="btn-main w-100" type="submit" (click)="getOtpByMobileNo()">{{'farmerLogin.send_otp' | translate}}</button>
                 <div class="text-end my-2">
-                    <a class="text-main" (click)="redirectPage()">Sign up for farmer?</a>
+                    <a class="text-main" (click)="redirectPage()">{{'farmerLogin.sign_up_for_farmer' | translate}}?</a>
                 </div>
             </div>
             <!-- farmer login verify otp -->
