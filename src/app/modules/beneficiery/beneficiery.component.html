@@ -1,7 +1,7 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
     <div class="d-flex align-items-center justify-content-between w-100 gap-2">
-      <div class="text-main">Registered Farmer List</div>
+      <div class="text-main">Registered Beneficiery List</div>
       <button mat-flat-button class="btn-main btn-icon d-none" matTooltip="edit" type="button">
       <mat-icon class="material-symbols-rounded">
         download
@@ -28,7 +28,7 @@
           [class]="webStorage.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })">
           <mat-option>
             <ngx-mat-select-search [formControl]="talukaCtrl"
-              placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+              placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुकाचे नाव शोधा'}}"
               noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
           </mat-option>
           <mat-option *ngFor=" let taluka of talukaSubject | async" [value]="taluka.id">{{lang == 'en' ?
@@ -57,7 +57,7 @@
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>All Schemes</mat-label>
-          <mat-select formControlName="schemeTypeId" placeholder="All Scheme" (selectionChange)="getDepartment()">
+          <mat-select formControlName="schemeTypeId" placeholder="All Scheme">
             <mat-option *ngFor=" let scheme of schemeFilterArr" [value]="scheme.id">{{lang == 'en' ?
               scheme.textEnglish : scheme.textMarathi}}</mat-option>
           </mat-select>
