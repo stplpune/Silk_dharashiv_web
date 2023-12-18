@@ -410,7 +410,7 @@
                     <ng-container *ngFor="let ev of  skillDataArray.unSkillArray;let i=index">
                         <tr>
                             <td>{{i + 1}}</td>
-                            <td class="text-align:left;">{{ev.m_WorkDetail || '-'}}</td>
+                            <td style="text-align:left;">{{ev.m_WorkDetail || '-'}}</td>
                             <td>{{ev.m_Unit || '-'}}</td>
                             <td>{{ev.manPower || 0}}</td>
                             <td>{{ev.aroundDay || 0}}</td>
@@ -420,7 +420,7 @@
                         </tr>
                     </ng-container>
                     <ng-container *ngFor="let err of skillDataArray.totalUnskill">
-                        <tr>
+                        <tr class="fw-bold">
                             <td></td>
                             <td>अ.) एकूण अकुशल मजूरी</td>
                             <td></td>
