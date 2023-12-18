@@ -87,6 +87,17 @@ export class WebStorageService {
     return data.id ? data.id : 0;
   }
 
+  getMobileNo() {
+    let data = this.getLoggedInLocalstorageData();
+    return data.mobileNo1 ? data.mobileNo1 : 0;
+  }
+
+  getTypeId() {
+    let data = this.getLoggedInLocalstorageData();
+    return data.userTypeId ? data.userTypeId : 0;
+  }
+
+
   getStateId() { // Get Login State Id
     let data = this.getLoggedInLocalstorageData();
     return data ? data?.stateId > 0 ? data?.stateId : '' : '';
