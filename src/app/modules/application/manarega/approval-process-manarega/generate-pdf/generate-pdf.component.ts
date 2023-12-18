@@ -67,6 +67,7 @@ export class GeneratePdfComponent {
   routeData:any;
   applicationId:any;
   loginData:any;
+  technicalEstId:any;
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -80,7 +81,9 @@ export class GeneratePdfComponent {
     ) { }
 
   ngOnInit() {
-    this.loginData=this.web.getLoggedInLocalstorageData()
+    this.loginData=this.web.getLoggedInLocalstorageData();
+    console.log('this.loginData',this.loginData);
+    
     this.routeData = this.route.snapshot.queryParamMap.get('id');
     // console.log('routeData',this.routeData);
     // let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routeData)}`);
@@ -88,6 +91,10 @@ export class GeneratePdfComponent {
 
     this.actionID= this.routeData.split('.')[1];
     this.applicationId=this.routeData.split('.')[0];
+
+    this.actionID= 5;
+    this.applicationId=2;
+
     this.getEstimateData();
     this.getAnotherEstimateData();
     this.getEstimateSanctionData();
@@ -104,6 +111,9 @@ export class GeneratePdfComponent {
           this.estimateSkillArray = res.responseData3;
           this.finaltotalArray = res.responseData10;
           this.totalMappingArray = res.responseData11;
+          this.technicalEstId=res.responseData12;
+          console.log('this.technicalEstId',this.technicalEstId);
+          
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';

@@ -33,8 +33,8 @@
                     कोष उत्पादनासाठी खर्चाचे अंदाजपत्रक (रुपये) तक्ता क्रमांक - १</p>
                     <!-- <p class="text-end fw-bold">Application Id:{{sanctionArray[0]?.applicationNo}}</p> -->
                     <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-                        <div class="form-data">Application Id</div>
-                        <div class="form-data">: {{sanctionArray[0]?.applicationNo}}</div>
+                        <div class="form-data">Technical Estimate No</div>
+                        <div class="form-data">: {{technicalEstId[0]?.technicalEstimateId}}</div>
                     </div>
             </div>
         </div>
@@ -792,8 +792,8 @@
             मग्रारोहयो-2016/प्र.क्रं-34/रोहयो-10 मंत्रालय, मुंबई 400032, दि. 28 एप्रिल 2020 च्या पत्राच्या अधीन राहून
             महात्मा गांधी राष्ट्रीय रोजगार हमी अधिनियमांतर्गत महाराष्ट्र ग्रामीण रोजगार हमी योजनेच्या कामांना
             रेशीम विकास {{loginData?.m_DesignationName || '-'}} धाराशीव यांनी तांत्रिक मान्यता
-            दिल्याच्या आधारे मी कार्यक्रम अधिकारी मग्रारोहयो तथा तहसिलदार,
-            कळंब प्राप्त अधिकाराचा वापर करुन वरील कामास <strong>मौजे {{sanctionArray[0]?.m_GrampanchayatName}}</strong> येथील वरील
+            दिल्याच्या आधारे मी कार्यक्रम {{loginData?.m_DepartmentName || '-'}} मग्रारोहयो तथा तहसिलदार,
+            {{loginData?.m_Taluka || '-'}} प्राप्त अधिकाराचा वापर करुन वरील कामास <strong>मौजे {{sanctionArray[0]?.m_GrampanchayatName}}</strong> येथील वरील
             कामाची अकुशल रक्कम <strong>{{sanctionArray[0]?.unskill}}/-</strong> व कुशल रक्कम
             <strong>{{sanctionArray[0]?.skill}}/-</strong> एकूण रक्कम <strong>{{sanctionArray[0]?.total}}/-</strong>
             <strong>(अक्षरी तीन लक्ष सत्यानऊ हजार तीनशे पस्तीस रुपये फक्त)</strong> प्रस्तावास खालील
