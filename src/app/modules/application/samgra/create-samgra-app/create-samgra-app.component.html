@@ -222,7 +222,7 @@
                     <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
                       district.textMarathi : district.textEnglish}}</mat-option>
                   </mat-select>
-                  <mat-error *ngIf="f['districtId'].hasError('required') ">Please select birthdate</mat-error>
+                  <!-- <mat-error *ngIf="f['districtId'].hasError('required') ">Please select birthdate</mat-error> -->
                 </mat-form-field>
               </div>
               <div class="col-sm-3">

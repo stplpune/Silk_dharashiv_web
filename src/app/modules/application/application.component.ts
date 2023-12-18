@@ -246,13 +246,12 @@ export class ApplicationComponent {
     //this.webStorage.getDesignationId() == 1 ? 
     if (this.webStorage.getDesignationId() === 1) {
       const selfStatusIndex = displayedColumns.indexOf('selfStatus');
-      const headerselfStatusIndex = displayedheaders.indexOf('Stage');
-      const headerselfStatusMarIndex = displayedheaders.indexOf('स्टेज');
+     const headerselfStatusIndex = (this.lang == 'en' ?  displayedheaders.indexOf('Stage') : displayedheaders.indexOf('स्टेज'));
+      
       if (selfStatusIndex !== -1 && headerselfStatusIndex !== -1) {
         displayedColumns.splice(selfStatusIndex, 1); // Remove selfStatus column
         displayedheaders.splice(headerselfStatusIndex, 1)
-        displayedheaders.splice(headerselfStatusMarIndex, 1)
-      }
+       }
     }
 
     let tableData = {

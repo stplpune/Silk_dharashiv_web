@@ -32,6 +32,8 @@ export class ChowkiOrderDetailsComponent {
   ) {}
 
   ngOnInit(){
+    console.log('this.data',this.data);
+    
     this.subscription = this.webService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -42,15 +44,17 @@ export class ChowkiOrderDetailsComponent {
 
 
   getTableData() {
+    debugger
     this.spinner.show();
     this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Chawki-Order-Details?OrderId='+this.data.orderId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;  
-          this.orderDataArray = res.responseData.responseData3;  
-          this.tableResDataArray = res.responseData.responseData2; 
+          this.tableDataArray = res
+          this.orderDataArray = res.responseData1
+          console.log(' this.orderDataArray ', this.orderDataArray );  
+          this.tableResDataArray = res.responseData1; 
           this.tblSize= this.tableResDataArray?.length;
           console.log('this.tableResDataArray ',this.tableResDataArray.length);
           

@@ -43,7 +43,7 @@ export class SchemesComponent implements OnDestroy {
 
   addscheme(data?: any) {
     const dialogRef = this.dialog.open(AddSchemeComponent, {
-      width: '40%',
+      width: '60%',
       data: data,
       disableClose: true
     });
