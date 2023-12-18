@@ -212,7 +212,7 @@ export class CreateSamgraAppComponent {
       "sm_IsSilkIndustrtyTrainingReceived": [data?.sm_IsSilkIndustrtyTrainingReceived || false],
       "sm_SilkIndustrtyTrainingDetails": [data?.sm_SilkIndustrtyTrainingDetails || ''],
       "sm_IsTakenBenefitOfInternalScheme": [data?.sm_IsTakenBenefitOfInternalScheme || false],
-      "sm_IsEngagedInSilkIndustry": [data?.sm_IsEngagedInSilkIndustry || true],
+      "sm_IsEngagedInSilkIndustry": [data?.sm_IsEngagedInSilkIndustry ? data?.sm_IsEngagedInSilkIndustry : true  ],
     })
   }
 

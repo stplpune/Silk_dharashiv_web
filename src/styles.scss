@@ -200,6 +200,10 @@ a.text-main:hover {
     vertical-align: middle;
 }
 
+// .dashboard-table td.expiredate {
+//     max-width: 120px !important;
+// }
+
 .dashboard-table td button {
     @include mat.all-component-densities(-3);
 }
