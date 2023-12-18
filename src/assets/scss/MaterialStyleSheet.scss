@@ -119,3 +119,22 @@
 .mat-mdc-slide-toggle .mdc-switch.mdc-switch--selected:enabled .mdc-switch__icon {
     fill: transparent !important;
 }
+
+/* mat tab CSS*/
+.mdc-tab {
+    border-radius: 10px 10px 0 0;
+}
+
+.mdc-tab.mdc-tab--active {
+    background-color: var(--main-color) !important;
+    color: #fff !important;
+}
+
+.mdc-tab.mdc-tab--active .mdc-tab__content,
+.mdc-tab.mdc-tab--active .mdc-tab__text-label {
+    color: #fff !important;
+}
+
+.mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline {
+    border-color: var(--main-color);
+}
