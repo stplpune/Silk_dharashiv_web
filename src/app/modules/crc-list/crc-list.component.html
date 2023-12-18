@@ -67,10 +67,10 @@
             <div class="col-sm-auto">
               <div class="card card-body ">
                 <div class="d-flex gap-2">
-                  <img src="assets/images/dashboard-icons/applications.svg" alt="">
+                  <img src="../../../assets/images/crc-center/center.svg " alt="">
                   <div class="d-flex flex-column gap-0">
-                    <h4 class="fw-bold mb-0"> {{countObject?.totalCount}}</h4>
-                    <div class="form-label mb-0">{{'crc.total_crc_center' | translate}}</div>
+                    <h4 class="fw-bold mb-0 text-primary"> {{countObject?.totalCount}}</h4>
+                    <div class="form-label text-primary mb-0">{{'crc.total_crc_center' | translate}}</div>
                   </div>
                 </div>
               </div>
@@ -79,10 +79,10 @@
             <div class="col-sm">
               <div class="card card-body ">
                 <div class="d-flex gap-2">
-                  <img src="assets/images/dashboard-icons/applications.svg" alt="" >
+                  <img src="../../../assets/images/crc-center/pending.svg" alt="" >
                 <div class="d-flex flex-column  gap-0">
-                  <h4 class="fw-bold  mb-0">{{countObject?.pending}}</h4>
-                  <div class="form-label  mb-0">{{'crc.Pending' | translate}}</div>
+                  <h4 class="fw-bold text-warning mb-0">{{countObject?.pending}}</h4>
+                  <div class="form-label text-warning  mb-0">{{'crc.Pending' | translate}}</div>
                 </div>
               </div>
             </div>
@@ -91,23 +91,10 @@
             <div class="col-sm">
               <div class="card card-body ">
                 <div class="d-flex gap-2">
-                  <img src="assets/images/dashboard-icons/applications.svg" alt="" >
+                  <img src="../../../assets/images/crc-center/active.svg" alt="" >
                   <div class="d-flex flex-column  gap-0">
-                    <h4 class="form-data  mb-0">{{countObject?.active}}</h4>
-                    <div class="form-label mb-0">{{'crc.active' | translate}}</div>
-                </div>
-              </div>
-            </div>
-
-            </div>
-            <div class="col-sm">
-              <div class="card card-body ">
-
-                <div class="d-flex gap-2">
-                  <img src="assets/images/dashboard-icons/applications.svg" alt="" >
-                  <div class="d-flex flex-column  gap-0">
-                    <h4 class="fw-bold  mb-0">{{countObject?.expired}}</h4>
-                    <div class="form-label  mb-0">{{'crc.expired' | translate}}</div>
+                    <h4 class="form-data text-success mb-0">{{countObject?.active}}</h4>
+                    <div class="form-label text-success mb-0">{{'crc.active' | translate}}</div>
                 </div>
               </div>
             </div>
@@ -117,10 +104,23 @@
               <div class="card card-body ">
 
                 <div class="d-flex gap-2">
-                  <img src="assets/images/dashboard-icons/applications.svg" alt="" >
+                  <img src="../../../assets/images/crc-center/expired.svg" alt="" >
                   <div class="d-flex flex-column  gap-0">
-                    <h4 class="  mb-0">{{countObject?.blocked}}</h4>
-                    <div class="form-label  mb-0">{{'crc.deactive' | translate}}</div>
+                    <h4 class="fw-bold text-dark mb-0">{{countObject?.expired}}</h4>
+                    <div class="form-label text-dark  mb-0">{{'crc.expired' | translate}}</div>
+                </div>
+              </div>
+            </div>
+
+            </div>
+            <div class="col-sm">
+              <div class="card card-body ">
+
+                <div class="d-flex gap-2">
+                  <img src="../../../assets/images/crc-center/deactive.svg" alt="" >
+                  <div class="d-flex flex-column  gap-0">
+                    <h4 class="text-danger  mb-0">{{countObject?.blocked}}</h4>
+                    <div class="text-danger form-label  mb-0">{{'crc.deactive' | translate}}</div>
                   </div>
                 </div>
               </div>
@@ -129,10 +129,10 @@
             <div class="col-sm">
               <div class="card card-body ">
                 <div class="d-flex gap-2">
-                  <img src="assets/images/dashboard-icons/applications.svg" alt="" >
+                  <img src="../../../assets/images/crc-center/rejected.svg" alt="" >
                   <div class="d-flex flex-column  gap-0">
-                    <h4 class="fw-bold  mb-0">{{countObject?.rejected}}</h4>
-                    <div class="form-label  mb-0">{{'crc.rejected' | translate}}</div>
+                    <h4 class="fw-bold  text-secondary mb-0">{{countObject?.rejected}}</h4>
+                    <div class="form-label text-secondary  mb-0">{{'crc.rejected' | translate}}</div>
                 </div>
                 </div>
               </div>
