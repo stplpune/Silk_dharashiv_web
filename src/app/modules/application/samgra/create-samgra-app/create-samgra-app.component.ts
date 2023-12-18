@@ -196,7 +196,7 @@ export class CreateSamgraAppComponent {
       "benificiaryTotalFarm": [data?.benificiaryTotalFarm || '', [Validators.required, this.validation.maxLengthValidator(4), Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]],
       "sm_LandTenureCategories": [data?.sm_LandTenureCategories || '', [Validators.required]],
       "farmTypeId": [data?.farmTypeId || '', [Validators.required]],
-      "irrigationFacilityId": [data?.sm_IrrigationPeriod || '', [Validators.required]],
+      "irrigationFacilityId": [data?.irrigationFacilityId || '', [Validators.required]],
       "sm_IrrigationPeriod": [data?.sm_IrrigationPeriod || '', [Validators.required]],
       "isAnyPlantedBeforeGovScheme": [data?.isAnyPlantedBeforeGovScheme || false],
       "sm_YearOfPlanting": [data?.sm_YearOfPlanting || ''],
@@ -209,9 +209,9 @@ export class CreateSamgraAppComponent {
       "sm_PlantationMethod": [data?.sm_PlantationMethod || '', [Validators.required]],
       "sm_IsExperienceSilkIndustry": [data?.sm_IsExperienceSilkIndustry || false],
       "sm_ExperienceYears": [data?.sm_ExperienceYears || ''], //show hide on radio button
-      "sm_IsSilkIndustrtyTrainingReceived": [data?.sm_IsExperienceSilkIndustry || false],
+      "sm_IsSilkIndustrtyTrainingReceived": [data?.sm_IsSilkIndustrtyTrainingReceived || false],
       "sm_SilkIndustrtyTrainingDetails": [data?.sm_SilkIndustrtyTrainingDetails || ''],
-      "sm_IsTakenBenefitOfInternalScheme": [data?.sm_IsExperienceSilkIndustry || false],
+      "sm_IsTakenBenefitOfInternalScheme": [data?.sm_IsTakenBenefitOfInternalScheme || false],
       "sm_IsEngagedInSilkIndustry": [data?.sm_IsEngagedInSilkIndustry || true],
     })
   }
