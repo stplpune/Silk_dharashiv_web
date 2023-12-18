@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -24,7 +25,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
  
 })
 export class FarmerLoginComponent {
-farmerMobileNo=new FormControl('',[Validators.required,Validators.pattern(this.validation.mobile_No)]);
+farmerMobileNo = new FormControl('',[Validators.required,Validators.pattern(this.validation.mobile_No)]);
 otpForm!:FormGroup;
 subscription!: Subscription;
 lang: string = 'English';
@@ -34,6 +35,7 @@ otpTimerCount: number | any;
 otpTimer: number = 60;
 sendOTPContainer: boolean = true;
 verifyOTPContainer: boolean = false;
+loginData : any;
   constructor
   (
     private spinner: NgxSpinnerService,
@@ -43,15 +45,17 @@ verifyOTPContainer: boolean = false;
     private errorHandler: ErrorHandlingService,
     private fb:FormBuilder,
     public validation: ValidationService,
-    private router: Router
-  ){}
+    private router: Router,
+    public encryptDecryptService: AesencryptDecryptService
+  ){
+    this.getLoginDetails()
+  }
 
   ngOnInit(){
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-    this.getOtpFormData();
   }
 
   getOtpFormData(){
@@ -65,6 +69,8 @@ verifyOTPContainer: boolean = false;
   }
 
   getOtpByMobileNo(){
+    this.getOtpFormData();
+
     this.spinner.show();
     if(this.farmerMobileNo.invalid){
       this.spinner.hide();
@@ -86,6 +92,11 @@ verifyOTPContainer: boolean = false;
             this.setOtpTimer();
             this.loginFlag=true;
           }
+          else if(res.statusCode == "400"){
+            this.commonMethod.snackBar(res.statusMessage, 1);
+            let mobNo : any = this.farmerMobileNo.value;
+            this.router.navigate(['farmer-signup'], { queryParams: { mobNo: this.encryptDecryptService.encrypt(mobNo.toString()) } });
+          }
           else {
             this.loginFlag=false;
             this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -97,6 +108,22 @@ verifyOTPContainer: boolean = false;
         }
       })
     }
+  }
+
+  getLoginDetails(){
+    this.apiService.setHttp('GET', 'sericulture/api/Login/GetLoginDetails?Id=2', false, false, false, 'baseUrl');
+      this.apiService.getHttp().subscribe({
+        next : (res:any)=>{
+          if (!res?.responseData?.pageList.length) {
+            this.commonMethod.snackBar('Please Contact To Admin', 1)
+          } else {
+            // this.commonMethods.snackBar(res.statusMessage, 0);
+            this.loginData = this.encryptDecryptService.encrypt(JSON.stringify(res));
+            localStorage.setItem('silkDharashivUserInfo', this.loginData);
+            this.router.navigate([this.WebStorageService.redirectTo()]);//redirect to first page in array
+          }
+        }
+      })  
   }
 
   setOtpTimer() {

@@ -9,9 +9,10 @@ import { CommonMethodsService } from 'src/app/core/services/common-methods.servi
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TranslateService } from '@ngx-translate/core';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 
 @Component({
   selector: 'app-farmersignup',
@@ -27,6 +28,7 @@ export class FarmersignupComponent {
   grampanchayatArray = new Array();
   subscription!: Subscription;
   lang: any;
+  mobNo:any;
 
   getLangForLocalStor!: string | null | any;
   genderArray: any = [{ id: 1, textEnglish: 'Male' ,textMarathi:'पुरुष' }, { id: 0, textEnglish: 'Female',textMarathi:'स्त्री' }];
@@ -47,9 +49,12 @@ export class FarmersignupComponent {
     private router: Router, 
     private spinner: NgxSpinnerService,
     private translate: TranslateService,
+    private activatedRoute: ActivatedRoute,
+    public encryptDecryptService: AesencryptDecryptService
   ) {
     localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
-    this.translate.use(this.getLangForLocalStor)
+    this.translate.use(this.getLangForLocalStor);
+    let paramData: any = this.activatedRoute.snapshot.queryParams;this.mobNo = this.encryptDecryptService?.decrypt(paramData?.mobNo).toString();
    }
 
   ngOnInit() {
@@ -58,6 +63,7 @@ export class FarmersignupComponent {
     })
     this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     this.formData();
+    this.f['mobNo1'].setValue(this.mobNo)
     this.getDisrict();
     this.searchDataZone();
   }
