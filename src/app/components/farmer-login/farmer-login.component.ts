@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
@@ -37,6 +37,7 @@ export class FarmerLoginComponent {
   verifyOTPContainer: boolean = false;
   loginData: any;
   accessToken: any;
+  mobNo : any;
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -47,9 +48,11 @@ export class FarmerLoginComponent {
       private fb: FormBuilder,
       public validation: ValidationService,
       private router: Router,
+      private activatedRoute : ActivatedRoute,
       public encryptDecryptService: AesencryptDecryptService
     ) {
-    // this.getLoginDetails()
+      let paramData: any = this.activatedRoute.snapshot.queryParams;
+      this.mobNo = paramData?.mobNo ? this.encryptDecryptService?.decrypt(paramData?.mobNo).toString() : '';
   }
 
   ngOnInit() {
@@ -57,6 +60,8 @@ export class FarmerLoginComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
+    this.mobNo ?  this.farmerMobileNo.setValue(this.mobNo) : '';
+    this.getOtpFormData();
   }
 
   getOtpFormData() {
@@ -170,7 +175,7 @@ export class FarmerLoginComponent {
   }
 
   redirectPage() {
-    this.router.navigate(['farmer-signup']);
+    this.router.navigate(['/farmer-signup']);
   }
 
 
