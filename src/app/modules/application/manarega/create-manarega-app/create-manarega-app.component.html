@@ -46,9 +46,9 @@
   </mat-card-content> -->
 
   <mat-card-content class=" card-body form-container">
-    <!--  -->
+    <!--linear  -->
     <!-- [stepControl]="manaregaFrm" -->
-    <mat-stepper #stepper>
+    <mat-stepper #stepper linear>
       <mat-step [stepControl]="manaregaFrm">
         <ng-template matStepLabel>{{'approvalProcess.original_details'| translate}}</ng-template>
         <form [formGroup]="manaregaFrm">
@@ -163,8 +163,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">3.{{'approvalProcess.alternate_mobile_number.'| translate}}<span
-                    class="text-danger">*</span></div>
+                <div class="form-label">3.{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="mobileNo2"
@@ -243,9 +242,9 @@
                 </div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
-                  <mat-select formControlName="talukaId"
-                    [class]="WebStorageService.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })"
-                    (selectionChange)="clearDropdown('taluka');getGrampanchayat()">
+                  <mat-select formControlName="talukaId"   (selectionChange)="clearDropdown('taluka');getGrampanchayat()">
+                    <!-- [class]="WebStorageService.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })" -->
+                  
                     <mat-option>
                       <ngx-mat-select-search [formControl]="talukaCtrl"
                         placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
@@ -269,8 +268,8 @@
                     class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'officerreg.select_grampanchayat' | translate}}</mat-label> -->
-                  <mat-select formControlName="grampanchayatId"
-                    [class]="WebStorageService.getGrampanchayatId() || !manaregaFrm.getRawValue()?.talukaId ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
+                  <mat-select formControlName="grampanchayatId">
+                    <!-- [class]="WebStorageService.getGrampanchayatId() || !manaregaFrm.getRawValue()?.talukaId ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })"> -->
                     <mat-option>
                       <ngx-mat-select-search [formControl]="gramPCtrl"
                         placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
@@ -284,7 +283,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">11.{{'common.Village'| translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">11.{{'common.Village'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>Favorite food</mat-label> -->
                   <input matInput placeholder="" formControlName="village"
@@ -431,8 +430,7 @@
               </div>
 
               <div class="col-sm-4">
-                <div class="form-label">18.{{'approvalProcess.cultivated_area_in_hectaes'|
-                  translate}}{{'approvalProcess.should_not_greater_than_point'| translate}}<span
+                <div class="form-label">18.{{'approvalProcess.should_not_greater_than_point'| translate}}<span
                     class="text-danger">*</span></div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
@@ -485,8 +483,7 @@
                   </div>
                 </div>
                 <div class="col-sm-4">
-                  <div class="form-label">19.B. {{'approvalProcess.its_area'|
-                    translate}}{{'approvalProcess.should_not_greater_than_point_Not_less_than_point'| translate}} <span
+                  <div class="form-label">19.B. {{'approvalProcess.should_not_greater_than_point_Not_less_than_point'| translate}} <span
                       class="text-danger">*</span></div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
@@ -613,8 +610,7 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">22.D. {{'approvalProcess.cultivated_area'|
-                        translate}}{{'approvalProcess.should_not_greater_than_point_22'| translate}}<span
+                      <div class="form-label">22.D. {{'approvalProcess.should_not_greater_than_point_22'| translate}}<span
                           class="text-danger">*</span></div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
@@ -1305,7 +1301,8 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'approvalProcess.village_committee'| translate}}</div>
-                  <span class=" form-data rounded-pill">:{{previewData?.grampanchayatName | dash}}</span>
+
+                  <span class=" form-data rounded-pill">:{{lang == 'en' ? (previewData?.grampanchayatName | dash ) : (previewData?.m_GrampanchayatName | dash )}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'common.Village'| translate}}</div>
