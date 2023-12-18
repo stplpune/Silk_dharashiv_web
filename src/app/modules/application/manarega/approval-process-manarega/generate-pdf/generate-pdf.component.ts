@@ -8,7 +8,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { CommonModule } from '@angular/common';
 import { DashPipe } from "../../../../../core/Pipes/dash.pipe";
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 declare var html2pdf: any;
 
@@ -75,7 +75,8 @@ export class GeneratePdfComponent {
       private errorHandler: ErrorHandlingService,
       public encryptdecrypt: AesencryptDecryptService,
       private route: ActivatedRoute,
-      private web:WebStorageService
+      private web:WebStorageService,
+      private router: Router,
     ) { }
 
   ngOnInit() {
@@ -84,8 +85,6 @@ export class GeneratePdfComponent {
     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routeData)}`);
     this.actionID= spliteUrl.split('.')[1];
     this.applicationId=spliteUrl.split('.')[0];
-    this.applicationId = 2;
-    this.actionID = 3;
     this.getEstimateData();
     this.getAnotherEstimateData();
     this.getEstimateSanctionData();
@@ -276,6 +275,10 @@ export class GeneratePdfComponent {
     setTimeout(() => {
       this.spinner.hide();
     }, 1000);
+  }
+
+  backtoPage(){
+    this.router.navigate(['application'])
   }
 
 }
