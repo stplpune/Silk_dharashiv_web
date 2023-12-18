@@ -14,30 +14,30 @@
 <mat-dialog-content class="modal-body form-container">
   <div *ngIf="isViewFlag">
     <ul class="list-group list-group-flush">
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label">{{lang == 'en' ? 'Department Name' : 'विभाग'}}</div>
-        <div class="form-data">
+      <li class="row gx-2">
+        <div class="col-sm-6 form-label">{{lang == 'en' ? 'Department Name' : 'विभाग'}}</div>
+        <div class="col-sm-6 form-data">
           :
           {{lang == 'en' ? (data?.departmentName || '-') : (data?.m_DepartmentName || '-')}}
         </div>
       </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label">{{lang == 'en' ? 'Department Level' : 'पदनाम स्तर'}}</div>
-        <div class="form-data">
+      <li class="row gx-2">
+        <div class="col-sm-6 form-label">{{lang == 'en' ? 'Department Level' : 'पदनाम स्तर'}}</div>
+        <div class="col-sm-6 form-data">
           :
           {{lang == 'en' ? (data?.departmentLevel || '-') : (data?.m_DepartmentLevel || '-')}}
         </div>
       </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label">{{lang == 'en' ? 'Designation Name (English)' : 'पदनाम (इंग्रजी)'}}</div>
-        <div class="form-data">
+      <li class="row gx-2">
+        <div class="col-sm-6 form-label">{{lang == 'en' ? 'Designation Name (English)' : 'पदनाम (इंग्रजी)'}}</div>
+        <div class="col-sm-6 form-data">
           :
           {{lang == 'en' ? (data?.designationName || '-') : (data?.designationName || '-')}}
         </div>
       </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label">{{lang == 'en' ? 'Designation Name (Marathi)' : 'पदनाम (मराठी)'}}</div>
-        <div class="form-data">
+      <li class="row gx-2">
+        <div class="col-sm-6 form-label">{{lang == 'en' ? 'Designation Name (Marathi)' : 'पदनाम (मराठी)'}}</div>
+        <div class="col-sm-6 form-data">
           :
           {{lang == 'en' ? (data?.m_DesignationName || '-') : (data?.m_DesignationName || '-')}}
         </div>

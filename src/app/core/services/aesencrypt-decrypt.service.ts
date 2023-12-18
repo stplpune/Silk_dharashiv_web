@@ -15,7 +15,7 @@ export class AesencryptDecryptService {
   // }
 
   encrypt(data: any) {
-    let _key = CryptoJS.enc.Utf8.parse(this.secretKey);
+    let _key = CryptoJS.enc.Utf8.parse(this.secretKey).toString(CryptoJS.enc.Utf8);
     let _iv = CryptoJS.enc.Utf8.parse(this.secretKey);
     let encrypted = CryptoJS.AES.encrypt(
       data, _key, {
@@ -28,7 +28,7 @@ export class AesencryptDecryptService {
   }
 
   decrypt(data: any) {
-    let _key = CryptoJS.enc.Utf8.parse(this.secretKey);
+    let _key = CryptoJS.enc.Utf8.parse(this.secretKey).toString(CryptoJS.enc.Utf8);
     let _iv = CryptoJS.enc.Utf8.parse(this.secretKey);
     return CryptoJS.AES.decrypt(
       data, _key, {

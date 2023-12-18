@@ -2,7 +2,7 @@
   <mat-card-header class="card-header">
     <div class="text-main">{{'addSamgra.Create_Samgra_Application'| translate}}</div>
   </mat-card-header>
-  <mat-card-content class=" card-body form-container">
+  <!-- <mat-card-content class=" card-body form-container">
     <form [formGroup]="filterForm">
       <div class="row gx-2">
         <div class="col-sm-6">
@@ -14,7 +14,7 @@
             </mat-form-field>
           </div>
         </div>
-        <!-- <div class="col-sm">
+        <div class="col-sm">
           <div class="d-flex flex-column gap-2">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label class="form-label mb-0">{{'approvalProcess.aadhar_number'| translate}}</mat-label>
@@ -22,7 +22,7 @@
                 (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
             </mat-form-field>
           </div>
-        </div> -->
+        </div>
         <div class="col-sm-1">
           <div class="d-flex gap-2">
             <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit"
@@ -40,7 +40,7 @@
         </div>
         </div>
     </form>
-  </mat-card-content>
+  </mat-card-content> -->
   <mat-card-content class=" card-body form-container">
     <!-- [linear]="!isLinear" -->
     <mat-stepper #stepper [linear]="!isLinear">
@@ -79,7 +79,8 @@
                     <div class="d-flex flex-column gap-2">
                       <div class="form-label">1.{{'common.mobile'| translate}}</div>
                       <!-- <div class="form-data">: 8669264767</div> -->
-                      <mat-form-field appearance="outline" class="w-100">
+                      <mat-form-field appearance="outline" class="w-100"
+                      [class]="WebStorageService.getMobileNo() ? f['mobileNo1'].disable({ onlySelf: true }) : f['mobileNo1'].enable({ onlySelf: true })">
                         <input matInput placeholder="" formControlName="mobileNo1" maxlength="10"
                           (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';">
                           <mat-error
@@ -1447,15 +1448,15 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'addSamgra.Bhudran_category' | translate}}</div>
-                      <span class="form-data  rounded-pill">:{{previewData?.sm_LandTenureCategories | dash}}</span>
+                      <span class="form-data  rounded-pill">:{{lang == 'en' ? previewData?.landTenureCategory : previewData?.m_LandTenureCategory }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'approvalProcess.type_of_land'| translate}}</div>
-                      <span class="form-data  rounded-pill">:{{previewData?.farmTypeId | dash}}</span>
+                      <span class="form-data  rounded-pill">:{{lang == 'en' ? previewData?.farmType : previewData?.m_FarmType }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'approvalProcess.irrigation_facilities'| translate}}</div>
-                      <span class="form-data  rounded-pill">:{{previewData?.irrigationFacilityId | dash}}</span>
+                      <span class="form-data  rounded-pill">:{{lang == 'en' ? previewData?.irrigationPeriod : previewData?.m_IrrigationFacility }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'addSamgra.planted_under_the_government_scheme' |
@@ -1541,7 +1542,7 @@
                     <div class="form-label">{{'addSamgra.Mulberry_Plantatio_Details' | translate}} :</div>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'addSamgra.Varieties_of_Mulberr_Trees' | translate}}</div>
-                      <span class="form-data  rounded-pill">:{{previewData?.sm_ImprovedMulberryCast | dash}}</span>
+                      <span class="form-data  rounded-pill">:{{lang == 'en' ? previewData?.improvedMulberryCast : previewData?.m_ImprovedMulberryCast }}</span>
                     </li>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -1556,12 +1557,13 @@
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label"> {{'addSamgra.Mulberry_Plantation_Area_in_acre' | translate}}</div>
-                      <span class="form-data  rounded-pill">:{{previewData?.sm_MulberryCultivationArea | dash}}</span>
+                      <span class="form-data  rounded-pill">:{{lang == 'en' ? previewData?.mulberryCultivationArea : previewData?.m_MulberryCultivationArea }}</span>
                     </li>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label"> {{'addSamgra.Mulberry_Plantation_Method' | translate}}</div>
-                      <span class="form-data  rounded-pill">:{{previewData?.sm_PlantationMethod | dash}}</span>
+                      <span class="form-data  rounded-pill">: {{lang == 'en' ? previewData?.plantationMethod : previewData?.m_PlantationMethod }}
+                      </span>
                     </li>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">

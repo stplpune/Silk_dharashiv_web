@@ -122,7 +122,7 @@ export class CreateManaregaAppComponent {
     this.addOtherDocument();
     this.addRegistrationFrm();
     this.commonDropdown();
-    this.routingData ? this.getRouteParam() : '';
+    this.routingData ? this.getRouteParam() : this.getPreviewData('search');
   // this.getPreviewData('search'); // temp
   }
 
@@ -163,10 +163,10 @@ export class CreateManaregaAppComponent {
   addManaregaFrm(data?: any) {
     this.manaregaFrm = this.fb.group({
       "id": [data?.id || 0],
-      "farmerId": [data?.farmerId || 91],
+      "farmerId": [this.WebStorageService.getUserId()],
       "schemeTypeId": [1],
       "applicationNo": [data?.applicationNo || ''],
-      "mobileNo1": [data?.mobileNo1 || '', [Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
+      "mobileNo1": [this.WebStorageService.getMobileNo(), [Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
       "aadharNo": [data?.aadharNo || '', [Validators.required, this.validation.maxLengthValidator(12), Validators.pattern(this.validation.aadhar_card)]],
       // "profilePhotoPath": ['',[Validators.required]],
       "mn_DepartmentId": [data?.mn_DepartmentId || '', [Validators.required]],
@@ -516,8 +516,12 @@ export class CreateManaregaAppComponent {
   }
 
   getPreviewData(flag?: any, id?: any) {
-    let filterData = this.filterFrm?.getRawValue();
-    let str = `MobileNo=${filterData?.mobileNo}&lan=${this.lang}`;
+    //let filterData = this.filterFrm?.getRawValue();
+    if (this.filterFrm.invalid) {
+      this.commonMethod.snackBar("Please Enter Correct Details", 1)
+      return
+    } else {
+    let str = `MobileNo=${this.WebStorageService.getMobileNo()}&lan=${this.lang}`;
     id ? str += `&Id=${id}` : '';
      let url = flag == 'search' ? `sericulture/api/Application/application-preview?`+str :'sericulture/api/Application/application-preview?Id='+(id)+'&lan='+this.lang ;
     //let url = flag == 'search' ? `sericulture/api/Application/application-preview?Id=0&MobileNo=9175515581&lan=${this.lang}` : 'sericulture/api/Application/application-preview?Id=' + (id) + '&lan=' + this.lang;
@@ -536,11 +540,17 @@ export class CreateManaregaAppComponent {
             }
           });
         }
+        else if (res.statusCode == "500") {
+          this.clearForm();
+          this.commonMethod.snackBar("Data Not Found", 1)
+          this.EditFlag = false
+        }
         else {
           this.previewData = [];
         }
       })
     })
+  }
   }
 
 
@@ -1009,7 +1019,8 @@ export class CreateManaregaAppComponent {
   openDialog(res?: any) {
     let dialoObj = {
       header: this.lang == 'mr-IN' ? 'अभिनंदन ' : 'Congratulations',
-      title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .अर्ज क्रमांक  : ' + res.responseData1 + res.responseData2 : 'Your application has been successfully submitted. Application no: ' + res.responseData1 + res.responseData2,
+      title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .' : 'Your application has been successfully submitted.',
+      title2: this.lang == 'mr-IN' ? 'अर्ज क्रमांक  : ' + res.responseData1 :  'Application no: ' + res.responseData1 ,
       cancelButton: '',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
       headerImage: 'assets/images/check.png'

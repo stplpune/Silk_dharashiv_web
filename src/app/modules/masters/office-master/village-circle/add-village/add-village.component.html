@@ -124,34 +124,34 @@
 
   <div *ngIf="isViewFlag">
     <ul class="list-group list-group-flush">
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label mb-0">{{lang == 'en' ? 'State' : 'राज्य'}}</div>
-        <div class="form-data">: {{lang == 'en' ? (data?.state || '-') : (data?.m_State || '-')}}</div>
+      <li class="row gx-2">
+        <div class="col-sm-6 form-label mb-0">{{lang == 'en' ? 'State' : 'राज्य'}}</div>
+        <div class="col-sm-6 form-data">: {{lang == 'en' ? (data?.state || '-') : (data?.m_State || '-')}}</div>
       </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label mb-0">{{lang == 'en' ? 'District' : 'जिल्हा'}}</div>
-        <div class="form-data">: {{lang == 'en' ? (data?.district || '-') : (data?.m_District || '-')}}</div>
+      <li class="row gx-2">
+        <div class="col-sm-6 form-label mb-0">{{lang == 'en' ? 'District' : 'जिल्हा'}}</div>
+        <div class="col-sm-6 form-data">: {{lang == 'en' ? (data?.district || '-') : (data?.m_District || '-')}}</div>
       </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label mb-0">{{lang == 'en' ? 'Taluka' : 'तालुका'}}</div>
-        <div class="form-data">: {{lang == 'en' ? (data?.taluka || '-') : (data?.m_Taluka || '-')}}</div>
+      <li class="row gx-2">
+        <div class="col-sm-6 form-label mb-0">{{lang == 'en' ? 'Taluka' : 'तालुका'}}</div>
+        <div class="col-sm-6 form-data">: {{lang == 'en' ? (data?.taluka || '-') : (data?.m_Taluka || '-')}}</div>
       </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label mb-0">{{lang == 'en' ? 'Grampanchayat' : 'ग्रामपंचायत'}}</div>
-        <div class="form-data">
+      <li class="row gx-2">
+        <div class="col-sm-6 form-label mb-0">{{lang == 'en' ? 'Grampanchayat' : 'ग्रामपंचायत'}}</div>
+        <div class="col-sm-6 form-data">
           <span *ngFor="let villahes of data.grampanchayat">
            : {{lang == 'en' ? (villahes?.grampanchayatName || '-'): (villahes?.m_GrampanchayatName || '-')}},
           </span>
         </div>
       </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label mb-0">{{lang == 'en' ? 'Circle Name(English)' : 'मंडळाचे नाव(इंग्रजी)'}}</div>
-        <div class="form-data"> :{{lang == 'en' ? (data?.circleName || '-') : (data?.circleName || '-')}}
+      <li class="row gx-2">
+        <div class="col-sm-6 form-label mb-0">{{lang == 'en' ? 'Circle Name(English)' : 'मंडळाचे नाव(इंग्रजी)'}}</div>
+        <div class="col-sm-6 form-data"> :{{lang == 'en' ? (data?.circleName || '-') : (data?.circleName || '-')}}
         </div>
       </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label mb-0">{{lang == 'en' ? 'Circle Name(Marathi)' : 'मंडळाचे नाव(मराठी)'}}</div>
-        <div class="form-data">: {{lang == 'en' ? (data?.m_CircleName || '-') : (data?.m_CircleName || '-')}}
+      <li class="row gx-2">
+        <div class="col-sm-6 form-label mb-0">{{lang == 'en' ? 'Circle Name(Marathi)' : 'मंडळाचे नाव(मराठी)'}}</div>
+        <div class="col-sm-6 form-data">: {{lang == 'en' ? (data?.m_CircleName || '-') : (data?.m_CircleName || '-')}}
         </div>
       </li>
     </ul>

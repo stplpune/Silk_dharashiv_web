@@ -92,7 +92,7 @@ export class CreateSamgraAppComponent {
   isLinear = false;
   checkinternalSchemesflag: boolean = false;
   viewMsgFlag: boolean = false;
-  samgraId: any;
+  samgraId = new Array();
   registionFeeUrl: string = "";
   applicationId: any;
   submitDate: any;
@@ -123,8 +123,10 @@ export class CreateSamgraAppComponent {
     let Id: any;
     let value: any;
     this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
-    value = this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
-    this.samgraId = value.split('.');
+    if(Id){
+      value =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
+      this.samgraId = value.split('.');
+    }
   }
 
   ngOnInit() {
@@ -142,8 +144,6 @@ export class CreateSamgraAppComponent {
     this.selfDeclarationFormData();
     this.filterFormData();
     this.commonDropdown();
-    // this.getPreviewData(); // temp
-
   }
 
   commonDropdown() {
@@ -158,7 +158,7 @@ export class CreateSamgraAppComponent {
     this.getImprovedMulberryCast();
     this.getPlantationMethod();
     this.getMulberryCultivationArea();
-    this.samgraId[0] ? this.getPreviewData() : '';
+    this.getPreviewData(); 
     let photoValidation = ['profilePhotoPath']
     !this.profileImageUrl ? (this.setValidation(photoValidation, this.f)) : this.clearValidation(photoValidation, this.f)
   }
@@ -172,7 +172,7 @@ export class CreateSamgraAppComponent {
   samgraformData(data?: any) {
     this.samgraForm = this.fb.group({
       "fullName": [data?.fullName || '', [Validators.required, this.validation.maxLengthValidator(100)]],
-      "mobileNo1": [data?.mobileNo1 || '', [Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
+      "mobileNo1": [this.WebStorageService.getMobileNo() || '', [Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
       "mobileNo2": [data?.mobileNo2 || '', [this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
       "aadharNo": [data?.aadharNo || '', [Validators.required, this.validation.maxLengthValidator(12), Validators.pattern(this.validation.aadhar_card)]],
       "birthDate": [data?.birthDate || '', [Validators.required]],
@@ -188,7 +188,6 @@ export class CreateSamgraAppComponent {
       "address": [data?.address || '', [Validators.required, this.validation.maxLengthValidator(200)]],
       "sm_IsBelowPovertyLine": [data?.sm_IsBelowPovertyLine || false],
       "profilePhotoPath": ['']
-      // category validation remaning
     })
   }
 
@@ -434,6 +433,10 @@ export class CreateSamgraAppComponent {
   //#region -------------------------------------------------page submit method start heare--------------------------------------------------
   checkStepCon(stepper: MatStepper, flag: string) {
     let landDetailsFormValue = this.landDetailsForm.getRawValue();
+
+    console.log("this.samgraForm",this.samgraForm.controls);
+
+
     if (flag == 'samgraForm' && this.samgraForm.invalid) {
       !this.samgraForm.getRawValue().profilePhotoPaththis ? this.viewMsgFlag = true : this.viewMsgFlag = false;
       return
@@ -737,7 +740,6 @@ export class CreateSamgraAppComponent {
     if (flag == 'currentCropDetails') {
       this.isDelFlagInternalSchemes(index, flag)
     } else {
-
       this.isDelFlagInternalSchemes(index, flag)
 
 
@@ -902,10 +904,10 @@ export class CreateSamgraAppComponent {
 
   getPreviewData() {
     this.EditFlag = true
-    let filterformvalue = this.filterForm.value;
+    // let filterformvalue = this.filterForm.value;
     let samgraFormValue = this.samgraForm.getRawValue();
-    let addharNo = filterformvalue?.filterAddharNo || samgraFormValue.aadharNo
-    let mobileNo = filterformvalue?.filterMobileNo || samgraFormValue.mobileNo1
+    let addharNo = samgraFormValue.aadharNo
+    let mobileNo = this.WebStorageService.getMobileNo();
     if (this.filterForm.invalid) {
       this.clearForm();
       this.commonMethod.snackBar("Please Enter Correct Details", 1)

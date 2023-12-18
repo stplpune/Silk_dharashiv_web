@@ -47,8 +47,8 @@ section#blogs {
     padding-block: 2rem;
 }
 
-section#download {
-    background-color: var(--main-color);
+section #download {
+    background-color: var(--main-color) !important;
     padding: 3rem 4rem;
     color: #fff;
 }
@@ -188,6 +188,34 @@ a.read-more:hover span {
     to {
         -webkit-transform: translateX(3px);
     }
+}
+
+#scheme img {
+    width: 100%;
+}
+
+#scheme h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--main-color);
+    margin-bottom: 1rem;
+}
+
+#scheme h6 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+#scheme p {
+    font-size: 0.9rem;
+    margin-bottom: 0rem;
+    line-height: 1.7rem;
+}
+
+#scheme .card-footer {
+    display: flex;
+    justify-content: end;
+    padding-top: 0;
 }
 
 #stats .card {
