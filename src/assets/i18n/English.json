@@ -114,7 +114,8 @@
     "status":"Status",
     "search":"Search",
     "documents":"Documents",
-    "file_upload":"File Upload"
+    "file_upload":"File Upload",
+    "please_enter_valid_village_name":"Please enter valid village name"
   },
   "approvalProcess": {
     "original_details":"Original Details",

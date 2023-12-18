@@ -274,6 +274,14 @@
                   <!-- <mat-label>Favorite food</mat-label> -->
                   <input matInput placeholder="" formControlName="village"
                     (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
+                    <mat-error *ngIf="f['village']?.errors">
+                      <span class="text-danger"
+                        *ngIf="f['village']?.hasError('maxLengthExceeded') || f['village']?.hasError('pattern')">
+                        {{f['village'].hasError('maxLengthExceeded') ?
+                        ('department.department_maxLength'|translate) :
+                        ('common.please_enter_valid_village_name'|translate)}}
+                      </span>
+                    </mat-error>
                 </mat-form-field>
               </div>
 
