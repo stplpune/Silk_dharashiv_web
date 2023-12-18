@@ -8,7 +8,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { CommonModule } from '@angular/common';
 import { DashPipe } from "../../../../../core/Pipes/dash.pipe";
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 declare var html2pdf: any;
 
@@ -75,15 +75,16 @@ export class GeneratePdfComponent {
       private errorHandler: ErrorHandlingService,
       public encryptdecrypt: AesencryptDecryptService,
       private route: ActivatedRoute,
-      private web:WebStorageService
+      private web:WebStorageService,
+      private router: Router,
     ) { }
 
   ngOnInit() {
     this.loginData=this.web.getLoggedInLocalstorageData()
     this.routeData = this.route.snapshot.queryParamMap.get('id');
-    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routeData)}`);        
+    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routeData)}`);
     this.actionID= spliteUrl.split('.')[1];
-    this.applicationId=spliteUrl.split('.')[0]; 
+    this.applicationId=spliteUrl.split('.')[0];
     this.getEstimateData();
     this.getAnotherEstimateData();
     this.getEstimateSanctionData();
@@ -118,7 +119,7 @@ export class GeneratePdfComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-            this.sanctionArray=res.responseData.responseData1;                        
+            this.sanctionArray=res.responseData.responseData1;
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
@@ -149,7 +150,7 @@ export class GeneratePdfComponent {
       } else {
         this.skillYr3obj = res;
       }
-      
+
     })
 
     this.newDataArray.totalUnskill.filter((res: any) => {
@@ -274,6 +275,10 @@ export class GeneratePdfComponent {
     setTimeout(() => {
       this.spinner.hide();
     }, 1000);
+  }
+
+  backtoPage(){
+    this.router.navigate(['application'])
   }
 
 }
