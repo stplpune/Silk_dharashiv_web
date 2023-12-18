@@ -230,8 +230,10 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="talukaId" (selectionChange)="getGrampanchayat('gramp')">
                     <mat-option>
-                      <ngx-mat-select-search [formControl]="talukaCtrl" placeholderLabel="Search Lead Name"
-                        noEntriesFoundLabel="No Data Found"></ngx-mat-select-search>
+                      <ngx-mat-select-search [formControl]="talukaCtrl" 
+                      placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
+                      noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"
+                        ></ngx-mat-select-search>
                     </mat-option>
                     <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ?
                       taluka.textMarathi
@@ -246,8 +248,9 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="grampanchayatId">
                     <mat-option>
-                      <ngx-mat-select-search [formControl]="gramPCtrl" placeholderLabel=""
-                        noEntriesFoundLabel=""></ngx-mat-select-search>
+                      <ngx-mat-select-search [formControl]="gramPCtrl" 
+                      placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                      noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
                     </mat-option>
                     <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?
                       village.textMarathi : village.textEnglish}}</mat-option>
@@ -554,14 +557,20 @@
                         </div>
                       </td>
                     </ng-container>
-
+                    <tr class="mat-row p-2 w-100" *matNoDataRow col>
+                      <td colspan="12">
+                        <div class="alert alert-danger text-center m-2 p-2" colspan="12">
+                          {{'approvalProcess.no_data_found'| translate}}
+                        </div>
+                      </td>
+                    </tr>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                   </table>
-                  <div *ngIf="!currentCropDetailsArray.length" class="alert alert-danger text-center mt-1 py-2 mb-0">
+                  <!-- <div *ngIf="!dataSource?.value.length && dataSource" class="alert alert-danger text-center mt-1 py-2 mb-0">
                     <span> {{lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'}}</span>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
@@ -743,7 +752,7 @@
 
                     </mat-form-field>
                   </div>
-                  <div class="col-sm-2">
+                  <div class="col-sm-4">
                     <mat-label class="form-label">{{'addSamgra.Year_date' | translate}}</mat-label>
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput [matDatepicker]="datePicker" formControlName="schemeTakenDate"
@@ -754,7 +763,7 @@
                       *ngIf="fIS['schemeTakenDate']?.hasError('required') ">{{'addSamgra.date_select'|translate}}</mat-error>-->
                     </mat-form-field> 
                   </div>
-                  <div class="col-sm-2">
+                  <div class="col-sm">
                     <mat-label class="form-label">{{'addSamgra.Total_Benefit_Amount' | translate}}</mat-label>
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" rows="3" formControlName="totalBenefitTaken"
@@ -808,12 +817,12 @@
                       <th mat-header-cell *matHeaderCellDef>{{'addSamgra.Action' | translate}}</th>
                       <td mat-cell *matCellDef="let element; let i = index">
                         <div class="d-flex gap-02">
-                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
+                          <!-- <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
                             (click)="onEditInternalSchemes(element,i)">
                             <span class="material-symbols-rounded text-dark">
                               edit_square
                             </span>
-                          </button>
+                          </button> -->
                           <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
                             (click)="deleteInternalSchemes(element)">
                             <span class="material-symbols-rounded text-danger">
@@ -823,13 +832,20 @@
                         </div>
                       </td>
                     </ng-container>
+                    <tr class="mat-row p-2 w-100" *matNoDataRow col>
+                      <td colspan="12">
+                        <div class="alert alert-danger text-center m-2 p-2" colspan="12">
+                          {{'approvalProcess.no_data_found'| translate}}
+                        </div>
+                      </td>
+                    </tr>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
                   </table>
-                  <div *ngIf="!internalSchemesArray.length" class="alert alert-danger text-center mt-1 py-2 mb-0">
+                  <!-- <div *ngIf="!internalSchemesArray.length" class="alert alert-danger text-center mt-1 py-2 mb-0">
                     <span> {{lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'}}</span>
-                  </div>
+                  </div> -->
                 </div>
               </ng-container>
 
@@ -1628,7 +1644,7 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumns5"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns5;"></tr>
                       </table>
-                      <div *ngIf="!internalSchemesArray.length" class="alert alert-danger text-center mt-1 py-2 mb-0">
+                      <div *ngIf="!previewData?.internalSchemes.length" class="alert alert-danger text-center mt-1 py-2 mb-0">
                         <span> {{lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'}}</span>
                       </div>
                     </div>
@@ -1806,16 +1822,16 @@
                   (click)="uplodLogo1.value='';uplodLogo1.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span class="text-danger fs-6">*</span>
                 </button>
                 <input type="file" #uplodLogo1 accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
-                  (change)="fileUpload($event,docArray[8].docTypeId)" />
-                <div class="d-flex gap-2" *ngIf="docArray[8]?.docPath">
+                  (change)="fileUpload($event,docArray[7].docTypeId)" />
+                <div class="d-flex gap-2" *ngIf="docArray[7]?.docPath">
                   <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-                    matTooltip="view" (click)="viewimage(docArray[8].docPath)">
+                    matTooltip="view" (click)="viewimage(docArray[7].docPath)">
                     <mat-icon class="material-symbols-rounded">
                       preview
                     </mat-icon>
                   </button>
                   <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-                    matTooltip="delete"  (click)="deleteDocument(docArray[8].docTypeId)">
+                    matTooltip="delete"  (click)="deleteDocument(docArray[7].docTypeId)">
                     <mat-icon class="material-symbols-rounded">
                       delete
                     </mat-icon>

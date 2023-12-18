@@ -13,21 +13,19 @@
                 </div>
                 <h4 class="fw-bold text-center mb-4">{{'farmerLogin.farmer_login' | translate}}</h4>
                 <div class="mb-0">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label class="form-label">Mobile Number</mat-label>
+                    <mat-form-field appearance="outline" class="w-100"> 
+                        <mat-label class="form-label">{{'farmerLogin.mobile_number' | translate}}</mat-label>
                         <input [formControl]="farmerMobileNo" matInput placeholder="" maxlength="10" (keypress)="validation.noSpaceAllow($event);validation.acceptedOnlyNumbers($event)">
-                      <mat-error class="text-danger" *ngIf="farmerMobileNo.hasError('required')">Please
-                            enter mobile number
+                      <mat-error class="text-danger" *ngIf="farmerMobileNo.hasError('required')">{{'farmerLogin.please_enter_mobile_number' | translate}}
                         </mat-error>
-                          <mat-error class="text-danger" *ngIf="farmerMobileNo.hasError('pattern')">Please enter
-                            valid mobile number
+                          <mat-error class="text-danger" *ngIf="farmerMobileNo.hasError('pattern')">{{'farmerLogin.please_enter_valid_mobile_no' | translate}}
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <!-- <p class="small form-label mb-4 text-center">OTP will be send to your registered mobile number</p> -->
-                <button mat-flat-button class="btn-main w-100" type="submit" (click)="getOtpByMobileNo()">Send OTP </button>
+                <button mat-flat-button class="btn-main w-100" type="submit" (click)="getOtpByMobileNo()">{{'farmerLogin.send_otp' | translate}}</button>
                 <div class="text-end my-2">
-                    <a class="text-main" (click)="redirectPage()">Sign up for farmer?</a>
+                    <a class="text-main" (click)="redirectPage()">{{'farmerLogin.sign_up_for_farmer' | translate}}?</a>
                 </div>
             </div>
             <!-- farmer login verify otp -->
@@ -36,9 +34,9 @@
                     <div class="mb-4 text-center">
                         <img src="assets/images/logo-text.svg" class="w-75">
                     </div>
-                    <h4 class="fw-bold text-center mb-4">Farmer Login</h4>
+                    <h4 class="fw-bold text-center mb-4">{{'farmerLogin.farmer_login' | translate}}</h4>
                     <div class="mb-3">
-                        <label class="form-data">Enter OTP</label>
+                        <label class="form-data">{{'farmerLogin.enter_otp' | translate}}</label>
                         <div class="d-flex gap-2 justify-content-center mb-1">
                             <div class="otp-text">
                                 <mat-form-field appearance="outline" class="w-100">
@@ -89,22 +87,22 @@
 
                         <div class="text-end">
                             <a class="text-main" (click)="loginFlag=true;getOtpByMobileNo()"
-                                *ngIf="otpTimerFlag == true">Resend OTP?</a>
+                                *ngIf="otpTimerFlag == true">{{'farmerLogin.resend_otp' | translate}}</a>
                         </div>
                         <div class="text-end" *ngIf="!otpTimerFlag">
                             <span class="mb-2 ml-4 text-main">
                                 Wait for 00:{{otpTimer}} Sec.</span>
                         </div>
                         <div class="text-center form-label">
-                            <span>Please enter the OTP sent to your registered mobile number.</span>
+                            <span>{{'farmerLogin.please_enter_the_OTP_sent_to_your_registered_mobile_no' | translate}}.</span>
                         </div>
 
                         <div class="d-flex align-items-center justify-content-between">
                             <a class="d-flex align-items-center justify-content-end text-main">
                                 <mat-icon class="">chevron_left</mat-icon>
-                                <span (click)="loginFlag=false;farmerMobileNo.reset()">Back To Login</span>
+                                <span (click)="loginFlag=false;farmerMobileNo.reset()">{{'farmerLogin.back_to_login' | translate}}</span>
                             </a>
-                            <button mat-flat-button type="submit" class="btn-main">Verify OTP</button>
+                            <button mat-flat-button type="submit" class="btn-main">{{'farmerLogin.verify_otp' | translate}}</button>
                         </div>
                     </div>
                 </div>

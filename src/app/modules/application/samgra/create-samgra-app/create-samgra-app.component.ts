@@ -196,7 +196,7 @@ export class CreateSamgraAppComponent {
       "benificiaryTotalFarm": [data?.benificiaryTotalFarm || '', [Validators.required, this.validation.maxLengthValidator(4), Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]],
       "sm_LandTenureCategories": [data?.sm_LandTenureCategories || '', [Validators.required]],
       "farmTypeId": [data?.farmTypeId || '', [Validators.required]],
-      "irrigationFacilityId": [data?.sm_IrrigationPeriod || '', [Validators.required]],
+      "irrigationFacilityId": [data?.irrigationFacilityId || '', [Validators.required]],
       "sm_IrrigationPeriod": [data?.sm_IrrigationPeriod || '', [Validators.required]],
       "isAnyPlantedBeforeGovScheme": [data?.isAnyPlantedBeforeGovScheme || false],
       "sm_YearOfPlanting": [data?.sm_YearOfPlanting || ''],
@@ -209,10 +209,10 @@ export class CreateSamgraAppComponent {
       "sm_PlantationMethod": [data?.sm_PlantationMethod || '', [Validators.required]],
       "sm_IsExperienceSilkIndustry": [data?.sm_IsExperienceSilkIndustry || false],
       "sm_ExperienceYears": [data?.sm_ExperienceYears || ''], //show hide on radio button
-      "sm_IsSilkIndustrtyTrainingReceived": [data?.sm_IsExperienceSilkIndustry || false],
+      "sm_IsSilkIndustrtyTrainingReceived": [data?.sm_IsSilkIndustrtyTrainingReceived || false],
       "sm_SilkIndustrtyTrainingDetails": [data?.sm_SilkIndustrtyTrainingDetails || ''],
-      "sm_IsTakenBenefitOfInternalScheme": [data?.sm_IsExperienceSilkIndustry || false],
-      "sm_IsEngagedInSilkIndustry": [data?.sm_IsEngagedInSilkIndustry || true],
+      "sm_IsTakenBenefitOfInternalScheme": [data?.sm_IsTakenBenefitOfInternalScheme || false],
+      "sm_IsEngagedInSilkIndustry": [data?.id > 0 ? data?.sm_IsEngagedInSilkIndustry : true  ],
     })
   }
 
@@ -433,10 +433,6 @@ export class CreateSamgraAppComponent {
   //#region -------------------------------------------------page submit method start heare--------------------------------------------------
   checkStepCon(stepper: MatStepper, flag: string) {
     let landDetailsFormValue = this.landDetailsForm.getRawValue();
-
-    console.log("this.samgraForm",this.samgraForm.controls);
-
-
     if (flag == 'samgraForm' && this.samgraForm.invalid) {
       !this.samgraForm.getRawValue().profilePhotoPaththis ? this.viewMsgFlag = true : this.viewMsgFlag = false;
       return
@@ -474,10 +470,10 @@ export class CreateSamgraAppComponent {
       this.lang == 'en' ? this.commonMethod.snackBar("Please accept all", 1) : this.commonMethod.snackBar("कृपया सर्व स्वीकारा", 1);
     } else if (this.selfDeclarationForm.valid && flag == 'selfDeclaration') {
       this.onSubmit(flag, stepper);
-    } else if (flag == 'addCurrency' && !this.registionFeeUrl) {
+    } else if (flag == 'addCurrency' && !this.docArray[7]?.docPath) {
       this.lang == 'en' ? this.commonMethod.snackBar("please upload registration fee Rs.500 receipt", 1) : this.commonMethod.snackBar("कृपया नोंदणी शुल्क रु. 500 पावती अपलोड करा", 1);
       return
-    } else if (flag == 'addCurrency' && this.registionFeeUrl) {
+    } else if (flag == 'addCurrency' && this.docArray[7]?.docPath) {
       this.onSubmit(flag, stepper);
     }
   }
@@ -597,15 +593,15 @@ export class CreateSamgraAppComponent {
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'close') {
         return;
-      } else {
+      } else {    
         let existedRecord = this.currentCropDetailsArray.find((res: any) => (res.cropId == result.cropId));
         if (existedRecord && !obj) {
-          existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false, this.commonMethod.snackBar("Add successfully", 0)) : this.commonMethod.snackBar("This Crop already exist", 1)
+          existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false,this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या समावेष  केले", 0)) : this.lang == 'en' ? this.commonMethod.snackBar("This crop already exist", 1) : this.commonMethod.snackBar("हे पीक आधीच अस्तित्वात आहे", 1)
         } else {
           let formvalue = result
           formvalue.applicationId = this.previewData?.id || this.currentRecordId || 0;
 
-          obj ? (this.currentCropDetailsArray[index] = result, this.commonMethod.snackBar("Update successfully", 0)) : (this.currentCropDetailsArray.push(result), this.commonMethod.snackBar("Add successfully", 0));
+          obj ? (this.currentCropDetailsArray[index] = result,  this.lang == 'en' ? this.commonMethod.snackBar("Update successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या अपडेट केले", 0)) : (this.currentCropDetailsArray.push(result), this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या समावेष  केले", 0));
         }
         this.bindcurrentCropTable();
       }
@@ -660,8 +656,7 @@ export class CreateSamgraAppComponent {
       if (value == true) {
         this.fL['sm_ExperienceYears'].setValidators([Validators.required, this.validation.maxLengthValidator(2), Validators.pattern(this.validation.onlyNumbers)])
       } else if (value == false) {
-        this.fL['sm_ExperienceYears'].clearValidators();
-      }
+        this.fL['sm_ExperienceYears'].clearValidators();      }
       this.fL['sm_ExperienceYears'].updateValueAndValidity();
     } else if (flag == 'isTraining') {
       setValArray = ['sm_SilkIndustrtyTrainingDetails']
@@ -703,23 +698,23 @@ export class CreateSamgraAppComponent {
   addInternalSchemes() {
     let fromvalue = this.internalSchemes.getRawValue();
     if (!fromvalue?.internalSchemeName && this.landDetailsForm.getRawValue().sm_IsTakenBenefitOfInternalScheme) {
-      this.commonMethod.snackBar('internalSchemeName is required', 1);
+      this.lang == 'en' ? this.commonMethod.snackBar("Internal scheme name is required", 1) : this.commonMethod.snackBar("अंतर्गत योजना नाव आवश्यक आहे", 1)
       return
     } else if (!fromvalue?.schemeTakenDate && this.landDetailsForm.getRawValue().sm_IsTakenBenefitOfInternalScheme) {
-      this.commonMethod.snackBar('schemeTakenDate is required', 1);
+      this.lang == 'en' ? this.commonMethod.snackBar("Scheme taken date is required", 1) : this.commonMethod.snackBar("योजना घेतलेली तारीख आवश्यक आहे", 1)
       return
     } else if (!fromvalue?.totalBenefitTaken && this.landDetailsForm.getRawValue().sm_IsTakenBenefitOfInternalScheme) {
-      this.commonMethod.snackBar('totalBenefitTaken is required', 1);
+      this.lang == 'en' ? this.commonMethod.snackBar("Scheme taken date is required", 1) : this.commonMethod.snackBar("एकूण घेतलेला लाभ आवश्यक आहे", 1)    
       return
     }
     if (this.internalSchemes.invalid) {
       return;
-    } else {
+    } else {         
       let existedRecord = this.internalSchemesArray.find((res: any) => (res.internalSchemeName == fromvalue.internalSchemeName));
       if (existedRecord) {
-        existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false, this.commonMethod.snackBar("Add successfully", 0)) : this.commonMethod.snackBar("This scheem already exist", 1)
+        existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false, this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या समावेष  केले", 0)) :this.lang == 'en' ? this.commonMethod.snackBar("This scheem already exist", 1) : this.commonMethod.snackBar("ही योजना आधीच अस्तित्वात आहे", 1)
       } else {
-        this.InternalSchemesEditFlag ? (this.internalSchemesArray[this.InternalSchemesIndex] = fromvalue, this.commonMethod.snackBar("Update successfully", 0)) : (this.internalSchemesArray.push(fromvalue), this.commonMethod.snackBar("Add successfully", 0));
+        this.InternalSchemesEditFlag ? (this.internalSchemesArray[this.InternalSchemesIndex] = fromvalue,this.lang == 'en' ? this.commonMethod.snackBar("Update successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या अपडेट केले", 0)) : (this.internalSchemesArray.push(fromvalue), this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या समावेष केले", 0));
       }
       this.ScheemDirective && this.ScheemDirective.resetForm();
       this.internalSchemesFormData();
@@ -842,10 +837,10 @@ export class CreateSamgraAppComponent {
   submitOtherDoc() {
     let formValue = this.otherDocForm.value
     if (!formValue?.docname) {
-      this.commonMethod.snackBar('Docname is required ', 1);
+      this.lang == 'en' ? this.commonMethod.snackBar("Document name is required", 1) : this.commonMethod.snackBar("दस्तऐवजाचे नाव आवश्यक आहे", 1)
       return
     } else if (!this.uploadedDocUrl) {
-      this.commonMethod.snackBar('Document is required ', 1);
+      this.lang == 'en' ? this.commonMethod.snackBar("Document is required", 1) : this.commonMethod.snackBar("कागदपत्र आवश्यक आहे", 1)    
       return
     }
     let obj = {
@@ -858,9 +853,10 @@ export class CreateSamgraAppComponent {
     }
     let existedRecord = this.otherDocArray.find((res: any) => (res.docname == formValue.docname));
     if (existedRecord) {
-      existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false, this.commonMethod.snackBar("Add successfully", 0)) : this.commonMethod.snackBar("This Document already exist", 1)
+      existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false, this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या समावेष  केले", 0)) :this.lang == 'en' ? this.commonMethod.snackBar("This document already exist", 1) : this.commonMethod.snackBar("हा दस्तऐवज आधीपासून अस्तित्वात आहे", 1)
     } else {
-      this.otherDocArray.push(obj), this.commonMethod.snackBar("Add successfully", 0);
+      this.otherDocArray.push(obj);
+      this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या समावेष  केले", 0)
     }
     this.bindOtherDocTable();
     this.checkOtherDocumentFlag = true;

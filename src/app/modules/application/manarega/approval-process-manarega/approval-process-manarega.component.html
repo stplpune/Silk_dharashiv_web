@@ -71,11 +71,12 @@
         <div class="col-sm">
           <div class="d-flex gap-2">
             <div class="form-label mb-0">{{'grainage.address'| translate}}:</div>
-            <div class="form-data">{{lang == 'en' ? ((applicantDetails?.state | dash) +', '+(applicantDetails?.district
-              | dash)+', '+(applicantDetails?.taluka | dash)+','+(applicantDetails?.grampanchayatName | dash)) :
-              ((applicantDetails?.m_State | dash)
-              +', '+(applicantDetails?.m_District | dash)+', '+(applicantDetails?.m_Taluka |
-              dash)+','+(applicantDetails?.m_GrampanchayatName | dash))}}</div>
+            <div class="form-data">
+              <!-- {{lang == 'en' ? ((applicantDetails?.state | dash) +', '+(applicantDetails?.district | dash)+', '+(applicantDetails?.taluka | dash)+','+(applicantDetails?.grampanchayatName | dash)) :  ((applicantDetails?.m_State | dash) +', '+(applicantDetails?.m_District | dash)+', '+(applicantDetails?.m_Taluka | dash)+','+(applicantDetails?.m_GrampanchayatName | dash))}} -->
+
+              {{lang == 'en' ? ((applicantDetails?.grampanchayatName | dash) +', '+ (applicantDetails?.taluka | dash) +', '+(applicantDetails?.district | dash)+', '+(applicantDetails?.state | dash)): (applicantDetails?.m_GrampanchayatName | dash)+ ' ,'+(applicantDetails?.m_Taluka | dash)+', '+(applicantDetails?.m_District | dash)+', '+(applicantDetails?.m_State | dash) }}
+
+            </div>
           </div>
         </div>
         <!-- {{lang == 'en' ? (applicantDetails?.grampanchayatName | dash ) :
@@ -197,8 +198,10 @@
                 <div class="form-label">{{'approvalProcess.applicant_name_mob'| translate}}</div>
               </div>
               <div class="col-sm-4 col-8">
-                <div class="form-data">: {{lang == 'en' ? (applicantDetails?.fullName | dash ) :
-                  (applicantDetails?.m_FullName | dash)}}</div>
+                <div class="form-data">: 
+                  <!-- {{lang == 'en' ? (applicantDetails?.fullName | dash ) : (applicantDetails?.m_FullName | dash)}} -->
+                {{applicantDetails?.fullName | dash}}
+                </div>
               </div>
               <div class="col-sm-2 col-4">
                 <div class="form-label">{{'common.mobile'| translate}}:</div>
@@ -835,7 +838,8 @@
                   *ngIf="applicationData?.uploadDocTypeId !=0 && approvalFrm.value.applicationStatus == 12">
                   <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
                     data-placement="right" (click)="uploadDepDocument.value=''; uploadDepDocument.click()">
-                    {{'approvalProcess.upload_document'| translate}}
+                    <!-- {{'approvalProcess.upload_document'| translate}} -->
+                    Upload {{actionNameLabel}} Letter
                   </button>
                   <input type="file" class="d-none" #uploadDepDocument (change)="imageUplod($event,'uplDepDoc')">
                   <div class="d-flex gap-2" *ngIf="uploadedDepDoc?.docPath">
