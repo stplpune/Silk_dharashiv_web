@@ -212,7 +212,7 @@ export class CreateSamgraAppComponent {
       "sm_IsSilkIndustrtyTrainingReceived": [data?.sm_IsSilkIndustrtyTrainingReceived || false],
       "sm_SilkIndustrtyTrainingDetails": [data?.sm_SilkIndustrtyTrainingDetails || ''],
       "sm_IsTakenBenefitOfInternalScheme": [data?.sm_IsTakenBenefitOfInternalScheme || false],
-      "sm_IsEngagedInSilkIndustry": [data?.sm_IsEngagedInSilkIndustry ? data?.sm_IsEngagedInSilkIndustry : true  ],
+      "sm_IsEngagedInSilkIndustry": [data?.id > 0 ? data?.sm_IsEngagedInSilkIndustry : true  ],
     })
   }
 
@@ -474,10 +474,10 @@ export class CreateSamgraAppComponent {
       this.lang == 'en' ? this.commonMethod.snackBar("Please accept all", 1) : this.commonMethod.snackBar("कृपया सर्व स्वीकारा", 1);
     } else if (this.selfDeclarationForm.valid && flag == 'selfDeclaration') {
       this.onSubmit(flag, stepper);
-    } else if (flag == 'addCurrency' && !this.registionFeeUrl) {
+    } else if (flag == 'addCurrency' && !this.docArray[7]?.docPath) {
       this.lang == 'en' ? this.commonMethod.snackBar("please upload registration fee Rs.500 receipt", 1) : this.commonMethod.snackBar("कृपया नोंदणी शुल्क रु. 500 पावती अपलोड करा", 1);
       return
-    } else if (flag == 'addCurrency' && this.registionFeeUrl) {
+    } else if (flag == 'addCurrency' && this.docArray[7]?.docPath) {
       this.onSubmit(flag, stepper);
     }
   }
@@ -660,8 +660,7 @@ export class CreateSamgraAppComponent {
       if (value == true) {
         this.fL['sm_ExperienceYears'].setValidators([Validators.required, this.validation.maxLengthValidator(2), Validators.pattern(this.validation.onlyNumbers)])
       } else if (value == false) {
-        this.fL['sm_ExperienceYears'].clearValidators();
-      }
+        this.fL['sm_ExperienceYears'].clearValidators();      }
       this.fL['sm_ExperienceYears'].updateValueAndValidity();
     } else if (flag == 'isTraining') {
       setValArray = ['sm_SilkIndustrtyTrainingDetails']
@@ -703,6 +702,7 @@ export class CreateSamgraAppComponent {
   addInternalSchemes() {
     let fromvalue = this.internalSchemes.getRawValue();
     if (!fromvalue?.internalSchemeName && this.landDetailsForm.getRawValue().sm_IsTakenBenefitOfInternalScheme) {
+      this.lang == 'en' ? this.commonMethod.snackBar("internalSchemeName is required", 1) : this.commonMethod.snackBar("अंतर्गत योजना नाव आवश्यक आहे", 1)
       this.commonMethod.snackBar('internalSchemeName is required', 1);
       return
     } else if (!fromvalue?.schemeTakenDate && this.landDetailsForm.getRawValue().sm_IsTakenBenefitOfInternalScheme) {
