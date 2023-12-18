@@ -81,11 +81,9 @@ export class GeneratePdfComponent {
   ngOnInit() {
     this.loginData=this.web.getLoggedInLocalstorageData()
     this.routeData = this.route.snapshot.queryParamMap.get('id');
-     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routeData)}`);   
+    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routeData)}`);        
     this.actionID= spliteUrl.split('.')[1];
     this.applicationId=spliteUrl.split('.')[0]; 
-    // this.actionID= 5
-    // this.applicationId=2
     this.getEstimateData();
     this.getAnotherEstimateData();
     this.getEstimateSanctionData();
@@ -153,7 +151,6 @@ export class GeneratePdfComponent {
       }
       
     })
-    console.log('  this.skillYr1obj',  this.skillYr1obj);
 
     this.newDataArray.totalUnskill.filter((res: any) => {
       if (res.yearId == 1) {
@@ -217,10 +214,7 @@ export class GeneratePdfComponent {
         this.skillDataArray.unSkillArray.push(ev);
       }
     })
-    data.responseData3.filter((ev: any) => {
-      this.skillDataArray.totalUnskill.push(ev)
-    })
-
+      this.skillDataArray.totalUnskill.push(data?.responseData3)
   }
 
   acceptTerms(event?: any) {

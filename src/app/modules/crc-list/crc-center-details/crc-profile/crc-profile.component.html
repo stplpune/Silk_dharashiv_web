@@ -9,7 +9,7 @@
           <div class="text-center crc-profile-img">
             <img [src]="tableDataArray?.profileImagePath ? tableDataArray?.profileImagePath :  'assets/images/user.png'" alt="" class="img-fluid">
             <h6 class="form-data">{{lang == 'en' ? tableDataArray?.crcName :  tableDataArray?.m_CRCName || '-'}}</h6>
-            <p class="bg-success-subtle text-success p-2 rounded-2"> {{lang == 'en' ? tableDataArray?.status : tableDataArray?.m_Status || '-'}}</p>
+            <p [class]="tableDataArray?.statusId == 5 ?  'bg-danger-subtle text-danger p-2 rounded-2' :'bg-success-subtle text-success p-2 rounded-2'"> {{lang == 'en' ? tableDataArray?.status : tableDataArray?.m_Status || '-'}}</p>
           </div>
         </div>
         <div class="col-sm-10">
@@ -95,12 +95,12 @@
                   <div class="col-sm-9 form-data">:  &nbsp; {{tableDataArray?.mobileNo || '-'}}</div>
                 </div>
               </div>
-              <div class="col-sm-4">
+              <!-- <div class="col-sm-4">
                 <div class="row gx-2">
                   <div class="col-sm-4 form-label">{{lang == 'en' ? 'Alt Mobile No ': 'पर्यायी मोबाईल नंबर'}}</div>
                   <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.altMobileNo || '-'}}</div>
                 </div>
-              </div>
+              </div> -->
               <div class="col-sm-4">
                 <div class="row gx-2">
                   <div class="col-sm-4 form-label">{{lang == 'en' ? 'Aadhar Card No': 'आधार कार्ड क्रमांक.'}}</div>

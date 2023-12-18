@@ -54,7 +54,8 @@ export class FarmersignupComponent {
   ) {
     localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
     this.translate.use(this.getLangForLocalStor);
-    let paramData: any = this.activatedRoute.snapshot.queryParams; this.mobNo = this.encryptDecryptService?.decrypt(paramData?.mobNo).toString();
+    let paramData: any = this.activatedRoute.snapshot.queryParams;
+    this.mobNo = paramData?.mobNo ? this.encryptDecryptService?.decrypt(paramData?.mobNo).toString() : '';
   }
 
   ngOnInit() {
@@ -196,7 +197,7 @@ export class FarmersignupComponent {
       if (res.statusCode == "200") {
         this.spinner.hide();
         this.commonMethods.snackBar(res.statusMessage, 0);
-        this.router.navigate(['farmer-login']);
+        this.router.navigate(['farmer-login'],{ queryParams: { mobNo: this.encryptDecryptService.encrypt(formValue.mobNo1.toString()) } });
       }
       else {
         this.spinner.hide();
