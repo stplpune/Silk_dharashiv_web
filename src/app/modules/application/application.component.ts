@@ -265,7 +265,7 @@ export class ApplicationComponent {
       tableHeaders: displayedheaders,
       view: true,
       track: true,
-      edit:  true,
+      edit:  false,
       date: 'applicationDate'
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
