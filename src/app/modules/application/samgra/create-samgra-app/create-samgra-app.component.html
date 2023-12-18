@@ -2,7 +2,7 @@
   <mat-card-header class="card-header">
     <div class="text-main">{{'addSamgra.Create_Samgra_Application'| translate}}</div>
   </mat-card-header>
-  <mat-card-content class=" card-body form-container">
+  <!-- <mat-card-content class=" card-body form-container">
     <form [formGroup]="filterForm">
       <div class="row gx-2">
         <div class="col-sm-6">
@@ -14,7 +14,7 @@
             </mat-form-field>
           </div>
         </div>
-        <!-- <div class="col-sm">
+        <div class="col-sm">
           <div class="d-flex flex-column gap-2">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label class="form-label mb-0">{{'approvalProcess.aadhar_number'| translate}}</mat-label>
@@ -22,7 +22,7 @@
                 (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
             </mat-form-field>
           </div>
-        </div> -->
+        </div>
         <div class="col-sm-1">
           <div class="d-flex gap-2">
             <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit"
@@ -40,7 +40,7 @@
         </div>
         </div>
     </form>
-  </mat-card-content>
+  </mat-card-content> -->
   <mat-card-content class=" card-body form-container">
     <!-- [linear]="!isLinear" -->
     <mat-stepper #stepper [linear]="!isLinear">
@@ -79,7 +79,8 @@
                     <div class="d-flex flex-column gap-2">
                       <div class="form-label">1.{{'common.mobile'| translate}}</div>
                       <!-- <div class="form-data">: 8669264767</div> -->
-                      <mat-form-field appearance="outline" class="w-100">
+                      <mat-form-field appearance="outline" class="w-100"
+                      [class]="WebStorageService.getMobileNo() ? f['mobileNo1'].disable({ onlySelf: true }) : f['mobileNo1'].enable({ onlySelf: true })">
                         <input matInput placeholder="" formControlName="mobileNo1" maxlength="10"
                           (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';">
                           <mat-error
