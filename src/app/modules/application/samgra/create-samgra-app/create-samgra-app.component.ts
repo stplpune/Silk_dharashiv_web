@@ -433,10 +433,6 @@ export class CreateSamgraAppComponent {
   //#region -------------------------------------------------page submit method start heare--------------------------------------------------
   checkStepCon(stepper: MatStepper, flag: string) {
     let landDetailsFormValue = this.landDetailsForm.getRawValue();
-
-    console.log("this.samgraForm",this.samgraForm.controls);
-
-
     if (flag == 'samgraForm' && this.samgraForm.invalid) {
       !this.samgraForm.getRawValue().profilePhotoPaththis ? this.viewMsgFlag = true : this.viewMsgFlag = false;
       return
@@ -702,14 +698,13 @@ export class CreateSamgraAppComponent {
   addInternalSchemes() {
     let fromvalue = this.internalSchemes.getRawValue();
     if (!fromvalue?.internalSchemeName && this.landDetailsForm.getRawValue().sm_IsTakenBenefitOfInternalScheme) {
-      this.lang == 'en' ? this.commonMethod.snackBar("internalSchemeName is required", 1) : this.commonMethod.snackBar("अंतर्गत योजना नाव आवश्यक आहे", 1)
-      this.commonMethod.snackBar('internalSchemeName is required', 1);
+      this.lang == 'en' ? this.commonMethod.snackBar("Internal scheme name is required", 1) : this.commonMethod.snackBar("अंतर्गत योजना नाव आवश्यक आहे", 1)
       return
     } else if (!fromvalue?.schemeTakenDate && this.landDetailsForm.getRawValue().sm_IsTakenBenefitOfInternalScheme) {
-      this.commonMethod.snackBar('schemeTakenDate is required', 1);
+      this.lang == 'en' ? this.commonMethod.snackBar("Scheme taken date is required", 1) : this.commonMethod.snackBar("योजना घेतलेली तारीख आवश्यक आहे", 1)
       return
     } else if (!fromvalue?.totalBenefitTaken && this.landDetailsForm.getRawValue().sm_IsTakenBenefitOfInternalScheme) {
-      this.commonMethod.snackBar('totalBenefitTaken is required', 1);
+      this.lang == 'en' ? this.commonMethod.snackBar("Scheme taken date is required", 1) : this.commonMethod.snackBar("एकूण घेतलेला लाभ आवश्यक आहे", 1)    
       return
     }
     if (this.internalSchemes.invalid) {
