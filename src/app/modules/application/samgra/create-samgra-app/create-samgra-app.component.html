@@ -670,7 +670,7 @@
               </div>
               <div class="col-sm-4">
                 <div class="d-flex flex-column ">
-                  <mat-label class="form-label"> {{'addSamgra.experience_in_silk_industry' | translate}}</mat-label>
+                  <mat-label class="form-label"> {{'addSamgra.traning' | translate}}</mat-label>
                   <mat-radio-group aria-label="Select an option" formControlName="sm_IsSilkIndustrtyTrainingReceived"
                     (change)="radioEvent(landDetailsForm.value.sm_IsSilkIndustrtyTrainingReceived,'isTraining')">
                     <mat-radio-button *ngFor="let check of checkedArray"
@@ -814,7 +814,7 @@
                             </span>
                           </button>
                           <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
-                            (click)="deleteInternalSchemes(i)">
+                            (click)="deleteInternalSchemes(element)">
                             <span class="material-symbols-rounded text-danger">
                               delete
                             </span>
@@ -1225,7 +1225,7 @@
                           </span>
                         </button>
                         <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
-                          (click)="deleteOtherDoc(i)">
+                          (click)="deleteOtherDoc(element)">
                           <span class="material-symbols-rounded text-danger">
                             delete
                           </span>
@@ -1371,7 +1371,7 @@
           </div>
           <div class="row gy-2 gx-2 mb-2">
             <div class="col-sm-4">
-              <div class="form-data text-main">{{'addSamgra.Agriculture_and_Fruit_Production' | translate}}</div>
+              <!-- <div class="form-data text-main">{{'addSamgra.Agriculture_and_Fruit_Production' | translate}}</div> -->
               <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">3.{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
@@ -1384,7 +1384,7 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'addManrega.select_gender'| translate}}</div>
                   <span class=" form-data rounded-pill"> {{lang == 'en' ? (previewData?.gender | dash ) :
-                    (previewData?.m_gender | dash)}}</span>
+                    (previewData?.m_Gender | dash)}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'addManrega.education'| translate}}</div>
@@ -1430,7 +1430,8 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'addSamgra.below_the_poverty_line' | translate}}</div>
-                  <span class=" form-data rounded-pill">:{{previewData?.sm_IsBelowPovertyLine | dash}}</span>
+                  <!-- <span class=" form-data rounded-pill">:{{previewData?.sm_IsBelowPovertyLine | dash}}</span> -->
+                  <span class="form-data  rounded-pill">:{{ previewData?.sm_IsBelowPovertyLine == true ? ('approvalProcess.yes'| translate) : ('approvalProcess.no'| translate) }}</span>
                 </li>
               </ul>
             </div>
@@ -1493,7 +1494,7 @@
 
                           <ng-container matColumnDef="cropId">
                             <th mat-header-cell *matHeaderCellDef> {{'addSamgra.Crop_Name' | translate}}</th>
-                            <td mat-cell *matCellDef="let element"> {{element?.cropId || '-'}} </td>
+                            <td mat-cell *matCellDef="let element"> {{lang == 'en' ? element.cropName  :element.m_CropName }} </td>
                           </ng-container>
 
                           <ng-container matColumnDef="area">
@@ -1567,9 +1568,15 @@
                       <div class="form-label">{{'addSamgra.experience_in_silk_industry' | translate}}</div>
                       <span class="form-data  rounded-pill">:{{ previewData?.sm_IsExperienceSilkIndustry == true ? ('approvalProcess.yes'| translate) : ('approvalProcess.no'| translate) }}</span>
                     </li>
+                    <ng-container *ngIf="previewData?.sm_IsExperienceSilkIndustry == true">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="form-label">{{'addSamgra.sm_ExperienceYears' | translate}} </div>
+                        <span class="form-data  rounded-pill">:{{previewData?.sm_SilkIndustrtyTrainingDetails}}</span>
+                      </li>
+                    </ng-container>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label"> {{'addSamgra.experience_in_silk_industry' | translate}}</div>
+                      <div class="form-label"> {{'addSamgra.traning' | translate}}</div>
                       <span class="form-data  rounded-pill">:{{ previewData?.sm_IsSilkIndustrtyTrainingReceived == true ? ('approvalProcess.yes'| translate) : ('approvalProcess.no'| translate) }}</span>
                     </li>
                     <ng-container *ngIf="previewData?.sm_IsSilkIndustrtyTrainingReceived == true">
@@ -1726,6 +1733,14 @@
                           visibility
                         </mat-icon>
                       </span>
+                    </li>
+                  </ng-container>
+                     <ng-container *ngIf="showotherDoc.length  && doc.docId == 7">
+                    <li  class="list-group-item d-flex justify-content-between align-items-center">                    
+                      <div class="form-label">{{lang == 'en' ? doc.documentName  :doc.m_DocumentName }}</div>
+                      <span class="form-data rounded-pill" (click)="viewimage(doc.documentPath)">
+                        <mat-icon class="material-symbols-outlined">visibility</mat-icon>
+                      </span>                  
                     </li>
                   </ng-container>
                   </ul>

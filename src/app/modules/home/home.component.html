@@ -1,4 +1,4 @@
-<header class="bg-green">
+<header>
     <div class="container">
         <div id="headerCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -77,12 +77,14 @@
         </div>
     </div>
 </section>
-<section id="scheme" class="bg-green">
+<section id="scheme">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 <h2 class="section-head">Schemes & Information</h2>
-                <p>  Like Dairy and poultry farming, silk farming can also be done as a side business along with agriculture. This business can be started at a very low cost and the available materials that the farmers already have.</p>
+                <p> Like Dairy and poultry farming, silk farming can also be done as a side business along with
+                    agriculture. This business can be started at a very low cost and the available materials that the
+                    farmers already have.</p>
             </div>
         </div>
     </div>
@@ -100,69 +102,69 @@
         </div>
     </div>
 </section>
-<section id="stats" class="bg-green">
+<section id="stats">
     <div class="container">
         <div class="row g-3">
             <div class="col-sm-12">
                 <h2 class="section-head">Site Statistics</h2>
             </div>
-        <ng-container *ngFor="let data of getAppCountData">
-            <div class="col-sm-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="icon">
-                            <img src="assets/images/home/applications.svg">
+            <ng-container *ngFor="let data of getAppCountData">
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="icon">
+                                <img src="assets/images/home/applications.svg">
+                            </div>
+                            <h2>{{data?.totalApplications}}</h2>
                         </div>
-                        <h2>{{data?.totalApplications}}</h2>
-                    </div>
-                    <div class="card-footer">
-                        <p>Applications</p>
+                        <div class="card-footer">
+                            <p>Applications</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="icon">
-                            <img src="assets/images/home/Beneficiaries.svg">
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="icon">
+                                <img src="assets/images/home/Beneficiaries.svg">
+                            </div>
+                            <h2>{{data?.totalBeneficiaries}}</h2>
                         </div>
-                        <h2>{{data?.totalBeneficiaries}}</h2>
-                    </div>
-                    <div class="card-footer">
-                        <p>Beneficiaries</p>
+                        <div class="card-footer">
+                            <p>Beneficiaries</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="icon">
-                            <img src="assets/images/home/cultivation.svg">
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="icon">
+                                <img src="assets/images/home/cultivation.svg">
+                            </div>
+                            <h2>
+                                {{data?.totalLandCultivatedHectors}}
+                                <small>(Hectare)</small>
+                            </h2>
                         </div>
-                        <h2>
-                            {{data?.totalLandCultivatedHectors}}
-                            <small>(Hectare)</small>
-                        </h2>
-                    </div>
-                    <div class="card-footer">
-                        <p>Land Cultivated</p>
+                        <div class="card-footer">
+                            <p>Land Cultivated</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="icon">
-                            <img src="assets/images/home/distribution.svg">
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="icon">
+                                <img src="assets/images/home/distribution.svg">
+                            </div>
+                            <h2>{{data?.totalDBT | currency :'INR'}}</h2>
                         </div>
-                        <h2>{{data?.totalDBT | currency :'INR'}}</h2>
-                    </div>
-                    <div class="card-footer">
-                        <p>Subsidy Distributed</p>
+                        <div class="card-footer">
+                            <p>Subsidy Distributed</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </ng-container>
+            </ng-container>
         </div>
     </div>
 </section>
@@ -176,7 +178,7 @@
                         <img src="https://www.knnindia.co.in/uploads/newsfiles/Sericulture-16-3-2023.jpg" alt="...">
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <p>Bihar govt to support sericulture farmers with advanced technology <small><a href="#" class="main-color-a">Read More</a></small></p>
+                        <p>Bihar govt to support sericulture farmers with advanced technology </p>
                         <small>12-02-2023</small>
                     </div>
                 </a>
@@ -186,7 +188,7 @@
                     </div>
                     <div class="flex-grow-1 ms-3">
                         <p>J-K govt approves Rs 91 crore project for revival of sericulture, setting up 100 new rearing
-                            centres. <small><a href="#" class="main-color-a">Read More</a></small></p>
+                            centres. </p>
                         <small>10-01-2023</small>
                     </div>
                 </a>
@@ -195,12 +197,12 @@
                         <img src="https://thewire.in/wp-content/uploads/2017/05/fogging.jpg" alt="...">
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <p>Fogging System Can Help Improve Indian Sericulture <small><a href="#" class="main-color-a">Read More</a></small></p>
+                        <p>Fogging System Can Help Improve Indian Sericulture </p>
                         <small>20-12-2022</small>
-                        
+
                     </div>
                 </a>
-                <!-- <a class="d-flex news" href="#">
+                <a class="d-flex news" href="#">
                     <div class="flex-shrink-0">
                         <img src="https://www.knnindia.co.in/uploads/newsfiles/Sericulture-16-3-2023.jpg" alt="...">
                     </div>
@@ -216,7 +218,7 @@
                             arrow_right_alt
                         </span>
                     </a>
-                </div> -->
+                </div>
             </div>
             <div class="col-sm-7">
                 <h2 class="section-head">Success Story</h2>
@@ -227,7 +229,7 @@
                             <div class="card-body">
                                 <p class="card-title">Sericulture: The Secret Of Silk Making And The Benefits Of Silk
                                     Making</p>
-                                <small class="card-text">This is a longer card with supporting text <small><a href="#" class="main-color-a">Read More</a></small></small>
+                                <small class="card-text">This is a longer card with supporting text </small>
                             </div>
                         </a>
                     </div>
@@ -238,7 +240,7 @@
                             <div class="card-body">
                                 <p class="card-title">Sericulture: The Secret Of Silk Making And The Benefits Of Silk
                                     Making</p>
-                                <small class="card-text">This is a longer card with supporting text <small><a href="#" class="main-color-a">Read More</a></small></small>
+                                <small class="card-text">This is a longer card with supporting text </small>
                             </div>
                         </a>
                     </div>
@@ -249,19 +251,19 @@
                             <div class="card-body">
                                 <p class="card-title">Sericulture: The Secret Of Silk Making And The Benefits Of Silk
                                     Making</p>
-                                <small class="card-text">This is a longer card with supporting text <small><a href="#" class="main-color-a">Read More</a></small></small>
+                                <small class="card-text">This is a longer card with supporting text </small>
                             </div>
                         </a>
                     </div>
                 </div>
-                <!-- <div class="d-flex align-items-center justify-content-end">
+                <div class="d-flex align-items-center justify-content-end">
                     <a class="read-more">
                         Read More
                         <span class="material-symbols-rounded">
                             arrow_right_alt
                         </span>
                     </a>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
@@ -299,15 +301,14 @@
         <div class="row mb-4 g-2">
             <div class="col-sm-3" *ngFor="let data of blogDetails;">
                 <a class="card h-100" (click)="redTo(data)">
-                    <img src="{{data?.thumbnailImage}}"
-                        class="card-img-top" alt="...">
+                    <img src="{{data?.thumbnailImage}}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{data?.title}}</h5>
                         <!-- <p class="card-text" [innerHTML]="data?.description"> </p>-->
                     </div>
                 </a>
             </div>
-            
+
         </div>
         <!-- <div class="d-flex align-items-center justify-content-center">
             <a class="read-more">
