@@ -18,6 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DateAdapter } from '@angular/material/core';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { MatStepper } from '@angular/material/stepper';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-samgra-app',
@@ -117,7 +118,8 @@ export class CreateSamgraAppComponent {
     public encryptdecrypt: AesencryptDecryptService,
     private activatedRoute: ActivatedRoute,
     private dateAdapter: DateAdapter<Date>,
-    private router: Router
+    private router: Router,
+    private datePipe:DatePipe
   ) {
     this.dateAdapter.setLocale('en-GB');
     let Id: any;
@@ -1026,7 +1028,7 @@ export class CreateSamgraAppComponent {
   openDialog(res?: any) {
     let dialoObj = {
       header: this.lang == 'mr-IN' ? 'अभिनंदन ' : 'Congratulations',
-      title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .अर्ज क्रमांक  : ' + res.responseData1 + res.responseData2 : 'Your application has been successfully submitted. Application no: ' + res.responseData1 + res.responseData2,
+      title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .अर्ज क्रमांक  : ' + res.responseData1 + res.responseData2 : 'Your application has been successfully submitted. Application no: ' + res.responseData1 +' '+this.datePipe.transform(res.responseData2,'dd/MM/yyyy hh:mm az'),
       cancelButton: '',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
       headerImage: 'assets/images/check.png'

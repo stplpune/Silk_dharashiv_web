@@ -28,10 +28,14 @@
             <div class="col-sm-12 text-center">
                 <h4>परिशिष्ट - ३</h4>
                 <h5>रेशीम संचालनालय, नागपूर</h5>
-                <h6>मनरेगा अंतर्गत केंद्र शासनाची अधिसूचना दिनांक २३/०४/२०२३</h6>
+                <h6>मनरेगा अंतर्गत केंद्र शासनाची अधिसूचना दिनांक {{showDate | date:'dd-MM-yyyy'}}</h6>
                 <p>महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजने अंतर्गत एक एकर तुती लागवड संवर्धन व
                     कोष उत्पादनासाठी खर्चाचे अंदाजपत्रक (रुपये) तक्ता क्रमांक - १</p>
-                    <p class="text-end">3</p>
+                    <!-- <p class="text-end fw-bold">Application Id:{{sanctionArray[0]?.applicationNo}}</p> -->
+                    <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+                        <div class="form-data">Application Id</div>
+                        <div class="form-data">: {{sanctionArray[0]?.applicationNo}}</div>
+                    </div>
             </div>
         </div>
         <table class="table3 table-bordered">
@@ -55,7 +59,7 @@
                 <th></th> -->
                 <th></th>
                 <th colspan="2">जिल्हा</th>
-                <th colspan="4">धरशीव</th>
+                <th colspan="4">धाराशीव</th>
                 <th colspan="5"></th>
                 <!-- <th></th>
                 <th></th>
