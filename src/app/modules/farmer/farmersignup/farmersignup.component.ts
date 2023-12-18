@@ -197,7 +197,7 @@ export class FarmersignupComponent {
       if (res.statusCode == "200") {
         this.spinner.hide();
         this.commonMethods.snackBar(res.statusMessage, 0);
-        this.router.navigate(['farmer-login']);
+        this.router.navigate(['farmer-login'],{ queryParams: { mobNo: this.encryptDecryptService.encrypt(formValue.mobNo1.toString()) } });
       }
       else {
         this.spinner.hide();

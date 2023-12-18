@@ -50,7 +50,7 @@
                 <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'manrega.scheme'| translate}}</mat-label>
-                        <mat-select formControlName="schemeTypeId" placeholder="All Scheme"   [class]="!filterFrm.getRawValue().grampanchayatId ? f['schemeTypeId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })" (selectionChange)="getAction()">
+                        <mat-select formControlName="schemeTypeId" placeholder="All Scheme"  (selectionChange)="getAction()">
                             <mat-option *ngFor=" let scheme of schemeFilterArr" [value]="scheme.id">{{lang == 'en' ?
                                 scheme.textEnglish : scheme.textMarathi}}</mat-option>
                         </mat-select>
