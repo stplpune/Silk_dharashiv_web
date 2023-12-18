@@ -112,7 +112,8 @@
     "status": "स्थिती",
     "search": "शोधा",
     "documents": "कागदपत्रे",
-    "file_upload": "फाइल अपलोड"
+    "file_upload": "फाइल अपलोड",
+    "please_enter_valid_village_name":"कृपया वैध गावाचे नाव प्रविष्ट करा"
   },
   "approvalProcess": {
     "original_details":"मूळ तपशील",

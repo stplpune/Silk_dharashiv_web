@@ -178,7 +178,7 @@ export class CreateManaregaAppComponent {
       "districtId": [data?.districtId || (this.WebStorageService.getDistrictId() == '' ? '' : this.WebStorageService.getDistrictId())],//no
       "talukaId": [data?.talukaId || (this.WebStorageService.getTalukaId() == '' ? '' : this.WebStorageService.getTalukaId()), [Validators.required]],//no
       "grampanchayatId": [data?.grampanchayatId || (this.WebStorageService.getGrampanchayatId() == '' ? '' : this.WebStorageService.getGrampanchayatId()), [Validators.required]],//no
-      "village": [data?.village || '', [Validators.required]],
+      "village": [data?.village || '',  [this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]],
       "address": [data?.address || '', [this.validation.maxLengthValidator(200), Validators.required]],//Mandetory Max:200, alphanumeric with special char
       "pinCode": [data?.pinCode || '', [Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],//Mandetory  Max: 6 digit, numeric
       "mn_JobCardNo": [data?.mn_JobCardNo || '', [Validators.required, this.validation.maxLengthValidator(30)]],//Mandetory  Max: 30 alphanumeric with sepcial char
