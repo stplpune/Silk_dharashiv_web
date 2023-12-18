@@ -92,7 +92,7 @@ export class CreateSamgraAppComponent {
   isLinear = false;
   checkinternalSchemesflag: boolean = false;
   viewMsgFlag: boolean = false;
-  samgraId: any;
+  samgraId = new Array();
   registionFeeUrl: string = "";
   applicationId: any;
   submitDate: any;
@@ -123,8 +123,10 @@ export class CreateSamgraAppComponent {
     let Id: any;
     let value: any;
     this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
-    value = this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
-    this.samgraId = value.split('.');
+    if(Id){
+      value =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
+      this.samgraId = value.split('.');
+    }
   }
 
   ngOnInit() {
@@ -142,8 +144,6 @@ export class CreateSamgraAppComponent {
     this.selfDeclarationFormData();
     this.filterFormData();
     this.commonDropdown();
-    // this.getPreviewData(); // temp
-
   }
 
   commonDropdown() {
@@ -188,7 +188,6 @@ export class CreateSamgraAppComponent {
       "address": [data?.address || '', [Validators.required, this.validation.maxLengthValidator(200)]],
       "sm_IsBelowPovertyLine": [data?.sm_IsBelowPovertyLine || false],
       "profilePhotoPath": ['']
-      // category validation remaning
     })
   }
 
@@ -434,6 +433,10 @@ export class CreateSamgraAppComponent {
   //#region -------------------------------------------------page submit method start heare--------------------------------------------------
   checkStepCon(stepper: MatStepper, flag: string) {
     let landDetailsFormValue = this.landDetailsForm.getRawValue();
+
+    console.log("this.samgraForm",this.samgraForm.controls);
+
+
     if (flag == 'samgraForm' && this.samgraForm.invalid) {
       !this.samgraForm.getRawValue().profilePhotoPaththis ? this.viewMsgFlag = true : this.viewMsgFlag = false;
       return
@@ -737,7 +740,6 @@ export class CreateSamgraAppComponent {
     if (flag == 'currentCropDetails') {
       this.isDelFlagInternalSchemes(index, flag)
     } else {
-
       this.isDelFlagInternalSchemes(index, flag)
 
 
