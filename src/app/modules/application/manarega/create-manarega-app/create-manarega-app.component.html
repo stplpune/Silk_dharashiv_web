@@ -5,7 +5,7 @@
     <div class="text-main">Manarega Application</div>
   </mat-card-header>
 
-  <mat-card-content class=" card-body form-container" *ngIf="!this.routingData">
+  <!-- <mat-card-content class=" card-body form-container" *ngIf="!this.routingData">
     <form [formGroup]="filterFrm">
       <div class="row gx-2">
         <div class="col-sm">
@@ -16,8 +16,8 @@
                 (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
             </mat-form-field>
           </div>
-        </div>
-        <!-- <div class="col-sm">
+        </div> -->
+  <!-- <div class="col-sm">
           <div class="d-flex flex-column gap-2">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label class="form-label mb-0">{{'approvalProcess.aadhar_number'| translate}}</mat-label>
@@ -26,7 +26,7 @@
             </mat-form-field>
           </div>
         </div> -->
-        <div class="col-sm-1">
+  <!-- <div class="col-sm-1">
           <div class="d-flex gap-2">
             <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"
               (click)="getPreviewData('search')">
@@ -43,7 +43,7 @@
         </div>
       </div>
     </form>
-  </mat-card-content>
+  </mat-card-content> -->
 
   <mat-card-content class=" card-body form-container">
     <!--  -->
@@ -57,8 +57,9 @@
             <div class="row gx-2 mb-2">
               <div class="col-sm-2">
                 <div class="position-relative applicant_img">
-                  <img [src]="manaregaFrm.getRawValue()?.profilePhotoPath ? manaregaFrm.getRawValue()?.profilePhotoPath: 'assets/images/user.png' " alt="Applicant image"
-                    class="img-fluid">
+                  <img
+                    [src]="manaregaFrm.getRawValue()?.profilePhotoPath ? manaregaFrm.getRawValue()?.profilePhotoPath: 'assets/images/user.png' "
+                    alt="Applicant image" class="img-fluid">
                   <input type="file" #uplodLogo id="real-file" hidden="hidden"
                     (change)="fileUpload($event,'','profilePhoto')" />
                   <div class="upload-buttons position-absolute">
@@ -66,14 +67,16 @@
                       (click)="uplodLogo.value='';uplodLogo.click()" type="button">
                       <mat-icon class="material-symbols-outlined"> {{'add'}}</mat-icon>
                     </button>
-                    <button mat-icon-button class="btn-icon bg-danger-subtle text-danger" *ngIf="manaregaFrm.getRawValue()?.profilePhotoPath" type="button"
+                    <button mat-icon-button class="btn-icon bg-danger-subtle text-danger"
+                      *ngIf="manaregaFrm.getRawValue()?.profilePhotoPath" type="button"
                       (click)="manaregaFrm.controls['profilePhotoPath'].setValue('')">
                       <mat-icon class="material-symbols-outlined">delete</mat-icon>
                     </button>
                   </div>
                 </div>
-                <span *ngIf="f['profilePhotoPath'].hasError('required') && manFrmSubmitFlag" class="text-danger"><small style="font-size: 0.7rem;">{{lang == 'en' ? "Please Add Applicant Image" :
-                  "कृपया अर्जदाराची प्रतिमा जोडा"}}</small></span>
+                <span *ngIf="f['profilePhotoPath'].hasError('required') && manFrmSubmitFlag" class="text-danger"><small
+                    style="font-size: 0.7rem;">{{lang == 'en' ? "Please Add Applicant Image" :
+                    "कृपया अर्जदाराची प्रतिमा जोडा"}}</small></span>
               </div>
 
               <div class="col-sm">
@@ -118,7 +121,8 @@
                     </div>
                   </div>
                   <div class="col-sm-12">
-                    <div class="form-label">1.{{'addManrega.applicant_name'| translate}} <span class="text-danger">*</span></div>
+                    <div class="form-label">1.{{'addManrega.applicant_name'| translate}} <span
+                        class="text-danger">*</span></div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <input matInput placeholder="" formControlName="fullName"
@@ -144,21 +148,23 @@
             </div>
             <div class="row gx-2 align-items-center">
               <div class="col-sm-6">
-                <div class="form-label">2.{{'addManrega.mulberry_plantation_under_Silk'| translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">2.{{'addManrega.mulberry_plantation_under_Silk'| translate}}<span
+                    class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="mn_DepartmentId">
                     <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang == 'en' ?
                       department.textEnglish : department.textMarathi}}</mat-option>
                   </mat-select>
                   <mat-error *ngIf="f['mn_DepartmentId']?.errors">
-                    <span class="text-danger"  *ngIf="f['mn_DepartmentId']?.hasError('required')">
+                    <span class="text-danger" *ngIf="f['mn_DepartmentId']?.hasError('required')">
                       Please select
                     </span>
                   </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">3.{{'approvalProcess.alternate_mobile_number.'| translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">3.{{'approvalProcess.alternate_mobile_number.'| translate}}<span
+                    class="text-danger">*</span></div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="mobileNo2"
@@ -175,7 +181,8 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <mat-label class="form-label">4.{{'approvalProcess.date_of_birth'| translate}}<span class="text-danger">*</span></mat-label>
+                <mat-label class="form-label">4.{{'approvalProcess.date_of_birth'| translate}}<span
+                    class="text-danger">*</span></mat-label>
                 <mat-form-field appearance="outline" class="w-100">
                   <input matInput [matDatepicker]="picker" formControlName="birthDate" (click)="picker.open()" readonly
                     [max]="maxDate">
@@ -187,18 +194,22 @@
               </div>
               <div class="col-sm-3">
                 <div class="d-flex align-items-center gap-3">
-                  <mat-label class="form-label">5.{{'addManrega.select_gender'| translate}}<span class="text-danger">*</span></mat-label>
+                  <mat-label class="form-label">5.{{'addManrega.select_gender'| translate}}<span
+                      class="text-danger">*</span></mat-label>
                   <mat-radio-group aria-label="Select an option" formControlName="gender">
-                    <mat-radio-button *ngFor="let gen of genderArray" [value]="gen.id" class="px-2">{{lang == 'en' ? gen.name : gen.m_name }}
+                    <mat-radio-button *ngFor="let gen of genderArray" [value]="gen.id" class="px-2">{{lang == 'en' ?
+                      gen.name : gen.m_name }}
                     </mat-radio-button>
                   </mat-radio-group>
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">6.{{'approvalProcess.applicant_qualification_Required'|translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">6.{{'approvalProcess.applicant_qualification_Required'|translate}}<span
+                    class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="qualificationId">
-                    <mat-option *ngFor="let qua of qualificationArray" [value]="qua.id">{{lang == 'en' ?  qua.textEnglish : qua.textMarathi}}</mat-option>
+                    <mat-option *ngFor="let qua of qualificationArray" [value]="qua.id">{{lang == 'en' ? qua.textEnglish
+                      : qua.textMarathi}}</mat-option>
                   </mat-select>
                   <mat-error
                     *ngIf="f['qualificationId'].hasError('required') ">{{'approvalProcess.applicant_qualification_Required'|translate}}</mat-error>
@@ -228,7 +239,8 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">9.{{'common.Please_select_taluka'|translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">9.{{'common.Please_select_taluka'|translate}}<span class="text-danger">*</span>
+                </div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
                   <mat-select formControlName="talukaId"
@@ -240,10 +252,12 @@
                         noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
                     </mat-option>
                     <ng-container *ngIf="lang != 'en'">
-                      <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{taluka.textMarathi}}</mat-option>
+                      <mat-option *ngFor="let taluka of talukaSubject | async"
+                        [value]="taluka.id">{{taluka.textMarathi}}</mat-option>
                     </ng-container>
                     <ng-container *ngIf="lang == 'en'">
-                      <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{taluka.textEnglish}}</mat-option>
+                      <mat-option *ngFor="let taluka of talukaSubject | async"
+                        [value]="taluka.id">{{taluka.textEnglish}}</mat-option>
                     </ng-container>
                   </mat-select>
                   <mat-error *ngIf="f['talukaId']?.hasError('required')">{{'common.Please_select_taluka'|translate}}
@@ -251,7 +265,8 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label"> 10.{{'officerreg.please_select_grampanchayat'|translate}}<span class="text-danger">*</span></div>
+                <div class="form-label"> 10.{{'officerreg.please_select_grampanchayat'|translate}}<span
+                    class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'officerreg.select_grampanchayat' | translate}}</mat-label> -->
                   <mat-select formControlName="grampanchayatId"
@@ -274,14 +289,14 @@
                   <!-- <mat-label>Favorite food</mat-label> -->
                   <input matInput placeholder="" formControlName="village"
                     (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
-                    <mat-error *ngIf="f['village']?.errors">
-                      <span class="text-danger"
-                        *ngIf="f['village']?.hasError('maxLengthExceeded') || f['village']?.hasError('pattern')">
-                        {{f['village'].hasError('maxLengthExceeded') ?
-                        ('department.department_maxLength'|translate) :
-                        ('common.please_enter_valid_village_name'|translate)}}
-                      </span>
-                    </mat-error>
+                  <mat-error *ngIf="f['village']?.errors">
+                    <span class="text-danger"
+                      *ngIf="f['village']?.hasError('maxLengthExceeded') || f['village']?.hasError('pattern')">
+                      {{f['village'].hasError('maxLengthExceeded') ?
+                      ('department.department_maxLength'|translate) :
+                      ('common.please_enter_valid_village_name'|translate)}}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
               </div>
 
@@ -305,7 +320,8 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">13.{{'approvalProcess.manarega_job_card_no.'| translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">13.{{'approvalProcess.manarega_job_card_no.'| translate}}<span
+                    class="text-danger">*</span></div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <!-- <mat-label>Favorite food</mat-label> -->
@@ -323,18 +339,19 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">14.{{'approvalProcess.please_select_category'|translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">14.{{'approvalProcess.please_select_category'|translate}}<span
+                    class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select (click)="categoryDialogBox()" formControlName="categoryId">
                   </mat-select>
                   <mat-error
                     *ngIf="f['categoryId']?.hasError('required')">{{'approvalProcess.please_select_category'|translate}}
                   </mat-error>
-                  
+
                 </mat-form-field>
               </div>
               <div class="col-sm-6">
-                <div class="form-label">15.{{'common.address'| translate}}<span class="text-danger">*</span></div>               
+                <div class="form-label">15.{{'common.address'| translate}}<span class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <textarea matInput placeholder="" formControlName="address"
                     (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumericWithSpacesAndSpecChars($event)"></textarea>
@@ -347,9 +364,10 @@
                   </mat-error>
                 </mat-form-field>
               </div>
-             
+
               <div *ngIf="checkedItems.length">
-                <div class="form-label">{{'approvalProcess.beneficiary_category_options'| translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">{{'approvalProcess.beneficiary_category_options'| translate}}<span
+                    class="text-danger">*</span></div>
                 <div class="form-data mb-0" *ngFor="let data of checkedItems;let i=index">
                   {{(i+1)+". "+(lang == 'en' ? data.textEnglish : data.textMarathi)}}
                 </div>
@@ -358,8 +376,8 @@
 
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button  class="btn-main" type="button" 
-            (click)="checkStepCon(stepper, 'farmerInfo')">{{'addSamgra.next' | translate}}</button>
+            <button mat-button class="btn-main" type="button"
+              (click)="checkStepCon(stepper, 'farmerInfo')">{{'addSamgra.next' | translate}}</button>
           </div>
         </form>
       </mat-step>
@@ -370,7 +388,8 @@
           <div class="container-fluid">
             <div class="row align-items-center">
               <div class="col-sm-4">
-                <div class="form-label">16.{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'| translate}}<span class="text-danger">*</span>
+                <div class="form-label">16.{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'|
+                  translate}}<span class="text-danger">*</span>
                 </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
@@ -390,11 +409,12 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">17.{{'approvalProcess.cultivation_land_survey_number'| translate}} <span class="text-danger">*</span>
+                <div class="form-label">17.{{'approvalProcess.cultivation_land_survey_number'| translate}} <span
+                    class="text-danger">*</span>
                 </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="mulberryCultivatedSurveyNo" 
+                    <input matInput placeholder="" formControlName="mulberryCultivatedSurveyNo"
                       (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                     <mat-error
                       *ngIf="farmInfoFrm.controls['mulberryCultivatedSurveyNo'].hasError('required') ">{{'approvalProcess.please_enter_cultivation_land_survey_number'|translate}}</mat-error>
@@ -411,10 +431,13 @@
               </div>
 
               <div class="col-sm-4">
-                <div class="form-label">18.{{'approvalProcess.cultivated_area_in_hectaes'| translate}}{{'approvalProcess.should_not_greater_than_point'| translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">18.{{'approvalProcess.cultivated_area_in_hectaes'|
+                  translate}}{{'approvalProcess.should_not_greater_than_point'| translate}}<span
+                    class="text-danger">*</span></div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="cultivatedFarmInHector"  (input)="FarmValidations('cultivatedFarmInHector')"
+                    <input matInput placeholder="" formControlName="cultivatedFarmInHector"
+                      (input)="FarmValidations('cultivatedFarmInHector')"
                       (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                     <mat-error
                       *ngIf="farmInfoFrm.controls['cultivatedFarmInHector'].hasError('required') ">{{'approvalProcess.please_enter_cultivated_area_in_hectaes'|translate}}</mat-error>
@@ -431,7 +454,8 @@
               </div>
               <div class="col-sm-4">
                 <div class="d-flex align-items-center gap-3">
-                  <mat-label class="form-label">19.{{'approvalProcess.are_you_a_joined_account_Holder'| translate}}<span class="text-danger">*</span></mat-label>
+                  <mat-label class="form-label">19.{{'approvalProcess.are_you_a_joined_account_Holder'| translate}}<span
+                      class="text-danger">*</span></mat-label>
                   <mat-radio-group aria-label="Select an option" class="pe-3" formControlName="isJointAccHolder"
                     (change)="onClickAccountHolder(farmInfoFrm.controls['isJointAccHolder'].value)">
                     <mat-radio-button *ngFor="let arr of checkedArray" [value]="arr.id" class="pe-3">
@@ -442,7 +466,8 @@
               </div>
               <ng-container *ngIf="farmInfoFrm.getRawValue()?.isJointAccHolder">
                 <div class="col-sm-4">
-                  <div class="form-label">19.A. {{'approvalProcess.land_survey_no._of_land'| translate}} <span class="text-danger">*</span></div>
+                  <div class="form-label">19.A. {{'approvalProcess.land_survey_no._of_land'| translate}} <span
+                      class="text-danger">*</span></div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="applicantFarmSurveyNo">
@@ -460,11 +485,13 @@
                   </div>
                 </div>
                 <div class="col-sm-4">
-                  <div class="form-label">19.B. {{'approvalProcess.its_area'| translate}}{{'approvalProcess.should_not_greater_than_point_Not_less_than_point'| translate}} <span class="text-danger">*</span></div>
+                  <div class="form-label">19.B. {{'approvalProcess.its_area'|
+                    translate}}{{'approvalProcess.should_not_greater_than_point_Not_less_than_point'| translate}} <span
+                      class="text-danger">*</span></div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="applicantFarmArea"
-                      (input)="FarmValidations('applicantFarmArea')">
+                        (input)="FarmValidations('applicantFarmArea')">
                       <mat-error
                         *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo'].hasError('required') ">{{'approvalProcess.please_enter_its_area'|translate}}</mat-error>
                       <mat-error *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo']?.errors">
@@ -481,10 +508,11 @@
 
               </ng-container>
               <div class="col-sm-4">
-                <div class="form-label">20.{{'approvalProcess.please_select_type_of_land'|translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">20.{{'approvalProcess.please_select_type_of_land'|translate}}<span
+                    class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="farmTypeId">
-                    <mat-option *ngFor="let farm of farmTypeArray" [value]="farm.id">{{lang == 'en' ?  
+                    <mat-option *ngFor="let farm of farmTypeArray" [value]="farm.id">{{lang == 'en' ?
                       farm.textEnglish : farm.textMarathi}}</mat-option>
                   </mat-select>
                   <mat-error *ngIf="farmInfoFrm.controls['farmTypeId'].hasError('required') ">
@@ -493,11 +521,12 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">21.{{'approvalProcess.please_select_irrigation_facility'|translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">21.{{'approvalProcess.please_select_irrigation_facility'|translate}}<span
+                    class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="irrigationFacilityId">
                     <mat-option *ngFor="let irrigation of irrigationFacilityArray" [value]="irrigation.id">
-                    {{lang == 'en' ?  irrigation.textEnglish : irrigation.textMarathi}}</mat-option>
+                      {{lang == 'en' ? irrigation.textEnglish : irrigation.textMarathi}}</mat-option>
                   </mat-select>
                   <mat-error *ngIf="farmInfoFrm.controls['irrigationFacilityId'].hasError('required') ">
                     {{'approvalProcess.please_select_irrigation_facility'|translate}}</mat-error>
@@ -522,7 +551,8 @@
 
                   <div class="row align-items-center">
                     <div class="col-sm-4">
-                      <div class="form-label">22.A. {{'approvalProcess.orchard_flower_tree'| translate}}<span class="text-danger">*</span></div>
+                      <div class="form-label">22.A. {{'approvalProcess.orchard_flower_tree'| translate}}<span
+                          class="text-danger">*</span></div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="plantName"
@@ -541,7 +571,8 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">22.B. {{'approvalProcess.group_no.'| translate}}<span class="text-danger">*</span></div>
+                      <div class="form-label">22.B. {{'approvalProcess.group_no.'| translate}}<span
+                          class="text-danger">*</span></div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="gutNo"
@@ -562,7 +593,8 @@
                     <!-- "fourmaxLength": "Maximum 4 digits allowed",
               "sixmaxLength": "Maximum 6 digits allowed", -->
                     <div class="col-sm-4">
-                      <div class="form-label">22.C. {{'approvalProcess.group_area'| translate}}<span class="text-danger">*</span></div>
+                      <div class="form-label">22.C. {{'approvalProcess.group_area'| translate}}<span
+                          class="text-danger">*</span></div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="gutArea"
@@ -581,7 +613,9 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">22.D. {{'approvalProcess.cultivated_area'| translate}}{{'approvalProcess.should_not_greater_than_point_22'| translate}}<span class="text-danger">*</span></div>
+                      <div class="form-label">22.D. {{'approvalProcess.cultivated_area'|
+                        translate}}{{'approvalProcess.should_not_greater_than_point_22'| translate}}<span
+                          class="text-danger">*</span></div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="cultivatedArea"
@@ -601,7 +635,8 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">22.E. {{'approvalProcess.number_of_trees_planted'| translate}}<span class="text-danger">*</span></div>
+                      <div class="form-label">22.E. {{'approvalProcess.number_of_trees_planted'| translate}}<span
+                          class="text-danger">*</span></div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="cultivatedPlantsCount"
@@ -700,7 +735,8 @@
               </div>
               <ng-container *ngIf="farmInfoFrm.getRawValue()?.isSelfTraining == false">
                 <div class="col-sm-4">
-                  <div class="form-label">23.A.{{'approvalProcess.candidate_name'| translate}}<span class="text-danger">*</span></div>
+                  <div class="form-label">23.A.{{'approvalProcess.candidate_name'| translate}}<span
+                      class="text-danger">*</span></div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="candidateName"
@@ -719,11 +755,12 @@
                   </div>
                 </div>
                 <div class="col-sm-4">
-                  <div class="form-label">23.B.{{'approvalProcess.please_select_relation'|translate}}<span class="text-danger">*</span></div>
+                  <div class="form-label">23.B.{{'approvalProcess.please_select_relation'|translate}}<span
+                      class="text-danger">*</span></div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="candidateRelationId">
                       <mat-option *ngFor="let relation of candidateRelationArray" [value]="relation.id">
-                        {{lang == 'en' ?  relation.textEnglish : relation.textMarathi}}
+                        {{lang == 'en' ? relation.textEnglish : relation.textMarathi}}
                       </mat-option>
                     </mat-select>
                     <mat-error
@@ -736,7 +773,8 @@
           </div>
 
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button matStepperPrevious class="btn-main" type="button">{{'addSamgra.back' | translate}}</button>
+            <button mat-button matStepperPrevious class="btn-main" type="button">{{'addSamgra.back' |
+              translate}}</button>
             <button mat-button class="btn-main" type="button"
               (click)="checkStepCon(stepper, 'farmInfo')">{{'addSamgra.next' | translate}}</button>
           </div>
@@ -749,7 +787,8 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-4">
-                <div class="form-label">24.{{'approvalProcess.please_select_bank_name'|translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">24.{{'approvalProcess.please_select_bank_name'|translate}}<span
+                    class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="bankId" (selectionChange)="getBankBranch()">
                     <mat-option *ngFor="let bank of bankArray" [value]="bank.id">{{lang != 'en' ? bank.textMarathi :
@@ -760,7 +799,8 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">25.{{'approvalProcess.please_select_branch'|translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">25.{{'approvalProcess.please_select_branch'|translate}}<span
+                    class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="bankBranchId">
                     <mat-option *ngFor="let branch of branchArray" [value]="branch.id">{{lang != 'en' ?
@@ -772,7 +812,8 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">26.{{'approvalProcess.IFSC_Code'|translate}}<span class="text-danger">*</span> </div>
+                <div class="form-label">26.{{'approvalProcess.IFSC_Code'|translate}}<span class="text-danger">*</span>
+                </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="bankIFSCCode"
@@ -791,7 +832,8 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">27.{{'approvalProcess.nationalise_bank_accountno'|translate}}<span class="text-danger">*</span> </div>
+                <div class="form-label">27.{{'approvalProcess.nationalise_bank_accountno'|translate}}<span
+                    class="text-danger">*</span> </div>
 
 
                 <div class="form-label">
@@ -814,7 +856,8 @@
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-            <button mat-button  class="btn-main"  (click)="checkStepCon(stepper, 'bankInfo')">{{'addSamgra.next' | translate}}</button>
+            <button mat-button class="btn-main" (click)="checkStepCon(stepper, 'bankInfo')">{{'addSamgra.next' |
+              translate}}</button>
           </div>
         </form>
       </mat-step>
@@ -830,7 +873,8 @@
                 <div class="form-label">{{'approvalProcess.manrega_job_card'|translate}}</div>
                 <div class="file-upload border rounded-2 p-1">
                   <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                    (click)="selImg1.value='';selImg1.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span class="text-danger fs-6">*</span>
+                    (click)="selImg1.value='';selImg1.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span
+                      class="text-danger fs-6">*</span>
                   </button>
                   <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg1
                     (change)="fileUpload($event,docArray[0].docTypeId,'documents')" />
@@ -860,7 +904,8 @@
                 <div class="form-label">{{'approvalProcess.upload_track_of_land'|translate}}</div>
                 <div class="file-upload border rounded-2 p-1">
                   <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                    (click)="selImg2.value='';selImg2.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span class="text-danger fs-6">*</span>
+                    (click)="selImg2.value='';selImg2.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span
+                      class="text-danger fs-6">*</span>
                   </button>
                   <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg2
                     (change)="fileUpload($event,docArray[1].docTypeId,'documents')" />
@@ -921,7 +966,8 @@
                 <div class="form-label">{{'approvalProcess.upload_bank_passbook_canceled_cheque'|translate}}</div>
                 <div class="file-upload border rounded-2 p-1">
                   <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                    (click)="selImg4.value='';selImg4.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span class="text-danger fs-6">*</span>
+                    (click)="selImg4.value='';selImg4.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span
+                      class="text-danger fs-6">*</span>
                   </button>
                   <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg4
                     (change)="fileUpload($event,docArray[3].docTypeId,'documents')" />
@@ -959,120 +1005,120 @@
                 </div>
               </div>
               <!-- <ng-container *ngIf="visible"> -->
-                <div class="card card-body mb-4">
-                  <div class="container-fluid">
-                    <form [formGroup]="otherDocumentFrm" #formDirectivess="ngForm">
-                      <div class="row g-2 row g-2 align-items-center">
-                        <div class="col-sm">
-                          <div class="form-label">{{'approvalProcess.document_name'|translate}} </div>
-                          <div class="form-label">
-                            <mat-form-field appearance="outline" class="w-100">
-                              <input matInput placeholder="" formControlName="docname"  maxlength="30"
+              <div class="card card-body mb-4">
+                <div class="container-fluid">
+                  <form [formGroup]="otherDocumentFrm" #formDirectivess="ngForm">
+                    <div class="row g-2 row g-2 align-items-center">
+                      <div class="col-sm">
+                        <div class="form-label">{{'approvalProcess.document_name'|translate}} </div>
+                        <div class="form-label">
+                          <mat-form-field appearance="outline" class="w-100">
+                            <input matInput placeholder="" formControlName="docname" maxlength="30"
                               (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
-                            </mat-form-field>
-                          </div>
-                        </div>
-                        <div class="col-sm">
-                          <div class="form-label">{{'approvalProcess.document_number'|translate}}</div>
-                          <div class="form-label">
-                            <mat-form-field appearance="outline" class="w-100">
-                              <input matInput placeholder="" formControlName="docNo" maxlength="10"
-                              (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
-                            </mat-form-field>
-                          </div>
-                        </div>
-
-
-                        <div class="col-sm">
-                          <div class="file-upload border rounded-2 p-1">
-                            <button type="button" mat-flat-button class="btn" id="fileupload-button"
-                              data-toggle="tooltip" (click)="otherDocImage.value='';otherDocImage.click()">
-                              {{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span class="text-danger fs-6">*</span>
-                            </button>
-                            <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
-                              (change)="fileUpload($event,7,'otherDocuments')" #otherDocImage />
-                            <div class="d-flex gap-2" *ngIf="otherDocumentFrm.getRawValue().docPath">
-                              <!-- *ngIf="otherDocumentFrm.getRawValue().docPath"  (click)="deleteOtherDocument()"
-                            (click)="viewImages(otherDocumentFrm.getRawValue().docPath)" -->
-                              <button type="button" mat-flat-button
-                                (click)="viewimages(otherDocumentFrm.getRawValue()?.docPath)"
-                                class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view">
-                                <mat-icon class="material-symbols-rounded">
-                                  preview
-                                </mat-icon>
-                              </button>
-                              <button type="button" mat-flat-button (click)="deleteOtherDocument()"
-                                class="bg-danger-subtle text-danger btn-icon btn-action" matTooltip="delete">
-                                <mat-icon class="material-symbols-rounded">
-                                  delete
-                                </mat-icon>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-auto">
-                          <button mat-flat-button class="btn-main" (click)="onOtherDocSubmit()">
-                            <mat-icon class="material-symbols-rounded">
-                              add
-                            </mat-icon>
-                            {{'approvalProcess.add_document'|translate}}
-                          </button>
+                          </mat-form-field>
                         </div>
                       </div>
-                    </form>
-                  </div>
+                      <div class="col-sm">
+                        <div class="form-label">{{'approvalProcess.document_number'|translate}}</div>
+                        <div class="form-label">
+                          <mat-form-field appearance="outline" class="w-100">
+                            <input matInput placeholder="" formControlName="docNo" maxlength="10"
+                              (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+                          </mat-form-field>
+                        </div>
+                      </div>
 
-                  <div class="table-responsive">
-                    <table mat-table [dataSource]="otherDocArray" class="dashboard-table mb-0">
-                      <ng-container matColumnDef="srNo">
-                        <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
-                        <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
-                      </ng-container>
 
-                      <ng-container matColumnDef="documentType">
-                        <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.document_name'| translate}} </th>
-                        <td mat-cell *matCellDef="let element">{{element?.docname}}</td>
-                      </ng-container>
-
-                      <ng-container matColumnDef="docNo">
-                        <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_number'| translate}}
-                        </th>
-                        <td mat-cell *matCellDef="let element"> {{element?.docNo}}</td>
-                      </ng-container>
-
-                      <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
-                        <td mat-cell *matCellDef="let element; let i = index">
-                          <div class="d-flex gap-02">
-                            <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
-                               (click)="viewimages(element?.docPath)">
-                              <!--  [disabled]="!element?.docPath"-->
-                              <span class="material-symbols-rounded text-dark">
-                                visibility
-                              </span>
+                      <div class="col-sm">
+                        <div class="file-upload border rounded-2 p-1">
+                          <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                            (click)="otherDocImage.value='';otherDocImage.click()">
+                            {{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span class="text-danger fs-6">*</span>
+                          </button>
+                          <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
+                            (change)="fileUpload($event,7,'otherDocuments')" #otherDocImage />
+                          <div class="d-flex gap-2" *ngIf="otherDocumentFrm.getRawValue().docPath">
+                            <!-- *ngIf="otherDocumentFrm.getRawValue().docPath"  (click)="deleteOtherDocument()"
+                            (click)="viewImages(otherDocumentFrm.getRawValue().docPath)" -->
+                            <button type="button" mat-flat-button
+                              (click)="viewimages(otherDocumentFrm.getRawValue()?.docPath)"
+                              class="bg-primary-subtle text-primary btn-icon btn-action" matTooltip="view">
+                              <mat-icon class="material-symbols-rounded">
+                                preview
+                              </mat-icon>
                             </button>
-                            <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
-                              (click)="deleteTableOtherDocument(i,element)">
-                              <span class="material-symbols-rounded text-danger">
+                            <button type="button" mat-flat-button (click)="deleteOtherDocument()"
+                              class="bg-danger-subtle text-danger btn-icon btn-action" matTooltip="delete">
+                              <mat-icon class="material-symbols-rounded">
                                 delete
-                              </span>
+                              </mat-icon>
                             </button>
                           </div>
-                        </td>
-                      </ng-container>
-                      <tr class="mat-row p-2 w-100" *matNoDataRow col>
-                        <td colspan="12">
-                          <div class="alert alert-danger text-center m-2 p-2" colspan="12">
-                            {{'approvalProcess.no_data_found'| translate}}
-                          </div>
-                        </td>
-                      </tr>
-                      <tr mat-header-row *matHeaderRowDef="documentdisplayedColumns"></tr>
-                      <tr mat-row *matRowDef="let row; columns: documentdisplayedColumns;"></tr>
-                    </table>
-                  </div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-auto">
+                        <button mat-flat-button class="btn-main" (click)="onOtherDocSubmit()">
+                          <mat-icon class="material-symbols-rounded">
+                            add
+                          </mat-icon>
+                          {{'approvalProcess.add_document'|translate}}
+                        </button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
+
+                <div class="table-responsive">
+                  <table mat-table [dataSource]="otherDocArray" class="dashboard-table mb-0">
+                    <ng-container matColumnDef="srNo">
+                      <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
+                      <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="documentType">
+                      <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.document_name'| translate}} </th>
+                      <td mat-cell *matCellDef="let element">{{element?.docname}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="docNo">
+                      <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_number'| translate}}
+                      </th>
+                      <td mat-cell *matCellDef="let element"> {{element?.docNo}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                      <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                        <div class="d-flex gap-02">
+                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
+                            (click)="viewimages(element?.docPath)">
+                            <!--  [disabled]="!element?.docPath"-->
+                            <span class="material-symbols-rounded text-dark">
+                              visibility
+                            </span>
+                          </button>
+                          <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
+                            (click)="deleteTableOtherDocument(i,element)">
+                            <span class="material-symbols-rounded text-danger">
+                              delete
+                            </span>
+                          </button>
+                        </div>
+                      </td>
+                    </ng-container>
+                    <tr class="mat-row p-2 w-100" *matNoDataRow col>
+                      <td colspan="12">
+                        <div class="alert alert-danger text-center m-2 p-2" colspan="12">
+                          {{'approvalProcess.no_data_found'| translate}}
+                        </div>
+                      </td>
+                    </tr>
+                    <tr mat-header-row *matHeaderRowDef="documentdisplayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: documentdisplayedColumns;"></tr>
+                  </table>
+                </div>
+              </div>
 
               <!-- </ng-container> -->
 
@@ -1081,8 +1127,8 @@
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-            <button mat-button  class="btn-main" type="button"
-             (click)="checkStepCon(stepper, 'document')">{{'addSamgra.next' | translate}}</button>
+            <button mat-button class="btn-main" type="button"
+              (click)="checkStepCon(stepper, 'document')">{{'addSamgra.next' | translate}}</button>
           </div>
         </form>
       </mat-step>
@@ -1123,7 +1169,7 @@
                 <div class="d-flex align-items-center  gap-2">
                   <mat-checkbox formControlName="isBoundByConditions"></mat-checkbox>
                   <p class="form-label mb-0">
-                    {{'approvalProcess.checkbox4'| translate}}  </p>
+                    {{'approvalProcess.checkbox4'| translate}} </p>
                 </div>
               </li>
               <li>
@@ -1170,8 +1216,8 @@
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-            <button mat-button  class="btn-main" type="button"
-               (click)="checkStepCon(stepper, 'selfDeclaration')">{{'addSamgra.next' | translate}}</button>
+            <button mat-button class="btn-main" type="button"
+              (click)="checkStepCon(stepper, 'selfDeclaration')">{{'addSamgra.next' | translate}}</button>
           </div>
         </form>
 
@@ -1205,7 +1251,7 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'addManrega.mulberry_plantation_under_Silk'| translate}} </div>
                       <span class=" form-data rounded-pill">:{{previewData?.departmentName| dash}}</span>
-                    
+
                     </li>
                   </ul>
                 </div>
@@ -1213,7 +1259,8 @@
                   <div class="form-data text-main">{{'approvalProcess.beneficiary_category_view'| translate}} </div>
                   <ul class="list-group" *ngFor="let category of previewData?.categoryOfBeneficiaries">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">{{lang == 'en' ? category?.categoryOfBeneficiary : category?.m_CategoryOfBeneficiary }}</div>
+                      <div class="form-label">{{lang == 'en' ? category?.categoryOfBeneficiary :
+                        category?.m_CategoryOfBeneficiary }}</div>
                     </li>
                   </ul>
                 </div>
@@ -1266,7 +1313,7 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'common.address'| translate}}</div>
-                  <span class=" form-data rounded-pill">:{{ previewData?.address  | dash}}</span>
+                  <span class=" form-data rounded-pill">:{{ previewData?.address | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'common.pin_Code'| translate}}</div>
@@ -1284,7 +1331,8 @@
                   <div class="form-data text-main">{{'approvalProcess.land_details'| translate}} </div>
                   <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'| translate}}</div>
+                      <div class="form-label">{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'|
+                        translate}}</div>
                       <span class="form-data  rounded-pill">:{{previewData?.benificiaryTotalFarm | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -1327,12 +1375,13 @@
                         (previewData?.m_IrrigationFacility | dash)}} </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label"> {{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'| translate}} </div>
-                      <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">{{ lang == 'en' ? 'Yes' :
+                      <div class="form-label"> {{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'|
+                        translate}} </div>
+                      <span class="form-data  rounded-pill" *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">{{
+                        lang == 'en' ? 'Yes' :
                         'होय'}}</span>
-                      <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.isAnyPlantedBeforeGovScheme == false">{{ lang == 'en' ? 'No' : 'नाही'}}
+                      <span class="form-data  rounded-pill" *ngIf="previewData?.isAnyPlantedBeforeGovScheme == false">{{
+                        lang == 'en' ? 'No' : 'नाही'}}
                       </span>
                     </li>
                     <ng-container *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">
@@ -1571,7 +1620,7 @@
                 <mat-checkbox [class.disable]="true"
                   [checked]="previewData?.isChangedAcceptable == true"></mat-checkbox>
                 <p class="form-label mb-0">
-                  {{'approvalProcess.checkbox7'| translate}}  </p>
+                  {{'approvalProcess.checkbox7'| translate}} </p>
               </div>
             </li>
             <li>
@@ -1579,7 +1628,7 @@
                 <mat-checkbox [class.disable]="true"
                   [checked]="previewData?.isSchemeCorrectAsPerSatbara == true"></mat-checkbox>
                 <p class="form-label mb-0">
-                  {{'approvalProcess.checkbox8'| translate}}  </p>
+                  {{'approvalProcess.checkbox8'| translate}} </p>
               </div>
             </li>
             <li>
@@ -1594,7 +1643,8 @@
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-          <button mat-button type="button"  class="btn-main" (click)="checkStepCon(stepper, 'preview')">{{'addSamgra.next' | translate}}</button>
+          <button mat-button type="button" class="btn-main"
+            (click)="checkStepCon(stepper, 'preview')">{{'addSamgra.next' | translate}}</button>
         </div>
 
       </mat-step>
@@ -1610,7 +1660,8 @@
               <div class="col-sm-4">
                 <div class="file-upload border rounded-2 p-1">
                   <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-                    (click)="selImg7.value='';selImg7.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span class="text-danger fs-6">*</span>
+                    (click)="selImg7.value='';selImg7.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span
+                      class="text-danger fs-6">*</span>
                   </button>
                   <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg7
                     (change)="fileUpload($event,docArray[4].docTypeId,'documents')" />
@@ -1646,7 +1697,8 @@
 
               <div class="d-flex align-items-center justify-content-end gap-2 w-100">
                 <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-                <button mat-flat-button class="btn-main" type="button"   (click)="checkStepCon(stepper, 'challan')">{{'addSamgra.submit' | translate}}</button>
+                <button mat-flat-button class="btn-main" type="button"
+                  (click)="checkStepCon(stepper, 'challan')">{{'addSamgra.submit' | translate}}</button>
               </div>
             </div>
           </div>

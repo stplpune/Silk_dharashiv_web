@@ -38,8 +38,8 @@ export class CreateManaregaAppComponent {
   lang: any;
   viewMsgFlag: boolean = false;//used for error msg show
   genderArray: any = [{ id: 1, name: 'Male', m_name: 'पुरुष' }, { id: 0, name: 'Female', m_name: 'स्त्री  ' }];
-  checkedArray: any = [{ id: true, name: 'Yes',m_name : 'होय' }, { id: false, name: 'No' ,m_name : 'नाही'}];
-  selfTrainingArray: any = [{ id: true, name: 'Own',m_name :'स्वत:' }, { id: false, name: 'Candidate' ,m_name : 'उमेदवार'}];
+  checkedArray: any = [{ id: true, name: 'Yes', m_name: 'होय' }, { id: false, name: 'No', m_name: 'नाही' }];
+  selfTrainingArray: any = [{ id: true, name: 'Own', m_name: 'स्वत:' }, { id: false, name: 'Candidate', m_name: 'उमेदवार' }];
   displayedColumns = ['srNo', 'plantName', 'gutNo', 'gutArea', 'cultivatedArea', 'cultivatedPlantsCount', 'actions'];
   plantDisplayedColumns = ['srNo', 'plantName', 'gutNo', 'gutArea', 'cultivatedArea', 'cultivatedPlantsCount'];
   qualificationArray = new Array();
@@ -71,8 +71,8 @@ export class CreateManaregaAppComponent {
   @ViewChild('formDirective') private formDirective!: NgForm;
   //documnet form variable
   docUploadedPath: string = '';
-  docArray = [{ id: 0, docTypeId: 12, docPath: '', docNo: '', docname: 'Job Card',isDeleted: false }, { id: 0, docTypeId: 19, docPath: '', docNo: '', docname: '8A Form' ,isDeleted: false}, { id: 0, docTypeId: 18, docPath: '', docNo: '', docname: '7-Dec' ,isDeleted: false},
-  { id: 0, docTypeId: 11, docPath: '', docNo: '', docname: 'Nationalized Bank Passbook' ,isDeleted: false}, { id: 0, docTypeId: 8, docPath: '', docNo: '', docname: 'Registration Fee Receipt' ,isDeleted: false}]
+  docArray = [{ id: 0, docTypeId: 12, docPath: '', docNo: '', docname: 'Job Card', isDeleted: false }, { id: 0, docTypeId: 19, docPath: '', docNo: '', docname: '8A Form', isDeleted: false }, { id: 0, docTypeId: 18, docPath: '', docNo: '', docname: '7-Dec', isDeleted: false },
+  { id: 0, docTypeId: 11, docPath: '', docNo: '', docname: 'Nationalized Bank Passbook', isDeleted: false }, { id: 0, docTypeId: 8, docPath: '', docNo: '', docname: 'Registration Fee Receipt', isDeleted: false }]
   visible: boolean = false;
   otherDocArray: any = new Array();
   @ViewChild('otherDocImage') OtherDocImg!: ElementRef;
@@ -84,7 +84,7 @@ export class CreateManaregaAppComponent {
   //preview form variable
   previewData: any;
   previewManarega: any;
-  previewDocName : any
+  previewDocName: any
   routingData: any;//used for get routing data
   @ViewChild('stepper') private myStepper!: MatStepper;
 
@@ -122,8 +122,8 @@ export class CreateManaregaAppComponent {
     this.addOtherDocument();
     this.addRegistrationFrm();
     this.commonDropdown();
-    this.routingData ? this.getRouteParam() : '';
-  // this.getPreviewData('search'); // temp
+    this.routingData ? this.getRouteParam() : this.getPreviewData('search');
+    // this.getPreviewData('search'); // temp
   }
 
   commonDropdown() {
@@ -179,7 +179,7 @@ export class CreateManaregaAppComponent {
       "districtId": [data?.districtId || (this.WebStorageService.getDistrictId() == '' ? '' : this.WebStorageService.getDistrictId())],//no
       "talukaId": [data?.talukaId || (this.WebStorageService.getTalukaId() == '' ? '' : this.WebStorageService.getTalukaId()), [Validators.required]],//no
       "grampanchayatId": [data?.grampanchayatId || (this.WebStorageService.getGrampanchayatId() == '' ? '' : this.WebStorageService.getGrampanchayatId()), [Validators.required]],//no
-      "village": [data?.village || '',  [this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]],
+      "village": [data?.village || '', [this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]],
       "address": [data?.address || '', [this.validation.maxLengthValidator(200), Validators.required]],//Mandetory Max:200, alphanumeric with special char
       "pinCode": [data?.pinCode || '', [Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],//Mandetory  Max: 6 digit, numeric
       "mn_JobCardNo": [data?.mn_JobCardNo || '', [Validators.required, this.validation.maxLengthValidator(30)]],//Mandetory  Max: 30 alphanumeric with sepcial char
@@ -292,7 +292,7 @@ export class CreateManaregaAppComponent {
   viewPreviewDocument(docId: any) {//preview document
     let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.previewData?.documents, 'docId', docId);
     this.previewDocName = this.previewData?.documents[indexByDocId].documentName;
-    console.log("docName docName docName",this.previewDocName)
+    console.log("docName docName docName", this.previewDocName)
     let obj = this.previewData?.documents[indexByDocId].documentPath;
     window.open(obj, '_blank')
   }
@@ -307,10 +307,10 @@ export class CreateManaregaAppComponent {
       this.commonMethod.snackBar((this.lang == 'en' ? 'Document name is  required' : 'दस्तऐवजाचे नाव आवश्यक आहे'), 1);
       return
     } else if (!uploadFrmValue?.docNo) {
-      this.commonMethod.snackBar((this.lang == 'en' ? 'Document number is  required' : 'दस्तऐवज क्रमांक आवश्यक आहे' ), 1);
+      this.commonMethod.snackBar((this.lang == 'en' ? 'Document number is  required' : 'दस्तऐवज क्रमांक आवश्यक आहे'), 1);
       return
     } else if (!uploadFrmValue?.docPath) {
-      this.commonMethod.snackBar((this.lang == 'en' ? 'Document path is  required' : 'दस्तऐवज मार्ग आवश्यक आहे' ), 1);
+      this.commonMethod.snackBar((this.lang == 'en' ? 'Document path is  required' : 'दस्तऐवज मार्ग आवश्यक आहे'), 1);
       return
     }
     else {
@@ -411,27 +411,27 @@ export class CreateManaregaAppComponent {
     this.farmInfoFrm.controls['candidateRelationId'].updateValueAndValidity();
   }
   //#endregion-----------------------on radio button click add remove validation fn start-------------------
-  
+
   FarmValidations(key: any) {
     if (key == 'cultivatedFarmInHector') {
-      if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector >  this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
-       // this.commonMethod.snackBar((this.lang == 'en' ? "Should not greater than point no. 16" : "मुद्धा क्रमांक १६ पेक्षा मोठा नसावा"), 1);
+      if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector > this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
+        // this.commonMethod.snackBar((this.lang == 'en' ? "Should not greater than point no. 16" : "मुद्धा क्रमांक १६ पेक्षा मोठा नसावा"), 1);
         this.farmInfoFrm.controls['cultivatedFarmInHector'].setValue('');
       }
     }
     else if (key == 'applicantFarmArea') {
       if (this.farmInfoFrm.getRawValue()?.applicantFarmArea > this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
-      // this.commonMethod.snackBar((this.lang == 'en' ? "Should not greater than point no. 16" : "मुद्धा क्रमांक १६ पेक्षा मोठा नसावा"), 1);
+        // this.commonMethod.snackBar((this.lang == 'en' ? "Should not greater than point no. 16" : "मुद्धा क्रमांक १६ पेक्षा मोठा नसावा"), 1);
         this.farmInfoFrm.controls['applicantFarmArea'].setValue('');
       }
-      else if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector >  this.farmInfoFrm.getRawValue()?.applicantFarmArea) {
-       //this.commonMethod.snackBar((this.lang == 'en' ? "Not less than point no. 18" : "मुद्धा क्रमांक १८ पेक्षा कमी नसावा"), 1);
+      else if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector > this.farmInfoFrm.getRawValue()?.applicantFarmArea) {
+        //this.commonMethod.snackBar((this.lang == 'en' ? "Not less than point no. 18" : "मुद्धा क्रमांक १८ पेक्षा कमी नसावा"), 1);
         this.farmInfoFrm.controls['applicantFarmArea'].setValue('');
       }
     }
-    else if(key == 'cultivatedArea'){
-      if (this.farmDeatailsFrm.getRawValue()?.cultivatedArea >  this.farmDeatailsFrm.getRawValue()?.gutArea) {
-       //this.commonMethod.snackBar((this.lang == 'en' ? "Should not greater than point no. 16" : "मुद्धा क्रमांक १६ पेक्षा मोठा नसावा"), 1);
+    else if (key == 'cultivatedArea') {
+      if (this.farmDeatailsFrm.getRawValue()?.cultivatedArea > this.farmDeatailsFrm.getRawValue()?.gutArea) {
+        //this.commonMethod.snackBar((this.lang == 'en' ? "Should not greater than point no. 16" : "मुद्धा क्रमांक १६ पेक्षा मोठा नसावा"), 1);
         this.farmDeatailsFrm.controls['cultivatedArea'].setValue('');
       }
     }
@@ -516,41 +516,40 @@ export class CreateManaregaAppComponent {
   }
 
   getPreviewData(flag?: any, id?: any) {
-    let filterData = this.filterFrm?.getRawValue();
+    //let filterData = this.filterFrm?.getRawValue();
     if (this.filterFrm.invalid) {
-      this.commonMethod.snackBar("Please Enter Correct Details", 1)
+      this.commonMethod.snackBar(this.lang == "en" ? "Please Enter Correct Details" : "कृपया योग्य तपशील प्रविष्ट करा", 1)
       return
     } else {
-    let str = `MobileNo=${filterData?.mobileNo}&lan=${this.lang}`;
-    id ? str += `&Id=${id}` : '';
-     let url = flag == 'search' ? `sericulture/api/Application/application-preview?`+str :'sericulture/api/Application/application-preview?Id='+(id)+'&lan='+this.lang ;
-    //let url = flag == 'search' ? `sericulture/api/Application/application-preview?Id=0&MobileNo=9175515581&lan=${this.lang}` : 'sericulture/api/Application/application-preview?Id=' + (id) + '&lan=' + this.lang;
-    this.apiService.setHttp('get', url, false, false, false, 'masterUrl')
-    this.apiService.getHttp().subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200") {
-          this.previewData = res.responseData;
-          this.onEdit(this.previewData);
-          let documentArray = new Array()
-          documentArray = res.responseData?.documents;
+      let str = `MobileNo=${this.WebStorageService.getMobileNo()}&lan=${this.lang}`;
+      id ? str += `&Id=${id}` : '';
+      let url = flag == 'search' ? `sericulture/api/Application/application-preview?` + str : 'sericulture/api/Application/application-preview?Id=' + (id) + '&lan=' + this.lang;
+      this.apiService.setHttp('get', url, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next: ((res: any) => {
+          if (res.statusCode == "200") {
+            this.previewData = res.responseData;
+            this.onEdit(this.previewData);
+            let documentArray = new Array()
+            documentArray = res.responseData?.documents;
 
-          documentArray.map((document: any) => {
-            if (document.docId == 12) {
-              this.previewManarega?.push(document);
-            }
-          });
-        }
-        else if (res.statusCode == "500") {
-          this.clearForm();
-          this.commonMethod.snackBar("Data Not Found", 1)
-          this.EditFlag = false
-        }
-        else {
-          this.previewData = [];
-        }
+            documentArray.map((document: any) => {
+              if (document.docId == 12) {
+                this.previewManarega?.push(document);
+              }
+            });
+          }
+          else if (res.statusCode == "500") {
+            this.clearForm();
+            this.commonMethod.snackBar(this.lang == "en" ? "No data found" : "माहिती आढळली नाही", 1)
+            this.EditFlag = false
+          }
+          else {
+            this.previewData = [];
+          }
+        })
       })
-    })
-  }
+    }
   }
 
 
@@ -598,7 +597,7 @@ export class CreateManaregaAppComponent {
         }
       })
     })
-   // this.OtherDocUploadImg.length ? this.visible = true : this.visible = false;
+    // this.OtherDocUploadImg.length ? this.visible = true : this.visible = false;
     this.otherDocArray = new MatTableDataSource(this.OtherDocUploadImg);
     this.addSelfDeclaration(data);
   }
@@ -760,7 +759,7 @@ export class CreateManaregaAppComponent {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.goForward(stepper);
-         this.OtherDocUploadImg = [];
+          this.OtherDocUploadImg = [];
           this.getPreviewData('edit', res.responseData)
           this.manaregaFrm?.controls['id'].setValue(res.responseData);
           res.responseData && flag == 'challan' ? this.openDialog(res) : '';
@@ -1020,7 +1019,7 @@ export class CreateManaregaAppComponent {
     let dialoObj = {
       header: this.lang == 'mr-IN' ? 'अभिनंदन ' : 'Congratulations',
       title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .' : 'Your application has been successfully submitted.',
-      title2: this.lang == 'mr-IN' ? 'अर्ज क्रमांक  : ' + res.responseData1 :  'Application no: ' + res.responseData1 ,
+      title2: this.lang == 'mr-IN' ? 'अर्ज क्रमांक  : ' + res.responseData1 : 'Application no: ' + res.responseData1,
       cancelButton: '',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
       headerImage: 'assets/images/check.png'
