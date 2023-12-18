@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'contact-us', loadChildren: () => import('../../modules/contact-us/contact-us.module').then(m => m.ContactUsModule), data: { breadcrumb: [{ title: 'Contact Us', active: true }] } },
   { path: 'track-application', loadChildren: () => import('../../modules/track-app/track-app.module').then(m => m.TrackAppModule) },
   { path: 'blog-details', loadChildren: () => import('../../modules/blog-details/blog-details.module').then(m => m.BlogDetailsModule), data: { breadcrumb: [{ title: 'Blog Details', active: true }] } },
-  { path: 'about-us', loadChildren: () => import('../../modules/about-us/about-us.module').then(m => m.AboutUsModule) },
+  { path: 'about-us', loadChildren: () => import('../../modules/about-us/about-us.module').then(m => m.AboutUsModule), data: { breadcrumb: [{ title: 'About Us', active: true }] } },
 
 ];
 
