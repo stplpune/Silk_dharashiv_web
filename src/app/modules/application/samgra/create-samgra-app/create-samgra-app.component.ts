@@ -593,15 +593,15 @@ export class CreateSamgraAppComponent {
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'close') {
         return;
-      } else {
+      } else {    
         let existedRecord = this.currentCropDetailsArray.find((res: any) => (res.cropId == result.cropId));
         if (existedRecord && !obj) {
-          existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false, this.commonMethod.snackBar("Add successfully", 0)) : this.commonMethod.snackBar("This Crop already exist", 1)
+          existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false,this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या अॅड केले", 0)) : this.lang == 'en' ? this.commonMethod.snackBar("This crop already exist", 1) : this.commonMethod.snackBar("हे पीक आधीच अस्तित्वात आहे", 1)
         } else {
           let formvalue = result
           formvalue.applicationId = this.previewData?.id || this.currentRecordId || 0;
 
-          obj ? (this.currentCropDetailsArray[index] = result, this.commonMethod.snackBar("Update successfully", 0)) : (this.currentCropDetailsArray.push(result), this.commonMethod.snackBar("Add successfully", 0));
+          obj ? (this.currentCropDetailsArray[index] = result,  this.lang == 'en' ? this.commonMethod.snackBar("Update successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या अपडेट केले", 0)) : (this.currentCropDetailsArray.push(result), this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या अॅड केले", 0));
         }
         this.bindcurrentCropTable();
       }
@@ -709,12 +709,12 @@ export class CreateSamgraAppComponent {
     }
     if (this.internalSchemes.invalid) {
       return;
-    } else {
+    } else {         
       let existedRecord = this.internalSchemesArray.find((res: any) => (res.internalSchemeName == fromvalue.internalSchemeName));
       if (existedRecord) {
-        existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false, this.commonMethod.snackBar("Add successfully", 0)) : this.commonMethod.snackBar("This scheem already exist", 1)
+        existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false, this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या अॅड केले", 0)) :this.lang == 'en' ? this.commonMethod.snackBar("This scheem already exist", 1) : this.commonMethod.snackBar("ही योजना आधीच अस्तित्वात आहे", 1)
       } else {
-        this.InternalSchemesEditFlag ? (this.internalSchemesArray[this.InternalSchemesIndex] = fromvalue, this.commonMethod.snackBar("Update successfully", 0)) : (this.internalSchemesArray.push(fromvalue), this.commonMethod.snackBar("Add successfully", 0));
+        this.InternalSchemesEditFlag ? (this.internalSchemesArray[this.InternalSchemesIndex] = fromvalue,this.lang == 'en' ? this.commonMethod.snackBar("Update successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या अपडेट केले", 0)) : (this.internalSchemesArray.push(fromvalue), this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या अॅड केले", 0));
       }
       this.ScheemDirective && this.ScheemDirective.resetForm();
       this.internalSchemesFormData();
@@ -837,10 +837,10 @@ export class CreateSamgraAppComponent {
   submitOtherDoc() {
     let formValue = this.otherDocForm.value
     if (!formValue?.docname) {
-      this.commonMethod.snackBar('Docname is required ', 1);
+      this.lang == 'en' ? this.commonMethod.snackBar("Document name is required", 1) : this.commonMethod.snackBar("दस्तऐवजाचे नाव आवश्यक आहे", 1)
       return
     } else if (!this.uploadedDocUrl) {
-      this.commonMethod.snackBar('Document is required ', 1);
+      this.lang == 'en' ? this.commonMethod.snackBar("Document is required", 1) : this.commonMethod.snackBar("कागदपत्र आवश्यक आहे", 1)    
       return
     }
     let obj = {
@@ -853,9 +853,10 @@ export class CreateSamgraAppComponent {
     }
     let existedRecord = this.otherDocArray.find((res: any) => (res.docname == formValue.docname));
     if (existedRecord) {
-      existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false, this.commonMethod.snackBar("Add successfully", 0)) : this.commonMethod.snackBar("This Document already exist", 1)
+      existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false, this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या अॅड केले", 0)) :this.lang == 'en' ? this.commonMethod.snackBar("This document already exist", 1) : this.commonMethod.snackBar("हा दस्तऐवज आधीपासून अस्तित्वात आहे", 1)
     } else {
-      this.otherDocArray.push(obj), this.commonMethod.snackBar("Add successfully", 0);
+      this.otherDocArray.push(obj);
+      this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या अॅड केले", 0)
     }
     this.bindOtherDocTable();
     this.checkOtherDocumentFlag = true;
