@@ -27,7 +27,7 @@
                             <!-- <label class="form-label">{{'farmerSignUp.Mobile_No'|translate}}<span class="text-danger">*</span></label> -->
                             <mat-form-field appearance="outline" class="w-100">
                               <mat-label class="form-label">{{'farmerSignUp.Mobile_No'|translate}}</mat-label>
-                                <input matInput  maxlength="10" formControlName="mobNo1" (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)" readonly>
+                                <input matInput  maxlength="10" formControlName="mobNo1" (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)" [readonly]="mobNo ? true : false">
                                 <mat-error class="text-danger" *ngIf="f['mobNo1'].hasError('required')">{{'farmerSignUp.Please_enter_mobile_number'|translate}} </mat-error>
                                 <mat-error class="text-danger" *ngIf="f['mobNo1'].hasError('pattern')">{{'farmerSignUp.Please_enter_valid_mobile_number'|translate}} </mat-error>
                             </mat-form-field>
