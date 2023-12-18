@@ -52,6 +52,7 @@ export class BeneficieryComponent {
     this.defaultFillterForm();
     this.getDistrict();
     this.getAllScheme();
+    this.getDepartment();
     this.searchDataZone();
     this.getTableData();
   }
@@ -130,8 +131,8 @@ export class BeneficieryComponent {
 
   getDepartment() {
     this.departmentArray = [];
-    let schemeId = this.filterFrm.getRawValue().schemeTypeId;
-    this.master.GetDepartmentDropdown(schemeId).subscribe({
+    // let schemeId = this.filterFrm.getRawValue().schemeTypeId;
+    this.master.GetDepartmentDropdown(0).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentArray = [{ "id": 0, "textEnglish": "All Department", "textMarathi": "सर्व विभाग" },...res.responseData];
@@ -201,8 +202,8 @@ export class BeneficieryComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = ['srNo', 'mulberryId', (this.lang == 'en' ? 'schemeType' : 'm_SchemeType'), (this.lang == 'en' ? 'departmentName' : 'm_DepartmentName'), (this.lang == 'en' ? 'fullName' : 'm_FullName'), 'mobileNo1', (this.lang == 'en' ? 'taluka' : 'm_Taluka'), (this.lang == 'en' ? 'grampanchayatName' : 'm_GrampanchayatName'), 'mulberryDate', 'action'];
-    let displayedheaders = this.lang == 'en' ? ['Sr.No.', ' Mulberry Id', 'Scheme', 'Process Department', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Date', 'view'] : ['अनुक्रमांक', 'मुलबेरी आयडी', 'योजना', 'प्रक्रिया विभाग', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'दिनांक', 'पहा'];
+    let displayedColumns = ['srNo', 'mulberryId', (this.lang == 'en' ? 'schemeType' : 'm_SchemeType'), (this.lang == 'en' ? 'departmentName' : 'm_DepartmentName'), 'fullName', 'mobileNo1', (this.lang == 'en' ? 'taluka' : 'm_Taluka'), (this.lang == 'en' ? 'grampanchayatName' : 'm_GrampanchayatName'), 'mulberryDate']; //'action'
+    let displayedheaders = this.lang == 'en' ? ['Sr.No.', ' Mulberry Id', 'Scheme', 'Process Department', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Date'] : ['अनुक्रमांक', 'मुलबेरी आयडी', 'योजना', 'प्रक्रिया विभाग', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'दिनांक'];// 'पहा' 'view'
    
     let tableData = {
       pageNumber: this.pageNumber,
