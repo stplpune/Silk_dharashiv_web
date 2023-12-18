@@ -14,7 +14,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MasterService } from 'src/app/core/services/master.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ValidationService } from 'src/app/core/services/validation.service';
@@ -57,7 +57,7 @@ export class CrcProfileComponent {
       private commonMethod: CommonMethodsService,
       public WebStorageService: WebStorageService,
       public encryptdecrypt: AesencryptDecryptService,
-      // private router: Router,
+      private router: Router,
       private masterService: MasterService,
       private fb: FormBuilder,
       public validator: ValidationService,
@@ -168,11 +168,7 @@ export class CrcProfileComponent {
   }
 
   clearFormData() {
-    this.statusForm.reset({
-      "status": this.tableDataArray ? this.tableDataArray?.statusId : 0,
-      "chalkyApprovedQty": [''],
-      "reason": [''],
-    });
+    this.router.navigate(['crc-list']);
   }
 
   ngOnDestroy() {

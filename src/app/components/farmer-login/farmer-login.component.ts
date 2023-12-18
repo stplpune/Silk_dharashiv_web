@@ -99,10 +99,14 @@ export class FarmerLoginComponent {
             this.setOtpTimer();
             this.loginFlag = true;
           }
-          else if (res.statusCode == "400") {
+          else if (res.statusMessage == ('मोबाईल क्रमांक नोंदणीकृत नाही' || 'Mobile number is not registered') ) { 
             this.commonMethod.snackBar(res.statusMessage, 1);
             let mobNo: any = this.farmerMobileNo.value;
             this.router.navigate(['farmer-signup'], { queryParams: { mobNo: this.encryptDecryptService.encrypt(mobNo.toString()) } });
+          }
+          else if (res.statusMessage == ('OTP already sent, try after 1 min.'|| 'OTP आधीच पाठवला आहे, 1 मिनिटानंतर प्रयत्न करा.') ){
+            this.commonMethod.snackBar(res.statusMessage, 1);
+            this.loginFlag = false;
           }
           else {
             this.loginFlag = false;
