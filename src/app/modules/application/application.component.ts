@@ -55,7 +55,7 @@ export class ApplicationComponent {
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-  ) { }
+  ) {   this.webStorage.getMobileNo()}
 
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
@@ -211,7 +211,7 @@ export class ApplicationComponent {
     let formData = this.filterFrm.getRawValue();
     status == 'filter' ? ((this.pageNumber = 1), this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllDesignationWiseApplications?' + str + '&SchemeTypeId=' + (formData.schemeTypeId || 0) + '&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchayatId=' + (formData.grampanchayatId || 0) +
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllDesignationWiseApplications?userTypeId='+this.webStorage.getTypeId()+ str + '&SchemeTypeId=' + (formData.schemeTypeId || 0) + '&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchayatId=' + (formData.grampanchayatId || 0) +
       '&ApplicationStatus=' + (formData.statusId || 0) + '&UserId=' + (this.webStorage?.getUserId() || 0) + '&TextSearch=' + (formData.textSearch.trim() || '') + '&ActionId=' + (formData.actionId || 0) + '&lan=' + this.lang, false, false, false, 'masterUrl');
 
     this.apiService.getHttp().subscribe({
