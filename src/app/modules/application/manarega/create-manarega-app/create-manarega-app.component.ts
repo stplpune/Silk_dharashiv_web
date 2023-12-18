@@ -84,6 +84,7 @@ export class CreateManaregaAppComponent {
   //preview form variable
   previewData: any;
   previewManarega: any;
+  previewDocName : any
   routingData: any;//used for get routing data
   @ViewChild('stepper') private myStepper!: MatStepper;
 
@@ -203,7 +204,7 @@ export class CreateManaregaAppComponent {
     this.farmInfoFrm = this.fb.group({
       "benificiaryTotalFarm": [data?.benificiaryTotalFarm || '', [Validators.required, this.validation.maxLengthValidator(4), Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]], //Mandetory  Hectory हेक्टर - Max: 4 digit, float  
       "mulberryCultivatedSurveyNo": [data?.mulberryCultivatedSurveyNo || '', [Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.onlyNumbers)]],//Mandetory  Max: 6 digit, numeric
-      "cultivatedFarmInHector": [data?.cultivatedFarmInHector || '', [Validators.required, this.validation.maxLengthValidator(4), Validators.pattern(this.validation.onlyNumbers)]],//num  // Mandetory Hectory हेक्टर - Max: 4 digit, numeric
+      "cultivatedFarmInHector": [data?.cultivatedFarmInHector || '', [Validators.required, this.validation.maxLengthValidator(4), Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]],//num  // Mandetory Hectory हेक्टर - Max: 4 digit, numeric
       "isJointAccHolder": [data?.isJointAccHolder || false],//true //Default - No
       "applicantFarmSurveyNo": [data?.applicantFarmSurveyNo || ''],//19 A Mandetory 4 digit, numeric
       "applicantFarmArea": [data?.applicantFarmArea || ''],//num   19 B Mandetory Hectory हेक्टर - Max: 4 digit, float
@@ -290,6 +291,8 @@ export class CreateManaregaAppComponent {
   //#endregion  --------------------------------------------------------doc upload section fn end here-----------------------------------//
   viewPreviewDocument(docId: any) {//preview document
     let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.previewData?.documents, 'docId', docId);
+    this.previewDocName = this.previewData?.documents[indexByDocId].documentName;
+    console.log("docName docName docName",this.previewDocName)
     let obj = this.previewData?.documents[indexByDocId].documentPath;
     window.open(obj, '_blank')
   }
@@ -408,26 +411,28 @@ export class CreateManaregaAppComponent {
     this.farmInfoFrm.controls['candidateRelationId'].updateValueAndValidity();
   }
   //#endregion-----------------------on radio button click add remove validation fn start-------------------
-  // benificiaryTotalFarm
+  
   FarmValidations(key: any) {
-
-    // 16>benificiaryTotalFarm
-    // 18>cultivatedFarmInHector  =>should not greater than point 16
-    // 19 b>applicantFarmArea   => should not greater than point 16  && not  less than pt 18
     if (key == 'cultivatedFarmInHector') {
       if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector >  this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
-        this.commonMethod.snackBar((this.lang == 'en' ? "Should not greater than point no. 16" : "मुद्धा क्रमांक १६ पेक्षा मोठा  नसावा"), 1);
+       // this.commonMethod.snackBar((this.lang == 'en' ? "Should not greater than point no. 16" : "मुद्धा क्रमांक १६ पेक्षा मोठा नसावा"), 1);
         this.farmInfoFrm.controls['cultivatedFarmInHector'].setValue('');
       }
     }
     else if (key == 'applicantFarmArea') {
       if (this.farmInfoFrm.getRawValue()?.applicantFarmArea > this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
-       this.commonMethod.snackBar((this.lang == 'en' ? "Should not greater than point no. 16" : "मुद्धा क्रमांक १६ पेक्षा मोठा  नसावा"), 1);
+      // this.commonMethod.snackBar((this.lang == 'en' ? "Should not greater than point no. 16" : "मुद्धा क्रमांक १६ पेक्षा मोठा नसावा"), 1);
         this.farmInfoFrm.controls['applicantFarmArea'].setValue('');
       }
       else if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector >  this.farmInfoFrm.getRawValue()?.applicantFarmArea) {
-       this.commonMethod.snackBar((this.lang == 'en' ? "Not less than point no. 18" : "मुद्धा क्रमांक १८ पेक्षा कमी नसावा"), 1);
+       //this.commonMethod.snackBar((this.lang == 'en' ? "Not less than point no. 18" : "मुद्धा क्रमांक १८ पेक्षा कमी नसावा"), 1);
         this.farmInfoFrm.controls['applicantFarmArea'].setValue('');
+      }
+    }
+    else if(key == 'cultivatedArea'){
+      if (this.farmDeatailsFrm.getRawValue()?.cultivatedArea >  this.farmDeatailsFrm.getRawValue()?.gutArea) {
+       //this.commonMethod.snackBar((this.lang == 'en' ? "Should not greater than point no. 16" : "मुद्धा क्रमांक १६ पेक्षा मोठा नसावा"), 1);
+        this.farmDeatailsFrm.controls['cultivatedArea'].setValue('');
       }
     }
   }
@@ -583,7 +588,7 @@ export class CreateManaregaAppComponent {
         }
       })
     })
-    this.OtherDocUploadImg.length ? this.visible = true : this.visible = false;
+   // this.OtherDocUploadImg.length ? this.visible = true : this.visible = false;
     this.otherDocArray = new MatTableDataSource(this.OtherDocUploadImg);
     this.addSelfDeclaration(data);
   }
