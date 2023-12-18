@@ -24,6 +24,8 @@ export class GlobalDialogComponent {
 
   ngOnInit() {
     console.log("data",this.data);
+    console.log("this data ",this.data);
+    
 
   }
 
