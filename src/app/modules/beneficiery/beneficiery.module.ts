@@ -11,6 +11,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { GlobalTableComponent } from 'src/app/shared/components/global-table/global-table.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -27,7 +31,12 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatTableModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxMatSelectSearchModule,
+    GlobalTableComponent,
+    TranslateModule
   ]
 })
 export class BeneficieryModule { }
