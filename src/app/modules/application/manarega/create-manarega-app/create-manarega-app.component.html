@@ -1020,7 +1020,7 @@
                         <div class="form-label">
                           <mat-form-field appearance="outline" class="w-100">
                             <input matInput placeholder="" formControlName="docNo" maxlength="10"
-                              (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+                              (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumericWithSpaces($event)">
                           </mat-form-field>
                         </div>
                       </div>
@@ -1235,19 +1235,19 @@
                   <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'common.mobile'| translate}} </div>
-                      <span class="form-data  rounded-pill">:{{previewData?.mobileNo1 | dash}}</span>
+                      <span class="form-data  rounded-pill">{{previewData?.mobileNo1 | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'approvalProcess.aadhar_number'| translate}}</div>
-                      <span class="form-data rounded-pill">:{{previewData?.aadharNo | dash}}</span>
+                      <span class="form-data rounded-pill">{{previewData?.aadharNo | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'addManrega.applicant_name'| translate}}</div>
-                      <span class=" form-data rounded-pill">:{{previewData?.fullName| dash}}</span>
+                      <span class=" form-data rounded-pill">{{previewData?.fullName| dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'addManrega.mulberry_plantation_under_Silk'| translate}} </div>
-                      <span class=" form-data rounded-pill">:{{previewData?.departmentName| dash}}</span>
+                      <span class=" form-data rounded-pill">{{previewData?.departmentName| dash}}</span>
 
                     </li>
                   </ul>
@@ -1270,11 +1270,11 @@
               <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
-                  <span class="form-data  rounded-pill">:{{previewData?.mobileNo2 | dash}}</span>
+                  <span class="form-data  rounded-pill">{{previewData?.mobileNo2 | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'approvalProcess.date_of_birth'| translate}}</div>
-                  <span class="form-data rounded-pill">:{{(previewData?.birthDate | date:'dd-MM-yyyy') | dash}}</span>
+                  <span class="form-data rounded-pill">{{(previewData?.birthDate | date:'dd-MM-yyyy') | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'addManrega.select_gender'| translate}}</div>
@@ -1282,44 +1282,44 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'addManrega.education'| translate}}</div>
-                  <span class=" form-data rounded-pill">:{{(lang == 'en' ? previewData?.qualification :
+                  <span class=" form-data rounded-pill">{{(lang == 'en' ? previewData?.qualification :
                     previewData?.m_Qualification) | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'common.state' | translate}}</div>
-                  <span class=" form-data rounded-pill">:{{(lang == 'en' ? previewData?.state :
+                  <span class=" form-data rounded-pill">{{(lang == 'en' ? previewData?.state :
                     previewData?.m_State) | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'common.District'| translate}}</div>
-                  <span class=" form-data rounded-pill">:{{(lang == 'en' ? previewData?.district :
+                  <span class=" form-data rounded-pill">{{(lang == 'en' ? previewData?.district :
                     previewData?.m_District) | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'common.Taluka'| translate}}</div>
-                  <span class=" form-data rounded-pill">:{{(lang == 'en' ? previewData?.taluka :
+                  <span class=" form-data rounded-pill">{{(lang == 'en' ? previewData?.taluka :
                     previewData?.m_Taluka) | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'approvalProcess.village_committee'| translate}}</div>
 
-                  <span class=" form-data rounded-pill">:{{lang == 'en' ? (previewData?.grampanchayatName | dash ) : (previewData?.m_GrampanchayatName | dash )}}</span>
+                  <span class=" form-data rounded-pill">{{lang == 'en' ? (previewData?.grampanchayatName | dash ) : (previewData?.m_GrampanchayatName | dash )}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'common.Village'| translate}}</div>
-                  <span class=" form-data rounded-pill">:{{previewData?.village | dash}}</span>
+                  <span class=" form-data rounded-pill">{{previewData?.village | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'common.address'| translate}}</div>
-                  <span class=" form-data rounded-pill">:{{ previewData?.address | dash}}</span>
+                  <span class=" form-data rounded-pill">{{ previewData?.address | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'common.pin_Code'| translate}}</div>
-                  <span class=" form-data rounded-pill">:{{previewData?.pinCode | dash}}</span>
+                  <span class=" form-data rounded-pill">{{previewData?.pinCode | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'approvalProcess.manarega_job_card_no.'| translate}}</div>
-                  <span class=" form-data rounded-pill">:{{previewData?.mn_JobCardNo | dash}}</span>
+                  <span class=" form-data rounded-pill">{{previewData?.mn_JobCardNo | dash}}</span>
                 </li>
               </ul>
             </div>
@@ -1331,23 +1331,23 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'|
                         translate}}</div>
-                      <span class="form-data  rounded-pill">:{{previewData?.benificiaryTotalFarm | dash}}</span>
+                      <span class="form-data  rounded-pill">{{previewData?.benificiaryTotalFarm | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'approvalProcess.cultivation_land_survey_number'| translate}}ं</div>
-                      <span class="form-data  rounded-pill">:{{previewData?.mulberryCultivatedSurveyNo | dash}}</span>
+                      <span class="form-data  rounded-pill">{{previewData?.mulberryCultivatedSurveyNo | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'approvalProcess.cultivated_area_in_hectaes'| translate}} </div>
-                      <span class="form-data  rounded-pill">:{{previewData?.cultivatedFarmInHector | dash}}</span>
+                      <span class="form-data  rounded-pill">{{previewData?.cultivatedFarmInHector | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'approvalProcess.are_you_a_joined_account_Holder'| translate}} </div>
                       <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">:{{'approvalProcess.yes'|
+                        *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">{{'approvalProcess.yes'|
                         translate}}</span>
                       <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.isAnyPlantedBeforeGovScheme == false">:{{'approvalProcess.no'|
+                        *ngIf="previewData?.isAnyPlantedBeforeGovScheme == false">{{'approvalProcess.no'|
                         translate}}</span>
                     </li>
                     <ng-container *ngIf="previewData?.isAnyPlantedBeforeGovScheme == true">
