@@ -86,8 +86,9 @@
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <!-- <mat-label>Favorite food</mat-label> -->
-                        <input matInput placeholder="" formControlName="mobileNo1" readonly
-                          (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+                        <input matInput placeholder="" formControlName="mobileNo1"
+                          (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)"
+                          [class]="WebStorageService.getMobileNo() ? f['mobileNo1'].disable({ onlySelf: true }) : f['mobileNo1'].enable({ onlySelf: true })">
                         <mat-error
                           *ngIf="f['mobileNo1'].hasError('required')">{{'common.please_enter_mobile_number'|translate}}</mat-error>
                         <mat-error *ngIf="f['mobileNo1']?.errors">
