@@ -28,10 +28,10 @@ export class FarmersignupComponent {
   grampanchayatArray = new Array();
   subscription!: Subscription;
   lang: any;
-  mobNo:any;
+  mobNo: any;
 
   getLangForLocalStor!: string | null | any;
-  genderArray: any = [{ id: 1, textEnglish: 'Male' ,textMarathi:'पुरुष' }, { id: 0, textEnglish: 'Female',textMarathi:'स्त्री' }];
+  genderArray: any = [{ id: 1, textEnglish: 'Male', textMarathi: 'पुरुष' }, { id: 0, textEnglish: 'Female', textMarathi: 'स्त्री' }];
   talukaCtrl: FormControl = new FormControl();
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   gramPCtrl: FormControl = new FormControl();
@@ -46,7 +46,7 @@ export class FarmersignupComponent {
     private commonMethods: CommonMethodsService,
     private error: ErrorHandlingService,
     private WebStorageService: WebStorageService,
-    private router: Router, 
+    private router: Router,
     private spinner: NgxSpinnerService,
     private translate: TranslateService,
     private activatedRoute: ActivatedRoute,
@@ -54,8 +54,8 @@ export class FarmersignupComponent {
   ) {
     localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
     this.translate.use(this.getLangForLocalStor);
-    let paramData: any = this.activatedRoute.snapshot.queryParams;this.mobNo = this.encryptDecryptService?.decrypt(paramData?.mobNo).toString();
-   }
+    let paramData: any = this.activatedRoute.snapshot.queryParams; this.mobNo = this.encryptDecryptService?.decrypt(paramData?.mobNo).toString();
+  }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
@@ -63,7 +63,7 @@ export class FarmersignupComponent {
     })
     this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     this.formData();
-    this.f['mobNo1'].setValue(this.mobNo)
+    this.f['mobNo1'].setValue(this.mobNo);
     this.getDisrict();
     this.searchDataZone();
   }
@@ -76,7 +76,7 @@ export class FarmersignupComponent {
       talukaId: ['', [Validators.required]],
       grampanchayatId: ['', [Validators.required]],
       village: ['', [Validators.required, Validators.pattern(this.validator.fullName)]],
-      gender:[1]
+      gender: [1]
     })
   }
 
@@ -131,9 +131,9 @@ export class FarmersignupComponent {
         button: this.lang == "en" ? "Verify OTP" : "ओटीपी सत्यापित करा",
         pageName: "signup",
         mobileNo: this.signUpForm.getRawValue().mobNo1,
-        createdBy:0
+        createdBy: 0
       };
-      console.log('dialogObj',dialogObj);
+      console.log('dialogObj', dialogObj);
       const dialogRef = this.dialog.open(OtpSendReceiveComponent, {
         width: '30%',
         data: dialogObj,
@@ -161,7 +161,7 @@ export class FarmersignupComponent {
       "circleId": 0,
       "designationId": 2, // 2 is Farmer
       "departmentId": 0,
-      "departmentLevelId": 0,
+      "departmentLevelId": 5,
       "m_Name": "",
       "crcRegNo": "",
       "aadharNumber": "",
@@ -180,17 +180,17 @@ export class FarmersignupComponent {
       "chalkyCapacity": 0,
       "officerAssignArea": "",
       "chalkyApprovedQty": 0,
-      "doj":null,
+      "doj": null,
       "profileImagePath": "",
       "userTypeId": 1,
       "createdBy": 0,
       "flag": "i",
-      certificateExpiryDate:new Date(),
+      certificateExpiryDate: new Date(),
       certificateIssueDate: new Date(),
       certificatePath: "",
     }
 
-    let postObj = {...obj, ...formValue};
+    let postObj = { ...obj, ...formValue };
     this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan=' + this.lang, false, postObj, false, 'masterUrl');
     this.apiService.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
@@ -213,7 +213,7 @@ export class FarmersignupComponent {
     this.grampanchayatArray = [];
   }
 
-  goToLoginPage(){
+  goToLoginPage() {
     this.router.navigate(['farmer-login'])
   }
 }
