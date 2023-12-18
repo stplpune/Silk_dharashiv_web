@@ -411,7 +411,7 @@
               </div>
 
               <div class="col-sm-4">
-                <div class="form-label">18.{{'approvalProcess.cultivated_area_in_hectaes'| translate}}</div>
+                <div class="form-label">18.{{'approvalProcess.cultivated_area_in_hectaes'| translate}}{{'approvalProcess.should_not_greater_than_point'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="cultivatedFarmInHector"  (input)="FarmValidations('cultivatedFarmInHector')"
@@ -442,7 +442,7 @@
               </div>
               <ng-container *ngIf="farmInfoFrm.getRawValue()?.isJointAccHolder">
                 <div class="col-sm-4">
-                  <div class="form-label">19.A.{{'approvalProcess.land_survey_no._of_land'| translate}} </div>
+                  <div class="form-label">19.A. {{'approvalProcess.land_survey_no._of_land'| translate}} </div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="applicantFarmSurveyNo">
@@ -460,8 +460,7 @@
                   </div>
                 </div>
                 <div class="col-sm-4">
-                  <div class="form-label">19.B.{{'approvalProcess.its_area'| translate}}(मुद्दा क्रमांक 18 पेक्षा जसता नसावे
-                    व 19 पेक्षा कमी नसावे) </div>
+                  <div class="form-label">19.B. {{'approvalProcess.its_area'| translate}}{{'approvalProcess.should_not_greater_than_point_Not_less_than_point'| translate}} </div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="applicantFarmArea"
@@ -523,7 +522,7 @@
 
                   <div class="row align-items-center">
                     <div class="col-sm-4">
-                      <div class="form-label">22.A.{{'approvalProcess.orchard_flower_tree'| translate}}</div>
+                      <div class="form-label">22.A. {{'approvalProcess.orchard_flower_tree'| translate}}</div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="plantName"
@@ -542,7 +541,7 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">22.B.{{'approvalProcess.group_no.'| translate}}</div>
+                      <div class="form-label">22.B. {{'approvalProcess.group_no.'| translate}}</div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="gutNo"
@@ -563,7 +562,7 @@
                     <!-- "fourmaxLength": "Maximum 4 digits allowed",
               "sixmaxLength": "Maximum 6 digits allowed", -->
                     <div class="col-sm-4">
-                      <div class="form-label">22.C.{{'approvalProcess.group_area'| translate}}</div>
+                      <div class="form-label">22.C. {{'approvalProcess.group_area'| translate}}</div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="gutArea"
@@ -582,11 +581,12 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">22.D.{{'approvalProcess.cultivated_area'| translate}}</div>
+                      <div class="form-label">22.D. {{'approvalProcess.cultivated_area'| translate}}{{'approvalProcess.should_not_greater_than_point_22'| translate}}</div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="cultivatedArea"
-                            (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
+                            (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)"
+                            (input)="FarmValidations('cultivatedArea')">
                           <!-- <mat-error
                             *ngIf="farmDeatailsFrm.controls['cultivatedArea'].hasError('required') ">{{'approvalProcess.please_enter_cultivated_area'|translate}}</mat-error> -->
                           <mat-error *ngIf="farmDeatailsFrm.controls['cultivatedArea']?.errors">
@@ -601,7 +601,7 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">22.E.{{'approvalProcess.number_of_trees_planted'| translate}}</div>
+                      <div class="form-label">22.E. {{'approvalProcess.number_of_trees_planted'| translate}}</div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
                           <input matInput placeholder="" formControlName="cultivatedPlantsCount"
@@ -945,11 +945,11 @@
               </div>
 
 
-              <div class="col-sm-4">
+              <!-- <div class="col-sm-4">
                 <button mat-flat-button class="btn-main-light mt-3" type="button" (click)="visible = ! visible">
                  {{lang == 'en' ? "Attach Other Documents": "इतर कागदपत्रे जोडा"}}
                   </button> 
-              </div>
+              </div> -->
               <div class="col-sm">
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100" [hidden]="true">
@@ -958,7 +958,7 @@
                   </mat-form-field>
                 </div>
               </div>
-              <ng-container *ngIf="visible">
+              <!-- <ng-container *ngIf="visible"> -->
                 <div class="card card-body mb-4">
                   <div class="container-fluid">
                     <form [formGroup]="otherDocumentFrm" #formDirectivess="ngForm">
@@ -967,8 +967,8 @@
                           <div class="form-label">{{'approvalProcess.document_name'|translate}} </div>
                           <div class="form-label">
                             <mat-form-field appearance="outline" class="w-100">
-                              <input matInput placeholder="" formControlName="docname">
-
+                              <input matInput placeholder="" formControlName="docname"  maxlength="30"
+                              (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
                             </mat-form-field>
                           </div>
                         </div>
@@ -976,7 +976,8 @@
                           <div class="form-label">{{'approvalProcess.document_number'|translate}}</div>
                           <div class="form-label">
                             <mat-form-field appearance="outline" class="w-100">
-                              <input matInput placeholder="" formControlName="docNo">
+                              <input matInput placeholder="" formControlName="docNo" maxlength="10"
+                              (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                             </mat-form-field>
                           </div>
                         </div>
@@ -1073,7 +1074,7 @@
                   </div>
                 </div>
 
-              </ng-container>
+              <!-- </ng-container> -->
 
 
             </div>
@@ -1199,11 +1200,12 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'addManrega.applicant_name'| translate}}</div>
-                      <span class=" form-data rounded-pill">:{{previewData?.fullName | dash}}</span>
+                      <span class=" form-data rounded-pill">:{{previewData?.fullName| dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">{{'addManrega.mulberry_plantation_under_Silk'| translate}}
-                      </div>
+                      <div class="form-label">{{'addManrega.mulberry_plantation_under_Silk'| translate}} </div>
+                      <span class=" form-data rounded-pill">:{{previewData?.departmentName| dash}}</span>
+                    
                     </li>
                   </ul>
                 </div>
@@ -1211,7 +1213,7 @@
                   <div class="form-data text-main">{{'approvalProcess.beneficiary_category_view'| translate}} </div>
                   <ul class="list-group" *ngFor="let category of previewData?.categoryOfBeneficiaries">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">{{category?.categoryOfBeneficiary}}</div>
+                      <div class="form-label">{{lang == 'en' ? category?.categoryOfBeneficiary : category?.m_CategoryOfBeneficiary }}</div>
                     </li>
                   </ul>
                 </div>
@@ -1232,8 +1234,7 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'addManrega.select_gender'| translate}}</div>
-                  <span class=" form-data rounded-pill"> {{lang == 'en' ? (previewData?.gender | dash ) :
-                    (previewData?.m_gender | dash)}}</span>
+                  <span class=" form-data rounded-pill">{{previewData?.gender | dash }} </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'addManrega.education'| translate}}</div>
@@ -1257,8 +1258,7 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'approvalProcess.village_committee'| translate}}</div>
-                  <span class=" form-data rounded-pill">:{{(lang == 'en' ? previewData?.grampanchayatName :
-                    previewData?.m_GrampanchayatName) | dash}}</span>
+                  <span class=" form-data rounded-pill">:{{previewData?.grampanchayatName | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'common.Village'| translate}}</div>
@@ -1266,15 +1266,14 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'common.address'| translate}}</div>
-                  <span class=" form-data rounded-pill">:{{(lang == 'en' ? previewData?.address :
-                    previewData?.m_Address) | dash}}</span>
+                  <span class=" form-data rounded-pill">:{{ previewData?.address  | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'common.pin_Code'| translate}}</div>
                   <span class=" form-data rounded-pill">:{{previewData?.pinCode | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">{{'approvalProcess.manarega_job_card_no.'| translate}}ं</div>
+                  <div class="form-label">{{'approvalProcess.manarega_job_card_no.'| translate}}</div>
                   <span class=" form-data rounded-pill">:{{previewData?.mn_JobCardNo | dash}}</span>
                 </li>
               </ul>
@@ -1293,7 +1292,7 @@
                       <span class="form-data  rounded-pill">:{{previewData?.mulberryCultivatedSurveyNo | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">{{'approvalProcess.cultivated_area_in_hectaes'| translate}} ( मुद्दा क्रं 17 पेक्षा जसता नसावे)</div>
+                      <div class="form-label">{{'approvalProcess.cultivated_area_in_hectaes'| translate}} </div>
                       <span class="form-data  rounded-pill">:{{previewData?.cultivatedFarmInHector | dash}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -1390,12 +1389,12 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'addManrega.will_he_take_the_training'| translate}}</div>
                       <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.isSelfTraining == true">{{'approvalProcess.send_candidate'|
+                        *ngIf="previewData?.isSelfTraining == false">{{'approvalProcess.send_candidate'|
                         translate}}</span>
                       <span class="form-data  rounded-pill"
-                        *ngIf="previewData?.isSelfTraining == false">{{'approvalProcess.mySelf'| translate}}</span>
+                        *ngIf="previewData?.isSelfTraining == true">{{'approvalProcess.mySelf'| translate}}</span>
                     </li>
-                    <ng-container *ngIf="previewData?.isSelfTraining == true">
+                    <ng-container *ngIf="previewData?.isSelfTraining == false">
                       <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div class="d-flex gap-3">
                           <div class="form-label">{{'approvalProcess.candidate_name'| translate}}: </div>
@@ -1441,7 +1440,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="text-main fw-bold">{{'common.documents'|translate}}</div>
-                  <ul class="list-group" *ngFor="let doc of previewData?.documents">
+                  <ul class="list-group" *ngFor="let doc of previewData?.documents;let i=index">
                     <ng-container *ngIf="doc.docId == 12">
                       <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div class="form-label">{{'approvalProcess.manarega'|translate}} </div>
@@ -1484,7 +1483,8 @@
                     </ng-container>
                     <ng-container *ngIf="doc.docId == 7">
                       <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="form-label">{{'approvalProcess.other_documents'|translate}}</div>
+                        <!-- <div class="form-label">{{'approvalProcess.other_documents'|translate}}</div> -->
+                        <div class="form-label">{{doc.documentName}}</div>
                         <span class="form-data  rounded-pill" (click)="viewPreviewDocument(7)">
                           <mat-icon class="material-symbols-outlined">
                             visibility

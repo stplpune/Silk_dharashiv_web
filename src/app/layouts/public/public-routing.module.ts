@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'track-application', loadChildren: () => import('../../modules/track-app/track-app.module').then(m => m.TrackAppModule) },
   { path: 'blog-details', loadChildren: () => import('../../modules/blog-details/blog-details.module').then(m => m.BlogDetailsModule), data: { breadcrumb: [{ title: 'Blog Details', active: true }] } },
   { path: 'about-us', loadChildren: () => import('../../modules/about-us/about-us.module').then(m => m.AboutUsModule), data: { breadcrumb: [{ title: 'About Us', active: true }] } },
-
+  { path: 'schemes-programs', loadChildren: () => import('../../modules/schemes-programs/schemes-programs.module').then(m => m.SchemesProgramsModule), data: { breadcrumb: [{ title: 'Schemes & Programs', active: true }] } },
 ];
 
 @NgModule({
