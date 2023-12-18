@@ -5,7 +5,7 @@
     <div class="text-main">Manarega Application</div>
   </mat-card-header>
 
-  <mat-card-content class=" card-body form-container" *ngIf="!this.routingData">
+  <!-- <mat-card-content class=" card-body form-container" *ngIf="!this.routingData">
     <form [formGroup]="filterFrm">
       <div class="row gx-2">
         <div class="col-sm">
@@ -16,7 +16,7 @@
                 (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
             </mat-form-field>
           </div>
-        </div>
+        </div> -->
         <!-- <div class="col-sm">
           <div class="d-flex flex-column gap-2">
             <mat-form-field appearance="outline" class="w-100">
@@ -26,7 +26,7 @@
             </mat-form-field>
           </div>
         </div> -->
-        <div class="col-sm-1">
+        <!-- <div class="col-sm-1">
           <div class="d-flex gap-2">
             <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"
               (click)="getPreviewData('search')">
@@ -43,12 +43,12 @@
         </div>
       </div>
     </form>
-  </mat-card-content>
+  </mat-card-content> -->
 
   <mat-card-content class=" card-body form-container">
     <!--  -->
     <!-- [stepControl]="manaregaFrm" -->
-    <mat-stepper #stepper linear>
+    <mat-stepper #stepper>
       <mat-step [stepControl]="manaregaFrm">
         <ng-template matStepLabel>{{'approvalProcess.original_details'| translate}}</ng-template>
         <form [formGroup]="manaregaFrm">
@@ -83,7 +83,7 @@
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <!-- <mat-label>Favorite food</mat-label> -->
-                        <input matInput placeholder="" formControlName="mobileNo1"
+                        <input matInput placeholder="" formControlName="mobileNo1" readonly
                           (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                         <mat-error
                           *ngIf="f['mobileNo1'].hasError('required')">{{'common.please_enter_mobile_number'|translate}}</mat-error>
