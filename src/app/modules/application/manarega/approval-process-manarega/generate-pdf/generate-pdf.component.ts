@@ -214,10 +214,7 @@ export class GeneratePdfComponent {
         this.skillDataArray.unSkillArray.push(ev);
       }
     })
-    data?.responseData3?.filter((ev: any) => {
-      this.skillDataArray.totalUnskill.push(ev)
-    })
-
+      this.skillDataArray.totalUnskill.push(data?.responseData3)
   }
 
   acceptTerms(event?: any) {
