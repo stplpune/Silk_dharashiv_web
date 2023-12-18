@@ -127,7 +127,6 @@ export class CrcProfileComponent {
     let formData = this.statusForm.getRawValue();
     formData.id = this.tableDataArray.id;
     formData.createdBy = this.WebStorageService.getUserId();
-    // formData.status == 5 ? formData.chalkyApprovedQty = 0 : formData.status == 2 ? this.statusForm.controls["reason"].setValue(" ") : (formData.status != 2 && formData.status != 5) ? (formData.chalkyApprovedQty = 0, formData.reason = "") : '';
     formData.status == 5 ? formData.chalkyApprovedQty = 0 : formData.reason ="";
     if (this.statusForm.invalid) {
       this.spinner.hide();
