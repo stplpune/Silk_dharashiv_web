@@ -1,0 +1,35 @@
+#schemes img {
+    width: 100%;
+}
+
+#schemes h3,
+#schemes h5,
+#schemes h6 {
+    font-weight: 600;
+}
+
+#schemes h3 {
+    color: #767676;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#schemes h3 span {
+    color: var(--main-color);
+}
+
+#schemes h5 {
+    font-size: 1rem;
+}
+
+#schemes h6 {
+    font-size: 0.95rem;
+    color: var(--main-color);
+}
+
+#schemes p,
+#schemes ul {
+    font-size: 0.9rem;
+    line-height: 1.6rem;
+    margin-bottom: 0.5rem;
+}
