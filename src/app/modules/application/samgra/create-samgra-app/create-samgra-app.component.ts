@@ -656,7 +656,9 @@ export class CreateSamgraAppComponent {
       if (value == true) {
         this.fL['sm_ExperienceYears'].setValidators([Validators.required, this.validation.maxLengthValidator(2), Validators.pattern(this.validation.onlyNumbers)])
       } else if (value == false) {
-        this.fL['sm_ExperienceYears'].clearValidators();      }
+        this.fL['sm_ExperienceYears'].clearValidators(); 
+        this.clearValueRadioButton('ExperienceYears') ; 
+      }
       this.fL['sm_ExperienceYears'].updateValueAndValidity();
     } else if (flag == 'isTraining') {
       setValArray = ['sm_SilkIndustrtyTrainingDetails']
