@@ -553,9 +553,17 @@ export class ApprovalProcessManaregaComponent {
     // this.formDirectives.resetForm();
   }
 
-
   viewPdf() {
-    window.open('generate-pdf?id='+this.encryptdecrypt.encrypt(this.applicationData?.applicationId + '.' + this.applicationData?.actionId), '_blank');              
+    let str =this.applicationData?.applicationId+'.'+this.applicationData?.actionId;
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/generate-pdf'],{
+        queryParams: {
+          id: str
+        },
+      })
+    );
+  
+    window.open(url, '_blank');
   }
 
   clearReasonAndDoc(){

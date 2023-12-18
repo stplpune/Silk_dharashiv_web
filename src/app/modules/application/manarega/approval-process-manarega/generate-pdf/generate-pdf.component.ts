@@ -82,9 +82,12 @@ export class GeneratePdfComponent {
   ngOnInit() {
     this.loginData=this.web.getLoggedInLocalstorageData()
     this.routeData = this.route.snapshot.queryParamMap.get('id');
-    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routeData)}`);
-    this.actionID= spliteUrl.split('.')[1];
-    this.applicationId=spliteUrl.split('.')[0];
+    // console.log('routeData',this.routeData);
+    // let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routeData)}`);
+    // console.log('spliteUrl',spliteUrl);
+
+    this.actionID= this.routeData.split('.')[1];
+    this.applicationId=this.routeData.split('.')[0];
     this.getEstimateData();
     this.getAnotherEstimateData();
     this.getEstimateSanctionData();
