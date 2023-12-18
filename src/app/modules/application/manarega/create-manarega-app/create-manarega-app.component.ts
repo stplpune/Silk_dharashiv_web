@@ -616,9 +616,15 @@ export class CreateManaregaAppComponent {
   }
 
   checkStepCon(stepper: MatStepper, lable: string) {
-    if (lable == 'farmerInfo' && this.manaregaFrm.valid) {
+    if (lable == 'farmerInfo' && this.manaregaFrm.invalid) {
+      !this.manaregaFrm.getRawValue().profilePhotoPath ? this.manFrmSubmitFlag = true : this.manFrmSubmitFlag = false;
+      return
+    }
+
+    else if (lable == 'farmerInfo' && this.manaregaFrm.valid) {
       this.onSubmit(stepper, lable);
-    } else if (lable == 'farmInfo' && this.farmInfoFrm.valid) {
+    }
+     else if (lable == 'farmInfo' && this.farmInfoFrm.valid) {
       if (this.farmInfoFrm.getRawValue().isAnyPlantedBeforeGovScheme && !this.farmDetails.length) {
         this.commonMethod.snackBar((this.lang == 'en' ? "Please enter orchard/flower/tree Name details " : "कृपया बाग/फुल/झाडाचे नाव तपशील प्रविष्ट करा"), 1)
         return
@@ -681,7 +687,7 @@ export class CreateManaregaAppComponent {
     let val = Object.values(this.selfDeclarationFrm.getRawValue()).every(item => item == true)
     !val ? this.selfDeclarationFrm.controls['checkValue'].setValue('') : this.selfDeclarationFrm.controls['checkValue'].setValue(true);
 
-    this.manFrmSubmitFlag = true;
+    // this.manFrmSubmitFlag = true;
     let formData = this.manaregaFrm?.getRawValue();
     let farmInfo = this.farmInfoFrm.getRawValue();
     let bankInfo = this.bankInfoFrm.getRawValue();
@@ -763,6 +769,7 @@ export class CreateManaregaAppComponent {
           this.getPreviewData('edit', res.responseData)
           this.manaregaFrm?.controls['id'].setValue(res.responseData);
           res.responseData && flag == 'challan' ? this.openDialog(res) : '';
+          this.manFrmSubmitFlag = false;
           //this.EditFlag = false;
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -905,6 +912,7 @@ export class CreateManaregaAppComponent {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.talukaArray = res.responseData;
             this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
+            this.WebStorageService.getTalukaId() ? (this.f['talukaId'].setValue(this.WebStorageService.getTalukaId()),this.getGrampanchayat()) :  this.getGrampanchayat();
             this.EditFlag ? (this.f['talukaId'].setValue(this.previewData.talukaId), this.getGrampanchayat()) : this.getGrampanchayat();
             //this.getGrampanchayat()
           }
@@ -928,6 +936,8 @@ export class CreateManaregaAppComponent {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.grampanchayatArray = res.responseData;
             this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
+            this.WebStorageService.getGrampanchayatId() ? this.f['talukaId'].setValue(this.WebStorageService.getGrampanchayatId()):  '';
+     
             this.EditFlag ? (this.f['grampanchayatId'].setValue(this.previewData?.grampanchayatId)) : '';
           }
           else {
