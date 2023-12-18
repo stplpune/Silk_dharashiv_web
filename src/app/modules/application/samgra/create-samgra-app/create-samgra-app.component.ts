@@ -158,7 +158,7 @@ export class CreateSamgraAppComponent {
     this.getImprovedMulberryCast();
     this.getPlantationMethod();
     this.getMulberryCultivationArea();
-    this.samgraId[0] ? this.getPreviewData() : '';
+    this.getPreviewData(); 
     let photoValidation = ['profilePhotoPath']
     !this.profileImageUrl ? (this.setValidation(photoValidation, this.f)) : this.clearValidation(photoValidation, this.f)
   }
@@ -172,7 +172,7 @@ export class CreateSamgraAppComponent {
   samgraformData(data?: any) {
     this.samgraForm = this.fb.group({
       "fullName": [data?.fullName || '', [Validators.required, this.validation.maxLengthValidator(100)]],
-      "mobileNo1": [data?.mobileNo1 || '', [Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
+      "mobileNo1": [this.WebStorageService.getMobileNo() || '', [Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
       "mobileNo2": [data?.mobileNo2 || '', [this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
       "aadharNo": [data?.aadharNo || '', [Validators.required, this.validation.maxLengthValidator(12), Validators.pattern(this.validation.aadhar_card)]],
       "birthDate": [data?.birthDate || '', [Validators.required]],
@@ -904,10 +904,10 @@ export class CreateSamgraAppComponent {
 
   getPreviewData() {
     this.EditFlag = true
-    let filterformvalue = this.filterForm.value;
+    // let filterformvalue = this.filterForm.value;
     let samgraFormValue = this.samgraForm.getRawValue();
-    let addharNo = filterformvalue?.filterAddharNo || samgraFormValue.aadharNo
-    let mobileNo = filterformvalue?.filterMobileNo || samgraFormValue.mobileNo1
+    let addharNo = samgraFormValue.aadharNo
+    let mobileNo = this.WebStorageService.getMobileNo();
     if (this.filterForm.invalid) {
       this.clearForm();
       this.commonMethod.snackBar("Please Enter Correct Details", 1)
