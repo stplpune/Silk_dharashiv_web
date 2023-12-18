@@ -760,9 +760,8 @@ export class CreateSamgraAppComponent {
       if(index.id == 0){
         this.currentCropDetailsArray.splice(index, 1)
       }else{
-        let indexVal:any = this.currentCropDetailsArray.findIndex((ele:any)=>ele.id ==   index.id)
-        indexVal != '-1' ? this.currentCropDetailsArray[indexVal].isDeleted = true :''
-        // this.currentCropDetailsArray[indexVal].isDeleted = true
+        let indexVal = this.currentCropDetailsArray.findIndex((ele:any)=>ele.id ==   index.id)
+        this.currentCropDetailsArray[indexVal].isDeleted = true
       };
       let currentCropDetails:any = [];    
       this.currentCropDetailsArray.find((ele:any)=>{
@@ -777,8 +776,8 @@ export class CreateSamgraAppComponent {
       if(index.id == 0){
         this.internalSchemesArray.splice(index, 1)
       }else{
-        let indexVal :any = this.internalSchemesArray.findIndex((ele:any)=>ele.id ==   index.id)
-        indexVal != '-1' ? this.internalSchemesArray[indexVal].isDeleted = true :''
+        let indexVal = this.internalSchemesArray.findIndex((ele:any)=>ele.id ==   index.id)
+        this.internalSchemesArray[indexVal].isDeleted = true
       };
       let internalScheme:any = [];    
       this.internalSchemesArray.find((ele:any)=>{
@@ -941,9 +940,9 @@ export class CreateSamgraAppComponent {
     this.profileImageUrl = data.profilePhotoPath;
     this.registionFeeUrl = data.registrationFeeReceiptPath;
     this.internalSchemesArray = data.internalSchemes;
-    // this.internalSchemesArray.map((res:any)=>{
-    //   res['isDeleted'] = false
-    // })
+    this.internalSchemesArray.map((res:any)=>{
+      res['isDeleted'] = false
+    })
     this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
     this.docArray.find((ele: any, i: any) => {
       data.documents.find((item: any) => {
