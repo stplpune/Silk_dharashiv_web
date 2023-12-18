@@ -23,8 +23,8 @@ export class FileUploadService {
       if (allowedDocTypes.match(docExt)) {
         if (event.target.files && event.target.files[0]) {
           const file = event.target.files[0];
-          if (file.size > 1048576) {
-            obj.error("Required file size should be less than " + 1 + " MB.");
+          if (file.size > 5242880) {
+            obj.error("Required file size should be less than " + 5 + " MB.");
             this.commonMethodService.snackBar(lflag == 'en' ? "Required file size should be less than "+ 1 + " MB." : "आवश्यक फाइल आकार "+ 1 + " MB"+" पेक्षा कमी असावा", 1)
           }
           else {
