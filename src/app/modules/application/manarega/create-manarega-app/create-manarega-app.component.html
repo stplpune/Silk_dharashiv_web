@@ -48,7 +48,7 @@
   <mat-card-content class=" card-body form-container">
     <!--  -->
     <!-- [stepControl]="manaregaFrm" -->
-    <mat-stepper #stepper linear>
+    <mat-stepper #stepper>
       <mat-step [stepControl]="manaregaFrm">
         <ng-template matStepLabel>{{'approvalProcess.original_details'| translate}}</ng-template>
         <form [formGroup]="manaregaFrm">
@@ -83,7 +83,7 @@
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
                         <!-- <mat-label>Favorite food</mat-label> -->
-                        <input matInput placeholder="" formControlName="mobileNo1"
+                        <input matInput placeholder="" formControlName="mobileNo1" readonly
                           (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                         <mat-error
                           *ngIf="f['mobileNo1'].hasError('required')">{{'common.please_enter_mobile_number'|translate}}</mat-error>
