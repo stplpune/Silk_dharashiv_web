@@ -10,40 +10,40 @@
 <div *ngIf="isViewFlag">
   <div mat-dialog-content class="modal-body form-container">
     <ul class="list-group list-group-flush">
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label mb-0">{{lang == 'en' ? 'Type ': 'प्रकार'}}</div>
-        <div class="form-data"> :{{lang == 'en' ? data?.type : data?.m_Type}}</div>
+      <li class="row gx-2 mb-2">
+        <div class="col-sm-6 form-label mb-0">{{lang == 'en' ? 'Type ': 'प्रकार'}}</div>
+        <div class="col-sm-6 form-data">: {{lang == 'en' ? data?.type : data?.m_Type}}</div>
       </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label mb-0">{{'grainage.grainageName_en' | translate}}</div>
-        <div class="form-data">: {{data?.grainage || '-'}}</div>
+      <li class="row gx-2 mb-2">
+        <div class="col-sm-6 form-label mb-0">{{'grainage.grainageName_en' | translate}}</div>
+        <div class="col-sm-6 form-data">: {{data?.grainage || '-'}}</div>
       </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label mb-0">{{'grainage.grainageName_mr' | translate}}</div>
-        <div class="form-data"> :{{data?.m_Grainage || '-'}}</div>
+      <li class="row gx-2 mb-2">
+        <div class="col-sm-6 form-label mb-0">{{'grainage.grainageName_mr' | translate}}</div>
+        <div class="col-sm-6 form-data"> :{{data?.m_Grainage || '-'}}</div>
       </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label mb-0">{{lang == 'en' ? 'State': 'राज्य'}}</div>
-        <div class="form-data">: {{lang == 'en' ? data?.state : data?.m_State}}</div>
+      <li class="row gx-2 mb-2">
+        <div class="col-sm-6 form-label mb-0">{{lang == 'en' ? 'State': 'राज्य'}}</div>
+        <div class="col-sm-6 form-data">: {{lang == 'en' ? data?.state : data?.m_State}}</div>
       </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label mb-0">{{lang == 'en' ? 'District': 'जिल्हा'}}</div>
-        <div class="form-data"> : {{lang == 'en' ? data?.district : data?.m_District}}</div>
+      <li class="row gx-2 mb-2">
+        <div class="col-sm-6 form-label mb-0">{{lang == 'en' ? 'District': 'जिल्हा'}}</div>
+        <div class="col-sm-6 form-data"> : {{lang == 'en' ? data?.district : data?.m_District}}</div>
       </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label mb-0">{{lang == 'en' ? 'Taluka': 'तालुका'}}</div>
-        <div class="form-data">: {{lang == 'en' ? data?.taluka : data?.m_Taluka}}</div>
+      <li class="row gx-2 mb-2">
+        <div class="col-sm-6 form-label mb-0">{{lang == 'en' ? 'Taluka': 'तालुका'}}</div>
+        <div class="col-sm-6 form-data">: {{lang == 'en' ? data?.taluka : data?.m_Taluka}}</div>
       </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
-        <div class="form-label mb-0">{{"grainage.pincode" | translate}}</div>
-        <div class="form-data">: {{data?.pincode || '-'}}</div>
+      <li class="row gx-2 mb-2">
+        <div class="col-sm-6 form-label mb-0">{{"grainage.pincode" | translate}}</div>
+        <div class="col-sm-6 form-data">: {{data?.pincode || '-'}}</div>
       </li>
       <li class="list-group-item d-flex flex-column px-0 py-1">
-        <div class="form-label mb-0">{{"grainage.address" | translate}} :</div>
+        <div class="form-label mb-0">{{"grainage.address" | translate}} </div>
         <div class="form-data"> {{data?.address || '-'}}</div>
       </li>
       <li class="list-group-item d-flex flex-column px-0 py-1">
-        <div class="form-label mb-0">{{"grainage.remark" | translate}} :</div>
+        <div class="form-label mb-0">{{"grainage.remark" | translate}} </div>
         <div class="form-data">{{data?.remark || '-'}}</div>
       </li>
     </ul>
@@ -53,7 +53,7 @@
 <div class="" *ngIf="!isViewFlag">
   <form [formGroup]="grainageFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
     <div mat-dialog-content class="modal-body form-container">
-      <div class="row gx-2 gy-2">
+      <div class="row gx-2 mb-2">
         <div class="col-sm-12">
           <!-- <mat-label class="form-label">{{"grainage.Type" | translate}} <span
               class="text-danger fs-6">*</span></mat-label> -->
