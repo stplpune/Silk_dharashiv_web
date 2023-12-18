@@ -1035,7 +1035,6 @@ export class CreateManaregaAppComponent {
       headerImage: 'assets/images/check.png'
     }
     let dialogRef = this.dialog.open(GlobalDialogComponent, {
-
       width: '400px',
       data: dialoObj,
       disableClose: true,
