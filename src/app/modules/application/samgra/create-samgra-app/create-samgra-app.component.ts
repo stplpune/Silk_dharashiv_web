@@ -81,6 +81,7 @@ export class CreateSamgraAppComponent {
   otherDocArray = new Array();
   uploadedDocUrl: any;
   profileImageUrl: any;
+  showotherDoc = new Array();
 
   showDocValidation: boolean = false;
   InternalSchemesEditFlag: boolean = false;
@@ -232,7 +233,8 @@ export class CreateSamgraAppComponent {
       "internalSchemeName": ['' || data?.internalSchemeName],
       "schemeTakenDate": ['' || data?.schemeTakenDate],
       "totalBenefitTaken": ['' || data?.totalBenefitTaken],
-      "createdBy": 0
+      "createdBy": 0,
+      "isDeleted": false
     })
   }
   otherDocumentFormData() {
@@ -739,37 +741,59 @@ export class CreateSamgraAppComponent {
 
   deleteInternalSchemes(index: any, flag?: any) {
     if (flag == 'currentCropDetails') {
-      this.isDelFlagInternalSchemes(index)
+      this.isDelFlagInternalSchemes(index ,flag)
     } else {
-      this.internalSchemesArray.splice(index, 1);
-      !this.internalSchemesArray.length ? this.checkinternalSchemesflag = false : '';
-      this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
-      this.InternalSchemesEditFlag = false;
+
+    this.isDelFlagInternalSchemes(index ,flag)
+
+
+      // this.internalSchemesArray.splice(index, 1);
+      // !this.internalSchemesArray.length ? this.checkinternalSchemesflag = false : '';
+      // this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
+      // this.InternalSchemesEditFlag = false;
       // this.checkInternalInternalscheme();
     }
   }
 
-  isDelFlagInternalSchemes(index:any){
-    if(index.id == 0){
-      this.currentCropDetailsArray.splice(index, 1)
-    }else{
-      let indexVal = this.currentCropDetailsArray.findIndex((ele:any)=>ele.id ==   index.id)
-      this.currentCropDetailsArray[indexVal].isDeleted = true
-    };
-    let currentCropDetails:any = [];    
-    this.currentCropDetailsArray.find((ele:any)=>{
-      if(ele.isDeleted){
+  isDelFlagInternalSchemes(index:any , flag?:any){
+     if(flag == 'currentCropDetails'){        // delete current crop product table
+      if(index.id == 0){
+        this.currentCropDetailsArray.splice(index, 1)
       }else{
-        currentCropDetails.push(ele);
-      }
-    })
-    this.dataSource = new MatTableDataSource(currentCropDetails);
+        let indexVal:any = this.currentCropDetailsArray.findIndex((ele:any)=>ele.id ==   index.id)
+        indexVal != '-1' ? this.currentCropDetailsArray[indexVal].isDeleted = true :''
+        // this.currentCropDetailsArray[indexVal].isDeleted = true
+      };
+      let currentCropDetails:any = [];    
+      this.currentCropDetailsArray.find((ele:any)=>{
+        if(ele.isDeleted){
+        }else{
+          currentCropDetails.push(ele);
+        }
+      })
+      this.dataSource = new MatTableDataSource(currentCropDetails);
+     }else{    
+      
+      if(index.id == 0){
+        this.internalSchemesArray.splice(index, 1)
+      }else{
+        let indexVal :any = this.internalSchemesArray.findIndex((ele:any)=>ele.id ==   index.id)
+        indexVal != '-1' ? this.internalSchemesArray[indexVal].isDeleted = true :''
+      };
+      let internalScheme:any = [];    
+      this.internalSchemesArray.find((ele:any)=>{
+        if(ele.isDeleted){
+        }else{
+          internalScheme.push(ele);
+        }
+      })
+      this.dataSource1 = new MatTableDataSource(internalScheme);
+     }
+   
   }
   //#region  -----------------------------------------------------------doc upload section fn start heare-----------------------------------//
 
   fileUpload(event: any, docId?: any, flag?: any) {
-    console.log("docId",docId);
-    
     let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray, 'docTypeId', docId);
     console.log("docId",indexByDocId);
     this.spinner.show();
@@ -829,35 +853,40 @@ export class CreateSamgraAppComponent {
       docname: formValue.docname,
       isDeleted: false
     }
-    if (this.otherDocForm.invalid && !this.uploadedDocUrl) {
-      !this.uploadedDocUrl ? this.viewMsgFlag = true : ''
-      return
-    } else {
-      if (!this.otherDocArray.length) {
-        this.otherDocArray.push(obj);
-        this.commonMethod.snackBar("Add successfully", 0);
-      } else {
-        let existedRecord = this.otherDocArray.find((res: any) => res.docname == formValue.docname);
-        if (existedRecord) {
-          this.commonMethod.snackBar("This Document already exist", 1);
-          return
-        } else {
-          this.otherDocArray.push(obj), this.commonMethod.snackBar("Add successfully", 0);
-        }
+      let existedRecord = this.otherDocArray.find((res: any) => (res.docname == formValue.docname));
+      if (existedRecord) {
+        existedRecord.id !=0 && existedRecord.isDeleted  ? (existedRecord.isDeleted =false,this.commonMethod.snackBar("Add successfully", 0)): this.commonMethod.snackBar("This Document already exist", 1)
+      } else {     
+        this.otherDocArray.push(obj), this.commonMethod.snackBar("Add successfully", 0);
       }
+      this.dataSource2 = new MatTableDataSource(this.otherDocArray);
       this.checkOtherDocumentFlag = true;
       this.uploadedDocUrl = '';
       this.viewMsgFlag = false;
-      this.dataSource2 = new MatTableDataSource(this.otherDocArray);
       this.DocumentDirective.resetForm();
-      this.otherDocumentFormData();
-    }
+      this.otherDocumentFormData();    
   }
   deleteOtherDoc(index: any) {
-    this.otherDocArray[index].isDeleted = true
-    this.otherDocArray.splice(index, 1)
-    this.dataSource2 = new MatTableDataSource(this.otherDocArray);
+    if(index.id == 0){
+      this.otherDocArray.splice(index, 1)
+    }else{
+      let indexVal = this.otherDocArray.findIndex((ele:any)=>ele.id ==  index.id)
+      this.otherDocArray[indexVal].isDeleted = true
+    };
+    let otherDoc:any = [];    
+    this.otherDocArray.find((ele:any)=>{
+      if(ele.isDeleted){
+      }else{
+        otherDoc.push(ele);
+      }
+    })
+    this.dataSource2 = new MatTableDataSource(otherDoc);
+   }
+
+   getDocumentsWithDocId() {  //preview other docment
+    this.showotherDoc = this.previewData?.documents.filter((doc: any) => doc.docId == 7);
   }
+  
 
   deleteProfilePhoto(flag?: any) {
     flag == 'delete' ? this.profileImageUrl = '' : ''
@@ -887,6 +916,7 @@ export class CreateSamgraAppComponent {
             this.bankDetailsFormData(this.previewData);
             this.selfDeclarationFormData(this.previewData);
             this.onEdit(this.previewData);
+            this.getDocumentsWithDocId();
           } else if (res.statusCode == "500") {
             this.clearForm();
             this.commonMethod.snackBar("Data Not Found", 1)
@@ -906,10 +936,14 @@ export class CreateSamgraAppComponent {
     this.getTaluka();
     this.checkedItems = data.categoryOfBeneficiaries
     this.currentCropDetailsArray = data.currentProducts
+    // this.currentCropDetailsArray.map()
     this.dataSource = new MatTableDataSource(this.currentCropDetailsArray);
     this.profileImageUrl = data.profilePhotoPath;
     this.registionFeeUrl = data.registrationFeeReceiptPath;
     this.internalSchemesArray = data.internalSchemes;
+    // this.internalSchemesArray.map((res:any)=>{
+    //   res['isDeleted'] = false
+    // })
     this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
     this.docArray.find((ele: any, i: any) => {
       data.documents.find((item: any) => {
@@ -928,6 +962,8 @@ export class CreateSamgraAppComponent {
       })
     })
     this.dataSource2 = new MatTableDataSource(this.otherDocArray);
+
+    
     this.clearDocumentValidation();
     this.checkedItems.map((ele: any) => {
       ele['textEnglish'] = ele.categoryOfBeneficiary;

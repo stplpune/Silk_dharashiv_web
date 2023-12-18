@@ -1225,7 +1225,7 @@
                           </span>
                         </button>
                         <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
-                          (click)="deleteOtherDoc(i)">
+                          (click)="deleteOtherDoc(element)">
                           <span class="material-symbols-rounded text-danger">
                             delete
                           </span>
@@ -1384,7 +1384,7 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'addManrega.select_gender'| translate}}</div>
                   <span class=" form-data rounded-pill"> {{lang == 'en' ? (previewData?.gender | dash ) :
-                    (previewData?.m_gender | dash)}}</span>
+                    (previewData?.m_Gender | dash)}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div class="form-label">{{'addManrega.education'| translate}}</div>
@@ -1494,7 +1494,7 @@
 
                           <ng-container matColumnDef="cropId">
                             <th mat-header-cell *matHeaderCellDef> {{'addSamgra.Crop_Name' | translate}}</th>
-                            <td mat-cell *matCellDef="let element"> {{element?.cropId || '-'}} </td>
+                            <td mat-cell *matCellDef="let element"> {{lang == 'en' ? element.cropName  :element.m_CropName }} </td>
                           </ng-container>
 
                           <ng-container matColumnDef="area">
@@ -1733,6 +1733,14 @@
                           visibility
                         </mat-icon>
                       </span>
+                    </li>
+                  </ng-container>
+                     <ng-container *ngIf="showotherDoc.length  && doc.docId == 7">
+                    <li  class="list-group-item d-flex justify-content-between align-items-center">                    
+                      <div class="form-label">{{lang == 'en' ? doc.documentName  :doc.m_DocumentName }}</div>
+                      <span class="form-data rounded-pill" (click)="viewimage(doc.documentPath)">
+                        <mat-icon class="material-symbols-outlined">visibility</mat-icon>
+                      </span>                  
                     </li>
                   </ng-container>
                   </ul>
