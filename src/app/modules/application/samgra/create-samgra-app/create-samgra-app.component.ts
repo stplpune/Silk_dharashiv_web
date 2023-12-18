@@ -511,7 +511,7 @@ export class CreateSamgraAppComponent {
       ...landDetailsFormValue,
       ...bankDetailsFormValue,
       "id": this.EditFlag ? this.previewData.id : this.currentRecordId,
-      "farmerId": 0,
+      "farmerId": this.WebStorageService.getUserId(),
       "schemeTypeId": 2,
       "applicationNo": "",
       "profilePhotoPath": this.profileImageUrl || '',
@@ -550,8 +550,9 @@ export class CreateSamgraAppComponent {
       "sm_IsHonestlyProtectPlant": selfDeclarationFormValue.sm_IsHonestlyProtectPlant || false,
       "sm_IsRequestForYourPriorConsent": selfDeclarationFormValue.sm_IsRequestForYourPriorConsent || false,
       "registrationFeeReceiptPath": '',
-      "createdBy": 0,
-      "flag": (flag == 'samgraForm' && !this.EditFlag) ? 0 : (flag == 'samgraForm' && this.EditFlag) ? 1 : flag == 'landDetailsForm' ? 2 : flag == 'bankDetailsForm' ? 3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'addCurrency' ? 7 : '',
+      "createdBy": this.WebStorageService.getUserId(),
+      // "flag": (flag == 'samgraForm' && !this.EditFlag) ? 0 : (flag == 'samgraForm' && this.EditFlag) ? 1 : flag == 'landDetailsForm' ? 2 : flag == 'bankDetailsForm' ? 3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'addCurrency' ? 7 : '',
+      "flag": (flag == 'samgraForm' &&  this.currentRecordId == 0) ? 0 : (flag == 'samgraForm' && this.currentRecordId !=0) ? 1 : flag == 'landDetailsForm' ? 2 : flag == 'bankDetailsForm' ? 3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'addCurrency' ? 7 : '',
       "isUpdate": true,
       "appDoc": documets,
       "categoryId": this.checkedItems.map((x: any) => { return x.id }),
@@ -916,6 +917,7 @@ export class CreateSamgraAppComponent {
         next: ((res: any) => {
           if (res.statusCode == "200") {
             this.previewData = res.responseData;
+            this
             this.samgraformData(this.previewData);
             this.landDetailsFormData(this.previewData);
             this.bankDetailsFormData(this.previewData);
