@@ -122,7 +122,7 @@ export class CreateManaregaAppComponent {
     this.addOtherDocument();
     this.addRegistrationFrm();
     this.commonDropdown();
-    this.routingData ? this.getRouteParam() : '';
+    this.routingData ? this.getRouteParam() : this.getPreviewData('search');
   // this.getPreviewData('search'); // temp
   }
 
@@ -516,12 +516,12 @@ export class CreateManaregaAppComponent {
   }
 
   getPreviewData(flag?: any, id?: any) {
-    let filterData = this.filterFrm?.getRawValue();
+    //let filterData = this.filterFrm?.getRawValue();
     if (this.filterFrm.invalid) {
       this.commonMethod.snackBar("Please Enter Correct Details", 1)
       return
     } else {
-    let str = `MobileNo=${filterData?.mobileNo}&lan=${this.lang}`;
+    let str = `MobileNo=${this.WebStorageService.getMobileNo()}&lan=${this.lang}`;
     id ? str += `&Id=${id}` : '';
      let url = flag == 'search' ? `sericulture/api/Application/application-preview?`+str :'sericulture/api/Application/application-preview?Id='+(id)+'&lan='+this.lang ;
     //let url = flag == 'search' ? `sericulture/api/Application/application-preview?Id=0&MobileNo=9175515581&lan=${this.lang}` : 'sericulture/api/Application/application-preview?Id=' + (id) + '&lan=' + this.lang;
