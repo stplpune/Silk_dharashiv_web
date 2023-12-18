@@ -307,7 +307,7 @@ export class CreateSamgraAppComponent {
           if (res.statusCode == "200") {
             this.talukaArray = res.responseData;
             this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, 'textEnglish', this.talukaSubject);
-            this.EditFlag ? (this.f['talukaId'].setValue(this.previewData.talukaId), this.getGrampanchayat()) : '';
+            this.EditFlag ? (this.f['talukaId'].setValue(this.previewData.talukaId), this.getGrampanchayat()) : this.getGrampanchayat();
           }
           else {
             this.talukaArray = [];
@@ -919,20 +919,18 @@ export class CreateSamgraAppComponent {
         next: ((res: any) => {
           if (res.statusCode == "200") {
             this.previewData = res.responseData;
-            this
+            this.currentRecordId = this.previewData?.id;
             this.samgraformData(this.previewData);
             this.landDetailsFormData(this.previewData);
             this.bankDetailsFormData(this.previewData);
             this.selfDeclarationFormData(this.previewData);
             this.onEdit(this.previewData);
             this.getDocumentsWithDocId();
-          } else if (res.statusCode == "500") {
-            this.clearForm();
-            this.commonMethod.snackBar("Data Not Found", 1)
-            this.EditFlag = false
-          }
+          } 
           else {
+            this.currentRecordId = 0;
             this.previewData = [];
+            this.EditFlag = false;""
           }
         })
       })
@@ -1061,7 +1059,11 @@ export class CreateSamgraAppComponent {
     let formValue = this.samgraForm.getRawValue();
     if (formValue.mobileNo1 == formValue.mobileNo2) {
       this.f['mobileNo2'].setValue('');
-      this.commonMethod.snackBar("This mobile no. already exisit", 1)
+
+      // this.lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'
+      this.lang == 'en' ?this.commonMethod.snackBar("This mobile no. already exisit", 1) :this.commonMethod.snackBar("हा मोबाईल क्र. आधिपासूनच अस्तित्वात आहे", 1)
+      
+      
     }
 
   }
