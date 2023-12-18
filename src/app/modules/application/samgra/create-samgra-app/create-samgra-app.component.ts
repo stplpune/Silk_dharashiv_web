@@ -228,8 +228,8 @@ export class CreateSamgraAppComponent {
 
   internalSchemesFormData(data?: any) {
     this.internalSchemes = this.fb.group({
-      "id": [0],
-      "applicationId": [0],
+      "id": [data?.id || 0],
+      "applicationId": [data?.applicationId || 0],
       "internalSchemeName": ['' || data?.internalSchemeName],
       "schemeTakenDate": ['' || data?.schemeTakenDate],
       "totalBenefitTaken": ['' || data?.totalBenefitTaken],
@@ -711,26 +711,18 @@ export class CreateSamgraAppComponent {
     if (this.internalSchemes.invalid) {
       return;
     } else {
-      if (!this.internalSchemesArray.length) {
-        this.internalSchemesArray.push(fromvalue);
-        this.commonMethod.snackBar("Add successfully", 0)
-        this.ScheemDirective && this.ScheemDirective.resetForm();
-      } else {
-        let existedRecord = this.internalSchemesArray.find((res: any) => res.internalSchemeName == fromvalue.internalSchemeName);
-        if (existedRecord && !this.InternalSchemesEditFlag) {
-          this.commonMethod.snackBar("This scheem already exist", 0);
-          return
-        } else {
-          this.InternalSchemesEditFlag ? (this.internalSchemesArray[this.InternalSchemesIndex] = fromvalue, this.commonMethod.snackBar("Update successfully", 0)) : (this.internalSchemesArray.push(fromvalue), this.commonMethod.snackBar("Add successfully", 0));
-          this.ScheemDirective && this.ScheemDirective.resetForm();
-        }
+      let existedRecord = this.internalSchemesArray.find((res: any) => (res.internalSchemeName == fromvalue.internalSchemeName));
+      if (existedRecord ) {
+        existedRecord.id !=0 && existedRecord.isDeleted  ? (existedRecord.isDeleted =false,this.commonMethod.snackBar("Add successfully", 0)): this.commonMethod.snackBar("This scheem already exist", 1)
+      } else {     
+        this.InternalSchemesEditFlag  ? (this.internalSchemesArray[this.InternalSchemesIndex] = fromvalue, this.commonMethod.snackBar("Update successfully", 0)) : (this.internalSchemesArray.push(fromvalue), this.commonMethod.snackBar("Add successfully", 0));
       }
-      this.internalSchemesArray.length ? this.checkinternalSchemesflag = true : '';
+      this.ScheemDirective && this.ScheemDirective.resetForm();
       this.internalSchemesFormData();
       this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
       this.InternalSchemesEditFlag = false;
-      // this.checkInternalInternalscheme();
     }
+    
   }
 
   onEditInternalSchemes(obj: any, i: number) {
@@ -935,7 +927,9 @@ export class CreateSamgraAppComponent {
     this.getTaluka();
     this.checkedItems = data.categoryOfBeneficiaries
     this.currentCropDetailsArray = data.currentProducts
-    // this.currentCropDetailsArray.map()
+    this.currentCropDetailsArray.map((res:any)=>{
+      res['isDeleted'] = false
+    })
     this.dataSource = new MatTableDataSource(this.currentCropDetailsArray);
     this.profileImageUrl = data.profilePhotoPath;
     this.registionFeeUrl = data.registrationFeeReceiptPath;
