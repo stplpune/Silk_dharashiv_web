@@ -57,6 +57,7 @@ export class FarmerLoginComponent {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
+    this.getOtpFormData();
   }
 
   getOtpFormData() {
@@ -170,7 +171,7 @@ export class FarmerLoginComponent {
   }
 
   redirectPage() {
-    this.router.navigate(['farmer-signup']);
+    this.router.navigate(['/farmer-signup']);
   }
 
 

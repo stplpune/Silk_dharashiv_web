@@ -54,7 +54,8 @@ export class FarmersignupComponent {
   ) {
     localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
     this.translate.use(this.getLangForLocalStor);
-    let paramData: any = this.activatedRoute.snapshot.queryParams; this.mobNo = this.encryptDecryptService?.decrypt(paramData?.mobNo).toString();
+    let paramData: any = this.activatedRoute.snapshot.queryParams;
+    this.mobNo = paramData?.mobNo ? this.encryptDecryptService?.decrypt(paramData?.mobNo).toString() : '';
   }
 
   ngOnInit() {
