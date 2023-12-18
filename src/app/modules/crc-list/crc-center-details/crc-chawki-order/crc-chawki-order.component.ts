@@ -112,7 +112,7 @@ export class CrcChawkiOrderComponent {
       autoFocus: true,
     });
     dialogRef.afterClosed().subscribe(() => {
-
+      this.getTableData();
     });
   }
 
