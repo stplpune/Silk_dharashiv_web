@@ -592,15 +592,16 @@ export class CreateSamgraAppComponent {
       if (result == 'close') {
         return;
       } else {
-        let existedRecord = this.currentCropDetailsArray.find((res: any) => res.cropId == result.cropId);
+        let existedRecord = this.currentCropDetailsArray.find((res: any) => (res.cropId == result.cropId));
         if (existedRecord && !obj) {
-          this.commonMethod.snackBar("This Crop already exist", 1)
+          existedRecord.id !=0 && existedRecord.isDeleted  ? (existedRecord.isDeleted =false,this.commonMethod.snackBar("Add successfully", 0)): this.commonMethod.snackBar("This Crop already exist", 1)
         } else {
           let formvalue = result
-          formvalue.applicationId = this.previewData?.id || this.currentRecordId || 0
+          formvalue.applicationId = this.previewData?.id || this.currentRecordId || 0;
+
           obj ? (this.currentCropDetailsArray[index] = result, this.commonMethod.snackBar("Update successfully", 0)) : (this.currentCropDetailsArray.push(result), this.commonMethod.snackBar("Add successfully", 0));
         }
-        this.isDelFlagInternalSchemes(this.currentCropDetailsArray)
+        this.dataSource = new MatTableDataSource(this.currentCropDetailsArray);
       }
     });
   }
