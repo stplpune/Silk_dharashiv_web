@@ -14,7 +14,9 @@
       <div class="form-label">{{'addSamgra.select_Crop_Name' | translate}}</div>
       <mat-form-field appearance="outline" class="w-100">
         <mat-select formControlName="cropId">
-          <mat-option *ngFor="let farmsGood of farmsGoodArray" [value]="farmsGood.id">{{farmsGood.textEnglish}}</mat-option>
+          <mat-option *ngFor="let farmsGood of farmsGoodArray" [value]="farmsGood.id">
+            {{lang != 'en' ? farmsGood.textMarathi : farmsGood.textEnglish}}
+          </mat-option>
           <!-- <mat-option>अल्प</mat-option>
           <mat-option>मध्यम</mat-option>
           <mat-option>उच्च भूधारक</mat-option> -->
