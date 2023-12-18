@@ -60,7 +60,7 @@ export class CreateSamgraAppComponent {
   dataSource1: any;
   dataSource2: any;
   genderArray: any = [{ id: 1, name: 'Male', m_name: 'पुरुष' }, { id: 2, name: 'Female', m_name: 'स्त्री' }];
-  checkedArray: any = [{ id: true, name: 'Yes', m_name: 'हो' }, { id: false, name: 'No', m_name: 'नाही' }];
+  checkedArray: any = [{ id: true, name: 'Yes', m_name: 'होय' }, { id: false, name: 'No', m_name: 'नाही' }];
 
   showOtherDoc: boolean = false;
   currentRecordId: number = 0;
@@ -158,7 +158,6 @@ export class CreateSamgraAppComponent {
     this.getPlantationMethod();
     this.getMulberryCultivationArea();
     this.samgraId[0] ? this.getPreviewData() : '';
-
     let photoValidation = ['profilePhotoPath']
     !this.profileImageUrl ? (this.setValidation(photoValidation, this.f)) : this.clearValidation(photoValidation, this.f)
   }
@@ -204,7 +203,7 @@ export class CreateSamgraAppComponent {
       "sm_CultivatedArea": [data?.sm_CultivatedArea || ''],
       "sm_LandSurveyNo": [data?.sm_LandSurveyNo || ''],
       "sm_ImprovedMulberryCast": [data?.sm_ImprovedMulberryCast || '', [Validators.required]],
-      "sm_MulberryPlantingDistance": [data?.sm_MulberryPlantingDistance || '', [Validators.required, this.validation.maxLengthValidator(4), Validators.pattern(this.validation.onlyNumbers)]],
+      "sm_MulberryPlantingDistance": [data?.sm_MulberryPlantingDistance || '', [Validators.required, this.validation.maxLengthValidator(4), Validators.pattern(this.validation.numericWithdecimaluptotwoDigits)]],
       "sm_PlantationSurveyNo": [data?.sm_PlantationSurveyNo || '', [Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.onlyNumbers)]],
       "sm_MulberryCultivationArea": [data?.sm_MulberryCultivationArea || '', [Validators.required]],
       "sm_PlantationMethod": [data?.sm_PlantationMethod || '', [Validators.required]],
@@ -595,7 +594,7 @@ export class CreateSamgraAppComponent {
       } else {
         let existedRecord = this.currentCropDetailsArray.find((res: any) => res.cropId == result.cropId);
         if (existedRecord && !obj) {
-          this.commonMethod.snackBar("this  Crop already exist", 1)
+          this.commonMethod.snackBar("This Crop already exist", 1)
         } else {
           let formvalue = result
           formvalue.applicationId = this.previewData?.id || this.currentRecordId || 0
@@ -606,9 +605,7 @@ export class CreateSamgraAppComponent {
     });
   }
 
-  categoryDialogBox() {
-    console.log("this.categoryArray",this.categoryArray);
-    
+  categoryDialogBox() {    
     const dialogRef = this.dialog.open(CategoryDetailsComponent, {
       width: '400px',
       data: this.categoryArray,
@@ -696,14 +693,6 @@ export class CreateSamgraAppComponent {
     })
   }
 
-  // checkInternalInternalscheme() {
-  //   let landDetailsFormValue = this.landDetailsForm.getRawValue();
-  //   let setValArray = ['checkinternalSchemes'];
-  //   this.setValidation(setValArray, this.fL);
-  //   this.clearValidation(setValArray, this.fL);
-  //   (landDetailsFormValue.sm_IsTakenBenefitOfInternalScheme == true && this.internalSchemesArray.length) ? (this.clearValidation(setValArray, this.fL)) : (landDetailsFormValue.sm_IsTakenBenefitOfInternalScheme == true && !this.internalSchemesArray.length) ? (this.setValidation(setValArray, this.fL)) : (this.clearValidation(setValArray, this.fL));
-
-  // }
   addInternalSchemes() {
     let fromvalue = this.internalSchemes.getRawValue();
     if (!fromvalue?.internalSchemeName && this.landDetailsForm.getRawValue().sm_IsTakenBenefitOfInternalScheme) {
@@ -766,9 +755,7 @@ export class CreateSamgraAppComponent {
       let indexVal = this.currentCropDetailsArray.findIndex((ele:any)=>ele.id ==   index.id)
       this.currentCropDetailsArray[indexVal].isDeleted = true
     };
-
-    let currentCropDetails:any = [];
-    
+    let currentCropDetails:any = [];    
     this.currentCropDetailsArray.find((ele:any)=>{
       if(ele.isDeleted){
       }else{
@@ -1020,6 +1007,15 @@ export class CreateSamgraAppComponent {
   }
   goForward(stepper: MatStepper) {
     stepper.next();
+  }
+
+  checkMobileNo(){
+   let formValue =  this.samgraForm.getRawValue();
+   if(formValue.mobileNo1 == formValue.mobileNo2){
+    this.f['mobileNo2'].setValue('');
+    this.commonMethod.snackBar("This mobile no. already exisit", 1)
+   }
+
   }
 }
 

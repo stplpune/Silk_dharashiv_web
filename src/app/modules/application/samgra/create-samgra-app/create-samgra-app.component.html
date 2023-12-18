@@ -159,7 +159,7 @@
                 <div class="form-label">4.{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="mobileNo2" maxlength="10"
+                    <input matInput placeholder="" formControlName="mobileNo2" maxlength="10" (input)="checkMobileNo()"
                       (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';">
                       <mat-error>
                     <span class="text-danger"
@@ -581,8 +581,8 @@
                   <div class="col-sm-4">
                     <div class="form-label">{{'addSamgra.Mulberry_Planting_Distance' | translate}}:</div>
                     <mat-form-field appearance="outline" class="w-100">
-                      <input matInput placeholder="" formControlName="sm_MulberryPlantingDistance" maxlength="4"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
-                        (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+                      <input matInput placeholder="" formControlName="sm_MulberryPlantingDistance" maxlength="4"  
+                        (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
                         <mat-error
                         *ngIf="fL['sm_MulberryPlantingDistance'].hasError('required') ">{{'addSamgra.please_enter_Planting_Distance'|translate}}</mat-error>
                       <mat-error *ngIf="fL['sm_MulberryPlantingDistance']?.errors">

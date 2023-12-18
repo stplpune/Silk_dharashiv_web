@@ -211,7 +211,7 @@
     "please_enter_valid_number_of_trees_planted": "Please enter valid number of trees planted",
 
 
-    "add_more_details":"Add more details",
+    "add_more_details":"Add details",
     "bank_details": "Bank Details",
     "bank_name": "Bank Name",
     "branch": "Bank Branch",
@@ -728,7 +728,7 @@
     "group_area":"Group Area (Hectares)",
     "cultivated_area":"Cultivated Area (Hectares)",
     "number_of_trees_planted":"Number of trees planted",
-    "add_more_details":"Add more details",
+    "add_more_details":"Add details",
     "will_he_take_the_training":"Will he take the training of silk industry himself or send the candidate",
     "candidate's_Name":"Candidate's Name",
     "relationship_with_the_candidate":"Relationship with the candidate",
@@ -782,7 +782,7 @@
 
     "Year_date":"Date",
     "Total_Benefit_Amount" :"Total Benefit Amount ?",
-    "Add_more_details" : "Add more details",
+    "Add_more_details" : "Add details",
     "Aadhaar_card" : "Aadhaar card",
     "Land_7/12_with_Mulberry_Note_Talathi_Certificate" : "Land 7/12 with Mulberry Note or Talathi Certificate",
     "8_A_track_of_Land" : "8 A track of Land",
@@ -889,7 +889,9 @@
 
     "Total_Benefit_enter":"Please enter total Benefit Amount (Rs.)",
     "Total_Benefit_valid":"Please enter valid total Benefit Amount (Rs.)",
-    "Total_Benefit_maximum_10_digit_allowed": "Maximun 10 digit allowed"
+    "Total_Benefit_maximum_10_digit_allowed": "Maximun 10 digit allowed",
+    "OK":"OK"
+    
 
 
 
