@@ -43,7 +43,7 @@
   </mat-card-content> -->
   <mat-card-content class=" card-body form-container">
     <!-- [linear]="!isLinear" -->
-    <mat-stepper #stepper [linear]="!isLinear">
+    <mat-stepper #stepper>
       <mat-step [stepControl]="samgraForm"   >
         <ng-template matStepLabel>{{'addSamgra.Original_details' | translate}}</ng-template>
         <form [formGroup]="samgraForm"  #samgraDirective="ngForm" >
@@ -230,7 +230,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="talukaId" (selectionChange)="getGrampanchayat('gramp')">
                     <mat-option>
-                      <ngx-mat-select-search [formControl]="talukaCtrl" 
+                      <ngx-mat-select-search [formControl]="talukaCtrl"
                       placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
                       noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"
                         ></ngx-mat-select-search>
@@ -248,7 +248,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="grampanchayatId">
                     <mat-option>
-                      <ngx-mat-select-search [formControl]="gramPCtrl" 
+                      <ngx-mat-select-search [formControl]="gramPCtrl"
                       placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
                       noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
                     </mat-option>
@@ -434,9 +434,9 @@
                     <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1 ></mat-datepicker>
                     <mat-error
-                      *ngIf="fL['sm_YearOfPlanting'].hasError('required') ">{{'addSamgra.Plantation_years_select'|translate}}</mat-error>                     
-                  </mat-form-field>               
-                </div>               
+                      *ngIf="fL['sm_YearOfPlanting'].hasError('required') ">{{'addSamgra.Plantation_years_select'|translate}}</mat-error>
+                  </mat-form-field>
+                </div>
                 <div class="col-sm-4">
                   <div class="form-label">23.2. {{'addSamgra.Cultivation_area' | translate}}</div>
                   <div class="form-label">
@@ -591,7 +591,7 @@
                   <div class="col-sm-4">
                     <div class="form-label">25.2.{{'addSamgra.Mulberry_Planting_Distance' | translate}}:</div>
                     <mat-form-field appearance="outline" class="w-100">
-                      <input matInput placeholder="" formControlName="sm_MulberryPlantingDistance" maxlength="4"  
+                      <input matInput placeholder="" formControlName="sm_MulberryPlantingDistance" maxlength="4"
                         (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
                         <mat-error
                         *ngIf="fL['sm_MulberryPlantingDistance'].hasError('required') ">{{'addSamgra.please_enter_Planting_Distance'|translate}}</mat-error>
@@ -761,7 +761,7 @@
                       <mat-datepicker #datePicker></mat-datepicker>
                       <!-- <mat-error
                       *ngIf="fIS['schemeTakenDate']?.hasError('required') ">{{'addSamgra.date_select'|translate}}</mat-error>-->
-                    </mat-form-field> 
+                    </mat-form-field>
                   </div>
                   <div class="col-sm">
                     <mat-label class="form-label">29.3.{{'addSamgra.Total_Benefit_Amount' | translate}}</mat-label>
@@ -1556,8 +1556,16 @@
                       </div>
                     </ng-container>
 
-                    <div class="form-label">{{'addSamgra.Mulberry_Plantatio_Details' | translate}} :</div>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <h6 class="text-main fw-bold mb-0">Mulberry Details</h6>
+            <div class="row gx-2 gy-2">
+              <div class="col-sm-6">
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'addSamgra.Varieties_of_Mulberr_Trees' | translate}}</div>
                       <span class="form-data  rounded-pill">:{{lang == 'en' ? previewData?.improvedMulberryCast : previewData?.m_ImprovedMulberryCast }}</span>
                     </li>
@@ -1571,7 +1579,6 @@
                       <div class="form-label"> {{'addSamgra.Plantation_land_Survey_No' | translate}}</div>
                       <span class="form-data  rounded-pill">:{{previewData?.sm_PlantationSurveyNo | dash}}</span>
                     </li>
-
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label"> {{'addSamgra.Mulberry_Plantation_Area_in_acre' | translate}}</div>
                       <span class="form-data  rounded-pill">:{{lang == 'en' ? previewData?.mulberryCultivationArea : previewData?.m_MulberryCultivationArea }}</span>
@@ -1582,41 +1589,52 @@
                       <span class="form-data  rounded-pill">: {{lang == 'en' ? previewData?.plantationMethod : previewData?.m_PlantationMethod }}
                       </span>
                     </li>
-
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">{{'addSamgra.experience_in_silk_industry' | translate}}</div>
-                      <span class="form-data  rounded-pill">:{{ previewData?.sm_IsExperienceSilkIndustry == true ? ('approvalProcess.yes'| translate) : ('approvalProcess.no'| translate) }}</span>
-                    </li>
-                    <ng-container *ngIf="previewData?.sm_IsExperienceSilkIndustry == true">
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="form-label">{{'addSamgra.sm_ExperienceYears' | translate}} </div>
-                        <span class="form-data  rounded-pill">:{{previewData?.sm_SilkIndustrtyTrainingDetails}}</span>
-                      </li>
-                    </ng-container>
+                    <div class="form-label">{{'addSamgra.experience_in_silk_industry' | translate}}</div>
+                    <span class="form-data  rounded-pill">:{{ previewData?.sm_IsExperienceSilkIndustry == true ? ('approvalProcess.yes'|
+                      translate) : ('approvalProcess.no'| translate) }}</span>
+                  </li>
+                  </ul>
+              </div>
+              <div class="col-sm-6">
+                <ul class="list-group">
 
+                  <ng-container *ngIf="previewData?.sm_IsExperienceSilkIndustry == true">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label"> {{'addSamgra.traning' | translate}}</div>
-                      <span class="form-data  rounded-pill">:{{ previewData?.sm_IsSilkIndustrtyTrainingReceived == true ? ('approvalProcess.yes'| translate) : ('approvalProcess.no'| translate) }}</span>
+                      <div class="form-label">{{'addSamgra.sm_ExperienceYears' | translate}} </div>
+                      <span class="form-data  rounded-pill">:{{previewData?.sm_SilkIndustrtyTrainingDetails}}</span>
                     </li>
-                    <ng-container *ngIf="previewData?.sm_IsSilkIndustrtyTrainingReceived == true">
+                  </ng-container>
+
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="form-label"> {{'addSamgra.traning' | translate}}</div>
+                    <span class="form-data  rounded-pill">:{{ previewData?.sm_IsSilkIndustrtyTrainingReceived == true ?
+                      ('approvalProcess.yes'| translate) : ('approvalProcess.no'| translate) }}</span>
+                  </li>
+                  <ng-container *ngIf="previewData?.sm_IsSilkIndustrtyTrainingReceived == true">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'addSamgra.training_in_silk_industry' | translate}} </div>
                       <span class="form-data  rounded-pill">:{{previewData?.sm_SilkIndustrtyTrainingDetails}}</span>
                     </li>
                   </ng-container>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">{{'addSamgra.silk_industry_farmer_and_taken_the_information' |
-                        translate}}
-                      </div>
-                      <span class="form-data  rounded-pill">:{{ previewData?.sm_IsEngagedInSilkIndustry == true ? ('approvalProcess.yes'| translate) : ('approvalProcess.no'| translate) }}</span>
-                    </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="form-label">{{'addSamgra.silk_industry_farmer_and_taken_the_information' |
+                      translate}}
+                    </div>
+                    <span class="form-data  rounded-pill">:{{ previewData?.sm_IsEngagedInSilkIndustry == true ? ('approvalProcess.yes'|
+                      translate) : ('approvalProcess.no'| translate) }}</span>
+                  </li>
 
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label"> {{'addSamgra.benefited_from_any_scheme_under_Silk_Directorate_before_this' |
-                        translate}}</div>
-                      <span class="form-data  rounded-pill"
-                      >:{{ previewData?.sm_IsTakenBenefitOfInternalScheme == true ? ('approvalProcess.yes'| translate) : ('approvalProcess.no'| translate) }}</span>
-                    </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="form-label"> {{'addSamgra.benefited_from_any_scheme_under_Silk_Directorate_before_this' |
+                      translate}}</div>
+                    <span class="form-data  rounded-pill">:{{ previewData?.sm_IsTakenBenefitOfInternalScheme == true ?
+                      ('approvalProcess.yes'| translate) : ('approvalProcess.no'| translate) }}</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-sm-12">
+                <div class="table-responsive scrollbar">
                   <ng-container  *ngIf="previewData?.sm_IsTakenBenefitOfInternalScheme == true">
                     <div class="table-responsive scrollbar">
                       <table mat-table [dataSource]="previewData?.internalSchemes" class="dashboard-table">
@@ -1650,9 +1668,8 @@
                       </div>
                     </div>
                   </ng-container>
-                  </ul>
+                  </div>
                 </div>
-              </div>
             </div>
             <div class="col-sm-12">
               <div class="row gx-2 gy-3">
@@ -1755,11 +1772,11 @@
                     </li>
                   </ng-container>
                      <ng-container *ngIf="showotherDoc.length  && doc.docId == 7">
-                    <li  class="list-group-item d-flex justify-content-between align-items-center">                    
+                    <li  class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{lang == 'en' ? doc.documentName  :doc.m_DocumentName }}</div>
                       <span class="form-data rounded-pill" (click)="viewimage(doc.documentPath)">
                         <mat-icon class="material-symbols-outlined">visibility</mat-icon>
-                      </span>                  
+                      </span>
                     </li>
                   </ng-container>
                   </ul>
