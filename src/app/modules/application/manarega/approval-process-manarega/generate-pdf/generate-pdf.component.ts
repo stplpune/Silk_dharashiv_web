@@ -96,6 +96,7 @@ export class GeneratePdfComponent {
   }
 
   getEstimateData() {
+    this.spinner.show();
     this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -120,6 +121,7 @@ export class GeneratePdfComponent {
   }
 
   getEstimateSanctionData() {
+    this.spinner.show();
     this.apiService.setHttp('GET', 'sericulture/api/TechnicalSanctionLetter/GetTechnicalSanctionLetter?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -194,6 +196,7 @@ export class GeneratePdfComponent {
   }
 
   getAnotherEstimateData() {
+    this.spinner.show();
     this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
