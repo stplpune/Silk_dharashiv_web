@@ -16,60 +16,94 @@
     <div class="card card-body mb-3">
       <div class="row g-2">
         <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">{{'approvalProcess.applicant_id'| translate}} ({{'approvalProcess.date'| translate}}):</div>
-            <div class="form-data">{{(applicationData?.applicationNo) | dash }} ({{applicationData?.applicationDate |
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <div class="form-label mb-0">{{'approvalProcess.applicant_id'| translate}} ({{'approvalProcess.date'| translate}}):</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-data">{{(applicationData?.applicationNo) | dash }} ({{applicationData?.applicationDate |
               date:'dd-MM-yyyy'}})</div>
           </div>
         </div>
+        </div>
         <div class="col-sm-4" *ngIf="applicationData?.getSiteInspectionDataModel?.isSiteInspectionDone">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">{{'approvalProcess.mulberry_id'| translate}}:</div>
-            <div class="form-data">{{applicantDetails?.mulberryId}} ({{(applicantDetails?.mulberryIdGeneratedDate|
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <div class="form-label mb-0">{{'approvalProcess.mulberry_id'| translate}}:</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-data">{{applicantDetails?.mulberryId}} ({{(applicantDetails?.mulberryIdGeneratedDate|
               date:'dd-MM-yyyy') | dash}})</div>
+              </div>
           </div>
         </div>
         <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">{{'approvalProcess.applicant_name_mob'| translate}}:</div>
-            <div class="form-data">{{(lang == 'en' ? (applicantDetails?.fullName | dash ) :
-              (applicantDetails?.m_FullName | dash))}} </div>
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <div class="form-label mb-0">{{'approvalProcess.applicant_name_mob'| translate}}:</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-data">{{(lang == 'en' ? (applicantDetails?.fullName | dash ) :
+                (applicantDetails?.m_FullName | dash))}}
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">{{'common.mobile'| translate}}:</div>
-            <div class="form-data">{{applicantDetails?.mobileNo1 | dash}} </div>
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <div class="form-label mb-0">{{'common.mobile'| translate}}:</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-data">{{applicantDetails?.mobileNo1 | dash}} </div>
+            </div>
           </div>
         </div>
         <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">{{'manrega.scheme'| translate}}:</div>
-            <div class="form-data">{{lang == 'en' ? (applicationData?.schemeType | dash) :
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <div class="form-label mb-0">{{'manrega.scheme'| translate}}:</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-data">{{lang == 'en' ? (applicationData?.schemeType | dash) :
               (applicationData?.m_SchemeType | dash)}} </div>
+              </div>
           </div>
         </div>
 
         <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">{{'approvalProcess.process_department'| translate}}:</div>
-            <div class="form-data">{{lang == 'en' ? (applicationData?.departmentName | dash) :
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <div class="form-label mb-0">{{'approvalProcess.process_department'| translate}}:</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-data">{{lang == 'en' ? (applicationData?.departmentName | dash) :
               (applicationData?.m_DepartmentName | dash)}} </div>
+              </div>
           </div>
         </div>
 
         <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">{{'approvalProcess.plantation_area'| translate}}:</div>
-            <div class="form-data">{{applicationData?.mulberryCultivationArea | dash}} </div>
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <div class="form-label mb-0">{{'approvalProcess.plantation_area'| translate}}:</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-data">{{applicationData?.mulberryCultivationArea | dash}} </div>
+            </div>
           </div>
         </div>
 
-        <div class="col-sm">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0">{{'grainage.address'| translate}}:</div>
-            <div class="form-data">{{lang == 'en' ? (applicantDetails?.state +', '+applicantDetails?.taluka+','+applicantDetails?.village) : (applicantDetails?.m_State
-              +', '+applicantDetails?.m_Taluka+','+applicantDetails?.village)}}</div>
+        <div class="col-sm-12">
+          <div class="row gx-2">
+            <div class="col-sm-2">
+              <div class="form-label mb-0">{{'grainage.address'| translate}}:</div>
+            </div>
+            <div class="col-sm-10">
+              <div class="form-data">{{lang == 'en' ? (applicantDetails?.state +',
+                '+applicantDetails?.taluka+','+applicantDetails?.village) : (applicantDetails?.m_State
+                +', '+applicantDetails?.m_Taluka+','+applicantDetails?.village)}}</div>
+            </div>
           </div>
         </div>
 
