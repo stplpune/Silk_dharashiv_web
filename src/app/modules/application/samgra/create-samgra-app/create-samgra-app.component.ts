@@ -1028,7 +1028,7 @@ export class CreateSamgraAppComponent {
   openDialog(res?: any) {
     let dialoObj = {
       header: this.lang == 'mr-IN' ? 'अभिनंदन ' : 'Congratulations',
-      title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .अर्ज क्रमांक  : ' + res.responseData1 + res.responseData2 : 'Your application has been successfully submitted. Application no: ' + res.responseData1 +' '+this.datePipe.transform(res.responseData2,'dd/MM/yyyy hh:mm az'),
+      title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .अर्ज क्रमांक  : ' + res.responseData1 + res.responseData2 : 'Your application has been successfully submitted. Application no: ' + res.responseData1 +' '+this.datePipe.transform(res.responseData2,'dd/MM/yyyy hh:mm a'),
       cancelButton: '',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
       headerImage: 'assets/images/check.png'
