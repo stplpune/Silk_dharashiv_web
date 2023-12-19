@@ -1,11 +1,36 @@
 <mat-tab-group>
-    <mat-tab label="First"> Content 1 </mat-tab>
-    <mat-tab label="Second"> Content 2 </mat-tab>
-    <mat-tab label="Third"> Content 3 </mat-tab>
+    <mat-tab label="Manrega">
+        <p>महात्मा गांधी रोजगार हमी योजनेअंतर्गत नवीन तुती लागवड विकास योजना नोंदणी</p>
+        <p>प्रति लाभार्थी मर्यादा 1 एकर पर्यन्त योजनेचा सारांश
+            मनरेगा रेशीम उद्योग विकासांतर्गत एक एकर तुती लागवडीकरिता जमीन तयार करणे, नर्सरी रोपे करून तुति
+            लागवड, किटक संगोपन, किटक संगोपन साहित्य, कोष उत्पादन व किटक संगोपन गृह या सर्वकष बाबींना मान्यता
+            देऊन योजना संपूर्ण जिल्ह्यात लागू करण्यात आली आहे.
+            या योजनेअंतर्गत शेतकर्‍यांना 1 एकर तुती लागवडीसाठी रु. 2.18186 लक्ष तीन वर्षांत विभागून दिले जाते व
+            कीटक संगोपन गृह(1100 चौ. फुट) बांधकामासाठी रु. 1.79149 लक्ष असे एकूण रु. 3.97335 लक्ष रक्कम येवढे
+            अनुदान देण्यात येत आहे.</p>
+        <p>महात्मा गांधी रोजगार हमी योजनेअंतर्गत नवीन तुती लागवड विकास योजना नोंदणी</p>
+        <p> <mat-checkbox class="example-margin" (change)="selCheckBox($event, 1)">मी प्रदान केलेली माहिती वाचली
+                आहे आणि मी अटी व शर्तीना सहमती
+                देतो</mat-checkbox> </p>
+
+    </mat-tab>
+    <mat-tab label="Silk Collection 2">
+        <p>District Silk Office, Osmanabad</p>
+        <p>Application for Prior Consent Request for New Mulberry Cultivation Development Scheme for 02 Acres under
+            Centrally Sponsored Silk Samagra-2 Scheme
+        </p>
+        <p>Beneficiaries are highly qualified to participate in the scheme</p>
+        <p>7/12 and 8A Excerpt. Job Card, Aadhaar Card, Bank Passbook, Scanned Copy, 2-Passport Size Photographs, Self
+            Declaration of Olita</p>
+        <p> <mat-checkbox class="example-margin" (change)="selCheckBox($event, 2)" >I have read all the information provided and I agree to the terms and conditions </mat-checkbox></p>
+
+    </mat-tab>
+    <!-- <mat-tab label="Other"> Content 3 </mat-tab> -->
 </mat-tab-group>
 
 <div class="row">
     <div class="col-md-6 mx-auto">
+        <p>Mobile No : {{webStorage?.getMobileNo()}}</p>
         <mat-form-field appearance="outline" class="w-100">
             <input matInput [formControl]="aadhaarNo" placeholder="AadhaarNo">
         </mat-form-field>
