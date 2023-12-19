@@ -489,7 +489,8 @@
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
                       <input matInput placeholder="" formControlName="applicantFarmArea"
-                        (input)="FarmValidations('applicantFarmArea')">
+                       (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)"
+                       (blur)="FarmValidations('applicantFarmArea')">
                       <mat-error
                         *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo'].hasError('required') ">{{'approvalProcess.please_enter_its_area'|translate}}</mat-error>
                       <mat-error *ngIf="farmInfoFrm.controls['applicantFarmSurveyNo']?.errors">
@@ -831,8 +832,6 @@
               <div class="col-sm-4">
                 <div class="form-label">27.{{'approvalProcess.nationalise_bank_accountno'|translate}}<span
                     class="text-danger">*</span> </div>
-
-
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="bankAccountNo">
@@ -1007,7 +1006,7 @@
                   <form [formGroup]="otherDocumentFrm" #formDirectivess="ngForm">
                     <div class="row g-2 row g-2 align-items-center">
                       <div class="col-sm">
-                        <div class="form-label">{{'approvalProcess.document_name'|translate}} </div>
+                        <div class="form-label">{{'approvalProcess.document_name'|translate}}<span class="text-danger">*</span></div>
                         <div class="form-label">
                           <mat-form-field appearance="outline" class="w-100">
                             <input matInput placeholder="" formControlName="docname" maxlength="30"
@@ -1016,7 +1015,7 @@
                         </div>
                       </div>
                       <div class="col-sm">
-                        <div class="form-label">{{'approvalProcess.document_number'|translate}}</div>
+                        <div class="form-label">{{'approvalProcess.document_number'|translate}}<span class="text-danger">*</span></div>
                         <div class="form-label">
                           <mat-form-field appearance="outline" class="w-100">
                             <input matInput placeholder="" formControlName="docNo" maxlength="10"

@@ -680,7 +680,8 @@
     "Enter_OTP": "ओटीपी टाका",
     "Resend_OTP": "ओटीपी पुन्हा पाठवा",
     "Wait_for": "साठी प्रतीक्षा",
-    "Gender": "लिंग निवडा"
+    "Gender": "लिंग निवडा",
+    "Already_have_an_account" : "आधीपासूनच खाते आहे?"
   },
   "addManrega": {
     "original_details": "मूळ तपशील",

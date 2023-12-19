@@ -684,7 +684,8 @@
     "Enter_OTP": "Enter OTP",
     "Resend_OTP": "Resend OTP",
     "Wait_for": "Wait for",
-    "Gender": "Select Gender"
+    "Gender": "Select Gender",
+    "Already_have_an_account" : "Already have an account?"
   },
   "addManrega": {
     "original_details": "Original Details",
@@ -821,7 +822,7 @@
     "Preview": "Preview",
     "Individual_Information": "Individual Information",
     "Agriculture_and_Fruit_Production": "Agriculture and Fruit Production",
-    "Add_currency": "Add Currency",
+    "Add_currency": "Payment Receipt",
     "select_Crop_Name_valid": "Please select crop name",
     "Area_crop": "Please enter area(Hector)",
     "Area_crop_valid": "Please enter valid Area(Hector)",

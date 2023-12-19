@@ -139,8 +139,8 @@
       <li class="row gx-2">
         <div class="col-sm-6 form-label mb-0">{{lang == 'en' ? 'Grampanchayat' : 'ग्रामपंचायत'}}</div>
         <div class="col-sm-6 form-data">
-          <span *ngFor="let villahes of data.grampanchayat">
-           : {{lang == 'en' ? (villahes?.grampanchayatName || '-'): (villahes?.m_GrampanchayatName || '-')}},
+          :<span *ngFor="let villahes of data.grampanchayat">
+          {{lang == 'en' ? (villahes?.grampanchayatName || '-'): (villahes?.m_GrampanchayatName || '-')}},
           </span>
         </div>
       </li>

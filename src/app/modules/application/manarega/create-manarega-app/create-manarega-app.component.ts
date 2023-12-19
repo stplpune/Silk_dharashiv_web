@@ -17,6 +17,8 @@ import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/g
 import { ActivatedRoute, Router } from '@angular/router';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { MatStepper } from '@angular/material/stepper';
+import { DatePipe } from '@angular/common';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-create-manarega-app',
@@ -100,8 +102,12 @@ export class CreateManaregaAppComponent {
     private masterService: MasterService,
     private route: ActivatedRoute,
     private router: Router,
+    private datePipe:DatePipe,
+    private dateAdapter: DateAdapter<Date>,
     public encryptdecrypt: AesencryptDecryptService,
-  ) { }
+  ) { 
+    this.dateAdapter.setLocale('en-GB');
+  }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
@@ -415,8 +421,7 @@ export class CreateManaregaAppComponent {
   FarmValidations(key: any) {
     if (key == 'cultivatedFarmInHector') {
       if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector > this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
-        // this.commonMethod.snackBar((this.lang == 'en' ? "Should not greater than point no. 16" : "मुद्धा क्रमांक १६ पेक्षा मोठा नसावा"), 1);
-        this.farmInfoFrm.controls['cultivatedFarmInHector'].setValue('');
+           this.farmInfoFrm.controls['cultivatedFarmInHector'].setValue('');
       }
     }
     else if (key == 'applicantFarmArea') {
@@ -1029,10 +1034,10 @@ export class CreateManaregaAppComponent {
     let dialoObj = {
       header: this.lang == 'mr-IN' ? 'अभिनंदन ' : 'Congratulations',
       title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .' : 'Your application has been successfully submitted.',
-      title2: this.lang == 'mr-IN' ? 'अर्ज क्रमांक  : ' + res.responseData1 : 'Application no: ' + res.responseData1,
+      title2: this.lang == 'mr-IN' ? 'अर्ज क्रमांक  : ' + res.responseData1+' '+this.datePipe.transform(res.responseData2,'dd/MM/yyyy hh:mm') : 'Application no: ' + res.responseData1+' '+this.datePipe.transform(res.responseData2,'dd/MM/yyyy hh:mm'),
       cancelButton: '',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
-      headerImage: 'assets/images/check.png'
+      headerImage: 'assets/images/check.svg'
     }
     let dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '400px',
