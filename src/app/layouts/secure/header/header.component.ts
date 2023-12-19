@@ -72,10 +72,10 @@ export class HeaderComponent {
 
   openChangePasswordDialog() {
     let dialoObj = {
-      header: this.setLang == 'en' ? 'Change Password' : 'पासवर्ड बदला',
-      title: this.setLang == 'en' ? 'Do You Really Want To Change Password?' : 'तुम्हाला खरच पासवर्ड बदलायचा आहे का?',
-      cancelButton: this.setLang == 'en' ? 'Cancel' : 'रद्द करा',
-      okButton: this.setLang == 'en' ? 'Change Password' : 'पासवर्ड बदला',
+      header: this.setLang == 'English' ? 'Change Password' : 'पासवर्ड बदला',
+      title: this.setLang == 'English' ? 'Do You Really Want To Change Password?' : 'तुम्हाला खरच पासवर्ड बदलायचा आहे का?',
+      cancelButton: this.setLang == 'English' ? 'Cancel' : 'रद्द करा',
+      okButton: this.setLang == 'English' ? 'Change Password' : 'पासवर्ड बदला',
     }
     const dialogRef = this.dialog.open(ChangePasswordComponent, {
       width: '50%',
@@ -98,10 +98,10 @@ export class HeaderComponent {
 
   openLogOutDialog() { //open logout dialog
     let dialoObj = {
-      header: this.setLang == 'en' ? 'Logout' : 'बाहेर पडणे',
-      title: this.setLang == 'en' ? 'Do You Want To Logout?' : 'आपण लॉगआउट करू इच्छिता',
-      cancelButton: this.setLang == 'en' ? 'Cancel' : 'रद्द करा',
-      okButton: this.setLang == 'en' ? 'Logout' : 'बाहेर पडणे',
+      header: this.setLang == 'English' ? 'Logout' : 'बाहेर पडणे',
+      title: this.setLang == 'English' ? 'Do You Want To Logout?' : 'आपण लॉगआउट करू इच्छिता',
+      cancelButton: this.setLang == 'English' ? 'Cancel' : 'रद्द करा',
+      okButton: this.setLang == 'English' ? 'Logout' : 'बाहेर पडणे',
       headerImage: 'assets/images/logout/logout@3x.png'
     }
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
