@@ -145,7 +145,10 @@ export class MyProfileComponent {
       "profileImagePath": this.imageRes ? this.imageRes : this.profilDetailsArr.profileImagePath,
       "userTypeId": 1, // Farmer Registration
       "createdBy": this.WebStorageService.getUserId(),
-      "flag": 'u'
+      "flag": 'u',
+      "certificateExpiryDate":new Date(),
+      "certificateIssueDate": new Date(),
+      "certificatePath": "",
     }
     if (this.profileForm.invalid) {
       return

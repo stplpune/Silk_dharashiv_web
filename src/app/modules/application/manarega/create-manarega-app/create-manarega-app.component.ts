@@ -17,6 +17,8 @@ import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/g
 import { ActivatedRoute, Router } from '@angular/router';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { MatStepper } from '@angular/material/stepper';
+import { DatePipe } from '@angular/common';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-create-manarega-app',
@@ -100,8 +102,12 @@ export class CreateManaregaAppComponent {
     private masterService: MasterService,
     private route: ActivatedRoute,
     private router: Router,
+    private datePipe:DatePipe,
+    private dateAdapter: DateAdapter<Date>,
     public encryptdecrypt: AesencryptDecryptService,
-  ) { }
+  ) { 
+    this.dateAdapter.setLocale('en-GB');
+  }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
@@ -177,8 +183,8 @@ export class CreateManaregaAppComponent {
       "qualificationId": [data?.qualificationId || '', [Validators.required]],//no
       "stateId": [data?.stateId || (this.WebStorageService.getStateId() == '' ? '' : this.WebStorageService.getStateId())],//no
       "districtId": [data?.districtId || (this.WebStorageService.getDistrictId() == '' ? '' : this.WebStorageService.getDistrictId())],//no
-      "talukaId": [data?.talukaId || (this.WebStorageService.getTalukaId() == '' ? '' : this.WebStorageService.getTalukaId()), [Validators.required]],//no
-      "grampanchayatId": [data?.grampanchayatId || (this.WebStorageService.getGrampanchayatId() == '' ? '' : this.WebStorageService.getGrampanchayatId()), [Validators.required]],//no
+      "talukaId": [data?.talukaId  ? data?.talukaId : (this.WebStorageService.getTalukaId() ? this.WebStorageService.getTalukaId()  :   '') , [Validators.required]],//no
+      "grampanchayatId": [data?.grampanchayatId  ? data?.grampanchayatId : (this.WebStorageService.getGrampanchayatId() ? this.WebStorageService.getGrampanchayatId()  :   ''), [Validators.required]],//no
       "village": [data?.village || '', [this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]],
       "address": [data?.address || '', [this.validation.maxLengthValidator(200), Validators.required]],//Mandetory Max:200, alphanumeric with special char
       "pinCode": [data?.pinCode || '', [Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],//Mandetory  Max: 6 digit, numeric
@@ -415,8 +421,7 @@ export class CreateManaregaAppComponent {
   FarmValidations(key: any) {
     if (key == 'cultivatedFarmInHector') {
       if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector > this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
-        // this.commonMethod.snackBar((this.lang == 'en' ? "Should not greater than point no. 16" : "मुद्धा क्रमांक १६ पेक्षा मोठा नसावा"), 1);
-        this.farmInfoFrm.controls['cultivatedFarmInHector'].setValue('');
+           this.farmInfoFrm.controls['cultivatedFarmInHector'].setValue('');
       }
     }
     else if (key == 'applicantFarmArea') {
@@ -516,7 +521,7 @@ export class CreateManaregaAppComponent {
   }
 
   getPreviewData(flag?: any, id?: any) {
-    //let filterData = this.filterFrm?.getRawValue();
+   // let filterData = this.filterFrm?.getRawValue();
     if (this.filterFrm.invalid) {
       this.commonMethod.snackBar(this.lang == "en" ? "Please Enter Correct Details" : "कृपया योग्य तपशील प्रविष्ट करा", 1)
       return
@@ -541,7 +546,7 @@ export class CreateManaregaAppComponent {
           }
           else if (res.statusCode == "500") {
             this.clearForm();
-            this.commonMethod.snackBar(this.lang == "en" ? "No data found" : "माहिती आढळली नाही", 1)
+            // this.commonMethod.snackBar(this.lang == "en" ? "No data found" : "माहिती आढळली नाही", 1)
             this.EditFlag = false
           }
           else {
@@ -1029,10 +1034,10 @@ export class CreateManaregaAppComponent {
     let dialoObj = {
       header: this.lang == 'mr-IN' ? 'अभिनंदन ' : 'Congratulations',
       title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .' : 'Your application has been successfully submitted.',
-      title2: this.lang == 'mr-IN' ? 'अर्ज क्रमांक  : ' + res.responseData1 : 'Application no: ' + res.responseData1,
+      title2: this.lang == 'mr-IN' ? 'अर्ज क्रमांक  : ' + res.responseData1+' '+this.datePipe.transform(res.responseData2,'dd/MM/yyyy hh:mm') : 'Application no: ' + res.responseData1+' '+this.datePipe.transform(res.responseData2,'dd/MM/yyyy hh:mm'),
       cancelButton: '',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
-      headerImage: 'assets/images/check.png'
+      headerImage: 'assets/images/check.svg'
     }
     let dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '400px',

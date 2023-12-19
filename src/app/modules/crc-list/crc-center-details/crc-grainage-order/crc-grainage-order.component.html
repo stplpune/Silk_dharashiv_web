@@ -2,7 +2,7 @@
   <mat-card-header class="card-header">
     <div class="text-main">Grainage Order</div>
   </mat-card-header>
-  <mat-card-content class="card-body">
+  <mat-card-content class="card-body" id="dash-stats">
     <div class="row">
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
@@ -64,29 +64,95 @@
           </button>
         </div>
       </div>
-      <div class="col-sm-2">
+      <!-- <div class="col-sm-2">
         <button mat-flat-button class="btn-main" (click)="grainageorderdetails()">Grainage Order details</button>
-      </div>
+      </div> -->
     </div>
-    <div class="row gx-2">
-      <div class="col-sm-3">
-        <div class="d-flex gap-2">
+    <div class="row gx-2 mb-2">
+      <div class="col-sm-4">
+        <div class="card card-body ">
+          <div class="d-flex gap-2">
+            <img src="../../../assets/images/crc-center/center.svg " alt="">
+            <div class="d-flex flex-column gap-0">
+              <h4 class="fw-bold text-primary mb-0">50</h4>
+              <div class="fw-bold mb-0 text-primary"> Total Order</div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="d-flex gap-2">
           <div class="form-data">Total Order</div>
           <div class="form-data">: 50</div>
-        </div>
+        </div> -->
       </div>
-      <div class="col-sm-3">
-        <div class="d-flex gap-2 ">
+      <div class="col-sm-4">
+        <div class="card card-body ">
+          <div class="d-flex gap-2">
+            <img src="../../../assets/images/crc-center/pending.svg " alt="">
+            <div class="d-flex flex-column gap-0">
+              <h4 class="fw-bold text-warning mb-0">40</h4>
+              <div class="fw-bold mb-0 text-warning"> Pending</div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="d-flex gap-2 ">
           <div class="form-label text-warning">Pending</div>
           <div class="form-data text-warning">: 40</div>
-        </div>
+        </div> -->
       </div>
-      <div class="col-sm-3">
-        <div class="d-flex gap-2 ">
+      <div class="col-sm-4">
+        <div class="card card-body ">
+          <div class="d-flex gap-2">
+            <img src="../../../assets/images/crc-center/active.svg " alt="">
+            <div class="d-flex flex-column gap-0">
+              <h4 class="fw-bold text-success mb-0">10</h4>
+              <div class="fw-bold mb-0 text-success"> Approved</div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="d-flex gap-2 ">
           <div class="form-label text-success">Pending</div>
           <div class="form-data text-success">: 40</div>
-        </div>
+        </div> -->
       </div>
+    </div>
+    <div class="table-responsive scrollbar">
+      <table class="dashboard-table w-100">
+        <thead>
+          <tr>
+            <th class="p-2">Sr. No.</th>
+            <th scope="col">Order Id</th>
+            <th scope="col">Grainage</th>
+            <th scope="col">State</th>
+            <th scope="col">Location</th>
+            <th scope="col">Type</th>
+            <th scope="col">Order Qty (DFLs)</th>
+            <th scope="col">Order Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>202356545</td>
+            <td>Silkworm Seed Production Center</td>
+            <td>Maharashtra</td>
+            <td>Gadhinglaj</td>
+            <td>Government</td>
+            <td>5000</td>
+            <td>19-12-2023</td>
+            <td>Received</td>
+            <td>
+              <button matTooltipPosition="below" mat-icon-button (click)="grainageorderdetails()"
+                class="btn-icon bg-dark bg-opacity-10">
+                <span class="material-symbols-rounded text-dark">
+                  visibility
+                </span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </mat-card-content>
 </mat-card>

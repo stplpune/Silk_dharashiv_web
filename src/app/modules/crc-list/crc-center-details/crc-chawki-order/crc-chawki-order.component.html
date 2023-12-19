@@ -2,7 +2,7 @@
   <mat-card-header class="card-header">
     <div class="text-main">Chowki Orders</div>
   </mat-card-header>
-  <mat-card-content class="card-body form-container">
+  <mat-card-content class="card-body form-container" id="dash-stats">
     <form [formGroup]="filterForm">
     <div class="row gx-2">
       <div class="col-sm-3">
@@ -93,24 +93,51 @@
         <!-- <button mat-flat-button class="btn-main" (click)="chowkiorderdetails()">Chowki Order details</button> -->
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-3">
-        <div class="d-flex gap-2">
+    <div class="row gx-2 mb-2">
+      <div class="col-sm-4">
+        <div class="card card-body ">
+          <div class="d-flex gap-2">
+            <img src="../../../assets/images/crc-center/center.svg " alt="">
+            <div class="d-flex flex-column gap-0">
+              <h4 class="fw-bold text-primary mb-0">{{counterObject?.totalChawkiOrders}}</h4>
+              <div class="fw-bold mb-0 text-primary"> Total Chowki Order</div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="d-flex gap-2">
           <div class="form-data">Total Chowki Order</div>
           <div class="form-data">: {{counterObject?.totalChawkiOrders}}</div>
-        </div>
+        </div> -->
       </div>
-      <div class="col-sm-3">
-        <div class="d-flex gap-2 ">
+      <div class="col-sm-4">
+        <div class="card card-body ">
+          <div class="d-flex gap-2">
+            <img src="../../../assets/images/crc-center/pending.svg " alt="">
+            <div class="d-flex flex-column gap-0">
+              <h4 class="fw-bold text-warning mb-0">{{counterObject?.pending}}</h4>
+              <div class="fw-bold mb-0 text-warning"> Pending</div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="d-flex gap-2 ">
           <div class="form-label text-warning">Pending</div>
           <div class="form-data text-warning">: {{counterObject?.pending}}</div>
-        </div>
+        </div> -->
       </div>
-      <div class="col-sm-3">
-        <div class="d-flex gap-2 ">
+      <div class="col-sm-4">
+        <div class="card card-body ">
+          <div class="d-flex gap-2">
+            <img src="../../../assets/images/crc-center/active.svg " alt="">
+            <div class="d-flex flex-column gap-0">
+              <h4 class="fw-bold text-success mb-0"> {{counterObject?.delivery}}</h4>
+              <div class="fw-bold mb-0 text-success"> Delivered</div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="d-flex gap-2 ">
           <div class="form-label text-success">Delivered</div>
           <div class="form-data text-success">: {{counterObject?.delivery}}</div>
-        </div>
+        </div> -->
       </div>
     </div>
   </form>

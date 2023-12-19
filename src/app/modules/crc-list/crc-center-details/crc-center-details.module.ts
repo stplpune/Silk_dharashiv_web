@@ -13,6 +13,7 @@ import { ChowkiOrderDetailsComponent } from './crc-chawki-order/chowki-order-det
 import { MatButtonModule } from '@angular/material/button';
 import { GrainageOrderDetailsComponent } from './crc-grainage-order/grainage-order-details/grainage-order-details.component';
 import { GlobalTableComponent } from "../../../shared/components/global-table/global-table.component";
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { GlobalTableComponent } from "../../../shared/components/global-table/gl
         CrcCenterDetailsRoutingModule,
         MatTabsModule,
         CrcProfileComponent,
+        MatIconModule,
         CrcGrainageOrderComponent,
         CrcDeliverySlabsComponent,
         CrcChawkiOrderComponent,

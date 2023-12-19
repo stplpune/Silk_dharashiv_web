@@ -47,6 +47,11 @@ export class GeneratePdfComponent {
     action2: 'विटा/रेती/सीमेंटच्या फळकवर योजनेचे नाव शेतकरी नाव कामाचा कोड व एकूण रक्कम व अदा रक्कम नमूद असावी.'
   }
 
+  table2Obj={
+    act1:'रुंदी 3 x 4 लांबी फुट',
+    act2:'लागनारे प्रमानात',
+    act3:'एकत्रित'
+  }
   skillDataArray: any = {
     skillArray: [],
     unSkillArray: [],
@@ -101,7 +106,7 @@ export class GeneratePdfComponent {
           this.estimateSkillArray = res.responseData3;
           this.finaltotalArray = res.responseData10;
           this.totalMappingArray = res.responseData11;
-          this.technicalEstId=res.responseData12;          
+          this.technicalEstId=res.responseData12;                    
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
@@ -216,8 +221,13 @@ export class GeneratePdfComponent {
         this.skillDataArray.unSkillArray.push(ev);
       }
     })
-      this.skillDataArray.totalUnskill.push(data?.responseData3)
+      this.skillDataArray.totalUnskill.push(data?.responseData3);
+      this.skillDataArray.skillArray[5].aroundDay=this.table2Obj.act2;
+      this.skillDataArray.skillArray[6].aroundDay=this.table2Obj.act1;
+      this.skillDataArray.skillArray[6].totalWages=this.table2Obj.act3;
   }
+
+  
 
   acceptTerms(event?: any) {
     this.acceptTermsValue = event.target.checked;

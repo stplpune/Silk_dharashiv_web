@@ -28,14 +28,14 @@
                 <img src="assets/images/logout/logout@3x.png" class="w-25 mx-auto">
               </div>
             </div> -->
-        <div class="card card-body border-0  text-center mb-0 py-0 px-0" *ngIf="!data.statusFlag">
+        <div class="card card-body border-0  text-center" *ngIf="!data.statusFlag">
           <!-- <div class="py-3"> -->
           <img *ngIf="data?.headerImage" [src]=data.headerImage class="mx-auto img-fluid">
           <!-- </div> -->
         </div>
         <!-- <h6 *ngIf="data?.header">{{data?.header}}</h6> -->
-        <h6 class=" text-secondary text-center fw-bold" *ngIf="data?.title">{{data?.title}}</h6>
-        <h5 class=" text-secondary text-center fw-bold" *ngIf="data?.title2">{{data?.title2}}</h5>
+        <h6 class=" text-secondary text-center fw-bold mb-2" *ngIf="data?.title">{{data?.title}}</h6>
+        <h6 class=" text-secondary text-center fw-bold" *ngIf="data?.title2">{{data?.title2}}</h6>
         <div mat-dialog-actions align="end" class="px-0">
           <div *ngIf="data.discription" class="w-100">
             <mat-form-field appearance="outline" class="w-100">
