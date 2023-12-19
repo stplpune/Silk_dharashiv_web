@@ -169,9 +169,7 @@ export class CrcDeliverySlabsComponent {
       edit: false,
       delete: false,
     };
-    this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
-    console.log('tableDatatableData',tableData);
-    
+    this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;    
     this.apiService.tableData.next(tableData);
   }
 
