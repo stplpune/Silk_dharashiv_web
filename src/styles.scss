@@ -19,6 +19,18 @@ body {
     --main-light-color: #e7f1eb;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+small {
+    font-family: 'Public Sans', sans-serif !important;
+    letter-spacing: normal !important;
+}
+
 .fs-main {
     font-size: 0.85rem;
 }
