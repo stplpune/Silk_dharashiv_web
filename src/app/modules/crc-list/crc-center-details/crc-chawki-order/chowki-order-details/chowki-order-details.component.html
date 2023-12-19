@@ -1,10 +1,10 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
     <div class="text-main fw-bold">{{lang == 'en' ? 'Chowki Order Details' : 'चौकी ऑर्डर तपशील'}}</div>
-    <button mat-icon-button class="btn-modal-close" mat-dialog-close="true">
+    <button mat-icon-button class="btn-icon btn-modal-close" mat-dialog-close="true">
       <span class="material-symbols-rounded">close</span>
     </button>
-    
+
   </div>
 </div>
 <div mat-dialog-content class="modal-body form-container">
@@ -14,55 +14,55 @@
       <div class="row gy-2">
         <div class="col-sm-12">
           <div class="row gx-2">
-            <div class="col-sm-2 form-label">Farmer Name </div> 
+            <div class="col-sm-2 form-label">Farmer Name </div>
             <div class="col-sm-10 form-data">: {{lang == 'en' ? tableDataArray?.name : tableDataArray?.m_Name || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">Mobile No</div> 
+            <div class="col-sm-4 form-label">Mobile No</div>
             <div class="col-sm-8 form-data">: {{tableDataArray?.mobNo1 || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">Delivery Slab</div> 
+            <div class="col-sm-4 form-label">Delivery Slab</div>
             <div class="col-sm-8 form-data">: {{tableDataArray?.deliverySlab || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">District </div>   
+            <div class="col-sm-4 form-label">District </div>
             <div class="col-sm-8 form-data">: {{lang == 'en' ? tableDataArray?.district : tableDataArray?.m_District || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">Taluka </div>  
+            <div class="col-sm-4 form-label">Taluka </div>
             <div class="col-sm-8 form-data">: {{lang == 'en' ? tableDataArray?.taluka : tableDataArray?.m_Taluka || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
             <div class="col-sm-4 form-label">Village </div>
-            <div class="col-sm-8 form-data">: {{lang == 'en' ? tableDataArray?.village : tableDataArray?.m_Village || '-'}}</div>  
+            <div class="col-sm-8 form-data">: {{lang == 'en' ? tableDataArray?.village : tableDataArray?.m_Village || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">Pincode </div> 
+            <div class="col-sm-4 form-label">Pincode </div>
             <div class="col-sm-8 form-data">: {{tableDataArray?.pinCode || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-12">
           <div class="row gx-2">
-            <div class="col-sm-2 form-label">Address </div>   
+            <div class="col-sm-2 form-label">Address </div>
             <div class="col-sm-10 form-data">: {{lang == 'en' ? tableDataArray?.address : tableDataArray?.m_Address || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-12">
           <div class="row gx-2">
-            <div class="col-sm-2 form-label">Payment Reciept </div> 
+            <div class="col-sm-2 form-label">Payment Reciept </div>
             <div class="col-sm-10 form-data" (click)="viewreceipt()">:
               <a href="">View</a>
             </div>
