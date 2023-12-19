@@ -847,7 +847,8 @@
     "Total_Benefit_enter": "कृपया एकूण लाभाची रक्कम प्रविष्ट करा",
     "Total_Benefit_valid": "कृपया वैध एकूण लाभ रक्कम प्रविष्ट करा",
     "Total_Benefit_maximum_10_digit_allowed": "कमाल 10 अंकांना अनुमती आहे",
-    "OK": "ठीक आहे"
+    "OK": "ठीक आहे",
+    "sm_ExperienceYears" : "किती वर्षाचा ते नमुद करावे"
   },
   "farmerLogin": {
     "farmer_login": "शेतकरी लॉगिन",

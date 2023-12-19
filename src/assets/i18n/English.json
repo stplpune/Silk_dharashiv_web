@@ -857,7 +857,8 @@
     "Total_Benefit_enter": "Please enter total Benefit Amount (Rs.)",
     "Total_Benefit_valid": "Please enter valid total Benefit Amount (Rs.)",
     "Total_Benefit_maximum_10_digit_allowed": "Maximun 10 digit allowed",
-    "OK": "OK"
+    "OK": "OK",
+    "sm_ExperienceYears" : "How many years"
   },
   "farmerLogin": {
     "farmer_login": "Farmer Login",  
