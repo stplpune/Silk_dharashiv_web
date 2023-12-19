@@ -941,7 +941,7 @@ export class CreateManaregaAppComponent {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.grampanchayatArray = res.responseData;
             this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
-            this.WebStorageService.getGrampanchayatId() ? this.f['talukaId'].setValue(this.WebStorageService.getGrampanchayatId()):  '';
+            this.WebStorageService.getGrampanchayatId() ? this.f['grampanchayatId'].setValue(this.WebStorageService.getGrampanchayatId()):  '';
      
             this.EditFlag ? (this.f['grampanchayatId'].setValue(this.previewData?.grampanchayatId)) : '';
           }

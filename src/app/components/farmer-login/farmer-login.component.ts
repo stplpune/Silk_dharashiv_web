@@ -75,8 +75,8 @@ export class FarmerLoginComponent {
   }
 
   getOtpByMobileNo() {
+    this.spinner.show();
     this.getOtpFormData();
-
     this.spinner.show();
     if (this.farmerMobileNo.invalid) {
       this.spinner.hide();
@@ -153,6 +153,7 @@ export class FarmerLoginComponent {
 
 
   validateOtp() {
+    this.spinner.show();
     let formData = this.otpForm.value;
     let sendOtp = formData.otpA + formData.otpB + formData.otpC + formData.otpD + formData.otpE
     if (this.otpForm.invalid) {

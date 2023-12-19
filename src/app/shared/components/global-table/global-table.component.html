@@ -3,7 +3,7 @@
     <table mat-table [dataSource]="tableRecords" class="dashboard-table" matSort>
         <ng-container *ngFor="let columns of displayedColumns; let j=index" matColumnDef="{{columns}}">
             <ng-container *ngIf="columns !='action'">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header
+                <th mat-header-cell *matHeaderCellDef mat-sort-header [class]="tableInfo?.date ==columns?'expiredate':''"
                     [disabled]="('srNo' == columns || tableHeaders[j] == '') ? true : false">
                     {{ tableHeaders[j]}}
                 </th>
@@ -21,9 +21,10 @@
                     <!-- used for image -->
                     <ng-container *ngIf="tableInfo?.img == columns"><img src="{{element[columns] ? element[columns] : 'assets/images/user.png'}}"></ng-container>
                       <!-- used for date -->
-                      <ng-container *ngIf="tableInfo?.date == columns">{{ (tableInfo?.time ? (element[columns] | date:'dd-MM-yyyy hh:mm a'):(element[columns] | date:'dd-MM-yyyy')) }}</ng-container>
-                      <ng-container *ngIf="tableInfo?.dates ==columns">{{ (tableInfo?.times ? (element[columns] | date:'dd-MM-yyyy hh:mm a'):(element[columns] | date:'dd-MM-yyyy')) }}</ng-container>
-                      <ng-container *ngIf="tableInfo?.date2 ==columns">{{ (tableInfo?.time2 ? (element[columns] | date:'dd-MM-yyyy hh:mm a'):(element[columns] | date:'dd-MM-yyyy')) }}</ng-container>
+
+                      <ng-container *ngIf="tableInfo?.date == columns" >{{ (tableInfo?.time ? (element[columns] | date:'dd-MM-yyyy hh:mm a'):(element[columns] | date:'dd-MM-yyyy')) }}</ng-container>
+                      <ng-container *ngIf="tableInfo?.dates ==columns" >{{ (tableInfo?.times ? (element[columns] | date:'dd-MM-yyyy hh:mm a'):(element[columns] | date:'dd-MM-yyyy')) }}</ng-container>
+                      <ng-container *ngIf="tableInfo?.date2 ==columns" >{{ (tableInfo?.time2 ? (element[columns] | date:'dd-MM-yyyy hh:mm a'):(element[columns] | date:'dd-MM-yyyy')) }}</ng-container>
                      <!-- add badge with color for status-- -->
                      <ng-container *ngIf="'status1' == columns">
                         <span class="p-2"  [ngClass]=" lang =='en' ? (element.status=='Approved' ? 'badge bg-success-subtle text-success' : (element.status == 'Pending') ? 'badge bg-warning-subtle text-dark' :(element.status == 'Re-Send') ? 'badge bg-primary-subtle text-primary' : (element.status == 'Rejected')? 'badge bg-danger-subtle text-danger' : '') :

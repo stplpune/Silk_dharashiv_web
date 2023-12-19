@@ -44,7 +44,7 @@ export class ChowkiOrderDetailsComponent {
 
   getTableData() {    
     this.spinner.show();
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Chawki-Order-Details?OrderId=202310101', false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Chawki-Order-Details?OrderId='+this.data.orderId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();

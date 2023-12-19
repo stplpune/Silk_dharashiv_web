@@ -44,8 +44,8 @@ export class HeaderComponent {
   ngOnInit() {
     this.loginData = this.webStorage.getLoggedInLocalstorageData();
     const language = localStorage.getItem('language') || 'English';
-     this.translate.use(language);
-     this.webStorage.setLanguage.subscribe((res: any) => {
+    this.translate.use(language);
+    this.webStorage.setLanguage.subscribe((res: any) => {
       this.setLang = res || localStorage.getItem('language') || 'English';
     });
     this.setLang = language;
@@ -56,13 +56,13 @@ export class HeaderComponent {
       this.designationName = res.designationName
       this.profileImg = res.profile;
     })
-  
+
   }
 
 
   myprofile() {
     this.dialog.open(MyProfileComponent, {
-      width: '70%'
+      width: '500px'
     })
   }
 

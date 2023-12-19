@@ -63,8 +63,8 @@ export class BeneficieryComponent {
       talukaId: [0],
       grampanchayatId: [0],
       schemeTypeId: [0],
-      deptId:[0],
-      textSearch:['']
+      deptId: [0],
+      textSearch: ['']
     })
   }
 
@@ -121,7 +121,7 @@ export class BeneficieryComponent {
         if (res.statusCode == '200') {
           this.schemeFilterArr = [{ id: 0, textEnglish: "All Scheme", textMarathi: "सर्व योजना" }, ...res.responseData];
           //this.spliteUrlData ? (this.filterFrm.controls['schemeTypeId'].setValue(+this.filterFrm.getRawValue().schemeTypeId), this.getAction()) : '';
-       this.getDepartment();
+          this.getDepartment();
         } else {
           this.schemeFilterArr = [];
         }
@@ -135,7 +135,7 @@ export class BeneficieryComponent {
     this.master.GetDepartmentDropdown(0).subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
-          this.departmentArray = [{ "id": 0, "textEnglish": "All Department", "textMarathi": "सर्व विभाग" },...res.responseData];
+          this.departmentArray = [{ "id": 0, "textEnglish": "All Department", "textMarathi": "सर्व विभाग" }, ...res.responseData];
         }
         else {
           this.departmentArray = [];
@@ -153,29 +153,29 @@ export class BeneficieryComponent {
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
-      //  this.searchDataFlag ? '' : (this.f['textSearch'].setValue(''));
+        //  this.searchDataFlag ? '' : (this.f['textSearch'].setValue(''));
         this.getTableData();
         break;
       case 'View':
-     //   this.openApplicationDetails(obj);
+        //   this.openApplicationDetails(obj);
         // this.router.navigate(['../approval-process']);
         break;
       case 'Edit':
-    //    this.openAddApplicationDetails(obj);
+        //    this.openAddApplicationDetails(obj);
         break;
       case 'track':
-    //    this.openTracKComp(obj);
+        //    this.openTracKComp(obj);
         // this.router.navigate(['../approval-process']);
         break;
     }
   }
 
   getTableData(_status?: any) {
-     this.spinner.show();
+    this.spinner.show();
     let formData = this.filterFrm.getRawValue();
-  //  status == 'filter' ? ((this.pageNumber = 1), this.searchDataFlag = true) : '';
-  let str =  `pageno=${this.pageNumber || 1}&pagesize=10&SchemeTypeId=${formData.schemeTypeId}&DistrictId=${formData.districtId}&TalukaId=${formData.talukaId}&GrampanchayatId=${formData.grampanchayatId}&DepartmentId=${formData.deptId}&TextSearch=${formData.textSearch.trim()}&lan=${this.lang}&UserId=${this.webStorage?.getUserId()}`
-   
+    //  status == 'filter' ? ((this.pageNumber = 1), this.searchDataFlag = true) : '';
+    let str = `pageno=${this.pageNumber || 1}&pagesize=10&SchemeTypeId=${formData.schemeTypeId}&DistrictId=${formData.districtId}&TalukaId=${formData.talukaId}&GrampanchayatId=${formData.grampanchayatId}&DepartmentId=${formData.deptId}&TextSearch=${formData.textSearch.trim()}&lan=${this.lang}&UserId=${this.webStorage?.getUserId()}`
+
     this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetAllBeneficieryList?' + str, false, false, false, 'masterUrl');
 
     this.apiService.getHttp().subscribe({
@@ -203,8 +203,8 @@ export class BeneficieryComponent {
   setTableData() {
     this.highLightRowFlag = true;
     let displayedColumns = ['srNo', 'mulberryId', (this.lang == 'en' ? 'schemeType' : 'm_SchemeType'), (this.lang == 'en' ? 'departmentName' : 'm_DepartmentName'), 'fullName', 'mobileNo1', (this.lang == 'en' ? 'taluka' : 'm_Taluka'), (this.lang == 'en' ? 'grampanchayatName' : 'm_GrampanchayatName'), 'mulberryDate']; //'action'
-    let displayedheaders = this.lang == 'en' ? ['Sr.No.', ' Mulberry Id', 'Scheme', 'Process Department', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Date'] : ['अनुक्रमांक', 'मुलबेरी आयडी', 'योजना', 'प्रक्रिया विभाग', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'दिनांक'];// 'पहा' 'view'
-   
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.', ' Mulberry ID', 'Scheme', 'Process Department', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Date'] : ['अनुक्रमांक', 'मुलबेरी आयडी', 'योजना', 'प्रक्रिया विभाग', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'दिनांक'];// 'पहा' 'view'
+
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
@@ -215,7 +215,7 @@ export class BeneficieryComponent {
       tableHeaders: displayedheaders,
       view: true,
       track: false,
-      edit:  false,
+      edit: false,
       date: 'mulberryDate'
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
@@ -227,6 +227,6 @@ export class BeneficieryComponent {
     this.defaultFillterForm();
     this.pageNumber = 1;
     this.getTableData();
-    
+
   }
 }
