@@ -1379,7 +1379,8 @@
                   <div class="form-data text-main">{{'approvalProcess.beneficiary_category'| translate}}</div>
                   <ul class="list-group" *ngFor="let category of previewData?.categoryOfBeneficiaries">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">{{category?.categoryOfBeneficiary}}</div>
+                      <div class="form-label">
+                        {{(this.lang == 'en' ? category?.categoryOfBeneficiary : category?.m_CategoryOfBeneficiary) | dash}}</div>
                     </li>
                   </ul>
                 </div>
@@ -1391,7 +1392,7 @@
               <!-- <div class="form-data text-main">{{'addSamgra.Agriculture_and_Fruit_Production' | translate}}</div> -->
               <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div class="form-label">3.{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
+                  <div class="form-label">{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
                   <span class="form-data  rounded-pill">:{{previewData?.mobileNo2 | dash}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
