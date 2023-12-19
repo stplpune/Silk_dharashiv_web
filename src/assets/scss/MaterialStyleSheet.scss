@@ -130,7 +130,7 @@
     color: #fff !important;
 }
 
-.mdc-tab.mdc-tab--active .mdc-tab__content,
+.mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label,
 .mdc-tab.mdc-tab--active .mdc-tab__text-label {
     color: #fff !important;
 }
