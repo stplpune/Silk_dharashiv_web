@@ -126,7 +126,7 @@ export class CrcDeliverySlabsComponent {
     let formData = this.slabForm.getRawValue();
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/CRC-Centers_Delivery-Slab?Id'+this.id+'&Status='+(formData.statusId || 0)+'&GrainageId='+(formData.grainageId || 0)+str, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/CRC-Centers_Delivery-Slab?Id='+this.id+'&Status='+(formData.statusId || 0)+'&GrainageId='+(formData.grainageId || 0)+str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -156,7 +156,7 @@ export class CrcDeliverySlabsComponent {
       ['अनुक्रमांक', 'डिलिव्हरी स्लॅब', 'धान्य', 'क्षमता (DFL)', 'दर/100DFLs', 'प्रारंभ तारीख', 'शेवटची तारीख', 'स्थिती', 'कृती'];
     let tableData = {
       pageNumber: this.pageNumber,
-      pagination:   true,
+      pagination:   this.tableDatasize > 10 ? true : false,
       highlightedrow: true,
       isBlock: '',
       date: 'startDate',
