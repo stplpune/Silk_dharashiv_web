@@ -516,7 +516,7 @@ export class CreateManaregaAppComponent {
   }
 
   getPreviewData(flag?: any, id?: any) {
-    //let filterData = this.filterFrm?.getRawValue();
+   // let filterData = this.filterFrm?.getRawValue();
     if (this.filterFrm.invalid) {
       this.commonMethod.snackBar(this.lang == "en" ? "Please Enter Correct Details" : "कृपया योग्य तपशील प्रविष्ट करा", 1)
       return
@@ -541,7 +541,7 @@ export class CreateManaregaAppComponent {
           }
           else if (res.statusCode == "500") {
             this.clearForm();
-            this.commonMethod.snackBar(this.lang == "en" ? "No data found" : "माहिती आढळली नाही", 1)
+            // this.commonMethod.snackBar(this.lang == "en" ? "No data found" : "माहिती आढळली नाही", 1)
             this.EditFlag = false
           }
           else {
