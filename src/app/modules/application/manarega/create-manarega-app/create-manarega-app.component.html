@@ -872,7 +872,7 @@
                     (click)="selImg1.value='';selImg1.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span
                       class="text-danger fs-6">*</span>
                   </button>
-                  <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg1
+                  <input type="file" accept=".jpg,.jpeg,.png,.pdf" id="real-file" #selImg1
                     (change)="fileUpload($event,docArray[0].docTypeId,'documents')" />
                   <ng-container *ngIf="docArray[0].docPath">
                     <div class="d-flex gap-2">
@@ -903,7 +903,7 @@
                     (click)="selImg2.value='';selImg2.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span
                       class="text-danger fs-6">*</span>
                   </button>
-                  <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg2
+                  <input type="file" accept=".jpg,.jpeg,.png,.pdf" id="real-file" #selImg2
                     (change)="fileUpload($event,docArray[1].docTypeId,'documents')" />
                   <ng-container *ngIf="docArray[1].docPath">
                     <div class="d-flex gap-2">
@@ -936,7 +936,7 @@
                     (click)="selImg3.value='';selImg3.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}
                     <!-- <span class="text-danger fs-6">*</span> -->
                   </button>
-                  <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg3
+                  <input type="file" accept=".jpg,.jpeg,.png,.pdf" id="real-file" #selImg3
                     (change)="fileUpload($event,docArray[2].docTypeId,'documents')" />
                   <ng-container *ngIf="docArray[2].docPath">
                     <div class="d-flex gap-2">
@@ -965,7 +965,7 @@
                     (click)="selImg4.value='';selImg4.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span
                       class="text-danger fs-6">*</span>
                   </button>
-                  <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg4
+                  <input type="file" accept=".jpg,.jpeg,.png,.pdf" id="real-file" #selImg4
                     (change)="fileUpload($event,docArray[3].docTypeId,'documents')" />
                   <ng-container *ngIf="docArray[3].docPath">
                     <div class="d-flex gap-2">
@@ -1031,7 +1031,7 @@
                             (click)="otherDocImage.value='';otherDocImage.click()">
                             {{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span class="text-danger fs-6">*</span>
                           </button>
-                          <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
+                          <input type="file" accept=".jpg,.jpeg,.png,.pdf" id="real-file"
                             (change)="fileUpload($event,7,'otherDocuments')" #otherDocImage />
                           <div class="d-flex gap-2" *ngIf="otherDocumentFrm.getRawValue().docPath">
                             <!-- *ngIf="otherDocumentFrm.getRawValue().docPath"  (click)="deleteOtherDocument()"
@@ -1660,7 +1660,7 @@
                     (click)="selImg7.value='';selImg7.click()">{{lang == 'en' ? "File Upload": "फाइल अपलोड"}}<span
                       class="text-danger fs-6">*</span>
                   </button>
-                  <input type="file" accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" #selImg7
+                  <input type="file" accept=".jpg,.jpeg,.png,.pdf" id="real-file" #selImg7
                     (change)="fileUpload($event,docArray[4].docTypeId,'documents')" />
                   <ng-container *ngIf="docArray[4].docPath">
                     <div class="d-flex gap-2">
