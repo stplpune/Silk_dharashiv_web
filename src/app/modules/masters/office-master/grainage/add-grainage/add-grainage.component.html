@@ -100,7 +100,7 @@
           <!-- <mat-label class="form-label">{{"common.state" | translate}} <span
               class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{"grainage.state" | translate}}</mat-label>
+            <mat-label>{{"common.state" | translate}}</mat-label>
             <mat-select formControlName="stateId" (selectionChange)="clearDropdown('state');getDisrict()">
               <mat-option *ngFor=" let state of stateArr" [value]="state.id">{{lang == 'en' ? state.textEnglish :
                 state.textMarathi}}</mat-option>
@@ -112,7 +112,7 @@
           <!-- <mat-label class="form-label">{{"common.district" | translate}} <span
               class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label >{{"grainage.district" | translate}}</mat-label>
+            <mat-label >{{"common.district" | translate}}</mat-label>
             <mat-select formControlName="districtId" (selectionChange)="clearDropdown('district');getTaluka()">
               <mat-option *ngFor=" let dist of districtArr" [value]="dist.id">{{lang == 'en' ? dist.textEnglish :
                 dist.textMarathi}}</mat-option>
@@ -125,7 +125,7 @@
           <!-- <mat-label class="form-label">{{"common.taluka" | translate}} <span
               class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{"grainage.taluka" | translate}}</mat-label>
+            <mat-label>{{"common.taluka" | translate}}</mat-label>
             <mat-select formControlName="talukaId">
               <mat-option>
                 <ngx-mat-select-search [formControl]="talukaCtrl"
