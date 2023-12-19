@@ -1379,7 +1379,8 @@
                   <div class="form-data text-main">{{'approvalProcess.beneficiary_category'| translate}}</div>
                   <ul class="list-group" *ngFor="let category of previewData?.categoryOfBeneficiaries">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <div class="form-label">{{category?.categoryOfBeneficiary}}</div>
+                      <div class="form-label">
+                        {{(this.lang == 'en' ? category?.categoryOfBeneficiary : category?.m_CategoryOfBeneficiary) | dash}}</div>
                     </li>
                   </ul>
                 </div>
