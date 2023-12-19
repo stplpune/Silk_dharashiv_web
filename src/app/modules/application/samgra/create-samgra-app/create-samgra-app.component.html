@@ -314,7 +314,7 @@
                 <mat-label>16.{{'common.address'| translate}}</mat-label>
                 <mat-form-field appearance="outline" class="w-100">
                   <textarea matInput placeholder="" formControlName="address" maxlength="200"
-                    (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)"></textarea>
+                    (keypress)="validation.noFirstSpaceAllow($event)"></textarea>
                   <mat-error *ngIf="f['address']?.errors">
                     <span class="text-danger"
                       *ngIf="f['address']?.hasError('maxLengthExceeded') || f['address'].hasError('required')">
@@ -432,11 +432,11 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput [matDatepicker]="picker1" formControlName="sm_YearOfPlanting" (click)="picker1.open()" readonly>
                     <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
+                    <mat-datepicker #picker1 ></mat-datepicker>
                     <mat-error
-                      *ngIf="fL['sm_YearOfPlanting'].hasError('required') ">{{'addSamgra.Plantation_years_select'|translate}}</mat-error>
-                  </mat-form-field>
-                </div>
+                      *ngIf="fL['sm_YearOfPlanting'].hasError('required') ">{{'addSamgra.Plantation_years_select'|translate}}</mat-error>                     
+                  </mat-form-field>               
+                </div>               
                 <div class="col-sm-4">
                   <div class="form-label">23.2. {{'addSamgra.Cultivation_area' | translate}}</div>
                   <div class="form-label">
