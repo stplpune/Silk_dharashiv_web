@@ -93,10 +93,11 @@ export class CreateSamgraAppComponent {
   isLinear = false;
   checkinternalSchemesflag: boolean = false;
   viewMsgFlag: boolean = false;
-  samgraId = new Array();
+  samgraId:any;
   registionFeeUrl: string = "";
   applicationId: any;
   submitDate: any;
+  checkApplicationId : number = 0
   @ViewChild('stepper') private myStepper!: MatStepper;
   @ViewChild('samgraDirective') private samgraDirective: NgForm | any;
   @ViewChild('landDetailsDirective') private landDetailsDirective: NgForm | any;
@@ -123,11 +124,12 @@ export class CreateSamgraAppComponent {
   ) {
     this.dateAdapter.setLocale('en-GB');
     let Id: any;
-    let value: any;
+  
     this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
     if(Id){
-      value =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
-      this.samgraId = value.split('.');
+      this.samgraId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
+    
+      // this.samgraId = value.split('.');
     }
   }
 
@@ -145,6 +147,7 @@ export class CreateSamgraAppComponent {
     this.otherDocumentFormData();
     this.selfDeclarationFormData();
     this.filterFormData();
+    this.checkScheemApplication();
     this.commonDropdown();
   }
 
@@ -176,7 +179,7 @@ export class CreateSamgraAppComponent {
       "fullName": [data?.fullName || '', [Validators.required, this.validation.maxLengthValidator(100)]],
       "mobileNo1": [this.WebStorageService.getMobileNo() || '', [Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
       "mobileNo2": [data?.mobileNo2 || '', [this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
-      "aadharNo": [data?.aadharNo || '', [Validators.required, this.validation.maxLengthValidator(12), Validators.pattern(this.validation.aadhar_card)]],
+      "aadharNo": [this.samgraId || '', [Validators.required, this.validation.maxLengthValidator(12), Validators.pattern(this.validation.aadhar_card)]],
       "birthDate": [data?.birthDate || '', [Validators.required]],
       "gender": [data?.genderId || 1],
       "qualificationId": [data?.qualificationId || '', [Validators.required]],
@@ -259,6 +262,16 @@ export class CreateSamgraAppComponent {
     this.filterForm = this.fb.group({
       filterMobileNo: ['', [this.validation.maxLengthValidator(10), Validators.minLength(10)]],
       filterAddharNo: ['', [this.validation.maxLengthValidator(12), Validators.minLength(12)]]
+    })
+  }
+
+  checkScheemApplication(){
+    this.masterService.GetSelectSchemeData(this.WebStorageService.getMobileNo(),2).subscribe({
+      next:((res:any)=>{
+        console.log("check application",res);
+        res.statusCode == "200" ? this.checkApplicationId = res.responseData : this.checkApplicationId = 0;
+        
+      })
     })
   }
 
@@ -913,7 +926,8 @@ export class CreateSamgraAppComponent {
       this.commonMethod.snackBar("Please Enter Correct Details", 1)
       return
     } else {
-      this.apiService.setHttp('get', `sericulture/api/Application/application-preview?Id=${+this.samgraId[0] || 0}&AadharNo=${addharNo || ''}&MobileNo=${mobileNo || ''}&lan=en`, false, false, false, 'masterUrl');
+      // ${+this.samgraId[0] || 0} // id 
+      this.apiService.setHttp('get', `sericulture/api/Application/application-preview?AadharNo=${addharNo || ''}&MobileNo=${mobileNo || ''}&lan=en`, false, false, false, 'masterUrl');
       // this.apiService.setHttp('get', `sericulture/api/Application/application-preview?MobileNo=9175515598&lan=en`, false, false, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
