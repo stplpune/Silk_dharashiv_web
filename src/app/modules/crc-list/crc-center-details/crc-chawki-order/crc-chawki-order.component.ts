@@ -19,6 +19,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/core/services/api.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { GlobalTableComponent } from "../../../../shared/components/global-table/global-table.component";
+import { ValidationService } from 'src/app/core/services/validation.service';
 
 
 @Component({
@@ -69,6 +70,7 @@ export class CrcChawkiOrderComponent {
       private spinner: NgxSpinnerService,
       private apiService: ApiService,
       private errorHandler: ErrorHandlingService,
+      public validation: ValidationService,
 
     ) { }
 
@@ -104,7 +106,7 @@ export class CrcChawkiOrderComponent {
   }
 
 
-  chowkiorderdetails(obj?: any) {
+  chowkiorderdetails(obj?: any) {       
     let dialogRef = this.dialog.open(ChowkiOrderDetailsComponent, {
       width: '90%',
       data: obj,
@@ -185,7 +187,6 @@ export class CrcChawkiOrderComponent {
     let formData = this.filterForm.getRawValue();    
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    console.log(formData,str);
     this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-CRC-Centers_Chawki-Orders?DistrictId='+(formData.districtId || 0)+'&TalukaId='+(formData.talukaId ||0)+'&GrampanchayatId='+(formData.grampanchayatId || 0)+'&DistributionSlab='+(formData.deliveryslabId || 0)+'&Status='+(formData.statusId || 0)+str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
