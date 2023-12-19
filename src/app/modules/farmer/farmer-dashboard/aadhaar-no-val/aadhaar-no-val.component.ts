@@ -57,6 +57,12 @@ export class AadhaarNoValComponent {
     this.checkBoxValueMang = event.checked
   }
 
+  onTabChanged() {
+    this.checkBoxValueMang = false;
+    this.aadhaarNo.setValue('');
+    this.aadhaarNo.markAsUntouched();
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }

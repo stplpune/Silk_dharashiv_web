@@ -1,4 +1,4 @@
-<mat-tab-group>
+<mat-tab-group (selectedTabChange)="onTabChanged();">
     <mat-tab label="Manrega">
         <p>महात्मा गांधी रोजगार हमी योजनेअंतर्गत नवीन तुती लागवड विकास योजना नोंदणी</p>
         <p>प्रति लाभार्थी मर्यादा 1 एकर पर्यन्त योजनेचा सारांश
@@ -9,7 +9,7 @@
             कीटक संगोपन गृह(1100 चौ. फुट) बांधकामासाठी रु. 1.79149 लक्ष असे एकूण रु. 3.97335 लक्ष रक्कम येवढे
             अनुदान देण्यात येत आहे.</p>
         <p>महात्मा गांधी रोजगार हमी योजनेअंतर्गत नवीन तुती लागवड विकास योजना नोंदणी</p>
-        <p> <mat-checkbox class="example-margin" (change)="selCheckBox($event, 1)">मी प्रदान केलेली माहिती वाचली
+        <p> <mat-checkbox class="example-margin" (change)="selCheckBox($event, 1)" [checked]="checkBoxValueMang">मी प्रदान केलेली माहिती वाचली
                 आहे आणि मी अटी व शर्तीना सहमती
                 देतो</mat-checkbox> </p>
 
@@ -22,13 +22,13 @@
         <p>Beneficiaries are highly qualified to participate in the scheme</p>
         <p>7/12 and 8A Excerpt. Job Card, Aadhaar Card, Bank Passbook, Scanned Copy, 2-Passport Size Photographs, Self
             Declaration of Olita</p>
-        <p> <mat-checkbox class="example-margin" (change)="selCheckBox($event, 2)" >I have read all the information provided and I agree to the terms and conditions </mat-checkbox></p>
+        <p> <mat-checkbox class="example-margin" (change)="selCheckBox($event, 2)"  [checked]="checkBoxValueMang">I have read all the information provided and I agree to the terms and conditions </mat-checkbox></p>
 
     </mat-tab>
     <!-- <mat-tab label="Other"> Content 3 </mat-tab> -->
 </mat-tab-group>
 
-<div class="row">
+<div class="row" *ngIf="checkBoxValueMang">
     <div class="col-md-6 mx-auto">
         <p>Mobile No : {{webStorage?.getMobileNo()}}</p>
         <mat-form-field appearance="outline" class="w-100">
