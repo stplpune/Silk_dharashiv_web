@@ -43,7 +43,7 @@
   </mat-card-content> -->
   <mat-card-content class=" card-body form-container">
     <!-- [linear]="!isLinear" -->
-    <mat-stepper #stepper>
+    <mat-stepper #stepper [linear]="!isLinear">
       <mat-step [stepControl]="samgraForm"   >
         <ng-template matStepLabel>{{'addSamgra.Original_details' | translate}}</ng-template>
         <form [formGroup]="samgraForm"  #samgraDirective="ngForm" >
