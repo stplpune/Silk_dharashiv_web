@@ -35,7 +35,7 @@
           <div class="form-data my-1">{{'geoTagging.Photo_Tuti_Bagh_with_Shekari'| translate}}</div>
           <div class="row gx-2 pb-4 mb-3 border-bottom">
             <div class="col-sm-3" *ngFor="let img of data?.allSiteInspectionDocument">
-              <img [src]="img?.docPath" alt="" class="img-fluid rounded">
+              <img [src]="img?.docPath" alt="" class="img-fluid rounded" (click)="viewimage(img?.docPath)">
             </div>
             <!-- <div class="col-sm-3">
               <img src="assets/images/login-bg.jpg" alt="" class="img-fluid rounded">

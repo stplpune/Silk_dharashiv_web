@@ -86,4 +86,8 @@ export class GeoTaggingComponent {
       this.errorHandler.handelError(error.status);
     })
   }
+
+  viewimage(pathUrl?: string) {
+    window.open(pathUrl, '_blank')
+  }
 }
