@@ -38,6 +38,7 @@ export class CreateManaregaAppComponent {
   profileImageUrl: any;
   subscription!: Subscription;//used  for lang conv
   lang: any;
+  schemeData:any;
   viewMsgFlag: boolean = false;//used for error msg show
   genderArray: any = [{ id: 1, name: 'Male', m_name: 'पुरुष' }, { id: 2, name: 'Female', m_name: 'स्त्री  ' }];
   checkedArray: any = [{ id: true, name: 'Yes', m_name: 'होय' }, { id: false, name: 'No', m_name: 'नाही' }];
@@ -89,6 +90,9 @@ export class CreateManaregaAppComponent {
   previewDocName: any
   routingData: any;//used for get routing data
   @ViewChild('stepper') private myStepper!: MatStepper;
+  // isFormDisabled: boolean = true; //disable enable form
+  // @ViewChild('myForm')form:any;
+  manaregaAadhar : any;
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -107,6 +111,11 @@ export class CreateManaregaAppComponent {
     public encryptdecrypt: AesencryptDecryptService,
   ) { 
     this.dateAdapter.setLocale('en-GB');
+    let Id: any;
+    this.route.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
+    if(Id){
+      this.manaregaAadhar =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
+    }
   }
 
   ngOnInit() {
@@ -117,7 +126,7 @@ export class CreateManaregaAppComponent {
     this.route.queryParams.subscribe((queryParams: any) => {
       this.routingData = queryParams['id'];
     });
-
+  
     this.addManaregaFrm();
     this.addFarmInfo();
     this.getFarmInfo();
@@ -128,6 +137,7 @@ export class CreateManaregaAppComponent {
     this.addOtherDocument();
     this.addRegistrationFrm();
     this.commonDropdown();
+    this.getSchemeData();
     this.routingData ? this.getRouteParam() : this.getPreviewData('search');
     // this.getPreviewData('search'); // temp
   }
@@ -165,6 +175,27 @@ export class CreateManaregaAppComponent {
     this.checkedItems = []; this.previewData = [];
   }
 
+  getSchemeData() {
+      this.masterService.GetSelectSchemeData(this.WebStorageService.getMobileNo(),1).subscribe({
+        next: ((res: any) => {
+          if (res.statusCode == "200" && res.responseData?.length) {
+            let data= res.responseData;
+            console.log(data)
+            // if (data == 3) {
+            //   this.manaregaFrm.disable(); // Disabling the form
+            // }
+            // if (data == 3) {
+            //   this.isFormDisabled = false; // Enable the form
+            // } else {
+            //   this.isFormDisabled = true; // Disable the form
+            // }
+             }
+        
+        })
+      })
+    }
+  
+
   //#region --------------form start here---------------------
   addManaregaFrm(data?: any) {
     this.manaregaFrm = this.fb.group({
@@ -173,7 +204,7 @@ export class CreateManaregaAppComponent {
       "schemeTypeId": [1],
       "applicationNo": [data?.applicationNo || ''],
       "mobileNo1": [this.WebStorageService.getMobileNo(), [Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
-      "aadharNo": [data?.aadharNo || '', [Validators.required, this.validation.maxLengthValidator(12), Validators.pattern(this.validation.aadhar_card)]],
+      "aadharNo": [this.manaregaAadhar || '', [Validators.required, this.validation.maxLengthValidator(12), Validators.pattern(this.validation.aadhar_card)]],
       // "profilePhotoPath": ['',[Validators.required]],
       "mn_DepartmentId": [data?.mn_DepartmentId || '', [Validators.required]],
       "fullName": [data?.fullName || '', [Validators.required, this.validation.minLengthValidator(5), this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
