@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AadhaarNoValComponent } from './aadhaar-no-val/aadhaar-no-val.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-farmer-dashboard',
@@ -7,4 +9,12 @@ import { Component } from '@angular/core';
 })
 export class FarmerDashboardComponent {
 
+  constructor(public dialog: MatDialog) { }
+
+  aadhaarNoVal(schemeId: any) {
+    this.dialog.open(AadhaarNoValComponent, {
+      width: '70%',
+      data: schemeId,
+    });
+  }
 }
