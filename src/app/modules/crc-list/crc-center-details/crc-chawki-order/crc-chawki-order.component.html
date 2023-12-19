@@ -72,7 +72,7 @@
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Search by order ID/Farmer Name/Mobile Number</mat-label>
-          <input matInput placeholder="Search by order ID/Farmer Name/Mobile Number" formControlName="searchValue">
+          <input matInput placeholder="Search by order ID/Farmer Name/Mobile Number" formControlName="searchValue"  (keypress)="validation.noFirstSpaceAllow($event)">
         </mat-form-field>
       </div>
       <div class="col-sm-2">
