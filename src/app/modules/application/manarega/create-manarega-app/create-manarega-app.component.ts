@@ -821,7 +821,7 @@ export class CreateManaregaAppComponent {
 
   getDepartment() {
     this.departmentArray = [];
-    this.masterService.GetDepartmentDropdown().subscribe({
+    this.masterService.GetDepartmentDropdownNew().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentArray = res.responseData;
