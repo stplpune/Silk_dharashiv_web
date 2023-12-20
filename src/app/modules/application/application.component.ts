@@ -55,7 +55,7 @@ export class ApplicationComponent {
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-  ) {   this.webStorage.getMobileNo()}
+  ) { this.webStorage.getMobileNo() }
 
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
@@ -150,7 +150,7 @@ export class ApplicationComponent {
     })
   }
 
-  
+
   getGrampanchayat() {
     this.gramPSubject = new ReplaySubject<any>();
     this.grampanchayatArray = [];
@@ -185,14 +185,14 @@ export class ApplicationComponent {
   }
 
   getAction() {
-    if(this.filterFrm.getRawValue().schemeTypeId == 0){
+    if (this.filterFrm.getRawValue().schemeTypeId == 0) {
       this.filterFrm.controls['actionId'].setValue(0);
       return
     }
     let obj = {
-      lan:this.lang,
-      SchemeId:this.filterFrm.getRawValue().schemeTypeId,
-      designationId : this.webStorage.getDesignationId(),
+      lan: this.lang,
+      SchemeId: this.filterFrm.getRawValue().schemeTypeId,
+      designationId: this.webStorage.getDesignationId(),
     }
     this.actionArr = [];
     this.master.getActionDropDownWithObj(obj).subscribe({
@@ -212,7 +212,7 @@ export class ApplicationComponent {
     let formData = this.filterFrm.getRawValue();
     status == 'filter' ? ((this.pageNumber = 1), this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllDesignationWiseApplications?userTypeId='+this.webStorage.getTypeId()+ str + '&SchemeTypeId=' + (formData.schemeTypeId || 0) + '&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchayatId=' + (formData.grampanchayatId || 0) +
+    this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllDesignationWiseApplications?userTypeId=' + this.webStorage.getTypeId() + str + '&SchemeTypeId=' + (formData.schemeTypeId || 0) + '&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchayatId=' + (formData.grampanchayatId || 0) +
       '&ApplicationStatus=' + (formData.statusId || 0) + '&UserId=' + (this.webStorage?.getUserId() || 0) + '&TextSearch=' + (formData.textSearch.trim() || '') + '&ActionId=' + (formData.actionId || 0) + '&lan=' + this.lang, false, false, false, 'masterUrl');
 
     this.apiService.getHttp().subscribe({
@@ -243,17 +243,17 @@ export class ApplicationComponent {
   setTableData() {
     this.highLightRowFlag = true;
     // (this.lang == 'en' ? 'fullName' : 'm_FullName')
-    let displayedColumns = ['srNo', 'applicationNo', (this.lang == 'en' ? 'departmentName' : 'm_DepartmentName'), (this.lang == 'en' ? 'schemeType' : 'm_SchemeType'),'fullName', 'mobileNo1', (this.lang == 'en' ? 'taluka' : 'm_Taluka'), (this.lang == 'en' ? 'grampanchayatName' : 'm_GrampanchayatName'), 'selfStatus', 'status1', 'action'];
-    let displayedheaders = this.lang == 'en' ? ['Sr.No.', 'Application ID', 'Process Department', 'Scheme Name', 'Applicant Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Stage', 'Application Status', 'Action'] : ['अनुक्रमांक', 'अर्ज आयडी', 'प्रक्रिया विभाग', 'योजनेचे नाव', 'अर्जदाराचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'स्टेज', 'स्थिती', 'कृती'];
+    let displayedColumns = ['srNo', 'applicationNo', (this.lang == 'en' ? 'departmentName' : 'm_DepartmentName'), (this.lang == 'en' ? 'schemeType' : 'm_SchemeType'), 'fullName', 'mobileNo1', (this.lang == 'en' ? 'taluka' : 'm_Taluka'), (this.lang == 'en' ? 'grampanchayatName' : 'm_GrampanchayatName'), 'selfStatus', 'status1', 'action'];
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Application ID', 'Process Department', 'Scheme Name', 'Applicant Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Stage', 'Application Status', 'Action'] : ['अनुक्रमांक', 'अर्ज आयडी', 'प्रक्रिया विभाग', 'योजनेचे नाव', 'अर्जदाराचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'स्टेज', 'स्थिती', 'कृती'];
     //this.webStorage.getDesignationId() == 1 ? 
     if (this.webStorage.getDesignationId() === 1) {
       const selfStatusIndex = displayedColumns.indexOf('selfStatus');
-     const headerselfStatusIndex = (this.lang == 'en' ?  displayedheaders.indexOf('Stage') : displayedheaders.indexOf('स्टेज'));
-      
+      const headerselfStatusIndex = (this.lang == 'en' ? displayedheaders.indexOf('Stage') : displayedheaders.indexOf('स्टेज'));
+
       if (selfStatusIndex !== -1 && headerselfStatusIndex !== -1) {
         displayedColumns.splice(selfStatusIndex, 1); // Remove selfStatus column
         displayedheaders.splice(headerselfStatusIndex, 1)
-       }
+      }
     }
 
     let tableData = {
@@ -266,7 +266,7 @@ export class ApplicationComponent {
       tableHeaders: displayedheaders,
       view: true,
       track: true,
-      edit:  false,
+      edit: false,
       date: 'applicationDate'
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
@@ -304,7 +304,7 @@ export class ApplicationComponent {
   }
 
   openAddApplicationDetails(obj?: any) {
-    let Id: any = this.encryptdecrypt.encrypt(`${obj?.applicationId}`+ '.' + `${obj.schemeTypeId == 1 ? 'm' : 's'}`);
+    let Id: any = this.encryptdecrypt.encrypt(`${obj?.applicationId}` + '.' + `${obj.schemeTypeId == 1 ? 'm' : 's'}`);
     this.router.navigate([obj.schemeTypeId == 1 ? '../create-manarega-app' : '../create-samgra-app'], {
       queryParams: {
         id: Id

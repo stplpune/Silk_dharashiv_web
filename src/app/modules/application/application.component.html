@@ -1,138 +1,122 @@
+<mat-card class="plain-card form-container">
+  <mat-card-header class="card-header">
+    <div class="d-flex align-items-center justify-content-between w-100">
+      <div class="text-main">{{'manrega.manrega'| translate}}</div>
+      <ng-container *ngIf="spliteUrlData.length">
+        <button mat-flat-button class="btn-main-light" (click)="common.locationBack()">
+          <mat-icon class="material-symbols-rounded">
+            chevron_left
+          </mat-icon>{{lang == 'en' ? 'Back' :'मागे'}}
+        </button>
+      </ng-container>
+    </div>
+  </mat-card-header>
+  <mat-card-header class="card-header-control">
+    <form [formGroup]="filterFrm" class="w-100">
+      <div class="row gx-2 gy-3">
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'manrega.district'| translate}}</mat-label>
+            <mat-select formControlName="districtId" (selectionChange)="getTaluka()" placeholder="District"
+              [class]="webStorage.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
+              <mat-option *ngFor=" let dist of districtArr" [value]="dist.id">{{lang == 'en' ? dist.textEnglish :
+                dist.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'manrega.taluka'| translate}}</mat-label>
+            <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('Taluka');getGrampanchayat()"
+              placeholder="All Taluka"
+              [class]="webStorage.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })">
+              <mat-option>
+                <ngx-mat-select-search [formControl]="talukaCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor=" let taluka of talukaSubject | async" [value]="taluka.id">{{lang == 'en' ?
+                taluka.textEnglish :
+                taluka.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label>
+            <mat-select formControlName="grampanchayatId"
+              placeholder="{{lang == 'en' ? 'Grampanchayat' :'ग्रामपंचायत'}}"
+              [class]="webStorage.getGrampanchayatId() || !filterFrm.getRawValue().talukaId ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
+              <mat-option>
+                <ngx-mat-select-search [formControl]="gramPCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor=" let gram of gramPSubject | async" [value]="gram.id">{{lang == 'en' ?
+                gram.textEnglish :
+                gram.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'manrega.scheme'| translate}}</mat-label>
+            <mat-select formControlName="schemeTypeId" placeholder="All Scheme" (selectionChange)="getAction()">
+              <mat-option *ngFor=" let scheme of schemeFilterArr" [value]="scheme.id">{{lang == 'en' ?
+                scheme.textEnglish : scheme.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'manrega.status'| translate}}</mat-label>
+            <mat-select formControlName="statusId" placeholder="All Status">
+              <mat-option *ngFor=" let status of statusArr" [value]="status.id">{{lang == 'en' ?
+                status.textEnglish
+                : status.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-3" *ngIf="webStorage.getDesignationId() !=2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.action'| translate}}</mat-label>
+            <mat-select formControlName="actionId" placeholder="All Status"
+              [class]="!filterFrm.getRawValue().schemeTypeId ? f['actionId'].disable({ onlySelf: true }) : f['actionId'].enable({ onlySelf: true })">
+              <mat-option *ngFor=" let action of actionArr" [value]="action.id">{{lang == 'en' ?
+                action.textEnglish : action.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'manrega.search_by'| translate}}</mat-label>
+            <input matInput formControlName="textSearch" (keypress)="validator.noFirstSpaceAllow($event)"
+              placeholder="{{lang == 'en' ? 'Application ID/ Farmer Name/ Mobile No.' : 'अर्ज आयडी/ शेतकऱ्याचे नाव/ मोबाईल क्र.'}}">
+          </mat-form-field>
+        </div>
 
-      <mat-card class="plain-card form-container">
-        <mat-card-header class="card-header">
-          <div class="d-flex align-items-center justify-content-between w-100">
-            <div class="text-main">{{'manrega.manrega'| translate}}</div>
-            <div class="d-flex gap-2">
-
-              <!--<button mat-flat-button class="btn-main" [routerLink]="['/create-manarega-app']">
-                <mat-icon class="material-symbols-rounded">
-                  add
-                </mat-icon>
-                {{'approvalProcess.Add_Manarega' | translate}}
-              </button>
-              <button mat-flat-button class="btn-main" [routerLink]="['/create-samgra-app']">
-                <mat-icon class="material-symbols-rounded">
-                  add
-                </mat-icon>
-                Add Samgra
-              </button>-->
-              <ng-container *ngIf="spliteUrlData.length">
-                <button mat-flat-button class="btn-main-light" (click)="common.locationBack()">
-                  <mat-icon class="material-symbols-rounded">
-                    chevron_left
-                  </mat-icon>{{lang == 'en' ? 'Back' :'मागे'}}
-                </button>
-              </ng-container>
-            </div>
-
+        <div class="col-sm-auto">
+          <div class="d-flex gap-2">
+            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"
+              (click)="getTableData('filter')">
+              <mat-icon class="material-symbols-rounded">
+                search
+              </mat-icon>
+            </button>
+            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button"
+              (click)="clearSearchFilter()">
+              <mat-icon class="material-symbols-rounded">
+                close
+              </mat-icon>
+            </button>
           </div>
-        </mat-card-header> 
-        <mat-card-header class="card-header-control">
-          <form [formGroup]="filterFrm" class="w-100">
-            <div class="row gx-2 gy-3">
-              <div class="col-sm-3">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>{{'manrega.district'| translate}}</mat-label>
-                  <mat-select formControlName="districtId" (selectionChange)="getTaluka()" placeholder="District"
-                    [class]="webStorage.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
-                    <mat-option *ngFor=" let dist of districtArr" [value]="dist.id">{{lang == 'en' ? dist.textEnglish :
-                      dist.textMarathi}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="col-sm-3">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>{{'manrega.taluka'| translate}}</mat-label>
-                  <mat-select formControlName="talukaId" (selectionChange)="clearDropdown('Taluka');getGrampanchayat()"
-                    placeholder="All Taluka"
-                    [class]="webStorage.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })">
-                    <mat-option>
-                      <ngx-mat-select-search [formControl]="talukaCtrl"
-                        placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
-                        noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
-                    </mat-option>
-                    <mat-option *ngFor=" let taluka of talukaSubject | async" [value]="taluka.id">{{lang == 'en' ?
-                      taluka.textEnglish :
-                      taluka.textMarathi}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="col-sm-3">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>{{'common.grampanchayat_filter'| translate}} </mat-label>
-                  <mat-select formControlName="grampanchayatId"
-                    placeholder="{{lang == 'en' ? 'Grampanchayat' :'ग्रामपंचायत'}}"
-                    [class]="webStorage.getGrampanchayatId() || !filterFrm.getRawValue().talukaId ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
-                    <mat-option>
-                      <ngx-mat-select-search [formControl]="gramPCtrl"
-                        placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
-                        noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
-                    </mat-option>
-                    <mat-option *ngFor=" let gram of gramPSubject | async" [value]="gram.id">{{lang == 'en' ?
-                      gram.textEnglish :
-                      gram.textMarathi}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="col-sm-3">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>{{'manrega.scheme'| translate}}</mat-label>
-                  <mat-select formControlName="schemeTypeId" placeholder="All Scheme" (selectionChange)="getAction()">
-                    <mat-option *ngFor=" let scheme of schemeFilterArr" [value]="scheme.id">{{lang == 'en' ?
-                      scheme.textEnglish : scheme.textMarathi}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="col-sm-3">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>{{'manrega.status'| translate}}</mat-label>
-                  <mat-select formControlName="statusId" placeholder="All Status">
-                    <mat-option *ngFor=" let status of statusArr" [value]="status.id">{{lang == 'en' ?
-                      status.textEnglish
-                      : status.textMarathi}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="col-sm-3" *ngIf="webStorage.getDesignationId() !=2">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>{{'common.action'| translate}}</mat-label>
-                  <mat-select formControlName="actionId" placeholder="All Status"  [class]="!filterFrm.getRawValue().schemeTypeId ? f['actionId'].disable({ onlySelf: true }) : f['actionId'].enable({ onlySelf: true })">
-                    <mat-option *ngFor=" let action of actionArr" [value]="action.id">{{lang == 'en' ?
-                      action.textEnglish : action.textMarathi}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="col-sm-3">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>{{'manrega.search_by'| translate}}</mat-label>
-                  <input matInput formControlName="textSearch" (keypress)="validator.noFirstSpaceAllow($event)"
-                    placeholder="{{lang == 'en' ? 'Application ID/ Farmer Name/ Mobile No.' : 'अर्ज आयडी/ शेतकऱ्याचे नाव/ मोबाईल क्र.'}}">
-                </mat-form-field>
-              </div>
-
-              <div class="col-sm-auto">
-                <div class="d-flex gap-2">
-                  <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"
-                    (click)="getTableData('filter')">
-                    <mat-icon class="material-symbols-rounded">
-                      search
-                    </mat-icon>
-                  </button>
-                  <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button"
-                    (click)="clearSearchFilter()">
-                    <mat-icon class="material-symbols-rounded">
-                      close
-                    </mat-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </mat-card-header>
-        <mat-card-content class="card-body pt-0">
-          <div class="table-responsive scrollbar">
-            <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
-          </div>
-        </mat-card-content>
-      </mat-card>
+        </div>
+      </div>
+    </form>
+  </mat-card-header>
+  <mat-card-content class="card-body pt-0">
+    <div class="table-responsive scrollbar">
+      <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
+    </div>
+  </mat-card-content>
+</mat-card>
