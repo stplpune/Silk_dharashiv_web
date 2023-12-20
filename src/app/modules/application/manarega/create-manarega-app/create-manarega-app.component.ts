@@ -733,7 +733,6 @@ export class CreateManaregaAppComponent {
     let obj = {
       ...formData, ...declarationInfo, ...bankInfo,
       "m_Address": "",
-      "m_FullName": "",
       "sm_VoterRegistrationNo": "string",
       "sm_IsBelowPovertyLine": true,
       "benificiaryTotalFarm": Number(farmInfo.benificiaryTotalFarm) || 0,
