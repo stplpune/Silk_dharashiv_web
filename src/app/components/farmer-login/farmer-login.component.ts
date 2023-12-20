@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
@@ -38,6 +38,8 @@ export class FarmerLoginComponent {
   loginData: any;
   accessToken: any;
   mobNo : any;
+  getLangForLocalStor!: string | null | any;
+
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -47,12 +49,14 @@ export class FarmerLoginComponent {
       private errorHandler: ErrorHandlingService,
       private fb: FormBuilder,
       public validation: ValidationService,
-      private router: Router,
+      private router: Router,private translate: TranslateService,
       private activatedRoute : ActivatedRoute,
       public encryptDecryptService: AesencryptDecryptService
     ) {
       let paramData: any = this.activatedRoute.snapshot.queryParams;
       this.mobNo = paramData?.mobNo ? this.encryptDecryptService?.decrypt(paramData?.mobNo).toString() : '';
+      localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+      this.translate.use(this.getLangForLocalStor)
   }
 
   ngOnInit() {
@@ -163,6 +167,7 @@ export class FarmerLoginComponent {
       this.apiService.setHttp('get', 'sericulture/api/OtpTran/VerifyOTP?MobileNo=' + this.farmerMobileNo.value + '&OTP=' + sendOtp + '&PageName=Login&CreatedBy=0&lan=' + this.lang + '&LoginFlag=web', false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
+          this.spinner.hide();
           this.commonMethod.snackBar(res.statusMessage, 0);
           // this.router.navigate(['farmer-signup']);
           this.accessToken = res?.responseData1;
@@ -171,9 +176,11 @@ export class FarmerLoginComponent {
           this.otpForm.reset();
         }
         else {
+          this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
       }, (error: any) => {
+        this.spinner.hide();
         this.errorHandler.handelError(error.status);
       })
     }
