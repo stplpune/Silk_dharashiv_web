@@ -229,7 +229,8 @@ export class CrcChawkiOrderComponent {
       tableHeaders: displayedheaders,
       view: true,
       edit: false,
-      delete: false
+      delete: false,
+      selfStatus:'status'
     };
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;    
     this.apiService.tableData.next(tableData);

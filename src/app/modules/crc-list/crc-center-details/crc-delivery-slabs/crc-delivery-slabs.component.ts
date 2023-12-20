@@ -168,6 +168,7 @@ export class CrcDeliverySlabsComponent {
       view: false,
       edit: false,
       delete: false,
+      selfStatus:'status'
     };
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;    
     this.apiService.tableData.next(tableData);
