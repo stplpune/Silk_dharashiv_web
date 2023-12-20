@@ -163,6 +163,7 @@ export class FarmerLoginComponent {
       this.apiService.setHttp('get', 'sericulture/api/OtpTran/VerifyOTP?MobileNo=' + this.farmerMobileNo.value + '&OTP=' + sendOtp + '&PageName=Login&CreatedBy=0&lan=' + this.lang + '&LoginFlag=web', false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
+          this.spinner.hide();
           this.commonMethod.snackBar(res.statusMessage, 0);
           // this.router.navigate(['farmer-signup']);
           this.accessToken = res?.responseData1;
@@ -171,9 +172,11 @@ export class FarmerLoginComponent {
           this.otpForm.reset();
         }
         else {
+          this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
         }
       }, (error: any) => {
+        this.spinner.hide();
         this.errorHandler.handelError(error.status);
       })
     }
