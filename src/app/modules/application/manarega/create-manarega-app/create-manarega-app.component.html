@@ -145,23 +145,9 @@
                       </mat-form-field>
                     </div>
                   </div>
-                  <!-- <div class="col-sm-6">
-                    <mat-form-field appearance="outline" class="w-100">
-                      <mat-label>{{'common.officer_mr' | translate}}</mat-label>
-                      <input matInput formControlName="m_Name"
-                        (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiValidation($event)">
-                      <mat-error *ngIf="officeForm.controls['m_Name'].hasError('required')">{{'common.officer_Name_mr'|translate}}
-                      </mat-error>
-                      <mat-error *ngIf="officeForm.controls['m_Name'].hasError('pattern')">
-                        {{'common.address_Required_mr'|translate}}
-                      </mat-error>
-                      <mat-error *ngIf="officeForm.controls['m_Name'].hasError('maxLengthExceeded')">
-                        {{'common.officer_Name_limit'|translate}}
-                      </mat-error>
-                    </mat-form-field>
-                  </div> -->
+                
                   <div class="col-sm-6">
-                    <div class="form-label">2.{{'addManrega.applicant_name'| translate}} <span
+                    <div class="form-label">2.{{'addManrega.marathi_applicant_name'| translate}} <span
                         class="text-danger">*</span></div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
@@ -169,8 +155,8 @@
                         (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
                         <mat-error *ngIf="f['m_FullName'].hasError('required') || f['m_FullName']?.hasError('pattern')">
                           {{f['m_FullName'].hasError('required') ?
-                          ('approvalProcess.applicant_Required'|translate) :
-                          ('approvalProcess.please_enter_valid_application_name'|translate)}}
+                          ('approvalProcess.marathi_applicant_Required'|translate) :
+                          ('approvalProcess.marathi_please_enter_valid_application_name'|translate)}}
                         </mat-error>
                         <mat-error *ngIf="f['m_FullName']?.errors">
                           <span class="text-danger"
