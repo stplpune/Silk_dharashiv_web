@@ -153,7 +153,7 @@ export class DashboardComponent {
     let obj = {
       lan:this.lang,
       SchemeId:this.filterFrm.getRawValue().schemeTypeId,
-      designationId:0
+      designationId:this.WebStorageService.getDesignationId()
     }
     this.master.getActionDropDownWithObj(obj).subscribe({
       next: (res: any) => {
