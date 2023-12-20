@@ -43,14 +43,12 @@
   </mat-card-content> -->
   <mat-card-content class=" card-body form-container">
     <!-- [linear]="!isLinear" -->
-    <mat-stepper #stepper [linear]="!isLinear">
+    <mat-stepper #stepper >
       <mat-step [stepControl]="samgraForm" >
         <ng-template matStepLabel>{{'addSamgra.Original_details' | translate}}</ng-template>
-        <!-- [class]="checkApplicationId == 3 ? samgraForm.disable({ onlySelf: true }) : samgraForm.enable({ onlySelf: true })" -->
         <form [formGroup]="samgraForm"  #samgraDirective="ngForm"  >
-          <div class="container-fluid">
+          <div class="container-fluid" [class.disable]="checkApplicationId == 3">
             <div class="row gx-2 mb-4">
-
               <div class="col-sm-2">
                 <div class="position-relative applicant_img">
                   <img [src]="profileImageUrl ? profileImageUrl: 'assets/images/user.png' " alt="Applicant image"
@@ -128,7 +126,7 @@
                     </mat-form-field>
                   </div>
                 </div> -->
-                  <div class="col-sm-12">
+                  <div class="col-sm-6">
                     <div class="form-label">3.{{'addManrega.applicant_name'| translate}}</div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
@@ -142,18 +140,20 @@
                       </mat-form-field>
                     </div>
                   </div>
-                  <!-- <div class="col-sm-12">
-                  <div class="form-label">2. माझ्या शेतीवर रेशीम विकास योजने अंतर्गत तुति लागवड विभाग मार्फत करण्यात
-                    यावी
-                    (कोणतेही १ निवडा )</div>
-                  <mat-form-field appearance="outline" class="w-100">
-                    <mat-select>
-                      <mat-option>रेशीम संचालनाय</mat-option>
-                      <mat-option>कृषि व फलौत्पादन</mat-option>
-                      <mat-option>पंचायत समिती</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div> -->
+                  <div class="col-sm-6">
+                  <div class="form-label">{{'addManrega.applicant_name_m'| translate}}</div>
+                    <div class="form-label">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <input matInput placeholder="" formControlName="m_FullName" maxlength="100"
+                          (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
+                        <!-- <mat-error *ngIf="f['fullName'].hasError('required') || f['fullName']?.hasError('pattern')">
+                          {{f['fullName'].hasError('required') ?
+                          ('approvalProcess.applicant_Required'|translate) :
+                          ('approvalProcess.please_enter_valid_application_name'|translate)}}
+                        </mat-error> -->
+                      </mat-form-field>
+                    </div>
+                </div>
                 </div>
               </div>
             </div>
@@ -338,8 +338,11 @@
             </div>
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <!-- <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button> -->
-            <button mat-button  class="btn-main" (click)="checkStepCon(stepper,'samgraForm')" >{{'addSamgra.next' | translate}}</button>
+            <button mat-button  class="btn-main" (click)="checkStepCon(stepper,'samgraForm')" *ngIf="checkApplicationId != 3; else elseBlock"
+             >{{'addSamgra.next' | translate}}</button>
+             <ng-template #elseBlock>
+              <button mat-button class="btn-main" type="button" matStepperNext>{{'addSamgra.next' | translate}}</button>
+            </ng-template>
           </div>
         </form>
       </mat-step>
@@ -348,7 +351,7 @@
         <ng-template matStepLabel>{{'approvalProcess.land_details'| translate}}</ng-template>
         <!-- [class]="checkApplicationId == 3 ? landDetailsForm.disable({ onlySelf: true }) : landDetailsForm.enable({ onlySelf: true })" -->
         <form [formGroup]="landDetailsForm" #landDetailsDirective="ngForm" >
-          <div class="container-fluid">
+          <div class="container-fluid"  [class.disable]="checkApplicationId == 3">
             <div class="row align-items-center g-3">
               <div class="col-sm-4">
                 <div class="form-label">18.{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'|
@@ -858,17 +861,21 @@
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-            <button mat-button  class="btn-main"    (click)="checkStepCon(stepper, 'landDetailsForm')">{{'addSamgra.next' | translate}}</button>
-          </div>
+            <button mat-button  class="btn-main"    (click)="checkStepCon(stepper, 'landDetailsForm')" *ngIf="checkApplicationId != 3; else elseBlock"
+            >{{'addSamgra.next' | translate}}</button>
+      
+          <ng-template #elseBlock>
+            <button mat-button class="btn-main" type="button" matStepperNext>{{'addSamgra.next' | translate}}</button>
+          </ng-template>
+        </div>
         </form>
       </mat-step>
 
       <!-- ////////////////// start 3 form -->
       <mat-step [stepControl]="bankDetailsForm" >        
         <ng-template matStepLabel>{{'approvalProcess.bank_details'|translate}}</ng-template>
-        <!-- [class]="checkApplicationId == 3 ? bankDetailsForm.disable({ onlySelf: true }) : bankDetailsForm.enable({ onlySelf: true })" -->
         <form [formGroup]="bankDetailsForm" #bankDetailsDirective="ngForm" >
-          <div class="container-fluid">
+          <div class="container-fluid" [class.disable]="checkApplicationId == 3">
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-label">30.{{'approvalProcess.bank_name'|translate}}</div>
@@ -941,14 +948,18 @@
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-            <button mat-button  class="btn-main" (click)="checkStepCon(stepper,'bankDetailsForm')">{{'addSamgra.next' | translate}}</button>
+            <button mat-button  class="btn-main" (click)="checkStepCon(stepper,'bankDetailsForm')" *ngIf="checkApplicationId != 3; else elseBlock"
+            >{{'addSamgra.next' | translate}}</button>
+            <ng-template #elseBlock>
+              <button mat-button class="btn-main" type="button" matStepperNext>{{'addSamgra.next' | translate}}</button>
+            </ng-template>
           </div>
         </form>
       </mat-step>
       <!-- //////////////////start 4 form -->
       <mat-step [stepControl]="otherDocForm">
         <ng-template matStepLabel>{{'addManrega.Documents'|translate}}</ng-template>
-        <div class="container-fluid">
+        <div class="container-fluid" [class.disable]="checkApplicationId == 3">
           <div class="row align-items-center g-3">
             <div class="col-sm-4">
               <div class="form-label">1.{{'addSamgra.Aadhaar_card'|translate}}</div>
@@ -1308,7 +1319,11 @@
         </div>
         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
           <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-          <button mat-button  class="btn-main" (click)="checkStepCon(stepper, 'document')">{{'addSamgra.next' | translate}}</button>
+          <button mat-button  class="btn-main" (click)="checkStepCon(stepper, 'document')" *ngIf="checkApplicationId != 3; else elseBlock"
+          >{{'addSamgra.next' | translate}}</button>
+          <ng-template #elseBlock>
+            <button mat-button class="btn-main" type="button" matStepperNext>{{'addSamgra.next' | translate}}</button>
+          </ng-template>
         </div>
       </mat-step>
       <!-- ///////////////start 5 form -->
@@ -1316,7 +1331,7 @@
         <ng-template matStepLabel>{{'addSamgra.self_declaration' | translate}}</ng-template>
         <!-- [class]="checkApplicationId == 3 ? selfDeclarationForm.disable({ onlySelf: true }) : selfDeclarationForm.enable({ onlySelf: true })" -->
         <form [formGroup]="selfDeclarationForm"  #selfDeclarationDirective="ngForm" >
-          <div class="container-fluid">
+          <div class="container-fluid" [class.disable]="checkApplicationId == 3">
             <ul class="list-unstyled">
               <li>
                 <div class="d-flex align-items-center  gap-2">
@@ -1346,8 +1361,12 @@
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-            <button mat-button class="btn-main" (click)="checkStepCon(stepper, 'selfDeclaration')">{{'addSamgra.next' | translate}}
+            <button mat-button class="btn-main" (click)="checkStepCon(stepper, 'selfDeclaration')" *ngIf="checkApplicationId != 3; else elseBlock"
+            >{{'addSamgra.next' | translate}}
             </button>
+            <ng-template #elseBlock>
+              <button mat-button class="btn-main" type="button" matStepperNext>{{'addSamgra.next' | translate}}</button>
+            </ng-template>
           </div>
         </form>
       </mat-step>
@@ -1834,11 +1853,11 @@
 
       <mat-step>
         <ng-template matStepLabel>{{'addSamgra.Add_currency' | translate}}</ng-template>
-        <div class="container-fluid">
+        <div class="container-fluid" >
           <h6 class="my-4">
             {{'addSamgra.pay_registration_fee_and_upload_the_receipt_here'|translate}}
           </h6>
-          <div class="row align-items-center ">
+          <div class="row align-items-center " [class.disable]="checkApplicationId == 3">
             <div class="col-sm-4">
               <div class="file-upload border rounded-2 p-1">
                 <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
@@ -1865,7 +1884,12 @@
                 "कृपया नोंदणी शुल्क रु. 500 पावती अपलोड करा"}} </mat-error> -->
             </div>
             <div class="col-sm">
-              <button mat-flat-button class="btn-main" (click)="checkStepCon(stepper,'addCurrency')">{{'addSamgra.submit' | translate}}</button>
+              <button mat-flat-button class="btn-main" (click)="checkStepCon(stepper,'addCurrency')" *ngIf="checkApplicationId != 3; else elseBlock"
+              >{{'addSamgra.submit' | translate}}</button>
+              <ng-template #elseBlock>
+                <button mat-button class="btn-main" type="button" matStepperNext>{{'addSamgra.next' | translate}}</button>
+              </ng-template>
+
             </div>
           </div>
         </div>

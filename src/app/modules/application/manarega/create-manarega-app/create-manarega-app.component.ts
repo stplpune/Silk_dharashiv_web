@@ -195,6 +195,7 @@ export class CreateManaregaAppComponent {
       // "profilePhotoPath": ['',[Validators.required]],
       "mn_DepartmentId": [data?.mn_DepartmentId || '', [Validators.required]],
       "fullName": [data?.fullName || '', [Validators.required, this.validation.minLengthValidator(5), this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
+      "m_FullName":[data?.m_FullName|| '',[Validators.required, Validators.pattern(this.validation.marathi), this.validation.maxLengthValidator(100)]], 
       "mobileNo2": [data?.mobileNo2 || '', [this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
       "birthDate": [data?.birthDate || '', [Validators.required]],
       "gender": [data?.genderId || 1],//no
@@ -623,6 +624,9 @@ export class CreateManaregaAppComponent {
     // this.OtherDocUploadImg.length ? this.visible = true : this.visible = false;
     this.otherDocArray = new MatTableDataSource(this.OtherDocUploadImg);
     this.addSelfDeclaration(data);
+      if (this.docArray[0].docPath && this.docArray[1]&& this.docArray[3].docPath) {
+        this.documentFrm.controls['allRequiredDocument'].setValue(1);
+      }
   }
 
   manaregaFrmVal(flag: string) {
@@ -639,6 +643,8 @@ export class CreateManaregaAppComponent {
   }
 
   checkStepCon(stepper: MatStepper, lable: string) {
+    console.log("this.documentFrm.invalid",this.documentFrm.controls);
+    
     if (lable == 'farmerInfo' && this.manaregaFrm.invalid) {
       !this.manaregaFrm.getRawValue().profilePhotoPath ? this.manFrmSubmitFlag = true : this.manFrmSubmitFlag = false;
       return
