@@ -1,4 +1,3 @@
-<!-- <p>add-market-rate works!</p> -->
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
     <div class="text-main">
@@ -13,118 +12,134 @@
   </div>
 </div>
 <ng-container *ngIf="!viewFlag">
-  <form [formGroup]="marketForm"  #formDirective="ngForm">
+  <form [formGroup]="marketForm" #formDirective="ngForm">
     <mat-card-content class="card-body form-container">
-      <div class="row gx-2 gy-2">
+      <div class="row g-2">
         <div class="col-sm-12">
-          <!-- <mat-label  class="form-label">{{'marketPrice.Select_Market'|translate}}<span class="text-danger">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketPrice.Select_Market'|translate}}</mat-label>
-            <mat-select formControlName="marketCommitteeId" placeholder="{{lang == 'en' ? 'Select Market' : 'मार्केट निवडा'}}">
-              <mat-option *ngFor="let market of marketArr" [value]="market.id">{{lang == 'en' ? market.textEnglish : market.textMarathi}}</mat-option>
+            <mat-select formControlName="marketCommitteeId"
+              placeholder="{{lang == 'en' ? 'Select Market' : 'मार्केट निवडा'}}">
+              <mat-option *ngFor="let market of marketArr" [value]="market.id">{{lang == 'en' ? market.textEnglish :
+                market.textMarathi}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="f['marketCommitteeId'].hasError('required') ">{{'marketPrice.Please_select_market'|translate}}</mat-error>
+            <mat-error
+              *ngIf="f['marketCommitteeId'].hasError('required') ">{{'marketPrice.Please_select_market'|translate}}</mat-error>
           </mat-form-field>
         </div>
         <div class="col-sm-12">
-          <!-- <mat-label class="form-label"> {{'marketPrice.Select_Farm_Goods'|translate}}<span class="text-danger">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label> {{'marketPrice.Select_Farm_Goods'|translate}}</mat-label>
-            <mat-select formControlName="shetmalCastId" placeholder="{{lang == 'en' ? 'Select Farm Goods' : 'शेतातील वस्तू निवडा'}}">
-              <mat-option *ngFor="let goods of goodsArr" [value]="goods.id">{{lang == 'en' ? goods.textEnglish : goods.textMarathi}}</mat-option>
+            <mat-select formControlName="shetmalCastId"
+              placeholder="{{lang == 'en' ? 'Select Farm Goods' : 'शेतातील वस्तू निवडा'}}">
+              <mat-option *ngFor="let goods of goodsArr" [value]="goods.id">{{lang == 'en' ? goods.textEnglish :
+                goods.textMarathi}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="f['shetmalCastId'].hasError('required') ">{{'marketPrice.Please_elect_Farm_Goods'|translate}}</mat-error>
+            <mat-error
+              *ngIf="f['shetmalCastId'].hasError('required') ">{{'marketPrice.Please_elect_Farm_Goods'|translate}}</mat-error>
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'marketPrice.Select_Date'|translate}}<span class="text-danger">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketPrice.Select_Date'|translate}}</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="marketRateDate" (click)="picker.open()"  placeholder="{{lang == 'en' ? 'Select Date' : 'तारीख निवडा'}}"
-            [max]="maxDate">
+            <input matInput [matDatepicker]="picker" formControlName="marketRateDate" (click)="picker.open()"
+              placeholder="{{lang == 'en' ? 'Select Date' : 'तारीख निवडा'}}" [max]="maxDate">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="f['marketRateDate'].hasError('required') ">{{'marketPrice.Please_select_date'|translate}}</mat-error>
+            <mat-error
+              *ngIf="f['marketRateDate'].hasError('required') ">{{'marketPrice.Please_select_date'|translate}}</mat-error>
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'marketPrice.Unit'|translate}}<span class="text-danger">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketPrice.Unit'|translate}}</mat-label>
             <mat-select formControlName="unitId" placeholder="{{lang == 'en' ? 'Select Unit ' : 'युनिट निवडा'}}">
-              <mat-option *ngFor="let unit of unitArr" [value]="unit.id">{{lang == 'en' ? unit.textEnglish : unit.textMarathi}}</mat-option>
+              <mat-option *ngFor="let unit of unitArr" [value]="unit.id">{{lang == 'en' ? unit.textEnglish :
+                unit.textMarathi}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="f['unitId'].hasError('required') ">{{'marketPrice.Please_select_unit'|translate}}</mat-error>
-            <mat-error *ngIf="f['unitId'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error>
+            <mat-error
+              *ngIf="f['unitId'].hasError('required') ">{{'marketPrice.Please_select_unit'|translate}}</mat-error>
+            <mat-error
+              *ngIf="f['unitId'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error>
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'marketPrice.Min_Rate'|translate}}<span class="text-danger">*</span></mat-label> -->
-          <mat-form-field appearance="outline" class="w-100" >
+          <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketPrice.Min_Rate'|translate}}</mat-label>
-            <input matInput placeholder="{{lang == 'en' ? 'Enter Min Rate (₹)' : 'किमान दर प्रविष्ट करा (₹)'}}" formControlName="minRate" (keypress)="validator.digitsWithDot($event)" (blur)="checkrate()">
-            <mat-error *ngIf="f['minRate'].hasError('required') ">{{'marketPrice.Please_enter_Min_Rate/Kg'|translate}}</mat-error>
-            <!-- <mat-error *ngIf="f['minRate'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error>  -->
+            <input matInput placeholder="{{lang == 'en' ? 'Enter Min Rate (₹)' : 'किमान दर प्रविष्ट करा (₹)'}}"
+              formControlName="minRate" (keypress)="validator.digitsWithDot($event)" (blur)="checkrate()">
+            <mat-error
+              *ngIf="f['minRate'].hasError('required') ">{{'marketPrice.Please_enter_Min_Rate/Kg'|translate}}</mat-error>
             <mat-error *ngIf="f['minRate']?.errors">
               <span class="text-danger"
-                  *ngIf="f['minRate']?.hasError('maxLengthExceeded') || f['minRate']?.hasError('pattern') ">
-                  {{f['minRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate)  :('marketPrice.Please_enter_valid_Min_Rate/Kg'|translate)}}
+                *ngIf="f['minRate']?.hasError('maxLengthExceeded') || f['minRate']?.hasError('pattern') ">
+                {{f['minRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate)
+                :('marketPrice.Please_enter_valid_Min_Rate/Kg'|translate)}}
               </span>
-          </mat-error>
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'marketPrice.Max_Rate'|translate}}<span class="text-danger">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketPrice.Max_Rate'|translate}}</mat-label>
-            <input matInput placeholder="{{lang == 'en' ? 'Enter Max Rate (₹)' : 'कमाल दर प्रविष्ट करा (₹)'}}" formControlName="maxRate" (keypress)="validator.digitsWithDot($event)" (blur)="checkrate()">
-            <mat-error *ngIf="f['maxRate'].hasError('required') ">{{'marketPrice.Please_enter_Max_Rate/Kg'|translate}}</mat-error>
-            <!-- <mat-error *ngIf="f['maxRate'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error> -->
+            <input matInput placeholder="{{lang == 'en' ? 'Enter Max Rate (₹)' : 'कमाल दर प्रविष्ट करा (₹)'}}"
+              formControlName="maxRate" (keypress)="validator.digitsWithDot($event)" (blur)="checkrate()">
+            <mat-error
+              *ngIf="f['maxRate'].hasError('required') ">{{'marketPrice.Please_enter_Max_Rate/Kg'|translate}}</mat-error>
             <mat-error *ngIf="f['maxRate']?.errors">
               <span class="text-danger"
-                  *ngIf="f['maxRate']?.hasError('maxLengthExceeded') || f['maxRate']?.hasError('pattern') || f['maxRate']?.hasError('min')">
-                  {{f['maxRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate) : f['maxRate'].hasError('min') ?('marketRate.Please_enter_maximum_rate_greater_than_minimum_rate'|translate): ('marketPrice.Please_enter_valid_Max_Rate/Kg'|translate)}}
+                *ngIf="f['maxRate']?.hasError('maxLengthExceeded') || f['maxRate']?.hasError('pattern') || f['maxRate']?.hasError('min')">
+                {{f['maxRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate) :
+                f['maxRate'].hasError('min')
+                ?('marketRate.Please_enter_maximum_rate_greater_than_minimum_rate'|translate):
+                ('marketPrice.Please_enter_valid_Max_Rate/Kg'|translate)}}
               </span>
-          </mat-error>
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'marketPrice.Average_Rate'|translate}}<span class="text-danger">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketPrice.Average_Rate'|translate}}</mat-label>
-            <input matInput placeholder=" {{lang == 'en' ? 'Enter Avg Rate (₹)' : 'सरासरी दर प्रविष्ट करा (₹)'}}" formControlName="averageRate" (keypress)="validator.digitsWithDot($event)">
-            <mat-error *ngIf="f['averageRate'].hasError('required') ">{{'marketPrice.Please_enter_average_Rate/Kg'|translate}}</mat-error>
-            <!-- <mat-error *ngIf="f['averageRate'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error> -->
+            <input matInput placeholder=" {{lang == 'en' ? 'Enter Avg Rate (₹)' : 'सरासरी दर प्रविष्ट करा (₹)'}}"
+              formControlName="averageRate" (keypress)="validator.digitsWithDot($event)">
+            <mat-error
+              *ngIf="f['averageRate'].hasError('required') ">{{'marketPrice.Please_enter_average_Rate/Kg'|translate}}</mat-error>
             <mat-error *ngIf="f['averageRate']?.errors">
               <span class="text-danger"
-                  *ngIf="f['averageRate']?.hasError('maxLengthExceeded') || f['averageRate']?.hasError('pattern') || f['averageRate']?.hasError('min')  || f['averageRate']?.hasError('max')">
-                  {{f['averageRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate) : f['averageRate'].hasError('min')  || f['averageRate'].hasError('max') ? ('marketRate.Average_rate_should_be_greater_tham_minimum_rate_and_less_than_maximum_rate'|translate) : ('marketPrice.Please_enter_valid_average_Rate/Kg'|translate)}}
+                *ngIf="f['averageRate']?.hasError('maxLengthExceeded') || f['averageRate']?.hasError('pattern') || f['averageRate']?.hasError('min')  || f['averageRate']?.hasError('max')">
+                {{f['averageRate'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate) :
+                f['averageRate'].hasError('min') || f['averageRate'].hasError('max') ?
+                ('marketRate.Average_rate_should_be_greater_tham_minimum_rate_and_less_than_maximum_rate'|translate) :
+                ('marketPrice.Please_enter_valid_average_Rate/Kg'|translate)}}
               </span>
-          </mat-error>
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'marketPrice.Income_Quantity'|translate}}<span class="text-danger">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketPrice.Income_Quantity'|translate}}</mat-label>
-            <input matInput placeholder=" {{lang == 'en' ? 'Enter Income (₹)' : 'उत्पन्न प्रविष्ट करा (₹)'}}" formControlName="income" (keypress)="validator.digitsWithDot($event)">
-            <mat-error *ngIf="f['income'].hasError('required') ">{{'marketPrice.Please_enter_income_quantity_per_qwintal'|translate}}</mat-error>
-            <!-- <mat-error *ngIf="f['income'].hasError('maxLengthExceeded') ">{{'marketPrice.Maximum_limit_is_10'|translate}}</mat-error> -->
+            <input matInput placeholder=" {{lang == 'en' ? 'Enter Inward Quantity' : 'आवक प्रविष्ट करा'}}"
+              formControlName="income" (keypress)="validator.digitsWithDot($event)">
+            <mat-error
+              *ngIf="f['income'].hasError('required') ">{{'marketPrice.Please_enter_income_quantity_per_qwintal'|translate}}</mat-error>
             <mat-error *ngIf="f['income']?.errors">
               <span class="text-danger"
-                  *ngIf="f['income']?.hasError('maxLengthExceeded') || f['income']?.hasError('pattern')">
-                  {{f['income'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate) : ('marketPrice.Please_enter_valid_income_quantity_per_qwintal'|translate)}}
+                *ngIf="f['income']?.hasError('maxLengthExceeded') || f['income']?.hasError('pattern')">
+                {{f['income'].hasError('maxLengthExceeded') ? ('marketPrice.Maximum_limit_is_10'|translate) :
+                ('marketPrice.Please_enter_valid_income_quantity_per_qwintal'|translate)}}
               </span>
-          </mat-error>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
-
     </mat-card-content>
     <div mat-dialog-actions class="modal-footer">
-      <div class="d-flex align-items-center justify-content-end w-100 gap-2 my-1" (keypress)="validator.digitsWithDot($event)">
-        <button mat-flat-button class="btn-main-light" type="button" (click)="clearFormData()">{{'common.clear'|translate}}</button>
-        <button mat-flat-button class="btn-main" (click)="onSubmit()">{{data ? ('common.update'|translate) : ('common.add'|translate)}}</button>
+      <div class="d-flex align-items-center justify-content-end w-100 gap-2 my-1"
+        (keypress)="validator.digitsWithDot($event)">
+        <button mat-flat-button class="btn-main-light" type="button"
+          (click)="clearFormData()">{{'common.clear'|translate}}</button>
+        <button mat-flat-button class="btn-main" (click)="onSubmit()">{{data ? ('common.update'|translate) :
+          ('common.add'|translate)}}</button>
       </div>
     </div>
   </form>
@@ -133,58 +148,32 @@
 
 <ng-container *ngIf="viewFlag">
   <mat-dialog-content class="modal-body form-container">
-    <div class="row gy-2 gx-2">
-      <div class="col-sm-12">
-        <div class="row gx-2 ">
-          <div class="col-sm-4 form-label">{{'marketPrice.Market'|translate}}</div>
-          <div class="col-sm-8 form-data">: {{lang == 'en' ?  (data?.marketName || '-') : (data?.m_MarketName || '-')}}</div>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketPrice.Farm_Goods'|translate}}</div>
-          <div class="col-sm-8 form-data">: {{lang == 'en' ?  (data?.shetmalCast || '-') : (data?.m_ShetmalCast || '-')}}</div>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketPrice.Market_Rate_Date'|translate}}</div>
-          <div class="col-sm-8 form-data">: {{(data?.marketRateDate | date: 'dd-MM-yyyy')}}</div>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketPrice.Unit'|translate}}</div>
-          <div class="col-sm-8 form-data">: {{lang == 'en' ?  (data?.unit || '-') : (data?.m_Unit || '-')}}</div>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketPrice.Min_Rate'|translate}} (₹)</div>
-          <div class="col-sm-8 form-data">: {{(data?.minRate || '-')}}</div>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketPrice.Max_Rate'|translate}} (₹)</div>
-          <div class="col-sm-8 form-data">: {{(data?.maxRate || '-')}}</div>
-        </div>
+    <div class="row gy-2">
+      <div class="col-sm-4 form-label mb-0">{{'marketPrice.Market'|translate}}</div>
+      <div class="col-sm-8 form-data">: {{lang == 'en' ? (data?.marketName || '-') : (data?.m_MarketName || '-')}}
       </div>
 
-      <div class="col-sm-12">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketPrice.Average_Rate'|translate}} (₹)</div>
-          <div class="col-sm-8 form-data">: {{(data?.averageRate || '-')}}</div>
-        </div>
+      <div class="col-sm-4 form-label mb-0">{{'marketPrice.Farm_Goods'|translate}}</div>
+      <div class="col-sm-8 form-data">: {{lang == 'en' ? (data?.shetmalCast || '-') : (data?.m_ShetmalCast || '-')}}
       </div>
 
-      <div class="col-sm-12">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketPrice.Income_Quantity'|translate}} (₹)</div>
-          <div class="col-sm-8 form-data">: {{(data?.income || '-')}}</div>
-        </div>
-      </div>
+      <div class="col-sm-4 form-label mb-0">{{'marketPrice.Market_Rate_Date'|translate}}</div>
+      <div class="col-sm-8 form-data">: {{(data?.marketRateDate | date: 'dd-MM-yyyy')}}</div>
+
+      <div class="col-sm-4 form-label mb-0">{{'marketPrice.Unit'|translate}}</div>
+      <div class="col-sm-8 form-data">: {{lang == 'en' ? (data?.unit || '-') : (data?.m_Unit || '-')}}</div>
+
+      <div class="col-sm-4 form-label mb-0">{{'marketPrice.Min_Rate'|translate}} (₹)</div>
+      <div class="col-sm-8 form-data">: {{(data?.minRate || '-')}}</div>
+
+      <div class="col-sm-4 form-label mb-0">{{'marketPrice.Max_Rate'|translate}} (₹)</div>
+      <div class="col-sm-8 form-data">: {{(data?.maxRate || '-')}}</div>
+
+      <div class="col-sm-4 form-label mb-0">{{'marketPrice.Average_Rate'|translate}} (₹)</div>
+      <div class="col-sm-8 form-data">: {{(data?.averageRate || '-')}}</div>
+
+      <div class="col-sm-4 form-label mb-0">{{'marketPrice.Income_Quantity'|translate}}</div>
+      <div class="col-sm-8 form-data">: {{(data?.income || '-')}}</div>
     </div>
   </mat-dialog-content>
 </ng-container>
-

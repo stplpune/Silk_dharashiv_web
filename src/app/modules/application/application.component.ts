@@ -108,7 +108,7 @@ export class ApplicationComponent {
 
   getAllScheme() {
     this.schemeFilterArr = [];
-    this.master.GetAllSchemeType().subscribe({
+    this.master.GetAllSchemeType(this.webStorage.getDesignationId()).subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.schemeFilterArr.unshift({ id: 0, textEnglish: "All Scheme", textMarathi: "सर्व योजना" }, ...res.responseData);

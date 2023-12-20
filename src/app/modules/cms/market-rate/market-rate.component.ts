@@ -16,7 +16,7 @@ import { DateAdapter } from '@angular/material/core';
   templateUrl: './market-rate.component.html',
   styleUrls: ['./market-rate.component.scss']
 })
-export class MarketRateComponent implements OnDestroy{
+export class MarketRateComponent implements OnDestroy {
   filterForm !: FormGroup
   pageNumber: number = 1;
   tableDatasize!: number;
@@ -40,7 +40,7 @@ export class MarketRateComponent implements OnDestroy{
     private fb: FormBuilder,
     private WebStorageService: WebStorageService,
     private dateAdapter: DateAdapter<Date>,
-  ) { this.dateAdapter.setLocale('en-GB')}
+  ) { this.dateAdapter.setLocale('en-GB') }
 
 
   ngOnInit() {
@@ -56,7 +56,7 @@ export class MarketRateComponent implements OnDestroy{
     })
   }
 
-  get f(){return  this.filterForm.controls}
+  get f() { return this.filterForm.controls }
 
   filterFormData() {
     this.filterForm = this.fb.group({
@@ -126,7 +126,7 @@ export class MarketRateComponent implements OnDestroy{
   setTableData() {
     this.highLightRowFlag = true;
     let displayedColumns = this.lang == 'mr-IN' ? ['srNo', 'marketRateDate', 'm_ShetmalCast', 'm_Unit', 'm_MarketName', 'minRate', 'maxRate', 'averageRate', 'income', 'action'] : ['srNo', 'marketRateDate', 'shetmalCast', 'unit', 'marketName', 'minRate', 'maxRate', 'averageRate', 'income', 'action']
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'तारीख', 'माल', 'एकक', 'बाजार', 'किमान दर (₹)', 'कमाल दर (₹)', 'सरासरी दर (₹)', 'आवक (₹)', 'कृती'] : ['Sr.No', 'Date', 'Goods', 'Unit', 'Market', 'Min. Rate (₹)', 'Max. Rate (₹)', 'Avg. Rate (₹)', 'Income (₹)', 'Action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'तारीख', 'माल', 'एकक', 'बाजार', 'किमान दर (₹)', 'कमाल दर (₹)', 'सरासरी दर (₹)', 'आवक (₹)', 'कृती'] : ['Sr. No.', 'Date', 'Goods', 'Unit', 'Market', 'Min. Rate (₹)', 'Max. Rate (₹)', 'Avg. Rate (₹)', 'Income (₹)', 'Action'];
     let getTableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
@@ -169,7 +169,7 @@ export class MarketRateComponent implements OnDestroy{
       header: this.lang == 'mr-IN' ? 'हटवा' : 'Delete',
       okButton: this.lang == 'mr-IN' ? ' हटवा' : 'Delete',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
-      headerImage:'assets/images/delete.svg'
+      headerImage: 'assets/images/delete.svg'
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '320px',
@@ -200,7 +200,7 @@ export class MarketRateComponent implements OnDestroy{
 
   addMarket(obj?: any) {
     const dialogRef = this.dialog.open(AddMarketRateComponent, {
-      width: '45%',
+      width: '500px',
       data: obj,
       disableClose: true
     });
