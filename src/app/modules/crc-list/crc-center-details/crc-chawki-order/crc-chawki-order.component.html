@@ -7,7 +7,7 @@
     <div class="row gx-2">
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>District</mat-label>
+          <mat-label> {{lang == 'en' ? 'District' : 'जिल्हा' || '-'}}</mat-label>
           <mat-select formControlName="districtId"
           [class]="webService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
           <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
@@ -18,7 +18,7 @@
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Delivery Slab</mat-label>
+          <mat-label> {{lang == 'en' ? 'Delivery Slab' : 'डिलिव्हरी स्लॅब' || '-'}}</mat-label>
           <mat-select formControlName="deliveryslabId">
           <!-- <mat-option *ngFor="let arr of slabArray" [value]="arr.id">{{lang == 'en' ? arr.textEnglish : arr.textMarathi}}</mat-option> -->
           <mat-option>
@@ -33,7 +33,7 @@
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Taluka</mat-label>
+          <mat-label> {{lang == 'en' ? 'Taluka' : 'तालुका' || '-'}}</mat-label>
           <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('gram');getGrampanchayat()">
             <mat-option>
               <ngx-mat-select-search [formControl]="talukaCtrl"
@@ -48,7 +48,7 @@
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Village</mat-label>
+          <mat-label> {{lang == 'en' ? 'Village' : 'गाव' || '-'}}</mat-label>
           <mat-select formControlName="grampanchayatId">
             <mat-option>
               <ngx-mat-select-search [formControl]="gramPCtrl"
@@ -62,7 +62,7 @@
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Status</mat-label>
+          <mat-label> {{lang == 'en' ? 'Status' : 'स्थिती' || '-'}}</mat-label>
           <mat-select formControlName="statusId" >
             <mat-option  [value]="0">{{lang == 'en' ? 'All Status' : 'सर्व स्थिती'}}</mat-option>
             <mat-option *ngFor="let arr of statusArray" [value]="arr.id">{{lang == 'en' ? arr.textEnglish : arr.textMarathi}}</mat-option>
@@ -71,8 +71,8 @@
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Search by order ID/Farmer Name/Mobile Number</mat-label>
-          <input matInput placeholder="Search by order ID/Farmer Name/Mobile Number" formControlName="searchValue"  (keypress)="validation.noFirstSpaceAllow($event)">
+          <mat-label> {{lang == 'en' ? 'Search by order ID/Farmer Name/Mobile Number' : 'ऑर्डर आयडी/शेतकऱ्याचे नाव/मोबाईल नंबर द्वारे शोधा' || '-'}}</mat-label>
+          <input matInput  formControlName="searchValue"  (keypress)="validation.noFirstSpaceAllow($event)">
         </mat-form-field>
       </div>
       <div class="col-sm-2">
@@ -100,7 +100,7 @@
             <img src="../../../assets/images/crc-center/center.svg " alt="">
             <div class="d-flex flex-column gap-0">
               <h4 class="fw-bold text-primary mb-0">{{counterObject?.totalChawkiOrders}}</h4>
-              <div class="fw-bold mb-0 text-primary"> Total Chowki Order</div>
+              <div class="fw-bold mb-0 text-primary"> {{lang == 'en' ? 'Total Chowki Order' : 'एकूण चौकी ऑर्डर' || '-'}}</div>
             </div>
           </div>
         </div>
@@ -115,7 +115,7 @@
             <img src="../../../assets/images/crc-center/pending.svg " alt="">
             <div class="d-flex flex-column gap-0">
               <h4 class="fw-bold text-warning mb-0">{{counterObject?.pending}}</h4>
-              <div class="fw-bold mb-0 text-warning"> Pending</div>
+              <div class="fw-bold mb-0 text-warning">  {{lang == 'en' ? 'Pending' : 'प्रलंबित' || '-'}}</div>
             </div>
           </div>
         </div>
@@ -130,7 +130,7 @@
             <img src="../../../assets/images/crc-center/active.svg " alt="">
             <div class="d-flex flex-column gap-0">
               <h4 class="fw-bold text-success mb-0"> {{counterObject?.delivery}}</h4>
-              <div class="fw-bold mb-0 text-success"> Delivered</div>
+              <div class="fw-bold mb-0 text-success">  {{lang == 'en' ? 'Delivered' : 'वितरित केले' || '-'}}</div>
             </div>
           </div>
         </div>

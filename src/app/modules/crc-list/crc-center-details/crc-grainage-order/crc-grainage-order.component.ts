@@ -20,6 +20,8 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { GlobalTableComponent } from "../../../../shared/components/global-table/global-table.component";
+import { ActivatedRoute } from '@angular/router';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 
 @Component({
     selector: 'app-crc-grainage-order',
@@ -60,7 +62,8 @@ export class CrcGrainageOrderComponent {
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   slabCtrl: FormControl = new FormControl();
   slabSubject: ReplaySubject<any> = new ReplaySubject<any>();
-
+  routingData:any;
+  id:any;
   constructor
   (
     public dialog:MatDialog,
@@ -72,6 +75,8 @@ export class CrcGrainageOrderComponent {
     private apiService: ApiService,
     private errorHandler: ErrorHandlingService,
     public validation: ValidationService,
+    private route: ActivatedRoute,
+    public encryptdecrypt: AesencryptDecryptService,
   ) {}
 
 ngOnInit(){
@@ -80,6 +85,11 @@ ngOnInit(){
     this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     this.setTableData();
   });
+  this.route.queryParams.subscribe((queryParams: any) => {
+    this.routingData = queryParams['id'];
+  });
+ let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
+ this.id = spliteUrl;   
   this.getFormData();
   this.getDisrict();
   this.getStatus();
@@ -187,7 +197,7 @@ getDistributionSlab(){
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
     console.log(formData,str);
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Ordered-Grainage-List?crcCenterId=27&Status=1', false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Ordered-Grainage-List?crcCenterId='+(this.id)+'&Status=1', false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();

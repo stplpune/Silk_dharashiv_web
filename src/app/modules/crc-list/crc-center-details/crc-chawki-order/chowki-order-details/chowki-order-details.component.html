@@ -14,55 +14,55 @@
       <div class="row gy-2">
         <div class="col-sm-12">
           <div class="row gx-2">
-            <div class="col-sm-2 form-label">Farmer Name </div>
+            <div class="col-sm-2 form-label"> {{lang == 'en' ? 'Farmer Name' : 'शेतकऱ्याचे नाव' || '-'}}</div>
             <div class="col-sm-10 form-data">: {{lang == 'en' ? tableDataArray?.name : tableDataArray?.m_Name || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">Mobile No</div>
+            <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Mobile No' : 'मोबाईल नंबर' || '-'}}</div>
             <div class="col-sm-8 form-data">: {{tableDataArray?.mobNo1 || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">Delivery Slab</div>
+            <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Delivery Slab' : 'डिलिव्हरी स्लॅब' || '-'}}</div>
             <div class="col-sm-8 form-data">: {{tableDataArray?.deliverySlab || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">District </div>
+            <div class="col-sm-4 form-label"> {{lang == 'en' ? 'District' : 'जिल्हा' || '-'}}</div>
             <div class="col-sm-8 form-data">: {{lang == 'en' ? tableDataArray?.district : tableDataArray?.m_District || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">Taluka </div>
+            <div class="col-sm-4 form-label">{{lang == 'en' ? 'Taluka' : 'तालुका' || '-'}} </div>
             <div class="col-sm-8 form-data">: {{lang == 'en' ? tableDataArray?.taluka : tableDataArray?.m_Taluka || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">Village </div>
+            <div class="col-sm-4 form-label">{{lang == 'en' ? 'Village' : 'गाव' || '-'}} </div>
             <div class="col-sm-8 form-data">: {{lang == 'en' ? tableDataArray?.village : tableDataArray?.m_Village || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="row gx-2">
-            <div class="col-sm-4 form-label">Pincode </div>
+            <div class="col-sm-4 form-label">{{lang == 'en' ? 'Pincode' : 'पिन कोड' || '-'}} </div>
             <div class="col-sm-8 form-data">: {{tableDataArray?.pinCode || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-12">
           <div class="row gx-2">
-            <div class="col-sm-2 form-label">Address </div>
+            <div class="col-sm-2 form-label"> {{lang == 'en' ? 'Address' : 'पत्ता' || '-'}} </div>
             <div class="col-sm-10 form-data">: {{lang == 'en' ? tableDataArray?.address : tableDataArray?.m_Address || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-12">
           <div class="row gx-2">
-            <div class="col-sm-2 form-label">Payment Reciept </div>
+            <div class="col-sm-2 form-label"> {{lang == 'en' ? 'Payment Reciept' : 'पैसे भरल्याची पावती' || '-'}}</div>
             <div class="col-sm-10 form-data" (click)="viewreceipt()">:
               <a href="">View</a>
             </div>
@@ -75,7 +75,7 @@
         <thead>
           <tr>
             <th>
-              <div class="form-label">Order ID</div>
+              <div class="form-label"> {{lang == 'en' ? 'Order ID' : 'ऑर्डर आयडी' || '-'}}</div>
             </th>
             <th>
               <div class="form-label">{{orderDataArray?.orderId || '-'}}</div>
@@ -83,7 +83,7 @@
           </tr>
           <tr>
             <th>
-              <div class="form-label">Order Date</div>
+              <div class="form-label">  {{lang == 'en' ? 'Order Date' : 'मागणीची तारीख' || '-'}}</div>
             </th>
             <th>
               <div class="form-data">{{orderDataArray?.orderDate | date:'dd-MM-yyyy' || '-'}}</div>
@@ -91,7 +91,7 @@
           </tr>
           <tr>
             <th>
-              <div class="form-label">Product Name</div>
+              <div class="form-label">  {{lang == 'en' ? 'Product Name' : 'उत्पादनाचे नांव' || '-'}}</div>
             </th>
             <th>
               <div class="form-data">{{orderDataArray?.productName || '-'}}</div>
@@ -99,7 +99,7 @@
           </tr>
           <tr>
             <th>
-              <div class="form-label">Quantity</div>
+              <div class="form-label"> {{lang == 'en' ? 'Quantity' : 'प्रमाण' || '-'}}</div>
             </th>
             <th>
               <div class="form-data">{{orderDataArray?.quantity || '-'}}</div>
@@ -107,7 +107,7 @@
           </tr>
           <tr>
             <th>
-              <div class="form-label">Rate (INR)</div>
+              <div class="form-label"> {{lang == 'en' ? 'Rate (INR)' : 'दर (INR)' || '-'}}</div>
             </th>
             <th>
               <div class="form-data">{{orderDataArray?.rate || '-'}}</div>
@@ -115,7 +115,7 @@
           </tr>
           <tr>
             <th>
-              <div class="form-label">Total Amount ( INR )</div>
+              <div class="form-label"> {{lang == 'en' ? 'Total Amount (INR)' : 'एकूण रक्कम (INR)' || '-'}}</div>
             </th>
             <th>
               <div class="form-data">{{orderDataArray?.totalAmount || '-'}}</div>
@@ -126,14 +126,14 @@
     </div>
   </div>
   <section>
-  <h6 class="text-main border-bottom border-success border-opacity-50">Delivery Details</h6>
+  <h6 class="text-main border-bottom border-success border-opacity-50"> {{lang == 'en' ? 'Delivery Details' : 'वितरण तपशील' || '-'}}</h6>
   <div class="d-flex align-items-center justify-content-between">
     <div class="d-flex gap-2">
-      <div class="form-label">Order Quantity</div>
+      <div class="form-label"> {{lang == 'en' ? 'Order Quantity' : 'ऑर्डर प्रमाण' || '-'}}</div>
       <div class="form-data">: {{totalCountData?.orderedQty}}</div>
     </div>
     <div class="d-flex gap-2 ">
-      <div class="form-label text-danger">Balance Quantity</div>
+      <div class="form-label text-danger">{{lang == 'en' ? 'Balance Quantity ' : 'शिल्लक प्रमाण' || '-'}}</div>
       <div class="form-data text-danger">:   {{totalCountData?.receivedQty}}</div>
     </div>
   </div>
@@ -141,5 +141,4 @@
 <div class="table-responsive scrollbar">
   <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
 </div>
-
 </div>
