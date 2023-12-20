@@ -8,7 +8,7 @@
   </div>
 </div>
 
-<div class="" *ngIf="!isViewFlag">
+<div *ngIf="!isViewFlag">
   <form [formGroup]="marketFrm" #formDirective="ngForm">
     <div mat-dialog-content class="modal-body form-container scrollbar">
       <div class="row gx-2 gy-2">
@@ -205,7 +205,7 @@
   </form>
 </div>
 
-<div class="" *ngIf="isViewFlag">
+<div *ngIf="isViewFlag">
   <div mat-dialog-content class="modal-body form-container">
     <div class="row gx-2">
       <div class="col-sm-2 form-label">{{'marketRate.market' | translate}}</div>
