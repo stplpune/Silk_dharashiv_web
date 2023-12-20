@@ -140,20 +140,31 @@
                       </mat-form-field>
                     </div>
                   </div>
+                  
                   <div class="col-sm-6">
-                  <div class="form-label">{{'addManrega.applicant_name_m'| translate}}</div>
+                    <div class="form-label">2.{{'addManrega.marathi_applicant_name'| translate}} <span
+                        class="text-danger">*</span></div>
                     <div class="form-label">
                       <mat-form-field appearance="outline" class="w-100">
-                        <input matInput placeholder="" formControlName="m_FullName" maxlength="100"
-                          (keypress)="validation.noFirstSpaceAllow($event);validation.alphabetsWithSpaces($event)">
-                        <!-- <mat-error *ngIf="f['fullName'].hasError('required') || f['fullName']?.hasError('pattern')">
-                          {{f['fullName'].hasError('required') ?
-                          ('approvalProcess.applicant_Required'|translate) :
-                          ('approvalProcess.please_enter_valid_application_name'|translate)}}
-                        </mat-error> -->
+                        <input matInput placeholder="" formControlName="m_FullName"
+                        (keypress)="validation.noFirstSpaceAllow($event);validation.unicodeMarathiValidation($event)">
+                        <mat-error *ngIf="f['m_FullName'].hasError('required') || f['m_FullName']?.hasError('pattern')">
+                          {{f['m_FullName'].hasError('required') ?
+                          ('approvalProcess.marathi_applicant_Required'|translate) :
+                          ('approvalProcess.marathi_please_enter_valid_application_name'|translate)}}
+                        </mat-error>
+                        <mat-error *ngIf="f['m_FullName']?.errors">
+                          <span class="text-danger"
+                            *ngIf="f['m_FullName']?.hasError('maxLengthExceeded') || f['m_FullName']?.hasError('minLengthNotMet')">
+                            {{f['m_FullName'].hasError('maxLengthExceeded') ?
+                            ('common.address_maximum_100_character_allowed'|translate) :
+                            ('common.fullName_minLength'|translate)}}
+                          </span>
+                        </mat-error>
                       </mat-form-field>
                     </div>
-                </div>
+                  </div>
+                  
                 </div>
               </div>
             </div>

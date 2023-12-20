@@ -177,7 +177,7 @@ export class CreateSamgraAppComponent {
   samgraformData(data?: any) {
     this.samgraForm = this.fb.group({
       "fullName": [data?.fullName || '', [Validators.required, this.validation.maxLengthValidator(100)]],
-      "m_FullName":[''],
+      "m_FullName":[data?.m_FullName|| '',[Validators.required, Validators.pattern(this.validation.marathi), this.validation.maxLengthValidator(100)]], 
       "mobileNo1": [this.WebStorageService.getMobileNo() || '', [Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
       "mobileNo2": [data?.mobileNo2 || '', [this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
       "aadharNo": [this.samgraId || '', [Validators.required, this.validation.maxLengthValidator(12), Validators.pattern(this.validation.aadhar_card)]],
