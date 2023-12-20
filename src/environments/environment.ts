@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   baseUrl: 'https://demosilkapi.mahamining.com/',
-  //baseUrl: 'http://testapi.sericulturedharashiv.com/',
+  //baseUrl: 'https://testapi.sericulturedharashiv.com/',
 };
 
 /*

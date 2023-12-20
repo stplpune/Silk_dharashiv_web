@@ -191,7 +191,8 @@ export class ApplicationComponent {
     }
     let obj = {
       lan:this.lang,
-      SchemeId:this.filterFrm.getRawValue().schemeTypeId
+      SchemeId:this.filterFrm.getRawValue().schemeTypeId,
+      designationId : this.webStorage.getDesignationId(),
     }
     this.actionArr = [];
     this.master.getActionDropDownWithObj(obj).subscribe({
