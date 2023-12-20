@@ -450,6 +450,10 @@ a {
     text-align: center !important;
 }
 
+.blog-content img {
+    width: 50%;
+}
+
 @media only screen and (max-width: 600px) {
     .page-header {
         background-image: url('assets/images/page-bg.png');
