@@ -81,7 +81,7 @@ export class BlogsComponent {
   setTableData() {
     this.highLightRowFlag = true;
     let displayedColumns = ['srNo', 'thumbnailImage', 'title', 'publishDate', 'status', 'action'];
-    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'लघुप्रतिमा', 'शीर्षक', 'प्रकाशित तारीख', 'स्थिती', 'कृती'] : ['Sr. No.', 'Thumbnail Image', 'Tittle', 'Publish Date', 'Status', 'Action'];
+    let displayedheaders = this.lang == 'mr-IN' ? ['अनुक्रमांक', 'लघुप्रतिमा', 'शीर्षक', 'प्रकाशित तारीख', 'स्थिती', 'कृती'] : ['Sr. No.', 'Thumbnail Image', 'Title', 'Publish Date', 'Status', 'Action'];
     let getTableData = {
       pageNumber: this.pageNumber,
       date: 'publishDate',
