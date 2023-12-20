@@ -125,6 +125,9 @@ export class CRCListComponent {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData1;
+          this.tableDataArray.map((ele:any)=>{
+              ele.status1 = ele.status
+            })
           this.countObject = res.responseData;
           this.tableDatasize = res.responseData2.totalCount;
           this.totalPages = res.responseData2.totalPages;
@@ -144,8 +147,8 @@ export class CRCListComponent {
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'en' ? ['srNo', 'crcRegNo', 'crcName', 'ownerName', 'mobNo1', 'village', 'taluka', 'expireOn', 'isActive','status', 'action']
-      : ['srNo', 'crcRegNo', 'm_CRCName', 'm_OwnerName', 'mobNo1', 'm_Village', 'm_Taluka', 'expireOn', 'isActive','status', 'action'];
+    let displayedColumns = this.lang == 'en' ? ['srNo', 'crcRegNo', 'crcName', 'ownerName', 'mobNo1', 'village', 'taluka', 'expireOn', 'isActive','status1', 'action']
+      : ['srNo', 'crcRegNo', 'm_CRCName', 'm_OwnerName', 'mobNo1', 'm_Village', 'm_Taluka', 'expireOn', 'isActive','status1', 'action'];
     let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Reg No', 'CRC Name', 'Owner Name', 'Mobile No', 'Village', 'Taluka', 'Expire On', 'Block/Unblock','Status','Action'] :
       ['अनुक्रमांक', 'नोंदणी क्रमांक', 'CRC नाव', 'मालकाचे नाव', 'मोबाईल नंबर', 'गाव', 'तालुका', 'कालबाह्य','ब्लॉक/अनब्लॉक', 'स्थिती', 'कृती'];
     let tableData = {

@@ -3,148 +3,78 @@
     <mat-card class="plain-card">
       <mat-card-header class="card-header">
         <div class="d-flex align-items-center justify-content-between w-100">
-        <div class="text-main">{{'marketPrice.market_list'|translate}}</div>
-        <button mat-flat-button class="btn-main" *ngIf="pageAccessObject?.writeRight == true" (click)="addMarket()">
-          <mat-icon class="material-symbols-rounded">
-            add
-          </mat-icon>
-          <span>{{'marketPrice.add_market_rate'|translate}}</span>
-        </button>
-      </div>
+          <div class="text-main">{{'marketPrice.market_list'|translate}}</div>
+          <button mat-flat-button class="btn-main" *ngIf="pageAccessObject?.writeRight == true" (click)="addMarket()">
+            <mat-icon class="material-symbols-rounded">
+              add
+            </mat-icon>
+            <span>{{'marketPrice.add_market_rate'|translate}}</span>
+          </button>
+        </div>
       </mat-card-header>
       <mat-card-header class="card-header-control">
         <form [formGroup]="filterForm" class="w-100">
-        <div class="row g-2 w-100">
-          <div class="col-sm">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label> {{'marketPrice.All_market'|translate}}</mat-label>
-              <mat-select formControlName="marketId" placeholder="{{lang == 'en' ? 'All Market' : 'सर्व बाजार'}}">
-                <!-- <mat-option>Option 1</mat-option> -->
-                <mat-option *ngFor="let market of marketArr" [value]="market.id">{{market.textEnglish}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-sm">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label> {{'marketPrice.All_Farm Goods'|translate}}</mat-label>
-              <mat-select formControlName="goodId" placeholder="{{lang == 'en' ? 'All Farm Goods' : 'सर्व शेत माल'}}">
-                <!-- <mat-option>Option 1</mat-option> -->
-                <mat-option *ngFor="let goods of goodsArr" [value]="goods.id">{{goods.textEnglish}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-2">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>{{'marketPrice.from_date'|translate}}</mat-label>
-              <input matInput [matDatepicker]="frompicker" placeholder="{{lang == 'en' ? 'From Date' : 'तारखेपासून'}}" formControlName="fromDate" (click)="frompicker.open()">
-              <mat-datepicker-toggle matIconSuffix [for]="frompicker"></mat-datepicker-toggle>
-              <mat-datepicker #frompicker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-2">
-            <mat-form-field appearance="outline" class="w-100" [class]="filterForm.value.fromDate ? this.f['toDate'].enable({ onlySelf: true }): this.f['toDate'].disable({ onlySelf: true })">
-              <mat-label>{{'marketPrice.to_date'|translate}}</mat-label>
-              <input matInput [matDatepicker]="picker" formControlName="toDate" placeholder="{{lang == 'en' ? 'To Date' : 'तारखेपर्यंत'}}" (click)="picker.open()"
-               [min]="f['fromDate'].value" max="maxDate" >
-              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-auto">
-            <div class="d-flex align-items-center gap-2">
-              <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button" (click)="filterFlag = true;getTableData('filter')">
-                <mat-icon class="material-symbols-rounded">
-                  search
-                </mat-icon>
-              </button>
-              <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="filterFlag = false;clearFilter()">
-                <mat-icon class="material-symbols-rounded">
-                  close
-                </mat-icon>
-              </button>
+          <div class="row g-2 w-100">
+            <div class="col-sm">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label> {{'marketPrice.All_market'|translate}}</mat-label>
+                <mat-select formControlName="marketId" placeholder="{{lang == 'en' ? 'All Market' : 'सर्व बाजार'}}">
+                  <mat-option *ngFor="let market of marketArr" [value]="market.id">{{market.textEnglish}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label> {{'marketPrice.All_Farm Goods'|translate}}</mat-label>
+                <mat-select formControlName="goodId" placeholder="{{lang == 'en' ? 'All Farm Goods' : 'सर्व शेत माल'}}">
+                  <mat-option *ngFor="let goods of goodsArr" [value]="goods.id">{{goods.textEnglish}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{'marketPrice.from_date'|translate}}</mat-label>
+                <input matInput [matDatepicker]="frompicker" placeholder="{{lang == 'en' ? 'From Date' : 'तारखेपासून'}}"
+                  formControlName="fromDate" (click)="frompicker.open()">
+                <mat-datepicker-toggle matIconSuffix [for]="frompicker"></mat-datepicker-toggle>
+                <mat-datepicker #frompicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-2">
+              <mat-form-field appearance="outline" class="w-100"
+                [class]="filterForm.value.fromDate ? this.f['toDate'].enable({ onlySelf: true }): this.f['toDate'].disable({ onlySelf: true })">
+                <mat-label>{{'marketPrice.to_date'|translate}}</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="toDate"
+                  placeholder="{{lang == 'en' ? 'To Date' : 'तारखेपर्यंत'}}" (click)="picker.open()"
+                  [min]="f['fromDate'].value" max="maxDate">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-auto">
+              <div class="d-flex align-items-center gap-2">
+                <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"
+                  (click)="filterFlag = true;getTableData('filter')">
+                  <mat-icon class="material-symbols-rounded">
+                    search
+                  </mat-icon>
+                </button>
+                <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button"
+                  (click)="filterFlag = false;clearFilter()">
+                  <mat-icon class="material-symbols-rounded">
+                    close
+                  </mat-icon>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
       </mat-card-header>
       <mat-card-content class="card-body">
         <div class="table-responsive scrollbar">
-            <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
+          <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
         </div>
       </mat-card-content>
     </mat-card>
   </div>
-  <!-- <div class="col-sm-4">
-    <mat-card class="plain-card">
-      <mat-card-header class="card-header">
-        <div class="text-main">Add Market List</div>
-      </mat-card-header> -->
-
-      <!-- <mat-card-content class="card-body">
-        <div class="row gx-2">
-          <div class="col-sm-12">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Select Market</mat-label>
-              <input matInput [matDatepicker]="picker">
-              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-12">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label> Farm Goods/ बाजार समिति निवडा</mat-label>
-              <mat-select>
-                <mat-option>Option 1</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Select date</mat-label>
-              <input matInput [matDatepicker]="picker">
-              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Units</mat-label>
-              <mat-select>
-                <mat-option>Option 1</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Min. Rate(INR)</mat-label>
-              <input matInput placeholder="Enter min rate  ">
-            </mat-form-field>
-          </div>
-          <div class="col-sm-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Max. Rate(INR)</mat-label>
-              <input matInput placeholder="Enter max rate ">
-            </mat-form-field>
-          </div>
-          <div class="col-sm-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Avg. Rate(INR)</mat-label>
-              <input matInput placeholder="avg rate ">
-            </mat-form-field>
-          </div>
-          <div class="col-sm-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Income / आवक</mat-label>
-              <input matInput placeholder="Income ">
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-end w-100 gap-2">
-          <button mat-flat-button class="btn-main-light">Clear</button>
-          <button mat-flat-button class="btn-main">Add</button>
-        </div>
-      </mat-card-content> -->
-    <!-- </mat-card>
-  </div> -->
 </div>
-
