@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
@@ -38,6 +38,8 @@ export class FarmerLoginComponent {
   loginData: any;
   accessToken: any;
   mobNo : any;
+  getLangForLocalStor!: string | null | any;
+
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -47,12 +49,14 @@ export class FarmerLoginComponent {
       private errorHandler: ErrorHandlingService,
       private fb: FormBuilder,
       public validation: ValidationService,
-      private router: Router,
+      private router: Router,private translate: TranslateService,
       private activatedRoute : ActivatedRoute,
       public encryptDecryptService: AesencryptDecryptService
     ) {
       let paramData: any = this.activatedRoute.snapshot.queryParams;
       this.mobNo = paramData?.mobNo ? this.encryptDecryptService?.decrypt(paramData?.mobNo).toString() : '';
+      localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+      this.translate.use(this.getLangForLocalStor)
   }
 
   ngOnInit() {
