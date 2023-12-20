@@ -643,8 +643,8 @@ export class CreateManaregaAppComponent {
   }
 
   checkStepCon(stepper: MatStepper, lable: string) {
-    console.log("this.documentFrm.invalid",this.documentFrm.controls);
-    
+   // console.log("this.documentFrm.invalid",this.documentFrm.controls);
+   
     if (lable == 'farmerInfo' && this.manaregaFrm.invalid) {
       !this.manaregaFrm.getRawValue().profilePhotoPath ? this.manFrmSubmitFlag = true : this.manFrmSubmitFlag = false;
       return

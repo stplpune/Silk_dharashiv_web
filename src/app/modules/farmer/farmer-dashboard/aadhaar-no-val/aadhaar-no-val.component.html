@@ -10,7 +10,7 @@
 </div>
 <div mat-dialog-content class="modal-body form-container">
   <mat-tab-group (selectedTabChange)="onTabChanged();" [(selectedIndex)]="selectedTab">
-    <mat-tab label="Manrega">
+    <mat-tab label="Mgnrega">
       <div class="card rounded-0">
         <div class="card-header text-center ">
           महात्मा गांधी रोजगार हमी योजनेअंतर्गत नवीन तुती लागवड विकास योजना नोंदणी
@@ -23,7 +23,7 @@
             या योजनेअंतर्गत शेतकर्‍यांना 1 एकर तुती लागवडीसाठी रु. 2.18186 लक्ष तीन वर्षांत विभागून दिले जाते व
             कीटक संगोपन गृह(1100 चौ. फुट) बांधकामासाठी रु. 1.79149 लक्ष असे एकूण रु. 3.97335 लक्ष रक्कम येवढे
             अनुदान देण्यात येत आहे.</p>
-          <p class="form-label">महात्मा गांधी रोजगार हमी योजनेअंतर्गत नवीन तुती लागवड विकास योजना नोंदणी</p>
+          <!-- <p class="form-label">महात्मा गांधी रोजगार हमी योजनेअंतर्गत नवीन तुती लागवड विकास योजना नोंदणी</p> -->
           <p class="form-label"> <mat-checkbox class="example-margin" (change)="selCheckBox($event, 1)"
               [checked]="checkBoxValueMang">मी प्रदान
               केलेली माहिती वाचली
@@ -109,6 +109,10 @@
       <button mat-flat-button class="btn-main w-100" (click)="valAadhaarNo()">
         Register
       </button>
+    </div>
+    <div class="col-sm-12">
+      <div class="small form-label mb-2">Please register only if your land or residence is in Dharshiv District and not availed of
+        Kutlyahi Yojana through Silk Collection Department.</div>
     </div>
   </div>
 </div>
