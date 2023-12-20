@@ -38,6 +38,7 @@ export class CreateManaregaAppComponent {
   profileImageUrl: any;
   subscription!: Subscription;//used  for lang conv
   lang: any;
+  schemeData:any;
   viewMsgFlag: boolean = false;//used for error msg show
   genderArray: any = [{ id: 1, name: 'Male', m_name: 'पुरुष' }, { id: 2, name: 'Female', m_name: 'स्त्री  ' }];
   checkedArray: any = [{ id: true, name: 'Yes', m_name: 'होय' }, { id: false, name: 'No', m_name: 'नाही' }];
@@ -89,6 +90,10 @@ export class CreateManaregaAppComponent {
   previewDocName: any
   routingData: any;//used for get routing data
   @ViewChild('stepper') private myStepper!: MatStepper;
+  // isFormDisabled: boolean = true; //disable enable form
+  // @ViewChild('myForm')form:any;
+  manaregaAadhar : any;
+  checkManaregaId:any
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -107,6 +112,11 @@ export class CreateManaregaAppComponent {
     public encryptdecrypt: AesencryptDecryptService,
   ) { 
     this.dateAdapter.setLocale('en-GB');
+    let Id: any;
+    this.route.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
+    if(Id){
+      this.manaregaAadhar =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
+    }
   }
 
   ngOnInit() {
@@ -117,7 +127,7 @@ export class CreateManaregaAppComponent {
     this.route.queryParams.subscribe((queryParams: any) => {
       this.routingData = queryParams['id'];
     });
-
+    this.getSchemeData();
     this.addManaregaFrm();
     this.addFarmInfo();
     this.getFarmInfo();
@@ -128,8 +138,7 @@ export class CreateManaregaAppComponent {
     this.addOtherDocument();
     this.addRegistrationFrm();
     this.commonDropdown();
-    this.routingData ? this.getRouteParam() : this.getPreviewData('search');
-    // this.getPreviewData('search'); // temp
+    this.getPreviewData();
   }
 
   commonDropdown() {
@@ -142,11 +151,6 @@ export class CreateManaregaAppComponent {
     this.getCandidateRelation();
     this.getBank();
     this.searchDataZone();
-  }
-
-  getRouteParam() {
-    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
-    this.getPreviewData('edit', spliteUrl[0]);
   }
 
   filterDefaultFrm() {
@@ -165,6 +169,20 @@ export class CreateManaregaAppComponent {
     this.checkedItems = []; this.previewData = [];
   }
 
+  getSchemeData() {
+    this.masterService.GetSelectSchemeData(this.WebStorageService.getMobileNo(), 1).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.checkManaregaId = res.responseData;
+        }
+        else{
+          this.checkManaregaId = [];
+        }
+
+      })
+    })
+  }
+
   //#region --------------form start here---------------------
   addManaregaFrm(data?: any) {
     this.manaregaFrm = this.fb.group({
@@ -173,7 +191,7 @@ export class CreateManaregaAppComponent {
       "schemeTypeId": [1],
       "applicationNo": [data?.applicationNo || ''],
       "mobileNo1": [this.WebStorageService.getMobileNo(), [Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
-      "aadharNo": [data?.aadharNo || '', [Validators.required, this.validation.maxLengthValidator(12), Validators.pattern(this.validation.aadhar_card)]],
+      "aadharNo": [this.manaregaAadhar || '', [Validators.required, this.validation.maxLengthValidator(12), Validators.pattern(this.validation.aadhar_card)]],
       // "profilePhotoPath": ['',[Validators.required]],
       "mn_DepartmentId": [data?.mn_DepartmentId || '', [Validators.required]],
       "fullName": [data?.fullName || '', [Validators.required, this.validation.minLengthValidator(5), this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
@@ -520,17 +538,17 @@ export class CreateManaregaAppComponent {
     this.dataSource = new MatTableDataSource(arrayFarmDetails);
   }
 
-  getPreviewData(flag?: any, id?: any) {
-   // let filterData = this.filterFrm?.getRawValue();
+  getPreviewData() {
+   let manaregaFormValue = this.manaregaFrm.getRawValue();
+   let addharNo = manaregaFormValue.aadharNo
+   let mobileNo = this.WebStorageService.getMobileNo();
+
     if (this.filterFrm.invalid) {
       this.commonMethod.snackBar(this.lang == "en" ? "Please Enter Correct Details" : "कृपया योग्य तपशील प्रविष्ट करा", 1)
       return
     } else {
-      let str = `MobileNo=${this.WebStorageService.getMobileNo()}&lan=${this.lang}`;
-      id ? str += `&Id=${id}` : '';
-      let url = flag == 'search' ? `sericulture/api/Application/application-preview?` + str : 'sericulture/api/Application/application-preview?Id=' + (id) + '&lan=' + this.lang;
-      this.apiService.setHttp('get', url, false, false, false, 'masterUrl')
-      this.apiService.getHttp().subscribe({
+        this.apiService.setHttp('get', `sericulture/api/Application/application-preview?AadharNo=${addharNo || ''}&MobileNo=${mobileNo || ''}&lan=${this.lang}`, false, false, false, 'masterUrl');
+       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == "200") {
             this.previewData = res.responseData;
@@ -771,7 +789,7 @@ export class CreateManaregaAppComponent {
         if (res.statusCode == "200") {
           this.goForward(stepper);
           this.OtherDocUploadImg = [];
-          this.getPreviewData('edit', res.responseData)
+          this.getPreviewData()
           this.manaregaFrm?.controls['id'].setValue(res.responseData);
           res.responseData && flag == 'challan' ? this.openDialog(res) : '';
           this.manFrmSubmitFlag = false;
