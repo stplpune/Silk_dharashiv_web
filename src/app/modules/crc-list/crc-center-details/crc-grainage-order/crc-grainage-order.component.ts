@@ -192,7 +192,10 @@ getDistributionSlab(){
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {          
-          this.tableDataArray = res.responseData.orderedGrainageLists;     
+          this.tableDataArray = res.responseData.orderedGrainageLists; 
+          this.tableDataArray.map((ele:any)=>{
+            ele.status1 = (this.lang == 'en' ? ele.status : ele.m_Status) ;
+          })       
           this.counterObject=res.responseData;
           this.tableDatasize = res.responseData.responseData3?.totalCount;
           this.totalPages = res.responseData.responseData3?.totalPages;
@@ -212,8 +215,8 @@ getDistributionSlab(){
   
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'en' ? ['srNo', 'orderId', 'grainage', 'state','location', 'type', 'orderedQty','orderDate','status','action']
-      : ['srNo', 'orderId', 'm_Grainage', 'm_state','location', 'm_type', 'orderedQty','orderDate','m_Status','action'];
+    let displayedColumns = this.lang == 'en' ? ['srNo', 'orderId', 'grainage', 'state','location', 'type', 'orderedQty','orderDate','status1','action']
+      : ['srNo', 'orderId', 'm_Grainage', 'm_state','location', 'm_type', 'orderedQty','orderDate','status1','action'];
     let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Order Id', 'Grainage', 'State','Location','Type','Order Qty(DFLs)','Order Date','Status', 'Action'] :
       ['अनुक्रमांक', 'ऑर्डर आयडी','धान्य','राज्य','स्थान','प्रकार','ऑर्डर प्रमाण (DFLs)','मागणीची तारीख','स्थिती','कृती'];
     let tableData = {

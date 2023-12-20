@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MasterService } from 'src/app/core/services/master.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { OtpSendReceiveComponent } from 'src/app/shared/components/otp-send-receive/otp-send-receive.component';
+// import { MatDialog } from '@angular/material/dialog';
+// import { OtpSendReceiveComponent } from 'src/app/shared/components/otp-send-receive/otp-send-receive.component';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -40,7 +40,7 @@ export class FarmersignupComponent {
   constructor(
     private master: MasterService,
     private fb: FormBuilder,
-    private dialog: MatDialog,
+    // private dialog: MatDialog,
     public validator: ValidationService,
     private apiService: ApiService,
     private commonMethods: CommonMethodsService,
@@ -123,31 +123,31 @@ export class FarmersignupComponent {
     })
   }
 
-  openSendOtpComponent() {
-    if (this.signUpForm.invalid) {
-      return;
-    } else {
-      let dialogObj = {
-        header: this.lang == "en" ? "Sign Up OTP" : "ओटीपी साइन अप करा",
-        button: this.lang == "en" ? "Verify OTP" : "ओटीपी सत्यापित करा",
-        pageName: "signup",
-        mobileNo: this.signUpForm.getRawValue().mobNo1,
-        createdBy: 0
-      };
-      console.log('dialogObj', dialogObj);
-      const dialogRef = this.dialog.open(OtpSendReceiveComponent, {
-        width: '30%',
-        data: dialogObj,
-        disableClose: true,
-        autoFocus: true,
-      });
-      dialogRef.afterClosed().subscribe((result: any) => {
-        if (result == 'Yes') {
-          this.saveSignUpData();
-        }
-      });
-    }
-  }
+  // openSendOtpComponent() {
+  //   if (this.signUpForm.invalid) {
+  //     return;
+  //   } else {
+  //     let dialogObj = {
+  //       header: this.lang == "en" ? "Sign Up OTP" : "ओटीपी साइन अप करा",
+  //       button: this.lang == "en" ? "Verify OTP" : "ओटीपी सत्यापित करा",
+  //       pageName: "signup",
+  //       mobileNo: this.signUpForm.getRawValue().mobNo1,
+  //       createdBy: 0
+  //     };
+  //     console.log('dialogObj', dialogObj);
+  //     const dialogRef = this.dialog.open(OtpSendReceiveComponent, {
+  //       width: '30%',
+  //       data: dialogObj,
+  //       disableClose: true,
+  //       autoFocus: true,
+  //     });
+  //     dialogRef.afterClosed().subscribe((result: any) => {
+  //       if (result == 'Yes') {
+  //         this.saveSignUpData();
+  //       }
+  //     });
+  //   }
+  // }
 
   saveSignUpData() {
     this.spinner.show();
@@ -191,22 +191,28 @@ export class FarmersignupComponent {
       certificatePath: "",
     }
 
-    let postObj = { ...obj, ...formValue };
-    this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan=' + this.lang, false, postObj, false, 'masterUrl');
-    this.apiService.getHttp().subscribe((res: any) => {
-      if (res.statusCode == "200") {
+    if(this.signUpForm.invalid){
+      return;
+    }else{
+      let postObj = { ...obj, ...formValue };
+      this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan=' + this.lang, false, postObj, false, 'masterUrl');
+      this.apiService.getHttp().subscribe((res: any) => {
+        if (res.statusCode == "200") {
+          this.spinner.hide();
+          this.commonMethods.snackBar(res.statusMessage, 0);
+          this.router.navigate(['farmer-login'],{ queryParams: { mobNo: this.encryptDecryptService.encrypt(formValue.mobNo1.toString()) } });
+        }
+        else {
+          this.spinner.hide();
+          this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
+        }
+      }, (error: any) => {
         this.spinner.hide();
-        this.commonMethods.snackBar(res.statusMessage, 0);
-        this.router.navigate(['farmer-login'],{ queryParams: { mobNo: this.encryptDecryptService.encrypt(formValue.mobNo1.toString()) } });
-      }
-      else {
-        this.spinner.hide();
-        this.commonMethods.checkDataType(res.statusMessage) == false ? this.error.handelError(res.statusCode) : this.commonMethods.snackBar(res.statusMessage, 1);
-      }
-    }, (error: any) => {
-      this.spinner.hide();
-      this.error.handelError(error.status);
-    })
+        this.error.handelError(error.status);
+      })
+    }
+
+  
   }
 
   clearDependancy() {
