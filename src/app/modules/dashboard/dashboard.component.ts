@@ -55,7 +55,7 @@ export class DashboardComponent {
     this.getDisrict();
     this.filterDefaultFrm();
     this.getAllScheme();
-  
+
     this.getDashboardCount();
     this.searchDataZone();
     this.WebStorageService.getLocalstorageData();
@@ -73,8 +73,8 @@ export class DashboardComponent {
     });
   }
 
-  clearFilter(){
-    this.filterDefaultFrm();   
+  clearFilter() {
+    this.filterDefaultFrm();
     this.getDashboardCount();
   }
 
@@ -89,11 +89,10 @@ export class DashboardComponent {
 
   getAllScheme() {
     this.schemeFilterArr = [];
-    this.master.GetAllSchemeType().subscribe({
+    this.master.GetAllSchemeType(this.WebStorageService.getDesignationId()).subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.schemeFilterArr.unshift({ id: 0, textEnglish: "All Scheme", textMarathi: "सर्व योजना" }, ...res.responseData);
-
         } else {
           this.schemeFilterArr = [];
         }
@@ -145,15 +144,15 @@ export class DashboardComponent {
   }
 
   getAction() {
-    if(this.filterFrm.getRawValue().schemeTypeId == 0){
+    if (this.filterFrm.getRawValue().schemeTypeId == 0) {
       this.filterFrm.controls['actionId'].setValue(0);
       return
     }
     this.actionArr = [];
     let obj = {
-      lan:this.lang,
-      SchemeId:this.filterFrm.getRawValue().schemeTypeId,
-      designationId:this.WebStorageService.getDesignationId()
+      lan: this.lang,
+      SchemeId: this.filterFrm.getRawValue().schemeTypeId,
+      designationId: this.WebStorageService.getDesignationId()
     }
     this.master.getActionDropDownWithObj(obj).subscribe({
       next: (res: any) => {
@@ -189,12 +188,11 @@ export class DashboardComponent {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.dashboardData = res;
-
           this.dashboardData?.responseData1.find((ele: any) => {
-            if (ele.schemeTypeId == 1) { //1 is  MANAREGA
+            if ((ele.schemeTypeId == 1)) { //1 is  MANAREGA
               this.manaregaCount += Number(ele.pendingCount + ele.rejectCount + ele.resendCount + ele.approvedCount)
               this.manaregaArray.push(ele);
-            } else if (ele.schemeTypeId == 2) { //2 SILK SAMGRA
+            } else if ((ele.schemeTypeId == 2)) { //2 SILK SAMGRA
               this.samgraCount += Number(ele.pendingCount + ele.rejectCount + ele.resendCount + ele.approvedCount)
               this.samgraArray.push(ele)
             }
