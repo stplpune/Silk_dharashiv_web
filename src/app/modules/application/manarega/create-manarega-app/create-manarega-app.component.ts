@@ -93,6 +93,7 @@ export class CreateManaregaAppComponent {
   // isFormDisabled: boolean = true; //disable enable form
   // @ViewChild('myForm')form:any;
   manaregaAadhar : any;
+  checkManaregaId:any
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -126,7 +127,7 @@ export class CreateManaregaAppComponent {
     this.route.queryParams.subscribe((queryParams: any) => {
       this.routingData = queryParams['id'];
     });
-  
+    this.getSchemeData();
     this.addManaregaFrm();
     this.addFarmInfo();
     this.getFarmInfo();
@@ -137,9 +138,7 @@ export class CreateManaregaAppComponent {
     this.addOtherDocument();
     this.addRegistrationFrm();
     this.commonDropdown();
-    this.getSchemeData();
-    this.routingData ? this.getRouteParam() : this.getPreviewData('search');
-    // this.getPreviewData('search'); // temp
+    this.getPreviewData();
   }
 
   commonDropdown() {
@@ -152,11 +151,6 @@ export class CreateManaregaAppComponent {
     this.getCandidateRelation();
     this.getBank();
     this.searchDataZone();
-  }
-
-  getRouteParam() {
-    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
-    this.getPreviewData('edit', spliteUrl[0]);
   }
 
   filterDefaultFrm() {
@@ -176,25 +170,18 @@ export class CreateManaregaAppComponent {
   }
 
   getSchemeData() {
-      this.masterService.GetSelectSchemeData(this.WebStorageService.getMobileNo(),1).subscribe({
-        next: ((res: any) => {
-          if (res.statusCode == "200" && res.responseData?.length) {
-            let data= res.responseData;
-            console.log(data)
-            // if (data == 3) {
-            //   this.manaregaFrm.disable(); // Disabling the form
-            // }
-            // if (data == 3) {
-            //   this.isFormDisabled = false; // Enable the form
-            // } else {
-            //   this.isFormDisabled = true; // Disable the form
-            // }
-             }
-        
-        })
+    this.masterService.GetSelectSchemeData(this.WebStorageService.getMobileNo(), 1).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.checkManaregaId = res.responseData;
+        }
+        else{
+          this.checkManaregaId = [];
+        }
+
       })
-    }
-  
+    })
+  }
 
   //#region --------------form start here---------------------
   addManaregaFrm(data?: any) {
@@ -551,17 +538,17 @@ export class CreateManaregaAppComponent {
     this.dataSource = new MatTableDataSource(arrayFarmDetails);
   }
 
-  getPreviewData(flag?: any, id?: any) {
-   // let filterData = this.filterFrm?.getRawValue();
+  getPreviewData() {
+   let manaregaFormValue = this.manaregaFrm.getRawValue();
+   let addharNo = manaregaFormValue.aadharNo
+   let mobileNo = this.WebStorageService.getMobileNo();
+
     if (this.filterFrm.invalid) {
       this.commonMethod.snackBar(this.lang == "en" ? "Please Enter Correct Details" : "कृपया योग्य तपशील प्रविष्ट करा", 1)
       return
     } else {
-      let str = `MobileNo=${this.WebStorageService.getMobileNo()}&lan=${this.lang}`;
-      id ? str += `&Id=${id}` : '';
-      let url = flag == 'search' ? `sericulture/api/Application/application-preview?` + str : 'sericulture/api/Application/application-preview?Id=' + (id) + '&lan=' + this.lang;
-      this.apiService.setHttp('get', url, false, false, false, 'masterUrl')
-      this.apiService.getHttp().subscribe({
+        this.apiService.setHttp('get', `sericulture/api/Application/application-preview?AadharNo=${addharNo || ''}&MobileNo=${mobileNo || ''}&lan=${this.lang}`, false, false, false, 'masterUrl');
+       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == "200") {
             this.previewData = res.responseData;
@@ -802,7 +789,7 @@ export class CreateManaregaAppComponent {
         if (res.statusCode == "200") {
           this.goForward(stepper);
           this.OtherDocUploadImg = [];
-          this.getPreviewData('edit', res.responseData)
+          this.getPreviewData()
           this.manaregaFrm?.controls['id'].setValue(res.responseData);
           res.responseData && flag == 'challan' ? this.openDialog(res) : '';
           this.manFrmSubmitFlag = false;
