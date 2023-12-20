@@ -550,10 +550,10 @@
   "faq": {
     "faq": "एफएक्यू",
     "searchfaq": "प्रश्न शोधा ",
-    "question_en": "प्रश्न(इंग्रजी)",
-    "question_mr": "प्रश्न(मराठी)",
-    "answer_en": "उत्तर(इंग्रजी)",
-    "answer_mr": "उत्तर(मराठी)",
+    "question_en": "प्रश्न",
+    "question_mr": "प्रश्न",
+    "answer_en": "उत्तर",
+    "answer_mr": "उत्तर",
     "add": "प्रकाशित करा",
     "update_faq": "एफएक्यू संपादित करा",
     "add_faq": "एफएक्यू जोडा",
@@ -563,7 +563,9 @@
     "question_maxLength": "कमाल 200 वर्णांना अनुमती आहे",
     "answer_maxLength": "कमाल 1000 वर्णांना अनुमती आहे",
     "question_pattern": "वैध प्रश्न प्रविष्ट करा",
-    "Answer_pattern": "वैध उत्तर प्रविष्ट करा"
+    "Answer_pattern": "वैध उत्तर प्रविष्ट करा",
+    "english":"इंग्रजी",
+    "marathi":"मराठी"
   },
   "villageCircle": {
     "search_by_village_circle_name": "मंडळाच्या नावाने शोधा",
