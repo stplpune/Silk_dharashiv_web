@@ -152,7 +152,8 @@ export class DashboardComponent {
     this.actionArr = [];
     let obj = {
       lan:this.lang,
-      SchemeId:this.filterFrm.getRawValue().schemeTypeId
+      SchemeId:this.filterFrm.getRawValue().schemeTypeId,
+      designationId:0
     }
     this.master.getActionDropDownWithObj(obj).subscribe({
       next: (res: any) => {
