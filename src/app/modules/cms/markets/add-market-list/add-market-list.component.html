@@ -13,7 +13,6 @@
     <div mat-dialog-content class="modal-body form-container scrollbar">
       <div class="row gx-2 gy-2">
         <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'marketRate.market_en' | translate}}</mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketRate.market_en' | translate}}</mat-label>
             <input matInput formControlName="marketName"
@@ -30,7 +29,6 @@
           </mat-form-field>
         </div>
         <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'marketRate.market_mr' | translate}}</mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketRate.market_mr' | translate}}</mat-label>
             <input matInput formControlName="m_MarketName"
@@ -46,20 +44,16 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-sm-6">
-          <!-- <mat-label class="form-label"> {{'common.mobile' | translate}} </mat-label> -->
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label> {{'common.mobile' | translate}} 1 </mat-label>
             <input matInput formControlName="conactNo" maxlength="10"
               (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
             <mat-error *ngIf="a['conactNo'].hasError('pattern')">{{'common.please_enter_valid_mobile_number'|translate}}
             </mat-error>
-
           </mat-form-field>
         </div>
-
-        <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'common.email' | translate}}</mat-label> -->
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.email' | translate}}</mat-label>
             <input matInput formControlName="emailId"
@@ -68,8 +62,7 @@
               *ngIf="a['emailId'].hasError('email')">{{'common.Please_enter_valid_email_id'|translate}}</mat-error>
           </mat-form-field>
         </div>
-        <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'marketRate.farm_goods' | translate}}</mat-label> -->
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketRate.farm_goods' | translate}}</mat-label>
             <mat-select multiple formControlName="shetMalId">
@@ -80,8 +73,7 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'common.state' | translate}}</mat-label> -->
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.state' | translate}}</mat-label>
             <mat-select formControlName="stateId" (selectionChange)="getDistrict('sel')"
@@ -91,8 +83,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'common.district' | translate}}</mat-label> -->
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.district' | translate}}</mat-label>
             <mat-select formControlName="districtId" (selectionChange)="clearDropdown('district');getTaluka()"
@@ -103,17 +94,17 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'common.taluka' | translate}}</mat-label> -->
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.taluka' | translate}}</mat-label>
             <mat-select formControlName="talukaId">
               <mat-option>
                 <ngx-mat-select-search [formControl]="talukaCtrl"
-                    placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
-                    noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
-            </mat-option>
-              <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang == 'en' ? taluka.textEnglish :
+                  placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang == 'en' ?
+                taluka.textEnglish :
                 taluka.textMarathi}}</mat-option>
             </mat-select>
             <mat-error *ngIf="a['talukaId']?.hasError('required')">{{'common.Please_select_taluka'|translate}}
@@ -121,18 +112,15 @@
           </mat-form-field>
         </div>
         <div class="col-sm-12">
-          <!-- <mat-label class="form-label">{{'common.address' | translate}}</mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.address' | translate}}</mat-label>
             <textarea matInput formControlName="address" (keypress)="validation.noFirstSpaceAllow($event)"></textarea>
-            <!-- (keypress)="validation.noFirstSpaceAllow($event);lang == 'en' ? validation.alphaNumericWithSpacesAndSpecChars($event):validation.unicodeMarathiQuetionValidation($event)"></textarea>-->
             <mat-error *ngIf="a['address'].hasError('maxLengthExceeded')">{{
               ('marketRate.market_Name_limit'|translate)}}
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'marketRate.pin_Code' | translate}}</mat-label> -->
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketRate.pin_Code' | translate}}</mat-label>
             <input matInput formControlName="pincode"
@@ -148,8 +136,7 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'marketRate.establishment_Date' | translate}}</mat-label> -->
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketRate.establishment_Date' | translate}}</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="estDate" (click)="picker.open()" readonly
@@ -158,8 +145,7 @@
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>
-        <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'marketRate.latitude' | translate}}</mat-label> -->
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketRate.latitude' | translate}}</mat-label>
             <input matInput formControlName="latitude" (keypress)="validation.noFirstSpaceAllow($event)">
@@ -169,8 +155,7 @@
               *ngIf="a['latitude']?.hasError('pattern')">{{'marketRate.please_enter_valid_latitude'|translate}}</mat-error>
           </mat-form-field>
         </div>
-        <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'marketRate.longitude' | translate}}</mat-label> -->
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketRate.longitude' | translate}}</mat-label>
             <input matInput formControlName="longitude" (keypress)="validation.noFirstSpaceAllow($event)">
@@ -180,25 +165,16 @@
               *ngIf="a['longitude']?.hasError('pattern')">{{'marketRate.please_enter_valid_longitude'|translate}}</mat-error>
           </mat-form-field>
         </div>
-        <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'marketRate.administrator' | translate}}</mat-label> -->
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketRate.administrator' | translate}}</mat-label>
             <input matInput formControlName="administratior" (keypress)="validation.noFirstSpaceAllow($event)">
             <mat-error *ngIf="a['administratior'].hasError('maxLengthExceeded')">{{
               ('department.department_maxLength'|translate)}}
             </mat-error>
-            <!-- lang == 'en' ? validation.alphabetsWithSpaces($event) : validation.unicodeMarathiValidation($event) -->
-            <!-- <mat-error *ngIf="a['administratior']?.errors">
-          <span class="text-danger"
-              *ngIf="a['administratior']?.hasError('maxLengthExceeded') || a['administratior']?.hasError('pattern')">
-              {{a['administratior'].hasError('maxLengthExceeded') ? ('department.department_maxLength'|translate) : ('marketRate.please_enter_valid_administrator'|translate)}}
-          </span>
-      </mat-error> -->
           </mat-form-field>
         </div>
-        <div class="col-sm-6">
-          <!-- <mat-label class="form-label">{{'marketRate.administrator_mobile_no' | translate}}</mat-label> -->
+        <div class="col-sm-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.mobile' | translate}} 2</mat-label>
             <input matInput formControlName="mobileNo" maxlength="10"
@@ -208,8 +184,6 @@
           </mat-form-field>
         </div>
         <div class="col-sm-12">
-          <!-- <mat-label class="form-label">
-            {{'marketRate.working_hours' | translate}}</mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'marketRate.working_hours' | translate}}</mat-label>
             <textarea matInput formControlName="workingHours"
@@ -233,102 +207,42 @@
 
 <div class="" *ngIf="isViewFlag">
   <div mat-dialog-content class="modal-body form-container">
-    <div class="row gy-2 gx-2">
-      <div class="col-sm-12">
-        <div class="row gx-2">
-          <div class="col-sm-2 form-label">{{'marketRate.market' | translate}}</div>
-          <div class=" col-sm-10 form-data">: {{lang == 'en' ? (data?.marketName || '-') : (data?.m_MarketName || '-')}}</div>
-        </div>
+    <div class="row gx-2">
+      <div class="col-sm-2 form-label">{{'marketRate.market' | translate}}</div>
+      <div class=" col-sm-10 form-data">: {{lang == 'en' ? (data?.marketName || '-') : (data?.m_MarketName || '-')}}
       </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'common.mobile' | translate}}</div>
-          <div class="col-sm-8 form-data">: {{data?.conactNo || '-'}}</div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'common.email' | translate}}</div>
-          <div class="col-sm-8 form-data">: {{data?.emailId || '-'}}</div>
-        </div>
-      </div>
-
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'common.State' | translate}}</div>
-          <div class="col-sm-8 form-data">: {{lang == 'en' ? (data?.state || '-') : (data?.m_State || '-')}}</div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'common.District' | translate}}</div>
-          <div class="col-sm-8 form-data">: {{lang == 'en' ? (data?.district || '-') : (data?.m_District || '-')}}</div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'common.Taluka' | translate}}</div>
-          <div class="col-sm-8 form-data">: {{lang == 'en' ? (data?.taluka || '-') : (data?.m_Taluka || '-')}}</div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketRate.farm_goods' | translate}}</div>
-          <ng-container>
-            <div class="col-sm-8 form-data">:<span *ngFor="let arr of data?.getCommitteeAssignShetmal">
-                {{lang == 'en' ? (arr?.shetmalCast|| '-') + "," : (arr?.m_ShetmalCast || '-') + ","}}
-              </span></div>
-          </ng-container>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row gx-2">
-          <div class="col-sm-2 form-label">{{'common.address' | translate}}</div>
-          <div class="col-sm-10 form-data">: {{data?.address || '-'}}</div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketRate.pin_Code' | translate}}</div>
-          <div class="col-sm-8 form-data">: {{data?.pincode || '-'}}</div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-1">
-          <div class="col-sm-auto form-label">{{'marketRate.establishment_Date' | translate}}</div>
-          <div class="col-sm form-data">: {{data?.estDate | date:'dd/MM/YYYY'|| '-'}}</div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketRate.latitude' | translate}}</div>
-          <div class="col-sm-8 form-data">: {{data?.latitude|| '-'}}</div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketRate.longitude' | translate}}</div>
-          <div class="col-sm-8 form-data">: {{data?.longitude || '-'}}</div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketRate.administrator' | translate}}</div>
-          <div class="col-sm-8 form-data">: {{data?.administratior || '-'}}</div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row gx-2">
-          <div class="col-sm-4 form-label">{{'marketRate.administrator_mobile_no'| translate}}</div>
-          <div class="col-sm-8 form-data">: {{data?.mobileNo || '-'}}</div>
-        </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row gx-2">
-          <div class="col-sm-2 form-label">{{'marketRate.working_hours' | translate}}</div>
-          <div class="col-sm-10 form-data">: {{data?.workingHours || '-'}}</div>
-        </div>
-      </div>
+      <div class="col-sm-2 form-label">{{'common.mobile' | translate}}</div>
+      <div class="col-sm-4 form-data">: {{data?.conactNo || '-'}}</div>
+      <div class="col-sm-2 form-label">{{'common.email' | translate}}</div>
+      <div class="col-sm-4 form-data">: {{data?.emailId || '-'}}</div>
+      <div class="col-sm-2 form-label">{{'common.State' | translate}}</div>
+      <div class="col-sm-4 form-data">: {{lang == 'en' ? (data?.state || '-') : (data?.m_State || '-')}}</div>
+      <div class="col-sm-2 form-label">{{'common.District' | translate}}</div>
+      <div class="col-sm-4 form-data">: {{lang == 'en' ? (data?.district || '-') : (data?.m_District || '-')}}</div>
+      <div class="col-sm-2 form-label">{{'common.Taluka' | translate}}</div>
+      <div class="col-sm-4 form-data">: {{lang == 'en' ? (data?.taluka || '-') : (data?.m_Taluka || '-')}}</div>
+      <div class="col-sm-2 form-label">{{'marketRate.farm_goods' | translate}}</div>
+      <ng-container>
+        <div class="col-sm-4 form-data">:<span *ngFor="let arr of data?.getCommitteeAssignShetmal">
+            {{lang == 'en' ? (arr?.shetmalCast|| '-') + "," : (arr?.m_ShetmalCast || '-') + ","}}
+          </span></div>
+      </ng-container>
+      <div class="col-sm-2 form-label">{{'common.address' | translate}}</div>
+      <div class="col-sm-10 form-data">: {{data?.address || '-'}}</div>
+      <div class="col-sm-2 form-label">{{'marketRate.pin_Code' | translate}}</div>
+      <div class="col-sm-4 form-data">: {{data?.pincode || '-'}}</div>
+      <div class="col-sm-2 form-label">{{'marketRate.establishment_Date' | translate}}</div>
+      <div class="col-sm-4 form-data">: {{data?.estDate | date:'dd/MM/YYYY'|| '-'}}</div>
+      <div class="col-sm-2 form-label">{{'marketRate.latitude' | translate}}</div>
+      <div class="col-sm-4 form-data">: {{data?.latitude|| '-'}}</div>
+      <div class="col-sm-2 form-label">{{'marketRate.longitude' | translate}}</div>
+      <div class="col-sm-4 form-data">: {{data?.longitude || '-'}}</div>
+      <div class="col-sm-2 form-label">{{'marketRate.administrator' | translate}}</div>
+      <div class="col-sm-4 form-data">: {{data?.administratior || '-'}}</div>
+      <div class="col-sm-2 form-label">{{'marketRate.administrator_mobile_no'| translate}}</div>
+      <div class="col-sm-4 form-data">: {{data?.mobileNo || '-'}}</div>
+      <div class="col-sm-2 form-label">{{'marketRate.working_hours' | translate}}</div>
+      <div class="col-sm-10 form-data">: {{data?.workingHours || '-'}}</div>
     </div>
   </div>
 </div>
