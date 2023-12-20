@@ -1,4 +1,11 @@
-.featured-logo{
+.blog-content {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #111;
+}
+
+.blog-image {
+  height: 200px;
   width: 200px;
-  height: 150px;
+  object-fit: cover;
 }

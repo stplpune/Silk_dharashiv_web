@@ -15,34 +15,15 @@
   <mat-dialog-content class="modal-body form-container scrollbar">
     <div class="row gy-2">
       <div class="col-sm-3">
-        <div class="row">
-          <!-- <div class="col-sm-auto form-label">{{"blogs.featuredImage" | translate}}</div> -->
-          <div class="col-sm-auto form-data">
-            <img src="{{data?.thumbnailImage}}" alt="Image" class="img-fluid featured-logo">
-          </div>
-        </div>
+        <img src="{{data?.thumbnailImage}}" alt="Image" class="img-fluid border rounded-2 blog-image">
       </div>
       <div class="col-sm-9">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="row">
-              <div class="col-sm-2 form-label">{{"blogs.title" | translate}}</div>
-              <div class="col-sm-10 form-data">: {{data?.title || '-'}}</div>
-            </div>
-          </div>
-          <div class="col-sm">
-            <div class="row">
-              <div class="col-sm-2 form-label">{{"action.description" | translate}}</div>
-              <div class="col-sm-10 form-data upload-img-view">:
-                <span class=" form-data" [innerHTML]="data?.description"></span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <h5 class="fw-bold text-dark">{{data?.title || '-'}}</h5>
+        <div class="small text-muted form-label">Blog Description :</div>
+        <div class="blog-content" [innerHTML]="data?.description"></div>
       </div>
     </div>
   </mat-dialog-content>
-
 </div>
 
 
