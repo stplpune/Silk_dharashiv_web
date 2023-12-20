@@ -14,9 +14,10 @@ export class MasterService {
   constructor(private apiService: ApiService, private commonMethodsService: CommonMethodsService, private router: Router,
     private webstorageService: WebStorageService, private AESEncryptDecryptService: AesencryptDecryptService) { }
 
-  GetAllSchemeType() {
+  GetAllSchemeType(designationId?:any) {
+    let str = designationId ? 'sericulture/api/DropdownService/GetAllSchemeType?DesignationId='+designationId : 'sericulture/api/DropdownService/GetAllSchemeType'
     return new Observable((obj) => {
-      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/GetAllSchemeType', false, false, false, 'masterUrl')
+      this.apiService.setHttp('GET', str, false, false, false, 'masterUrl')
       this.apiService.getHttp().subscribe({
         next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
         error: (e: any) => { obj.error(e) }
