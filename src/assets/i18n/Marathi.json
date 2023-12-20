@@ -125,6 +125,10 @@
     "applicant_name_mob": "अर्जदाराचे नाव",
     "please_enter_valid_application_name": "कृपया वैध अर्जदाराचे नाव प्रविष्ट करा",
     "applicant_Required": "कृपया अर्जदाराचे नाव प्रविष्ट करा",
+    "marathi_applicant_name_mob": "अर्जदाराचे नाव(मराठी)",
+    "marathi_please_enter_valid_application_name": "कृपया वैध अर्जदाराचे नाव(मराठी) प्रविष्ट करा",
+    "marathi_applicant_Required": "कृपया अर्जदाराचे नाव(मराठी) प्रविष्ट करा",
+
     "process_department": "प्रक्रिया विभाग",
     "plantation_area": "लागवडीचे क्षेत्र (हेक्टर)",
     "applicant_dateBirthd_Required": "कृपया जन्मतारीख प्रविष्ट करा",

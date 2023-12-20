@@ -125,6 +125,10 @@
     "applicant_name_mob": "Applicant Name",
     "please_enter_valid_application_name": "Please enter valid applicant name",
     "applicant_Required": "Please enter applicant Name",
+  "marathi_applicant_name_mob": "Applicant Name(Marathi)",
+    "marathi_please_enter_valid_application_name": "Please enter valid applicant name(marathi)",
+    "marathi_applicant_Required": "Please enter applicant Name(marathi)",
+
     "process_department": "Process Department",
     "plantation_area": "Plantation Area (Hector)",
     "applicant_dateBirthd_Required": "Please enter date of birth",
@@ -690,7 +694,6 @@
   "addManrega": {
     "original_details": "Original Details",
     "applicant_name": "Applicant's Name",
-    "applicant_name_m": "Applicant's Name (Marathi)",
     "mulberry_plantation_under_Silk": "Mulberry plantation under Silk Development Scheme on my farm should be done through Department",
     "select_gender": "Gender",
     "education": "Education",
