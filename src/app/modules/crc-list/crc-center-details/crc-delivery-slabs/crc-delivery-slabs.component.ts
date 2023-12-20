@@ -131,7 +131,10 @@ export class CrcDeliverySlabsComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;          
+          this.tableDataArray = res.responseData.responseData1;   
+          this.tableDataArray.map((ele:any)=>{
+            ele.status1 = (this.lang == 'en' ? ele.status : ele.m_Status) ;
+          })      
           this.tableDatasize = res.responseData.responseData2?.totalCount;
           this.totalPages = res.responseData.responseData2?.totalPages;
         } else {
@@ -150,8 +153,8 @@ export class CrcDeliverySlabsComponent {
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'en' ? ['srNo', 'deliverySlab', 'grainage', 'capacity_DFL', 'rate_Silkworm', 'startDate', 'endDate', 'status']
-      : ['srNo', 'deliverySlab', 'm_Grainage', 'capacity_DFL', 'rate_Silkworm', 'startDate', 'endDate', 'm_Status'];
+    let displayedColumns = this.lang == 'en' ? ['srNo', 'deliverySlab', 'grainage', 'capacity_DFL', 'rate_Silkworm', 'startDate', 'endDate', 'status1']
+      : ['srNo', 'deliverySlab', 'm_Grainage', 'capacity_DFL', 'rate_Silkworm', 'startDate', 'endDate', 'status1'];
     let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Delivery Slab', 'Grainage', 'Capacity (DFL)', 'Rate/100DFLs', 'Start Date', 'End Date', 'Status'] :
       ['अनुक्रमांक', 'डिलिव्हरी स्लॅब', 'धान्य', 'क्षमता (DFL)', 'दर/100DFLs', 'प्रारंभ तारीख', 'शेवटची तारीख', 'स्थिती', 'कृती'];
     let tableData = {
