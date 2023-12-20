@@ -1,63 +1,88 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
-    <div class="text-main">Grainage Order</div>
+    <div class="text-main">{{lang == 'en' ? 'Grainage Order' : 'ग्रेनेज ऑर्डर'}}</div>
   </mat-card-header>
   <mat-card-content class="card-body" id="dash-stats">
+    <form [formGroup]="filterForm">
     <div class="row">
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>District</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
+          <mat-label> {{lang == 'en' ? 'District' : 'जिल्हा'}}</mat-label>
+          <mat-select formControlName="districtId"
+          [class]="webService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
+          <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
+            district.textMarathi : district.textEnglish}}
+          </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{lang == 'en' ? 'Taluka' : 'तालुका'}}</mat-label>
+          <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('gram');getGrampanchayat()">
+            <mat-option>
+              <ngx-mat-select-search [formControl]="talukaCtrl"
+                placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
+                noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ?
+              taluka.textMarathi
+              :taluka.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Taluka</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
+          <mat-label> {{lang == 'en' ? 'Village' : 'गाव'}}</mat-label>
+          <mat-select formControlName="grampanchayatId">
+            <mat-option>
+              <ngx-mat-select-search [formControl]="gramPCtrl"
+                placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?
+              village.textMarathi : village.textEnglish}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Village</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-          </mat-select>
+          <mat-label> {{lang == 'en' ? 'Delivery Slab' : 'डिलिव्हरी स्लॅब'}}</mat-label>
+          <mat-select formControlName="deliveryslabId">
+          <!-- <mat-option *ngFor="let arr of slabArray" [value]="arr.id">{{lang == 'en' ? arr.textEnglish : arr.textMarathi}}</mat-option> -->
+          <mat-option>
+            <ngx-mat-select-search [formControl]="slabCtrl"
+              placeholderLabel="{{lang == 'en' ? 'Search Delivery Slab Name' : 'डिलिव्हरी स्लॅब नाव शोधा'}}"
+              noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let village of slabSubject | async" [value]="village.id">{{lang != 'en' ?
+            village.textMarathi : village.textEnglish}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Delivery slabs</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-          </mat-select>
+          <mat-label> {{lang == 'en' ? 'Status' : 'स्थिती'}}</mat-label>
+          <mat-select formControlName="statusId" >
+            <mat-option  [value]="0">{{lang == 'en' ? 'All Status' : 'सर्व स्थिती'}}</mat-option>
+            <mat-option *ngFor="let arr of statusArray" [value]="arr.id">{{lang == 'en' ? arr.textEnglish : arr.textMarathi}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Status</mat-label>
-          <mat-select>
-            <mat-option>Option 1</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-3">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Search by order ID/Farmer Name/Mobile Number</mat-label>
-          <input matInput placeholder="Search by order ID/Farmer Name/Mobile Number">
+          <mat-label>{{lang == 'en' ? 'Search by order ID/Farmer Name/Mobile Number' : 'ऑर्डर आयडी/शेतकऱ्याचे नाव/मोबाईल नंबर द्वारे शोधा'}}</mat-label>
+          <input matInput placeholder="Search by order ID/Farmer Name/Mobile Number"  formControlName="searchValue" (keypress)="validation.noFirstSpaceAllow($event)">
         </mat-form-field>
       </div>
       <div class="col-sm-2">
         <div class="d-flex align-items-center gap-2">
-          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button">
+          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit" (click)="filterFlag=true;getTableData('filter')">
             <mat-icon class="material-symbols-rounded">
               search
             </mat-icon>
           </button>
-          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button">
+          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="filterFlag=false;clearFormData()">
             <mat-icon class="material-symbols-rounded">
               close
             </mat-icon>
@@ -68,14 +93,15 @@
         <button mat-flat-button class="btn-main" (click)="grainageorderdetails()">Grainage Order details</button>
       </div> -->
     </div>
+  </form>
     <div class="row gx-2 mb-2">
       <div class="col-sm-4">
         <div class="card card-body ">
           <div class="d-flex gap-2">
             <img src="../../../assets/images/crc-center/center.svg " alt="">
             <div class="d-flex flex-column gap-0">
-              <h4 class="fw-bold text-primary mb-0">50</h4>
-              <div class="fw-bold mb-0 text-primary"> Total Order</div>
+              <h4 class="fw-bold text-primary mb-0">{{counterObject?.sumOrder || '-'}}</h4>
+              <div class="fw-bold mb-0 text-primary"> {{lang == 'en' ? 'Total Order' : 'एकूण ऑर्डर'}}</div>
             </div>
           </div>
         </div>
@@ -89,8 +115,8 @@
           <div class="d-flex gap-2">
             <img src="../../../assets/images/crc-center/pending.svg " alt="">
             <div class="d-flex flex-column gap-0">
-              <h4 class="fw-bold text-warning mb-0">40</h4>
-              <div class="fw-bold mb-0 text-warning"> Pending</div>
+              <h4 class="fw-bold text-warning mb-0">{{counterObject?.pendingOrder || '-'}}</h4>
+              <div class="fw-bold mb-0 text-warning">  {{lang == 'en' ? 'Pending' : 'प्रलंबित'}}</div>
             </div>
           </div>
         </div>
@@ -104,8 +130,8 @@
           <div class="d-flex gap-2">
             <img src="../../../assets/images/crc-center/active.svg " alt="">
             <div class="d-flex flex-column gap-0">
-              <h4 class="fw-bold text-success mb-0">10</h4>
-              <div class="fw-bold mb-0 text-success"> Approved</div>
+              <h4 class="fw-bold text-success mb-0">{{counterObject?.receivedOrder || '-'}}</h4>
+              <div class="fw-bold mb-0 text-success">   {{lang == 'en' ? 'Approved' : 'मंजूर'}}</div>
             </div>
           </div>
         </div>
@@ -116,43 +142,7 @@
       </div>
     </div>
     <div class="table-responsive scrollbar">
-      <table class="dashboard-table w-100">
-        <thead>
-          <tr>
-            <th class="p-2">Sr. No.</th>
-            <th scope="col">Order Id</th>
-            <th scope="col">Grainage</th>
-            <th scope="col">State</th>
-            <th scope="col">Location</th>
-            <th scope="col">Type</th>
-            <th scope="col">Order Qty (DFLs)</th>
-            <th scope="col">Order Date</th>
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>202356545</td>
-            <td>Silkworm Seed Production Center</td>
-            <td>Maharashtra</td>
-            <td>Gadhinglaj</td>
-            <td>Government</td>
-            <td>5000</td>
-            <td>19-12-2023</td>
-            <td>Received</td>
-            <td>
-              <button matTooltipPosition="below" mat-icon-button (click)="grainageorderdetails()"
-                class="btn-icon bg-dark bg-opacity-10">
-                <span class="material-symbols-rounded text-dark">
-                  visibility
-                </span>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
     </div>
   </mat-card-content>
 </mat-card>
