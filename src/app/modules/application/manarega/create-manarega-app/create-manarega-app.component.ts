@@ -623,6 +623,9 @@ export class CreateManaregaAppComponent {
     // this.OtherDocUploadImg.length ? this.visible = true : this.visible = false;
     this.otherDocArray = new MatTableDataSource(this.OtherDocUploadImg);
     this.addSelfDeclaration(data);
+      if (this.docArray[0].docPath && this.docArray[1]&& this.docArray[3].docPath) {
+        this.documentFrm.controls['allRequiredDocument'].setValue(1);
+      }
   }
 
   manaregaFrmVal(flag: string) {
@@ -639,6 +642,8 @@ export class CreateManaregaAppComponent {
   }
 
   checkStepCon(stepper: MatStepper, lable: string) {
+    console.log("this.documentFrm.invalid",this.documentFrm.controls);
+    
     if (lable == 'farmerInfo' && this.manaregaFrm.invalid) {
       !this.manaregaFrm.getRawValue().profilePhotoPath ? this.manFrmSubmitFlag = true : this.manFrmSubmitFlag = false;
       return
