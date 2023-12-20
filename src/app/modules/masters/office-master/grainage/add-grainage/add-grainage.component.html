@@ -35,6 +35,11 @@
         <div class="col-sm-6 form-data">: {{lang == 'en' ? data?.taluka : data?.m_Taluka}}</div>
       </li>
       <li class="row gx-2 mb-2">
+        <div class="col-sm-6 form-label mb-0">{{lang == 'en' ? 'Taluka': 'तालुका'}}</div>
+        <div class="col-sm-6 form-data">: {{lang == 'en' ? data?.taluka : data?.m_Taluka}}</div>
+      </li>
+
+      <li class="row gx-2 mb-2">
         <div class="col-sm-6 form-label mb-0">{{"grainage.pincode" | translate}}</div>
         <div class="col-sm-6 form-data">: {{data?.pincode || '-'}}</div>
       </li>
@@ -72,7 +77,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{"grainage.grainageName_en" | translate}}</mat-label>
             <input formControlName="grainage" matInput
-              (keypress)="validator.noFirstSpaceAllow($event);validator.englishAlphaNumeric($event)">
+              (keypress)="validator.noFirstSpaceAllow($event);validator.englishNumericspecialChar($event)">
             <mat-error
               *ngIf="f['grainage']?.hasError('required')">{{'grainage.grainageName_en_require'|translate}}</mat-error>
             <mat-error
@@ -87,7 +92,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{"grainage.grainageName_mr" | translate}}</mat-label>
             <input formControlName="m_Grainage" matInput
-              (keypress)="validator.noFirstSpaceAllow($event);validator.marathiAlphaNumeric($event)">
+              (keypress)="validator.noFirstSpaceAllow($event);validator.marathiNumericspecialChar($event)">
             <mat-error
               *ngIf="f['m_Grainage']?.hasError('required')">{{'grainage.grainageName_mr_require'|translate}}</mat-error>
             <mat-error
@@ -126,7 +131,7 @@
               class="text-danger fs-6">*</span></mat-label> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{"common.taluka" | translate}}</mat-label>
-            <mat-select formControlName="talukaId">
+            <mat-select formControlName="talukaId" (clearDropdown)="clearDropdown('taluka');getGrampanchayat()">
               <mat-option>
                 <ngx-mat-select-search [formControl]="talukaCtrl"
                   placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
@@ -139,6 +144,26 @@
               *ngIf="f['talukaId']?.hasError('required')">{{'common.Please_select_taluka'|translate}}</mat-error>
           </mat-form-field>
         </div>
+        <div class="col-sm-6">
+          <!-- <mat-label class="form-label">{{'common.select_grampanchayat' | translate}} <span
+              class="text-danger fs-6">*</span></mat-label> -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.select_grampanchayat' | translate}}</mat-label>
+            <mat-select formControlName="grampanchayatId">
+              <mat-option>
+                <ngx-mat-select-search [formControl]="gramPCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?
+                village.textMarathi : village.textEnglish}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f['grampanchayatId']?.hasError('required')">
+              {{'officerreg.please_select_grampanchayat'|translate}} </mat-error>
+          </mat-form-field>
+        </div>
+
+
         <div class="col-sm-6">
           <!-- <mat-label class="form-label">{{"grainage.pincode" | translate}} <span
               class="text-danger fs-6">*</span></mat-label> -->

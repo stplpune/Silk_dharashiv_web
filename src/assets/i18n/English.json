@@ -348,7 +348,7 @@
     "taluka_reuired": "Please select taluka",
     "address": "Address",
     "address_require": "Please enter address",
-    "address_limit": "Maximum limit 100 character",
+    "address_limit": "Maximum limit 150 character",
     "pincode": "Pincode",
     "pincode_require": "Please enter pincode",
     "pincode_maxlength": "Please valid pincode number",

@@ -345,7 +345,7 @@
     "State": "राज्य",
     "address": "पत्ता",
     "address_require": "कृपया पत्ता प्रविष्ट करा",
-    "address_limit": "कमाल 100 वर्णांना अनुमती आहे",
+    "address_limit": "कमाल 150 वर्णांना अनुमती आहे",
     "pincode": "पिनकोड",
     "pincode_require": "कृपया पिनकोड टाका",
     "pincode_maxlength": "कृपया वैध पिनकोड क्रमांक टाका",
