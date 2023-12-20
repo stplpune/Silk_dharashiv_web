@@ -183,7 +183,7 @@ export class MarketsComponent implements OnDestroy {
 
   addMarket(obj?: any) {
     let dialogRef = this.dialog.open(AddMarketListComponent, {
-      width: '55%',
+      width: '50%',
       data: obj,
       disableClose: true,
       autoFocus: true,
