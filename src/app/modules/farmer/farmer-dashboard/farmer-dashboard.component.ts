@@ -13,7 +13,7 @@ export class FarmerDashboardComponent {
 
   aadhaarNoVal(schemeId: any) {
     this.dialog.open(AadhaarNoValComponent, {
-      width: '500px',
+      width: '700px',
       data: schemeId,
     });
   }

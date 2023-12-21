@@ -15,6 +15,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { MasterService } from 'src/app/core/services/master.service';
+import { ApiService } from 'src/app/core/services/api.service';
 
 @Component({
   selector: 'app-aadhaar-no-val',
@@ -26,17 +27,72 @@ import { MasterService } from 'src/app/core/services/master.service';
 })
 export class AadhaarNoValComponent {
   checkBoxValueMang!: boolean;
-  setSchTypeId!: number;
   res: any;
   selectedTab: any;
 
-  constructor(private validation: ValidationService, public dialogRef: MatDialogRef<AadhaarNoValComponent>, private encryptdecrypt: AesencryptDecryptService, private masterService: MasterService,
-    @Inject(MAT_DIALOG_DATA) public data: any, private router: Router, public webStorage: WebStorageService, private commonMethodsService: CommonMethodsService) { 
-      this.selectedTab = data - 1;
-    }
+  constructor(private validation: ValidationService, public dialogRef: MatDialogRef<AadhaarNoValComponent>,
+    private encryptdecrypt: AesencryptDecryptService, private masterService: MasterService, private apiService: ApiService,
+    @Inject(MAT_DIALOG_DATA) public data: any, private router: Router, public webStorage: WebStorageService, private commonMethodsService: CommonMethodsService) {
+    this.selectedTab = data - 1;
+    this.getSchemeData();
+  }
 
   aadhaarNo = new FormControl('', [Validators.required, this.validation.maxLengthValidator(12), Validators.pattern(this.validation.aadhar_card)]);
 
+  getSchemeData() {
+    this.masterService.GetSelectSchemeData(this.webStorage.getMobileNo(), this.selectedTab + 1).subscribe({
+      next: ((res: any) => {
+        if (res.statusCode == "200") {
+          this.res = res;
+          if (this.res?.responseData == 4) {
+            this.commonMethodsService.snackBar('Your application is in the process...', 1)
+          }
+        }
+        else {
+          this.res = '';
+        }
+      })
+    })
+  }
+
+  trackApp() {
+    debugger;
+    let Id = this.encryptdecrypt.encrypt(`${this.res.responseData1}` + '.' + '0' + '.' + `${(this.selectedTab + 1) == 1 ? 'm' : 's'}`);
+    this.router.navigate([(this.selectedTab + 1) == 1 ? '../approval-process-manarega':'../approval-process-silk-samgra'], {
+      queryParams: {
+        id: Id
+      },
+    });
+    this.onNoClick();
+  }
+
+  checkAadharNo() {
+    // let url = this.selectedTab == 1 ? 'create-manarega-app' : 'create-samgra-app';
+    // let Id: any = this.encryptdecrypt.encrypt(`${this.aadhaarNo.getRawValue()}`);
+
+    this.apiService.setHttp('GET', 'sericulture/api/Application/Get-Aadhar-No-Validation?AadharNo=' + this.aadhaarNo.getRawValue(), false, false, false, 'baseUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        debugger;
+        if (res.responseData) {
+          this.commonMethodsService.snackBar('This aadhar no is already used for applications...', 1)
+          return
+        }
+        let url = (this.selectedTab + 1) == 1 ? 'create-manarega-app' : 'create-samgra-app';
+        let Id: any = this.encryptdecrypt.encrypt(`${this.aadhaarNo.getRawValue()}`);
+        if (this.res?.responseData == 2 || this.res?.responseData == 1) { // 1.Application not done  2.Application Resend/Incomplete
+          this.router.navigate([url], {
+            queryParams: {
+              id: Id
+            },
+          });
+          this.onNoClick();
+        }
+        this.onNoClick();
+      },
+      error: () => { }
+    })
+  }
 
   valAadhaarNo() {
     if (!this.checkBoxValueMang) {
@@ -47,50 +103,20 @@ export class AadhaarNoValComponent {
       return
     }
 
-    this.getSchemeData();
+    this.checkAadharNo();
 
   }
 
-  getSchemeData() {
-    this.masterService.GetSelectSchemeData(this.webStorage.getMobileNo(), 1).subscribe({
-      next: ((res: any) => {
-        if (res.statusCode == "200") {
-          this.res = res.responseData;
-          let schId = this.setSchTypeId;
-          let url = schId == 1 ? 'create-manarega-app' : 'create-samgra-app';
-          let Id: any = this.encryptdecrypt.encrypt(`${this.aadhaarNo.getRawValue()}`);
-
-          if (this.res == 2 || this.res == 1) { // 1.Application not done  2.Application Resend/Incomplete
-            this.router.navigate([url], {
-              queryParams: {
-                id: Id
-              },
-            });
-          } else if (this.res == 3) {//Application Complete
-            this.router.navigate([url], {
-              queryParams: {
-                id: Id
-              },
-            });
-          }
-          this.onNoClick();
-        }
-        else {
-          this.res = [];
-        }
-      })
-    })
+  selCheckBox(event: any) {
+    this.checkBoxValueMang = event.checked;
   }
 
-  selCheckBox(event: any, schTypeId: number) {
-    this.setSchTypeId = schTypeId;
-    this.checkBoxValueMang = event.checked
-  }
-
-  onTabChanged() {
+  onTabChanged(event: any) {
+    this.selectedTab = event.index;
     this.checkBoxValueMang = false;
     this.aadhaarNo.setValue('');
     this.aadhaarNo.markAsUntouched();
+    this.getSchemeData();
   }
 
   onNoClick(): void {
