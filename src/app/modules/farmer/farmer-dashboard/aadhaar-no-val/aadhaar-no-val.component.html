@@ -24,30 +24,17 @@
             कीटक संगोपन गृह(1100 चौ. फुट) बांधकामासाठी रु. 1.79149 लक्ष असे एकूण रु. 3.97335 लक्ष रक्कम येवढे
             अनुदान देण्यात येत आहे.</p>
           <p class="form-label">महात्मा गांधी रोजगार हमी योजनेअंतर्गत नवीन तुती लागवड विकास योजना नोंदणी</p>
-          <p class="form-label" *ngIf="res?.responseData == 2 || res?.responseData == 1"> <mat-checkbox class="example-margin"
-              (change)="selCheckBox($event)" [checked]="checkBoxValueMang">मी प्रदान
+          <p class="form-label" *ngIf="res?.responseData == 1"> <mat-checkbox
+              class="example-margin" (change)="selCheckBox($event)" [checked]="checkBoxValueMang">मी प्रदान
               केलेली माहिती वाचली
               आहे आणि मी अटी व शर्तीना सहमती
               देतो</mat-checkbox>
           </p>
-          <div class="text-center" *ngIf="res?.responseData == 3">
-            <button mat-flat-button class="btn-main mt-3 " (click)="trackApp()">
-              Track Application
+          <div class="text-center" *ngIf="res?.responseData == 3 || res?.responseData == 2">
+            <button mat-flat-button class="btn-main mt-3 " (click)="trackApp(res?.responseData)">
+              {{res?.responseData == 3 ?  'Track Application' : 'Update Application'}}
             </button>
           </div>
-          <!-- <div class="row" *ngIf="checkBoxValueMang">
-            <div class="col-md-6 mx-auto">
-              <p>Mobile No : {{webStorage?.getMobileNo()}}</p>
-              <mat-form-field appearance="outline" class="w-100">
-                <input matInput [formControl]="aadhaarNo" placeholder="AadhaarNo">
-              </mat-form-field>
-
-              <button mat-flat-button class="btn-main w-100" (click)="valAadhaarNo()">
-                Register
-              </button>
-
-            </div>
-          </div> -->
         </div>
       </div>
 
@@ -75,35 +62,21 @@
             </li>
           </ul>
 
-          <p class="form-label" *ngIf="res?.responseData == 2 || res?.responseData == 1"> <mat-checkbox class="example-margin"
-              (change)="selCheckBox($event)" [checked]="checkBoxValueMang">I have read all the information provided and
+          <p class="form-label" *ngIf="res?.responseData == 1"> <mat-checkbox
+              class="example-margin" (change)="selCheckBox($event)" [checked]="checkBoxValueMang">I have read all the
+              information provided and
               I agree to the terms and
               conditions
             </mat-checkbox></p>
 
-            <div class="text-center" *ngIf="res?.responseData == 3">
-              <button mat-flat-button class="btn-main mt-3 " (click)="trackApp()">
-                Track Application
-              </button>
-            </div>
-            
-          <!-- <div class="row" *ngIf="checkBoxValueMang">
-            <div class="col-md-6 mx-auto">
-              <p>Mobile No : {{webStorage?.getMobileNo()}}</p>
-              <mat-form-field appearance="outline" class="w-100">
-                <input matInput [formControl]="aadhaarNo" placeholder="AadhaarNo">
-              </mat-form-field>
-
-              <button mat-flat-button class="btn-main w-100" (click)="valAadhaarNo()">
-                Register
-              </button>
-
-            </div>
-          </div> -->
+          <div class="text-center" *ngIf="res?.responseData == 3 || res?.responseData == 2">
+            <button mat-flat-button class="btn-main mt-3 " (click)="trackApp(res?.responseData)">
+              {{res?.responseData == 3 ?  'Track Application' : 'Update Application'}}
+            </button>
+          </div>
         </div>
       </div>
     </mat-tab>
-    <!-- <mat-tab label="Other"> Content 3 </mat-tab> -->
   </mat-tab-group>
 </div>
 <div mat-dialog-actions class="modal-footer form-container">
@@ -125,7 +98,8 @@
       </button>
     </div>
     <div class="col-sm-12">
-      <div class="small form-label mb-2">Please register only if your land or residence is in Dharshiv District and not availed of
+      <div class="small form-label mb-2">Please register only if your land or residence is in Dharshiv District and not
+        availed of
         Kutlyahi Yojana through Silk Collection Department.</div>
     </div>
   </div>

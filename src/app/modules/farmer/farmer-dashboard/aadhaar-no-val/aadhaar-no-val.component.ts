@@ -55,21 +55,27 @@ export class AadhaarNoValComponent {
     })
   }
 
-  trackApp() {
-    debugger;
-    let Id = this.encryptdecrypt.encrypt(`${this.res.responseData1}` + '.' + '0' + '.' + `${(this.selectedTab + 1) == 1 ? 'm' : 's'}`);
-    this.router.navigate([(this.selectedTab + 1) == 1 ? '../approval-process-manarega':'../approval-process-silk-samgra'], {
-      queryParams: {
-        id: Id
-      },
-    });
+  trackApp(schemeId: any) {
+    if (schemeId == 3) {
+      let Id = this.encryptdecrypt.encrypt(`${this.res.responseData1}` + '.' + '0' + '.' + `${(this.selectedTab + 1) == 1 ? 'm' : 's'}`);
+      this.router.navigate([(this.selectedTab + 1) == 1 ? '../approval-process-manarega' : '../approval-process-silk-samgra'], {
+        queryParams: {
+          id: Id
+        },
+      });
+    } else {
+      let url = (this.selectedTab + 1) == 1 ? 'create-manarega-app' : 'create-samgra-app';
+      let Id: any = this.encryptdecrypt.encrypt(`${this.aadhaarNo.getRawValue()}`);
+      this.router.navigate([url], {
+        queryParams: {
+          id: Id
+        },
+      });
+    }
     this.onNoClick();
   }
 
   checkAadharNo() {
-    // let url = this.selectedTab == 1 ? 'create-manarega-app' : 'create-samgra-app';
-    // let Id: any = this.encryptdecrypt.encrypt(`${this.aadhaarNo.getRawValue()}`);
-
     this.apiService.setHttp('GET', 'sericulture/api/Application/Get-Aadhar-No-Validation?AadharNo=' + this.aadhaarNo.getRawValue(), false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
