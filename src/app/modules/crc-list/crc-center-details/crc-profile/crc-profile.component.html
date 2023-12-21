@@ -137,30 +137,31 @@
             </div>
           </section>
           <section>
-            <h6 class="text-main border-bottom border-success border-opacity-50"> {{lang == 'en' ? 'Rearing Area Details': 'संगोपन क्षेत्र तपशील'}}</h6>
+            <h6 class="text-main border-bottom border-success border-opacity-50"
+            > {{lang == 'en' ? 'Rearing Area Details': 'संगोपन क्षेत्र तपशील'}}</h6>
             <div class="row gy-2">
               <div class="col-sm-6">
                 <div class="row gx-2">
                   <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Total area available for CRC': 'CRC साठी उपलब्ध एकूण क्षेत्र'}}</div>
-                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.totalAreaForCRC || '-'}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.totalAreaForCRC || '-'}} {{lang == 'en' ? 'sq.ft.': 'चौ.फूट'}}</div>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="row gx-2">
                   <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Area Under CRC': 'CRC अंतर्गत क्षेत्र'}}</div>
-                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.areaUnderCRC || '-'}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.areaUnderCRC || '-'}} {{lang == 'en' ? 'sq.ft.': 'चौ.फूट'}}</div>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="row gx-2">
                   <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Status': 'स्थिती'}}</div>
-                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.status || '-'}}</div>
+                  <div class="col-sm-8 form-data"  [class]="tableDataArray?.statusId == 5 ?  'bg-danger-subtle text-danger p-2 rounded-2' : tableDataArray?.statusId == 1 ? 'bg-warning-subtle text-warning p-2 rounded-2' :'bg-success-subtle text-success p-2 rounded-2'">:  &nbsp; {{tableDataArray?.status || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="row gx-2 mb-4">
                   <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Rearing Capacity': 'संगोपन क्षमता'}}</div>
-                  <div class="col-sm-4 form-data">:  &nbsp; {{tableDataArray?.chalkyCapacity || '-'}}</div>
+                  <div class="col-sm-4 form-data">:  &nbsp; {{tableDataArray?.chalkyCapacity || '-'}} DFLs</div>
                 </div>
               </div>
             </div>
