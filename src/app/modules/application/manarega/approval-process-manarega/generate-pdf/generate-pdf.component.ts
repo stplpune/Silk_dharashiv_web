@@ -97,7 +97,7 @@ export class GeneratePdfComponent {
 
   getEstimateData() {
     this.spinner.show();
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -197,7 +197,7 @@ export class GeneratePdfComponent {
 
   getAnotherEstimateData() {
     this.spinner.show();
-    this.apiService.setHttp('GET', 'api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -247,7 +247,7 @@ export class GeneratePdfComponent {
   generate_PDF() {
     let html = this.bindTableDiv;
     let obj = { htmlData: html, };
-    this.apiService.setHttp('POST', 'api/TechnicalEstimate/Generate-PDF', false, obj, false, 'masterUrl');
+    this.apiService.setHttp('POST', 'sericulture/api/TechnicalEstimate/Generate-PDF', false, obj, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();

@@ -164,7 +164,7 @@ getStatus() {
 
   grainageorderdetails(obj?:any){
     let dialogRef =this.dialog.open(GrainageOrderDetailsComponent,{
-      width:"90%",
+      width:"100%",
       data:obj
     })
     dialogRef.afterClosed().subscribe(() => {

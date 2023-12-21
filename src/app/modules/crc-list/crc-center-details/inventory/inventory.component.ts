@@ -20,23 +20,26 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { ActivatedRoute } from '@angular/router';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
+import { GlobalTableComponent } from "../../../../shared/components/global-table/global-table.component";
 
 @Component({
-  selector: 'app-inventory',
-  standalone: true,
-  imports: [CommonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatDialogModule,
-    MatTableModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatNativeDateModule,
-    MatDatepickerModule,ReactiveFormsModule,NgxMatSelectSearchModule],
-  templateUrl: './inventory.component.html',
-  styleUrls: ['./inventory.component.scss']
+    selector: 'app-inventory',
+    standalone: true,
+    templateUrl: './inventory.component.html',
+    styleUrls: ['./inventory.component.scss'],
+    imports: [CommonModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatDialogModule,
+        MatTableModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatNativeDateModule,
+        MatDatepickerModule, ReactiveFormsModule, NgxMatSelectSearchModule, GlobalTableComponent]
 })
 export class InventoryComponent {
   filterForm!:FormGroup;
@@ -52,6 +55,8 @@ export class InventoryComponent {
   grainageSubject: ReplaySubject<any> = new ReplaySubject<any>();
   grainageArray = new Array();
   grainageTypeArray = new Array();
+  routingData:any;
+  id:any
   constructor
   (
     public dialog:MatDialog,
@@ -62,7 +67,9 @@ export class InventoryComponent {
     private spinner: NgxSpinnerService,
     private apiService: ApiService,
     private errorHandler: ErrorHandlingService,
-    public validation: ValidationService,
+    public validator: ValidationService,
+    private route: ActivatedRoute,
+    public encryptdecrypt: AesencryptDecryptService,
   ){}
 
   ngOnInit(){
@@ -71,6 +78,13 @@ export class InventoryComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     });
+    this.route.queryParams.subscribe((queryParams: any) => {
+      this.routingData = queryParams['id'];
+    });
+   let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
+    this.id = spliteUrl;
+    // this.id = 27;   
+
     this.getFormData();
     this.searchDataZone();
     this.getGrainage();
@@ -112,20 +126,21 @@ export class InventoryComponent {
     })
   }
 
+  // sericulture/api/Inventory/GetCRCInventory?Id=27&SearchText=ab&GrainageId=1&GrainageType=1&PageNo=1&PageSize=10&lan=en
+
   getTableData(flag?: any) {
     this.spinner.show();
     let formData = this.filterForm.getRawValue(); 
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    console.log(str,formData);
-    this.apiService.setHttp('GET', '', false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Inventory/GetCRCInventory?Id='+this.id+'&SearchText='+(formData.searchText || '')+'&GrainageId='+(formData.grainageId || 0)+'&GrainageType='+(formData.gTypeId || 0)+str+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {          
-          this.tableDataArray = res.responseData1;      
-          this.tableDatasize = res.responseData2?.totalCount;
-          this.totalPages = res.responseData2?.totalPages;
+          this.tableDataArray = res.responseData.responseData1;      
+          this.tableDatasize = res.responseData.responseData2?.totalCount;
+          this.totalPages = res.responseData.responseData2?.totalPages;
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
@@ -139,11 +154,12 @@ export class InventoryComponent {
       },
     });
   }
-  
+
+ 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'en' ? ['srNo', 'orderId', 'grainage', 'state','location', 'type', 'orderedQty','orderDate','status1','action']
-      : ['srNo', 'orderId', 'm_Grainage', 'm_state','location', 'm_type', 'orderedQty','orderDate','status1','action'];
+    let displayedColumns = this.lang == 'en' ? ['srNo', 'grainage','grainageType','state','lotNumber','raceType','purchase','available']
+      : ['srNo','m_Grainage','m_GrainageType','m_State','lotNumber','m_RaceType','purchase','available'];
     let displayedheaders = this.lang == 'en' ? ['Sr. No.','Grainage', 'Type', 'State','Lot No','Race','purchase Quantity(Eggs)','In Stock'] :
       ['अनुक्रमांक','धान्य','प्रकार','राज्य','लॉट नंबर','शर्यत','खरेदीचे प्रमाण (अंडी)','स्टॉक मध्ये'];
     let tableData = {
@@ -176,7 +192,9 @@ export class InventoryComponent {
   }
 
   clearFormData(){
-    
+    this.pageNumber = 1;
+    this.getFormData();
+    this.getTableData();
   }
 
 }

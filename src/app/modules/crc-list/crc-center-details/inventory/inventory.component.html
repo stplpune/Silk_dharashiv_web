@@ -1,13 +1,13 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
-    <div class="text-main fw-bold">Inventory</div>
+    <div class="text-main fw-bold"> {{lang == 'en' ? 'Inventory' : 'इन्व्हेंटरी'}}</div>
   </mat-card-header>
   <mat-card-content class="card-body">
     <form [formGroup]="filterForm">
     <div class="row gx-2">
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Grainage</mat-label>
+            <mat-label>{{lang == 'en' ? 'Grainage' : 'धान्य'}}</mat-label>
             <mat-select formControlName="grainageId">
               <mat-option>
                 <ngx-mat-select-search [formControl]="grainageCtrl"
@@ -20,7 +20,7 @@
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Type</mat-label>
+          <mat-label> {{lang == 'en' ? 'Type' : 'प्रकार'}}</mat-label>
           <mat-select formControlName="gTypeId">
             <mat-option  [value]="0">{{lang == 'en' ? 'All Type' :'सर्व प्रकार'}}</mat-option>
             <mat-option *ngFor="let arr of grainageTypeArray" [value]="arr.id">{{lang == 'en' ? arr.textEnglish : arr.textMarathi}}</mat-option>
@@ -29,8 +29,8 @@
       </div>
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Search Lot No/ Race</mat-label>
-          <input matInput f placeholder="Search Lot No/ Race" formControlName="searchText">
+          <mat-label> {{lang == 'en' ? 'Search Lot No/ Race' :'लॉट नंबर/ रेस शोधा'}}</mat-label>
+          <input matInput f placeholder="Search Lot No/ Race" formControlName="searchText" (keypress)="validator.noFirstSpaceAllow($event)">
         </mat-form-field>
       </div>
       <div class="col-sm-auto">
@@ -50,7 +50,7 @@
     </div>
 </form>
     <div class="table-responsive scrollbar">
-      Table
+      <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
     </div>
   </mat-card-content>
 </mat-card>

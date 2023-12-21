@@ -52,7 +52,7 @@
             <div class="row gx-2">
               <div class="col-sm-2 form-label">  {{lang == 'en' ? 'Payment Reciept' : 'पैसे भरल्याची पावती'}}</div>
               <div class="col-sm-10 form-data" (click)="viewreceipt()">:
-                <a href="">View</a>
+                <a href="" *ngIf="this.orderdetail?.paymentReceipt">View</a>
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@
             </tr>
             <tr>
               <th>
-                <div class="form-label"> {{lang == 'en' ? 'Quantity' : 'प्रमाण'}}</div>
+                <div class="form-label"> {{lang == 'en' ? 'Quantity' : 'प्रमाण'}}(DFLs)</div>
               </th>
               <th>
                 <div class="form-data">{{orderdetail?.quantity || '-'}}</div>

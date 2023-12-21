@@ -57,7 +57,7 @@
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>{{lang == 'en' ? 'Search by order ID/Farmer Name/Mobile Number' : 'ऑर्डर आयडी/शेतकऱ्याचे नाव/मोबाईल नंबर द्वारे शोधा'}}</mat-label>
-          <input matInput placeholder="Search by order ID/Farmer Name/Mobile Number"  formControlName="searchValue" (keypress)="validation.noFirstSpaceAllow($event)">
+          <input matInput   formControlName="searchValue" (keypress)="validation.noFirstSpaceAllow($event)">
         </mat-form-field>
       </div>
       <div class="col-sm-2">

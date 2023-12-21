@@ -39,7 +39,6 @@ export class GrainageOrderDetailsComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     });
-    console.log(this.data);
     this.getTableData();
   }
 
@@ -74,7 +73,7 @@ export class GrainageOrderDetailsComponent {
     this.highLightedFlag = true;
     let displayedColumns = this.lang == 'en' ? ['srNo', 'invoiceNo', 'deliveryDate', 'quantity','lotNo', 'race', 'ledDate','hatchingDate','rate','totalAmount','deliveryCharge','discount','finalAmount','invoice']
       :                                        ['srNo', 'invoiceNo', 'deliveryDate', 'quantity','lotNo', 'race', 'ledDate','hatchingDate','rate','totalAmount','deliveryCharge','discount','finalAmount','invoice'];
-    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Invoice No', 'Delivery Date', 'Quantity','lot No','Race','Led Date','Hatching Date','Rate','Total Amount', 'Delivery Charge','Discount','Final Amount','Invoice'] :
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Invoice No', 'Delivery Date', 'Quantity(DFLs)','Lot No','Race','Led Date','Hatching Date','Rate','Total Amount', 'Delivery Charge','Discount','Final Amount','Invoice'] :
       ['अनुक्रमांक','चलन क्रमांक', 'वितरण तारीख', 'प्रमाण','लॉट नंबर', 'वंशाचे नाव', 'नेतृत्व तारीख','उबवणुकीची तारीख','दर','एकूण रक्कम','वितरण शुल्क','दस्तऐवज','अंतिम रक्कम','चलन' ];
     let tableData = {
       pageNumber: this.pageNumber,
@@ -102,6 +101,9 @@ export class GrainageOrderDetailsComponent {
         this.pageNumber = obj.pageNumber;
         this.getTableData();
         break;
+        case 'View':
+        // window.open(obj)
+          break;
     }
   }
 
