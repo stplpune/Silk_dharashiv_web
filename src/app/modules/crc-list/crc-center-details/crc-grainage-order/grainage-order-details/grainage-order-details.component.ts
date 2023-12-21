@@ -42,6 +42,8 @@ export class GrainageOrderDetailsComponent {
     this.getTableData();
   }
 
+ 
+
   getTableData() {
     this.spinner.show();
     this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Gainage-Order-Details?OrderId='+this.data?.orderId, false, false, false, 'masterUrl');
@@ -68,6 +70,21 @@ export class GrainageOrderDetailsComponent {
     });
   }
 
+   // "id": 6,
+  // "grainage": "sds",
+  // "m_Grainage": "sdfsd",
+  // "type": 1,
+  // "state": "Maharashtra",
+  // "m_State": "महाराष्ट्र",
+  // "location": "Dharashiv",
+  // "m_Location": "धाराशिव",
+  // "pincode": "534543",
+  // "address": "dsfd",
+  // "paymentReceipt": "http://demosilkapi.mahamining.com/Upload/Upload/jpg_12212023120401PM.jpg",
+  // "orderId": 2023122172,
+  // "orderDate": "2023-12-21T12:04:03.71",
+  // "productName": "Silkworm Seed",
+  // "quantity": 800
   
   setTableData() {
     this.highLightedFlag = true;
