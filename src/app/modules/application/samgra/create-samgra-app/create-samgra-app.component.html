@@ -43,7 +43,7 @@
   </mat-card-content> -->
   <mat-card-content class=" card-body form-container">
     <!-- [linear]="!isLinear" -->
-    <mat-stepper #stepper >
+    <mat-stepper #stepper [linear]="!isLinear">
       <mat-step [stepControl]="samgraForm" >
         <ng-template matStepLabel>{{'addSamgra.Original_details' | translate}}</ng-template>
         <form [formGroup]="samgraForm"  #samgraDirective="ngForm"  >
@@ -56,10 +56,10 @@
                   <input type="file" #uplodLogo id="real-file" hidden="hidden" for
                     (change)="fileUpload($event,'','profilePhoto')" />
                   <div class="upload-buttons">
-                    <button mat-icon-button class="btn-icon bg-primary-subtle text-primary"
+                    <button *ngIf="!profileImageUrl" mat-icon-button class="btn-icon bg-primary-subtle text-primary"
                       (click)="uplodLogo.value='';uplodLogo.click()" type="button">
-                      <mat-icon class="material-symbols-outlined"> {{!profileImageUrl ? 'add' :
-                        'edit_square'}}</mat-icon>
+                      <mat-icon class="material-symbols-outlined">add
+                      </mat-icon>
                     </button>
                     <button *ngIf="profileImageUrl" mat-icon-button class="btn-icon bg-danger-subtle text-danger" type="button"
                       (click)="deleteProfilePhoto('delete')">
