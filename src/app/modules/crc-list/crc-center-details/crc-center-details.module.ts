@@ -15,6 +15,7 @@ import { GrainageOrderDetailsComponent } from './crc-grainage-order/grainage-ord
 import { GlobalTableComponent } from "../../../shared/components/global-table/global-table.component";
 import {MatIconModule} from '@angular/material/icon';
 import { InventoryComponent } from "./inventory/inventory.component";
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { InventoryComponent } from "./inventory/inventory.component";
         CrcChawkiOrderDetailsComponent,
         MatButtonModule,
         GlobalTableComponent,
+        MatCardModule,
         InventoryComponent
     ]
 })

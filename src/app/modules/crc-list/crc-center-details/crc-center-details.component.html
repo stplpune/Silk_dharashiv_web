@@ -1,13 +1,30 @@
-<mat-tab-group>
-    <mat-tab label="Profile"> 
-        <app-crc-profile></app-crc-profile>
-    </mat-tab>
-    <mat-tab label="Delivery Slabs">  <ng-template matTabContent><app-crc-delivery-slabs></app-crc-delivery-slabs></ng-template> </mat-tab>
-    <mat-tab label="Chawki Order"> <ng-template matTabContent><app-crc-chawki-order></app-crc-chawki-order></ng-template></mat-tab>
-    <mat-tab label="Grainage Order"> <ng-template matTabContent><app-crc-grainage-order></app-crc-grainage-order></ng-template></mat-tab>
-    <mat-tab label="Inventory"> <ng-template matTabContent><app-inventory></app-inventory></ng-template></mat-tab>
-    <!-- <mat-tab label="Chawki Order Details"> <app-crc-chawki-order-details></app-crc-chawki-order-details> </mat-tab> -->
-  </mat-tab-group>
+
+<mat-card class="plain-card">
+  <mat-card-header class="card-header">
+    <div class="d-flex align-items-center justify-content-between w-100">
+      <div class="text-main fw-bold">CRC Center Details </div>
+      <button mat-flat-button class="btn-main-light">
+        <mat-icon class="material-symbols-rounded">
+          chevron_left
+        </mat-icon>
+        Back
+      </button>
+    </div>
+  </mat-card-header>
+  <mat-card-content class="card-content">
+    <mat-tab-group class="my-2">
+      <mat-tab label="Profile">
+          <app-crc-profile></app-crc-profile>
+      </mat-tab>
+      <mat-tab label="Delivery Slabs">  <ng-template matTabContent><app-crc-delivery-slabs></app-crc-delivery-slabs></ng-template> </mat-tab>
+      <mat-tab label="Chawki Order"> <ng-template matTabContent><app-crc-chawki-order></app-crc-chawki-order></ng-template></mat-tab>
+      <mat-tab label="Grainage Order"> <ng-template matTabContent><app-crc-grainage-order></app-crc-grainage-order></ng-template></mat-tab>
+      <mat-tab label="Inventory"> <ng-template matTabContent><app-inventory></app-inventory></ng-template></mat-tab>
+      <!-- <mat-tab label="Chawki Order Details"> <app-crc-chawki-order-details></app-crc-chawki-order-details> </mat-tab> -->
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
+
 
 
 
