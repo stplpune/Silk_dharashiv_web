@@ -11,14 +11,14 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { Router } from '@angular/router';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 
 @Component({
   selector: 'app-forget-password',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, ReactiveFormsModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, ReactiveFormsModule ,TranslateModule],
   templateUrl: './forget-password.component.html',
   styleUrls: ['./forget-password.component.scss']
 })

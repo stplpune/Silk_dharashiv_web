@@ -326,7 +326,9 @@
     "please_enter_confirm_password": "Please enter confirm password",
     "please_enter_valid_password": "Please enter valid password",
     "confirm_valid_password": "Please enter confirm valid password",
-    "back_to_login": "Back To Login"
+    "back_to_login": "Back To Login",
+    "password_limit": "Maximum limit 42 character"
+ 
   },
   "grainage": {
     "search": "Search Grainage Name",
