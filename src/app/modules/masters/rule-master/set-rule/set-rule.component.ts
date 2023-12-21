@@ -56,6 +56,7 @@ export class SetRuleComponent implements OnDestroy{
     this.getState();
     this.getDisrict();
     this.getSchemeType();
+    this.getDepartment();
   }
 
   defaultFrom() {
@@ -198,7 +199,7 @@ export class SetRuleComponent implements OnDestroy{
   }
 
   getDepartment() {
-    this.master.GetDepartmentDropdown(this.filterFrm.getRawValue().scheme).subscribe({
+    this.master.GetDepartmentDropdownNew().subscribe({
       next: ((res: any) => {
         this.departmentresp = res.responseData;
       }), error: (() => {
