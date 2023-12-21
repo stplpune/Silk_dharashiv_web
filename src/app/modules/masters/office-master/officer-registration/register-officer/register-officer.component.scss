@@ -4,6 +4,12 @@
   border-radius: 50%;
 }
 
+.profile-btn button {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
 .file-upload {
   position: relative;
   display: flex;
@@ -39,18 +45,3 @@
 .file-upload>label:active {
   background-color: var(--main-color);
 }
-
-
-.add-btn {
-  position: absolute;
-  bottom: -10px;
-  left: 60px;
-}
-
-.add-btn:active {
-  background-color: transparent !important;
-}
-
-// .mat-mdc-icon-button {
-//   --mat-mdc-button-persistent-ripple-color: transparent !important;
-// }
