@@ -215,9 +215,9 @@ export class CrcChawkiOrderComponent {
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'en' ? ['srNo', 'orderId', 'name', 'mobileNo','taluka', 'village', 'orderQty','deliverySlab','orderDate', 'status1','action']
-      : ['srNo', 'orderId', 'm_Name','mobileNo','m_Taluka', 'm_Village', 'orderQty','deliverySlab', 'orderDate', 'status1','action'];
-    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Order Id', 'Farmer Name', 'Mobile No','Taluka','Village','Order Qty','Delivery Slab', 'Order Date', 'Status', 'Action'] :
+    let displayedColumns = this.lang == 'en' ? ['srNo', 'orderId', 'name', 'mobNo1','taluka', 'grampanchayatName', 'orderQty','deliverySlab','orderDate', 'status1','action']
+      : ['srNo', 'orderId', 'm_Name','mobileNo','m_Taluka', 'm_GrampanchayatName', 'orderQty','deliverySlab', 'orderDate', 'status1','action'];
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Order Id', 'Farmer Name', 'Mobile No','Taluka','Village','Order Qty(DFLs)','Delivery Slab', 'Order Date', 'Status', 'Action'] :
       ['अनुक्रमांक', 'ऑर्डर आयडी', 'शेतकऱ्याचे नाव', 'मोबाईल नंबर', 'तालुका', 'गाव', 'ऑर्डर प्रमाण','डिलिव्हरी स्लॅब', 'मागणीची तारीख','स्थिती','कृती'];
     let tableData = {
       pageNumber: this.pageNumber,
