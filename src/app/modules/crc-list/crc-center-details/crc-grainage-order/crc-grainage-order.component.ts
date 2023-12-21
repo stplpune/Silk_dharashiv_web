@@ -48,7 +48,6 @@ export class CrcGrainageOrderComponent {
   lang: string = 'English';
   filterForm!: FormGroup;
   statusArray = new Array();
-  slabArray = new Array();
   tableDataArray: any;
   tableDatasize!: number;
   totalPages!: number;
@@ -60,8 +59,6 @@ export class CrcGrainageOrderComponent {
   gramPSubject: ReplaySubject<any> = new ReplaySubject<any>(); 
   talukaCtrl: FormControl = new FormControl();
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
-  slabCtrl: FormControl = new FormControl();
-  slabSubject: ReplaySubject<any> = new ReplaySubject<any>();
   routingData:any;
   id:any;
   constructor
@@ -90,10 +87,10 @@ ngOnInit(){
   });
  let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
  this.id = spliteUrl;   
+ this.id=27;
   this.getFormData();
   this.getDisrict();
   this.getStatus();
-  this.getDistributionSlab();
   this.searchDataZone();
   this.getTableData();
 }
@@ -105,7 +102,6 @@ getFormData() {
     grampanchayatId: [0],
     statusId: [0],
     searchValue: [''],
-    deliveryslabId:[0]
   })
 }
 get f() { return this.filterForm.controls; }
@@ -113,7 +109,6 @@ get f() { return this.filterForm.controls; }
 searchDataZone() {
   this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
   this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject) });
-  this.slabCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.slabArray, this.slabCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.slabSubject) });
 }
 
 getDisrict() {
@@ -167,19 +162,6 @@ getStatus() {
   })
 }
 
-getDistributionSlab(){
-  this.masterService.GetAllDistributionSlab().subscribe({
-    next: ((res: any) => {
-      this.slabArray = res.responseData;
-      this.slabArray.unshift({ id: 0, textEnglish: 'All Delivery Slab', textMarathi: 'सर्व डिलिव्हरी स्लॅब' }),
-      this.commonMethod.filterArrayDataZone(this.slabArray, this.slabCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.slabSubject);
-    }), error: (() => {
-      this.slabArray = [];
-      this.slabSubject.next(null);
-    })
-  })
-}
-
   grainageorderdetails(obj?:any){
     let dialogRef =this.dialog.open(GrainageOrderDetailsComponent,{
       width:"90%",
@@ -196,19 +178,18 @@ getDistributionSlab(){
     let formData = this.filterForm.getRawValue(); 
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    console.log(formData,str);
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Ordered-Grainage-List?crcCenterId='+(this.id)+'&Status=1', false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Ordered-Grainage-List?crcCenterId='+(this.id)+'&Status='+(formData.statusId || 0)+'&StateId=1&DistrictId='+(formData.districtId || 0)+'&TalukaId='+(formData.talukaId || 0)+'&GrampanchyatId='+(formData.grampanchayatId || 0)+'&SearchText='+(formData.searchValue || '')+str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {          
-          this.tableDataArray = res.responseData.orderedGrainageLists; 
+          this.tableDataArray = res.responseData1; 
           this.tableDataArray.map((ele:any)=>{
             ele.status1 = (this.lang == 'en' ? ele.status : ele.m_Status) ;
           })       
           this.counterObject=res.responseData;
-          this.tableDatasize = res.responseData.responseData3?.totalCount;
-          this.totalPages = res.responseData.responseData3?.totalPages;
+          this.tableDatasize = res.responseData2?.totalCount;
+          this.totalPages = res.responseData2?.totalPages;
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';

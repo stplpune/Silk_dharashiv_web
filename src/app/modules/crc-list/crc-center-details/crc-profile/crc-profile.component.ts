@@ -140,6 +140,7 @@ export class CrcProfileComponent {
             this.commonMethod.snackBar(res.statusMessage, 0);
             this.statusForm.reset();
             this.getTableDataById();
+            this.router.navigate(['crc-list'])
           }
           else {
             this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
