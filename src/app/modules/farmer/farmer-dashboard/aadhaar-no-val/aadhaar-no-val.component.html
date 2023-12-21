@@ -1,6 +1,6 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">Schemes </div>
+    <div class="text-main">योजना </div>
     <button mat-icon-button class="btn-icon btn-modal-close" mat-dialog-close="true" (click)="onNoClick()">
       <mat-icon class="material-symbols-outlined">
         close
@@ -9,98 +9,45 @@
   </div>
 </div>
 <div mat-dialog-content class="modal-body form-container">
-  <mat-tab-group (selectedTabChange)="onTabChanged($event);" [(selectedIndex)]="selectedTab">
-    <mat-tab label="Manrega">
-      <div class="card rounded-0">
-        <div class="card-header text-center ">
-          महात्मा गांधी रोजगार हमी योजनेअंतर्गत नवीन तुती लागवड विकास योजना नोंदणी
-        </div>
-        <div class="card-body">
-          <p class="form-label">प्रति लाभार्थी मर्यादा 1 एकर पर्यन्त योजनेचा सारांश
-            मनरेगा रेशीम उद्योग विकासांतर्गत एक एकर तुती लागवडीकरिता जमीन तयार करणे, नर्सरी रोपे करून तुति
-            लागवड, किटक संगोपन, किटक संगोपन साहित्य, कोष उत्पादन व किटक संगोपन गृह या सर्वकष बाबींना मान्यता
-            देऊन योजना संपूर्ण जिल्ह्यात लागू करण्यात आली आहे.
-            या योजनेअंतर्गत शेतकर्‍यांना 1 एकर तुती लागवडीसाठी रु. 2.18186 लक्ष तीन वर्षांत विभागून दिले जाते व
-            कीटक संगोपन गृह(1100 चौ. फुट) बांधकामासाठी रु. 1.79149 लक्ष असे एकूण रु. 3.97335 लक्ष रक्कम येवढे
-            अनुदान देण्यात येत आहे.</p>
-          <p class="form-label">महात्मा गांधी रोजगार हमी योजनेअंतर्गत नवीन तुती लागवड विकास योजना नोंदणी</p>
-          <p class="form-label" *ngIf="res?.responseData == 1"> <mat-checkbox
-              class="example-margin" (change)="selCheckBox($event)" [checked]="checkBoxValueMang">मी प्रदान
-              केलेली माहिती वाचली
-              आहे आणि मी अटी व शर्तीना सहमती
-              देतो</mat-checkbox>
-          </p>
-          <div class="text-center" *ngIf="res?.responseData == 3 || res?.responseData == 2">
-            <button mat-flat-button class="btn-main mt-3 " (click)="trackApp(res?.responseData)">
-              {{res?.responseData == 3 ?  'Track Application' : 'Update Application'}}
-            </button>
+  <mat-tab-group (selectedTabChange)="onTabChanged($event);" [(selectedIndex)]="activeTab">
+    <ng-container *ngFor="let schems of data.obj">
+      <mat-tab label="{{schems.m_SchemeType}}">
+        <div class="card rounded-0">
+          <div class="card-body">
+            <div [innerHtml]="schems?.schemeInfo" class="schemeInfo"></div>
+            <p class="form-label" *ngIf="res?.responseData == 1"> <mat-checkbox class="example-margin"
+                (change)="selCheckBox($event)" [checked]="checkBoxValueMang">मी प्रदान केलेली सर्व माहिती वाचली आहे आणि
+                मी अटी व शर्तींना सहमती देतो
+              </mat-checkbox></p>
+            <div class="text-center" *ngIf="res?.responseData == 3 || res?.responseData == 2">
+              <button mat-flat-button class="btn-main mt-3 " (click)="trackApp(res?.responseData)">
+                {{res?.responseData == 3 ? 'Track Application' : 'Update Application'}}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-
-    </mat-tab>
-    <mat-tab label="Silk Collection 2">
-      <div class="card rounded-0">
-        <div class="card-header  text-center">
-          <p>District Silk Office, Osmanabad</p>
-        </div>
-        <div class="card-body">
-          <ul class="px-2">
-            <li class="form-label">Application for Prior Consent Request for New Mulberry Cultivation Development Scheme
-              for
-              02 Acres under
-              Centrally Sponsored Silk Samagra-2 Scheme
-            </li>
-            <li class="form-label">
-              Beneficiaries are highly qualified to participate in the scheme
-            </li>
-            <li class="form-label">
-              7/12 and 8A Excerpt. Job Card, Aadhaar Card, Bank Passbook, Scanned Copy, 2-Passport Size Photographs,
-              Self
-              Declaration of Olita
-            </li>
-          </ul>
-
-          <p class="form-label" *ngIf="res?.responseData == 1"> <mat-checkbox
-              class="example-margin" (change)="selCheckBox($event)" [checked]="checkBoxValueMang">I have read all the
-              information provided and
-              I agree to the terms and
-              conditions
-            </mat-checkbox></p>
-
-          <div class="text-center" *ngIf="res?.responseData == 3 || res?.responseData == 2">
-            <button mat-flat-button class="btn-main mt-3 " (click)="trackApp(res?.responseData)">
-              {{res?.responseData == 3 ?  'Track Application' : 'Update Application'}}
-            </button>
-          </div>
-        </div>
-      </div>
-    </mat-tab>
+      </mat-tab>
+    </ng-container>
   </mat-tab-group>
 </div>
 <div mat-dialog-actions class="modal-footer form-container">
   <div class="row gx-2" *ngIf="checkBoxValueMang">
     <div class="col-sm-5">
       <div class="d-flex gap-2">
-        <div class="form-label">Mobile No </div>
+        <div class="form-label">मोबाईल नं. </div>
         <div class="form-label">: {{webStorage?.getMobileNo()}} </div>
       </div>
     </div>
     <div class="col-sm-5">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [formControl]="aadhaarNo" placeholder="AadhaarNo" maxlength="12">
+        <input matInput [formControl]="aadhaarNo" placeholder="आधार नं." maxlength="12">
       </mat-form-field>
     </div>
     <div class="col-sm-2">
       <button mat-flat-button class="btn-main w-100" (click)="valAadhaarNo()">
-        Register
+        नोंदणी करा
       </button>
-    </div>
-    <div class="col-sm-12">
-      <div class="small form-label mb-2">Please register only if your land or residence is in Dharshiv District and not
-        availed of
-        Kutlyahi Yojana through Silk Collection Department.</div>
     </div>
   </div>
 </div>
