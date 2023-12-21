@@ -33,7 +33,7 @@ export class AadhaarNoValComponent {
   constructor(private validation: ValidationService, public dialogRef: MatDialogRef<AadhaarNoValComponent>,
     private encryptdecrypt: AesencryptDecryptService, private masterService: MasterService, private apiService: ApiService,
     @Inject(MAT_DIALOG_DATA) public data: any, private router: Router, public webStorage: WebStorageService, private commonMethodsService: CommonMethodsService) {
-    this.selectedTab = data - 1;
+    this.selectedTab = data?.schemeId - 1;
     this.getSchemeData();
   }
 
