@@ -1,7 +1,7 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
     <div class="text-main fw-bold">{{lang == 'en' ? 'Grainage Order Details' : 'ग्रेनेज ऑर्डर तपशील'}}</div>
-    <button mat-icon-button class="btn-icon btn-modal-close" mat-dialog-close>
+    <button mat-icon-button class="btn-icon btn-modal-close" type="button" mat-dialog-close="true" (click)="dialogRef.close()">
       <span class="material-symbols-rounded">close</span>
     </button>
   </div>

@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import {   MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {   MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -24,7 +24,7 @@ export class GrainageOrderDetailsComponent {
   qtyDetails:any;
   constructor
   (
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<GrainageOrderDetailsComponent>,@Inject(MAT_DIALOG_DATA) public data: any,
     private commonMethod: CommonMethodsService,
     private spinner: NgxSpinnerService,
     private apiService: ApiService,
@@ -108,5 +108,6 @@ export class GrainageOrderDetailsComponent {
   viewreceipt(){
     window.open(this.orderdetail?.paymentReceipt)
   }
+
 
 }
