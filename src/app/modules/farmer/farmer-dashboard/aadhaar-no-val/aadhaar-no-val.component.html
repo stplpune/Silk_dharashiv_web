@@ -19,11 +19,11 @@
                 (change)="selCheckBox($event)" [checked]="checkBoxValueMang">मी प्रदान केलेली सर्व माहिती वाचली आहे आणि
                 मी अटी व शर्तींना सहमती देतो
               </mat-checkbox></p>
-            <div class="text-center" *ngIf="res?.responseData == 3 || res?.responseData == 2">
+            <!-- <div class="text-center" *ngIf="res?.responseData == 3 || res?.responseData == 2">
               <button mat-flat-button class="btn-main mt-3 " (click)="trackApp(res?.responseData)">
                 {{res?.responseData == 3 ? 'Track Application' : 'Update Application'}}
               </button>
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -50,4 +50,10 @@
       </button>
     </div>
   </div>
+  <div class="float-center mx-auto" *ngIf="res?.responseData == 3 || res?.responseData == 2">
+    <button mat-flat-button class="btn-main mt-3 " (click)="trackApp(res?.responseData)">
+      {{res?.responseData == 3 ? 'Track Application' : 'Update Application'}}
+    </button>
+  </div>
+
 </div>
