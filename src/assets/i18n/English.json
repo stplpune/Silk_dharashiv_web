@@ -348,7 +348,7 @@
     "taluka_reuired": "Please select taluka",
     "address": "Address",
     "address_require": "Please enter address",
-    "address_limit": "Maximum limit 100 character",
+    "address_limit": "Maximum limit 150 character",
     "pincode": "Pincode",
     "pincode_require": "Please enter pincode",
     "pincode_maxlength": "Please valid pincode number",
@@ -552,12 +552,12 @@
     "maximum_limit_5000_characters": "Maximum limit 5000 characters"
   },
   "faq": {
-    "faq": "FAQ's",
+    "faq": "Frequently Asked Questions",
     "searchfaq": "Search Question",
-    "question_en": "Question (English)",
-    "question_mr": "Question (Marathi)",
-    "answer_en": "Answer (English)",
-    "answer_mr": "Answer (Marathi)",
+    "question_en": "Question",
+    "question_mr": "Question",
+    "answer_en": "Answer",
+    "answer_mr": "Answer",
     "add": "Publish",
     "update_faq": "Update FAQ's",
     "add_faq": "Add FAQ's",
@@ -567,7 +567,9 @@
     "question_maxLength": "Maximum limit is 200",
     "answer_maxLength": "Maximum limit is 1000",
     "question_pattern": "Enter a valid Question",
-    "Answer_pattern": "Enter a valid Answer"
+    "Answer_pattern": "Enter a valid Answer",
+    "english":"English",
+    "marathi":"Marathi"
   },
   "villageCircle": {
     "search_by_village_circle_name": "Search By Circle Name",

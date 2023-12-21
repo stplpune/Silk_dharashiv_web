@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { GrainageOrderDetailsComponent } from './crc-grainage-order/grainage-order-details/grainage-order-details.component';
 import { GlobalTableComponent } from "../../../shared/components/global-table/global-table.component";
 import {MatIconModule} from '@angular/material/icon';
+import { InventoryComponent } from "./inventory/inventory.component";
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {MatIconModule} from '@angular/material/icon';
         CrcChawkiOrderComponent,
         CrcChawkiOrderDetailsComponent,
         MatButtonModule,
-        GlobalTableComponent
+        GlobalTableComponent,
+        InventoryComponent
     ]
 })
 export class CrcCenterDetailsModule { }

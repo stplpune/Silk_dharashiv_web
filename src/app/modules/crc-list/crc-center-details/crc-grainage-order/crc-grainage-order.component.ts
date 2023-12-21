@@ -20,6 +20,8 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { GlobalTableComponent } from "../../../../shared/components/global-table/global-table.component";
+import { ActivatedRoute } from '@angular/router';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 
 @Component({
     selector: 'app-crc-grainage-order',
@@ -60,7 +62,8 @@ export class CrcGrainageOrderComponent {
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   slabCtrl: FormControl = new FormControl();
   slabSubject: ReplaySubject<any> = new ReplaySubject<any>();
-
+  routingData:any;
+  id:any;
   constructor
   (
     public dialog:MatDialog,
@@ -72,6 +75,8 @@ export class CrcGrainageOrderComponent {
     private apiService: ApiService,
     private errorHandler: ErrorHandlingService,
     public validation: ValidationService,
+    private route: ActivatedRoute,
+    public encryptdecrypt: AesencryptDecryptService,
   ) {}
 
 ngOnInit(){
@@ -80,6 +85,11 @@ ngOnInit(){
     this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     this.setTableData();
   });
+  this.route.queryParams.subscribe((queryParams: any) => {
+    this.routingData = queryParams['id'];
+  });
+ let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
+ this.id = spliteUrl;   
   this.getFormData();
   this.getDisrict();
   this.getStatus();
@@ -187,12 +197,15 @@ getDistributionSlab(){
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
     console.log(formData,str);
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Ordered-Grainage-List?crcCenterId=27&Status=1', false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Ordered-Grainage-List?crcCenterId='+(this.id)+'&Status=1', false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {          
-          this.tableDataArray = res.responseData.orderedGrainageLists;     
+          this.tableDataArray = res.responseData.orderedGrainageLists; 
+          this.tableDataArray.map((ele:any)=>{
+            ele.status1 = (this.lang == 'en' ? ele.status : ele.m_Status) ;
+          })       
           this.counterObject=res.responseData;
           this.tableDatasize = res.responseData.responseData3?.totalCount;
           this.totalPages = res.responseData.responseData3?.totalPages;
@@ -212,8 +225,8 @@ getDistributionSlab(){
   
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'en' ? ['srNo', 'orderId', 'grainage', 'state','location', 'type', 'orderedQty','orderDate','status','action']
-      : ['srNo', 'orderId', 'm_Grainage', 'm_state','location', 'm_type', 'orderedQty','orderDate','m_Status','action'];
+    let displayedColumns = this.lang == 'en' ? ['srNo', 'orderId', 'grainage', 'state','location', 'type', 'orderedQty','orderDate','status1','action']
+      : ['srNo', 'orderId', 'm_Grainage', 'm_state','location', 'm_type', 'orderedQty','orderDate','status1','action'];
     let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Order Id', 'Grainage', 'State','Location','Type','Order Qty(DFLs)','Order Date','Status', 'Action'] :
       ['अनुक्रमांक', 'ऑर्डर आयडी','धान्य','राज्य','स्थान','प्रकार','ऑर्डर प्रमाण (DFLs)','मागणीची तारीख','स्थिती','कृती'];
     let tableData = {

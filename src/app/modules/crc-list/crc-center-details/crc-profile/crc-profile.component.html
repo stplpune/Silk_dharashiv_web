@@ -1,11 +1,6 @@
 <mat-card class="plain-card">
     <mat-card-header class="card-header">
-      <div class="d-flex align-items-center justify-content-between w-100">
-        <div class="text-main">{{lang == 'en' ? 'Profile' : 'प्रोफाइल'}}</div>
-        <button mat-flat-button class="btn-main" (click)="viewPdf()">
-          {{lang == 'en' ? 'Certificate': 'प्रमाणपत्र '}}
-        </button>
-      </div>
+      <div class="text-main">{{lang == 'en' ? 'Profile' : 'प्रोफाइल'}}</div>
     </mat-card-header>
     <mat-card-content class="card-body form-container">
       <form [formGroup]="statusForm">
@@ -14,146 +9,90 @@
           <div class="text-center crc-profile-img">
             <img [src]="tableDataArray?.profileImagePath ? tableDataArray?.profileImagePath :  'assets/images/user.png'" alt="" class="img-fluid">
             <h6 class="form-data">{{lang == 'en' ? tableDataArray?.crcName :  tableDataArray?.m_CRCName || '-'}}</h6>
-            <p [class]="tableDataArray?.statusId == 5 ?  'bg-danger-subtle text-danger p-2 rounded-2' :'bg-success-subtle text-success p-2 rounded-2'"> {{lang == 'en' ? tableDataArray?.status : tableDataArray?.m_Status || '-'}}</p>
+            <p [class]="tableDataArray?.statusId == 5 ?  'bg-danger-subtle text-danger p-2 rounded-2' : tableDataArray?.statusId == 1 ? 'bg-warning-subtle text-warning p-2 rounded-2' :'bg-success-subtle text-success p-2 rounded-2'"> {{lang == 'en' ? tableDataArray?.status : tableDataArray?.m_Status || '-'}}</p>
           </div>
         </div>
         <div class="col-sm-10">
-          <h6 class="text-main border-bottom border-success border-opacity-50 pb-1">{{'crc.crc_center_details' | translate}}</h6>
+          <h6 class="text-main border-bottom border-success border-opacity-50">{{'crc.crc_center_details' | translate}}</h6>
           <div class="row gx-2 gy-2 ">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
               <div class="row gx-2">
-                <div class="col-sm-6 ">
-                  <div class="form-label">
-                    {{lang == 'en' ? 'Registration No': 'नोंदणी क्रमांक '}}</div>
-                  </div>
-                <div class="col-sm-6 ">
-                  <div class="form-data">
-                    : &nbsp; {{ tableDataArray?.crcRegNo || '-'}}</div>
-                  </div>
+                <div class="col-sm-4 form-label">{{lang == 'en' ? 'Registration No': 'नोंदणी क्रमांक '}}</div>
+                <div class="col-sm form-data"> : &nbsp; {{ tableDataArray?.crcRegNo || '-'}}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 ">
+              <div class="row align-items-center float-end">
+                <div class="col-sm-auto form-label">{{lang == 'en' ? 'Certificate': 'प्रमाणपत्र '}}</div>
+                <div class="col-sm">
+                  <mat-icon class="material-symbols-outlined" (click)="viewPdf()">
+                    visibility
+                    </mat-icon>
+                </div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="row gx-2">
-                <div class="col-sm-6 ">
-                  <div class="form-label">
-                    {{lang == 'en' ? 'State': 'राज्य'}}</div>
-                  </div>
-                <div class="col-sm-6 ">
-                  <div class="form-data">
-                    : &nbsp; {{lang == 'en' ?  tableDataArray?.state :  tableDataArray?.m_State|| '-'}}</div>
-                  </div>
+                <div class="col-sm-6 form-label">{{lang == 'en' ? 'State': 'राज्य'}}</div>
+                <div class="col-sm form-data">: &nbsp; {{lang == 'en' ?  tableDataArray?.state :  tableDataArray?.m_State|| '-'}}</div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="row gx-2 ">
-                <div class="col-sm-3 ">
-                  <div class="form-label">
-                    {{lang == 'en' ? 'District': 'जिल्हा'}}</div>
-                  </div>
-                <div class="col-sm-9 ">
-                  <div class="form-data">
-                    : {{lang == 'en' ?  tableDataArray?.district :  tableDataArray?.m_District|| '-'}}</div>
-                  </div>
+                <div class="col-sm-3 form-label"> {{lang == 'en' ? 'District': 'जिल्हा'}}</div>
+                <div class="col-sm-9 form-data">:  &nbsp; {{lang == 'en' ?  tableDataArray?.district :  tableDataArray?.m_District|| '-'}}</div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="row gx-2">
-                <div class="col-sm-6 ">
-                  <div class="form-label">
-                    {{lang == 'en' ? 'Taluka': 'तालुका'}}</div>
-                  </div>
-                <div class="col-sm-6 ">
-                  <div class="form-data">
-                    : {{lang == 'en' ?  tableDataArray?.taluka :  tableDataArray?.m_Taluka|| '-'}}</div>
-                  </div>
+                <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Taluka': 'तालुका'}}</div>
+                <div class="col-sm-9 form-data">:  &nbsp;   {{lang == 'en' ?  tableDataArray?.taluka :  tableDataArray?.m_Taluka|| '-'}}</div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="row gx-2">
-                <div class="col-sm-6 ">
-                  <div class="form-label">
-                    {{lang == 'en' ? 'Village': 'गाव'}}</div>
-                  </div>
-                <div class="col-sm-6 ">
-                  <div class="form-data">
-                    : {{lang == 'en' ?  tableDataArray?.village :  tableDataArray?.m_Village|| '-'}}</div>
-                  </div>
+                <div class="col-sm-6 form-label"> {{lang == 'en' ? 'Village': 'गाव'}}</div>
+                <div class="col-sm form-data">:  &nbsp;  {{lang == 'en' ?  tableDataArray?.village :  tableDataArray?.m_Village|| '-'}}</div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="row gx-2">
-                <div class="col-sm-3">
-                  <div class="form-label">
-                    {{lang == 'en' ? 'Pincode': 'पिन कोड'}}</div>
-                  </div>
-                <div class="col-sm-9 ">
-                  <div class="form-data">
-                    : {{tableDataArray?.pinCode || '-'}}</div>
-                  </div>
+                <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Pincode': 'पिन कोड'}}</div>
+                <div class="col-sm-9 form-data">:  &nbsp; {{tableDataArray?.pinCode || '-'}}</div>
               </div>
             </div>
             <div class="col-sm-12">
               <div class="row gx-2">
-                <div class="col-sm-2">
-                  <div class="form-label">
-                    {{lang == 'en' ? 'Address': 'पत्ता'}}</div>
-                  </div>
-                <div class="col-sm-10 ">
-                  <div class="form-data">
-                    : {{lang == 'en' ?  tableDataArray?.address :  tableDataArray?.m_Address|| '-'}}</div>
-                  </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="row gx-2">
-                <div class="col-sm-6 ">
-                  <div class="form-label">
-                    {{lang == 'en' ? 'Certificate Issue Date': 'प्रमाणपत्र जारी करण्याची तारीख'}}</div>
-                  </div>
-                <div class="col-sm-6 ">
-                  <div class="form-data">
-                    : {{tableDataArray?.certificateIssueDate  | date:'dd-MM-yyyy' || '-'}}</div>
-                  </div>
+                <div class="col-sm-2 form-label"> {{lang == 'en' ? 'Address': 'पत्ता'}}</div>
+                <div class="col-sm-10 form-data">:  &nbsp; {{lang == 'en' ?  tableDataArray?.address :  tableDataArray?.m_Address|| '-'}}</div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="row gx-2">
-                <div class="col-sm-4 ">
-                  <div class="form-label">
-                    {{lang == 'en' ? 'Certificate Expiry Date': 'प्रमाणपत्र कालबाह्यता तारीख'}}</div>
-                  </div>
-                <div class="col-sm-8 ">
-                  <div class="form-data">
-                    : {{tableDataArray?.certificateExpiryDate  | date:'dd-MM-yyyy' || '-'}}</div>
-                  </div>
+                <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Certificate Issue Date': 'प्रमाणपत्र जारी करण्याची तारीख'}}</div>
+                <div class="col-sm form-data">:  &nbsp; {{tableDataArray?.certificateIssueDate  | date:'dd-MM-yyyy' || '-'}}</div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="row gx-2">
+                <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Certificate Expiry Date': 'प्रमाणपत्र कालबाह्यता तारीख'}}</div>
+                <div class="col-sm form-data">:  &nbsp; {{tableDataArray?.certificateExpiryDate  | date:'dd-MM-yyyy' || '-'}}</div>
               </div>
             </div>
           </div>
           <section>
-            <h6 class="text-main border-bottom border-success border-opacity-50 pb-1"> {{lang == 'en' ? 'CRC Owner Details': 'CRC मालक तपशील'}}</h6>
+            <h6 class="text-main border-bottom border-success border-opacity-50"> {{lang == 'en' ? 'CRC Owner Details': 'CRC मालक तपशील'}}</h6>
             <div class="row gy-2 mb-3 gx-2">
               <div class="col-sm-12">
                 <div class="row gx-2 gy-2">
-                  <div class="col-sm-2 ">
-                    <div class="form-label">
-                      {{lang == 'en' ? 'Owner Name': 'मालकाचे नाव'}}</div>
-                    </div>
-                  <div class="col-sm-10 ">
-                    <div class="form-data">
-                      : {{lang == 'en' ?  tableDataArray?.ownerName :  tableDataArray?.m_OwnerName|| '-'}}</div>
-                    </div>
+                  <div class="col-sm-1 form-label">{{lang == 'en' ? 'Owner Name': 'मालकाचे नाव'}}</div>
+                  <div class="col-sm-11 form-data"> :  &nbsp; {{lang == 'en' ?  tableDataArray?.ownerName :  tableDataArray?.m_OwnerName|| '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="row gx-2">
-                  <div class="col-sm-6 ">
-                    <div class="form-label">
-                      {{lang == 'en' ? 'Mobile No': 'मोबाईल नंबर'}}</div>
-                    </div>
-                  <div class="col-sm-6 ">
-                    <div class="form-data">
-                      : {{tableDataArray?.mobileNo || '-'}}</div>
-                    </div>
+                  <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Mobile No': 'मोबाईल नंबर'}}</div>
+                  <div class="col-sm-9 form-data">:  &nbsp; {{tableDataArray?.mobileNo || '-'}}</div>
                 </div>
               </div>
               <!-- <div class="col-sm-4">
@@ -164,105 +103,55 @@
               </div> -->
               <div class="col-sm-4">
                 <div class="row gx-2">
-                  <div class="col-sm-6">
-                    <div class="form-label">
-                      {{lang == 'en' ? 'Aadhar Card No': 'आधार कार्ड क्रमांक.'}}</div>
-                    </div>
-                  <div class="col-sm-6 ">
-                    <div class="form-data">
-                     : {{tableDataArray?.aadharNumber || '-'}}</div>
-                    </div>
-                  </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="row gx-2">
-                  <div class="col-sm-3 ">
-                    <div class="form-label">
-                      {{lang == 'en' ? 'Email Id': 'ई - मेल आयडी'}}</div>
-                    </div>
-                  <div class="col-sm-9 ">
-                    <div class="form-data">
-                      : {{tableDataArray?.emailId || '-'}}</div>
-                    </div>
+                  <div class="col-sm-4 form-label">{{lang == 'en' ? 'Aadhar Card No': 'आधार कार्ड क्रमांक.'}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.aadharNumber || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="row gx-2">
-                  <div class="col-sm-6">
-                    <div class="form-label">
-                      {{lang == 'en' ? 'Gender': 'लिंग'}}</div>
-                    </div>
-                  <div class="col-sm-6 ">
-                    <div class="form-data">
-                      : {{tableDataArray?.gender || '-'}}</div>
-                    </div>
+                  <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Email Id': 'ई - मेल आयडी'}}</div>
+                  <div class="col-sm-9 form-data">:  &nbsp; {{tableDataArray?.emailId || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="row gx-2">
-                  <div class="col-sm-6 ">
-                    <div class="form-label">
-                      {{lang == 'en' ? 'Date of Birth ': 'Date of Birth '}}</div>
-                    </div>
-                  <div class="col-sm-6 ">
-                    <div class="form-data">
-                      : {{tableDataArray?.dob  | date:'dd-MM-yyyy' || '-'}}</div>
-                    </div>
+                  <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Gender': 'लिंग'}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.gender || '-'}}</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="row gx-2">
+                  <div class="col-sm-4 form-label">{{lang == 'en' ? 'Date of Birth ': 'Date of Birth '}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.dob  | date:'dd-MM-yyyy' || '-'}}</div>
                 </div>
               </div>
             </div>
           </section>
           <section>
-            <h6 class="text-main border-bottom border-success border-opacity-50 pb-1"> {{lang == 'en' ? 'Rearing Area Details': 'संगोपन क्षेत्र तपशील'}}</h6>
+            <h6 class="text-main border-bottom border-success border-opacity-50"> {{lang == 'en' ? 'Rearing Area Details': 'संगोपन क्षेत्र तपशील'}}</h6>
             <div class="row gy-2">
-              <div class="col-sm-4">
+              <div class="col-sm-6">
                 <div class="row gx-2">
-                  <div class="col-sm-6 ">
-                    <div class="form-label">
-                      {{lang == 'en' ? 'Total area available for CRC': 'CRC साठी उपलब्ध एकूण क्षेत्र'}}</div>
-                  </div>
-                  <div class="col-sm-6 ">
-                    <div class="form-data">
-                      : &nbsp; {{tableDataArray?.totalAreaForCRC || '-'}}</div>
-                  </div>
+                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Total area available for CRC': 'CRC साठी उपलब्ध एकूण क्षेत्र'}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.totalAreaForCRC || '-'}}</div>
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-6">
                 <div class="row gx-2">
-                  <div class="col-sm-6 ">
-                    <div class="form-label">
-                      {{lang == 'en' ? 'Area Under CRC': 'CRC अंतर्गत क्षेत्र'}}</div>
-                  </div>
-                  <div class="col-sm-6 ">
-                    <div class="form-data">
-                      : {{tableDataArray?.areaUnderCRC || '-'}}</div>
-                  </div>
+                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Area Under CRC': 'CRC अंतर्गत क्षेत्र'}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.areaUnderCRC || '-'}}</div>
                 </div>
               </div>
-            </div>
-              <div class="row gx-2">
-              <div class="col-sm-4">
+              <div class="col-sm-6">
                 <div class="row gx-2">
-                  <div class="col-sm-6 ">
-                    <div class="form-label">
-                      {{lang == 'en' ? 'Status': 'स्थिती'}}</div>
-                    </div>
-                  <div class="col-sm-6 ">
-                    <div class="form-data">
-                      : {{tableDataArray?.status || '-'}}</div>
-                    </div>
+                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Status': 'स्थिती'}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.status || '-'}}</div>
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-6">
                 <div class="row gx-2 mb-4">
-                  <div class="col-sm-6 ">
-                    <div class="form-label">
-                      {{lang == 'en' ? 'Rearing Capacity': 'संगोपन क्षमता'}}</div>
-                    </div>
-                  <div class="col-sm-6 ">
-                    <div class="form-data">
-                      : {{tableDataArray?.chalkyCapacity || '-'}}</div>
-                    </div>
+                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Rearing Capacity': 'संगोपन क्षमता'}}</div>
+                  <div class="col-sm-4 form-data">:  &nbsp; {{tableDataArray?.chalkyCapacity || '-'}}</div>
                 </div>
               </div>
               <!-- <div class="col-sm-3">
@@ -286,7 +175,7 @@
                 </mat-form-field>
               </div> -->
             </div>
-              <h6 class="text-main border-bottom border-success border-opacity-50">CRC Status</h6>
+              <h6 class="text-main border-bottom border-success border-opacity-50">{{lang == 'en' ? 'CRC Status' : 'CRC स्थिती'}}</h6>
               <div class="row my-4">
               <div class="col-sm-3">
                 <mat-form-field appearance="outline" class="w-100">

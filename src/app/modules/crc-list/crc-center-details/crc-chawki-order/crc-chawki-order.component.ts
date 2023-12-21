@@ -193,6 +193,9 @@ export class CrcChawkiOrderComponent {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData.responseData2;  
+          this.tableDataArray.map((ele:any)=>{
+            ele.status1 = (this.lang == 'en' ? ele.status : ele.m_Status) ;
+          })   
           this.counterObject=res.responseData.responseData1;       
           this.tableDatasize = res.responseData.responseData3?.totalCount;
           this.totalPages = res.responseData.responseData3?.totalPages;
@@ -212,8 +215,8 @@ export class CrcChawkiOrderComponent {
 
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'en' ? ['srNo', 'orderId', 'name', 'mobileNo','taluka', 'village', 'orderQty','deliverySlab','orderDate', 'status','action']
-      : ['srNo', 'orderId', 'm_Name','mobileNo','m_Taluka', 'm_Village', 'orderQty','deliverySlab', 'orderDate', 'status','action'];
+    let displayedColumns = this.lang == 'en' ? ['srNo', 'orderId', 'name', 'mobileNo','taluka', 'village', 'orderQty','deliverySlab','orderDate', 'status1','action']
+      : ['srNo', 'orderId', 'm_Name','mobileNo','m_Taluka', 'm_Village', 'orderQty','deliverySlab', 'orderDate', 'status1','action'];
     let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Order Id', 'Farmer Name', 'Mobile No','Taluka','Village','Order Qty','Delivery Slab', 'Order Date', 'Status', 'Action'] :
       ['अनुक्रमांक', 'ऑर्डर आयडी', 'शेतकऱ्याचे नाव', 'मोबाईल नंबर', 'तालुका', 'गाव', 'ऑर्डर प्रमाण','डिलिव्हरी स्लॅब', 'मागणीची तारीख','स्थिती','कृती'];
     let tableData = {
@@ -229,7 +232,8 @@ export class CrcChawkiOrderComponent {
       tableHeaders: displayedheaders,
       view: true,
       edit: false,
-      delete: false
+      delete: false,
+      selfStatus:'status'
     };
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;    
     this.apiService.tableData.next(tableData);

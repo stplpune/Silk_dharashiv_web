@@ -11,30 +11,33 @@
 </div>
 <div *ngIf="isViewFlag">
   <mat-dialog-content class="modal-body form-container scrollbar">
-    <!-- View section -->
-    <div class="row g-3">
-      <div class="col-sm-12">
-        <div class="row">
-          <div class="col-sm-auto form-label"> {{'faq.question_en' | translate}}</div>
-          <div class="col-sm-auto form-data">: {{data?.question || '-'}}</div>
+    <div class="card mb-3">
+      <div class="card-body p-2">
+        <div class="text-end">
+          <p class="mb-0"><span class="badge bg-primary-subtle text-primary">{{'faq.english' | translate}} </span></p>
+        </div>
+        <div class="mb-2">
+          <div class="form-label mb-0">{{'faq.question_en' | translate}} :</div>
+          <div class="form-data"> {{data?.question || '-'}}</div>
+        </div>
+        <div class="d-block">
+          <div class="form-label mb-0">{{'faq.answer_en' | translate}} :</div>
+          <div class="form-data">{{data?.answer || '-'}}</div>
         </div>
       </div>
-      <div class="col-sm-12">
-        <div class="row">
-          <div class="col-sm-auto form-label">{{'faq.question_mr' | translate}}</div>
-          <div class="col-sm-auto form-data">: {{data?.m_Question || '-'}}</div>
+    </div>
+    <div class="card">
+      <div class="card-body p-2">
+        <div class="text-end">
+          <p class="mb-0"><span class="badge bg-success-subtle text-success">{{'faq.marathi' | translate}} </span></p>
         </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row">
-          <div class="col-sm-auto form-label">{{'faq.answer_en' | translate}}</div>
-          <div class="col-sm-auto form-data">: {{data?.answer || '-'}}</div>
+        <div class="mb-2">
+          <div class="form-label mb-0">{{'faq.question_mr' | translate}} :</div>
+          <div class="form-data"> {{data?.m_Question || '-'}}</div>
         </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row">
-          <div class="col-sm-auto form-label">{{'faq.answer_mr' | translate}}</div>
-          <div class="col-sm-auto form-data">: {{data?.m_Answer || '-'}}</div>
+        <div class="d-block">
+          <div class="form-label mb-0">{{'faq.answer_mr' | translate}} :</div>
+          <div class="form-data">{{data?.m_Answer || '-'}}</div>
         </div>
       </div>
     </div>
@@ -44,63 +47,52 @@
 <div *ngIf="!isViewFlag">
   <form [formGroup]="faqFrm" #formDirective="ngForm" (ngSubmit)="onSubmitData()">
     <mat-dialog-content class="modal-body form-container">
-      <div class="row gx-2 gy-2">
-        <div class="col-sm-12">
-          <!-- <mat-label class="form-label">{{'faq.question_en' | translate}}</mat-label> -->
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'faq.question_en' | translate}}</mat-label>
-            <input matInput formControlName="question"
-              (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithQuetion($event)">
-            <mat-error *ngIf="f['question']?.hasError('required')">{{'faq.question_required' | translate}} </mat-error>
-            <mat-error *ngIf="f['question']?.hasError('pattern')">{{'faq.question_pattern' | translate}} </mat-error>
-            <mat-error *ngIf="f['question']?.hasError('maxLengthExceeded')">{{'faq.question_maxLength' | translate}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col-sm-12">
-          <!-- <mat-label class="form-label">{{'faq.question_mr' | translate}}</mat-label> -->
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'faq.question_mr' | translate}}</mat-label>
-            <input matInput formControlName="m_Question"
-              (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiQuetionValidation($event)">
-            <mat-error *ngIf="f['m_Question']?.hasError('required')">{{'faq.question_required' | translate}} </mat-error>
-            <mat-error *ngIf="f['m_Question']?.hasError('pattern')">{{'faq.question_pattern' | translate}} </mat-error>
-            <mat-error *ngIf="f['m_Question']?.hasError('maxLengthExceeded')">{{'faq.question_maxLength' | translate}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col-sm-12">
-          <!-- <mat-label class="form-label">{{'faq.answer_en' | translate}}</mat-label> -->
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'faq.answer_en' | translate}}</mat-label>
-            <textarea matInput formControlName="answer"
-              (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithQuetion($event)"></textarea>
-            <mat-error *ngIf="f['answer']?.hasError('required')">{{'faq.Answer_required' | translate}} </mat-error>
-            <mat-error *ngIf="f['answer']?.hasError('pattern')">{{'faq.Answer_pattern' | translate}} </mat-error>
-            <mat-error *ngIf="f['answer']?.hasError('maxLengthExceeded')">{{'faq.answer_maxLength' | translate}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col-sm-12">
-          <!-- <mat-label class="form-label">{{'faq.answer_mr' | translate}}</mat-label> -->
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{'faq.answer_mr' | translate}}</mat-label>
-            <textarea matInput formControlName="m_Answer"
-              (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiQuetionValidation($event)"></textarea>
-            <mat-error *ngIf="f['m_Answer']?.hasError('required')">{{'faq.Answer_required' | translate}} </mat-error>
-            <mat-error *ngIf="f['m_Answer']?.hasError('pattern')">{{'faq.Answer_pattern' | translate}} </mat-error>
-            <mat-error *ngIf="f['m_Answer']?.hasError('maxLengthExceeded')">{{'faq.answer_maxLength' | translate}}
-            </mat-error>
-          </mat-form-field>
-        </div>
+      <div class="mb-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{'faq.question_en' | translate}}</mat-label>
+          <input matInput formControlName="question"
+            (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithQuetion($event)">
+          <mat-error *ngIf="f['question']?.hasError('required')">{{'faq.question_required' | translate}} </mat-error>
+          <mat-error *ngIf="f['question']?.hasError('pattern')">{{'faq.question_pattern' | translate}} </mat-error>
+          <mat-error *ngIf="f['question']?.hasError('maxLengthExceeded')">{{'faq.question_maxLength' | translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{'faq.answer_en' | translate}}</mat-label>
+          <textarea matInput rows="4" formControlName="answer"
+            (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithQuetion($event)"></textarea>
+          <mat-error *ngIf="f['answer']?.hasError('required')">{{'faq.Answer_required' | translate}} </mat-error>
+          <mat-error *ngIf="f['answer']?.hasError('pattern')">{{'faq.Answer_pattern' | translate}} </mat-error>
+          <mat-error *ngIf="f['answer']?.hasError('maxLengthExceeded')">{{'faq.answer_maxLength' | translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <hr class="mt-0">
+      <div class="mb-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{'faq.question_mr' | translate}}</mat-label>
+          <input matInput formControlName="m_Question"
+            (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiQuetionValidation($event)">
+          <mat-error *ngIf="f['m_Question']?.hasError('required')">{{'faq.question_required' | translate}} </mat-error>
+          <mat-error *ngIf="f['m_Question']?.hasError('pattern')">{{'faq.question_pattern' | translate}} </mat-error>
+          <mat-error *ngIf="f['m_Question']?.hasError('maxLengthExceeded')">{{'faq.question_maxLength' | translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-0">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{'faq.answer_mr' | translate}}</mat-label>
+          <textarea matInput formControlName="m_Answer" rows="4"
+            (keypress)="validator.noFirstSpaceAllow($event);validator.unicodeMarathiQuetionValidation($event)"></textarea>
+          <mat-error *ngIf="f['m_Answer']?.hasError('required')">{{'faq.Answer_required' | translate}} </mat-error>
+          <mat-error *ngIf="f['m_Answer']?.hasError('pattern')">{{'faq.Answer_pattern' | translate}} </mat-error>
+          <mat-error *ngIf="f['m_Answer']?.hasError('maxLengthExceeded')">{{'faq.answer_maxLength' | translate}}
+          </mat-error>
+        </mat-form-field>
       </div>
 
-      <!-- <div class="d-flex align-items-center justify-content-end gap-2">
-        <button mat-flat-button class="btn-main-light" type="button"
-          (click)="clearFormData()">{{'common.clear'|translate}}</button>
-        <button mat-flat-button class="btn-main" type="submit">{{!data ? ('faq.add'|translate) :
-          ('common.update'|translate)}}</button>
-      </div> -->
     </mat-dialog-content>
     <div mat-dialog-actions class="modal-footer">
       <div class="d-flex align-items-center justify-content-end gap-2 w-100">

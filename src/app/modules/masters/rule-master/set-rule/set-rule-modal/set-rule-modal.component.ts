@@ -107,7 +107,7 @@ export class SetRuleModalComponent implements OnDestroy {
   }
 
   getDepartment() {
-    this.master.GetDepartmentDropdown(0).subscribe({
+    this.master.GetDepartmentDropdownNew().subscribe({
       next: ((res: any) => {
         this.departmentArray = res.responseData;
       }), error: (() => {

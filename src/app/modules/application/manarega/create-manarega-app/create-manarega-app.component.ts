@@ -643,8 +643,8 @@ export class CreateManaregaAppComponent {
   }
 
   checkStepCon(stepper: MatStepper, lable: string) {
-    console.log("this.documentFrm.invalid",this.documentFrm.controls);
-    
+   // console.log("this.documentFrm.invalid",this.documentFrm.controls);
+   
     if (lable == 'farmerInfo' && this.manaregaFrm.invalid) {
       !this.manaregaFrm.getRawValue().profilePhotoPath ? this.manFrmSubmitFlag = true : this.manFrmSubmitFlag = false;
       return
@@ -733,7 +733,6 @@ export class CreateManaregaAppComponent {
     let obj = {
       ...formData, ...declarationInfo, ...bankInfo,
       "m_Address": "",
-      "m_FullName": "",
       "sm_VoterRegistrationNo": "string",
       "sm_IsBelowPovertyLine": true,
       "benificiaryTotalFarm": Number(farmInfo.benificiaryTotalFarm) || 0,
@@ -821,7 +820,7 @@ export class CreateManaregaAppComponent {
 
   getDepartment() {
     this.departmentArray = [];
-    this.masterService.GetDepartmentDropdown().subscribe({
+    this.masterService.GetDepartmentDropdownNew().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData?.length) {
           this.departmentArray = res.responseData;
