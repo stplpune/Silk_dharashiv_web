@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,14 @@ export class AppComponent {
     this.setGlobalTitle();
   }
 
+
+  ngOnInit() {
+    if (environment.production) { // redirect
+      if (location.protocol === 'http:') {
+        window.location.href = location.href.replace('http', 'https');
+      }
+    }
+  }
   setGlobalTitle() {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd),  // set title dynamic
     ).subscribe(() => {
