@@ -917,7 +917,6 @@ export class CreateSamgraAppComponent {
   }
 
   getPreviewData() {
-    this.EditFlag = true
     // let filterformvalue = this.filterForm.value;
     let samgraFormValue = this.samgraForm.getRawValue();
     let addharNo = samgraFormValue.aadharNo
@@ -933,6 +932,7 @@ export class CreateSamgraAppComponent {
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == "200") {
+            this.EditFlag = true
             this.previewData = res.responseData;
             this.currentRecordId = this.previewData?.id;
             this.samgraformData(this.previewData);
