@@ -1,6 +1,15 @@
 <mat-card class="plain-card">
     <mat-card-header class="card-header">
-      <div class="text-main">{{lang == 'en' ? 'Profile' : 'प्रोफाइल'}}</div>
+      <div class="d-flex gap-2 align-items-center justify-content-between w-100">
+        <div class="text-main">{{lang == 'en' ? 'Profile' : 'प्रोफाइल'}}</div>
+        <button mat-flat-button class=" btn-main"  (click)="viewPdf()">
+          <mat-icon class="material-symbols-outlined">
+            visibility
+            </mat-icon>
+            <span>View Certificate</span>
+        </button>
+      </div>
+
     </mat-card-header>
     <mat-card-content class="card-body form-container">
       <form [formGroup]="statusForm">
