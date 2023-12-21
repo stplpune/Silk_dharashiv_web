@@ -433,13 +433,13 @@
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <div class="form-label">{{'approvalProcess.will_take_the_silk_industry_training'| translate}}</div>
             <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
-              <mat-radio-button value="1" [checked]="applicantDetails?.isSelfTraining == false">
-                <div class="fw-bold">{{'approvalProcess.send_candidate'| translate}}</div>
-              </mat-radio-button>
               <mat-radio-button value="2" [checked]="applicantDetails?.isSelfTraining == true">
                 <div class="fw-bold">{{'approvalProcess.mySelf'| translate}}</div>
               </mat-radio-button>
-            </mat-radio-group>
+              <mat-radio-button value="1" [checked]="applicantDetails?.isSelfTraining == false">
+                <div class="fw-bold">{{'approvalProcess.send_candidate'| translate}}</div>
+              </mat-radio-button>
+             </mat-radio-group>
           </li>
           <ng-container *ngIf="applicantDetails?.isSelfTraining == false">
             <li class="list-group-item d-flex justify-content-between align-items-center">
