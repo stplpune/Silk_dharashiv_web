@@ -51,7 +51,7 @@
     <mat-stepper #stepper linear>
       <mat-step [stepControl]="manaregaFrm">
         <ng-template matStepLabel>{{'approvalProcess.original_details'| translate}}</ng-template>
-         <form [formGroup]="manaregaFrm">
+         <form [formGroup]="manaregaFrm" >
           <div class="container-fluid" [class.disable]="checkManaregaId == 3">
             <!-- <div class="container"> -->
             <div class="row gx-2 mb-2">
@@ -183,7 +183,7 @@
                   </mat-select>
                   <mat-error *ngIf="f['mn_DepartmentId']?.errors">
                     <span class="text-danger" *ngIf="f['mn_DepartmentId']?.hasError('required')">
-                      Please select
+                      {{'addManrega.please_select_department' | translate}}
                     </span>
                   </mat-error>
                 </mat-form-field>
@@ -192,7 +192,7 @@
                 <div class="form-label">3.{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="mobileNo2"
+                    <input matInput placeholder="" formControlName="mobileNo2" (input)="checkMobileNo()"
                       (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                     <mat-error *ngIf="f['mobileNo2']?.errors">
                       <span class="text-danger"
@@ -401,7 +401,7 @@
 
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-            <button mat-button class="btn-main" type="button" *ngIf="checkManaregaId != 3; else elseBlock"
+            <button mat-button class="btn-main" type="submit" *ngIf="checkManaregaId != 3; else elseBlock"
               (click)="checkStepCon(stepper, 'farmerInfo')">{{'addSamgra.next' | translate}}</button>
             <ng-template #elseBlock>
               <button mat-button class="btn-main" type="button" matStepperNext>{{'addSamgra.next' | translate}}</button>
@@ -801,7 +801,7 @@
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button matStepperPrevious class="btn-main" type="button">
               {{'addSamgra.back' | translate}}</button>
-              <button mat-button class="btn-main" type="button" *ngIf="checkManaregaId != 3; else elseBlock"
+              <button mat-button class="btn-main" type="submit" *ngIf="checkManaregaId != 3; else elseBlock"
                 (click)="checkStepCon(stepper, 'farmInfo')">{{'addSamgra.next' | translate}}</button>
             <ng-template #elseBlock>
               <button mat-button class="btn-main" type="button" matStepperNext >{{'addSamgra.next' | translate}}</button>
@@ -883,7 +883,7 @@
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-              <button mat-button class="btn-main" *ngIf="checkManaregaId != 3; else elseBlock" (click)="checkStepCon(stepper, 'bankInfo')">
+              <button mat-button type="submit" class="btn-main" *ngIf="checkManaregaId != 3; else elseBlock" (click)="checkStepCon(stepper, 'bankInfo')">
               {{'addSamgra.next' | translate}}</button>
               <ng-template #elseBlock>
             <button mat-button class="btn-main" type="button" matStepperNext>{{'addSamgra.next' | translate}}</button>
@@ -1159,7 +1159,7 @@
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-            <button mat-button class="btn-main" type="button" *ngIf="checkManaregaId != 3; else elseBlock"
+            <button mat-button class="btn-main" type="submit" *ngIf="checkManaregaId != 3; else elseBlock"
               (click)="checkStepCon(stepper, 'document')">{{'addSamgra.next' | translate}}</button>
               <ng-template #elseBlock>
               <button mat-button class="btn-main" type="button" matStepperNext>{{'addSamgra.next' | translate}}</button>
@@ -1251,7 +1251,7 @@
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-            <button mat-button class="btn-main" type="button" *ngIf="checkManaregaId != 3; else elseBlock"
+            <button mat-button class="btn-main" type="submit" *ngIf="checkManaregaId != 3; else elseBlock"
               (click)="checkStepCon(stepper, 'selfDeclaration')">{{'addSamgra.next' | translate}}</button>
               <ng-template #elseBlock>
               <button mat-button class="btn-main" type="button" matStepperNext>{{'addSamgra.next' | translate}}</button>
@@ -1740,7 +1740,7 @@
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
             <button mat-button matStepperPrevious class="btn-main">{{'addSamgra.back' | translate}}</button>
-            <button mat-flat-button class="btn-main" type="button"
+            <button mat-flat-button class="btn-main" type="submit"
               (click)="checkStepCon(stepper, 'challan')">{{'addSamgra.submit' | translate}}</button>
           </div>
         </form>

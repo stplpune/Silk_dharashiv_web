@@ -38,6 +38,7 @@ export class CreateManaregaAppComponent {
   profileImageUrl: any;
   subscription!: Subscription;//used  for lang conv
   lang: any;
+  // isLinear = false;
   schemeData:any;
   viewMsgFlag: boolean = false;//used for error msg show
   genderArray: any = [{ id: 1, name: 'Male', m_name: 'पुरुष' }, { id: 2, name: 'Female', m_name: 'स्त्री  ' }];
@@ -1085,4 +1086,13 @@ export class CreateManaregaAppComponent {
   goForward(stepper: MatStepper) {
     stepper.next();
   }
+
+  checkMobileNo() {
+    let formValue = this.manaregaFrm.getRawValue();
+    if (formValue.mobileNo1 == formValue.mobileNo2) {
+      this.f['mobileNo2'].setValue('');
+      this.lang == 'en' ?this.commonMethod.snackBar("This mobile no. already exisit", 1) :this.commonMethod.snackBar("हा मोबाईल क्र. आधिपासूनच अस्तित्वात आहे", 1)
+      }
+   }
+
 }
