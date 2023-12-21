@@ -76,7 +76,7 @@ export class FarmersignupComponent {
       districtId: [1, [Validators.required]],
       talukaId: ['', [Validators.required]],
       grampanchayatId: ['', [Validators.required]],
-      village: ['', [Validators.required, Validators.pattern(this.validator.fullName)]],
+      village: ['', [Validators.pattern(this.validator.fullName)]],
       gender: [1]
     })
   }
@@ -150,7 +150,6 @@ export class FarmersignupComponent {
   // }
 
   saveSignUpData() {
-    this.spinner.show();
     let formValue = this.signUpForm.getRawValue()
     let obj = {
       "id": 0,
@@ -194,6 +193,7 @@ export class FarmersignupComponent {
     if(this.signUpForm.invalid){
       return;
     }else{
+      this.spinner.show();
       let postObj = { ...obj, ...formValue };
       this.apiService.setHttp('post', 'sericulture/api/UserRegistration/insert-update-user-details?lan=' + this.lang, false, postObj, false, 'masterUrl');
       this.apiService.getHttp().subscribe((res: any) => {
