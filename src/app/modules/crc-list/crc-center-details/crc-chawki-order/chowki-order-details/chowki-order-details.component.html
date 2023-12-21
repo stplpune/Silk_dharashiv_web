@@ -45,7 +45,7 @@
         <div class="col-sm-6">
           <div class="row gx-2">
             <div class="col-sm-4 form-label">{{lang == 'en' ? 'Village' : 'गाव' || '-'}} </div>
-            <div class="col-sm-8 form-data">: {{lang == 'en' ? tableDataArray?.village : tableDataArray?.m_Village || '-'}}</div>
+            <div class="col-sm-8 form-data">: {{lang == 'en' ? tableDataArray?.grampanchayatName : tableDataArray?.m_GrampanchayatName || '-'}}</div>
           </div>
         </div>
         <div class="col-sm-6">
@@ -63,8 +63,8 @@
         <div class="col-sm-12">
           <div class="row gx-2">
             <div class="col-sm-2 form-label"> {{lang == 'en' ? 'Payment Reciept' : 'पैसे भरल्याची पावती' || '-'}}</div>
-            <div class="col-sm-10 form-data" (click)="viewreceipt()">:
-              <a href="">View</a>
+            <div class="col-sm-10 form-data" >:
+              <a href="" (click)="viewreceipt()" *ngIf="tableDataArray?.receiptOfPaymentPath">View</a>
             </div>
           </div>
         </div>
@@ -102,7 +102,7 @@
               <div class="form-label"> {{lang == 'en' ? 'Quantity' : 'प्रमाण' || '-'}}</div>
             </th>
             <th>
-              <div class="form-data">{{orderDataArray?.quantity || '-'}}</div>
+              <div class="form-data">{{orderDataArray?.quantity || '-'}} DFLs</div>
             </th>
           </tr>
           <tr>
@@ -110,7 +110,7 @@
               <div class="form-label"> {{lang == 'en' ? 'Rate (INR)' : 'दर (INR)' || '-'}}</div>
             </th>
             <th>
-              <div class="form-data">{{orderDataArray?.rate || '-'}}</div>
+              <div class="form-data">{{orderDataArray?.rate | currency :'INR' || '-'}}</div>
             </th>
           </tr>
           <tr>
@@ -118,7 +118,7 @@
               <div class="form-label"> {{lang == 'en' ? 'Total Amount (INR)' : 'एकूण रक्कम (INR)' || '-'}}</div>
             </th>
             <th>
-              <div class="form-data">{{orderDataArray?.totalAmount || '-'}}</div>
+              <div class="form-data">{{orderDataArray?.totalAmount | currency :'INR' || '-'}}</div>
             </th>
           </tr>
         </thead>

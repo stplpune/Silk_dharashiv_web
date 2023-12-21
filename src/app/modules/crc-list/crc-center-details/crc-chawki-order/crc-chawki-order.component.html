@@ -52,7 +52,7 @@
           <mat-select formControlName="grampanchayatId">
             <mat-option>
               <ngx-mat-select-search [formControl]="gramPCtrl"
-                placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                placeholderLabel="{{lang == 'en' ? 'Search Village Name' : 'गावाचे नाव शोधा'}}"
                 noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
             </mat-option>
             <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?
@@ -100,7 +100,7 @@
             <img src="../../../assets/images/crc-center/center.svg " alt="">
             <div class="d-flex flex-column gap-0">
               <h4 class="fw-bold text-primary mb-0">{{counterObject?.totalChawkiOrders}}</h4>
-              <div class="fw-bold mb-0 text-primary"> {{lang == 'en' ? 'Total Chowki Order' : 'एकूण चौकी ऑर्डर' || '-'}}</div>
+              <div class="fw-bold mb-0 text-primary"> {{lang == 'en' ? 'Total Chowki Order' : 'एकूण चौकी ऑर्डर' || 0}}</div>
             </div>
           </div>
         </div>
@@ -115,7 +115,7 @@
             <img src="../../../assets/images/crc-center/pending.svg " alt="">
             <div class="d-flex flex-column gap-0">
               <h4 class="fw-bold text-warning mb-0">{{counterObject?.pending}}</h4>
-              <div class="fw-bold mb-0 text-warning">  {{lang == 'en' ? 'Pending' : 'प्रलंबित' || '-'}}</div>
+              <div class="fw-bold mb-0 text-warning">  {{lang == 'en' ? 'Pending' : 'प्रलंबित' || 0}}</div>
             </div>
           </div>
         </div>
@@ -130,7 +130,7 @@
             <img src="../../../assets/images/crc-center/active.svg " alt="">
             <div class="d-flex flex-column gap-0">
               <h4 class="fw-bold text-success mb-0"> {{counterObject?.delivery}}</h4>
-              <div class="fw-bold mb-0 text-success">  {{lang == 'en' ? 'Delivered' : 'वितरित केले' || '-'}}</div>
+              <div class="fw-bold mb-0 text-success">  {{lang == 'en' ? 'Delivered' : 'वितरित केले' || 0}}</div>
             </div>
           </div>
         </div>

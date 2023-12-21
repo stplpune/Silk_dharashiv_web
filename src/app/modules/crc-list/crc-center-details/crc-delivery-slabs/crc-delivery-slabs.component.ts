@@ -155,7 +155,7 @@ export class CrcDeliverySlabsComponent {
     this.highLightedFlag = true;
     let displayedColumns = this.lang == 'en' ? ['srNo', 'deliverySlab', 'grainage', 'capacity_DFL', 'rate_Silkworm', 'startDate', 'endDate', 'status1']
       : ['srNo', 'deliverySlab', 'm_Grainage', 'capacity_DFL', 'rate_Silkworm', 'startDate', 'endDate', 'status1'];
-    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Delivery Slab', 'Grainage', 'Capacity (DFL)', 'Rate/100DFLs', 'Start Date', 'End Date', 'Status'] :
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Delivery Slab', 'Grainage', 'Capacity (DFL)', 'Rate(Rs/DFLs)', 'Start Date', 'End Date', 'Status'] :
       ['अनुक्रमांक', 'डिलिव्हरी स्लॅब', 'धान्य', 'क्षमता (DFL)', 'दर/100DFLs', 'प्रारंभ तारीख', 'शेवटची तारीख', 'स्थिती', 'कृती'];
     let tableData = {
       pageNumber: this.pageNumber,

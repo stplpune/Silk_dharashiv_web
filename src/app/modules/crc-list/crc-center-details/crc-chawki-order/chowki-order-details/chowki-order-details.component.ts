@@ -77,7 +77,7 @@ export class ChowkiOrderDetailsComponent {
     this.highLightedFlag = true;
     let displayedColumns = this.lang == 'en' ? ['srNo', 'lotNumber', 'raceTypeId', 'quantity','ledDate', 'hatchingDate', 'deliveryDate']
       : ['srNo', 'lotNumber', 'raceTypeId', 'quantity','ledDate', 'hatchingDate', 'deliveryDate'];
-    let displayedheaders = this.lang == 'en' ? ['Sr. No.','Lot No', 'Race', 'Quantity','Led Date', 'Hatching Date', 'Delivery Date'] :
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.','Lot No', 'Race', 'Quantity(DFLs)','Led Date', 'Hatching Date', 'Delivery Date'] :
       ['अनुक्रमांक', 'लॉट नंबर', 'रेस आयडी', 'प्रमाण', 'नेतृत्व तारीख', 'उबवणुकीची तारीख', 'वितरण तारीख'];
     let tableData = {
       pageNumber: 1,

@@ -31,14 +31,14 @@
               </div>
             </div>
             <div class="col-sm-6 ">
-              <div class="row align-items-center float-end">
+              <!-- <div class="row align-items-center float-end">
                 <div class="col-sm-auto form-label">{{lang == 'en' ? 'Certificate': 'प्रमाणपत्र '}}</div>
                 <div class="col-sm">
                   <mat-icon class="material-symbols-outlined" (click)="viewPdf()">
                     visibility
                     </mat-icon>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="col-sm-4">
               <div class="row gx-2">
@@ -155,13 +155,19 @@
               <div class="col-sm-6">
                 <div class="row gx-2">
                   <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Status': 'स्थिती'}}</div>
-                  <div class="col-sm-8 form-data"  [class]="tableDataArray?.statusId == 5 ?  'bg-danger-subtle text-danger p-2 rounded-2' : tableDataArray?.statusId == 1 ? 'bg-warning-subtle text-warning p-2 rounded-2' :'bg-success-subtle text-success p-2 rounded-2'">:  &nbsp; {{tableDataArray?.status || '-'}}</div>
+                  <div class="col-sm-8 form-data"  [class]="tableDataArray?.statusId == 5 ?  ' text-danger p-2 rounded-2' : tableDataArray?.statusId == 1 ? ' text-warning p-2 rounded-2' :' text-success p-2 rounded-2'">:  &nbsp; {{tableDataArray?.status || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="row gx-2 mb-4">
-                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Rearing Capacity': 'संगोपन क्षमता'}}</div>
+                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Approve Capacity': 'क्षमता मंजूर करा'}}</div>
                   <div class="col-sm-4 form-data">:  &nbsp; {{tableDataArray?.chalkyCapacity || '-'}} DFLs</div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="row gx-2 mb-4">
+                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Remark': 'शेरा'}}</div>
+                  <div class="col-sm-4 form-data">:  &nbsp; {{tableDataArray?.statusReason || '-'}}</div>
                 </div>
               </div>
             </div>
@@ -178,13 +184,13 @@
               <div class="col-sm-3" *ngIf="statusForm.value.status == 12">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label> {{lang == 'en' ? 'Rearing Capacity': 'संगोपन क्षमता'}}</mat-label>
-                  <input matInput placeholder="Rearing Capacity" formControlName="chalkyApprovedQty" maxlength="10"  (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
+                  <input matInput  formControlName="chalkyApprovedQty" maxlength="10"  (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
                 </mat-form-field>
               </div>
               <div class="col-sm-9" *ngIf="statusForm.value.status == 5">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label> {{lang == 'en' ? 'Remark': 'शेरा'}}</mat-label>
-                  <textarea matInput placeholder="Remark" formControlName="reason" maxlength="100"  (keypress)="validator.noFirstSpaceAllow($event)"></textarea>
+                  <textarea matInput  formControlName="reason" maxlength="100"  (keypress)="validator.noFirstSpaceAllow($event)"></textarea>
                 </mat-form-field>
               </div>
             </div>
