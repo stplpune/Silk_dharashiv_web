@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-crc-center-details',
@@ -12,11 +12,16 @@ export class CrcCenterDetailsComponent {
   constructor
   (
     private route: ActivatedRoute,
+    private router:Router
   ) {}
 
   ngOnInit(){
     this.route.queryParams.subscribe((params:any) => {
       this.routingData = params?.data;
     });
+  }
+
+  backToPage(){
+    this.router.navigate(['crc-list'])
   }
 }

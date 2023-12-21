@@ -1,146 +1,141 @@
 <mat-card class="plain-card">
-    <mat-card-header class="card-header">
-        <div class="text-main">{{'crc.crc_centers_list' | translate}}</div>
-    </mat-card-header>
-    <mat-card-content class="card-body" id="dash-stats">
-        <form [formGroup]="crcForm">
-            <div class="row gx-2">
-                <div class="col-sm-3">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'common.District' | translate}}</mat-label>
-                        <mat-select formControlName="districtId"
-                            [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
-                            <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
-                                district.textMarathi : district.textEnglish}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-sm-3">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'common.taluka_filter' | translate}}</mat-label>
-                        <mat-select formControlName="talukaId">
-                        <mat-option>
-                          <ngx-mat-select-search [formControl]="talukaCtrl"
-                            placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
-                            noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
-                        </mat-option>
-                        <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ?
-                          taluka.textMarathi
-                          :taluka.textEnglish}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-sm-2">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'common.status' | translate}}</mat-label>
-                        <mat-select formControlName="statusId">
-                            <mat-option  [value]="0">{{lang == 'en' ? 'All Status' : 'सर्व स्थिती'}}</mat-option>
-                            <mat-option *ngFor="let arr of statusArray" [value]="arr.id">{{lang == 'en' ? arr.textEnglish : arr.textMarathi}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-sm-4">
-                    <div class="d-flex gap-2">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'crc.search_by_Reg_No_CRC_Name/Owner_name_Mobile_No' | translate}}</mat-label>
-                            <input matInput  (keypress)="validation.noFirstSpaceAllow($event)"
-                                formControlName="searchValue">
-                        </mat-form-field>
-                        <div class="d-flex gap-2">
-                            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit" (click)="filterFlag=true;getTableData('filter')">
-                                <mat-icon class="material-symbols-rounded">
-                                    search
-                                </mat-icon>
-                            </button>
-                            <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button" (click)="filterFlag=false;clearFormData()">
-                                <mat-icon class="material-symbols-rounded">
-                                    close
-                                </mat-icon>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <div class="row gx-2 crc-list-img my-3">
-            <div class="col-sm-auto">
-              <div class="card card-body ">
-                <div class="d-flex gap-2">
-                  <img src="../../../assets/images/crc-center/center.svg " alt="">
-                  <div class="d-flex flex-column gap-0">
-                    <h4 class="fw-bold mb-0 text-primary"> {{countObject?.totalCount}}</h4>
-                    <div class="form-label text-primary mb-0">{{'crc.total_crc_center' | translate}}</div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <div class="col-sm">
-              <div class="card card-body ">
-                <div class="d-flex gap-2">
-                  <img src="../../../assets/images/crc-center/pending.svg" alt="" >
-                <div class="d-flex flex-column  gap-0">
-                  <h4 class="fw-bold text-warning mb-0">{{countObject?.pending}}</h4>
-                  <div class="form-label text-warning  mb-0">{{'crc.Pending' | translate}}</div>
-                </div>
-              </div>
-            </div>
-
-            </div>
-            <div class="col-sm">
-              <div class="card card-body ">
-                <div class="d-flex gap-2">
-                  <img src="../../../assets/images/crc-center/active.svg" alt="" >
-                  <div class="d-flex flex-column  gap-0">
-                    <h4 class="form-data text-success mb-0">{{countObject?.active}}</h4>
-                    <div class="form-label text-success mb-0">{{'crc.active' | translate}}</div>
-                </div>
-              </div>
-            </div>
-
-            </div>
-            <div class="col-sm">
-              <div class="card card-body ">
-
-                <div class="d-flex gap-2">
-                  <img src="../../../assets/images/crc-center/expired.svg" alt="" >
-                  <div class="d-flex flex-column  gap-0">
-                    <h4 class="fw-bold text-dark mb-0">{{countObject?.expired}}</h4>
-                    <div class="form-label text-dark  mb-0">{{'crc.expired' | translate}}</div>
-                </div>
-              </div>
-            </div>
-
-            </div>
-            <div class="col-sm">
-              <div class="card card-body ">
-
-                <div class="d-flex gap-2">
-                  <img src="../../../assets/images/crc-center/deactive.svg" alt="" >
-                  <div class="d-flex flex-column  gap-0">
-                    <h4 class="text-danger  mb-0">{{countObject?.blocked}}</h4>
-                    <div class="text-danger form-label  mb-0">{{'crc.deactive' | translate}}</div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <div class="col-sm">
-              <div class="card card-body ">
-                <div class="d-flex gap-2">
-                  <img src="../../../assets/images/crc-center/rejected.svg" alt="" >
-                  <div class="d-flex flex-column  gap-0">
-                    <h4 class="fw-bold  text-secondary mb-0">{{countObject?.rejected}}</h4>
-                    <div class="form-label text-secondary  mb-0">{{'crc.rejected' | translate}}</div>
-                </div>
-                </div>
-              </div>
-
-            </div>
+  <mat-card-header class="card-header">
+    <div class="text-main">{{'crc.crc_centers_list' | translate}}</div>
+  </mat-card-header>
+  <mat-card-content class="card-body" id="dash-stats">
+    <form [formGroup]="crcForm">
+      <div class="row gx-2">
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.District' | translate}}</mat-label>
+            <mat-select formControlName="districtId"
+              [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
+              <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
+                district.textMarathi : district.textEnglish}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-        <div class="table-responsive scrollbar">
-            <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
+        <div class="col-sm-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.taluka_filter' | translate}}</mat-label>
+            <mat-select formControlName="talukaId">
+              <mat-option>
+                <ngx-mat-select-search [formControl]="talukaCtrl"
+                  placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
+                  noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ?
+                taluka.textMarathi
+                :taluka.textEnglish}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-    </mat-card-content>
+        <div class="col-sm-2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.status' | translate}}</mat-label>
+            <mat-select formControlName="statusId">
+              <mat-option [value]="0">{{lang == 'en' ? 'All Status' : 'सर्व स्थिती'}}</mat-option>
+              <mat-option *ngFor="let arr of statusArray" [value]="arr.id">{{lang == 'en' ? arr.textEnglish :
+                arr.textMarathi}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{'crc.search_by_Reg_No_CRC_Name/Owner_name_Mobile_No' | translate}}</mat-label>
+              <input matInput (keypress)="validation.noFirstSpaceAllow($event)" formControlName="searchValue">
+            </mat-form-field>
+            <div class="d-flex gap-2">
+              <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit"
+                (click)="filterFlag=true;getTableData('filter')">
+                <mat-icon class="material-symbols-rounded">
+                  search
+                </mat-icon>
+              </button>
+              <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button"
+                (click)="filterFlag=false;clearFormData()">
+                <mat-icon class="material-symbols-rounded">
+                  close
+                </mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="row gx-2 crc-list-img my-3">
+      <div class="col-sm-auto">
+        <div class="card card-body ">
+          <div class="d-flex gap-2">
+            <img src="../../../assets/images/crc-center/center.svg " alt="">
+            <div class="d-flex flex-column gap-0">
+              <h4 class="fw-bold mb-0 text-primary"> {{countObject?.totalCount}}</h4>
+              <div class="form-label text-primary mb-0">{{'crc.total_crc_center' | translate}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="card card-body ">
+          <div class="d-flex gap-2">
+            <img src="../../../assets/images/crc-center/active.svg" alt="">
+            <div class="d-flex flex-column  gap-0">
+              <h4 class="form-data text-success mb-0">{{countObject?.active}}</h4>
+              <div class="form-label text-success mb-0">{{'crc.active' | translate}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="card card-body ">
+          <div class="d-flex gap-2">
+            <img src="../../../assets/images/crc-center/deactive.svg" alt="">
+            <div class="d-flex flex-column  gap-0">
+              <h4 class="text-danger  mb-0">{{countObject?.blocked}}</h4>
+              <div class="text-danger form-label  mb-0">{{'crc.deactive' | translate}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="card card-body ">
+          <div class="d-flex gap-2">
+            <img src="../../../assets/images/crc-center/pending.svg" alt="">
+            <div class="d-flex flex-column  gap-0">
+              <h4 class="fw-bold text-warning mb-0">{{countObject?.pending}}</h4>
+              <div class="form-label text-warning  mb-0">{{'crc.Pending' | translate}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="card card-body ">
+          <div class="d-flex gap-2">
+            <img src="../../../assets/images/crc-center/expired.svg" alt="">
+            <div class="d-flex flex-column  gap-0">
+              <h4 class="fw-bold text-dark mb-0">{{countObject?.expired}}</h4>
+              <div class="form-label text-dark  mb-0">{{'crc.expired' | translate}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="card card-body ">
+          <div class="d-flex gap-2">
+            <img src="../../../assets/images/crc-center/rejected.svg" alt="">
+            <div class="d-flex flex-column  gap-0">
+              <h4 class="fw-bold  text-secondary mb-0">{{countObject?.rejected}}</h4>
+              <div class="form-label text-secondary  mb-0">{{'crc.rejected' | translate}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive scrollbar">
+      <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
+    </div>
+  </mat-card-content>
 </mat-card>
