@@ -45,10 +45,6 @@ export class GrainageOrderDetailsComponent {
 
   getTableData() {
     this.spinner.show();
-    // let formData = this.filterForm.getRawValue(); 
-    // flag == 'filter' ? this.pageNumber = 1 : ''
-    // let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    // console.log(formData,str);
     this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Gainage-Order-Details?OrderId='+this.data?.orderId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -110,7 +106,7 @@ export class GrainageOrderDetailsComponent {
   }
 
   viewreceipt(){
-
+    window.open(this.orderdetail?.paymentReceipt)
   }
 
 }

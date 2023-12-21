@@ -181,13 +181,13 @@ export class CrcChawkiOrderComponent {
       })
     })
   }
-  
+  // sericulture/api/CRCCenter/Get-CRC-Centers_Chawki-Orders?DistrictId=1&TalukaId=11&GrampanchayatId=1&DistributionSlab=1&Status=1&SerachText=qq&PageNo=1&PageSize=10
   getTableData(flag?: any) {
     this.spinner.show();
     let formData = this.filterForm.getRawValue();    
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-CRC-Centers_Chawki-Orders?DistrictId='+(formData.districtId || 0)+'&TalukaId='+(formData.talukaId ||0)+'&GrampanchayatId='+(formData.grampanchayatId || 0)+'&DistributionSlab='+(formData.deliveryslabId || 0)+'&Status='+(formData.statusId || 0)+str, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-CRC-Centers_Chawki-Orders?DistrictId='+(formData.districtId || 0)+'&TalukaId='+(formData.talukaId ||0)+'&GrampanchayatId='+(formData.grampanchayatId || 0)+'&DistributionSlab='+(formData.deliveryslabId || 0)+'&Status='+(formData.statusId || 0)+'&SerachText='+(formData.searchValue || '')+str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();

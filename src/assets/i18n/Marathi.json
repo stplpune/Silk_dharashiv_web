@@ -326,7 +326,8 @@
     "please_enter_confirm_password": "कृपया पुष्टी संकेतशब्द प्रविष्ट करा",
     "please_enter_valid_password": "कृपया वैध संकेतशब्द प्रविष्ट करा",
     "confirm_valid_password": "कृपया वैध पासवर्ड एंटर करा",
-    "back_to_login": "लॉगिन करण्यासाठी परत"
+    "back_to_login": "लॉगिन करण्यासाठी परत",
+    "password_limit": "कमाल 42 वर्णांना अनुमती आहे"
   },
   "grainage": {
     "search": "ग्रेनेजनुसार  शोधा",
