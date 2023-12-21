@@ -23,10 +23,10 @@
             <button *ngIf="editFlag && !imageRes" type="button" mat-icon-button class="btn-icon bg-primary-subtle"
               (click)="uploadDocument.click()">
               <span class="material-symbols-rounded text-primary">
-                edit_square
+                add
               </span>
             </button>
-            <button mat-icon-button class="btn-icon bg-danger-subtle" *ngIf="imageRes" (click)="deleteImage()">
+            <button mat-icon-button class="btn-icon bg-danger-subtle" *ngIf="editFlag && imageRes" (click)="deleteImage()">
               <span class="material-symbols-rounded text-danger">
                 delete
               </span>
