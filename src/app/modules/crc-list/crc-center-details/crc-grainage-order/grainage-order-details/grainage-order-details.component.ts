@@ -45,9 +45,8 @@ export class GrainageOrderDetailsComponent {
  
 
   getTableData() {
-    let id =2023101110;
     this.spinner.show();
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Gainage-Order-Details?OrderId='+id, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Gainage-Order-Details?OrderId='+this.data?.OrderId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
