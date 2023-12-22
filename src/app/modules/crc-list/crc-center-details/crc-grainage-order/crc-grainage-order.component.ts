@@ -87,7 +87,7 @@ ngOnInit(){
   });
  let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
  this.id = spliteUrl;   
- this.id=27;
+//  this.id=27;
   this.getFormData();
   this.getDisrict();
   this.getStatus();
