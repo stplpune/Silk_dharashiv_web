@@ -3,7 +3,7 @@
     <div class="text-main">{{!data ? ('scheme.add_scheme' | translate ): isViewFlag ? ('scheme.view_scheme' | translate)
       : ('scheme.update_scheme' | translate )}}</div>
     <!-- <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true"> -->
-      <span class="material-symbols-rounded" [mat-dialog-close]="true">close</span>
+    <span class="material-symbols-rounded" [mat-dialog-close]="true">close</span>
     <!-- </button> -->
   </div>
 </div>
@@ -123,11 +123,11 @@
 <div *ngIf="isViewFlag">
   <mat-dialog-content class="modal-body form-container">
     <div class="row mb-2">
-      <div class="col-sm-4">
-        <div class="form-label">{{lang == 'en' ? "Scheme Logo" : "योजनेचा लोगो" }}</div>
-        <img src="{{data?.logoPath}}" alt="Image" class="img-fluid">
+      <div class="col-sm-auto">
+        <!-- <div class="form-label">{{lang == 'en' ? "Scheme Logo" : "योजनेचा लोगो" }}</div> -->
+        <img src="{{data?.logoPath}}" alt="Image" class="scheme-logo">
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm">
         <ul class="list-group list-group-flush">
           <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-1">
             <div class="form-label">{{lang == 'en' ? "Scheme Name (English)" : "योजनेचे नाव (इंग्रजी)" }}</div>
@@ -145,9 +145,11 @@
         </ul>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="form-label mb-0">{{lang == 'en' ? "Scheme Description" : "योजनेचे वर्णन" }}</div>
+    <div class="card">
+      <div class="card-header bg-transparent py-1">
+        <div class="form-label mb-0">{{lang == 'en' ? "Scheme Description" : "योजनेचे वर्णन" }} :</div>
+      </div>
+      <div class="card-body p-2">
         <div class="form-data" [innerHTML]="data?.schemeInfo"></div>
       </div>
     </div>
