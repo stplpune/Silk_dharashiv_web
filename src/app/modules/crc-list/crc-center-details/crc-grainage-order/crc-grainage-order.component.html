@@ -85,7 +85,7 @@
           <div class="d-flex gap-2">
             <img src="../../../assets/images/crc-center/center.svg " alt="">
             <div class="d-flex flex-column gap-0">
-              <h4 class="fw-bold text-primary mb-0">{{counterObject?.sumOrder || '-'}}</h4>
+              <h4 class="fw-bold text-primary mb-0">{{counterObject?.sumOrder || 0}}</h4>
               <div class="fw-bold mb-0 text-primary"> {{lang == 'en' ? 'Total Order' : 'एकूण ऑर्डर'}}</div>
             </div>
           </div>
@@ -100,7 +100,7 @@
           <div class="d-flex gap-2">
             <img src="../../../assets/images/crc-center/pending.svg " alt="">
             <div class="d-flex flex-column gap-0">
-              <h4 class="fw-bold text-warning mb-0">{{counterObject?.pendingOrder || '-'}}</h4>
+              <h4 class="fw-bold text-warning mb-0">{{counterObject?.pendingOrder || 0}}</h4>
               <div class="fw-bold mb-0 text-warning">  {{lang == 'en' ? 'Pending' : 'प्रलंबित'}}</div>
             </div>
           </div>
@@ -115,7 +115,7 @@
           <div class="d-flex gap-2">
             <img src="../../../assets/images/crc-center/active.svg " alt="">
             <div class="d-flex flex-column gap-0">
-              <h4 class="fw-bold text-success mb-0">{{counterObject?.receivedOrder || '-'}}</h4>
+              <h4 class="fw-bold text-success mb-0">{{counterObject?.receivedOrder || 0}}</h4>
               <div class="fw-bold mb-0 text-success">   {{lang == 'en' ? 'Approved' : 'मंजूर'}}</div>
             </div>
           </div>

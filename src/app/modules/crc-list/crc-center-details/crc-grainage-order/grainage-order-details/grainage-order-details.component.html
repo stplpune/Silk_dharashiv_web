@@ -1,7 +1,8 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
     <div class="text-main fw-bold">{{lang == 'en' ? 'Grainage Order Details' : 'ग्रेनेज ऑर्डर तपशील'}}</div>
-    <button mat-icon-button class="btn-icon btn-modal-close" type="button" mat-dialog-close="true" (click)="dialogRef.close()">
+    <button mat-icon-button class="btn-icon btn-modal-close" type="button" mat-dialog-close="true"
+      (click)="dialogRef.close()">
       <span class="material-symbols-rounded">close</span>
     </button>
   </div>
@@ -15,25 +16,28 @@
           <div class="col-sm-6">
             <div class="row gx-2">
               <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Grainage' : 'धान्य'}}</div>
-              <div class="col-sm-8 form-data">: {{lang == 'en' ? orderdetail?.grainage : orderdetail?.grainage || '-'}}</div>
+              <div class="col-sm-8 form-data">: {{lang == 'en' ? orderdetail?.grainage : orderdetail?.m_Grainage ||
+                '-'}}</div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="row gx-2">
-              <div class="col-sm-4 bform-label"> {{lang == 'en' ? 'Type' : 'प्रकार'}}</div>
+              <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Type' : 'प्रकार'}}</div>
               <div class="col-sm-8 form-data">: {{lang == 'en' ? orderdetail?.type : orderdetail?.m_type || '-'}}</div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="row gx-2">
               <div class="col-sm-4 form-label"> {{lang == 'en' ? 'State' : 'राज्य'}}</div>
-              <div class="col-sm-8 form-data">: {{lang == 'en' ? orderdetail?.state : orderdetail?.m_State || '-'}}</div>
+              <div class="col-sm-8 form-data">: {{lang == 'en' ? orderdetail?.state : orderdetail?.m_State || '-'}}
+              </div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="row gx-2">
               <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Location' : 'स्थान'}}</div>
-              <div class="col-sm-8 form-data">: {{lang == 'en' ? orderdetail?.location : orderdetail?.m_Location || '-'}}</div>
+              <div class="col-sm-8 form-data">: {{lang == 'en' ? orderdetail?.location : orderdetail?.m_Location ||
+                '-'}}</div>
             </div>
           </div>
           <div class="col-sm-6">
@@ -50,7 +54,7 @@
           </div>
           <div class="col-sm-12">
             <div class="row gx-2">
-              <div class="col-sm-2 form-label">  {{lang == 'en' ? 'Payment Reciept' : 'पैसे भरल्याची पावती'}}</div>
+              <div class="col-sm-2 form-label"> {{lang == 'en' ? 'Payment Reciept' : 'पैसे भरल्याची पावती'}}</div>
               <div class="col-sm-10 form-data" (click)="viewreceipt()">:
                 <a href="" *ngIf="this.orderdetail?.paymentReceipt">View</a>
               </div>
@@ -63,7 +67,7 @@
           <thead>
             <tr>
               <th>
-                <div class="form-label"> {{lang == 'en' ? 'Order ID' : 'पैऑर्डर आयडी'}}</div>
+                <div class="form-label"> {{lang == 'en' ? 'Order ID' : 'ऑर्डर आयडी'}}</div>
               </th>
               <th>
                 <div class="form-label">{{orderdetail?.orderId || '-'}}</div>
@@ -74,7 +78,7 @@
                 <div class="form-label">{{lang == 'en' ? 'Order Date' : 'मागणीची तारीख'}}</div>
               </th>
               <th>
-                <div class="form-data">{{orderdetail?.orderDate || '-'}}</div>
+                <div class="form-data">{{orderdetail?.orderDate | date:'dd-mm-yyyy' || '-'}}</div>
               </th>
             </tr>
             <tr>
@@ -99,7 +103,8 @@
     </div>
   </section>
   <section>
-    <h6 class="text-main border-bottom border-success border-opacity-50"> {{lang == 'en' ? 'Recieved Details' : 'प्राप्त तपशील'}}</h6>
+    <h6 class="text-main border-bottom border-success border-opacity-50"> {{lang == 'en' ? 'Recieved Details' : 'प्राप्त
+      तपशील'}}</h6>
     <div class="d-flex gap-5">
       <div class="d-flex gap-2">
         <div class="form-label">{{lang == 'en' ? 'Ordered Qty' : 'ऑर्डर केलेले प्रमाण'}}</div>
