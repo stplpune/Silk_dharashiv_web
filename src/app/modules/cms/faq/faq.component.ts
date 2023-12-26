@@ -25,7 +25,7 @@ export class FaqComponent implements OnDestroy {
   highLightRowFlag: boolean = false;
   searchDataFlag: boolean = false
   subscription!: Subscription;//used  for lang conv
-  lang: string = 'English';
+  lang:any;
   pageAccessObject: object | any;
 
   get fl() { return this.filterFrm.controls };
@@ -43,7 +43,7 @@ export class FaqComponent implements OnDestroy {
   ngOnInit() {
     this.webStorage.getAllPageName().filter((ele: any) => { return ele.pageName == "FAQ's" ? this.pageAccessObject = ele : '' })
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
-      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     })
