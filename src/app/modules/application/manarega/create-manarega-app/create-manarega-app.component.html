@@ -1541,9 +1541,9 @@
                         <div class="form-label">{{'addManrega.is_loan_required'| translate}}</div>
                         <span class="form-data  rounded-pill">
                           <span class="form-data  rounded-pill"
-                          *ngIf="previewData?.isLoanApplicable == false">{{'approvalProcess.yes'| translate}}</span>
+                          *ngIf="previewData?.isLoanApplicable == true">{{'approvalProcess.yes'| translate}}</span>
                         <span class="form-data  rounded-pill"
-                          *ngIf="previewData?.isLoanApplicable == true">{{'approvalProcess.no'| translate}}</span>
+                          *ngIf="previewData?.isLoanApplicable == false">{{'approvalProcess.no'| translate}}</span>
                         </span>
                       </li>
                       
