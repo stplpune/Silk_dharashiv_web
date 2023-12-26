@@ -123,8 +123,8 @@
               <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?
                 village.textMarathi : village.textEnglish}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="f['grampanchayatId']?.hasError('required')">
-              {{'officerreg.please_select_grampanchayat'|translate}} </mat-error>
+            <!-- <mat-error *ngIf="f['grampanchayatId']?.hasError('required')">
+              {{'officerreg.please_select_grampanchayat'|translate}} </mat-error> -->
           </mat-form-field>
         </div>
         <div class="col-sm-6">
