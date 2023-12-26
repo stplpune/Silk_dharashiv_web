@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'home', loadChildren: () => import('../../modules/home/home.module').then(m => m.HomeModule), data: { breadcrumb: [{ title: 'Home', active: true }] } },
   { path: 'farmer-login', loadComponent: () => import('../../components/farmer-login/farmer-login.component').then(m => m.FarmerLoginComponent), data: { breadcrumb: [{ title: 'Farmer Login', active: true }] } },
   { path: 'contact-us', loadChildren: () => import('../../modules/contact-us/contact-us.module').then(m => m.ContactUsModule), data: { breadcrumb: [{ title: 'Contact Us', active: true }] } },
-  { path: 'track-application', loadChildren: () => import('../../modules/track-app/track-app.module').then(m => m.TrackAppModule) },
+  { path: 'track-application', loadChildren: () => import('../../modules/track-app/track-app.module').then(m => m.TrackAppModule), data: { breadcrumb: [{ title: 'Track Application', active: true }] } },
   { path: 'blog-details', loadChildren: () => import('../../modules/blog-details/blog-details.module').then(m => m.BlogDetailsModule), data: { breadcrumb: [{ title: 'Blog Details', active: true }] } },
   { path: 'about-us', loadChildren: () => import('../../modules/about-us/about-us.module').then(m => m.AboutUsModule), data: { breadcrumb: [{ title: 'About Us', active: true }] } },
   { path: 'schemes-programs', loadChildren: () => import('../../modules/schemes-programs/schemes-programs.module').then(m => m.SchemesProgramsModule), data: { breadcrumb: [{ title: 'Schemes & Programs', active: true }] } },
