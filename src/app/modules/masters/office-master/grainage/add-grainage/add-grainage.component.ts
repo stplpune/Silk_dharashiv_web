@@ -155,7 +155,7 @@ export class AddGrainageComponent {
         next: ((res: any) => {
           this.grampanchayatArr = res.responseData;
           this.common.filterArrayDataZone(this.grampanchayatArr, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
-          this.data ? this.f['grampanchyatId'].setValue(this.data?.talukaId) : '';
+          this.data ? this.f['grampanchyatId'].setValue(this.data?.grampanchyatId) : '';
         }), error: (() => {
           this.grampanchayatArr = [];
           this.gramPSubject.next(null);
