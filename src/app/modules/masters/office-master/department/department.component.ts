@@ -52,7 +52,7 @@ export class DepartmentComponent implements OnDestroy {
   ngOnInit() {
     this.webStorage.getAllPageName().filter((ele: any) => { return ele.pageName == 'Department' ? this.pageAccessObject = ele : '' })
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
-      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     })
