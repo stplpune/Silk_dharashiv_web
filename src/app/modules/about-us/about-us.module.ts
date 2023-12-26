@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AboutUsRoutingModule } from './about-us-routing.module';
 import { AboutUsComponent } from './about-us.component';
-
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -11,7 +11,8 @@ import { AboutUsComponent } from './about-us.component';
   ],
   imports: [
     CommonModule,
-    AboutUsRoutingModule
+    AboutUsRoutingModule,
+    TranslateModule
   ]
 })
 export class AboutUsModule { }
