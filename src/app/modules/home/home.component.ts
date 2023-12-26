@@ -14,20 +14,21 @@ export class HomeComponent {
   blogDetails = new Array();
   subscription!: Subscription;
   lang: any;
-  constructor(private apiService: ApiService, private router: Router, public encryptDecryptService: AesencryptDecryptService,  private WebStorageService: WebStorageService,) { }
+  constructor(private apiService: ApiService, private router: Router, public encryptDecryptService: AesencryptDecryptService,  private WebStorageService: WebStorageService,) { 
+    this.subscription = this.WebStorageService.setLanguageSubject.subscribe((res: any) => {
+    this.lang = res 
+    })
+   // this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+    
+  }
 
   ngOnInit() {
-    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
-      this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
-    })
-    this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-
     this.getTotalCount();
     this.getBlogsDetails();
   }
 
   getTotalCount() {
-    let url = `sericulture/api/Action/GetOfficerDashboard?&SchemeTypeId=0&DistrictId=1&TalukaId=0&GrampanchayatId=0&UserId=1&actionId=0&lan=en`;
+    let url = `sericulture/api/Action/GetOfficerDashboard?&SchemeTypeId=0&DistrictId=1&TalukaId=0&GrampanchayatId=0&UserId=1&actionId=0&lan=${this.lang}`;
     this.apiService.setHttp('GET', url, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -38,7 +39,7 @@ export class HomeComponent {
   }
 
   getBlogsDetails() {
-    let url = `sericulture/api/Blogs/get-blogs-details?SeacrhText=&PageNo=1&PageSize=10&lan=en`;
+    let url = `sericulture/api/Blogs/get-blogs-details?SeacrhText=&PageNo=1&PageSize=10&lan=${this.lang}`;
     this.apiService.setHttp('GET', url, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {

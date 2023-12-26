@@ -146,11 +146,11 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="section-head">Portal Process</h2>
-                <img src="assets/images/process-marathi.svg" class="img-fluid d-lg-block d-none">
-                <img src="assets/images/process_verticle_mar.svg" class="img-fluid d-lg-none d-block">
-                <!-- <img src="assets/images/process-english.svg" class="img-fluid d-lg-block d-none"> 
-                <img src="assets/images/process_verticle_eng.svg" class="img-fluid d-lg-none d-block">-->
+                <h2 class="section-head"> {{'home.portal_process' |translate}}</h2>
+                <img *ngIf="lang == 'English'" src="assets/images/process-english.svg" class="img-fluid d-lg-block d-none"> 
+                <img *ngIf="lang == 'English'" src="assets/images/process_verticle_eng.svg" class="img-fluid d-lg-none d-block">
+                <img  *ngIf="lang == 'Marathi'" src="assets/images/process-marathi.svg" class="img-fluid d-lg-block d-none">
+                <img *ngIf="lang == 'Marathi'" src="assets/images/process_verticle_mar.svg" class="img-fluid d-lg-none d-block">
             </div>
         </div>
     </div>
@@ -159,7 +159,7 @@
     <div class="container">
         <div class="row g-3">
             <div class="col-sm-12">
-                <h2 class="section-head">Site Statistics</h2>
+                <h2 class="section-head"> {{'home.site_statistics' |translate}}</h2>
             </div>
             <ng-container *ngFor="let data of getAppCountData">
                 <div class="col-sm-3">
@@ -171,7 +171,7 @@
                             <h2>{{data?.totalApplications}}</h2>
                         </div>
                         <div class="card-footer">
-                            <p>Applications</p>
+                            <p>{{'home.applications' |translate}}</p>
                         </div>
                     </div>
                 </div>
@@ -184,7 +184,7 @@
                             <h2>{{data?.totalBeneficiaries}}</h2>
                         </div>
                         <div class="card-footer">
-                            <p>Beneficiaries</p>
+                            <p>{{'home.beneficiaries' |translate}}</p>
                         </div>
                     </div>
                 </div>
@@ -196,11 +196,11 @@
                             </div>
                             <h2>
                                 {{data?.totalLandCultivatedHectors}}
-                                <small>(Hectare)</small>
+                                <small> {{'home.Hectare' |translate}}</small>
                             </h2>
                         </div>
                         <div class="card-footer">
-                            <p>Land Cultivated</p>
+                            <p>{{'home.land_cultivated' |translate}}</p>
                         </div>
                     </div>
                 </div>
@@ -213,7 +213,7 @@
                             <h2>{{data?.totalDBT | currency :'INR'}}</h2>
                         </div>
                         <div class="card-footer">
-                            <p>Subsidy Distributed</p>
+                            <p>{{'home.subsidy_distributed' |translate}}</p>
                         </div>
                     </div>
                 </div>
@@ -330,12 +330,13 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <h1>download</h1>
-                <h2>the app</h2>
-                <p>Like Dairy and poultry farming, silk farming can also be done as a side business along with
+                <h1> {{'home.download' |translate}}</h1>
+                <h2>{{'home.theapp' |translate}}</h2>
+                <p>{{'home.like_dairy_poultry_farming' |translate}}</p>
+                    <!-- Like Dairy and poultry farming, silk farming can also be done as a side business along with
                     agriculture. This business can be started at a very low cost and the available materials that the
                     farmers already have. With the new style of Tuti plantation and silkworm cultivation, this business
-                    can be done with very little effort and on a large scale.</p>
+                    can be done with very little effort and on a large scale. -->
                 <div class="d-flex justify-content-between align-items-center flex-lg-row flex-column gap-4">
                     <div class="d-flex flex-lg-column flex-row gap-3">
                         <img src="assets/images/GoogleStore.png" class="store">
@@ -350,7 +351,7 @@
 </section>
 <section id="blogs">
     <div class="container">
-        <h2 class="section-head">Blogs</h2>
+        <h2 class="section-head">{{'home.blogs' |translate}}</h2>
         <div class="row mb-4 g-2">
             <div class="col-sm-3" *ngFor="let data of blogDetails;">
                 <a class="card h-100" (click)="redTo(data)">

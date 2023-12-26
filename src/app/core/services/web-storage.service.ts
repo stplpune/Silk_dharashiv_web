@@ -135,19 +135,20 @@ export class WebStorageService {
 
   // change language
   setLanguage = new BehaviorSubject('');
+  setLanguageSubject = this.setLanguage.asObservable();
 
 
   //testing code lang for common
-  language = new BehaviorSubject('');
-  setLanguageSubject = this.language.asObservable();
+  // language = new BehaviorSubject('');
+  // setLanguageSubject = this.language.asObservable();
 
-  setLanguageCallback() {
-    this.setLanguageSubject.subscribe(() => {
-      this.lang = localStorage.getItem('language') || 'English';
-      this.lang = this.lang === 'English' ? 'en' : 'mr-IN';
-    });
-    return this.lang
-  }
+  // setLanguageCallback() {
+  //   this.setLanguageSubject.subscribe(() => {
+  //     this.lang = localStorage.getItem('language') || 'English';
+  //     this.lang = this.lang === 'English' ? 'en' : 'mr-IN';
+  //   });
+  //   return this.lang
+  // }
 
   // header profile data patch
   getProfileData() {

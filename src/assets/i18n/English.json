@@ -12,8 +12,20 @@
   "under_MNREGA_silk_industry_development" : "Under MNREGA silk industry development, the scheme has been implemented in the entire district by approving all aspects of preparation of land for mulberry cultivation, nursery planting of mulberry, insect rearing, insect rearing materials, fund production and insect rearing house.",
    "schemes_information":"Schemes & Information",
    "limit_1_or_2_acres_per_beneficiary" : "Limit 1 or 2 acres per beneficiary",
-   "farmers_who_do_not_fit_the_MNREGA_criteria" : "Farmers who do not fit the MNREGA criteria of the district should participate in the development of mulberry silk and the Silk Samagra-2 scheme has been implemented along with the Koshottara process."
-},
+   "farmers_who_do_not_fit_the_MNREGA_criteria" : "Farmers who do not fit the MNREGA criteria of the district should participate in the development of mulberry silk and the Silk Samagra-2 scheme has been implemented along with the Koshottara process.",
+   "portal_process" : "Portal Process",
+   "site_statistics":"Site Statistics",
+   "applications" : "Applications",
+   "beneficiaries" :"Beneficiaries",
+   "land_cultivated" : "Land Cultivated",
+   "subsidy_distributed" : "Subsidy Distributed",
+   "Hectare":"(Hectare)",
+   "download" :"Download",
+   "theapp" : "the app",
+   "like_dairy_poultry_farming":"Like Dairy and poultry farming, silk farming can also be done as a side business along with agriculture. This business can be started at a very low cost and the available materials that the   farmers already have. With the new style of Tuti plantation and silkworm cultivation, this business can be done with very little effort and on a large scale.",
+   "blogs" : "Blogs"
+
+  },
   "contactUs" : {
     "contact_us" : "Contact Us",
     "home" : "Home",
