@@ -1,6 +1,6 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
-    <div class="text-main">Farmer Dashboard</div>
+    <div class="text-main">{{lang == 'en' ? 'Farmer Dashboard' : 'फार्मर डॅशबोर्ड'}}</div>
   </mat-card-header>
   <mat-card-content class="card-body" id="dash-stats">
     <div class="row">
@@ -13,7 +13,7 @@
                 <img src="{{scheme?.logoPath}}" alt="Manrega Applications" class="olive">
               </div>
               <div class="flex-grow-1 ms-3">
-                <p>{{scheme?.schemeType}}</p>
+                <p>{{lang == 'en' ? scheme?.schemeType : scheme?.m_SchemeType}}</p>
               </div>
             </div>
           </div>
