@@ -34,6 +34,8 @@ export class CRCListComponent {
   highLightedFlag: boolean = true;
   filterFlag: boolean = false;
   countObject: any;
+
+
   constructor
     (
       private fb: FormBuilder,
@@ -186,8 +188,9 @@ export class CRCListComponent {
     }
   }
 
- viewCRCList(obj: any) {
-  let Id: any = this.encryptdecrypt.encrypt(`${obj?.id}`);
+ viewCRCList(obj: any) {  
+  let str=obj?.id+'.'+obj.crcName+'.'+obj.m_CRCName;
+  let Id: any = this.encryptdecrypt.encrypt(`${str}`);
   this.router.navigate(['crc-center-details'], {
     queryParams: {
       id: Id
