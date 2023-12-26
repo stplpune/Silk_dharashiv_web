@@ -192,7 +192,6 @@ export class GeneratePdfComponent {
     tableData.responseData9.filter((res: any) => {
       this.finalTotalRes = res;
     })
-
   }
 
   getAnotherEstimateData() {
