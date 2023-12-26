@@ -71,13 +71,13 @@ export class CrcChawkiOrderComponent {
       private apiService: ApiService,
       private errorHandler: ErrorHandlingService,
       public validation: ValidationService,
-
     ) { }
 
   ngOnInit() {
     this.subscription = this.webService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+      this.setTableData();
     });
     this.getFormData();
     this.getDisrict();
@@ -110,7 +110,7 @@ export class CrcChawkiOrderComponent {
     let dialogRef = this.dialog.open(ChowkiOrderDetailsComponent, {
       width: '90%',
       data: obj,
-      // disableClose: true,
+      disableClose: true,
       autoFocus: true,
     });
     dialogRef.afterClosed().subscribe(() => {
@@ -264,5 +264,9 @@ export class CrcChawkiOrderComponent {
     this.pageNumber = 1;
     this.getFormData();
     this.getTableData();
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 }

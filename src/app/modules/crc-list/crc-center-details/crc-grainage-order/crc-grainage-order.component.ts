@@ -86,7 +86,8 @@ ngOnInit(){
     this.routingData = queryParams['id'];
   });
  let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
- this.id = spliteUrl;   
+ this.id = spliteUrl; 
+ this.id = 27;   
   this.getFormData();
   this.getDisrict();
   this.getStatus();
@@ -164,7 +165,9 @@ getStatus() {
   grainageorderdetails(obj?:any){
     let dialogRef =this.dialog.open(GrainageOrderDetailsComponent,{
       width:"100%",
-      data:obj
+      data:obj,
+      disableClose: true,
+      autoFocus: true,
     })
     dialogRef.afterClosed().subscribe(() => {
       this.getTableData();
@@ -253,5 +256,9 @@ getStatus() {
       this.grampanchayatArray = [];
       this.f['grampanchayatId'].setValue('');
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 }

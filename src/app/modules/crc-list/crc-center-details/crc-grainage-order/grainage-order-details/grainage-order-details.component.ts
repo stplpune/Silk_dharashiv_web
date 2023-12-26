@@ -46,7 +46,7 @@ export class GrainageOrderDetailsComponent {
 
   getTableData() {
     this.spinner.show();
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Gainage-Order-Details?OrderId='+this.data?.OrderId, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Gainage-Order-Details?OrderId=2023101110', false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -108,6 +108,10 @@ export class GrainageOrderDetailsComponent {
 
   viewreceipt(){
     window.open(this.orderdetail?.paymentReceipt)
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
 
