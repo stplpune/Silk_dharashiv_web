@@ -1,4 +1,19 @@
 {
+  "home" : {
+  "like_dairy" : "Like Dairy and poultry farming, silk farming can also be done as a side business along with agriculture. This business can be started at a very low cost and the available materials that the farmers already have.",
+  "online_application" :"Online Application",
+  "silk" : "Silk",
+  "dharashiv" : "Dharashiv",
+  "about_sericulture":"About Sericulture",
+  "about_sericulture1":"Like Dairy and poultry farming, silk farming can also be done as a side business along with agriculture. This business can be started at a very low cost and the available materials that the farmers already have. With the new style of Tuti plantation and silkworm cultivation, this business can be done with very little effort and on a large scale. This business can be done with the help of all members of the family; big and small. In a month's period, the farmers can gain maximum profit in minimum time.",
+  "about_sericulture2" :"The Government has assured the farmers of purchasing their yield at good prices. Tuti plantation can be done in any type of soil. If the plantation is done in a Striped pattern, it helps in the growth  of the final yield. Striped Pattern consumes very less water. ",
+  "read_more":"Read More",
+  "limit_upto_1_acre_per_beneficiary":"Limit up to 1 acre per beneficiary",
+  "under_MNREGA_silk_industry_development" : "Under MNREGA silk industry development, the scheme has been implemented in the entire district by approving all aspects of preparation of land for mulberry cultivation, nursery planting of mulberry, insect rearing, insect rearing materials, fund production and insect rearing house.",
+   "schemes_information":"Schemes & Information",
+   "limit_1_or_2_acres_per_beneficiary" : "Limit 1 or 2 acres per beneficiary",
+   "farmers_who_do_not_fit_the_MNREGA_criteria" : "Farmers who do not fit the MNREGA criteria of the district should participate in the development of mulberry silk and the Silk Samagra-2 scheme has been implemented along with the Koshottara process."
+},
   "geoTagging": {
     "Mulberry_Plantation_Date": " Mulberry Plantation Date",
     "Mulberry_Plantation_Area(Hectares)": "Mulberry Plantation Area (Hectares)",
@@ -695,6 +710,7 @@
     "Already_have_an_account": "Already have an account?"
   },
   "addManrega": {
+    "is_loan_required" : "Is loan required",
     "original_details": "Original Details",
     "applicant_name": "Applicant's Name",
     "mulberry_plantation_under_Silk": "Mulberry plantation under Silk Development Scheme on my farm should be done through Department",

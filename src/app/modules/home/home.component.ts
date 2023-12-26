@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { ApiService } from 'src/app/core/services/api.service';
-
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,10 +12,16 @@ import { ApiService } from 'src/app/core/services/api.service';
 export class HomeComponent {
   getAppCountData = new Array();
   blogDetails = new Array();
-
-  constructor(private apiService: ApiService, private router: Router, public encryptDecryptService: AesencryptDecryptService) { }
+  subscription!: Subscription;
+  lang: any;
+  constructor(private apiService: ApiService, private router: Router, public encryptDecryptService: AesencryptDecryptService,  private WebStorageService: WebStorageService,) { }
 
   ngOnInit() {
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+    })
+    this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+
     this.getTotalCount();
     this.getBlogsDetails();
   }
