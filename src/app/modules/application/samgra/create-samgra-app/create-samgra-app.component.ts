@@ -228,6 +228,7 @@ export class CreateSamgraAppComponent {
       "bankBranchId": [data?.bankBranchId || '', [Validators.required]],
       "bankIFSCCode": [data?.bankIFSCCode || '', [Validators.required, this.validation.maxLengthValidator(30), Validators.pattern(this.validation.bankIFSCCodeVal)]],
       "bankAccountNo": [data?.bankAccountNo || '', [Validators.required, this.validation.maxLengthValidator(30), Validators.pattern(this.validation.onlyNumbers)]],
+      "isLoanApplicable": [data?.isLoanApplicable || false],
     })
   }
 
@@ -531,6 +532,7 @@ export class CreateSamgraAppComponent {
       "applicationNo": "",
       "profilePhotoPath": this.profileImageUrl || '',
       // "m_FullName": "",
+      "applicationFrom": "",
       "mn_DepartmentId": 3,
       "isAgreeReadableInfo": true,
       "m_Address": "",

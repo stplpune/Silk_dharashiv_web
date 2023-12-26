@@ -960,6 +960,15 @@
                   </mat-form-field>
                 </div>
               </div>
+              <div class="col-sm-4">
+                <div class="d-flex flex-column">
+                  <mat-label class="form-label">35.Loan Applicable</mat-label>
+                  <mat-radio-group aria-label="Select an option" formControlName="isLoanApplicable">
+                    <mat-radio-button *ngFor="let check of checkedArray"
+                      [value]="check.id">{{lang == 'en' ? check.name : check.m_name}}</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
             </div>
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">

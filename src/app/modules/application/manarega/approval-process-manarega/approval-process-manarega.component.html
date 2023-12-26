@@ -545,14 +545,14 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-sm-2">
             <div class="d-flex gap-2">
               <div class="form-label mb-0">{{'approvalProcess.bank_name'| translate}}:</div>
               <div class="form-data"> {{lang == 'en' ? (applicantDetails?.bankName | dash ) :
                 (applicantDetails?.m_BankName | dash)}}</div>
             </div>
           </div>
-          <div class="col-sm-3">
+          <div class="col-sm-2">
             <div class="d-flex gap-2">
               <div class="form-label mb-0">{{'approvalProcess.branch'| translate}}:</div>
               <div class="form-data">{{lang == 'en' ? (applicantDetails?.branchName | dash ) :
@@ -569,6 +569,19 @@
             <div class="d-flex gap-2">
               <div class="form-label mb-0">{{'approvalProcess.bank_account_no'| translate}}:</div>
               <div class="form-data">{{applicantDetails?.bankAccountNo | dash}} </div>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="d-flex gap-2">
+              <div class="form-label mb-0">{{'addManrega.is_loan_required'| translate}}:</div>
+              <div class="form-data">
+                <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+                  <mat-radio-button value="11" [checked]="applicantDetails?.isLoanApplicable == true"
+                    class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+                  <mat-radio-button value="12" [checked]="applicantDetails?.isLoanApplicable == false"
+                    class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+                </mat-radio-group>  
+              </div>
             </div>
           </div>
         </div>
