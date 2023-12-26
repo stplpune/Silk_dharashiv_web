@@ -47,10 +47,10 @@ export class DashboardComponent {
   constructor(public WebStorageService: WebStorageService, private apiService: ApiService, private router: Router, private fb: FormBuilder, private master: MasterService,
     private spinner: NgxSpinnerService, private errorHandler: ErrorHandlingService, private commonMethod: CommonMethodsService, public encryptdecrypt: AesencryptDecryptService) {
 
-    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
-      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
-      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-    });
+      this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+        this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+        this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+      })
 
     this.getDisrict();
     this.filterDefaultFrm();
