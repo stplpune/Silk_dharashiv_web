@@ -14,6 +14,28 @@
   "limit_1_or_2_acres_per_beneficiary" : "प्रति लाभार्थी मर्यादा 1 किंवा 2 एकर",
   "farmers_who_do_not_fit_the_MNREGA_criteria" :"  जिल्ह्यातील मनरेगा निकषा मध्ये बसत नसलेल्या शेतकर्‍यांनी तुती रेशीम विकासात सहभागी व्हावे व कोषोत्तर प्रक्रियेसाथी सिल्क समग्र-२ योजना लागू करण्यात आलेली आहे."
 },
+  "contactUs" : {
+    "contact_us" : "संपर्क",
+    "home" : "मुख्य पृष्ठ",
+    "dist_sericulture_office_dharashiv" :"जिल्हा रेशीम कार्यालय, धाराशिव",
+    "mayur_federation_building_bhanunagar_corner" : "मयुर फेडरेशन बिल्डिंग, भानुनगर कॉर्नर, धाराशिव, महाराष्ट्र - ४१३५०१",
+    "02472_223885" : "०२४७२ २२३८८५"
+  },
+  "publicFooter" : { 
+    "like_dairy_and_poultry_farming" : "दुग्धव्यवसाय आणि कुक्कुटपालन प्रमाणेच रेशीम शेती साईड बिझनेस म्हणून देखील करता येते.अतिशय कमी खर्चात आणि शेतकऱ्यांकडे उपलब्ध साहित्यात हा व्यवसाय सुरू करता येतो.",
+    "important_links" : "महत्वाच्या लिंक्स",
+    "about_us" : "आमच्याबद्दल",
+    "schemes_programs" : "योजना आणि कार्यक्रम",
+    "track_application" : "ट्रॅक ऍप्लिकेशन",
+    "useful_links" : "उपयोगी लिंक्स",
+    "online_process" : "ऑनलाइन प्रक्रिया",
+    "privacy_policy" :"प्रायव्हसी पॉलिसी",
+    "terms_and_conditions" : "नियम आणि अटी",
+    "about_silk_business" : "रेशीम व्यवसायाबद्दल",
+    "success_stories" : "यशाच्या कथा",
+    "mayur_federation_building_bhanunagar_corn" : "मयुर फेडरेशन बिल्डिंग, भानुनगर कॉर्नर,",
+    "dharashiv_maharashtra_413501" : "धाराशिव, महाराष्ट्र - ४१३५०१"
+  },
   "geoTagging": {
     "Mulberry_Plantation_Date": "तुती लागवड तारीख",
     "Mulberry_Plantation_Area(Hectares)": " तुती लागवड क्षेत्र (हेक्टर)",
