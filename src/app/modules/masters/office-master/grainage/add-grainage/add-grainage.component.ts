@@ -70,7 +70,8 @@ export class AddGrainageComponent {
       // districtId: [this.data ? this.data.districtId : this.webStorage.getDistrictId() == '' ? 0 : this.webStorage.getDistrictId()],
       districtId: [this.data ? this.data.districtId : '' ,[Validators.required]],
       talukaId: [this.data ? this.data.talukaId : '',[Validators.required]],
-      grampanchyatId : [this.data ? this.data.grampanchyatId : '',[Validators.required]],
+      grampanchyatId : [this.data ? this.data.grampanchyatId : ''],
+      //grampanchyatId : [this.data ? this.data.grampanchyatId : '',[Validators.required]],
       address: [this.data ? this.data.address : '',[Validators.required, this.validator.maxLengthValidator(150)]],
       pincode: [this.data ? this.data.pincode : '',[Validators.required,Validators.pattern(this.validator.valPinCode)]],
       remark: [this.data ? this.data.remark : ''],
@@ -154,7 +155,7 @@ export class AddGrainageComponent {
         next: ((res: any) => {
           this.grampanchayatArr = res.responseData;
           this.common.filterArrayDataZone(this.grampanchayatArr, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
-          this.data ? this.f['grampanchyatId'].setValue(this.data?.talukaId) : '';
+          this.data ? this.f['grampanchyatId'].setValue(this.data?.grampanchyatId) : '';
         }), error: (() => {
           this.grampanchayatArr = [];
           this.gramPSubject.next(null);
