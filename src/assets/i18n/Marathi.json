@@ -34,6 +34,11 @@
     "mayur_federation_building_bhanunagar_corner" : "मयुर फेडरेशन बिल्डिंग, भानुनगर कॉर्नर, धाराशिव, महाराष्ट्र - ४१३५०१",
     "02472_223885" : "०२४७२ २२३८८५"
   },
+  "publicHeader":{
+    "silk_business" : "रेशीम व्यवसाय",
+    "farmer" : "शेतकरी",
+    "officer" : "अधिकारी"
+  },
   "publicFooter" : { 
     "like_dairy_and_poultry_farming" : "दुग्धव्यवसाय आणि कुक्कुटपालन प्रमाणेच रेशीम शेती साईड बिझनेस म्हणून देखील करता येते.अतिशय कमी खर्चात आणि शेतकऱ्यांकडे उपलब्ध साहित्यात हा व्यवसाय सुरू करता येतो.",
     "important_links" : "महत्वाच्या लिंक्स",
@@ -45,7 +50,7 @@
     "privacy_policy" :"प्रायव्हसी पॉलिसी",
     "terms_and_conditions" : "नियम आणि अटी",
     "about_silk_business" : "रेशीम व्यवसायाबद्दल",
-    "success_stories" : "यशाच्या कथा",
+    "success_stories" : "यशस्वी कथा",
     "mayur_federation_building_bhanunagar_corn" : "मयुर फेडरेशन बिल्डिंग, भानुनगर कॉर्नर,",
     "dharashiv_maharashtra_413501" : "धाराशिव, महाराष्ट्र - ४१३५०१"
   },

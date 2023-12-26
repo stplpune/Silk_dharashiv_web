@@ -41,7 +41,7 @@ export class ApplicationComponent {
   gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
   routingData: any;
   spliteUrlData!: any;
-
+  isLoanApplicable = [{label:'Yes',m_label:'होय',val:true},{label:'No', m_label:'नाही',val:false}]
 
   constructor(private fb: FormBuilder,
     private master: MasterService,
@@ -98,6 +98,7 @@ export class ApplicationComponent {
       statusId: [0],
       actionId: [0],
       textSearch: [''],
+      isLoanApplicable:[''],
     })
   }
 
@@ -212,6 +213,7 @@ export class ApplicationComponent {
     let formData = this.filterFrm.getRawValue();
     status == 'filter' ? ((this.pageNumber = 1), this.searchDataFlag = true) : '';
     let str = `&pageNo=${this.pageNumber}&pageSize=10`;
+    str+= formData?.isLoanApplicable ||  formData?.isLoanApplicable == false ? '&isLoanApplicable='+formData.isLoanApplicable:'';
     this.apiService.setHttp('GET', 'sericulture/api/ApprovalMaster/GetAllDesignationWiseApplications?userTypeId=' + this.webStorage.getTypeId() + str + '&SchemeTypeId=' + (formData.schemeTypeId || 0) + '&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchayatId=' + (formData.grampanchayatId || 0) +
       '&ApplicationStatus=' + (formData.statusId || 0) + '&UserId=' + (this.webStorage?.getUserId() || 0) + '&TextSearch=' + (formData.textSearch.trim() || '') + '&ActionId=' + (formData.actionId || 0) + '&lan=' + this.lang, false, false, false, 'masterUrl');
 

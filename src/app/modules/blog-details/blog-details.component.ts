@@ -39,7 +39,7 @@ export class BlogDetailsComponent {
   }
 
   getAllBlogs() {
-    let url = `sericulture/api/Blogs/get-blogs-details?SeacrhText=&PageNo=${this.currentPage + 1}&PageSize=10&lan=en`;
+    let url = `sericulture/api/Blogs/get-blogs-details?SeacrhText=&PageNo=${this.currentPage + 1}&PageSize=5&lan=en`;
     this.spinner.show();
     this.apiService.setHttp('GET', url, false, false, false, 'baseUrl');
     this.apiService.getHttp().subscribe({

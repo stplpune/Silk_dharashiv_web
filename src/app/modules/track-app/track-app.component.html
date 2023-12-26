@@ -3,12 +3,12 @@
         <div class="col-sm-12">
             <div class="page-header">
                 <h1 class="page-name">
-                    track application
+                    {{'publicFooter.track_application'| translate}}
                 </h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Track Application</li>
+                        <li class="breadcrumb-item"><a href="#">{{'contactUs.home'| translate}}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{'publicFooter.track_application'| translate}}</li>
                     </ol>
                 </nav>
 
@@ -25,13 +25,19 @@
                             <input matInput placeholder="{{lang == 'en' ? 'Application ID':'अर्ज आयडी'}}"
                                 [formControl]="appId" maxlength="20" (keypress)="validation.noSpaceAllow($event)">
                         </mat-form-field>
-                        <button mat-flat-button class="btn-main" (click)="searchAppliation()">{{lang == "en" ? 'Search'
-                            : 'शोधा'}}</button>
+                        <button mat-flat-button class="btn-main btn-icon" (click)="searchAppliation()"> <mat-icon class="material-symbols-rounded">
+                            search
+                          </mat-icon></button>
+                          <button mat-flat-button class="btn-main-light btn-icon" (click)="searchAppliation('clear')" matTooltip="edit" >
+                            <mat-icon class="material-symbols-rounded">
+                              close
+                            </mat-icon>
+                          </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<app-track-application
-            [childMessage]="applicationId"></app-track-application>
+<app-track-application  [class.optionl_class]="router.url == '/track-application'"
+            [childMessage]="applicationId" ></app-track-application>
 </div>
