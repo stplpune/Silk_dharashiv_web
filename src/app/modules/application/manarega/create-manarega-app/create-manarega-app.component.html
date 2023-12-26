@@ -880,10 +880,10 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <mat-label class="form-label">23.{{'addManrega.is_loan_required'| translate}}</mat-label>
+                <mat-label class="form-label">{{'addManrega.is_loan_required'| translate}}</mat-label>
                 <div class="">
                   <mat-radio-group aria-label="Select an option" class="pb-0" formControlName="isLoanApplicable">
-                    <mat-radio-button *ngFor="let arr of selfTrainingArray" [value]="arr.id" class="pe-3">
+                    <mat-radio-button *ngFor="let arr of checkedArray" [value]="arr.id" class="pe-3">
                       {{lang == 'en' ? arr.name : arr.m_name }}
                     </mat-radio-button>
                   </mat-radio-group>
@@ -1536,8 +1536,14 @@
                       <div class="form-label">{{'approvalProcess.nationalise_bank_accountno'|translate}}</div>
                       <span class="form-data  rounded-pill">{{previewData?.bankAccountNo | dash}}</span>
                     </li>
-
-                  </ul>
+                    <li>
+                      <div class="form-label">{{'addManrega.is_loan_required'| translate}}</div>
+                      <span class="form-data  rounded-pill"
+                        *ngIf="previewData?.isLoanApplicable == false">{{'approvalProcess.yes'| translate}}</span>
+                      <span class="form-data  rounded-pill"
+                        *ngIf="previewData?.isLoanApplicable == true">{{'approvalProcess.no'| translate}}</span>
+                    </li>
+                 </ul>
                 </div>
                 <div class="col-sm-6">
                   <div class="text-main fw-bold">{{'common.documents'|translate}}</div>
