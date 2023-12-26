@@ -1,4 +1,4 @@
-import { Component, Inject, Optional,Input } from '@angular/core';
+import { Component, Inject, Optional, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,7 +17,7 @@ import { DashPipe } from 'src/app/core/Pipes/dash.pipe';
 @Component({
   selector: 'app-track-application',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatIconModule, MatInputModule, MatButtonModule, ReactiveFormsModule, TranslateModule,DashPipe],
+  imports: [CommonModule, MatDialogModule, MatIconModule, MatInputModule, MatButtonModule, ReactiveFormsModule, TranslateModule, DashPipe],
   templateUrl: './track-application.component.html',
   styleUrls: ['./track-application.component.scss']
 })
@@ -28,23 +28,23 @@ export class TrackApplicationComponent {
   @Input() childMessage: any;
   subscription!: Subscription;//used  for lang conv
   lang: any;
-  trackEndFlag:boolean = false
+  trackEndFlag: boolean = false
 
   constructor(
     private apiService: ApiService, private spinner: NgxSpinnerService, private commonMethods: CommonMethodsService, private error: ErrorHandlingService, private WebStorageService: WebStorageService,
     @Optional() public dialogRef: MatDialogRef<TrackApplicationComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any, private router: Router) {
     this.getBaseUrl = this.router.url;
-   this.router.url != '/track-application' ? this.getAppHistory(data.applicationNo):'';
+    this.router.url != '/track-application' ? this.getAppHistory(data.applicationNo) : '';
+
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+    })
   }
 
   ngOnChanges(): void {
-    this.router.url == '/track-application' && this.childMessage ? this.getAppHistory(this.childMessage) : '';
-   
-    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
-      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
-      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-    })
+    this.router.url == '/track-application' && this.childMessage ? this.getAppHistory(this.childMessage) : this.appHistoryArray = [];
   }
 
   getAppHistory(id: any) {
@@ -53,7 +53,7 @@ export class TrackApplicationComponent {
     this.apiService?.getHttp().subscribe((res: any) => {
       if (res.statusCode == "200") {
         this.appHistoryArray = res.responseData;
-        this.trackEndFlag = this.appHistoryArray.every((ele:any)=>  ele.status == 'Approved');
+        this.trackEndFlag = this.appHistoryArray.every((ele: any) => ele.status == 'Approved');
         this.spinner.hide();
       }
       else {

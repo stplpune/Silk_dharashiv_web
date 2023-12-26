@@ -14,17 +14,20 @@ import { Subscription } from 'rxjs';
 })
 export class FarmerDashboardComponent {
   schemeDataArray: any;
-  lang: any;
+  lang: string = 'English';
   subscription!: Subscription;//used  for lang conv
 
   constructor(public dialog: MatDialog, private apiService: ApiService, private WebStorageService: WebStorageService,
     private spinner: NgxSpinnerService, private errorService: ErrorHandlingService) {
-    this.getSchemeData();
+  }
 
+  ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
-      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     });
+
+    this.getSchemeData();
   }
 
   aadhaarNoVal(schemeId: any) {
