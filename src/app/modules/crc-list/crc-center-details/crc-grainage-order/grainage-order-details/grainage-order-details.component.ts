@@ -70,22 +70,6 @@ export class GrainageOrderDetailsComponent {
     });
   }
 
-  // "srNo": 2,
-  // "invoiceNo": "bill123",
-  // "deliveryDate": "2023-10-12T13:29:02.09",
-  // "quantity": 2000,
-  // "lotNo": "lot2019",
-  // "race": 1,
-  // "ledDate": "2023-10-12T07:56:30.267",
-  // "hatchingDate": "2023-10-12T07:56:30.267",
-  // "totalAmount": 1000,
-  // "deliveryCharge": 100,
-  // "discount": 10,
-  // "finalAmount": 1090,
-  // "invoice": "string",
-  // "raceType": "A.H",
-  // "m_RaceType": "ए.एच"
-  
   setTableData() {
     this.highLightedFlag = true;
     let displayedColumns = this.lang == 'en' ? 
