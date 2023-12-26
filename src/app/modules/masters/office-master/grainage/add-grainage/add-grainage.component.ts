@@ -69,7 +69,7 @@ export class AddGrainageComponent {
       stateId: [this.data ? this.data.stateId :'' ,[Validators.required]],
       // districtId: [this.data ? this.data.districtId : this.webStorage.getDistrictId() == '' ? 0 : this.webStorage.getDistrictId()],
       districtId: [this.data ? this.data.districtId : '' ,[Validators.required]],
-      talukaId: [this.data ? this.data.talukaId : '',[Validators.required]],
+      talukaId: [this.data ? this.data.talukaId : ''],
       grampanchyatId : [this.data ? this.data.grampanchyatId : ''],
       //grampanchyatId : [this.data ? this.data.grampanchyatId : '',[Validators.required]],
       address: [this.data ? this.data.address : '',[Validators.required, this.validator.maxLengthValidator(150)]],
