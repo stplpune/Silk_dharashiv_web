@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 
 @Component({
@@ -11,7 +12,15 @@ export class FooterComponent {
   isShow: boolean = true;
   topPosToStartShowing = 100;
   subscription!: Subscription;
-  lang: string = 'English';
+  lang!:any;
+
+  constructor(private webStorage:WebStorageService){
+    this.webStorage.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+    });
+
+    this.lang = localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+  }
 
   @HostListener('window:scroll')
   checkScroll() {
