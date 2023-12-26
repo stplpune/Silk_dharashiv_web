@@ -29,8 +29,9 @@ export class AadhaarNoValComponent {
   checkBoxValueMang!: boolean;
   res: any;
   selectedTab!: number;
-  activeTab!:number;
-  constructor(private validation: ValidationService, public dialogRef: MatDialogRef<AadhaarNoValComponent>,
+  activeTab!: number;
+
+  constructor(public validation: ValidationService, public dialogRef: MatDialogRef<AadhaarNoValComponent>,
     private encryptdecrypt: AesencryptDecryptService, private masterService: MasterService, private apiService: ApiService,
     @Inject(MAT_DIALOG_DATA) public data: any, private router: Router, public webStorage: WebStorageService, private commonMethodsService: CommonMethodsService) {
     this.selectedTab = data?.schemeId;
@@ -46,7 +47,7 @@ export class AadhaarNoValComponent {
         if (res.statusCode == "200") {
           this.res = res;
           if (this.res?.responseData == 4) {
-            this.commonMethodsService.snackBar(this.activeTab == 0 ? 'Silk Samagra application is in the process...' : 'Mgnrega application is in the process...', 1)
+            this.commonMethodsService.snackBar(this.activeTab == 0 ? 'सिल्क समग्र अर्ज प्रक्रियेत आहे...' : 'मग्नरेगा अर्ज प्रक्रियेत आहे...', 1)
           }
         }
         else {
@@ -81,7 +82,7 @@ export class AadhaarNoValComponent {
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.responseData) {
-          this.commonMethodsService.snackBar('This aadhar no is already used for applications...', 1)
+          this.commonMethodsService.snackBar('हा आधार क्रमांक आधीपासून अर्जांसाठी वापरला गेला आहे...', 1)
           return
         }
         let url = (this.selectedTab) == 1 ? 'create-manarega-app' : 'create-samgra-app';
@@ -102,10 +103,13 @@ export class AadhaarNoValComponent {
 
   valAadhaarNo() {
     if (!this.checkBoxValueMang) {
-      this.commonMethodsService.snackBar('Please select checkbox', 1);
+      this.commonMethodsService.snackBar('कृपया चेकबॉक्स निवडा', 1);
+      return
+    } else if (!this.aadhaarNo.getRawValue()) {
+      this.commonMethodsService.snackBar('कृपया आधार क्रमांक टाका.', 1);
       return
     } else if (this.aadhaarNo.status != 'VALID') {
-      this.commonMethodsService.snackBar('Please enter valid Aadhaar No', 1);
+      this.commonMethodsService.snackBar('कृपया वैध आधार क्रमांक प्रविष्ट करा', 1);
       return
     }
 

@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/core/services/api.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-farmer-dashboard',
@@ -12,11 +14,17 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 })
 export class FarmerDashboardComponent {
   schemeDataArray: any;
+  lang: any;
+  subscription!: Subscription;//used  for lang conv
 
-
-  constructor(public dialog: MatDialog, private apiService: ApiService,
+  constructor(public dialog: MatDialog, private apiService: ApiService, private WebStorageService: WebStorageService,
     private spinner: NgxSpinnerService, private errorService: ErrorHandlingService) {
     this.getSchemeData();
+
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+    });
   }
 
   aadhaarNoVal(schemeId: any) {

@@ -202,8 +202,8 @@ export class BeneficieryComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = ['srNo', 'mulberryId', (this.lang == 'en' ? 'schemeType' : 'm_SchemeType'), (this.lang == 'en' ? 'departmentName' : 'm_DepartmentName'), 'fullName', 'mobileNo1', (this.lang == 'en' ? 'taluka' : 'm_Taluka'), (this.lang == 'en' ? 'grampanchayatName' : 'm_GrampanchayatName'), 'mulberryDate']; //'action'
-    let displayedheaders = this.lang == 'en' ? ['Sr. No.', ' Mulberry ID', 'Scheme', 'Process Department', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Date'] : ['अनुक्रमांक', 'मुलबेरी आयडी', 'योजना', 'प्रक्रिया विभाग', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'दिनांक'];// 'पहा' 'view'
+    let displayedColumns = ['srNo', 'mulberryId', (this.lang == 'en' ? 'schemeType' : 'm_SchemeType'), (this.lang == 'en' ? 'departmentName' : 'm_DepartmentName'), 'fullName', 'mobileNo1', (this.lang == 'en' ? 'taluka' : 'm_Taluka'), (this.lang == 'en' ? 'grampanchayatName' : 'm_GrampanchayatName'), 'mulberryDate','action']; //'action'
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.', ' Mulberry ID', 'Scheme', 'Process Department', 'Farmer Name', 'Mobile No.', 'Taluka', 'Grampanchayat', 'Date','view'] : ['अनुक्रमांक', 'मुलबेरी आयडी', 'योजना', 'प्रक्रिया विभाग', 'शेतकऱ्याचे नाव', 'मोबाईल क्र.', 'तालुका', 'ग्रामपंचायत', 'दिनांक','पहा'];// 'पहा' 'view'
 
     let tableData = {
       pageNumber: this.pageNumber,
