@@ -21,7 +21,7 @@ export class AddBlogsComponent {
   get f() { return this.blogForm.controls };
   @ViewChild('uplodLogo') clearlogo!: any;
   subscription!: Subscription;//used  for lang conv
-  lang: string = 'English';
+  lang:any;
   imageResponse: string = '';
   editorConfig = this.common.editorConfig;
   viewMsgFlag:boolean=false;
@@ -43,7 +43,7 @@ export class AddBlogsComponent {
 
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
-      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
     this.isViewFlag = this.data?.label == 'View' ? true : false;

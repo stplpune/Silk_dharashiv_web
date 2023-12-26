@@ -24,7 +24,7 @@ export class MarketRateComponent implements OnDestroy {
   highLightRowFlag: boolean = false;
   tableDataArray = new Array();
   subscription!: Subscription;//used  for lang conv
-  lang: string = 'English';
+  lang:any;
   filterFlag: boolean = false;
   marketArr = new Array();
   goodsArr = new Array();
@@ -50,7 +50,7 @@ export class MarketRateComponent implements OnDestroy {
     this.getFarmsGood();
     this.WebStorageService.getAllPageName().filter((ele: any) => { return ele.pageName == 'Department' ? this.pageAccessObject = ele : '' })
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
-      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     })
