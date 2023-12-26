@@ -1536,8 +1536,14 @@
                       <div class="form-label">{{'approvalProcess.nationalise_bank_accountno'|translate}}</div>
                       <span class="form-data  rounded-pill">{{previewData?.bankAccountNo | dash}}</span>
                     </li>
-
-                  </ul>
+                    <li>
+                      <div class="form-label">{{'addManrega.is_loan_required'| translate}}</div>
+                      <span class="form-data  rounded-pill"
+                        *ngIf="previewData?.isLoanApplicable == false">{{'approvalProcess.yes'| translate}}</span>
+                      <span class="form-data  rounded-pill"
+                        *ngIf="previewData?.isLoanApplicable == true">{{'approvalProcess.no'| translate}}</span>
+                    </li>
+                 </ul>
                 </div>
                 <div class="col-sm-6">
                   <div class="text-main fw-bold">{{'common.documents'|translate}}</div>
