@@ -36,7 +36,8 @@
   "publicHeader":{
     "silk_business" : "Silk Business",
     "farmer" : "Farmer",
-    "officer" : "Officer"
+    "officer" : "Officer",
+    "news": "News"
   },
   "publicFooter" : {
     "like_dairy_and_poultry_farming" : "Like Dairy and poultry farming, silk farming can also be done as a side business along with agriculture. This business can be started at a very low cost and the available materials that the farmers already have.",
