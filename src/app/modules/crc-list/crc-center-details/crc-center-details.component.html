@@ -13,13 +13,13 @@
   </mat-card-header>
   <mat-card-content class="card-content">
     <mat-tab-group class="my-2">
-      <mat-tab label="Profile">
+      <mat-tab label=" {{lang == 'en' ? 'Profile' : 'प्रोफाइल'}}">
           <app-crc-profile></app-crc-profile>
       </mat-tab>
-      <mat-tab label="Delivery Slabs">  <ng-template matTabContent><app-crc-delivery-slabs></app-crc-delivery-slabs></ng-template> </mat-tab>
-      <mat-tab label="Chawki Order"> <ng-template matTabContent><app-crc-chawki-order></app-crc-chawki-order></ng-template></mat-tab>
-      <mat-tab label="Grainage Order"> <ng-template matTabContent><app-crc-grainage-order></app-crc-grainage-order></ng-template></mat-tab>
-      <mat-tab label="Inventory"> <ng-template matTabContent><app-inventory></app-inventory></ng-template></mat-tab>
+      <mat-tab label="{{lang == 'en' ? 'Delivery Slabs' : 'वितरण स्लॅब'}}">  <ng-template matTabContent><app-crc-delivery-slabs></app-crc-delivery-slabs></ng-template> </mat-tab>
+      <mat-tab label=" {{lang == 'en' ? 'Chawki Order' : 'चौकी ऑर्डर'}}"> <ng-template matTabContent><app-crc-chawki-order></app-crc-chawki-order></ng-template></mat-tab>
+      <mat-tab label=" {{lang == 'en' ? 'Grainage Order' : 'ग्रेनेज ऑर्डर'}}"> <ng-template matTabContent><app-crc-grainage-order></app-crc-grainage-order></ng-template></mat-tab>
+      <mat-tab label=" {{lang == 'en' ? 'Inventory' : 'इन्व्हेंटरी'}}"> <ng-template matTabContent><app-inventory></app-inventory></ng-template></mat-tab>
       <!-- <mat-tab label="Chawki Order Details"> <app-crc-chawki-order-details></app-crc-chawki-order-details> </mat-tab> -->
     </mat-tab-group>
   </mat-card-content>

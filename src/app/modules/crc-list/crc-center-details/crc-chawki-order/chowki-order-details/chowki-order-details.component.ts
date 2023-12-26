@@ -107,5 +107,9 @@ export class ChowkiOrderDetailsComponent {
     }
   }
 
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
+
 
 }

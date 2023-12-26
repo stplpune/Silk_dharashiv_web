@@ -465,7 +465,7 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="cultivatedFarmInHector"
                       (input)="FarmValidations('cultivatedFarmInHector')"
-                      (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
+                      (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
                     <mat-error
                       *ngIf="farmInfoFrm.controls['cultivatedFarmInHector'].hasError('required') ">{{'approvalProcess.please_enter_cultivated_area_in_hectaes'|translate}}</mat-error>
                     <mat-error *ngIf="farmInfoFrm.controls['cultivatedFarmInHector']?.errors">

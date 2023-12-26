@@ -46,7 +46,7 @@ export class GrainageOrderDetailsComponent {
 
   getTableData() {
     this.spinner.show();
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Gainage-Order-Details?OrderId='+this.data?.orderId, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Gainage-Order-Details?OrderId=2023101110', false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -70,26 +70,11 @@ export class GrainageOrderDetailsComponent {
     });
   }
 
-   // "id": 6,
-  // "grainage": "sds",
-  // "m_Grainage": "sdfsd",
-  // "type": 1,
-  // "state": "Maharashtra",
-  // "m_State": "महाराष्ट्र",
-  // "location": "Dharashiv",
-  // "m_Location": "धाराशिव",
-  // "pincode": "534543",
-  // "address": "dsfd",
-  // "paymentReceipt": "http://demosilkapi.mahamining.com/Upload/Upload/jpg_12212023120401PM.jpg",
-  // "orderId": 2023122172,
-  // "orderDate": "2023-12-21T12:04:03.71",
-  // "productName": "Silkworm Seed",
-  // "quantity": 800
-  
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'en' ? ['srNo', 'invoiceNo', 'deliveryDate', 'quantity','lotNo', 'race', 'ledDate','hatchingDate','rate','totalAmount','deliveryCharge','discount','finalAmount','invoice']
-      :                                        ['srNo', 'invoiceNo', 'deliveryDate', 'quantity','lotNo', 'race', 'ledDate','hatchingDate','rate','totalAmount','deliveryCharge','discount','finalAmount','invoice'];
+    let displayedColumns = this.lang == 'en' ? 
+    ['srNo', 'invoiceNo', 'deliveryDate', 'quantity','lotNo', 'race', 'ledDate','hatchingDate','rate','totalAmount','deliveryCharge','discount','finalAmount','invoice']
+  :['srNo', 'invoiceNo', 'deliveryDate', 'quantity','lotNo', 'm_RaceType', 'ledDate','hatchingDate','rate','totalAmount','deliveryCharge','discount','finalAmount','invoice'];
     let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Invoice No', 'Delivery Date', 'Quantity(DFLs)','Lot No','Race','Led Date','Hatching Date','Rate','Total Amount', 'Delivery Charge','Discount','Final Amount','Invoice'] :
       ['अनुक्रमांक','चलन क्रमांक', 'वितरण तारीख', 'प्रमाण','लॉट नंबर', 'वंशाचे नाव', 'नेतृत्व तारीख','उबवणुकीची तारीख','दर','एकूण रक्कम','वितरण शुल्क','दस्तऐवज','अंतिम रक्कम','चलन' ];
     let tableData = {
@@ -118,14 +103,15 @@ export class GrainageOrderDetailsComponent {
         this.pageNumber = obj.pageNumber;
         this.getTableData();
         break;
-        case 'View':
-        // window.open(obj)
-          break;
     }
   }
 
   viewreceipt(){
     window.open(this.orderdetail?.paymentReceipt)
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
 
