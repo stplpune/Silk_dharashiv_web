@@ -38,7 +38,6 @@ export class HeaderComponent {
   ngOnInit() {
     let language: any = localStorage.getItem('language');
     language = language ? language : 'English';
-    console.log(language);
     // sessionStorage.setItem('language', language)
     this.webStorage.setLanguage.next(language);
     this.translate.use(language);
