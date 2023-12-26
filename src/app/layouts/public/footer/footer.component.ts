@@ -1,4 +1,6 @@
 import { Component, HostListener } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-footer',
@@ -8,6 +10,8 @@ import { Component, HostListener } from '@angular/core';
 export class FooterComponent {
   isShow: boolean = true;
   topPosToStartShowing = 100;
+  subscription!: Subscription;
+  lang: string = 'English';
 
   @HostListener('window:scroll')
   checkScroll() {
