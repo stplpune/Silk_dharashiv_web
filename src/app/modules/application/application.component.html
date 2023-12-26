@@ -89,8 +89,8 @@
         </div>
         <div class="col-sm-2" >
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Is Loan Applicable ?</mat-label>
-            <mat-select formControlName="isLoanApplicable" placeholder="All Status">
+            <mat-label>{{'addManrega.is_loan_required'| translate}} ?</mat-label>
+            <mat-select formControlName="isLoanApplicable">
               <mat-option *ngFor="let loanApplicable of isLoanApplicable" [value]="loanApplicable.val">{{lang == 'en' ?  loanApplicable.label : loanApplicable.m_label}}</mat-option>
             </mat-select>
           </mat-form-field>
