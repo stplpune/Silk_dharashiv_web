@@ -31,7 +31,7 @@ export class GeoTaggingComponent {
   constructor(public dialogRef: MatDialogRef<GeoTaggingComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private apiService: ApiService, private commonMethod: CommonMethodsService,
     private errorHandler: ErrorHandlingService, private WebStorageService: WebStorageService) {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
-      this.lang = res ? res : sessionStorage.getItem('language') ? sessionStorage.getItem('language') : 'English';
+      this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     });
   }
