@@ -174,7 +174,10 @@
     "search": "शोधा",
     "documents": "कागदपत्रे",
     "file_upload": "फाइल अपलोड",
-    "please_enter_valid_village_name": "कृपया वैध गावाचे नाव प्रविष्ट करा"
+    "please_enter_valid_village_name": "कृपया वैध गावाचे नाव प्रविष्ट करा",
+    "my_profile" : "माझे प्रोफाइल",
+     "change_password" : "पासवर्ड बदला",
+     "logout" : "लॉगआउट"
   },
   "approvalProcess": {
     "original_details": "मूळ तपशील",
