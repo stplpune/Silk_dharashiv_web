@@ -90,7 +90,7 @@ export class LoginComponent {
     } else if (this.loginForm.value.captcha != this.commonMethods.checkvalidateCaptcha()) {
       this.spinner.hide();
       this.refreshCaptcha()
-      this.commonMethods.snackBar("Please Enter Valid Capcha", 1)
+      this.commonMethods.snackBar((this.lang == 'en' ? "Please Enter Valid Capcha" : "कृपया वैध कॅप्चा प्रविष्ट करा"), 1)
       return;
     }
     else {
