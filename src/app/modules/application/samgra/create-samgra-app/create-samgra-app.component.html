@@ -960,12 +960,13 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="col-sm-4">
-                <div class="d-flex flex-column">
-                  <mat-label class="form-label">35.Loan Applicable</mat-label>
-                  <mat-radio-group aria-label="Select an option" formControlName="isLoanApplicable">
-                    <mat-radio-button *ngFor="let check of checkedArray"
-                      [value]="check.id">{{lang == 'en' ? check.name : check.m_name}}</mat-radio-button>
+              <div class="col-sm-4 mt-1">
+                <mat-label class="form-label">35.{{'addManrega.is_loan_required'| translate}}</mat-label>
+                <div class="">
+                  <mat-radio-group aria-label="Select an option" class="pb-0" formControlName="isLoanApplicable">
+                    <mat-radio-button *ngFor="let arr of checkedArray" [value]="arr.id" class="pe-3">
+                      {{lang == 'en' ? arr.name : arr.m_name }}
+                    </mat-radio-button>
                   </mat-radio-group>
                 </div>
               </div>
@@ -1742,6 +1743,12 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div class="form-label">{{'approvalProcess.nationalise_bank_accountno'|translate}} </div>
                       <span class="form-data  rounded-pill">{{previewData?.bankAccountNo | dash}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                     <div class="form-label">{{'addManrega.is_loan_required'| translate}}</div>
+                      <!-- <span class="form-data  rounded-pill">{{previewData?.isLoanApplicable | dash}}</span> -->
+                      <span class="form-data  rounded-pill">:{{ previewData?.isLoanApplicable == true ? ('approvalProcess.yes'|
+                        translate) : ('approvalProcess.no'| translate) }}</span>
                     </li>
 
                   </ul>
