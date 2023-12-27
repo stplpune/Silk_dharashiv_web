@@ -33,7 +33,7 @@ export class GrainageOrderDetailsComponent {
 
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {    
     this.subscription = this.webService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -46,7 +46,7 @@ export class GrainageOrderDetailsComponent {
 
   getTableData() {
     this.spinner.show();
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Gainage-Order-Details?OrderId=2023101110', false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Gainage-Order-Details?OrderId='+this.data.orderId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();

@@ -93,7 +93,7 @@ export class CrcProfileComponent {
 
 
   getStatus() {
-    this.masterService.getCRCStatus().subscribe({
+    this.masterService.GetCRCProfileStatus().subscribe({
       next: ((res: any) => {
         this.statusArray = res.responseData;
       }), error: (() => {

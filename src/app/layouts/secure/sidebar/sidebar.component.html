@@ -33,8 +33,7 @@
                         </div>
                         <span class="dropdown-toggle"></span>
                     </a>
-                    <div id="collapseReport{{i}}" [class]="master.collapseFlag ? 'show collapse ' : 'collapse'"
-                        [id]="'collapsemasters'+i">
+                    <div id="collapseReport{{i}}" [class]="master.collapseFlag ? 'show collapse ' : 'collapse'">
                         <ul class="submenu">
                             <li *ngFor="let url of master?.data[0]?.pageName; let k= index">
                                 <a routerLink="{{master?.data[0]?.pageURL[k]}}" class="child-menu"

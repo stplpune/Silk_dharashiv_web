@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ExpenseGuard } from 'src/app/core/guards/expense.guard';
 
 const routes: Routes = [
-  { path: 'dashboard', loadComponent: () => import('../../modules/dashboard/dashboard.component').then(m => m.DashboardComponent), data: { breadcrumb: [{ title: 'Dashboard', active: true }] }, canActivate: [ExpenseGuard] },
+  { path: 'dashboard', loadChildren: () => import('../../modules/dashboard/dashboard.module').then(m => m.DashboardModule), data: { breadcrumb: [{ title: 'Dashboard', active: true }] }, canActivate: [ExpenseGuard] },
+  // { path: 'dashboard', loadComponent: () => import('../../modules/dashboard/dashboard.component').then(m => m.DashboardComponent), data: { breadcrumb: [{ title: 'Dashboard', active: true }] }, canActivate: [ExpenseGuard] },
   { path: 'department', loadChildren: () => import('../../modules/masters/office-master/department/department.module').then(m => m.DepartmentModule), data: { breadcrumb: [{ title: 'Department', active: true }] }, canActivate: [ExpenseGuard] },
   { path: 'designations', loadChildren: () => import('../../modules/masters/office-master/designations/designations.module').then(m => m.DesignationsModule), data: { breadcrumb: [{ title: 'Designation', active: true }] }, canActivate: [ExpenseGuard] },
   { path: 'block', loadChildren: () => import('../../modules/masters/office-master/block-circle/block-circle.module').then(m => m.BlockCircleModule), data: { breadcrumb: [{ title: 'Block', active: true }] }, canActivate: [ExpenseGuard] },
@@ -51,8 +52,8 @@ const routes: Routes = [
 
   { path: 'beneficiery', loadChildren: () => import('../../modules/beneficiery/beneficiery.module').then(m => m.BeneficieryModule), data: { breadcrumb: [{ title: 'Beneficiery List', active: true }] } },
   { path: 'beneficiery-detailsy', loadChildren: () => import('../../modules/beneficiery/beneficiery-details/beneficiery-details.module').then(m => m.BeneficieryDetailsModule), data: { breadcrumb: [{ title: 'Beneficiery Details', active: true }] } },
-  { path: 'farmer-dashboard', loadChildren: () => import('../../modules/farmer/farmer-dashboard/farmer-dashboard.module').then(m => m.FarmerDashboardModule) , data: { breadcrumb: [{ title: 'Farmer Dashboard', active: true }] } },
- 
+  { path: 'farmer-dashboard', loadChildren: () => import('../../modules/farmer/farmer-dashboard/farmer-dashboard.module').then(m => m.FarmerDashboardModule), data: { breadcrumb: [{ title: 'Farmer Dashboard', active: true }] } },
+
 
   { path: 'access-denied', loadChildren: () => import('../../modules/error/error.module').then(m => m.ErrorModule), data: { breadcrumb: [{ title: 'Access Denied', active: true }] } },
 ];

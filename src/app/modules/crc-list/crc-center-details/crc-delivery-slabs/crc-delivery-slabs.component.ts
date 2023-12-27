@@ -83,7 +83,6 @@ export class CrcDeliverySlabsComponent {
     });
    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
     this.id = spliteUrl[0];
-    this.id=27;
     this.crcNameEn = spliteUrl[1];
     this.crcNameMR = spliteUrl[2];
     this.getFormData();
@@ -117,7 +116,7 @@ export class CrcDeliverySlabsComponent {
   }
 
   getStatus() {
-    this.masterService.getCRCStatus().subscribe({
+    this.masterService.GetDistributionSlab().subscribe({
       next: ((res: any) => {
         this.statusArray = res.responseData;
       }), error: (() => {
@@ -189,14 +188,10 @@ export class CrcDeliverySlabsComponent {
         !this.filterFlag ? this.getFormData() : ''
         this.bindTable();
         break;
-      // case 'View':
-      //   this.viewCRCList(obj);
-      //   break;
-      // case 'Block':
-      //   this.openBlockDialog(obj);
-      //   break;
     }
   }
+
+  
 
   clearFormData() {
     this.pageNumber = 1;

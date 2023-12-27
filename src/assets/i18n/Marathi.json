@@ -407,7 +407,7 @@
     "grainageName_en_limit": "कमाल 50 वर्णांना अनुमती आहे",
     "grainageName_mr": "ग्रेनेजचे नाव (मराठी)",
     "grainageName_mr_require": "कृपया ग्रेनेजचे नाव प्रविष्ट करा (मराठी)",
-    "grainageName_mr_pattern": "ग्रेनेज (मराठी) आवश्यक आहे",
+    "grainageName_mr_pattern": "कृपया वैध ग्रेनेज नाव(मराठी) प्रविष्ट करा ",
     "grainageName_mr_limit": "कमाल 50 वर्णांना अनुमती आहे",
     "State": "राज्य",
     "address": "पत्ता",
