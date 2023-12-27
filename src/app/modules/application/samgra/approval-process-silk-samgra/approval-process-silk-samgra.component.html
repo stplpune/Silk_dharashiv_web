@@ -1,10 +1,9 @@
-
 <mat-card class="plain-card form-container">
   <mat-card-header class="card-header">
     <div class="d-flex align-items-center justify-content-between w-100">
       <!-- <div class="text-main fw-bold">Application / {{applicantDetails?.schemeType}} / View Application </div> -->
-    <div class="text-main fw-bold">{{lang == 'en' ? 'Silk Samagra / Details' : 'मनरेगा / तपशील'}}</div>
-    <button mat-flat-button class="btn-main-light" (click)="commonMethod.locationBack()">
+      <div class="text-main fw-bold">{{lang == 'en' ? 'Silk Samagra / Details' : 'मनरेगा / तपशील'}}</div>
+      <button mat-flat-button class="btn-main-light" (click)="commonMethod.locationBack()">
         <mat-icon class="material-symbols-rounded">
           chevron_left
         </mat-icon>{{lang == 'en' ? 'Back' :'मागे'}}
@@ -18,13 +17,14 @@
         <div class="col-sm-4">
           <div class="row gx-2">
             <div class="col-sm-6">
-              <div class="form-label mb-0">{{'approvalProcess.applicant_id'| translate}} ({{'approvalProcess.date'| translate}}):</div>
+              <div class="form-label mb-0">{{'approvalProcess.applicant_id'| translate}} ({{'approvalProcess.date'|
+                translate}}):</div>
             </div>
             <div class="col-sm-6">
               <div class="form-data">{{(applicationData?.applicationNo) | dash }} ({{applicationData?.applicationDate |
-              date:'dd-MM-yyyy'}})</div>
+                date:'dd-MM-yyyy'}})</div>
+            </div>
           </div>
-        </div>
         </div>
         <div class="col-sm-4" *ngIf="applicationData?.getSiteInspectionDataModel?.isSiteInspectionDone">
           <div class="row gx-2">
@@ -33,8 +33,8 @@
             </div>
             <div class="col-sm-6">
               <div class="form-data">{{applicantDetails?.mulberryId}} ({{(applicantDetails?.mulberryIdGeneratedDate|
-              date:'dd-MM-yyyy') | dash}})</div>
-              </div>
+                date:'dd-MM-yyyy') | dash}})</div>
+            </div>
           </div>
         </div>
         <div class="col-sm-4">
@@ -66,8 +66,8 @@
             </div>
             <div class="col-sm-6">
               <div class="form-data">{{lang == 'en' ? (applicationData?.schemeType | dash) :
-              (applicationData?.m_SchemeType | dash)}} </div>
-              </div>
+                (applicationData?.m_SchemeType | dash)}} </div>
+            </div>
           </div>
         </div>
 
@@ -78,8 +78,8 @@
             </div>
             <div class="col-sm-6">
               <div class="form-data">{{lang == 'en' ? (applicationData?.departmentName | dash) :
-              (applicationData?.m_DepartmentName | dash)}} </div>
-              </div>
+                (applicationData?.m_DepartmentName | dash)}} </div>
+            </div>
           </div>
         </div>
 
@@ -119,18 +119,20 @@
 
         <ng-container matColumnDef="designationName">
           <th mat-header-cell *matHeaderCellDef>{{'setRule.designation'| translate}}</th>
-          <td mat-cell *matCellDef="let element" class="mnw-200">{{lang == 'en' ? element.designationName : element.m_DesignationName}}</td>
+          <td mat-cell *matCellDef="let element" class="mnw-200">{{lang == 'en' ? element.designationName :
+            element.m_DesignationName}}</td>
         </ng-container>
         <ng-container matColumnDef="actionName">
           <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
-          <td mat-cell *matCellDef="let element" class="mnw-200">{{lang == 'en' ? element.actionName : element.m_ActionName}}</td>
+          <td mat-cell *matCellDef="let element" class="mnw-200">{{lang == 'en' ? element.actionName :
+            element.m_ActionName}}</td>
         </ng-container>
 
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.approval_status'| translate}}</th>
           <td mat-cell *matCellDef="let element">
             <h6 class="mb-0"><span class="badge"
-              [ngClass]="lang == 'en' ? (element.status=='Approved' ? 'text-bg-success' : (element.status == 'Pending') ? 'text-bg-warning' : 'bg-danger-subtle text-danger') :
+                [ngClass]="lang == 'en' ? (element.status=='Approved' ? 'text-bg-success' : (element.status == 'Pending') ? 'text-bg-warning' : 'bg-danger-subtle text-danger') :
               (element.m_Status=='मान्यता प्राप्त' ? 'text-bg-success' : (element.m_Status == 'प्रलंबित') ? 'text-bg-warning' : 'bg-danger-subtle text-danger')">
                 {{lang =='en' ? (element.status ? element.status :'-') : (element.m_Status ? element.m_Status :'-')}}
               </span></h6>
@@ -145,8 +147,10 @@
         <ng-container matColumnDef="remark">
           <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.approval_remark'| translate}}</th>
           <td mat-cell *matCellDef="let element">
-            <span>{{element?.remark?.length > 10 ? (element?.remark?.slice(0 , 10))+'...' : element?.remark?.length < 10 ?  (element?.remark) : '-'}} </span>
-            <a *ngIf="element?.remark?.length > 10" (click)="remarkDialogBox(element.remark)" >{{lang == 'en' ? 'More' : 'अधिक'}}</a>
+            <span>{{element?.remark?.length > 10 ? (element?.remark?.slice(0 , 10))+'...' : element?.remark?.length < 10
+                ? (element?.remark) : '-' }} </span>
+                <a *ngIf="element?.remark?.length > 10" (click)="remarkDialogBox(element.remark)">{{lang == 'en' ?
+                  'More' : 'अधिक'}}</a>
           </td>
         </ng-container>
 
@@ -176,8 +180,10 @@
               </button>
             </ng-container>
             <ng-template #elseBlock>
-              <div *ngIf="applicationData.getSiteInspectionDataModel.isSiteInspectionDone && element?.actionId == 6; else elseBlockSec">
-                <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10" (click)="addGeoTagging()">
+              <div
+                *ngIf="applicationData.getSiteInspectionDataModel.isSiteInspectionDone && element?.actionId == 6; else elseBlockSec">
+                <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
+                  (click)="addGeoTagging()">
                   <span class="material-symbols-rounded text-dark">
                     visibility
                   </span>
@@ -192,7 +198,8 @@
 
         <tr class="mat-row p-2 w-100" *matNoDataRow>
           <td class="" colspan="12">
-            <div class="alert alert-danger text-center m-2 p-2" colspan="12">{{'approvalProcess.no_data_found'| translate}}</div>
+            <div class="alert alert-danger text-center m-2 p-2" colspan="12">{{'approvalProcess.no_data_found'|
+              translate}}</div>
           </td>
         </tr>
         <tr mat-header-row *matHeaderRowDef="displayColumnRemark"></tr>
@@ -260,7 +267,7 @@
                   (applicantDetails?.m_Qualification | dash)}}</div>
               </div>
 
-             <div class="col-sm-2 col-4">
+              <div class="col-sm-2 col-4">
                 <div class="form-label">{{'common.State'| translate}}</div>
               </div>
               <div class="col-sm-4 col-8">
@@ -311,12 +318,12 @@
 
             </div>
             <div class="form-label">{{'approvalProcess.beneficiary_category'| translate}}</div>
-              <div class="form-data mb-0" *ngFor="let data of applicationData?.categoryofBenificiaryModel;let i=index">
-                {{(i+1)+". "+(lang == 'en' ? data?.categoryOfBeneficiary : data?.m_CategoryOfBeneficiary)}}
-              </div>
+            <div class="form-data mb-0" *ngFor="let data of applicationData?.categoryofBenificiaryModel;let i=index">
+              {{(i+1)+". "+(lang == 'en' ? data?.categoryOfBeneficiary : data?.m_CategoryOfBeneficiary)}}
+            </div>
             <div class="d-flex gap-2">
               <div class="form-label">{{'approvalProcess.is_Beneficiary_below_poverty_line'| translate}}</div>
-             <div class="form-data">
+              <div class="form-data">
                 <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
                   <mat-radio-button value="11" [checked]="applicantDetails?.sm_IsBelowPovertyLine == true"
                     class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
@@ -324,9 +331,9 @@
                     class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
                 </mat-radio-group>
               </div>
-           </div>
+            </div>
+          </div>
         </div>
-      </div>
       </div>
     </div>
 
@@ -342,7 +349,8 @@
               <tbody>
                 <tr>
                   <td>
-                    <div class="form-label">{{'approvalProcess.total_land_in_hectares_in_favor_of_beneficiaries'| translate}} </div>
+                    <div class="form-label">{{'approvalProcess.total_land_in_hectares_in_favor_of_beneficiaries'|
+                      translate}} </div>
                   </td>
                   <td>
                     <div class="form-data">{{applicantDetails?.benificiaryTotalFarm}}</div>
@@ -414,7 +422,8 @@
                 </tr>
                 <tr>
                   <td>
-                    <div class="form-label">{{'approvalProcess.mulberry_Planting_Land_Group_No_Survey_No'| translate}} </div>
+                    <div class="form-label">{{'approvalProcess.mulberry_Planting_Land_Group_No_Survey_No'| translate}}
+                    </div>
                   </td>
                   <td>
                     <div class="form-data">{{applicantDetails?.sm_PlantationSurveyNo}}</div>
@@ -444,15 +453,16 @@
         </div>
 
         <div class="d-flex gap-2">
-          <div class="form-label">{{'approvalProcess.have_you_planted_mulberry_earlier_under_the_government_scheme'| translate}}</div>
-        <div class="form-data">
-          <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
-            <mat-radio-button value="1" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == true"
-              class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
-            <mat-radio-button value="2" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == false"
-              class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
-          </mat-radio-group>
-        </div>
+          <div class="form-label">{{'approvalProcess.have_you_planted_mulberry_earlier_under_the_government_scheme'|
+            translate}}</div>
+          <div class="form-data">
+            <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+              <mat-radio-button value="1" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == true"
+                class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+              <mat-radio-button value="2" [checked]="applicantDetails?.isAnyPlantedBeforeGovScheme == false"
+                class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+            </mat-radio-group>
+          </div>
         </div>
         <table class="table table-bordered" *ngIf="applicantDetails?.isAnyPlantedBeforeGovScheme">
           <thead>
@@ -469,8 +479,8 @@
               <td>{{applicantDetails?.sm_CultivatedArea | dash}}</td>
               <td>{{applicantDetails?.sm_LandSurveyNo | dash}}</td>
             </tr>
-            </tbody>
-          </table>
+          </tbody>
+        </table>
 
 
 
@@ -489,7 +499,7 @@
           </ng-container>
 
           <ng-container matColumnDef="cropname">
-            <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.crop_Name'| translate}}  </th>
+            <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.crop_Name'| translate}} </th>
             <td mat-cell *matCellDef="let element">{{lang == 'en' ? (element?.ShetmalCast | dash ) :
               (element?.M_ShetmalCast | dash)}} </td>
           </ng-container>
@@ -503,7 +513,8 @@
             <td mat-cell *matCellDef="let element"> {{element.totalProduction}} </td>
           </ng-container>
           <ng-container matColumnDef="avgrateperquintal">
-            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.the_average_rate_obtained_per_quintal'| translate}} </th>
+            <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.the_average_rate_obtained_per_quintal'|
+              translate}} </th>
             <td mat-cell *matCellDef="let element"> {{element.averageRate}} </td>
           </ng-container>
           <ng-container matColumnDef="finishedproduct">
@@ -531,15 +542,16 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="row">
-              <div class="col-sm-8 form-label">{{'approvalProcess.do_you_have_experience_in_the_silk_industry'| translate}}</div>
+              <div class="col-sm-8 form-label">{{'approvalProcess.do_you_have_experience_in_the_silk_industry'|
+                translate}}</div>
               <div class="col-sm-4 form-data">
-              <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
-                <mat-radio-button value="1" [checked]="applicantDetails?.sm_IsExperienceSilkIndustry == true"
-                  class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
-                <mat-radio-button value="2" [checked]="applicantDetails?.sm_IsExperienceSilkIndustry == false"
-                  class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
-              </mat-radio-group>
-            </div>
+                <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+                  <mat-radio-button value="1" [checked]="applicantDetails?.sm_IsExperienceSilkIndustry == true"
+                    class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+                  <mat-radio-button value="2" [checked]="applicantDetails?.sm_IsExperienceSilkIndustry == false"
+                    class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
             </div>
           </div>
           <div class="col-sm-6">
@@ -550,7 +562,8 @@
           </div>
           <div class="col-sm-6">
             <div class="row">
-              <div class="col-sm-8 form-label">{{'approvalProcess.have_you_done_training_in_silk_industry'| translate}}</div>
+              <div class="col-sm-8 form-label">{{'approvalProcess.have_you_done_training_in_silk_industry'| translate}}
+              </div>
               <div class="col-sm-4 form-data">
                 <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
                   <mat-radio-button value="1" [checked]="applicantDetails?.sm_IsSilkIndustrtyTrainingReceived == true"
@@ -569,7 +582,9 @@
 
         <!-- <div class="text-main fw-bold mt-4">Details </div> -->
         <div class="d-flex gap-2">
-          <div class="form-label">{{'approvalProcess.have_you_gone_directly_to_the_silk_industry_farmer_and_taken_the_information'| translate}}</div>
+          <div class="form-label">
+            {{'approvalProcess.have_you_gone_directly_to_the_silk_industry_farmer_and_taken_the_information'|
+            translate}}</div>
           <div class="form-data">
             <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
               <mat-radio-button value="1" [checked]="applicantDetails?.sm_IsSilkIndustrtyTrainingReceived == true"
@@ -582,7 +597,7 @@
 
 
         </div>
-<!-- <div class="col-sm-2 col-4">
+        <!-- <div class="col-sm-2 col-4">
             <div class="form-label">Deatils </div>
           </div>
           <div class="col-sm-4 col-8">
@@ -591,7 +606,9 @@
         <div class="card mb-2">
           <div class="card-header">
             <div class="d-flex gap-2">
-              <div class="form-label">{{'approvalProcess.have_you_benefited_from_any_scheme_under_Silk_Directorate_before_this'| translate}}</div>
+              <div class="form-label">
+                {{'approvalProcess.have_you_benefited_from_any_scheme_under_Silk_Directorate_before_this'| translate}}
+              </div>
               <div class="form-data">
                 <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
                   <mat-radio-button value="1" [checked]="applicantDetails?.sm_IsTakenBenefitOfInternalScheme == true"
@@ -604,30 +621,30 @@
           </div>
           <div class="card-body px-0" *ngIf="applicantDetails?.sm_IsTakenBenefitOfInternalScheme">
             <table mat-table [dataSource]="applicantDetails?.benefitOfInternalSchemeModel" class="mat-elevation-z8">
-                 <ng-container matColumnDef="srNo">
-                    <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
-                    <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
-                  </ng-container>
+              <ng-container matColumnDef="srNo">
+                <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
+                <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
+              </ng-container>
 
-                  <ng-container matColumnDef="sm_NameOfPlan">
-                    <th mat-header-cell *matHeaderCellDef>{{'scheme.scheme_name'| translate}}Scheme Name</th>
-                    <td mat-cell *matCellDef="let element"> {{element.internalSchemeName | dash}} </td>
-                  </ng-container>
+              <ng-container matColumnDef="sm_NameOfPlan">
+                <th mat-header-cell *matHeaderCellDef>{{'scheme.scheme_name'| translate}}Scheme Name</th>
+                <td mat-cell *matCellDef="let element"> {{element.internalSchemeName | dash}} </td>
+              </ng-container>
 
-                  <ng-container matColumnDef="sm_PlanTakenDate">
-                    <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.benefit_Year'| translate}} </th>
-                    <td mat-cell *matCellDef="let element"> {{element.schemeTakenDate | date:'dd-MM-yyyy'}} </td>
-                  </ng-container>
+              <ng-container matColumnDef="sm_PlanTakenDate">
+                <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.benefit_Year'| translate}} </th>
+                <td mat-cell *matCellDef="let element"> {{element.schemeTakenDate | date:'dd-MM-yyyy'}} </td>
+              </ng-container>
 
-                 <ng-container matColumnDef="sm_TakenPlanBenefit">
-                    <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.benefit_Amount'| translate}}</th>
-                    <td mat-cell *matCellDef="let element"> {{element.totalBenefitTaken  | dash}} </td>
-                  </ng-container>
+              <ng-container matColumnDef="sm_TakenPlanBenefit">
+                <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.benefit_Amount'| translate}}</th>
+                <td mat-cell *matCellDef="let element"> {{element.totalBenefitTaken | dash}} </td>
+              </ng-container>
 
-                   <tr mat-header-row *matHeaderRowDef="displayedScheme"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedScheme;"></tr>
-                </table>
-             </div>
+              <tr mat-header-row *matHeaderRowDef="displayedScheme"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedScheme;"></tr>
+            </table>
+          </div>
         </div>
 
 
@@ -661,6 +678,19 @@
                 <div class="d-flex gap-2">
                   <div class="form-label mb-0">{{'approvalProcess.bank_account_no'| translate}}:</div>
                   <div class="form-data">{{applicantDetails?.bankAccountNo | dash}} </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="d-flex gap-2">
+                  <div class="form-label mb-0">{{'addManrega.is_loan_required'| translate}}:</div>
+                  <div class="form-data">
+                    <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+                      <mat-radio-button value="11" [checked]="applicantDetails?.isLoanApplicable == true"
+                        class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+                      <mat-radio-button value="12" [checked]="applicantDetails?.isLoanApplicable == false"
+                        class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
                 </div>
               </div>
             </div>
@@ -730,7 +760,7 @@
                   <td colspan="12">
                     <div class="alert alert-danger text-center m-2 p-2" colspan="12">
                       {{'approvalProcess.no_data_found'| translate}}
-                     </div>
+                    </div>
                   </td>
                 </tr>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -741,18 +771,19 @@
           <mat-tab label="{{'approvalProcess.other_document'| translate}}">
             <div class="container-fluid">
               <!--  -->
-              <form [formGroup]="uploadFrm" #formDirective="ngForm" (ngSubmit)="onSubmit()" class="w-100 mt-2" [class.disable]="!applicationData?.isEdit">
+              <form [formGroup]="uploadFrm" #formDirective="ngForm" (ngSubmit)="onSubmit()" class="w-100 mt-2"
+                [class.disable]="!applicationData?.isEdit">
                 <div class="row g-2">
                   <div class="col-sm">
                     <mat-form-field appearance="outline" class="w-100">
                       <mat-label>{{'approvalProcess.document_name'| translate}}</mat-label>
                       <input matInput placeholder="" formControlName="documentType" maxlength="50"
                         (keypress)="validation.noSpacesAtStart($event)">
-                        <mat-error *ngIf="uploadFrm.controls['documentType']?.errors">
-                          <span class="text-danger"
-                              *ngIf="uploadFrm.controls['documentType']?.hasError('maxLengthExceeded')">
-                              {{'designation.designation_maxLength'|translate}}
-                          </span>
+                      <mat-error *ngIf="uploadFrm.controls['documentType']?.errors">
+                        <span class="text-danger"
+                          *ngIf="uploadFrm.controls['documentType']?.hasError('maxLengthExceeded')">
+                          {{'designation.designation_maxLength'|translate}}
+                        </span>
                       </mat-error>
                     </mat-form-field>
                   </div>
@@ -761,11 +792,10 @@
                       <mat-label>{{'approvalProcess.document_number'| translate}}</mat-label>
                       <input matInput placeholder="" formControlName="docNo"
                         (keypress)="validation.noSpacesAtStart($event)">
-                        <mat-error *ngIf="uploadFrm.controls['docNo']?.errors">
-                          <span class="text-danger"
-                              *ngIf="uploadFrm.controls['docNo']?.hasError('maxLengthExceeded')">
-                              {{'designation.designation_maxLength'|translate}}
-                          </span>
+                      <mat-error *ngIf="uploadFrm.controls['docNo']?.errors">
+                        <span class="text-danger" *ngIf="uploadFrm.controls['docNo']?.hasError('maxLengthExceeded')">
+                          {{'designation.designation_maxLength'|translate}}
+                        </span>
                       </mat-error>
                     </mat-form-field>
                   </div>
@@ -773,7 +803,7 @@
                     <div class="file-upload border rounded-2 p-1">
                       <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
                         (click)="uplodLogo.value='';uplodLogo.click()" data-placement="right">
-                       {{'approvalProcess.upload_document'| translate}}
+                        {{'approvalProcess.upload_document'| translate}}
                       </button>
                       <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file"
                         (change)="imageUplod($event,'otherDocForm')" hidden="hidden" />
@@ -798,7 +828,8 @@
                       <mat-icon class="material-symbols-rounded">
                         add
                       </mat-icon>
-                      {{editOtherDocForm ? ('approvalProcess.update_document'| translate): ('approvalProcess.add_document'| translate)}}
+                      {{editOtherDocForm ? ('approvalProcess.update_document'| translate):
+                      ('approvalProcess.add_document'| translate)}}
                     </button>
                   </div>
                 </div>
@@ -839,8 +870,8 @@
                         </span>
                       </button> -->
                       <!-- [disabled]="!element?.isDeleteAction"   *ngIf="applicationData?.isEdit" -->
-                      <button matTooltipPosition="above" [disabled]="!applicationData?.isEdit" mat-icon-button class="btn-icon bg-danger bg-opacity-10"
-                        (click)="deleteOtherDocument(i, element)" >
+                      <button matTooltipPosition="above" [disabled]="!applicationData?.isEdit" mat-icon-button
+                        class="btn-icon bg-danger bg-opacity-10" (click)="deleteOtherDocument(i, element)">
                         <span class="material-symbols-rounded text-danger">
                           delete
                         </span>
@@ -1026,8 +1057,7 @@
                 <textarea matInput placeholder="" formControlName="remark"
                   (keypress)="validation.noFirstSpaceAllow($event)" style="height: 83px;"></textarea>
                 <mat-error *ngIf="approvalFrm.controls['remark']?.errors">
-                  <span class="text-danger"
-                    *ngIf="approvalFrm.controls['remark']?.hasError('maxLengthExceeded')">
+                  <span class="text-danger" *ngIf="approvalFrm.controls['remark']?.hasError('maxLengthExceeded')">
                     {{'common.address_maximum 100 character_allowed' | translate }}
                   </span>
                 </mat-error>
@@ -1036,7 +1066,8 @@
 
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 my-2">
-            <button mat-flat-button class="btn-main-light" type="button" [mat-dialog-close]="true" (click)="clearForm()">{{'common.cancel'| translate}}</button>
+            <button mat-flat-button class="btn-main-light" type="button" [mat-dialog-close]="true"
+              (click)="clearForm()">{{'common.cancel'| translate}}</button>
             <button mat-flat-button class="btn-main" type="submit">{{'common.submit'| translate}}</button>
           </div>
         </form>
