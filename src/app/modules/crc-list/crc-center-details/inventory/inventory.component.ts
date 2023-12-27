@@ -164,7 +164,7 @@ export class InventoryComponent {
     let displayedColumns = this.lang == 'en' ? ['srNo', 'grainage', 'grainageType', 'state', 'lotNumber', 'raceType', 'purchase', 'available']
       : ['srNo', 'm_Grainage', 'm_GrainageType', 'm_State', 'lotNumber', 'm_RaceType', 'purchase', 'available'];
     let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Grainage', 'Type', 'State', 'Lot No', 'Race', 'purchase Quantity(Eggs)', 'In Stock'] :
-      ['अनुक्रमांक', 'धान्य', 'प्रकार', 'राज्य', 'लॉट नंबर', 'शर्यत', 'खरेदीचे प्रमाण (अंडी)', 'स्टॉक मध्ये'];
+      ['अनुक्रमांक', 'धान्य', 'प्रकार', 'राज्य', 'लॉट नंबर', 'जात', 'खरेदीचे प्रमाण (अंडी)', 'स्टॉक मध्ये'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
