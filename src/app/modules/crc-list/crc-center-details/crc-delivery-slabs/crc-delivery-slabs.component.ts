@@ -117,7 +117,7 @@ export class CrcDeliverySlabsComponent {
   }
 
   getStatus() {
-    this.masterService.getCRCStatus().subscribe({
+    this.masterService.GetDistributionSlab().subscribe({
       next: ((res: any) => {
         this.statusArray = res.responseData;
       }), error: (() => {
@@ -189,14 +189,10 @@ export class CrcDeliverySlabsComponent {
         !this.filterFlag ? this.getFormData() : ''
         this.bindTable();
         break;
-      // case 'View':
-      //   this.viewCRCList(obj);
-      //   break;
-      // case 'Block':
-      //   this.openBlockDialog(obj);
-      //   break;
     }
   }
+
+  
 
   clearFormData() {
     this.pageNumber = 1;

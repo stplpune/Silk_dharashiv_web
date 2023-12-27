@@ -157,7 +157,7 @@ export class CrcGrainageOrderComponent {
   }
 
   getStatus() {
-    this.masterService.getCRCStatus().subscribe({
+    this.masterService.GetCRCChawkiStatus().subscribe({
       next: ((res: any) => {
         this.statusArray = res.responseData;
       }), error: (() => {

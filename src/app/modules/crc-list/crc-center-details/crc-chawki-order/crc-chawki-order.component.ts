@@ -175,7 +175,7 @@ export class CrcChawkiOrderComponent {
   }
 
   getStatus() {
-    this.masterService.getCRCStatus().subscribe({
+    this.masterService.GetCRCChawkiStatus().subscribe({
       next: ((res: any) => {
         this.statusArray = res.responseData;
       }), error: (() => {
@@ -280,6 +280,8 @@ export class CrcChawkiOrderComponent {
     this.getFormData();
     this.getTableData();
   }
+
+ 
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
