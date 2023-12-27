@@ -25,7 +25,7 @@
               *ngIf="!imageResponse">
               <mat-icon class="material-symbols-outlined text-primary">add</mat-icon>
             </button>
-            <button mat-icon-button class="btn-icon bg-danger-subtle" *ngIf="imageResponse" (click)="deleteImage()">
+            <button mat-icon-button class="btn-icon bg-danger-subtle" type="button" *ngIf="imageResponse || data?.profileImagePath" (click)="deleteImage()">
               <span class="material-symbols-rounded text-danger">
                 delete
               </span>
