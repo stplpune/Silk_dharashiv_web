@@ -53,8 +53,9 @@ export class LoginComponent {
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
    })
-   this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+   
 
     // let ele = document.getElementById('usernameId');
     // ele?.focus();
@@ -99,12 +100,12 @@ export class LoginComponent {
         "userName": formData.userName,
         "password": formData.password
       }
-      this.apiService?.setHttp('post', 'sericulture/api/Login/CheckLogin', false, obj, false, 'baseUrl');
+      this.apiService?.setHttp('post', 'sericulture/api/Login/CheckLogin?lan='+ this.lang, false, obj, false, 'baseUrl');
       this.apiService?.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.spinner.hide();
           if (!res?.responseData?.pageList.length) {
-            this.commonMethods.snackBar('Please Contact To Admin', 1)
+            this.commonMethods.snackBar((this.lang == 'en' ? 'Please Contact To Admin': 'कृपया प्रशासनाशी संपर्क साधा'), 1)
           } else {
             // this.commonMethods.snackBar(res.statusMessage, 0);
             this.loginData = this.AESEncryptDecryptService.encrypt(JSON.stringify(res));
