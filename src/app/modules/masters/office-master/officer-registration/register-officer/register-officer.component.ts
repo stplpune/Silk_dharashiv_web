@@ -407,6 +407,7 @@ export class RegisterOfficerComponent {
   deleteImage(){
     this.clearlogo.nativeElement.value="";
     this.imageResponse="";
+    this.data ? this.data.profileImagePath="" : '';
   }
  
   clearFormData() {

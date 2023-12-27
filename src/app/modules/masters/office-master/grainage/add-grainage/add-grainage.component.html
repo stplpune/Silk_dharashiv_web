@@ -107,14 +107,14 @@
               <mat-option *ngFor=" let taluka of talukaSubject | async" [value]="taluka.id">{{lang == 'en' ?
                 taluka.textEnglish : taluka.textMarathi}}</mat-option>
             </mat-select>
-            <mat-error
-              *ngIf="f['talukaId']?.hasError('required')">{{'common.Please_select_taluka'|translate}}</mat-error>
+            <!-- <mat-error
+              *ngIf="f['talukaId']?.hasError('required')">{{'common.Please_select_taluka'|translate}}</mat-error> -->
           </mat-form-field>
         </div>
         <div class="col-sm-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.select_grampanchayat' | translate}}</mat-label>
-            <mat-select formControlName="grampanchayatId">
+            <mat-select formControlName="grampanchyatId">
               <mat-option>
                 <ngx-mat-select-search [formControl]="gramPCtrl"
                   placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"

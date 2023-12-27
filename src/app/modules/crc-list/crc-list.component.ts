@@ -143,7 +143,7 @@ export class CRCListComponent {
       error: (err: any) => {
         this.spinner.hide();
         this.errorHandler.handelError(err.status);
-      },
+      }, 
     });
   }
 
@@ -157,7 +157,7 @@ export class CRCListComponent {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
       highlightedrow: true,
-      isBlock: 'isActive',
+      isBlockStatus: 'isActive',
       date: 'expireOn',
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
@@ -231,7 +231,7 @@ export class CRCListComponent {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.commonMethod.snackBar(res.statusMessage, 0);
-          this.getTableData();
+          this.getTableData();          
         }
         else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode)  : this.commonMethod.snackBar(res.statusMessage, 1);

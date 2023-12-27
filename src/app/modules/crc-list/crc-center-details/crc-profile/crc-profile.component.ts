@@ -49,7 +49,8 @@ export class CrcProfileComponent {
   statusArray = new Array();
   statusForm!: FormGroup;
   editFlag: boolean = false;
-
+  crcNameMR: any;
+  crcNameEn: any;
   constructor
     ( private route: ActivatedRoute,
       private apiService: ApiService,
@@ -75,6 +76,8 @@ export class CrcProfileComponent {
     });
    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
    this.id = spliteUrl[0]; 
+   this.crcNameEn = spliteUrl[1];
+   this.crcNameMR = spliteUrl[2];
     this.getFormData();
     this.getStatus();
     this.getTableDataById();

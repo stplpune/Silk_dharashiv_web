@@ -11,36 +11,28 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
   // template: '<app-crc-profile [dataFromParent]="parentData"></app-crc-profile>',
 })
 export class CrcCenterDetailsComponent {
-  routingData:any;
+  routingData: any;
   subscription!: Subscription;
   lang: string = 'English';
-  crcNameMR:any;
-  crcNameEn:any;
   constructor
-  (
-    private route: ActivatedRoute,
-    private router:Router,
-    private WebStorageService:WebStorageService,
-    public encryptdecrypt: AesencryptDecryptService,
-  ) {}
+    (
+      private route: ActivatedRoute,
+      private router: Router,
+      private WebStorageService: WebStorageService,
+      public encryptdecrypt: AesencryptDecryptService,
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-    this.route.queryParams.subscribe((params:any) => {
+    this.route.queryParams.subscribe((params: any) => {
       this.routingData = params['id'];
     });
-
-   let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
-      this.crcNameEn=spliteUrl[1]; 
-   console.log(' this.crcNameEn', this.crcNameEn);
-   this.crcNameMR=spliteUrl[2]; 
-   console.log(' this.crcNameMR', this.crcNameMR);
   }
- 
-  backToPage(){
+
+  backToPage() {
     this.router.navigate(['crc-list'])
   }
 }

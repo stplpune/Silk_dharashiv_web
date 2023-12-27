@@ -5,7 +5,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
-import { TranslateService } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { CommonModule } from '@angular/common';
 import { MyProfileComponent } from 'src/app/components/profile/my-profile/my-profile.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, CommonModule, MatIconModule],
+  imports: [MatDialogModule, MatButtonModule, CommonModule, MatIconModule,TranslateModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
