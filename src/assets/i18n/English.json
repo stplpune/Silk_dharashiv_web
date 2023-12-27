@@ -407,7 +407,7 @@
     "grainageName_en_limit": "Maximum limit 50 character",
     "grainageName_mr": "Grainage Name (Marathi)",
     "grainageName_mr_require": "Please enter grainage name (Marathi)",
-    "grainageName_mr_pattern": "Grainage (Marathi) is required",
+    "grainageName_mr_pattern": "Please enter valid grainage name(Marathi)",
     "grainageName_mr_limit": "Maximum limit 50 character",
     "State": "State",
     "district": "Select District",

@@ -8,6 +8,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { ApiService } from 'src/app/core/services/api.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-beneficiery-profile',
@@ -25,5 +31,45 @@ import { MatTableModule } from '@angular/material/table';
   styleUrls: ['./beneficiery-profile.component.scss']
 })
 export class BeneficieryProfileComponent {
+  subscription!: Subscription;
+  lang: string = 'English';
+  profileData : any;
+
+  constructor(
+    private apiService: ApiService,
+    private spinner: NgxSpinnerService,
+    private errorService: ErrorHandlingService,
+    public webStorage: WebStorageService,
+    public common: CommonMethodsService) {}
+
+    ngOnInit() {
+      this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+        this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
+        this.lang = this.lang == 'English' ? 'en' : 'mr-IN'; 
+      }) 
+      this.getProfileData();
+    }
+
+
+    getProfileData(){
+        this.apiService.setHttp('GET', `sericulture/api/Beneficiery/GetBeneficieryDataById?Id=3&lan=en`, false, false, false, 'masterUrl');    
+        this.apiService.getHttp().subscribe({
+          next: (res: any) => {
+            if (res.statusCode == '200') {   
+              this.profileData = res.responseData;
+              console.log(" this.profileData", this.profileData);              
+            } else {
+              this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';            
+            }           
+          },
+          error: (err: any) => {
+            this.spinner.hide();
+            this.errorService.handelError(err.status);
+          },
+        });
+      }
+
+  
+  
 
 }
