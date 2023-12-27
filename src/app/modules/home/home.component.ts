@@ -15,7 +15,7 @@ export class HomeComponent {
   subscription!: Subscription;
   lang: any;
   constructor(private apiService: ApiService, private router: Router, public encryptDecryptService: AesencryptDecryptService,  private WebStorageService: WebStorageService,) { 
-    this.subscription = this.WebStorageService.setLanguageSubject.subscribe((res: any) => {
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
     this.lang = res 
     })
    // this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
