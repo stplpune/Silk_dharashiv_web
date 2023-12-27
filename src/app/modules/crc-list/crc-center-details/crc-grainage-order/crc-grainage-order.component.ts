@@ -91,7 +91,6 @@ export class CrcGrainageOrderComponent {
     this.id = spliteUrl[0];
     this.crcNameEn = spliteUrl[1];
     this.crcNameMR = spliteUrl[2];
-    this.id = 27;
     this.getFormData();
     this.getDisrict();
     this.getStatus();
