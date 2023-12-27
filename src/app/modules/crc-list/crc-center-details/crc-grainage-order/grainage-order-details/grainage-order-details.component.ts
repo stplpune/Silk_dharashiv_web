@@ -73,7 +73,7 @@ export class GrainageOrderDetailsComponent {
   setTableData() {
     this.highLightedFlag = true;
     let displayedColumns = this.lang == 'en' ?
-      ['srNo', 'invoiceNo', 'deliveryDate', 'quantity', 'lotNo', 'race', 'ledDate', 'hatchingDate', 'rate', 'totalAmount', 'deliveryCharge', 'discount', 'finalAmount','action']
+      ['srNo', 'invoiceNo', 'deliveryDate', 'quantity', 'lotNo', 'raceType', 'ledDate', 'hatchingDate', 'rate', 'totalAmount', 'deliveryCharge', 'discount', 'finalAmount','action']
       : ['srNo', 'invoiceNo', 'deliveryDate', 'quantity', 'lotNo', 'm_RaceType', 'Release Date', 'hatchingDate', 'rate', 'totalAmount', 'deliveryCharge', 'discount', 'finalAmount','action'];
     let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Invoice No', 'Delivery Date', 'Quantity(DFLs)', 'Lot No', 'Race', 'Release Date', 'Hatching Date', 'Rate', 'Total Amount', 'Delivery Charge', 'Discount', 'Final Amount', 'Invoice', 'Invoice'] :
       ['अनुक्रमांक', 'चलन क्रमांक', 'वितरण तारीख', 'प्रमाण', 'लॉट नंबर', 'जात', 'प्रकाशन तारीख', 'उबवणुकीची तारीख', 'दर', 'एकूण रक्कम', 'वितरण शुल्क', 'दस्तऐवज', 'अंतिम रक्कम','चलन'];

@@ -85,6 +85,7 @@ export class InventoryComponent {
     });
     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
     this.id = spliteUrl[0];
+    this.id=27;
     this.crcNameEn = spliteUrl[1];
     this.crcNameMR = spliteUrl[2];
 
@@ -129,7 +130,6 @@ export class InventoryComponent {
     })
   }
 
-  // sericulture/api/Inventory/GetCRCInventory?Id=27&SearchText=ab&GrainageId=1&GrainageType=1&PageNo=1&PageSize=10&lan=en
 
   getTableData(flag?: any) {
     this.spinner.show();
