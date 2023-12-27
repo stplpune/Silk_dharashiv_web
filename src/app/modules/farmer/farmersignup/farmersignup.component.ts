@@ -185,6 +185,8 @@ export class FarmersignupComponent {
       "userTypeId": 1,
       "createdBy": 0,
       "flag": "i",
+      "qR_CodePhoto": "",
+      "upI_Id": "",
       certificateExpiryDate: new Date(),
       certificateIssueDate: new Date(),
       certificatePath: "",

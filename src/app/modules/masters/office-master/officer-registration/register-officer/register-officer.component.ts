@@ -312,6 +312,8 @@ export class RegisterOfficerComponent {
         m_CRCName: "",
         userName: "",
         password: "",
+        qR_CodePhoto: "",
+        upI_Id: "",
         profileImagePath: this.imageResponse? this.imageResponse : this.data?.profileImagePath ,
         userTypeId: 2, // officer register
         village: "0",
