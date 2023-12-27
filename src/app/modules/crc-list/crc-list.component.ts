@@ -231,7 +231,7 @@ export class CRCListComponent {
         this.spinner.hide();
         if (res.statusCode == "200") {
           this.commonMethod.snackBar(res.statusMessage, 0);
-          this.getTableData();
+          this.getTableData();          
         }
         else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode)  : this.commonMethod.snackBar(res.statusMessage, 1);

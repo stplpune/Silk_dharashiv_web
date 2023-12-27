@@ -1,6 +1,6 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
-    <div class="text-main">{{lang == 'en' ? 'Grainage Order' : 'ग्रेनेज ऑर्डर'}}</div>
+    <div class="text-main">{{lang == 'en' ? crcNameEn : crcNameMR || '-'}} </div>
   </mat-card-header>
   <mat-card-content class="card-body" id="dash-stats">
     <form [formGroup]="filterForm">
@@ -116,7 +116,7 @@
             <img src="../../../assets/images/crc-center/active.svg " alt="">
             <div class="d-flex flex-column gap-0">
               <h4 class="fw-bold text-success mb-0">{{counterObject?.receivedOrder || 0}}</h4>
-              <div class="fw-bold mb-0 text-success">   {{lang == 'en' ? 'Approved' : 'मंजूर'}}</div>
+              <div class="fw-bold mb-0 text-success">   {{lang == 'en' ? 'Delivered' : 'वितरित केले'}}</div>
             </div>
           </div>
         </div>

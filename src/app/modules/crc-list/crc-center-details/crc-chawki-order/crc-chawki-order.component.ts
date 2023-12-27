@@ -20,6 +20,8 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { GlobalTableComponent } from "../../../../shared/components/global-table/global-table.component";
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -60,6 +62,10 @@ export class CrcChawkiOrderComponent {
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   slabCtrl: FormControl = new FormControl();
   slabSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  crcNameMR: any;
+  crcNameEn: any;
+  routingData: any;
+
   constructor
     (
       public dialog: MatDialog,
@@ -71,6 +77,9 @@ export class CrcChawkiOrderComponent {
       private apiService: ApiService,
       private errorHandler: ErrorHandlingService,
       public validation: ValidationService,
+      public encryptdecrypt: AesencryptDecryptService,
+      private route: ActivatedRoute,
+
     ) { }
 
   ngOnInit() {
@@ -78,7 +87,13 @@ export class CrcChawkiOrderComponent {
       this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
-    })
+    });
+    this.route.queryParams.subscribe((queryParams: any) => {
+      this.routingData = queryParams['id'];
+    });
+   let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+   this.crcNameEn = spliteUrl[1];
+   this.crcNameMR = spliteUrl[2];
     this.getFormData();
     this.getDisrict();
     this.getStatus();
