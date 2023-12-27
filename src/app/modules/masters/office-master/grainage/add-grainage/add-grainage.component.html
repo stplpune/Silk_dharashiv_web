@@ -66,8 +66,7 @@
             <mat-label>{{"grainage.grainageName_mr" | translate}}</mat-label>
             <input formControlName="m_Grainage" matInput (keypress)="validator.noFirstSpaceAllow($event)">
             <!-- validator.MarathiCharacterValidator() -->
-            <mat-error *ngIf="f['m_Grainage'].hasError('required') ">{{'grainage.grainageName_mr_require'|
-              translate}}</mat-error>
+            <mat-error *ngIf="f['m_Grainage'].hasError('required') ">{{'grainage.grainageName_mr_require'| translate}}</mat-error>
             <mat-error *ngIf="f['m_Grainage']?.errors">
               <span class="text-danger"
                 *ngIf="f['m_Grainage']?.hasError('maxLengthExceeded') || f['m_Grainage']?.hasError('marathiCharacters')">
