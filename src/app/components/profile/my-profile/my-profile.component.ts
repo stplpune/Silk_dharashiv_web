@@ -66,6 +66,7 @@ export class MyProfileComponent {
       next: (res: any) => {
         if (res.statusCode == 200) {
           this.profilDetailsArr = res.responseData;    
+          console.log(this.profilDetailsArr)
           this.imageRes = this.profilDetailsArr.profileImagePath;      
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);
@@ -138,6 +139,8 @@ export class MyProfileComponent {
       "address": formvalue.address,
       "m_Address": this.profilDetailsArr.m_Address,
       "pinCode": this.profilDetailsArr.pinCode,
+      "qR_CodePhoto":  this.profilDetailsArr.qR_CodePhoto ? this.profilDetailsArr.qR_CodePhoto :'',
+      "upI_Id": this.profilDetailsArr.upI_Id ? this.profilDetailsArr.upI_Id :'',
       "totalAreaForCRC": 0,
       "areaUnderCRC": 0,
       "chalkyCapacity": 0,
