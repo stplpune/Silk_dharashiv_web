@@ -25,24 +25,24 @@ import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decry
 import { GlobalTableComponent } from "../../../../shared/components/global-table/global-table.component";
 
 @Component({
-    selector: 'app-inventory',
-    standalone: true,
-    templateUrl: './inventory.component.html',
-    styleUrls: ['./inventory.component.scss'],
-    imports: [CommonModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatIconModule,
-        MatDialogModule,
-        MatTableModule,
-        MatButtonModule,
-        MatSelectModule,
-        MatNativeDateModule,
-        MatDatepickerModule, ReactiveFormsModule, NgxMatSelectSearchModule, GlobalTableComponent]
+  selector: 'app-inventory',
+  standalone: true,
+  templateUrl: './inventory.component.html',
+  styleUrls: ['./inventory.component.scss'],
+  imports: [CommonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatDialogModule,
+    MatTableModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule, ReactiveFormsModule, NgxMatSelectSearchModule, GlobalTableComponent]
 })
 export class InventoryComponent {
-  filterForm!:FormGroup;
+  filterForm!: FormGroup;
   tableDataArray: any;
   tableDatasize!: number;
   totalPages!: number;
@@ -55,24 +55,26 @@ export class InventoryComponent {
   grainageSubject: ReplaySubject<any> = new ReplaySubject<any>();
   grainageArray = new Array();
   grainageTypeArray = new Array();
-  routingData:any;
-  id:any
+  routingData: any;
+  id: any
+  crcNameMR: any;
+  crcNameEn: any;
   constructor
-  (
-    public dialog:MatDialog,
-    public webService: WebStorageService,
-    private fb: FormBuilder,
-    private commonMethod: CommonMethodsService,
-    private masterService: MasterService,
-    private spinner: NgxSpinnerService,
-    private apiService: ApiService,
-    private errorHandler: ErrorHandlingService,
-    public validator: ValidationService,
-    private route: ActivatedRoute,
-    public encryptdecrypt: AesencryptDecryptService,
-  ){}
+    (
+      public dialog: MatDialog,
+      public webService: WebStorageService,
+      private fb: FormBuilder,
+      private commonMethod: CommonMethodsService,
+      private masterService: MasterService,
+      private spinner: NgxSpinnerService,
+      private apiService: ApiService,
+      private errorHandler: ErrorHandlingService,
+      public validator: ValidationService,
+      private route: ActivatedRoute,
+      public encryptdecrypt: AesencryptDecryptService,
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.subscription = this.webService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -81,9 +83,10 @@ export class InventoryComponent {
     this.route.queryParams.subscribe((queryParams: any) => {
       this.routingData = queryParams['id'];
     });
-   let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
-    this.id = spliteUrl;
-    // this.id = 27;   
+    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+    this.id = spliteUrl[0];
+    this.crcNameEn = spliteUrl[1];
+    this.crcNameMR = spliteUrl[2];
 
     this.getFormData();
     this.searchDataZone();
@@ -94,9 +97,9 @@ export class InventoryComponent {
 
   getFormData() {
     this.filterForm = this.fb.group({
-    grainageId:[0],
-    gTypeId:[0],
-    searchText:['']
+      grainageId: [0],
+      gTypeId: [0],
+      searchText: ['']
     })
   }
 
@@ -130,15 +133,15 @@ export class InventoryComponent {
 
   getTableData(flag?: any) {
     this.spinner.show();
-    let formData = this.filterForm.getRawValue(); 
+    let formData = this.filterForm.getRawValue();
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/Inventory/GetCRCInventory?Id='+this.id+'&SearchText='+(formData.searchText || '')+'&GrainageId='+(formData.grainageId || 0)+'&GrainageType='+(formData.gTypeId || 0)+str+'&lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Inventory/GetCRCInventory?Id=' + this.id + '&SearchText=' + (formData.searchText || '') + '&GrainageId=' + (formData.grainageId || 0) + '&GrainageType=' + (formData.gTypeId || 0) + str + '&lan=' + this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        if (res.statusCode == '200') {          
-          this.tableDataArray = res.responseData.responseData1;      
+        if (res.statusCode == '200') {
+          this.tableDataArray = res.responseData.responseData1;
           this.tableDatasize = res.responseData.responseData2?.totalCount;
           this.totalPages = res.responseData.responseData2?.totalPages;
         } else {
@@ -155,20 +158,20 @@ export class InventoryComponent {
     });
   }
 
- 
+
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'en' ? ['srNo', 'grainage','grainageType','state','lotNumber','raceType','purchase','available']
-      : ['srNo','m_Grainage','m_GrainageType','m_State','lotNumber','m_RaceType','purchase','available'];
-    let displayedheaders = this.lang == 'en' ? ['Sr. No.','Grainage', 'Type', 'State','Lot No','Race','purchase Quantity(Eggs)','In Stock'] :
-      ['अनुक्रमांक','धान्य','प्रकार','राज्य','लॉट नंबर','शर्यत','खरेदीचे प्रमाण (अंडी)','स्टॉक मध्ये'];
+    let displayedColumns = this.lang == 'en' ? ['srNo', 'grainage', 'grainageType', 'state', 'lotNumber', 'raceType', 'purchase', 'available']
+      : ['srNo', 'm_Grainage', 'm_GrainageType', 'm_State', 'lotNumber', 'm_RaceType', 'purchase', 'available'];
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Grainage', 'Type', 'State', 'Lot No', 'Race', 'purchase Quantity(Eggs)', 'In Stock'] :
+      ['अनुक्रमांक', 'धान्य', 'प्रकार', 'राज्य', 'लॉट नंबर', 'शर्यत', 'खरेदीचे प्रमाण (अंडी)', 'स्टॉक मध्ये'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
       highlightedrow: true,
       isBlock: '',
       date: '',
-      dates:'',
+      dates: '',
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
@@ -177,7 +180,7 @@ export class InventoryComponent {
       edit: false,
       delete: false
     };
-    this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;    
+    this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
     this.apiService.tableData.next(tableData);
   }
 
@@ -191,7 +194,7 @@ export class InventoryComponent {
     }
   }
 
-  clearFormData(){
+  clearFormData() {
     this.pageNumber = 1;
     this.getFormData();
     this.getTableData();
