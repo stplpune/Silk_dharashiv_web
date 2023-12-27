@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ReplaySubject, Subscription } from 'rxjs';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
@@ -38,6 +40,8 @@ export class BeneficieryComponent {
     private master: MasterService,
     public webStorage: WebStorageService,
     public common: CommonMethodsService,
+    public encryptdecrypt: AesencryptDecryptService,
+    private router: Router,
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
     private errorService: ErrorHandlingService,
@@ -153,19 +157,10 @@ export class BeneficieryComponent {
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
-        //  this.searchDataFlag ? '' : (this.f['textSearch'].setValue(''));
         this.getTableData();
         break;
       case 'View':
-        //   this.openApplicationDetails(obj);
-        // this.router.navigate(['../approval-process']);
-        break;
-      case 'Edit':
-        //    this.openAddApplicationDetails(obj);
-        break;
-      case 'track':
-        //    this.openTracKComp(obj);
-        // this.router.navigate(['../approval-process']);
+        this.viewBenificiaryList(obj);
         break;
     }
   }
@@ -229,4 +224,15 @@ export class BeneficieryComponent {
     this.getTableData();
 
   }
+
+  viewBenificiaryList(obj: any) {  
+    let str=obj?.id;
+    let Id: any = this.encryptdecrypt.encrypt(`${str}`);
+    this.router.navigate(['beneficiery-detailsy'], {
+      queryParams: {
+        id: Id
+      },
+    })
+    }
+
 }
