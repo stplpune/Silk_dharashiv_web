@@ -23,7 +23,8 @@ export class ValidationService {
   latValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
   longValidation ='^[1-9]{1}[0-9]{1}[.]{1}[0-9]{1,8}$';
   onlyNumbers = '^[0-9]*$';
-  marathiNumericAndspecialChar = '/^[\u0900-\u0965?~`!@#$%^&*()\[\]\-+_={}|;:\\<,>.?\/ 0-9]+$/';
+  marathiNumericAndspecialChar = '[0-9\u0900-\u097F\s]*';
+  //marathiNumericAndspecialChar = '/^[\u0900-\u0965?~`!@#$%^&*()\[\]\-+_={}|;:\\<,>.?\/ 0-9]+$/';
   //englishNumericAndspecialChar = '^[a-zA-Z?~`!@#$%^&*()-_+={}[\]:|\\;"<,>.?\/ 0-9]*$';
   englishNumericAndspecialChar = '^[A-Za-z0-9 *%!/(,)&.+-_@#$]*$'
   marathiquestion=('^[\u0900-\u0965? *%!/(,)&.+-_@#$0-9]+$');
@@ -31,7 +32,7 @@ export class ValidationService {
   alphaNumericWithSpacesWithDashSlashs = '^([a-zA-Z0-9/-])';
   marathiAlphanumeric=('^[\u0900-\u09650-9 ][\u0900-\u09650-9 ]+$');
   englishAlphanumeric = '^[a-zA-Z0-9 ][a-zA-Z0-9 ]*$';
-
+  // [Validators.pattern('[a-zA-Z0-9\u0900-\u097F\s]*')]
   marathiAlphaNumeric(event: any) {
     const maskSeperator = new RegExp('^[\u0900-\u09650-9 ]+$', 'g');
     return maskSeperator.test(event.key);
@@ -53,6 +54,18 @@ export class ValidationService {
     return regexPattern.test(event);
   }
   
+
+  MarathiCharacterValidator(){
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const marathiRegex = /^[,./_\u0900-\u097F\s]+$/; // Regular expression for Marathi characters and space
+  
+      if (control.value && !marathiRegex.test(control.value)) {
+        return { marathiCharacters: true };
+      }
+      
+      return null;
+    };
+  }
   
   
   maxLengthValidator(maxLength: number) {
