@@ -1,27 +1,17 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { ReplaySubject, Subscription } from 'rxjs';
-import { ApiService } from 'src/app/core/services/api.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
-import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
-import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { MatCardModule } from '@angular/material/card';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatIconModule } from '@angular/material/icon';
-import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ReplaySubject, Subscription } from 'rxjs';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
+import { ApiService } from 'src/app/core/services/api.service';
+import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
+import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { MasterService } from 'src/app/core/services/master.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { WebStorageService } from 'src/app/core/services/web-storage.service';
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true,
-  imports: [CommonModule, MatButtonModule, MatCardModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatIconModule, TranslateModule, NgxMatSelectSearchModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
@@ -220,3 +210,4 @@ export class DashboardComponent {
   }
 
 }
+
