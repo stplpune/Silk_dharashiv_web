@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SchemesProgramsRoutingModule } from './schemes-programs-routing.module';
 import { SchemesProgramsComponent } from './schemes-programs.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { SchemesProgramsComponent } from './schemes-programs.component';
   ],
   imports: [
     CommonModule,
-    SchemesProgramsRoutingModule
+    SchemesProgramsRoutingModule,
+    TranslateModule
   ]
 })
 export class SchemesProgramsModule { }
