@@ -161,10 +161,10 @@
               <div class="col-sm-6">
                 <div class="row gx-2 mb-4">
                   <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Approve Capacity': 'क्षमता मंजूर करा'}}</div>
-                  <div class="col-sm-4 form-data">:  &nbsp; {{tableDataArray?.chalkyCapacity || '-'}} DFLs</div>
+                  <div class="col-sm-4 form-data">:  &nbsp; {{tableDataArray?.chalkyApprovedQty || '-'}} DFLs</div>
                 </div>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-6"  *ngIf="statusForm.value.status == 5">
                 <div class="row gx-2 mb-4">
                   <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Remark': 'शेरा'}}</div>
                   <div class="col-sm-4 form-data">:  &nbsp; {{tableDataArray?.statusReason || '-'}}</div>
