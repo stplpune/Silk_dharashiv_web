@@ -55,8 +55,9 @@ export class ForgetPasswordComponent {
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-    this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+   
     this.defaultSendOTPFrom();
     this.defaultverifyOTPForm();
     this.defaultchangepassword();
