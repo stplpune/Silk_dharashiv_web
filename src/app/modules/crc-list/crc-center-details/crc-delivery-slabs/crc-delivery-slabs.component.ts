@@ -56,6 +56,8 @@ export class CrcDeliverySlabsComponent {
   grainageCtrl: FormControl = new FormControl();
   grainageSubject: ReplaySubject<any> = new ReplaySubject<any>();
   routingData:any;
+  crcNameMR: any;
+  crcNameEn: any;
   constructor
     (
       private fb: FormBuilder,
@@ -79,8 +81,10 @@ export class CrcDeliverySlabsComponent {
     this.route.queryParams.subscribe((queryParams: any) => {
       this.routingData = queryParams['id'];
     });
-   let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
-   this.id = spliteUrl[0];
+   let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+    this.id = spliteUrl[0];
+    this.crcNameEn = spliteUrl[1];
+    this.crcNameMR = spliteUrl[2];
     this.getFormData();
     this.searchDataZone();
     this.getStatus();

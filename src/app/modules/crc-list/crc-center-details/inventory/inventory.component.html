@@ -1,6 +1,6 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
-    <div class="text-main fw-bold"> {{lang == 'en' ? 'Inventory' : 'इन्व्हेंटरी'}}</div>
+    <div class="text-main fw-bold"> {{lang == 'en' ? crcNameEn : crcNameMR || '-'}}  </div>
   </mat-card-header>
   <mat-card-content class="card-body">
     <form [formGroup]="filterForm">

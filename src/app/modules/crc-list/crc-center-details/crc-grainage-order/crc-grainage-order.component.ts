@@ -24,20 +24,20 @@ import { ActivatedRoute } from '@angular/router';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 
 @Component({
-    selector: 'app-crc-grainage-order',
-    standalone: true,
-    templateUrl: './crc-grainage-order.component.html',
-    styleUrls: ['./crc-grainage-order.component.scss'],
-    imports: [CommonModule, MatCardModule,
-        MatSelectModule,
-        MatDialogModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatIconModule,
-        MatTableModule,
-        MatButtonModule,
-        ReactiveFormsModule,
-        NgxMatSelectSearchModule, GlobalTableComponent]
+  selector: 'app-crc-grainage-order',
+  standalone: true,
+  templateUrl: './crc-grainage-order.component.html',
+  styleUrls: ['./crc-grainage-order.component.scss'],
+  imports: [CommonModule, MatCardModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatTableModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    NgxMatSelectSearchModule, GlobalTableComponent]
 })
 export class CrcGrainageOrderComponent {
 
@@ -54,118 +54,122 @@ export class CrcGrainageOrderComponent {
   highLightedFlag: boolean = true;
   filterFlag: boolean = false;
   pageNumber: number = 1;
-  counterObject:any;
+  counterObject: any;
   gramPCtrl: FormControl = new FormControl();
-  gramPSubject: ReplaySubject<any> = new ReplaySubject<any>(); 
+  gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
   talukaCtrl: FormControl = new FormControl();
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
-  routingData:any;
-  id:any;
+  routingData: any;
+  id: any;
+  crcNameMR: any;
+  crcNameEn: any;
   constructor
-  (
-    public dialog:MatDialog,
-    public webService: WebStorageService,
-    private fb: FormBuilder,
-    private commonMethod: CommonMethodsService,
-    private masterService: MasterService,
-    private spinner: NgxSpinnerService,
-    private apiService: ApiService,
-    private errorHandler: ErrorHandlingService,
-    public validation: ValidationService,
-    private route: ActivatedRoute,
-    public encryptdecrypt: AesencryptDecryptService,
-  ) {}
+    (
+      public dialog: MatDialog,
+      public webService: WebStorageService,
+      private fb: FormBuilder,
+      private commonMethod: CommonMethodsService,
+      private masterService: MasterService,
+      private spinner: NgxSpinnerService,
+      private apiService: ApiService,
+      private errorHandler: ErrorHandlingService,
+      public validation: ValidationService,
+      private route: ActivatedRoute,
+      public encryptdecrypt: AesencryptDecryptService,
+  ) { }
 
-ngOnInit(){
-  this.subscription = this.webService.setLanguage.subscribe((res: any) => {
-    this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
-    this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-    this.setTableData();
-  })
-  this.route.queryParams.subscribe((queryParams: any) => {
-    this.routingData = queryParams['id'];
-  });
- let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`);
- this.id = spliteUrl; 
- this.id = 27;   
-  this.getFormData();
-  this.getDisrict();
-  this.getStatus();
-  this.searchDataZone();
-  this.getTableData();
-}
-
-getFormData() {
-  this.filterForm = this.fb.group({
-    districtId: [this.webService.getDistrictId() == '' ? 0 : this.webService.getDistrictId()],
-    talukaId: [this.webService.getTalukaId() ? this.webService.getTalukaId() : 0],
-    grampanchayatId: [0],
-    statusId: [0],
-    searchValue: [''],
-  })
-}
-get f() { return this.filterForm.controls; }
-
-searchDataZone() {
-  this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
-  this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject) });
-}
-
-getDisrict() {
-  this.districtArray = [];
-  this.masterService.GetAllDistrict(1).subscribe({
-    next: ((res: any) => {
-      this.districtArray = res.responseData;
-      this.getTaluka();
-    }), error: (() => {
-      this.districtArray = [];
+  ngOnInit() {
+    this.subscription = this.webService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+      this.setTableData();
     })
-  })
-}
+    this.route.queryParams.subscribe((queryParams: any) => {
+      this.routingData = queryParams['id'];
+    });
+    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');;
+    this.id = spliteUrl[0];
+    this.crcNameEn = spliteUrl[1];
+    this.crcNameMR = spliteUrl[2];
+    this.id = 27;
+    this.getFormData();
+    this.getDisrict();
+    this.getStatus();
+    this.searchDataZone();
+    this.getTableData();
+  }
 
-getTaluka() {
-  this.masterService.GetAllTaluka(1, 1, 0).subscribe({
-    next: ((res: any) => {
-      this.talukaArray = res.responseData;
-      this.talukaArray.unshift({ id: 0, textEnglish: 'All Taluka', textMarathi: 'सर्व तालुका' }),
-        this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
-    }), error: (() => {
-      this.talukaArray = [];
-      this.talukaSubject.next(null);
+  getFormData() {
+    this.filterForm = this.fb.group({
+      districtId: [this.webService.getDistrictId() == '' ? 0 : this.webService.getDistrictId()],
+      talukaId: [this.webService.getTalukaId() ? this.webService.getTalukaId() : 0],
+      grampanchayatId: [0],
+      statusId: [0],
+      searchValue: [''],
     })
-  })
-}
+  }
+  get f() { return this.filterForm.controls; }
 
-getGrampanchayat() {
-  let talukaId = this.filterForm.getRawValue().talukaId || 0;
-  if (talukaId != 0) {
-    this.masterService.GetGrampanchayat(talukaId).subscribe({
+  searchDataZone() {
+    this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
+    this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject) });
+  }
+
+  getDisrict() {
+    this.districtArray = [];
+    this.masterService.GetAllDistrict(1).subscribe({
       next: ((res: any) => {
-        this.grampanchayatArray = res.responseData;
-        this.grampanchayatArray.unshift({ id: 0, textEnglish: 'All Grampanchayat', textMarathi: 'सर्व ग्रामपंचायत' });
-        this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
+        this.districtArray = res.responseData;
+        this.getTaluka();
       }), error: (() => {
-        this.grampanchayatArray = [];
-        this.gramPSubject.next(null);
+        this.districtArray = [];
       })
     })
   }
-}
 
-getStatus() {
-  this.masterService.getCRCStatus().subscribe({
-    next: ((res: any) => {
-      this.statusArray = res.responseData;
-    }), error: (() => {
-      this.statusArray = [];
+  getTaluka() {
+    this.masterService.GetAllTaluka(1, 1, 0).subscribe({
+      next: ((res: any) => {
+        this.talukaArray = res.responseData;
+        this.talukaArray.unshift({ id: 0, textEnglish: 'All Taluka', textMarathi: 'सर्व तालुका' }),
+          this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
+      }), error: (() => {
+        this.talukaArray = [];
+        this.talukaSubject.next(null);
+      })
     })
-  })
-}
+  }
 
-  grainageorderdetails(obj?:any){
-    let dialogRef =this.dialog.open(GrainageOrderDetailsComponent,{
-      width:"100%",
-      data:obj,
+  getGrampanchayat() {
+    let talukaId = this.filterForm.getRawValue().talukaId || 0;
+    if (talukaId != 0) {
+      this.masterService.GetGrampanchayat(talukaId).subscribe({
+        next: ((res: any) => {
+          this.grampanchayatArray = res.responseData;
+          this.grampanchayatArray.unshift({ id: 0, textEnglish: 'All Grampanchayat', textMarathi: 'सर्व ग्रामपंचायत' });
+          this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
+        }), error: (() => {
+          this.grampanchayatArray = [];
+          this.gramPSubject.next(null);
+        })
+      })
+    }
+  }
+
+  getStatus() {
+    this.masterService.getCRCStatus().subscribe({
+      next: ((res: any) => {
+        this.statusArray = res.responseData;
+      }), error: (() => {
+        this.statusArray = [];
+      })
+    })
+  }
+
+  grainageorderdetails(obj?: any) {
+    let dialogRef = this.dialog.open(GrainageOrderDetailsComponent, {
+      width: "100%",
+      data: obj,
       disableClose: true,
       autoFocus: true,
     })
@@ -177,19 +181,19 @@ getStatus() {
 
   getTableData(flag?: any) {
     this.spinner.show();
-    let formData = this.filterForm.getRawValue(); 
+    let formData = this.filterForm.getRawValue();
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Ordered-Grainage-List?crcCenterId='+(this.id)+'&Status='+(formData.statusId || 0)+'&StateId=1&DistrictId='+(formData.districtId || 0)+'&TalukaId='+(formData.talukaId || 0)+'&GrampanchyatId='+(formData.grampanchayatId || 0)+'&SearchText='+(formData.searchValue || '')+str, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Ordered-Grainage-List?crcCenterId=' + (this.id) + '&Status=' + (formData.statusId || 0) + '&StateId=1&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchyatId=' + (formData.grampanchayatId || 0) + '&SearchText=' + (formData.searchValue || '') + str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        if (res.statusCode == '200') {          
-          this.tableDataArray = res.responseData1; 
-          this.tableDataArray.map((ele:any)=>{
-            ele.status1 = (this.lang == 'en' ? ele.status : ele.m_Status) ;
-          })       
-          this.counterObject=res.responseData;
+        if (res.statusCode == '200') {
+          this.tableDataArray = res.responseData1;
+          this.tableDataArray.map((ele: any) => {
+            ele.status1 = (this.lang == 'en' ? ele.status : ele.m_Status);
+          })
+          this.counterObject = res.responseData;
           this.tableDatasize = res.responseData2?.totalCount;
           this.totalPages = res.responseData2?.totalPages;
         } else {
@@ -205,20 +209,20 @@ getStatus() {
       },
     });
   }
-  
+
   setTableData() {
     this.highLightedFlag = true;
-    let displayedColumns = this.lang == 'en' ? ['srNo', 'orderId', 'grainage', 'state','grampanchayatName', 'type', 'orderedQty','orderDate','status1','action']
-      : ['srNo', 'orderId', 'm_Grainage', 'm_state','m_GrampanchayatName', 'm_type', 'orderedQty','orderDate','status1','action'];
-    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Order Id', 'Grainage', 'State','Location','Type','Order Qty(DFLs)','Order Date','Status', 'Action'] :
-      ['अनुक्रमांक', 'ऑर्डर आयडी','धान्य','राज्य','स्थान','प्रकार','ऑर्डर प्रमाण (DFLs)','मागणीची तारीख','स्थिती','कृती'];
+    let displayedColumns = this.lang == 'en' ? ['srNo', 'orderId', 'grainage', 'state', 'grampanchayatName', 'type', 'orderedQty', 'orderDate', 'status1', 'action']
+      : ['srNo', 'orderId', 'm_Grainage', 'm_state', 'm_GrampanchayatName', 'm_type', 'orderedQty', 'orderDate', 'status1', 'action'];
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Order Id', 'Grainage', 'State', 'Location', 'Type', 'Order Qty(DFLs)', 'Order Date', 'Status', 'Action'] :
+      ['अनुक्रमांक', 'ऑर्डर आयडी', 'धान्य', 'राज्य', 'स्थान', 'प्रकार', 'ऑर्डर प्रमाण (DFLs)', 'मागणीची तारीख', 'स्थिती', 'कृती'];
     let tableData = {
       pageNumber: this.pageNumber,
       pagination: this.tableDatasize > 10 ? true : false,
       highlightedrow: true,
       isBlock: '',
       date: 'orderDate',
-      dates:'',
+      dates: '',
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
@@ -227,7 +231,7 @@ getStatus() {
       edit: false,
       delete: false
     };
-    this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;    
+    this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
     this.apiService.tableData.next(tableData);
   }
 
@@ -244,7 +248,7 @@ getStatus() {
     }
   }
 
-  clearFormData(){
+  clearFormData() {
     this.pageNumber = 1;
     this.getFormData();
     this.getTableData();
