@@ -1,6 +1,6 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
-    <div class="text-main">{{lang == 'en' ? 'Grainage Order' : 'ग्रेनेज ऑर्डर'}}</div>
+    <div class="text-main">{{lang == 'en' ? crcNameEn : crcNameMR || '-'}} </div>
   </mat-card-header>
   <mat-card-content class="card-body" id="dash-stats">
     <form [formGroup]="filterForm">
@@ -37,7 +37,7 @@
           <mat-select formControlName="grampanchayatId">
             <mat-option>
               <ngx-mat-select-search [formControl]="gramPCtrl"
-                placeholderLabel="{{lang == 'en' ? 'Search Grampanchayat Name' : 'ग्रामपंचायतीचे नाव शोधा'}}"
+                placeholderLabel="{{lang == 'en' ? 'Search Village Name' : 'गावाचे नाव शोधा'}}"
                 noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
             </mat-option>
             <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?

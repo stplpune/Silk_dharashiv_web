@@ -1,6 +1,6 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
-    <div class="text-main">Chowki Orders</div>
+    <div class="text-main">{{lang == 'en' ? crcNameEn : crcNameMR || '-'}} </div>
   </mat-card-header>
   <mat-card-content class="card-body form-container" id="dash-stats">
     <form [formGroup]="filterForm">

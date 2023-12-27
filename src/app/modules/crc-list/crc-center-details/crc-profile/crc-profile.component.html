@@ -1,7 +1,7 @@
 <mat-card class="plain-card">
     <mat-card-header class="card-header">
       <div class="d-flex gap-2 align-items-center justify-content-between w-100">
-        <div class="text-main">{{lang == 'en' ? 'Profile' : 'प्रोफाइल'}}</div>
+        <div class="text-main">{{lang == 'en' ? crcNameEn : crcNameMR || '-'}}  </div>
         <button mat-flat-button class=" btn-main"  (click)="viewPdf()">
           <mat-icon class="material-symbols-outlined">
             visibility
@@ -112,7 +112,7 @@
               </div> -->
               <div class="col-sm-4">
                 <div class="row gx-2">
-                  <div class="col-sm-4 form-label">{{lang == 'en' ? 'Aadhar Card No': 'आधार कार्ड क्रमांक.'}}</div>
+                  <div class="col-sm-4 form-label">{{lang == 'en' ? 'Aadhaar Card No': 'आधार कार्ड क्रमांक.'}}</div>
                   <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.aadharNumber || '-'}}</div>
                 </div>
               </div>

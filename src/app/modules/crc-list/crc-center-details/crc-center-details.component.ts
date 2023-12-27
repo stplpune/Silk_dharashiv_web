@@ -14,8 +14,6 @@ export class CrcCenterDetailsComponent {
   routingData: any;
   subscription!: Subscription;
   lang: string = 'English';
-  crcNameMR: any;
-  crcNameEn: any;
   constructor
     (
       private route: ActivatedRoute,
@@ -32,9 +30,6 @@ export class CrcCenterDetailsComponent {
     this.route.queryParams.subscribe((params: any) => {
       this.routingData = params['id'];
     });
-    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
-    this.crcNameEn = spliteUrl[1];
-    this.crcNameMR = spliteUrl[2];
   }
 
   backToPage() {
