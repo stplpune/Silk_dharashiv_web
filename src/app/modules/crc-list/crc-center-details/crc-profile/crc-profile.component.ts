@@ -136,7 +136,7 @@ export class CrcProfileComponent {
       this.spinner.hide();
       return
     } else {
-      this.apiService.setHttp('put', 'sericulture/api/UserRegistration/CRC_Approval_Status?lan=' + this.lang, false, formData, false, 'masterUrl');
+      this.apiService.setHttp('post', 'sericulture/api/UserRegistration/CRC-Approval-Status?lan=' + this.lang, false, formData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           this.spinner.hide();
