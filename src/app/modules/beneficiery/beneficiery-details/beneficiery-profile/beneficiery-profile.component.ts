@@ -33,43 +33,37 @@ import { Subscription } from 'rxjs';
 export class BeneficieryProfileComponent {
   subscription!: Subscription;
   lang: string = 'English';
-  profileData : any;
+  profileData: any;
 
   constructor(
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
     private errorService: ErrorHandlingService,
     public webStorage: WebStorageService,
-    public common: CommonMethodsService) {}
+    public common: CommonMethodsService) { }
 
-    ngOnInit() {
-      this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
-        this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
-        this.lang = this.lang == 'English' ? 'en' : 'mr-IN'; 
-      }) 
-      this.getProfileData();
-    }
-
-
-    getProfileData(){
-        this.apiService.setHttp('GET', `sericulture/api/Beneficiery/GetBeneficieryDataById?Id=3&lan=en`, false, false, false, 'masterUrl');    
-        this.apiService.getHttp().subscribe({
-          next: (res: any) => {
-            if (res.statusCode == '200') {   
-              this.profileData = res.responseData;
-              console.log(" this.profileData", this.profileData);              
-            } else {
-              this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';            
-            }           
-          },
-          error: (err: any) => {
-            this.spinner.hide();
-            this.errorService.handelError(err.status);
-          },
-        });
-      }
-
+  ngOnInit() {
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+    })
+    this.getProfileData();
+  }
   
-  
-
+  getProfileData() {
+    this.apiService.setHttp('GET', `sericulture/api/Beneficiery/GetBeneficieryDataById?Id=3&lan=en`, false, false, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == '200') {
+          this.profileData = res.responseData;
+        } else {
+          this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
+        }
+      },
+      error: (err: any) => {
+        this.spinner.hide();
+        this.errorService.handelError(err.status);
+      },
+    });
+  }
 }
