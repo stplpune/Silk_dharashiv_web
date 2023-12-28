@@ -52,7 +52,6 @@ const routes: Routes = [
   //Application
 
   { path: 'beneficiery', loadChildren: () => import('../../modules/beneficiery/beneficiery.module').then(m => m.BeneficieryModule), data: { breadcrumb: [{ title: 'Beneficiery List', active: true }] } },
-  { path: 'beneficiery-detailsy', loadChildren: () => import('../../modules/beneficiery/beneficiery-details/beneficiery-details.module').then(m => m.BeneficieryDetailsModule), data: { breadcrumb: [{ title: 'Beneficiery Details', active: true }] } },
   { path: 'farmer-dashboard', loadChildren: () => import('../../modules/farmer/farmer-dashboard/farmer-dashboard.module').then(m => m.FarmerDashboardModule), data: { breadcrumb: [{ title: 'Farmer Dashboard', active: true }] } },
 
 

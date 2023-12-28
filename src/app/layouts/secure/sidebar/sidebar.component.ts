@@ -72,7 +72,6 @@ export class SideBarComponent {
 
   bindBreadCrumb() {
     let pageListData = this.sideBarMenu(false);
-
     let breadCrumbArray: any = [];
 
     pageListData.find((ele: any) => {
@@ -94,6 +93,7 @@ export class SideBarComponent {
         })
       }
     });
+    console.log(breadCrumbArray);
     this.webStorage.breadCrumbArray.next(breadCrumbArray);
   }
 

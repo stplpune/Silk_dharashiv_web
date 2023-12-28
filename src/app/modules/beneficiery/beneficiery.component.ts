@@ -228,7 +228,7 @@ export class BeneficieryComponent {
   viewBenificiaryList(obj: any) {  
     let str=obj?.id;
     let Id: any = this.encryptdecrypt.encrypt(`${str}`);
-    this.router.navigate(['beneficiery-detailsy'], {
+    this.router.navigate(['beneficiery-details'], {
       queryParams: {
         id: Id
       },
