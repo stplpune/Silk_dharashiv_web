@@ -1,5 +1,13 @@
 <nav class="navbar bg-white py-1 border-bottom shadow-sm">
-    <div class="container-fluid justify-content-end gap-1">
+
+    <div class="container-fluid justify-content-between gap-1">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item small" aria-current="page">Master</li>
+          <li class="breadcrumb-item small" aria-current="page">Office Master</li>
+          <li class="breadcrumb-item small active" aria-current="page">Department</li>
+        </ol>
+      </nav>
         <div class="d-flex justify-content-end align-items-center">
             <button mat-flat-button class="btn-icon btn-sidebar-close" (click)="onClickSidebar()">
                 <span class="material-symbols-rounded">
