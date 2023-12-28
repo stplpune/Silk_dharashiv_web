@@ -14,6 +14,8 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 
 @Component({
   selector: 'app-beneficiery-profile',
@@ -34,13 +36,23 @@ export class BeneficieryProfileComponent {
   subscription!: Subscription;
   lang: string = 'English';
   profileData: any;
+  beneficieryId :any;
 
   constructor(
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
     private errorService: ErrorHandlingService,
     public webStorage: WebStorageService,
-    public common: CommonMethodsService) { }
+    public common: CommonMethodsService,
+    private activatedRoute: ActivatedRoute,
+    public encryptdecrypt: AesencryptDecryptService) { 
+      let Id: any;
+      this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
+      if(Id){
+        this.beneficieryId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
+        
+    }
+  }
 
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
@@ -51,7 +63,7 @@ export class BeneficieryProfileComponent {
   }
   
   getProfileData() {
-    this.apiService.setHttp('GET', `sericulture/api/Beneficiery/GetBeneficieryDataById?Id=3&lan=en`, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', `sericulture/api/Beneficiery/GetBeneficieryDataById?Id=3&lan=${this.lang}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {

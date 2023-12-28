@@ -46,11 +46,8 @@ export class BeneficieryTimelineComponent {
   lang: string = 'English';
 
   constructor(
-    // private master: MasterService,
     public webStorage: WebStorageService,
     public common: CommonMethodsService,
-    // public encryptdecrypt: AesencryptDecryptService,
-    // private router: Router,
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
     private errorService: ErrorHandlingService,
@@ -85,15 +82,14 @@ export class BeneficieryTimelineComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;
-          console.log("tableDataArray",this.tableDataArray);          
+          this.tableDataArray = res.responseData.responseData1;         
           this.totalPages = res.responseData.responseData2.totalPages;
           this.tableDatasize = res.responseData.responseData2.totalCount;
         } else {
           this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
           this.spinner.hide();
           this.tableDataArray = [];
-          // this.tableDatasize = 0;
+          this.tableDatasize = 0;
         }
         this.setTableData();
       },

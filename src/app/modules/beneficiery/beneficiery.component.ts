@@ -211,7 +211,7 @@ export class BeneficieryComponent {
       view: true,
       track: false,
       edit: false,
-      date: 'mulberryDate'
+      date: 'mulberryDate' 
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);

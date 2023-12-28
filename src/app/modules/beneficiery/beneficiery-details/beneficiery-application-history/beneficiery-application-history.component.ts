@@ -8,6 +8,8 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { GlobalTableComponent } from 'src/app/shared/components/global-table/global-table.component';
+import { ActivatedRoute } from '@angular/router';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 
 @Component({
   selector: 'app-beneficiery-application-history',
@@ -25,19 +27,23 @@ export class BeneficieryApplicationHistoryComponent {
   highLightRowFlag: boolean = false;
   subscription!: Subscription;
   lang: string = 'English';
+  beneficieryId :any;
 
   constructor(
-    // private master: MasterService,
     public webStorage: WebStorageService,
     public common: CommonMethodsService,
-    // public encryptdecrypt: AesencryptDecryptService,
-    // private router: Router,
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
     private errorService: ErrorHandlingService,
-  ) { }
+    private activatedRoute: ActivatedRoute,
+    public encryptdecrypt: AesencryptDecryptService
+  ) {	let Id: any;
+    this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
+    if(Id){
+      this.beneficieryId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)      
+  } 
+}
   ngOnInit() {
-
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -47,18 +53,6 @@ export class BeneficieryApplicationHistoryComponent {
   }
 
 
-  childCompInfo(obj?: any) {
-    switch (obj.label) {
-      // case 'Pagination':
-      //   this.pageNumber = obj.pageNumber;
-      //   this.getTableData();
-      //   break;
-      case 'View':
-        // this.viewBenificiaryList(obj);
-        break;
-    }
-  }
-
   getTableData(_status?: any) {
     this.spinner.show();    
     this.apiService.setHttp('GET', `sericulture/api/Beneficiery/GetBeneficieryApplicationsHistory?FarmerId=1&lan=en`, false, false, false, 'masterUrl');
@@ -67,15 +61,10 @@ export class BeneficieryApplicationHistoryComponent {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData;
-  
-          
-          // this.totalPages = res.responseData1.totalPages;
-          // this.tableDatasize = res.responseData1.totalCount;
         } else {
           this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
           this.spinner.hide();
           this.tableDataArray = [];
-          // this.tableDatasize = 0;
         }
         this.setTableData();
       },
@@ -107,5 +96,15 @@ export class BeneficieryApplicationHistoryComponent {
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
   }
+
+  
+  childCompInfo(obj?: any) {
+    switch (obj.label) {     
+      case 'View':
+        // this.viewBenificiaryList(obj);
+        break;
+    }
+  }
+
 
 }

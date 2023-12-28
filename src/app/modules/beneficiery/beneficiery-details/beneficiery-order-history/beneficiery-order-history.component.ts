@@ -17,6 +17,8 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { GlobalTableComponent } from 'src/app/shared/components/global-table/global-table.component';
+import { ActivatedRoute } from '@angular/router';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 
 @Component({
   selector: 'app-beneficiery-order-history',
@@ -45,19 +47,25 @@ export class BeneficieryOrderHistoryComponent {
   highLightRowFlag: boolean = false;
   subscription!: Subscription;
   lang: string = 'English';
+  beneficieryId :any;
 
  
   constructor(
-    // private master: MasterService,
     public webStorage: WebStorageService,
     public common: CommonMethodsService,
-    // public encryptdecrypt: AesencryptDecryptService,
-    // private router: Router,
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
     private errorService: ErrorHandlingService,
-    public dialog:MatDialog
-  ) { }
+    public dialog:MatDialog,
+    private activatedRoute: ActivatedRoute,
+    public encryptdecrypt: AesencryptDecryptService
+  ) { 
+    let Id: any;
+    this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
+    if(Id){
+      this.beneficieryId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)  
+  }
+  }
   ngOnInit() {
 
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
@@ -69,8 +77,6 @@ export class BeneficieryOrderHistoryComponent {
   }
 
 
- 
-
   getTableData(_status?: any) {
     this.spinner.show();       
     this.apiService.setHttp('GET', `sericulture/api/Beneficiery/GetBeneficieryChawkiOrder?FarmerId=10&pageno=1&pagesize=10&lan=en`, false, false, false, 'masterUrl');
@@ -78,8 +84,7 @@ export class BeneficieryOrderHistoryComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;
-          console.log("tableDataArray",this.tableDataArray);          
+          this.tableDataArray = res.responseData.responseData1;          
           this.totalPages = res.responseData.responseData2.totalPages;
           this.tableDatasize = res.responseData.responseData2.totalCount;
         } else {
@@ -113,6 +118,7 @@ export class BeneficieryOrderHistoryComponent {
       view: true,
       track: false,
       edit: false,
+      date: 'orderDate' 
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);

@@ -13,8 +13,9 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 export class ChowkiOrderDetailsComponent {
   subscription!: Subscription;
   lang: string = 'English';
-  chowkiOrderData :any
-
+  chowkiOrderData :any;
+  dataSource : any;
+  displayedColumns: string[] = ['srNo','lotNumber', 'raceType', 'distributionChawki', 'ledDate','hatchingDate','deliveryDate']; 
   constructor(
     public webStorage: WebStorageService,
     public common: CommonMethodsService,
@@ -36,8 +37,9 @@ export class ChowkiOrderDetailsComponent {
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.chowkiOrderData = res.responseData;   
-        console.log("this.chowkiOrderData", this.chowkiOrderData);
-             
+        // let tableArray = new Array();
+        this.dataSource = res.responseData.deliveryDetails
+     
       },
       error: (err: any) => {
         this.errorService.handelError(err.status);
