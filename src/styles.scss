@@ -495,3 +495,7 @@ a {
 .optionl_class .mat-mdc-dialog-content {
     display: initial !important;
 }
+
+.breadcrumb-item.active {
+    color:  var(--main-color) !important;
+}

@@ -19,15 +19,13 @@ export class SideBarComponent {
     })
 
     let pageListData = this.webStorage.getAllPageName();
-
     let pageUrls = pageListData.filter((ele: any) => {
       if (ele.isSideBarMenu) {
         return ele;
       }
     });
-
     let pageList = new Array();
-
+    
     pageUrls.find((item: any) => {
       let existing: any = pageList.filter((v: any) => {
         return v.subMenu == item.subMenu;
@@ -38,8 +36,8 @@ export class SideBarComponent {
         pageList[existingIndex].pageName = pageList[existingIndex].pageName.concat(item.pageName);
         pageList[existingIndex].m_PageName = pageList[existingIndex].m_PageName.concat(item.m_PageName);
       } else {
-        if (typeof item.pageURL == 'string')
-          item.pageURL = [item.pageURL];
+        // if (typeof item.pageURL == 'string')
+        item.pageURL = [item.pageURL];
         item.pageName = [item.pageName];
         item.m_PageName = [item.m_PageName];
         pageList.push(item);
@@ -50,12 +48,38 @@ export class SideBarComponent {
 
       if (this.pageListArray.length) {
         let findIndex: any = this.pageListArray.findIndex((item: any) => { return ele.mainMenuId == item.id });
-        findIndex != "-1" ? (this.pageListArray[findIndex].subMenu = true, this.pageListArray[findIndex]?.data?.push(ele)) : this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: false, mainMenu: ele.mainMenu, m_MainMenu: ele.m_MainMenu,menuIcon:ele.menuIcon });
+        findIndex != "-1" ? (this.pageListArray[findIndex].subMenu = true, this.pageListArray[findIndex]?.data?.push(ele)) : this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: false, mainMenu: ele.mainMenu, m_MainMenu: ele.m_MainMenu, menuIcon: ele.menuIcon });
       } else {
-        this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: ele.pageURL.length > 1 ? true : false, mainMenu: ele.mainMenu, m_MainMenu: ele.m_MainMenu,menuIcon:ele.menuIcon})
+        this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: ele.pageURL.length > 1 ? true : false, mainMenu: ele.mainMenu, m_MainMenu: ele.m_MainMenu, menuIcon: ele.menuIcon })
       }
     });
+
     this.setDefaultCollapse();
+    this.setBreadCrumb();
+  }
+
+  setBreadCrumb() {
+    let breadCrumbArray: any = [];
+    this.pageListArray.find((ele: any) => {
+      if (!ele.subMenu && ele.data[0]?.pageURL.length <= 1) {
+        let obj: any = { breadCrumb: ele.data[0]?.pageName[0], m_breadCrumb: ele.data[0]?.m_PageName[0], url: ele.data[0]?.pageURL[0] };
+        breadCrumbArray.push(obj);
+      } else if (!ele.subMenu && ele.data[0]?.pageURL.length > 1) {
+        ele.data[0]?.pageName.find((item: any, k: any) => {
+          let obj: any = { breadCrumb: ele.mainMenu + '/' + item, m_breadCrumb: ele.m_MainMenu + '/' + ele.data[0]?.m_PageName[k], url: ele.data[0]?.pageURL[k] };
+          breadCrumbArray.push(obj);
+        })
+      } else if (ele.subMenu) {
+        ele?.data.find((ob: any) => {
+          ob?.pageName.find((item: any, k: any) => {
+            let str = !ob.pageURL ? '' : ob.pageURL[k];
+            let obj = { breadCrumb: ele?.mainMenu + '/' + ob?.subMenu + '/' + item, m_breadCrumb: ele?.m_MainMenu + '/' + ob?.m_SubMenu + '/' + ob.m_PageName[k], url: str };
+            breadCrumbArray.push(obj);
+          })
+        })
+      }
+    });
+    this.webStorage.breadCrumbArray.next(breadCrumbArray);
   }
 
   mouseOver(flag: boolean) {

@@ -154,8 +154,6 @@ export class PageRightAccessComponent {
 
   //----------------- Dropdown code start here------------------------
   getDepartment() {
-    let userType = this.filterFrm.getRawValue()?.userTypeId;
-    console.log("userType", userType)
     this.masterService.GetDepartmentDropdown().subscribe({
       next: ((res: any) => {
         if (res.statusCode == "200" && res.responseData.length) {

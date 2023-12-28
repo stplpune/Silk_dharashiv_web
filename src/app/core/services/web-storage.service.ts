@@ -10,6 +10,10 @@ export class WebStorageService {
   lang: string = 'English';
   data: any;
   private profileInfo = new BehaviorSubject('');
+
+  breadCrumbArray:any = new BehaviorSubject('');
+  breadCrumbLabel:any = new BehaviorSubject('');
+
   verifyOtpFlag : boolean = false;
 
   constructor(private AESEncryptDecryptService: AesencryptDecryptService) { }
@@ -144,6 +148,4 @@ export class WebStorageService {
   setProfileData(info: any) {
     this.profileInfo.next(info)
   }
-
-
 }

@@ -10,12 +10,13 @@ import { CommonModule } from '@angular/common';
 import { MyProfileComponent } from 'src/app/components/profile/my-profile/my-profile.component';
 import { MatIconModule } from '@angular/material/icon';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, CommonModule, MatIconModule,TranslateModule],
+  imports: [MatDialogModule, MatButtonModule, CommonModule, MatIconModule, TranslateModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
@@ -29,11 +30,12 @@ export class HeaderComponent {
   profileImg: string = '';
   subscription!: Subscription;
   setLang: any;
-
+  breadCrumbData!: any;
+  breadCrumbLabels!: string;
   getLangForLocalStor!: string | null | any;
 
   constructor(private webStorage: WebStorageService, public dialog: MatDialog,
-    private commonMethods: CommonMethodsService,
+    private commonMethods: CommonMethodsService, private router: Router,
     private translate: TranslateService) {
 
     localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
@@ -43,13 +45,11 @@ export class HeaderComponent {
 
   ngOnInit() {
     this.loginData = this.webStorage.getLoggedInLocalstorageData();
-    const language = localStorage.getItem('language') || 'English';
-    this.translate.use(language);
     this.webStorage.setLanguage.subscribe((res: any) => {
       this.setLang = res || localStorage.getItem('language') || 'English';
+      this.setBreadCrumb();
     });
-    this.setLang = language;
-    console.log(this.setLang);
+    this.translate.use(this.setLang);
 
     this.webStorage.getProfileData().subscribe((res: any) => {
       this.userName = res.name;
@@ -57,8 +57,21 @@ export class HeaderComponent {
       this.profileImg = res.profile;
     })
 
+    this.webStorage.breadCrumbLabel.subscribe((res: any) => {
+      this.breadCrumbLabels = res.split('/');
+    });
   }
 
+  setBreadCrumb() {
+    this.webStorage.breadCrumbArray.subscribe((res: any) => this.breadCrumbData = res);
+    let url = this.router.url.split('/');
+    this.breadCrumbData.find((ele: any) => {
+      if (ele.url == url[url.length - 1]) {
+        let label = this.setLang == 'English' ? ele.breadCrumb : ele.m_breadCrumb;
+        this.webStorage.breadCrumbLabel.next(label)
+      }
+    })
+  }
 
   myprofile() {
     this.dialog.open(MyProfileComponent, {
@@ -121,6 +134,6 @@ export class HeaderComponent {
     this.language = lang
     this.translate.use(lang)
     this.webStorage.setLanguage.next(lang)
-    localStorage.setItem('language', lang)
+    localStorage.setItem('language', lang);
   }
 }
