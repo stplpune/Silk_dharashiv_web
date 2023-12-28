@@ -100,7 +100,7 @@ export class LoginComponent {
         "userName": formData.userName,
         "password": formData.password
       }
-      this.apiService?.setHttp('post', 'sericulture/api/Login/CheckLogin?lan='+ this.lang, false, obj, false, 'baseUrl');
+      this.apiService?.setHttp('post', 'sericulture/api/Login/CheckLogin?LoginFlag=web&lan='+ this.lang, false, obj, false, 'baseUrl');
       this.apiService?.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.spinner.hide();
