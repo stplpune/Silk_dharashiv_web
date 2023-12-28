@@ -8,8 +8,14 @@
     "please_enter_valid_new_password": "कृपया वैध नवीन पासवर्ड प्रविष्ट करा",
     "enter_confirm_password": "पुष्टी पासवर्ड प्रविष्ट करा",
     "confirm_password_is_required": "पासवर्ड आवश्यक असल्याची पुष्टी करा",
-    "please_enter_valid_confirm_password": "कृपया वैध पुष्टी पासवर्ड प्रविष्ट करा"
-  },
+    "please_enter_valid_confirm_password": "कृपया वैध पुष्टी पासवर्ड प्रविष्ट करा",
+    "passwords_must_contains" : " पासवर्डमध्ये असणे आवश्यक आहे",
+    "at_least8-15characters_long" : "किमान 8-15 वर्ण लांब",
+    "at_least_1_lowercase_characters(a-z)" : "किमान 1 लोअरकेस वर्ण (a-z)",
+    "at_least1uppercase_characters(A-Z)" : "किमान 1 अप्परकेस वर्ण (A-Z)",
+    "at_least1digits(0-9)" : "किमान 1 अंक (0-9)",
+    "atleast1_special_characters(*$@#)" : "किमान 1 विशेष वर्ण (*$@#)"
+   },
   "home": {
     "like_dairy": "दुग्धव्यवसाय आणि कुक्कुटपालन व्यवसायाप्रमाणेच रेशीम शेती हा देखील शेतीसोबतच एक बाजूचा व्यवसाय म्हणून करता येतो. हा व्यवसाय अगदी कमी खर्चात आणि शेतकऱ्यांकडे आधीच उपलब्ध असलेल्या साहित्याने सुरू करता येतो.",
     "online_application": "ऑनलाइन अर्ज",
