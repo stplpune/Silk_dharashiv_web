@@ -19,7 +19,7 @@
                 <div class="form-label">CRC Name</div>
               </th>
               <th>
-                <div class="form-label">Roman Silkwrrom Rearing Center</div>
+                <div class="form-label">{{lang == 'en' ? chowkiOrderData?.crcName : chowkiOrderData?.m_CRCName || '-'}}</div>
               </th>
             </tr>
             <tr>
@@ -27,7 +27,7 @@
                 <div class="form-label">CRC Address</div>
               </th>
               <th>
-                <div class="form-label">Nipani Kalamb Dharashiv</div>
+                <div class="form-label">{{lang == 'en' ? chowkiOrderData?.crcAddress : chowkiOrderData?.m_CRCAddress || '-'}}</div>
               </th>
             </tr>
             <tr>
@@ -35,7 +35,7 @@
                 <div class="form-label">Grainage</div>
               </th>
               <th>
-                <div class="form-label">Silk Wroom Production Center</div>
+                <div class="form-label">{{lang == 'en' ? chowkiOrderData?.grainage : chowkiOrderData?.m_Grainage || '-'}}</div>
               </th>
             </tr>
             <tr>
@@ -43,7 +43,7 @@
                 <div class="form-label">Grainage Address</div>
               </th>
               <th>
-                <div class="form-label">Gadhinglaj Kolhapur</div>
+                <div class="form-label">{{chowkiOrderData?.grainageAddress || '-'}}</div>
               </th>
             </tr>
             <tr>
@@ -51,7 +51,7 @@
                 <div class="form-label">Type</div>
               </th>
               <th>
-                <div class="form-label">Government</div>
+                <div class="form-label">{{lang == 'en' ? chowkiOrderData?.type : chowkiOrderData?.m_Type || '-'}}</div>
               </th>
             </tr>
             <tr>
@@ -59,7 +59,7 @@
                 <div class="form-label">Delivery Slabs</div>
               </th>
               <th>
-                <div class="form-label">15 September</div>
+                <div class="form-label"> {{chowkiOrderData?.deliverySlab || '-'}}</div>
               </th>
             </tr>
           </thead>
@@ -73,7 +73,7 @@
                 <div class="form-label">Order Id</div>
               </th>
               <th>
-                <div class="form-label">2036548971023564</div>
+                <div class="form-label">{{chowkiOrderData?.orderId || '-'}}</div>
               </th>
             </tr>
             <tr>
@@ -81,7 +81,7 @@
                 <div class="form-label">Order Date</div>
               </th>
               <th>
-                <div class="form-label">15/09/2023 03:25 PM</div>
+                <div class="form-label">{{chowkiOrderData?.orderDate | date :'dd-MM-YYYY' || '-'}}</div>
               </th>
             </tr>
             <tr>
@@ -89,7 +89,7 @@
                 <div class="form-label">Product Name </div>
               </th>
               <th>
-                <div class="form-label">Chawki</div>
+                <div class="form-label">{{chowkiOrderData?.procuctName || '-'}}</div>
               </th>
             </tr>
             <tr>
@@ -97,7 +97,7 @@
                 <div class="form-label">Quantity</div>
               </th>
               <th>
-                <div class="form-label">200</div>
+                <div class="form-label">{{chowkiOrderData?.totalChawkiRequest || '-'}}</div>
               </th>
             </tr>
             <tr>
@@ -105,7 +105,7 @@
                 <div class="form-label">Rate(INR) </div>
               </th>
               <th>
-                <div class="form-label">2700.00 (per 100 DFL)</div>
+                <div class="form-label">{{chowkiOrderData?.chalkyRate || '-'}}</div>
               </th>
             </tr>
             <tr>
@@ -113,7 +113,7 @@
                 <div class="form-label">Total Amount(INR)</div>
               </th>
               <th>
-                <div class="form-label">5400.00</div>
+                <div class="form-label">{{chowkiOrderData?.totalAmount || '-'}}</div>
               </th>
             </tr>
             <tr>
@@ -136,15 +136,38 @@
     <div class="d-flex align-items-center justify-content-between w-100">
       <div class="d-flex gap-2">
         <div class="form-label">Order Qunatity</div>
-        <div class="form-data">: 350 Dlf's</div>
+        <div class="form-data">: {{chowkiOrderData?.chalkyRate || '-'}}</div>
       </div>
       <div class="d-flex gap-2">
         <div class="form-label text-danger">Balance Quantity</div>
-        <div class="form-data text-danger">: 150 Dlf's</div>
+        <div class="form-data text-danger">: {{chowkiOrderData?.balanceQty || '-'}}</div>
       </div>
     </div>
     <div class="table-responsive scrollbar">
-      Table
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Sr. No.</th>
+            <th>Lot No.</th>
+            <th>Race</th>
+            <th>Quantity</th>
+            <th>Led Date</th>
+            <th>Hatching Date</th>
+            <th>Delivery Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of chowkiOrderData?.deliveryDetails ;let i = index">
+            <th>{{i+1}}</th>
+            <td>{{data?.lotNumber}}</td>
+            <td>{{data?.raceType}}</td>
+            <td>{{data?.distributionChawki}}</td>
+            <td>{{data?.ledDate}}</td>
+            <td>{{data?.hatchingDate}}</td>
+            <td>{{data?.deliveryDate}}</td>
+          </tr>         
+        </tbody>
+      </table>
     </div>
   </section>
 </div>

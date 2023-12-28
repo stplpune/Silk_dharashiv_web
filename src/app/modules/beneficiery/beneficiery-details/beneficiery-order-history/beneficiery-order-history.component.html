@@ -2,10 +2,10 @@
   <mat-card-header class="card-header">
     <div class="d-flex align-items-center justify-content-between w-100">
       <div class="text-main">Chowki Order</div>
-      <button mat-flat-button class="btn-main" (click)="chowkiorderdetails()">Chowki Order Details</button>
+      <!-- <button mat-flat-button class="btn-main" (click)="chowkiorderdetails()">Chowki Order Details</button> -->
     </div>
   </mat-card-header>
   <mat-card-content class="card-body">
-    table
+    <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
   </mat-card-content>
 </mat-card>
