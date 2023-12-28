@@ -174,7 +174,7 @@
             </div>
             <div class="row gx-2 align-items-center">
               <div class="col-sm-6">
-                <div class="form-label">2.{{'addManrega.mulberry_plantation_under_Silk'| translate}}<span
+                <div class="form-label">3.{{'addManrega.mulberry_plantation_under_Silk'| translate}}<span
                     class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="mn_DepartmentId">
@@ -189,7 +189,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">3.{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
+                <div class="form-label">4.{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <input matInput placeholder="" formControlName="mobileNo2" (input)="checkMobileNo()"
@@ -206,7 +206,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <mat-label class="form-label">4.{{'approvalProcess.date_of_birth'| translate}}<span
+                <mat-label class="form-label">5.{{'approvalProcess.date_of_birth'| translate}}<span
                     class="text-danger">*</span></mat-label>
                 <mat-form-field appearance="outline" class="w-100">
                   <input matInput [matDatepicker]="picker" formControlName="birthDate" (click)="picker.open()" readonly
@@ -219,7 +219,7 @@
               </div>
               <div class="col-sm-3">
                 <div class="d-flex align-items-center gap-3">
-                  <mat-label class="form-label">5.{{'addManrega.select_gender'| translate}}<span
+                  <mat-label class="form-label">6.{{'addManrega.select_gender'| translate}}<span
                       class="text-danger">*</span></mat-label>
                   <mat-radio-group aria-label="Select an option" formControlName="gender">
                     <mat-radio-button *ngFor="let gen of genderArray" [value]="gen.id" class="px-2">{{lang == 'en' ?
@@ -229,7 +229,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">6.{{'approvalProcess.applicant_qualification_Required'|translate}}<span
+                <div class="form-label">7.{{'approvalProcess.applicant_qualification_Required'|translate}}<span
                     class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="qualificationId">
@@ -242,7 +242,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">7.{{'common.State'| translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">8.{{'common.State'| translate}}<span class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'common.state' | translate}}</mat-label> -->
                   <mat-select formControlName="stateId" (selectionChange)="getDisrict()"
@@ -253,7 +253,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">8.{{'common.District'| translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">9.{{'common.District'| translate}}<span class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="districtId" (selectionChange)="getTaluka()"
                     [class]="WebStorageService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
@@ -264,7 +264,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">9.{{'common.Please_select_taluka'|translate}}<span class="text-danger">*</span>
+                <div class="form-label">10.{{'common.Please_select_taluka'|translate}}<span class="text-danger">*</span>
                 </div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
@@ -290,7 +290,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label"> 10.{{'officerreg.please_select_grampanchayat'|translate}}<span
+                <div class="form-label"> 11.{{'officerreg.please_select_grampanchayat'|translate}}<span
                     class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'officerreg.select_grampanchayat' | translate}}</mat-label> -->
@@ -309,7 +309,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">11.{{'common.Village'| translate}}</div>
+                <div class="form-label">12.{{'common.Village'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>Favorite food</mat-label> -->
                   <input matInput placeholder="" formControlName="village"
@@ -326,7 +326,7 @@
               </div>
 
               <div class="col-sm-3">
-                <div class="form-label">12.{{'common.pin_Code'| translate}}<span class="text-danger">*</span> </div>
+                <div class="form-label">13.{{'common.pin_Code'| translate}}<span class="text-danger">*</span> </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
                     <!-- <mat-label>Favorite food</mat-label> -->
@@ -345,7 +345,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">13.{{'approvalProcess.manarega_job_card_no.'| translate}}<span
+                <div class="form-label">14.{{'approvalProcess.manarega_job_card_no.'| translate}}<span
                     class="text-danger">*</span></div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
@@ -364,7 +364,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">14.{{'approvalProcess.please_select_category'|translate}}<span
+                <div class="form-label">15.{{'approvalProcess.please_select_category'|translate}}<span
                     class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select (click)="categoryDialogBox()" formControlName="categoryId">
@@ -376,7 +376,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-6">
-                <div class="form-label">15.{{'common.address'| translate}}<span class="text-danger">*</span></div>
+                <div class="form-label">16.{{'common.address'| translate}}<span class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <textarea matInput placeholder="" formControlName="address"
                     (keypress)="validation.noFirstSpaceAllow($event);validation.alphaNumericWithSpacesAndSpecChars($event)"></textarea>
@@ -416,7 +416,7 @@
           <div class="container-fluid" [class.disable]="checkManaregaId == 3">
             <div class="row align-items-center">
               <div class="col-sm-4">
-                <div class="form-label">16.{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'|
+                <div class="form-label">17.{{'approvalProcess.total_land_in_hectares_in_favor_of_beneciaries'|
                   translate}}<span class="text-danger">*</span>
                 </div>
                 <div class="form-label">
@@ -437,7 +437,7 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">17.{{'approvalProcess.cultivation_land_survey_number'| translate}} <span
+                <div class="form-label">18.{{'approvalProcess.cultivation_land_survey_number'| translate}} <span
                     class="text-danger">*</span>
                 </div>
                 <div class="form-label">
@@ -459,7 +459,7 @@
               </div>
 
               <div class="col-sm-4">
-                <div class="form-label">18.{{'approvalProcess.should_not_greater_than_point'| translate}}<span
+                <div class="form-label">19.{{'approvalProcess.should_not_greater_than_point'| translate}}<span
                     class="text-danger">*</span></div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
@@ -480,8 +480,8 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="d-flex align-items-center gap-3">
-                  <mat-label class="form-label">19.{{'approvalProcess.are_you_a_joined_account_Holder'| translate}}<span
+                <div class="d-flex flex-column gap-0">
+                  <mat-label class="form-label">20.{{'approvalProcess.are_you_a_joined_account_Holder'| translate}}<span
                       class="text-danger">*</span></mat-label>
                   <mat-radio-group aria-label="Select an option" class="pe-3" formControlName="isJointAccHolder"
                     (change)="onClickAccountHolder(farmInfoFrm.controls['isJointAccHolder'].value)">
@@ -493,7 +493,7 @@
               </div>
               <ng-container *ngIf="farmInfoFrm.getRawValue()?.isJointAccHolder">
                 <div class="col-sm-4">
-                  <div class="form-label">19.A. {{'approvalProcess.land_survey_no._of_land'| translate}} <span
+                  <div class="form-label">20.A. {{'approvalProcess.land_survey_no._of_land'| translate}} <span
                       class="text-danger">*</span></div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
@@ -512,7 +512,7 @@
                   </div>
                 </div>
                 <div class="col-sm-4">
-                  <div class="form-label">19.B. {{'approvalProcess.should_not_greater_than_point_Not_less_than_point'|
+                  <div class="form-label">20.B. {{'approvalProcess.should_not_greater_than_point_Not_less_than_point'|
                     translate}} <span class="text-danger">*</span></div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
@@ -535,7 +535,7 @@
 
               </ng-container>
               <div class="col-sm-4">
-                <div class="form-label">20.{{'approvalProcess.please_select_type_of_land'|translate}}<span
+                <div class="form-label">21.{{'approvalProcess.please_select_type_of_land'|translate}}<span
                     class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="farmTypeId">
@@ -548,7 +548,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">21.{{'approvalProcess.please_select_irrigation_facility'|translate}}<span
+                <div class="form-label">22.{{'approvalProcess.please_select_irrigation_facility'|translate}}<span
                     class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="irrigationFacilityId">
@@ -560,7 +560,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <mat-label class="form-label">22.{{'approvalProcess.have_you_done_orchards'| translate}}</mat-label>
+                <mat-label class="form-label">23.{{'approvalProcess.have_you_done_orchards'| translate}}</mat-label>
                 <div class="">
                   <mat-radio-group aria-label="Select an option" class="pb-0"
                     formControlName="isAnyPlantedBeforeGovScheme"
@@ -578,7 +578,7 @@
 
                   <div class="row align-items-center">
                     <div class="col-sm-4">
-                      <div class="form-label">22.A. {{'approvalProcess.orchard_flower_tree'| translate}}<span
+                      <div class="form-label">23.A. {{'approvalProcess.orchard_flower_tree'| translate}}<span
                           class="text-danger">*</span></div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
@@ -598,7 +598,7 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">22.B. {{'approvalProcess.group_no.'| translate}}<span
+                      <div class="form-label">23.B. {{'approvalProcess.group_no.'| translate}}<span
                           class="text-danger">*</span></div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
@@ -620,7 +620,7 @@
                     <!-- "fourmaxLength": "Maximum 4 digits allowed",
               "sixmaxLength": "Maximum 6 digits allowed", -->
                     <div class="col-sm-4">
-                      <div class="form-label">22.C. {{'approvalProcess.group_area'| translate}}<span
+                      <div class="form-label">23.C. {{'approvalProcess.group_area'| translate}}<span
                           class="text-danger">*</span></div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
@@ -640,7 +640,7 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">22.D. {{'approvalProcess.should_not_greater_than_point_22'|
+                      <div class="form-label">23.D. {{'approvalProcess.should_not_greater_than_point_22'|
                         translate}}<span class="text-danger">*</span></div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">
@@ -661,7 +661,7 @@
                       </div>
                     </div>
                     <div class="col-sm-4">
-                      <div class="form-label">22.E. {{'approvalProcess.number_of_trees_planted'| translate}}<span
+                      <div class="form-label">23.E. {{'approvalProcess.number_of_trees_planted'| translate}}<span
                           class="text-danger">*</span></div>
                       <div class="form-label">
                         <mat-form-field appearance="outline" class="w-100">

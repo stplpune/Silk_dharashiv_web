@@ -175,7 +175,7 @@ export class CrcChawkiOrderComponent {
   }
 
   getStatus() {
-    this.masterService.getCRCStatus().subscribe({
+    this.masterService.GetCRCChawkiStatus().subscribe({
       next: ((res: any) => {
         this.statusArray = res.responseData;
       }), error: (() => {
@@ -196,7 +196,7 @@ export class CrcChawkiOrderComponent {
       })
     })
   }
-  // sericulture/api/CRCCenter/Get-CRC-Centers_Chawki-Orders?DistrictId=1&TalukaId=11&GrampanchayatId=1&DistributionSlab=1&Status=1&SerachText=qq&PageNo=1&PageSize=10
+  
   getTableData(flag?: any) {
     this.spinner.show();
     let formData = this.filterForm.getRawValue();    
@@ -280,6 +280,8 @@ export class CrcChawkiOrderComponent {
     this.getFormData();
     this.getTableData();
   }
+
+ 
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();

@@ -85,7 +85,6 @@ export class InventoryComponent {
     });
     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
     this.id = spliteUrl[0];
-    this.id=27;
     this.crcNameEn = spliteUrl[1];
     this.crcNameMR = spliteUrl[2];
 
