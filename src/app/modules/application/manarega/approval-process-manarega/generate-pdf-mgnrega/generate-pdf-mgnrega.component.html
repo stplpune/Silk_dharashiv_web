@@ -1,0 +1,1101 @@
+<!-- <p>generate-pdf-mgnrega works!</p> -->
+<div  id="printArea">
+    <div class="letterhead">
+        <img src="assets/images/Seal_of_Maharashtra.svg">
+        <div class="letter-text">
+            <h6>महाराष्ट्र शासन </h6>
+            <h4>जिल्हा रेशीम कार्यालय</h4>
+            <h6>मजूर फेडरेशन बिल्डिंग, भानूनगर कॉर्नर, धाराशिव - ४१३५०१</h6>
+            <p>
+                <span>Phone No. - (02472)223885</span>
+                <span>E-Mail: dsoobd@gmail.com</span>
+            </p>
+        </div>
+        <img src="assets/images/logo.png">
+    </div>
+    <div class="letter-bg" *ngIf="actionID !=3 && actionID ==4">
+        <div>जा.क्र. रेशीम/धा.शि./मनरेगा/तां. मं./{{sanctionArray[0]?.technicalSanctionId}}</div>
+        <div>दिनांक: {{showDate | date:'dd-MM-yyyy'}}</div>
+    </div>
+    <div class="letter-bg" *ngIf="actionID ==5">
+        <div>{{sanctionArray[0]?.m_SchemeType}}/प्र.मं./{{sanctionArray[0]?.technicalSanctionId}}</div>
+        <div>दिनांक: {{showDate | date:'dd-MM-yyyy'}}</div>
+    </div>
+    <!-- जा.क्र.-2023 मग्रारोहयो//प्र.मं./2023-24/1506                              -->
+    <!-- (Technical Estimate) -->
+    <mat-card class="plain-card form-container" *ngIf="actionID == 3">
+        <mat-card-content class="card-body" id="report3">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <h4>परिशिष्ट - ३</h4>
+                    <h5>रेशीम संचालनालय, नागपूर</h5>
+                    <h6>मनरेगा अंतर्गत केंद्र शासनाची अधिसूचना दिनांक {{showDate | date:'dd-MM-yyyy'}}</h6>
+                    <p>महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजने अंतर्गत एक एकर तुती लागवड संवर्धन व
+                        कोष उत्पादनासाठी खर्चाचे अंदाजपत्रक (रुपये) तक्ता क्रमांक - १</p>
+                        <!-- <p class="text-end fw-bold">Application Id:{{sanctionArray[0]?.applicationNo}}</p> -->
+                        <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+                            <div class="form-data">Technical Estimate No</div>
+                            <div class="form-data">: {{technicalEstId[0]?.technicalEstimateId}}</div>
+                        </div>
+                </div>
+            </div>
+            <table class="table3 table-bordered">
+                <tbody style="text-align: center;">
+                  <tr>
+                    <th></th>
+                    <th>शेतकर्‍याचे नाव</th>
+                    <th colspan="5">{{technicalEstId[0]?.fullName || '-'}}</th>
+                    <!-- <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th> -->
+                    <th> गाव</th>
+                    <th colspan="3">{{technicalEstId[0]?.m_GrampanchayatName || '-'}}</th>
+                    <!-- <th></th>
+                    <th></th> -->
+                    <th> तालुका</th>
+                    <th colspan="3">{{technicalEstId[0]?.m_Taluka || '-'}}</th>
+                    <!-- <th></th>
+                    <th></th>
+                    <th></th> -->
+                    <th></th>
+                    <th colspan="2">जिल्हा</th>
+                    <th colspan="4">धाराशीव</th>
+                    <th colspan="5"></th>
+                    <!-- <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th> -->
+                  </tr>
+                    <tr>
+                        <th rowspan="3">अ. क्र.</th>
+                        <th rowspan="3">कामाचा तपशील</th>
+                        <th colspan="7">पहिले वर्ष</th>
+                        <th colspan="6">दुसरे वर्ष</th>
+                        <th colspan="6">तिसरे वर्ष</th>
+                        <th colspan="6">एकूण खर्चाचा तपशील</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">एकक</th>
+                        <th rowspan="2">मनुष्य दिवस</th>
+                        <th rowspan="2">मजूरी दर रु. २७३/- प्रति दिन</th>
+                        <th colspan="4">मनरेगा अंतर्गत खर्चाचा तपशील</th>
+                        <th rowspan="2">मनुष्य दिवस</th>
+                        <th rowspan="2">दर</th>
+                        <th colspan="4">मनरेगा अंतर्गत खर्चाचा तपशील</th>
+                        <th rowspan="2">मनुष्य दिवस</th>
+                        <th rowspan="2">दर</th>
+                        <th colspan="4">मनरेगा अंतर्गत खर्चाचा तपशील</th>
+                        <th rowspan="2">मनुष्य दिवस</th>
+                        <th rowspan="2">दर</th>
+                        <th colspan="4">मनरेगा अंतर्गत खर्चाचा तपशील</th>
+                    </tr>
+                    <tr>
+                        <th>मजूरी</th>
+                        <th>सामुग्री ख. रक्कम</th>
+                        <th>लाभार्थी हिस्सा</th>
+                        <th>एकूण</th>
+                        <th>मजूरी</th>
+                        <th>सामुग्री</th>
+                        <th>लाभार्थी हिस्सा</th>
+                        <th>एकूण</th>
+                        <th>मजूरी</th>
+                        <th>सामुग्री</th>
+                        <th>लाभार्थी हिस्सा</th>
+                        <th>एकूण</th>
+                        <th>मजूरी</th>
+                        <th>सामुग्री</th>
+                        <th>लाभार्थी हिस्सा</th>
+                        <th>एकूण</th>
+                    </tr>
+                    <tr>
+                        <th>१</th>
+                        <th>२</th>
+                        <th>३</th>
+                        <th>४</th>
+                        <th>५</th>
+                        <th>६</th>
+                        <th>७</th>
+                        <th>८</th>
+                        <th>९</th>
+                        <th>१०</th>
+                        <th>११</th>
+                        <th>१२</th>
+                        <th>१३</th>
+                        <th>१४</th>
+                        <th>१५</th>
+                        <th>१६</th>
+                        <th>१७</th>
+                        <th>१८</th>
+                        <th>१९</th>
+                        <th>२०</th>
+                        <th>२१</th>
+                        <th>२२</th>
+                        <th>२३</th>
+                        <th>२४</th>
+                        <th>२५</th>
+                        <th>२६</th>
+                        <th>२७</th>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr style="text-align: center;">
+                        <td style="text-align: center;">अ.</td>
+                        <td style="text-align: center;">मजूरी</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <ng-container *ngFor="let data of this.estimateArray;let i=index">
+                        <tr style="text-align: center;">
+                            <td style="text-align: center;">{{i + 1}}</td>
+                            <td style="text-align: left;">{{data.m_WorkDetail || '-'}}</td>
+                            <td>{{data.m_Unit || '-'}}</td>
+                            <td>{{data.manPower_1 || 0}}</td>
+                            <td>{{data.wagesRate_1 || 0}}</td>
+                            <td>{{data.wages_1 || 0}}</td>
+                            <td>{{data.accessoriesAmount_1 || 0}}</td>
+                            <td>{{data.benificiaryShares_1 || 0}}</td>
+                            <td>{{data.total_1 || 0}}</td>
+    
+    
+                            <td>{{data.manPower_2 || 0}}</td>
+                            <td>{{data.wagesRate_2 || 0}}</td>
+                            <td>{{data.wages_2|| 0}}</td>
+                            <td>{{data.accessoriesAmount_2 || 0}}</td>
+                            <td>{{data.benificiaryShares_2 || 0}}</td>
+                            <td>{{data.total_2 || 0}}</td>
+    
+    
+                            <td>{{data.manPower_3 || 0}}</td>
+                            <td>{{data.wagesRate_3 || 0}}</td>
+                            <td>{{data.wages_3 || 0}}</td>
+                            <td>{{data.accessoriesAmount_3 || 0}}</td>
+                            <td>{{data.benificiaryShares_3 || 0}}</td>
+                            <td>{{data.total_3|| 0}}</td>
+    
+    
+                            <td>{{data.totalManPower || 0}}</td>
+                            <td>{{data.totalWagesRate|| 0}}</td>
+                            <td>{{data.totalWages|| 0}}</td>
+                            <td>{{data.totalAccessoriesAmount || 0}}</td>
+                            <td>{{data.benificiaryShares || 0}}</td>
+                            <td>{{data.grandTotal || 0}}</td>
+    
+                        </tr>
+                    </ng-container>
+                    <tr style="text-align: center;font-weight: bold;">
+                        <td></td>
+                        <td>एकूण मजूरी (अ)</td>
+                        <td></td>
+                        <td>{{year1Obj?.manPowerAllyear || 0}}</td>
+                        <td>{{year1Obj?.wagesRateAllyear || 0}}</td>
+                        <td>{{year1Obj?.wages_TotalAllyear || 0}}</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>{{year1Obj?.wages_TotalAllyear || 0}}</td>
+                        <td>{{year2Obj?.manPowerAllyear || 0}}</td>
+                        <td>{{year2Obj?.wagesRateAllyear || 0}}</td>
+                        <td>{{year2Obj?.wages_TotalAllyear || 0}}</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>{{year2Obj?.wages_TotalAllyear || 0}}</td>
+                        <td>{{year3Obj?.manPowerAllyear || 0}}</td>
+                        <td>{{year3Obj?.wagesRateAllyear || 0}}</td>
+                        <td>{{year3Obj?.wages_TotalAllyear || 0}}</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>{{year3Obj?.wages_TotalAllyear || 0}}</td>
+    
+                        <td>{{totalUnSkillObject?.totalManPower || 0}}</td>
+                        <td>{{totalUnSkillObject?.wagesRate || 0}}</td>
+                        <td>{{totalUnSkillObject?.totalWages || 0}}</td>
+                        <td>{{totalUnSkillObject?.totalAccessoriesAmount || 0}}</td>
+                        <td>{{totalUnSkillObject?.totalBenificiaryShares || 0}}</td>
+                        <td>{{totalUnSkillObject?.grandTotal || 0}}</td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr style="text-align: center;">
+                        <td style="text-align: center;">ब</td>
+                        <td style="text-align: center;">सामुग्री</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <ng-container *ngFor="let evv of estimateSkillArray;let j =index">
+                        <tr style="text-align: center;">
+                            <td style="text-align: center;">{{j + 1}}</td>
+                            <td>{{evv.m_WorkDetail || '-'}}</td>
+                            <td>{{evv.m_Unit || '-'}}</td>
+                            <td>{{evv.manPower_1 || 0}}</td>
+                            <td>{{evv.wagesRate_1 || 0}}</td>
+                            <td>{{evv.wages_1 || 0}}</td>
+                            <td>{{evv.accessoriesAmount_1 || 0}}</td>
+                            <td>{{evv.benificiaryShares_1 || 0}}</td>
+                            <td>{{evv.total_2 || 0}}</td>
+                            <td>{{evv.manPower_2 || 0}}</td>
+                            <td>{{evv.wagesRate_2 || 0}}</td>
+                            <td>{{evv.wages_2 || 0}}</td>
+                            <td>{{evv.accessoriesAmount_2 || 0}}</td>
+                            <td>{{evv.benificiaryShares_2 || 0}}</td>
+                            <td>{{evv.total_3 || 0}}</td>
+                            <td>{{evv.manPower_3 || 0}}</td>
+                            <td>{{evv.wagesRate_3 || 0}}</td>
+                            <td>{{evv.wages_3 || 0}}</td>
+                            <td>{{evv.accessoriesAmount_3 || 0}}</td>
+                            <td>{{evv.benificiaryShares_3 || 0}}</td>
+                            <td>{{evv.total_3 || 0}}</td>
+                            <td>{{evv.totalManPower || 0}}</td>
+                            <td>{{evv.totalWagesRate || 0}}</td>
+                            <td>{{evv.totalWages || 0}}</td>
+                            <td>{{evv.totalAccessoriesAmount || 0}}</td>
+                            <td>{{evv.benificiaryShares || 0}}</td>
+                            <td>{{evv.grandTotal || 0}}</td>
+                        </tr>
+                    </ng-container>
+                    <tr style="text-align: center;font-weight: bold;">
+                        <td></td>
+                        <td>एकूण सामुग्री (ब)</td>
+                        <td></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr1obj?.wages_TotalAllyear || 0}}</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr1obj?.accessoriesAmount_TotalAllyear || 0}}</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">0</td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr1obj?.totalAllyear || 0}}</td>
+    
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center">0</td>
+                        <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">0</td>
+                        <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr2obj?.wages_TotalAllyear || 0}}</td>
+                        <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr2obj?.accessoriesAmount_TotalAllyear || 0}}</td>
+                        <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">0</td>
+                        <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr2obj?.totalAllyear || 0}}</td>
+    
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                        <td style="border: 1px solid #aaa;border-collapse: collapse;text-align:center"></td>
+                        <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr3obj?.wages_TotalAllyear || 0}}</td>
+                        <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr3obj?.accessoriesAmount_TotalAllyear || 0}}</td>
+                        <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">0</td>
+                        <td style="border: 2px solid #aaa;border-collapse: collapse;text-align:center">{{skillYr3obj?.totalAllyear || 0}}</td>
+    
+    
+                        <th>{{totalSkillObject?.totalManPower || 0}}</th>
+                        <th>{{totalSkillObject?.wagesRate || 0}}</th>
+                        <th>{{totalSkillObject?.totalWages || 0}}</th>
+                        <th>{{totalSkillObject?.totalAccessoriesAmount || 0}}</th>
+                        <th>{{totalSkillObject?.totalBenificiaryShares || 0}}</th>
+                        <th>{{totalSkillObject?.grandTotal || 0}}</th>
+                    </tr>
+                    <tr style="text-align: center;">
+                        <th></th>
+                        <th class="fw-bold text-center">एकूण अ + ब</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>{{skillYear1Obj?.totalWages_A_B || 0}}</th>
+                        <th>{{skillYear1Obj?.totalAccessoriesAmount_A_B || 0}}</th>
+                        <th>0</th>
+                        <th>{{skillYear1Obj?.total_A_B || 0}}</th>
+                        <th></th>
+                        <th></th>
+                        <th>{{skillYear2Obj?.totalWages_A_B || 0}}</th>
+                        <th>{{skillYear2Obj?.totalAccessoriesAmount_A_B || 0}}</th>
+                        <th>0</th>
+                        <th>{{skillYear2Obj?.total_A_B || 0}}</th>
+                        <th></th>
+                        <th></th>
+                        <th>{{skillYear3Obj?.totalWages_A_B || 0}}</th>
+                        <th>{{skillYear3Obj?.totalAccessoriesAmount_A_B || 0}}</th>
+                        <th>0</th>
+                        <th>{{skillYear3Obj?.total_A_B || 0}}</th>
+                        <th></th>
+                        <th></th>
+                        <th>{{finalTotalRes?.wages || 0}}</th>
+                        <th>{{finalTotalRes?.accessoriesAmount || 0}}</th>
+                        <th>0</th>
+                        <th>{{finalTotalRes?.total || 0}}</th>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="my-1">टिप : पहिले वर्ष शेतकऱ्यांनी १०० अंडीपुंज व दुसऱ्या वर्षी ४०० अंडीपूंजाचे किटक संगोपन करणे
+                आवश्यक आहे. </p>
+            <table class="table31 table-bordered mb-3">
+                <thead style="text-align: center;">
+                    <tr>
+                        <th>तपशील </th>
+                        <th>म. दि.</th>
+                        <th>दर</th>
+                        <th>अकुशल</th>
+                        <th>कुशल</th>
+                        <th>एकूण</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let err of finaltotalArray">
+                        <tr>
+                            <th>{{err.m_Name || '-'}}</th>
+                            <td>{{err.manPower || 0}}</td>
+                            <td>{{err.wagesRate || 0}}</td>
+                            <td>{{err.unskill || 0}}</td>
+                            <td>{{err.skill || 0}}</td>
+                            <td>{{err.total || 0}}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <th>{{totalMappingArray?.m_Name || '-'}}</th>
+                        <td></td>
+                        <td></td>
+                        <td>{{totalMappingArray?.unskill || 0}}</td>
+                        <td>{{totalMappingArray?.skill || 0}}</td>
+                        <td>{{totalMappingArray?.total || 0}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagebreak"></div>
+            <div style="width: 66%;" id="report4">
+                <h4 class="text-center mb-3">
+                    रेशीम संचालनालय, महाराष्ट्र राज्य, नागपुर
+                </h4>
+                <h5 class="text-center mb-2">
+                    मनरेगा अंतर्गत केंद्र शासनाची अधिसूचना दिनांक 23/04/2023 नुसार रेशीम किटक संगोपनगृह 50x22 लांबxरुंद
+                    फुट
+                    मॉडेलसाठी
+                    लागणार्‍या खर्चाचे एक एकर तुती लागवड नुसार सुधारीत अंदाजपत्रक
+                </h5>
+                <table class="table4 table-bordered">
+                    <tbody style="text-align: center;">
+                        <tr>
+                            <th rowspan="2">अ. क्र.</th>
+                            <th rowspan="2">कामाचा तपशील</th>
+                            <th colspan="6">
+                                1100 चौ फुट ( 150 ते 250 ) अंडीपुंज / बॅच
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>एकक</th>
+                            <th>दर रु 273-/ म दिवस</th>
+                            <th>मात्रा दिवस</th>
+                            <th>एकूण म. दिवस</th>
+                            <th>दर रु</th>
+                            <th>मनरेगा अंतर्गत मजूरी</th>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>अ.)</td>
+                            <td>मजूरी</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <ng-container *ngFor="let ev of  skillDataArray.unSkillArray;let i=index">
+                            <tr>
+                                <td>{{i + 1}}</td>
+                                <td style="text-align:left;">{{ev.m_WorkDetail || '-'}}</td>
+                                <td>{{ev.m_Unit || '-'}}</td>
+                                <td>{{ev.manPower || 0}}</td>
+                                <td>{{ev.aroundDay || 0}}</td>
+                                <td>{{ev.totalManPower || 0}}</td>
+                                <td>{{ev.wagesRate || 0}}</td>
+                                <td>{{ev.totalWages || 0}}</td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngFor="let err of skillDataArray.totalUnskill">
+                            <tr class="fw-bold">
+                                <td></td>
+                                <td>अ.) एकूण अकुशल मजूरी</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>{{err.totalManPowerDays || 0}}</td>
+                                <td>{{err.wagesRate || 0}}</td>
+                                <td>{{err.wagesUnderManrega || 0}}</td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+                <div style="font-size:10pt;font-weight: 600;">ब.) कुशल कामांचा तपशील</div>
+                <table class="table41 table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>
+                                <p>अ. क्र.</p>
+                            </th>
+                            <th>साहित्याचे नाव</th>
+                            <th>प्रमाण</th>
+                            <th colspan="2">मात्रा</th>
+                            <th>दर रु</th>
+                            <th>देय रक्कम रु.</th>
+                            <th>शेरा</th>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr *ngFor="let err of skillDataArray.skillArray;let i =index">
+                            <td>{{i + 1}}</td>
+                            <td>{{err.m_WorkDetail || '-'}}</td>
+                            <td>{{err.m_Unit || '-'}}</td>
+                            <td colspan="2">{{err.aroundDay ||0}}</td>
+                            <td>{{err.wagesRate ||0}}</td>
+                            <td>{{err.totalWages ||0}}</td>
+                            <td rowspan="6" *ngIf="i == 0">
+                                {{technicalUnSkillObj?.action1}}
+                            </td>
+                            <td *ngIf="i == 6">
+                                {{technicalUnSkillObj?.action2}}
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr class="fw-bold">
+                            <td>8</td>
+                            <td>ब.) एकूण कुशल रक्कम</td>
+                            <td></td>
+                            <td colspan="2"></td>
+                            <td></td>
+                            <td>{{tableDataArray?.responseData4?.wagesUnderManrega || 0}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr class="fw-bold">
+                            <td>9</td>
+                            <td>एकूण रक्कम (अ + ब )</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>{{tableDataArray?.responseData5?.total ||0}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex gap-2 py-1">
+                  <div class="form-label small">टिप: </div>
+                  <div class="form-label small">किटक संगोपन गृहाचे नीवरूत्तीकरण करणेसाठी किटक संगोपनगृहामध्ये कोबा/फरशी तसाच बाजूने 2.5-3 फुट उंचीचे भिंत बंधने आवश्यक आहे.</div>
+                </div>
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex flex-column align-items-center">
+                        <div>--</div>
+                        <div style="font-size:10pt;font-weight: 600;">{{loginData?.m_DesignationName || '-'}}</div>
+                        <div style="font-size:10pt;font-weight: 600;">{{loginData?.m_DepartmentName || '-'}}</div>
+                    </div>
+                    <div class="d-flex flex-column align-items-center">
+                        <div>--</div>
+                        <div style="font-size:10pt;font-weight: 600;">संचालक.</div>
+                        <div style="font-size:10pt;font-weight: 600;">रेशीम संचालनालय, नागपुर</div>
+                    </div>
+                    <div class="d-flex flex-column align-items-center">
+                        <div>--</div>
+                        <div style="font-size:10pt;font-weight: 600;">उपसंचालक.</div>
+                        <div style="font-size:10pt;font-weight: 600;">रेशीम संचालनालय, नागपुर</div>
+                    </div>
+                    <div class="d-flex flex-column align-items-center">
+                        <div>--</div>
+                        <div style="font-size:10pt;font-weight: 600;">आयुक्त.</div>
+                        <div style="font-size:10pt;font-weight: 600;">म.न.रे.गा.</div>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    
+    <!-- (Technical Sanction) -->
+    <div id="tao" *ngIf="actionID == 4">
+        <div class="letter-content">
+            <h4>तांत्रिक मंजुरी आदेश</h4>
+            <p>
+                विषय : महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजना (MGNREGS) अंतर्गत रेशीम उद्योग
+                विकास
+                योजनेस तांत्रिक
+                मंजूरी दिले बाबत.
+            </p>
+            संदर्भ:
+            <ol>
+                <li>शासन निर्णय क्रं. मग्रारो – 2013/प्र. क्रं. 137/मग्रारो–1,मंत्रालय, मुंबई-32, दिनांक –04/03/2014</li>
+                <li>शासन निर्णय क्रं. मग्रारो – 2014/प्र. क्रं. 79/रोहयो–5,मंत्रालय, मुंबई-32, दिनांक – 31/03/2016</li>
+                <li>ग्रामीण विकास मंत्रालय, अधिसूचना संकीर्ण-1372. दिनांक – 24/03/2023</li>
+            </ol>
+            <p>
+                उपरोक्त शासन निर्णयानुसार प्रधान केलेल्या शक्तीचा वापर करून रेशीम विकास अधिकारी श्रेणी - 2, धाराशिव,
+                यांच्या द्वारे प्राप्त झालेल्या प्रथावा मधील अ. क्रं. {{sanctionArray[0]?.applicationNo}} नुसार मौजे {{sanctionArray[0]?.m_GrampanchayatName}}, ता. {{sanctionArray[0]?.m_Taluka}}, जिल्हा.
+                {{sanctionArray[0]?.m_District}}. येथील रहिवाशी असणार्‍या व शासन निर्णयातील निकषानुसार पात्र ठरलेल्या लाभार्थ्यास पूढील तापसीला
+                प्रमाणे सन {{sanctionArray[0]?.firstYear}} व सन {{sanctionArray[0]?.secondYear}} व सन {{sanctionArray[0]?.thirdYear}} या तीन वर्षा करिता प्रती एकर रक्कम रुपये
+                {{sanctionArray[0]?.total}} प्रमाणे खर्चास, महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजने (MGNREGS) अंतर्गत रेशीम उद्योग
+                विकास योजनेचे नवीन कामाचे अंदाज पत्रकास शासन निर्णयात नमूद अटी व शर्तीस अधीन राहून तांत्रिक मंजूरी देण्यात
+                येत आहे.
+            </p>
+    
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2">अ. क्रं</th>
+                        <th rowspan="2">गावाचे नाव</th>
+                        <th rowspan="2">लाभार्थ्याचे नाव</th>
+                        <th rowspan="2">8 अ प्रमाणे क्षेत्र (हे.)</th>
+                        <th rowspan="2">तुती लागवड करावयाचा गट क्रं.</th>
+                        <th rowspan="2">वर्गवारी</th>
+                        <th rowspan="2">लागवड क्षेत्र हे.</th>
+                        <th colspan="3">तांत्रिक मान्यता रक्कम रुपये</th>
+                    </tr>
+                    <tr>
+                        <th>अकुशल</th>
+                        <th>कुशल</th>
+                        <th>एकूण</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let arr of sanctionArray;let i=index">
+                    <tr>
+                        <td>{{i + 1}}</td>
+                        <td>{{arr?.m_GrampanchayatName}}</td>
+                        <td>{{arr?.fullName}}</td>
+                        <td>{{arr?.cultivatedFarmInHector}}</td>
+                        <td>{{arr?.mulberryCultivatedSurveyNo}}</td>
+                        <td>{{arr?.categoryOfBeneficiary}}</td>
+                        <td>{{arr?.cultivatedFarmInHector}}</td>
+                        <td>{{arr?.unskill}}</td>
+                        <td>{{arr?.skill}}</td>
+                        <td>{{arr?.total}}</td>
+                    </tr>
+                </tbody>
+            </table>
+    
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th colspan="9">वर्ग निहाय अकुशल व कुशल खर्चाचा तपशील</th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">पहिले वर्ष</th>
+                        <th colspan="3">दुसरे वर्ष</th>
+                        <th colspan="3">तिसरे वर्ष</th>
+                    </tr>
+                    <tr>
+                        <th>अकुशल</th>
+                        <th>कुशल</th>
+                        <th>एकूण</th>
+                        <th>अकुशल</th>
+                        <th>कुशल</th>
+                        <th>एकूण</th>
+                        <th>अकुशल</th>
+                        <th>कुशल</th>
+                        <th>एकूण</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{sanctionArray[0]?.unskill}}</td>
+                        <td>{{sanctionArray[0]?.skill}}</td>
+                        <td>{{sanctionArray[0]?.total}}</td>
+                        <td>{{sanctionArray[0]?.unskill}}</td>
+                        <td>{{sanctionArray[0]?.skill}}</td>
+                        <td>{{sanctionArray[0]?.total}}</td>
+                        <td>{{sanctionArray[0]?.unskill}}</td>
+                        <td>{{sanctionArray[0]?.skill}}</td>
+                        <td>{{sanctionArray[0]?.total}}</td>
+                    </tr>
+                </tbody>
+            </table>
+    
+            <div class="bottom">
+                <div>
+                    {{loginData?.m_DesignationName || '-'}}
+                </div>
+                <div>
+                    {{loginData?.m_DepartmentName || '-'}}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- (Administrative Approval Letter) -->
+    <div id="aal" *ngIf="actionID == 5">
+        <div class="letter-header">
+            <h6>परिशिष्ट-अ</h6>
+            <h6>महात्मा गांधी राष्ट्रीय रोजगार हमी अधिनियमांतर्गत महाराष्ट्र ग्रामीण रोजगार हमी योजनेच्या कामांना प्रशासकीय
+                मान्यता देण्याबाबतचे आदेश</h6>
+        </div>
+        <div style="border-bottom: solid 1px #aaa;margin-bottom: 10px;">
+            <table width="100%" style="margin-bottom: 5px;">
+                <tr>
+                    <td style="width: 50px;font-weight: 600;vertical-align:top;">वाचा:</td>
+                    <td>
+                        1) महात्मा गांधी राष्ट्रीय रोजगार हमी अधिनियम २००५<br>
+                        २) महात्मा गांधी राष्ट्रीय रोजगार हमी अधिनियम १९७७ (सुधारणा) २००६<br>
+                        ३) महात्मा गांधी राष्ट्रीय रोजगार हमी अधिनियम पुस्तिका २००६<br>
+                        ४) शासन निर्णय, नियोजन विभाग क्र. मग्रारोहयो २००५/प्र. क्र./१०४/रोहयो-१०/दिनांक २३/१२/२००५.<br>
+                        ५) शासन निर्णय, नियोजन विभाग क्र. मग्रारोहयो २००६/प्र. क्र./१०४/रोहयो-१०/दिनांक १९/१०/२००६.<br>
+                        ६) शासन निर्णय क्र. मग्रारोहयो २०१०/ प्र. क्र.-४७/ रोहयो-१०, दिनांक ०८/०६/२०१०.<br>
+                        ७) शासन परिपत्रक क्र. मग्रारोहयो २०१०/ प्र. क्र.-२/ रोहयो-१०-अ/ दिनांक १५/१०/२०१०.<br>
+                        ८) शासन निर्णय क्र. मग्रारोहयो २०१०/ प्र. क्र.-४७/ रोहयो-१०, दिनांक २२/०३/२०११.<br>
+                        ९) शासन परिपत्रक क्र. मग्रारोहयो २०११/ प्र. क्र.-४३/ रोहयो-१०/ दिनांक ०९/०५/२०११.<br>
+                        १०) शासन निर्णय क्र. मग्रारोहयो २०१०/ प्र. क्र.-४८/ रोहयो-१०, दिनांक १५/०४/२०११.<br>
+                        ११) शासन निर्णय क्र. मग्रारोहयो २०१०/ प्र. क्र.-४७/ रोहयो-१०, दिनांक ०३ ऑगस्ट २०११.<br>
+                        १२) शासन निर्णय क्र. मग्रारो २०१२/ प्र. क्र.-३३/ रोहयो-१, दिनांक ०४ जुलै २०१२.<br>
+                        १३) शासन निर्णय क्र. मग्रारो २०१४/ प्र. क्र.-७९/ रोहयो-५, दिनांक ३१ मार्च २०१६.<br>
+                        १४) मा. विभागीय आयुक्त, औरंगाबाद यांचे ई- मेल प.क्र. जा.क्र.२०१७/रोहयो/जा-६/कावी-दिनांक
+                        १४/०६/२०१७.<br>
+                        १५) मा. विभागीय आयुक्त, औरंगाबाद यांचे ई- मेल प.क्र. जा.क्र.२०१८/रोहयो/जा-६/कावी-दिनांक
+                        ०४/०६/२०१८.<br>
+                        १६) शासन निर्णय क्र. मग्रारोहयो २०१६/ प्र. क्र.-३४/ रोहयो-१० मंत्रालय, मुंबई - ४०००३२, दि. २८ एप्रिल
+                        २०२३.<br>
+                        १७) रेशीम विकास अधिकारी श्रेणी-१, उस्मानाबाद यांचे प.क्र.जा.क्र.
+                        रेशीम/उस्मानाबाद/प्र.मा./२०२३-२४/११६१,११६२ दि. ११/०७/२०२३<br>
+                        १८) या कार्यालयाचे मान्य पृष्ठांक दिनांक: {{showDate | date:'dd-MM-yyyy'}}<br>
+    
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="main-content">
+            <div class="head-date">
+                <!-- <div>जा.क्र.-2023 मग्रारोहयो//प्र.मं./{{sanctionArray[0]?.technicalSanctionId}}</div> -->
+                <!-- <div>
+                    दिनांक: {{showDate | date:'dd-MM-yyyy'}}
+                </div> -->
+            </div>
+            <h6>प्रशासकीय मान्यता आदेश</h6>
+            <p>
+                महात्मा गांधी राष्ट्रीय रोजगार हमी अधिनियमांतर्गत महाराष्ट्र ग्रामीण रोजगार हमी योजना अंतर्गत व कायदा-2005
+                नुसार महाराष्ट्र ग्रामीण रोजगार हमी योजनेची अंबलबजावणी धाराशीव जिल्ह्यात 01/04/2007 पासून करण्यात येत आहे.
+                या अनुषंगाने {{loginData?.m_DesignationName || '-'}}, जिल्हा रेशीम कार्यालय, धाराशीव यांनी खालील ग्रामपंचायत करिताच्या
+                तुती लागवड संवर्धन व कोष उत्पादन, रेशीम लागवड या कामाचे अंदाज पत्रक तयार करून तांत्रिक बाजूचे सर्वस्वी
+                जबाबदारीवर सदर कामास तांत्रिक मान्यता देऊन प्रशासकीय मान्यता देणे बाबत प्रस्ताव सादर केलेला आहे. ते
+                खालीलप्रमाणे.
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>
+                            अ. क्र.
+                        </th>
+                        <th>
+                            तालुका
+                        </th>
+                        <th>
+                            ग्रामपंचायत
+                        </th>
+                        <th>
+                            लाभार्थ्याचे नाव
+                        </th>
+                        <th>
+                            गट क्र.
+                        </th>
+                        <th>
+                            लागवड क्षेत्र
+                        </th>
+                        <th>
+                            ता. मा. क्र.
+                        </th>
+                        <th>
+                            दिनांक
+                        </th>
+                        <th>
+                            अकुशल
+                        </th>
+                        <th>
+                            कुशल
+                        </th>
+                        <th>
+                            एकूण
+                        </th>
+                    </tr>
+                    <tr *ngFor="let arr of sanctionArray; let i =index">
+                        <td>
+                          {{i + 1}}
+                        </td>
+                        <td>
+                           {{ arr?.m_Taluka}}
+                        </td>
+                        <td>
+                            {{ arr?.m_GrampanchayatName}}
+                        </td>
+                        <td>
+                             {{ arr?.fullName}}
+                        </td>
+                        <td>
+                            {{ arr?.mulberryCultivatedSurveyNo}}
+                        </td>
+                        <td>
+                            {{ arr?.cultivatedFarmInHector}}
+                        </td>
+                        <td>
+                               {{ arr?.cultivatedFarmInHector}}
+                        </td>
+                        <td>
+                            {{showDate | date:'dd-MM-yyyy'}}
+    
+                        </td>
+                        <td>
+                            {{ arr?.unskill}}
+                        </td>
+                        <td>
+                            {{ arr?.skill}}
+                        </td>
+                        <td>
+                            {{ arr?.total}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                उक्त संदर्भिय शासन निर्णय व परिपत्रकातील निर्देशानुसार तसेच संदर्भ क्र. 16 च्या शासन निर्णय क्रं.
+                मग्रारोहयो-2016/प्र.क्रं-34/रोहयो-10 मंत्रालय, मुंबई 400032, दि. 28 एप्रिल 2020 च्या पत्राच्या अधीन राहून
+                महात्मा गांधी राष्ट्रीय रोजगार हमी अधिनियमांतर्गत महाराष्ट्र ग्रामीण रोजगार हमी योजनेच्या कामांना
+                रेशीम विकास {{loginData?.m_DesignationName || '-'}} धाराशीव यांनी तांत्रिक मान्यता
+                दिल्याच्या आधारे मी कार्यक्रम {{loginData?.m_DepartmentName || '-'}} मग्रारोहयो तथा तहसिलदार,
+                {{loginData?.m_Taluka || '-'}} प्राप्त अधिकाराचा वापर करुन वरील कामास <strong>मौजे {{sanctionArray[0]?.m_GrampanchayatName}}</strong> येथील वरील
+                कामाची अकुशल रक्कम <strong>{{sanctionArray[0]?.unskill}}/-</strong> व कुशल रक्कम
+                <strong>{{sanctionArray[0]?.skill}}/-</strong> एकूण रक्कम <strong>{{sanctionArray[0]?.total}}/-</strong>
+                <strong>(अक्षरी तीन लक्ष सत्यानऊ हजार तीनशे पस्तीस रुपये फक्त)</strong> प्रस्तावास खालील
+                प्रमुख अटी व शर्तीस अधीन राहून व मा. जिल्हाधिकारी यांच्या बैठफीतींल सुचनेच्या अधीन राहुन प्रशासक्रीय मान्यता
+                आदेश निर्गमित करण्यात येते आहे. तसेच ग्रा.प. ठराव/कृती आराखडा वं इत्यादी अवश्यक बरुटीची पुर्तता
+                झाल्यानंतरच कार्यरंभ आदेशाची कार्यवाही करण्यात येईल तसेच महाराष्ट्र ग्रागीण रोजगार हमी योजना वर्ष
+                {{sanctionArray[0]?.firstYear}} या शोर्षाखाली प्रशासकीय मान्यता प्रदान करीत आहे. महाराष्ट्र ग्रामीण रोजगार हमी
+                योजना वर्ष {{sanctionArray[0]?.secondYear}} या शौर्षाखाली प्रशासकोव मान्यता प्रदान करीत आहे.
+            </p>
+            <h6>बाबीचा तपशील -</h6>
+            <ol>
+                <li>कामाचा समावेश ग्रामपंचायतीच्या वार्षिक कृती आराखड्यामध्ये झालेला आहे किंवा नाही याची खात्री करावी
+                    नसल्यास आराखड्यामध्ये घेवून उक्त ग्रामपंचायतीचे ग्रामसभेच्या ठरावानुसार सदर कामाचा समावेश आराखड्यास
+                    कर्पोत्तर मान्यता घेणेची यंत्रणेची जबाबदारी राहील.</li>
+                <li>सदर काम हे अकुशल, कुशल कामाच्या खर्चाच्या ६०:४० प्रमाणात आहे. तालुक्&zwj;याच्या वार्षिक एकुण खर्चाच्या
+                    कुशल अकुशल काम यांच्या गुणोत्तरात आहे.</li>
+                <li>सदरच्या कामाची अंमलबजावणी ही उपोदघातामध्ये नमुद केलेल्या केंद्र शासनाच्या व महाराष्ट्र शासनाच्या
+                    कायद्याप्रमाणे तसेच याबाबत महाराष्ट्र शासनाने वेळोवेळी निर्गणत केलेले शासन निर्णय व परिपत्रके यांच्या
+                    अधिन राहून करण्यात येत आहे. तसेच याबाबत तांत्रिक यंत्रणेने, ग्रामपंचायतीने व संबंधित यंत्रणांनी दक्षता
+                    घ्यायची आहे.(सदर काम ग्रामपंचायतीकडे नोंदणीकृत असलेल्या मजुरामार्फतच पूर्ण करणे, कंत्राटदारांना बंदी
+                    राहील तसेच मजुर विस्थापित करणा-या यंत्राचा / मशिनरीचा वापर करण्यात येऊ नये. कामावर मजुरांसाठी सुविधा
+                    ठेवणे इ. बार्बीची जबाबदारी संबंधित तांत्रिक यंत्रणेंची आहे.)</li>
+                <li>
+                    <strong>
+                        <u>
+                            इतर शेरा : या शिवाय खालील अटी व शर्थीचे पालन करणेची जगाबदारी यंत्रणावर राहील.
+                        </u>
+                    </strong>
+                    <ol>
+                        <li>सदरील कामे करतांना कामासाठी महाराष्ट्र रोजगार हमी योजने अंतर्गत केंद्र शासनाने / राज्य शासनाने
+                            वेळोवेळी निर्गमित केलेले आदेश, निर्देश, परिपत्रके, आणि मार्गदर्शक सूचनांचे काटेकोरपणे पालन करूनच
+                            काम कार्यान्वित करावे.</li>
+                        <li>सदर कामाचा समावेश संबंधित ग्रामपंचायत कृत्ती आराखडयात आहे किंवा नाही याची खात्री करावी, नसल्यास
+                            समावेश करुनच काम कार्यान्वीत करणे.</li>
+                        <li>सदर कामाची मजूराची मागणी विचारात घेऊन कार्यारंभ आदेश मिळणेबाबत प्रस्ताव सादर करुन या
+                            कार्यालयामधून कार्यारंभ आदेश घेऊनच काम कार्यान्वीत करणे.</li>
+                        <li>या कार्यालयामधून हजेरी पत्रके (इं-मस्टर) घेऊन सदर कामी वापरावे. कामावर वापरण्यात येणा-या हजेरी
+                            पत्रकातील बाबी वेळीच भरणे, हजेरी पत्रकाची व कुशल प्रमाणकाची वेळीच MIS वरील (Online Data
+                            Entry)सर्व प्रकारच्या नोंदी करणे.</li>
+                        <li>ग्रामपंचायत पातळीवरील दक्षता संनियतरण समितीची स्थापना करुनच कामे कार्यान्वीत करण्यात यावीत. तसेच
+                            सर्व कामाचे सामाजिक अंकेक्षण ग्रामसभेगार्फत करण्यात यावे.</li>
+                        <li>कामाचे ठिकाणी कामाचे नांव दर्शविणारा, मंजूर रक्&zwj;कम, मजूर क्षमता, मजूरी दर व काम सुरू
+                            झाल्याचा दिनांक इ. माहिती दर्शविणारा फलक लावण्यात यावा.</li>
+                        <li>काम सुरु करण्याबाबतचा दिनांक व मजूर उपस्थिती अहवाल या कार्यालयास तत्काल सादर करावा.</li>
+                        <li>मंजूर केलेल्या अकुशल / कुशल रक्कम पेक्षा कामावर जास्त खर्च करण्यात येऊ नये याची कटाक्षाने दक्षता
+                            घ्यावी.</li>
+                        <li>पुर्वी या कामावर अन्य कोणत्याही योजनेतून खर्च झालेला नसावा.</li>
+                        <li>मजूरांना साप्ताहिक मजूरी प्रदान करण्यात यावी अपवादात्मक परिस्थितीमध्ये पक्षीकापेक्षा विलंब होऊ
+                            नये.</li>
+                        <li>कामाचे ठिकाणी मजूरी दराचा तक्&zwj;ता ठेवावा व नियमाप्रमाणे मजुरांना सर्व सुखसोई सुविषा उपलब्ध
+                            करून द्याव्यात,</li>
+                        <li>सदर काम पूर्ण होताच संबंधित ग्रामपंचायतीस हस्तांतरित करून कामाची नोंद नं. १० भत्ता नोंद वहीत
+                            घेयात यावी. तसेच काम पूर्णत्वचा दाखला ग्रांपंचायतीस व कार्यक्रम अधिकारी यांना सादर करावा.</li>
+                        <li>अभिसरणाच्या माध्यमातून निर्माण झालेल्या रोजगाराच्या माहितीचे अभिलेखे स्वतंत्रपणे ठेवण्यात यावे.
+                        </li>
+                        <li>सदरील कामे महाराष्ट्र ग्रामीण रोजगार हमी योजनेखाली नोंदनिकृत मजुरांनाच कामाच्या मागाणीनुसार कामे
+                            उपलब्ध करून द्यावीत.</li>
+                        <li>सदरील कामातील सर्व कुशल/अकुशल बाबी मजूरांमार्फत करणे बंधनकारक राहील. तसेच कामात कुठेहीठेकेदार
+                            पध्दतीचा अवलंब होणार नाही यासी दक्षता घेण्यात यावी.</li>
+                        <li>मजूरांची मजूरी EFMS प्रणालीद्वारे बँक/पोस्ट यांचेमार्फत करण्यात यावी.</li>
+                        <li>रोजगार पत्रकावर व जॉबकार्ड धारकाच्या खात्यावर मजूरांनी घेतलेल्या कामाची नोंद व वितरण केलेल्या
+                            रकमेची नोंद घ्यावी.</li>
+                        <li>कामासाठी वापरण्यात आलेल्या हजेरी पत्रकावर मजुरचा रोजगार पत्रक क्रमांक अनिवार्य आहे. तसेच
+                            स्त्री-पुरुष अजा/अज देखील नमूद करावे.</li>
+                        <li>मंजूर कामासाठी केवळ कुशल व अकुशल भागासाठीचा खर्च या योजनेतून भागविण्यात यावा याशिवाय इतर कोणताही
+                            खर्च या योजनेतून अनुज्ञेय राहणार नाही इतर केलेल्या खर्चाची संपूर्ण जबाबदारी संबंधित कार्यान्वीत
+                            यंत्रणेची राहील.</li>
+                        <li>अर्धकुशल व कुशल मजुरांचे भूगतान हे सामुगरीचा भाग समजण्यात यावा. तसेच सामुग्रीचा एकूण खर्च हा
+                            एकूण प्रकल्पीय किमतीच्या ४० टक्के पेक्षा जास्त नसावा.</li>
+                        <li>कामाचा मासिक प्रगती अहवाल व मासिक खर्चचा अहवाल पुढील महिन्याचे ५ तारखेच्या आत कार्यालयास सादर
+                            करावा.</li>
+                        <li>३ टक्के कार्यवाही आस्थापना खर्च जिल्हास्तरावर राखून ठेवण्यात येईल. केवळ अकुशल व कुशल भागावरील
+                            मंजूर खर्चाच्या मर्यादेतच काम करण्यात यावे.</li>
+                        <li>प्रत्येक कामासाठी स्वतंत्र हजेरीपट प्रत्यक्ष कामाच्या ठिकाणी ठेवण्यात यावे व त्यामध्ये कुटूंबाचा
+                            रोजगार पत्रक क्रमांक / जातीचा प्रवर्ग या नोंदी घेण्यात येऊन त्याच्या प्रती ग्रामपंचायत
+                            कार्यालयात ठेवण्यात याव्यात.</li>
+                        <li>याशिवाय शासनाने वेळोवेळी निर्गपीत केलेल्या शासन आदेश / सूचना परिपत्रके याचे काटेकोर पणे पालन
+                            करुनच कामे कार्यन्वीत करावी.</li>
+                        <li>कामासाठी वापरण्यात आलेले हजेरीपत्रक निहाय निधी मागणी करणेपूर्वी हजेरीपटाचे मुखपृष्ठावरील तसेच
+                            आतील सर्व माहिती पूर्णपणे व अचूक भरलेची खात्री करुन घ्यावी. परिपूर्ण माहिती भरलेले हजेरीपत्रक
+                            निधीसाठी या कार्यालयास सादर करावे.</li>
+                        <li>कामाचे विविध पातळीवरील जसे की, काम सुरु, प्रगती, पुर्ण झाल्यानंतरचे छायाचित्रे (Photo) रेशीम
+                            संचालनालयाने एमआरसॅक या संस्थेमार्फत विकसीत केलेल्या मोबाईल अँपद्वारे काढणे आवश्यक राहील. तसेच
+                            छायाचित्रे (Photo) अभिलेख म्हणून जतन करुन ठेवावीत.</li>
+                        <li>झालेल्या खर्चाचा त्रैमासिक अहवाल ग्रामसभेसमोर सामाजिक लेखा परीक्षणासाठी सादर करण्यात यावा.</li>
+                        <li>हाती घेतलेले तुती लागवड संवर्धन व कोष उत्पादन (रेशीम उयोग विकास) हे काम उपरोक्त संदर्भ क्र. ९३
+                            मधील अटी व शर्तीची पूर्तता करणे हे यंत्रणेवर बंधनकारक असून पूर्तता करण्याची जबाबदारी राहील.</li>
+                        <li>एकदा एका लाभार्थ्याला लाभ दिल्यानंतर त्याच लाभार्थ्याला पुन्हा लाभ देण्यात येऊ नये किंवा त्याच
+                            क्षेत्रात(जमिनीचा सर्व्हे नंबर / गट नंबर) पुन्हा लाभ देऊ नये. याबाबतची जबाबदारी संबंधीत
+                            यंत्रणेची राहील.</li>
+                        <li>प्रत्येक लाभार्थ्याचे काम हे स्वतंत्र काम समजण्यात येईल.</li>
+                        <li>तुती रोपे व रोपवनाची लागवड केल्यानंतर ९० टवके झाडे जिवंत असणे आवश्यक राहील. तसेच तुती
+                            वअर्जुनवृक्षाच्या व्यवस्थापनामध्ये निंदणी, अंतरमशागत, पाणी, औषध फवारणी इ. कामकाज प्रकल्प
+                            अहवालातील अंदाजपत्रकामध्ये नमुद केल्याप्रमाणे करणे आवश्यक राहील. तुती बागेमध्ये ९० टक्के झाडांची
+                            संख्या आढळून न आल्यास लाभार्थ्यास गॅप फिलींग (तुटाळी) स्वखर्चाने करुन आवश्यक ती झाडांची संख्या
+                            जिवित करणे अनिवार्य राहील.</li>
+                        <li>लाभाथी हा महात्मा गांधी राष्ट्रीय प्रामीण रोजगार हमी योजने अंतर्गत जॉबकार्ड धारक असावा तसेच
+                            त्याला स्वतःच्या लागवडीवर तसेच किटक संगोपनगृह बांधकामाकरीता अकुशल मजुर म्हणुन काम करणे आवश्यक
+                            राहील.</li>
+                    </ol>
+                </li>
+            </ol>
+            <div class="sign">
+                {{loginData?.m_DesignationName || '-'}}<br>
+                {{loginData?.m_DepartmentName || '-'}}
+            </div>
+            <h6>प्रतिलिपी :</h6>
+            <ol>
+                <li>मा. जिल्हा कार्यक्रम समन्वयक मग्रारोहयो तथा जिल्हाधिकारी, धाराशीव यांना माहितीस्तव सविनय सादर</li>
+                <li>मा. उपजिल्हाधिकारी (रोहयो), जिल्हाधिकारी धाराशीव यांना माहितीस्तब सविनय सादर.</li>
+                <li>मा. उपविभागीय अधिकारी, {{loginData?.m_Taluka || '-'}} यांना माहितीस्तव सविनय सादर.</li>
+                <li>सहगट कार्यक्रम अधिकारी मग्रारोहयो तथा गट विकास अधिकारी पंचायत समिती, {{loginData?.m_Taluka || '-'}} यांना माहिती
+                    व आवश्यक त्या कार्यवाहीस्तव.</li>
+                <li>रैशीम विकासअधिकारी श्रेणी - १, जिल्हा रेशीम कार्यालय, धाराशीव यांना योग्य त्या कार्यवाहीस्तव देण्यात
+                    येते.</li>
+                    <li>
+                        ग्रामसेवक, ग्रामपंचायत {{loginData?.m_GrampanchayatName || '-'}} ता. {{loginData?.m_Taluka || '-'}} (मार्फत {{loginData?.m_DesignationName || '-'}}) यांना आवश्यक
+                    कार्यवाहीस्तव.
+                    </li>
+            </ol>
+            <div class="sign">
+                {{loginData?.m_DesignationName || '-'}}<br>
+                {{loginData?.m_DepartmentName || '-'}}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Work Order Letter -->
+    <div id="wol" *ngIf="actionID == 6">
+        <div class="wol-serial">
+            <div>जा.क्र.-2023 मग्रारोहयो//कवि/1506</div>
+            <div>दिनांक: ___/___/_____</div>
+        </div>
+        <div class="wol-content">
+            <div class="sec-head">वाचा.</div>
+            <ol>
+                <li>शासन निर्णय क्र-मग्रारोहयो २०१४/प्र,क्र/७९/५ मंत्रालय मुंबई-४०० ०३२ दि.३१ मार्च २०१६</li>
+                <li>शासन निर्णय क्र.मग्रारोहयो २०१६/प्र.क्र.३४/रोहयो-१० मंत्रालय मुंबई-४०० ०३२ दि. २८ एप्रिल, २०२०</li>
+                <li>उपजिल्हा कार्यक्रम समन्वयक, मग्रारोहयो, जिल्हा परिषद, धाराशीव यांचे पत्र
+                    जा.क्र.२०२०/जिपउ/मगांराग्रारोहयो/लेखा/कक्ष/कावि-९२० दि.१०/०९/२०२०</li>
+                <li>शासन निर्णय क्र. मग्रारोहयो-२०२२/प्र.क्र.१८४/रोहयो-७ दि. १३ जून २०२२</li>
+                <li>या कार्यालयाचे प्रशासकीय आदेश दि. १६ /०५ /२०२३</li>
+            </ol>
+            <div class="sec-head">कार्यारंभ आदेश</div>
+            <p>महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजना अंतर्गत रेशीम विकास अधिकारी, धाराशीव यांनी खालील कामाचे
+                प्रस्ताव तांत्रिक मान्यता देऊन प्रशासकीय मान्यतेसाठी सादर केले होते.</p>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>
+                            अ. क्रं.
+                        </th>
+                        <th>
+                            गावाचे नाव
+                        </th>
+                        <th>
+                            लाभार्थ्याचे नाव
+                        </th>
+                        <th>
+                            गट नं.
+                        </th>
+                        <th>
+                            तुतीलागवडीचे क्षेत्र
+                            (एकर)
+                        </th>
+                        <th>
+                            प्रशासकीय मान्यता रक्कम
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            १
+                        </td>
+                        <td>
+                            निपाणी
+                        </td>
+                        <td>
+                            शंकर अनंत काकडे
+                        </td>
+                        <td>
+                            २६२
+                        </td>
+                        <td>
+                            १.००
+                        </td>
+                        <td>
+                            ३,५८,११५/-
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>सदरील कामांना मी कार्यक्रम अधिकारी, तथा तहसिलदार कळंब मला प्राप्त अधिकाराचा वापर करुन काम सुरु करण्याकरिता
+                कार्यारंभ आदेश देत आहे.</p>
+            <p>
+                सदरच्या कामाची अंमलबजावणी ही उपोदघतामध्ये नमुद केलेल्या केंद्र शासनाच्या व महाराष्ट्र शासनाच्या कायद्या
+                प्रमाणे तसेच याबाबत महाराष्ट्र शासनाने वेळोवेळी निर्गमित केलेल्या शासन निर्णय व परिपत्रके यांच्या अधिन राहुन
+                करण्यात यावी. तसेच याबाबत रेशीम विकास अधिकारी, जिल्हा रेशीम कार्यालय धाराशीव व ग्रामपंचायत यांनी
+                दक्षता घ्यावी.
+            </p>
+            <p>सबंधित काम ग्रामपंचायत अंतर्गत नोंदणीकृत मजुरांमार्फतच पुर्ण करणे, सदर कामाचे अकुशल व कूशल कामाच्या खर्चाचा
+                ६०:४० प्रमाणाच्या गुणोत्तरात व्हावे इत्यादी जबाबदारी सबंधित यंत्रणेची आहे.</p>
+            <div class="sign">
+                अधिकारी पद<br>
+                Area
+            </div>
+            <div class="sec-head">प्रत -</div>
+            <ol>
+                <li>मा. उपजिल्हाधिकारी (रोहयो),धाराशीव यांना माहितीस्तव सविनय सादर.</li>
+                <li>मा. उप विभागीय अधिकारी, <strong>कळंब</strong> यांना माहितीस्तव सविनय सादर.</li>
+                <li>जिल्हा रेशीम विकास अधिकारी, धाराशीव यांना माहिती व आवश्यक कार्यवाहीस्तव.</li>
+                <li>सरपंच / ग्रामसेवक /ग्रामरोजगार सेवक निपाणी यांना माहिती व अवश्यक कार्यवाहीस्तव.</li>
+            </ol>
+        </div>
+    </div>
+    
+    <!-- Geo Tagging Work Code Generate -->
+    <div id="geo" *ngIf="actionID == 7">
+        <div class="geo-serial">
+            <div>जा.क्र.-2023 मग्रारोहयो//कवि/1506</div>
+            <div>दिनांक: ___/___/_____</div>
+        </div>
+        <div class="geo-content">
+            <div class="sec-head">प्रती,</div>
+            <div>मा. कार्यक्रम अधिकारी तथा तहसीलदार,
+                तहसील कार्यालय ,</div>
+            <div>ता. कळंब, जि. धाराशीव</div>
+            <p>
+                <strong>विषय:-</strong> मनरेगा अंतर्गत रेशीम उदयोग विकास योजने अंतर्गत जिओ टॅगींग , इस्टीमेट
+                ऑनलाईन करुन वर्क कोड जनरेट करणेबाबत.
+            </p>
+            <p>
+                <strong>संदर्भ :-</strong> आपले कार्यारंभ पत्र आदेश जा.क्र.2023/मग्रारोहयो/रेशीम/ कावी/आदेश 1504
+                मौजे निपाणी दिनांक 13/09/2023
+            </p>
+            <p>महोदय,</p>
+            <p>वरील संदर्भिय विषयास अनुसरून रेशीम उदयोग विकास मनरेगा योजने अंतर्गत सोबत यादीनुसार मौजे निपाणी ता. कळंब जि.
+                धाराशिव येथील लाभार्थी याला आपल्या कार्यालयाकडुन कार्यारंभ मिळालेला आहे.</p>
+            <p>खालील लाभार्थी सन २०२३-२४ या चालू वर्षात रेशीम विकास योजना राबण्यास इच्छुक आहे. सोबत लाभार्थी तपशील जोडलेला
+                आहे. तरी सोबतच्या यादी प्रमाणे लाभार्थ्याचे इस्टीमंट ऑनलाईन करून वर्क कोड जनरेट करण्यात यावे.</p>
+            <p>कळावे ही विनंती.</p>
+            <div class="sign">
+                आपला विश्‍वासू<br><br>
+                रेशीम विकास अधिकारी श्रेणी-१<br>
+                जिल्हा रेशीम कार्यालय, धाराशिव<br>
+            </div>
+            <p>इस्टीमट ऑनलाइन करून वर्क कोड गेनरेट करणेबाबत दि. 04.10.2023</p>
+            <table>
+                <tbody>
+                    <tr>
+                        <th rowspan="2">
+                            अ. क्रं.
+                        </th>
+                        <th rowspan="2">
+                            लाभार्थ्याचे नाव
+                        </th>
+                        <th rowspan="2">
+                            गावाचे नाव
+                        </th>
+                        <th rowspan="2">
+                            गट नं.
+                        </th>
+                        <th rowspan="2">
+                            तुती लागवडीचे क्षेत्र
+                            (एकर)
+                        </th>
+                        <th colspan="3">
+                            एकूण तीन वर्षाचा खर्च तपशील
+                        </th>
+                        <th rowspan="2">तांत्रिक मंजूरी दिनांक</th>
+                        <th rowspan="2">तांत्रिक मंजूरी क्रमांक</th>
+                        <th rowspan="2">प्रशासकीय मंजूरी दिनांक</th>
+                        <th rowspan="2">कार्यारंभ आदेश प्राप्त दिनांक</th>
+                    </tr>
+                    <tr>
+                        <th>अकुशल</th>
+                        <th>कुशल</th>
+                        <th>एकूण</th>
+                    </tr>
+                    <tr>
+                        <td>१</td>
+                        <td>निपाणी</td>
+                        <td>शंकर अनंत काकडे</td>
+                        <td>२६२</td>
+                        <td>१.००</td>
+                        <td>३,५८,११५/-</td>
+                        <td>१</td>
+                        <td>निपाणी</td>
+                        <td>शंकर अनंत काकडे</td>
+                        <td>२६२</td>
+                        <td>१.००</td>
+                        <td>३,५८,११५/-</td>
+                    </tr>
+                </tbody>
+            </table>
+    
+        </div>
+    </div>
+    </div>
+    <div class="d-flex gap-2 justify-content-center w-100 d-print-none mt-3">
+        <button mat-flat-button class="btn-main-light" type="button" (click)="backtoPage()">Cancel</button>
+        <button mat-flat-button class="btn-main" type="button" (click)="print()">Print</button>
+        <!-- <button mat-flat-button class="btn-main" type="button" (click)="download()">Download</button> -->
+    </div>
+    

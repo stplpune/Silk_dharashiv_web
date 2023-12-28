@@ -13,13 +13,13 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 declare var html2pdf: any;
 
 @Component({
-  selector: 'app-generate-pdf',
+  selector: 'app-generate-pdf-mgnrega',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatCardModule, DashPipe],
-  templateUrl: './generate-pdf.component.html',
-  styleUrls: ['./generate-pdf.component.scss']
+  templateUrl: './generate-pdf-mgnrega.component.html',
+  styleUrls: ['./generate-pdf-mgnrega.component.scss']
 })
-export class GeneratePdfComponent {
+export class GeneratePdfMgnregaComponent {
   @ViewChild('printDiv', { static: false }) printDiv!: ElementRef;
 
   tableDataArray: any;
@@ -47,10 +47,10 @@ export class GeneratePdfComponent {
     action2: 'विटा/रेती/सीमेंटच्या फळकवर योजनेचे नाव शेतकरी नाव कामाचा कोड व एकूण रक्कम व अदा रक्कम नमूद असावी.'
   }
 
-  table2Obj={
-    act1:'रुंदी 3 x 4 लांबी फुट',
-    act2:'लागनारे प्रमानात',
-    act3:'एकत्रित'
+  table2Obj = {
+    act1: 'रुंदी 3 x 4 लांबी फुट',
+    act2: 'लागनारे प्रमानात',
+    act3: 'एकत्रित'
   }
   skillDataArray: any = {
     skillArray: [],
@@ -67,12 +67,12 @@ export class GeneratePdfComponent {
   acceptTermsValue!: boolean;
   bindTableDiv: any;
   id: any;
-  sanctionArray:any;
-  showDate=new Date();
-  routeData:any;
-  applicationId:any;
-  loginData:any;
-  technicalEstId:any;
+  sanctionArray: any;
+  showDate = new Date();
+  routeData: any;
+  applicationId: any;
+  loginData: any;
+  technicalEstId: any;
   constructor
     (
       private spinner: NgxSpinnerService,
@@ -81,15 +81,15 @@ export class GeneratePdfComponent {
       private errorHandler: ErrorHandlingService,
       public encryptdecrypt: AesencryptDecryptService,
       private route: ActivatedRoute,
-      private web:WebStorageService,
+      private web: WebStorageService,
       private router: Router,
     ) { }
 
   ngOnInit() {
-    this.loginData=this.web.getLoggedInLocalstorageData();
+    this.loginData = this.web.getLoggedInLocalstorageData();
     this.routeData = this.route.snapshot.queryParamMap.get('id');
-    this.actionID= this.routeData.split('.')[1];
-    this.applicationId=this.routeData.split('.')[0];
+    this.actionID = this.routeData.split('.')[1];
+    this.applicationId = this.routeData.split('.')[0];
     this.getEstimateData();
     this.getAnotherEstimateData();
     this.getEstimateSanctionData();
@@ -97,7 +97,7 @@ export class GeneratePdfComponent {
 
   getEstimateData() {
     this.spinner.show();
-    this.apiService.setHttp('GET', 'sericulture/api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/TechnicalEstimate/Insert-Technical-Estimate1?ApplicationId=' + this.applicationId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -107,7 +107,7 @@ export class GeneratePdfComponent {
           this.estimateSkillArray = res.responseData3;
           this.finaltotalArray = res.responseData10;
           this.totalMappingArray = res.responseData11;
-          this.technicalEstId=res.responseData12;                    
+          this.technicalEstId = res.responseData12;
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
@@ -122,12 +122,12 @@ export class GeneratePdfComponent {
 
   getEstimateSanctionData() {
     this.spinner.show();
-    this.apiService.setHttp('GET', 'sericulture/api/TechnicalSanctionLetter/GetTechnicalSanctionLetter?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/TechnicalSanctionLetter/GetTechnicalSanctionLetter?ApplicationId=' + this.applicationId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-            this.sanctionArray=res.responseData.responseData1;
+          this.sanctionArray = res.responseData.responseData1;
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
@@ -196,7 +196,7 @@ export class GeneratePdfComponent {
 
   getAnotherEstimateData() {
     this.spinner.show();
-    this.apiService.setHttp('GET', 'sericulture/api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId='+this.applicationId, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/TechnicalEstimate/Insert-Technical-Estimate2?ApplicationId=' + this.applicationId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -223,13 +223,13 @@ export class GeneratePdfComponent {
         this.skillDataArray.unSkillArray.push(ev);
       }
     })
-      this.skillDataArray.totalUnskill.push(data?.responseData3);
-      this.skillDataArray.skillArray[5].aroundDay=this.table2Obj.act2;
-      this.skillDataArray.skillArray[6].aroundDay=this.table2Obj.act1;
-      this.skillDataArray.skillArray[6].totalWages=this.table2Obj.act3;
+    this.skillDataArray.totalUnskill.push(data?.responseData3);
+    this.skillDataArray.skillArray[5].aroundDay = this.table2Obj.act2;
+    this.skillDataArray.skillArray[6].aroundDay = this.table2Obj.act1;
+    this.skillDataArray.skillArray[6].totalWages = this.table2Obj.act3;
   }
 
-  
+
 
   acceptTerms(event?: any) {
     this.acceptTermsValue = event.target.checked;
@@ -290,8 +290,7 @@ export class GeneratePdfComponent {
     }, 1000);
   }
 
-  backtoPage(){
+  backtoPage() {
     this.router.navigate(['application'])
   }
-
 }
