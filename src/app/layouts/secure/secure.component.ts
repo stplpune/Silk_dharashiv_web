@@ -22,8 +22,14 @@ export class SecureComponent {
       if (event instanceof (NavigationEnd || NavigationStart)) {
         let breadCrumbData: any;
         this.webStorage.breadCrumbArray.subscribe((res: any) => breadCrumbData = res);
-        let url = this.router.url.split('/');
-        breadCrumbData.find((ele: any) => {
+        let url:any;
+        if(this.router.url?.includes('?')){
+          let splUrl:any =  this.router?.url?.split('?');
+          url = splUrl[0].split('/');
+         }else{
+          url =  this.router?.url.split('/');
+         }
+        breadCrumbData?.find((ele: any) => {
           if (ele.url == url[url.length - 1]) {
             let label = this.lang == 'en' ? ele.breadCrumb : ele.m_breadCrumb;
             this.webStorage.breadCrumbLabel.next(label)

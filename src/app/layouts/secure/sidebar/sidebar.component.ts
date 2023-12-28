@@ -8,9 +8,10 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SideBarComponent {
-  pageListArray = new Array();
   subscription!: Subscription;//used  for lang conv
   lang: string = 'English';
+  pageListArray: any;
+
   constructor(public webStorage: WebStorageService) {
 
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
@@ -18,14 +19,28 @@ export class SideBarComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
 
-    let pageListData = this.webStorage.getAllPageName();
-    let pageUrls = pageListData.filter((ele: any) => {
-      if (ele.isSideBarMenu) {
-        return ele;
-      }
-    });
+    this.pageListArray = this.sideBarMenu(true);
+
+    this.setDefaultCollapse();
+    this.bindBreadCrumb();
+  }
+
+  sideBarMenu(flag: boolean) {
+    let pageListArray: any = new Array();
     let pageList = new Array();
-    
+    let pageListData = this.webStorage.getAllPageName();
+    let pageUrls: any;
+
+    if (flag) {
+      pageUrls = pageListData.filter((ele: any) => {
+        if (ele.isSideBarMenu) {
+          return ele;
+        }
+      });
+    } else {
+      pageUrls = pageListData;
+    }
+
     pageUrls.find((item: any) => {
       let existing: any = pageList.filter((v: any) => {
         return v.subMenu == item.subMenu;
@@ -36,7 +51,6 @@ export class SideBarComponent {
         pageList[existingIndex].pageName = pageList[existingIndex].pageName.concat(item.pageName);
         pageList[existingIndex].m_PageName = pageList[existingIndex].m_PageName.concat(item.m_PageName);
       } else {
-        // if (typeof item.pageURL == 'string')
         item.pageURL = [item.pageURL];
         item.pageName = [item.pageName];
         item.m_PageName = [item.m_PageName];
@@ -45,28 +59,29 @@ export class SideBarComponent {
     });
 
     pageList.find((ele: any) => {
-
-      if (this.pageListArray.length) {
-        let findIndex: any = this.pageListArray.findIndex((item: any) => { return ele.mainMenuId == item.id });
-        findIndex != "-1" ? (this.pageListArray[findIndex].subMenu = true, this.pageListArray[findIndex]?.data?.push(ele)) : this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: false, mainMenu: ele.mainMenu, m_MainMenu: ele.m_MainMenu, menuIcon: ele.menuIcon });
+      if (pageListArray.length) {
+        let findIndex: any = pageListArray.findIndex((item: any) => { return ele.mainMenuId == item.id });
+        findIndex != "-1" ? (pageListArray[findIndex].subMenu = true, pageListArray[findIndex]?.data?.push(ele)) : pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: false, mainMenu: ele.mainMenu, m_MainMenu: ele.m_MainMenu, menuIcon: ele.menuIcon });
       } else {
-        this.pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: ele.pageURL.length > 1 ? true : false, mainMenu: ele.mainMenu, m_MainMenu: ele.m_MainMenu, menuIcon: ele.menuIcon })
+        pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: ele.pageURL.length > 1 ? true : false, mainMenu: ele.mainMenu, m_MainMenu: ele.m_MainMenu, menuIcon: ele.menuIcon })
       }
     });
 
-    this.setDefaultCollapse();
-    this.setBreadCrumb();
+    return pageListArray;
   }
 
-  setBreadCrumb() {
+  bindBreadCrumb() {
+    let pageListData = this.sideBarMenu(false);
+
     let breadCrumbArray: any = [];
-    this.pageListArray.find((ele: any) => {
+
+    pageListData.find((ele: any) => {
       if (!ele.subMenu && ele.data[0]?.pageURL.length <= 1) {
         let obj: any = { breadCrumb: ele.data[0]?.pageName[0], m_breadCrumb: ele.data[0]?.m_PageName[0], url: ele.data[0]?.pageURL[0] };
         breadCrumbArray.push(obj);
       } else if (!ele.subMenu && ele.data[0]?.pageURL.length > 1) {
         ele.data[0]?.pageName.find((item: any, k: any) => {
-          let obj: any = { breadCrumb: ele.mainMenu + '/' + item, m_breadCrumb: ele.m_MainMenu + '/' + ele.data[0]?.m_PageName[k], url: ele.data[0]?.pageURL[k] };
+          let obj: any = { breadCrumb: ele.mainMenu + (k == 0 ? '': '/' + item), m_breadCrumb: ele.m_MainMenu + (k == 0 ? '': '/' + ele.data[0]?.m_PageName[k]), url: ele.data[0]?.pageURL[k] };
           breadCrumbArray.push(obj);
         })
       } else if (ele.subMenu) {
@@ -103,6 +118,7 @@ export class SideBarComponent {
   onCloseSidebar() {
     this.webStorage.setSidebarState(!this.webStorage.getSidebarState());
   }
+
   prevClosedDep(i: any, j?: any) {
     this.setDefaultCollapse();
     if (j || j == 0) {
