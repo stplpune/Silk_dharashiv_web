@@ -233,9 +233,6 @@ export class SetRuleModalComponent implements OnDestroy {
       } else {
         this.approveLevelArray.filteredData.push(obj);
       }
-
-      console.log(this.approveLevelArray.filteredData);
-
       this.approveLevelArray = new MatTableDataSource(this.approveLevelArray?.filteredData);
       this.clearAddRuleForm();
     }

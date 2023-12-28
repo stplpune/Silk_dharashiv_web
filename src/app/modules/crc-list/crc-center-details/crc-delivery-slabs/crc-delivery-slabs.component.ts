@@ -46,10 +46,10 @@ export class CrcDeliverySlabsComponent {
   grainageArray = new Array();
   subscription!: Subscription;
   lang: string = 'English';
-  tableDataArray: any;
+  tableDataArray= new Array();
   tableDatasize!: number;
   totalPages!: number;
-  highLightedFlag: boolean = true;
+  highLightedFlag: boolean = false;
   filterFlag: boolean = false;
   pageNumber: number = 1;
   id: any;

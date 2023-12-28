@@ -270,7 +270,6 @@ export class CreateSamgraAppComponent {
   checkScheemApplication(){
     this.masterService.GetSelectSchemeData(this.WebStorageService.getMobileNo(),2).subscribe({
       next:((res:any)=>{
-        console.log("check application",res);
         res.statusCode == "200" ? this.checkApplicationId = res.responseData : this.checkApplicationId = 0;
         
       })
@@ -813,7 +812,7 @@ export class CreateSamgraAppComponent {
 
   fileUpload(event: any, docId?: any, flag?: any) {
     let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray, 'docTypeId', docId);
-    console.log("docId", indexByDocId);
+
     this.spinner.show();
     let type = 'jpg, jpeg, png, pdf'
     this.uploadService.uploadDocuments(event, 'ApplicationDocuments', type, '', '', this.lang).subscribe({

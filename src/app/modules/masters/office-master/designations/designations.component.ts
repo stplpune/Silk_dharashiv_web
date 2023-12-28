@@ -171,7 +171,7 @@ export class DesignationsComponent implements OnDestroy {
   }
 
   addDesignation(obj?: any) {
-    console.log('obj', obj);
+
     let dialogRef = this.dialog.open(AddDesignationComponent, {
       width: '400px',
       data: obj,

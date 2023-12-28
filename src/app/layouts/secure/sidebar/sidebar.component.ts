@@ -20,7 +20,6 @@ export class SideBarComponent {
     })
 
     this.pageListArray = this.sideBarMenu(true);
-
     this.setDefaultCollapse();
     this.bindBreadCrumb();
   }
@@ -66,13 +65,11 @@ export class SideBarComponent {
         pageListArray.push({ id: ele.mainMenuId, data: [ele], subMenu: ele.pageURL.length > 1 ? true : false, mainMenu: ele.mainMenu, m_MainMenu: ele.m_MainMenu, menuIcon: ele.menuIcon })
       }
     });
-
     return pageListArray;
   }
 
   bindBreadCrumb() {
     let pageListData = this.sideBarMenu(false);
-
     let breadCrumbArray: any = [];
 
     pageListData.find((ele: any) => {
@@ -81,7 +78,7 @@ export class SideBarComponent {
         breadCrumbArray.push(obj);
       } else if (!ele.subMenu && ele.data[0]?.pageURL.length > 1) {
         ele.data[0]?.pageName.find((item: any, k: any) => {
-          let obj: any = { breadCrumb: ele.mainMenu + (k == 0 ? '': '/' + item), m_breadCrumb: ele.m_MainMenu + (k == 0 ? '': '/' + ele.data[0]?.m_PageName[k]), url: ele.data[0]?.pageURL[k] };
+          let obj: any = { breadCrumb: ele.mainMenu + '/' + item, m_breadCrumb: ele.m_MainMenu +  '/' + ele.data[0]?.m_PageName[k], url: ele.data[0]?.pageURL[k] };
           breadCrumbArray.push(obj);
         })
       } else if (ele.subMenu) {

@@ -27,7 +27,7 @@ export class AddDetailsComponent {
   ) {}
 
   ngOnInit() {
-    console.log("data",this.data);
+
     
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';

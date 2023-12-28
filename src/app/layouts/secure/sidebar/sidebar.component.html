@@ -14,6 +14,7 @@
                     <a routerLinkActive="active" class="main-menu" routerLink="{{master.data[0].pageURL[0]}}">
                         <div class="menu-item">
                             <img src='{{ "assets/images/sidebar-icons/"+master?.menuIcon}}'>
+                            <!-- {{lang == 'en' ? master?.data[0]?.pageName[0] :  master?.data[0]?.m_PageName[0]}} -->
                             {{lang == 'en' ? master.mainMenu : master.m_MainMenu }}
                         </div>
                     </a>
