@@ -49,7 +49,7 @@ export class AddMarketListComponent {
   ) { this.dateAdapter.setLocale('en-GB') }
 
   ngOnInit() {
-    //console.log("this.WebStorageService.getDistrictId()",this.WebStorageService.getStateId())
+
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -65,7 +65,7 @@ export class AddMarketListComponent {
 
 
   formData(data?: any) {
-    //console.log("data",data)
+
     this.marketFrm = this.fb.group({
       "id": [data ? data?.id : 0],
       "marketName": [data ? data?.marketName : '', [Validators.required, this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
@@ -206,7 +206,7 @@ export class AddMarketListComponent {
   getDistrict(flag?:any) {
     this.districtArray = [];
     let stateId = this.marketFrm.getRawValue()?.stateId;
-    //console.log("stateId",stateId)
+
     if (stateId != 0) {
       this.masterService.GetAllDistrict(stateId).subscribe({
         next: ((res: any) => {

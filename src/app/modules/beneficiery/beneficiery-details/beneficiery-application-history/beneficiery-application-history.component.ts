@@ -67,7 +67,7 @@ export class BeneficieryApplicationHistoryComponent {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData;
-          console.log("tableDataArray",this.tableDataArray);
+  
           
           // this.totalPages = res.responseData1.totalPages;
           // this.tableDatasize = res.responseData1.totalCount;

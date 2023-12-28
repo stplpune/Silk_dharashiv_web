@@ -66,7 +66,6 @@ export class MyProfileComponent {
       next: (res: any) => {
         if (res.statusCode == 200) {
           this.profilDetailsArr = res.responseData;    
-          console.log(this.profilDetailsArr)
           this.imageRes = this.profilDetailsArr.profileImagePath;      
         } else {
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : this.commonMethod.snackBar(res.statusMessage, 1);

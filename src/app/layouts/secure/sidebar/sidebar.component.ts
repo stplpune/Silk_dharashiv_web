@@ -20,7 +20,6 @@ export class SideBarComponent {
     })
 
     this.pageListArray = this.sideBarMenu(true);
-    console.log( this.pageListArray);
     this.setDefaultCollapse();
     this.bindBreadCrumb();
   }

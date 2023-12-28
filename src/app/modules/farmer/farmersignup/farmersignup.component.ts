@@ -134,7 +134,6 @@ export class FarmersignupComponent {
   //       mobileNo: this.signUpForm.getRawValue().mobNo1,
   //       createdBy: 0
   //     };
-  //     console.log('dialogObj', dialogObj);
   //     const dialogRef = this.dialog.open(OtpSendReceiveComponent, {
   //       width: '30%',
   //       data: dialogObj,

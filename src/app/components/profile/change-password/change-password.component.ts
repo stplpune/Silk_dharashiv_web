@@ -64,7 +64,6 @@ export class ChangePasswordComponent {
   }
 
   onSubmit() {
-    console.log(this.webStorage.checkUserIsLoggedIn());
     let formData = this.changePassForm.value;
     if (this.changePassForm.invalid) {
       return;
