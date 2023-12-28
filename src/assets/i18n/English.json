@@ -1,4 +1,16 @@
 {
+  "changePassword" :{
+    "enter_current_password" :"Enter Current Password",
+    "current_password_is_required" : "Current Password Is Required",
+    "please_enter_valid_current_password" : "Please Enter Valid Current Password",
+    "enter_new_password" :"Enter New Password",
+    "new_password_is_required" :"New Password Is Required",
+    "please_enter_valid_new_password":"Please Enter Valid New Password",
+    "enter_confirm_password":"Enter Confirm Password",
+    "confirm_password_is_required":"Confirm Password Is Required",
+    "please_enter_valid_confirm_password" : "Please Enter Valid Confirm Password"
+     },
+    
   "home": {
     "like_dairy": "Like Dairy and poultry farming, silk farming can also be done as a side business along with agriculture. This business can be started at a very low cost and the available materials that the farmers already have.",
     "online_application": "Online Application",

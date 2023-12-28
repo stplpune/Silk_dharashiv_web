@@ -11,10 +11,12 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import {MatIconModule} from '@angular/material/icon';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-change-password',
   standalone: true,
-  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule,CommonModule,MatIconModule],
+  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule,CommonModule,MatIconModule,TranslateModule],
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss']
 })
@@ -23,6 +25,10 @@ export class ChangePasswordComponent {
   hide1 = true;
   hide2 = true;
   changePassForm!: FormGroup;
+  lang: any;
+  getLangForLocalStor!: string | null | any;
+  subscription!: Subscription;
+  
   @ViewChild('formDirective') private formDirective!: NgForm;
   constructor(public dialogRef: MatDialogRef<ChangePasswordComponent>,
     private fb: FormBuilder,
@@ -31,9 +37,17 @@ export class ChangePasswordComponent {
     private apiService: ApiService,
     private error: ErrorHandlingService,
     private webStorage: WebStorageService,
-  ) { }
+    private translate: TranslateService,
+  ) { 
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor)
+  }
 
   ngOnInit() {
+    this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+    })
     this.defaultForm();
   }
 
