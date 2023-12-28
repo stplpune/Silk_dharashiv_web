@@ -64,9 +64,15 @@ export class HeaderComponent {
 
   setBreadCrumb() {
     this.webStorage.breadCrumbArray.subscribe((res: any) => this.breadCrumbData = res);
-    let url = this.router.url.split('/');
     this.breadCrumbData.find((ele: any) => {
-      if (ele.url == url[url.length - 1]) {
+      let url:any;
+      if(this.router.url?.includes('?')){
+       let splUrl:any =  this.router?.url?.split('?');
+       url = splUrl[0].split('/');
+      }else{
+        url =  this.router?.url.split('/');
+      }
+      if (ele.url == url[url?.length - 1]) {
         let label = this.setLang == 'English' ? ele.breadCrumb : ele.m_breadCrumb;
         this.webStorage.breadCrumbLabel.next(label)
       }
