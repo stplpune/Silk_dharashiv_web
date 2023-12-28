@@ -49,7 +49,7 @@ export class CrcDeliverySlabsComponent {
   tableDataArray: any;
   tableDatasize!: number;
   totalPages!: number;
-  highLightedFlag: boolean = true;
+  highLightedFlag: boolean = false;
   filterFlag: boolean = false;
   pageNumber: number = 1;
   id: any;
@@ -130,7 +130,7 @@ export class CrcDeliverySlabsComponent {
     let formData = this.slabForm.getRawValue();
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/CRC-Centers_Delivery-Slab?Id='+this.id+'&Status='+(formData.statusId || 0)+'&GrainageId='+(formData.grainageId || 0)+str, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/CRC-Centers_Delivery-Slab?Id=27&Status='+(formData.statusId || 0)+'&GrainageId='+(formData.grainageId || 0)+str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
