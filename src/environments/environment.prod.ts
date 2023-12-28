@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+  production: false,
 // baseUrl: 'https://demosilkapi.mahamining.com/',
   baseUrl: 'https://testapi.sericulturedharashiv.com/',
 };
