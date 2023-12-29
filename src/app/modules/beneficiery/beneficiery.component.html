@@ -1,7 +1,7 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
     <div class="d-flex align-items-center justify-content-between w-100 gap-2">
-      <div class="text-main">Registered Beneficiery List</div>
+      <div class="text-main">{{lang == 'en' ? 'Registered Beneficiery List' : 'नोंदणीकृत लाभार्थी यादी'}}</div>
       <button mat-flat-button class="btn-main btn-icon d-none" matTooltip="edit" type="button">
         <mat-icon class="material-symbols-rounded">
           download
@@ -14,7 +14,7 @@
       <div class="row gx-2">
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>District</mat-label>
+            <mat-label> {{lang == 'en' ? 'District' : 'जिल्हा'}}</mat-label>
             <mat-select formControlName="districtId" (selectionChange)="getTaluka()" placeholder="District">
               <mat-option *ngFor=" let dist of districtArr" [value]="dist.id">{{lang == 'en' ? dist.textEnglish :
                 dist.textMarathi}}</mat-option>
@@ -23,7 +23,7 @@
         </div>
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>All Taluka</mat-label>
+            <mat-label> {{lang == 'en' ? 'Taluka' : 'तालुका'}}</mat-label>
             <mat-select formControlName="talukaId" (selectionChange)="getGrampanchayat()" placeholder="All Taluka"
               [class]="webStorage.getTalukaId() ? f['talukaId'].disable({ onlySelf: true }) : f['talukaId'].enable({ onlySelf: true })">
               <mat-option>
@@ -39,7 +39,7 @@
         </div>
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>All Grampanchayat</mat-label>
+            <mat-label> {{lang == 'en' ? 'Grampanchayat' : 'ग्रामपंचायत'}}</mat-label>
             <mat-select formControlName="grampanchayatId"
               placeholder="{{lang == 'en' ? 'Grampanchayat' :'ग्रामपंचायत'}}"
               [class]="webStorage.getGrampanchayatId() || !filterFrm.getRawValue().talukaId ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
@@ -56,7 +56,7 @@
         </div>
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>All Schemes</mat-label>
+            <mat-label> {{lang == 'en' ? 'Schemes' : 'योजना'}}</mat-label>
             <mat-select formControlName="schemeTypeId" placeholder="All Scheme">
               <mat-option *ngFor=" let scheme of schemeFilterArr" [value]="scheme.id">{{lang == 'en' ?
                 scheme.textEnglish : scheme.textMarathi}}</mat-option>
@@ -65,7 +65,7 @@
         </div>
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Process Department</mat-label>
+            <mat-label> {{lang == 'en' ? 'Process Department' : 'प्रक्रिया विभाग'}}</mat-label>
             <mat-select formControlName="deptId">
               <mat-option *ngFor="let department of departmentArray" [value]="department.id">{{lang == 'en' ?
                 department.textEnglish : department.textMarathi}}</mat-option>
@@ -74,19 +74,19 @@
         </div>
         <div class="col-sm-3">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Mulberry ID / Farmer Name / Mobile Number</mat-label>
-            <input matInput placeholder="Mulberry Id/ Farmer Name/Mobile Number" formControlName="textSearch">
+            <mat-label> {{lang == 'en' ? 'Search by Mulberry ID/Farmer Name/Mobile Number ' : 'तुती आयडी/शेतकऱ्याचे नाव/मोबाईल नंबर द्वारे शोधा'}}</mat-label>
+            <input matInput formControlName="textSearch">
           </mat-form-field>
         </div>
         <div class="col-sm-2">
           <div class="d-flex align-items-center gap-2">
-            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button" (click)="getTableData()">
+            <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="submit" (click)="filterFlag=true;getTableData()">
               <mat-icon class="material-symbols-rounded">
                 search
               </mat-icon>
             </button>
             <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button"
-              (click)="clearSearchFilter()">
+              (click)="filterFlag=false;clearSearchFilter()">
               <mat-icon class="material-symbols-rounded">
                 close
               </mat-icon>
