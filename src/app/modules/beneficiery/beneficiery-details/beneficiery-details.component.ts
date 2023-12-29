@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
@@ -27,7 +27,8 @@ export class BeneficieryDetailsComponent {
       public webStorage: WebStorageService,
       public common: CommonMethodsService,
       private activatedRoute: ActivatedRoute,
-      public encryptdecrypt: AesencryptDecryptService
+      public encryptdecrypt: AesencryptDecryptService,
+      private route:Router
     ) { }
 
   ngOnInit() {
@@ -58,5 +59,9 @@ export class BeneficieryDetailsComponent {
         this.errorService.handelError(err.status);
       },
     });
+  }
+
+  backToList(){
+    this.route.navigate(['beneficiery-list'])
   }
 }

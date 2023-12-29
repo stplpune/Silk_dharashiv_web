@@ -89,8 +89,8 @@ export class BeneficieryApplicationHistoryComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = ['srNo', 'applicationNo', (this.lang == 'en' ? 'schemeType' : 'm_SchemeType'), (this.lang == 'en' ? 'departmentName' : 'm_DepartmentName'),'applicationDate']; //'action'
-    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Application Id', 'Scheme Name', 'Process Department', 'Date'] : ['अनुक्रमांक', 'अर्ज आयडी', 'योजनेचे नाव', 'प्रक्रिया विभाग','दिनांक'];// 'पहा' 'view'
+    let displayedColumns = ['srNo', 'applicationNo', (this.lang == 'en' ? 'schemeType' : 'm_SchemeType'), (this.lang == 'en' ? 'departmentName' : 'm_DepartmentName'),'applicationDate','status','action']; //'action'
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Application Id', 'Scheme Name', 'Process Department', 'Date','Status','Action'] : ['अनुक्रमांक', 'अर्ज आयडी', 'योजनेचे नाव', 'प्रक्रिया विभाग','दिनांक','स्थिती','क्रिया'];// 'पहा' 'view'
 
     let tableData = {
       pageNumber: this.pageNumber,
