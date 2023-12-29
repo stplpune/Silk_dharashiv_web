@@ -10,6 +10,7 @@ import { DashPipe } from "../../../../../core/Pipes/dash.pipe";
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
+import { Subscription } from 'rxjs';
 declare var html2pdf: any;
 
 @Component({
@@ -21,7 +22,8 @@ declare var html2pdf: any;
 })
 export class GeneratePdfMgnregaComponent {
   @ViewChild('printDiv', { static: false }) printDiv!: ElementRef;
-
+  subscription!: Subscription;//used  for lang conv
+  lang: any;
   tableDataArray: any;
   estimateArray = new Array();
   estimateSkillArray = new Array();
@@ -68,6 +70,7 @@ export class GeneratePdfMgnregaComponent {
   bindTableDiv: any;
   id: any;
   sanctionArray: any;
+  sanctionArray2:any
   showDate = new Date();
   routeData: any;
   applicationId: any;
@@ -75,6 +78,7 @@ export class GeneratePdfMgnregaComponent {
   technicalEstId: any;
   constructor
     (
+      private WebStorageService: WebStorageService,
       private spinner: NgxSpinnerService,
       private apiService: ApiService,
       private commonMethod: CommonMethodsService,
@@ -86,10 +90,17 @@ export class GeneratePdfMgnregaComponent {
     ) { }
 
   ngOnInit() {
+    this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
+      this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
+      this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
+    });
+    
     this.loginData = this.web.getLoggedInLocalstorageData();
     this.routeData = this.route.snapshot.queryParamMap.get('id');
-    this.actionID = this.routeData.split('.')[1];
-    this.applicationId = this.routeData.split('.')[0];
+    // this.actionID = this.routeData.split('.')[1];
+    // this.applicationId = this.routeData.split('.')[0];
+    this.actionID = 4
+    this.applicationId = 3;
     this.getEstimateData();
     this.getAnotherEstimateData();
     this.getEstimateSanctionData();
@@ -120,7 +131,9 @@ export class GeneratePdfMgnregaComponent {
     });
   }
 
-  getEstimateSanctionData() {
+ // https://demosilkapi.mahamining.com/sericulture/api/TechnicalSanctionLetter/GetTechnicalSanctionLetter?ApplicationId=2&UserId=1
+
+  getEstimateSanctionData() { // sanction later
     this.spinner.show();
     this.apiService.setHttp('GET', 'sericulture/api/TechnicalSanctionLetter/GetTechnicalSanctionLetter?ApplicationId=' + this.applicationId, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
@@ -128,6 +141,7 @@ export class GeneratePdfMgnregaComponent {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.sanctionArray = res.responseData.responseData1;
+          console.log("this.sanctionArray ",this.sanctionArray )
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
@@ -293,4 +307,26 @@ export class GeneratePdfMgnregaComponent {
   backtoPage() {
     this.router.navigate(['application'])
   }
+
+  // getEstimateSanctionData() { // sanction later
+  //   this.spinner.show();
+  //   this.apiService.setHttp('GET', 'sericulture/api/TechnicalSanctionLetter/GetTechnicalSanctionLetter?ApplicationId=' + this.applicationId, false, false, false, 'masterUrl');
+  //   this.apiService.getHttp().subscribe({
+  //     next: (res: any) => {
+  //       this.spinner.hide();
+  //       if (res.statusCode == '200') {
+  //         this.sanctionArray = res.responseData.responseData1;
+  //         this.sanctionArray2 = res.responseData.responseData2;
+  //         console.log("this.sanctionArray ",this.sanctionArray )
+  //       } else {
+  //         this.spinner.hide();
+  //         this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
+  //       }
+  //     },
+  //     error: (err: any) => {
+  //       this.spinner.hide();
+  //       this.errorHandler.handelError(err.status);
+  //     },
+  //   });
+  // }
 }

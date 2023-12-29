@@ -594,18 +594,18 @@
                         <th>एकूण</th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let arr of sanctionArray;let i=index">
-                    <tr>
-                        <td>{{i + 1}}</td>
-                        <td>{{arr?.m_GrampanchayatName}}</td>
-                        <td>{{arr?.fullName}}</td>
-                        <td>{{arr?.cultivatedFarmInHector}}</td>
-                        <td>{{arr?.mulberryCultivatedSurveyNo}}</td>
-                        <td>{{arr?.categoryOfBeneficiary}}</td>
-                        <td>{{arr?.cultivatedFarmInHector}}</td>
-                        <td>{{arr?.unskill}}</td>
-                        <td>{{arr?.skill}}</td>
-                        <td>{{arr?.total}}</td>
+                <tbody>
+                    <tr> 
+                        <td>{{1}}</td>
+                        <td>{{(lang == 'en' ? sanctionArray?.grampanchayatName : sanctionArray?.m_GrampanchayatName) | dash}}</td>
+                        <td>{{sanctionArray?.fullName | dash }}</td>
+                        <td>{{sanctionArray?.cultivatedFarmInHector || '0'}}</td>
+                        <td>{{sanctionArray?.mulberryCultivatedSurveyNo || '0' }}</td>
+                        <td>{{sanctionArray?.categoryOfBeneficiary | dash }}</td>
+                        <td>{{sanctionArray?.benificiaryTotalFarm || '0' }}</td>
+                        <td>{{sanctionArray?.unSkillTotal || '0'}}</td>
+                        <td>{{sanctionArray?.skillTotal || '0'}}</td>
+                        <td>{{sanctionArray?.skillUnSkillTotal || '0'}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -634,15 +634,15 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{sanctionArray[0]?.unskill}}</td>
-                        <td>{{sanctionArray[0]?.skill}}</td>
-                        <td>{{sanctionArray[0]?.total}}</td>
-                        <td>{{sanctionArray[0]?.unskill}}</td>
-                        <td>{{sanctionArray[0]?.skill}}</td>
-                        <td>{{sanctionArray[0]?.total}}</td>
-                        <td>{{sanctionArray[0]?.unskill}}</td>
-                        <td>{{sanctionArray[0]?.skill}}</td>
-                        <td>{{sanctionArray[0]?.total}}</td>
+                        <td>{{sanctionArray?.firstYearUnskillTotal || '0'}}</td>
+                        <td>{{sanctionArray?.firstYearSkillTotal || '0'}}</td>
+                        <td>{{sanctionArray?.firstYearTotalSkillUnSkill || '0'}}</td>
+                        <td>{{sanctionArray?.secondYearUnskillTotal || '0'}}</td>
+                        <td>{{sanctionArray?.secondYearSkillTotal || '0'}}</td>
+                        <td>{{sanctionArray?.secondYearTotalSkillUnSkill || '0'}}</td>
+                        <td>{{sanctionArray?.thirdYearUnskillTotal || '0'}}</td>
+                        <td>{{sanctionArray?.thirdYearSkillTotal || '0'}}</td>
+                        <td>{{sanctionArray?.thirdYearTotalSkillUnSkill || '0'}}</td>
                     </tr>
                 </tbody>
             </table>
