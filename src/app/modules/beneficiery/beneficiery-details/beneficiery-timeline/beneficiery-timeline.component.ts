@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -18,6 +18,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { GlobalTableComponent } from 'src/app/shared/components/global-table/global-table.component';
 import { ActivatedRoute } from '@angular/router';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
+import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 
 @Component({
   selector: 'app-beneficiery-timeline',
@@ -58,7 +59,9 @@ export class BeneficieryTimelineComponent {
     private spinner: NgxSpinnerService,
     private errorService: ErrorHandlingService,
     private activatedRoute: ActivatedRoute,
-    public encryptdecrypt: AesencryptDecryptService
+    public encryptdecrypt: AesencryptDecryptService,
+    public dialog: MatDialog,
+
   ) { }
   ngOnInit() {
 
@@ -80,19 +83,20 @@ export class BeneficieryTimelineComponent {
 
   childCompInfo(obj?: any) {
     switch (obj.label) {
-      // case 'Pagination':
-      //   this.pageNumber = obj.pageNumber;
-      //   this.getTableData();
-      //   break;
-      case 'View':
-        // this.viewBenificiaryList(obj);
+      case 'Pagination':
+        this.pageNumber = obj.pageNumber;
+        this.getTableData();
         break;
+        case 'Delete':
+          this.deleteDialogOpen(obj);
+          break;
     }
   }
 
-  getTableData(_status?: any) {
-    this.spinner.show();    
-    this.apiService.setHttp('GET', `sericulture/api/Beneficiery/GetBeneficieryTimeline?FarmerId=1&pageno=1&pagesize=10&lan=en`, false, false, false, 'masterUrl');
+  getTableData() {
+    this.spinner.show();  
+    let str = `&PageNo=${this.pageNumber}&PageSize=10`;  
+    this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetBeneficieryTimeline?FarmerId=1'+(str)+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -129,6 +133,7 @@ export class BeneficieryTimelineComponent {
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
       delete: true,
+      view: true,
       track: false,
       edit: false,
       img: 'postImages',
@@ -137,5 +142,38 @@ export class BeneficieryTimelineComponent {
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
   }
-
+  deleteDialogOpen(delObj?: any) {
+    let dialogObj = {
+      title: this.lang == 'en' ? 'Do You Want To Delete Selected Beneficiary Timeline ?' : 'तुम्हाला निवडलेल्या लाभार्थीची टाइमलाइन हटवायची आहे का ?',
+      header: this.lang == 'en' ? 'Delete Beneficiary Timeline' : 'लाभार्थी टाइमलाइन हटवा',
+      okButton: this.lang == 'en' ? 'Delete' : 'हटवा',
+      cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
+      headerImage: 'assets/images/delete.svg'
+    };
+    const dialogRef = this.dialog.open(GlobalDialogComponent, {
+      width: '30%',
+      data: dialogObj,
+      disableClose: true,
+      autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == 'Yes') {
+        this.apiService.setHttp('delete', 'sericulture/api/Beneficiery/DeleteTimeline?Id='+(delObj?.id)+'&lan='+this.lang, false, false, false, 'masterUrl');
+        this.apiService.getHttp().subscribe({
+          next: (res: any) => {
+            if (res.statusCode == '200') {
+              this.common.snackBar(res.statusMessage, 0);
+              this.getTableData();
+            } else {
+              this.common.snackBar(res.statusMessage, 1);
+            }
+          },
+          error: (error: any) => {
+            this.errorService.handelError(error.statusCode);
+          },
+        });
+      }
+      this.highLightRowFlag = false;
+    });
+  }
 }

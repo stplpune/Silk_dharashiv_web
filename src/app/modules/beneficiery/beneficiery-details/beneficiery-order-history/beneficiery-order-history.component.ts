@@ -147,11 +147,19 @@ export class BeneficieryOrderHistoryComponent {
   }
 
   chowkiorderdetails(obj?:any){ 
-    this.dialog.open(ChowkiOrderDetailsComponent,{
+    let dialogRef = this.dialog.open(ChowkiOrderDetailsComponent,{
       width: "80%",
-      data : obj
+      data : obj,
+      disableClose: true,
+      autoFocus: false,
     })
+    dialogRef.afterClosed().subscribe(() => {
+      this.getTableData();
+    });
   }
+
+
+
 
 
 }
