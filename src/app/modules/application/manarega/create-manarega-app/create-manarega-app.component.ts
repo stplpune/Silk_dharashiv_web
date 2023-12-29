@@ -941,9 +941,9 @@ export class CreateManaregaAppComponent {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.talukaArray = res.responseData;
             this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
-            this.WebStorageService.getTalukaId() ? (this.f['talukaId'].setValue(this.WebStorageService.getTalukaId()),this.getGrampanchayat()) :  this.getGrampanchayat();
-            this.EditFlag ? (this.f['talukaId'].setValue(this.previewData.talukaId), this.getGrampanchayat()) : this.getGrampanchayat();
-            //this.getGrampanchayat()
+          //  this.WebStorageService.getTalukaId() ? (this.f['talukaId'].setValue(this.WebStorageService.getTalukaId()),this.getGrampanchayat()) :  this.getGrampanchayat();
+            this.EditFlag ? this.f['talukaId'].setValue(this.previewData.talukaId) :'';
+            this.getGrampanchayat()
           }
           else {
             this.talukaArray = [];
