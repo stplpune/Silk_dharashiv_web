@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -20,7 +21,8 @@ export class ChowkiOrderDetailsComponent {
     public webStorage: WebStorageService,
     public common: CommonMethodsService,
     private apiService: ApiService,
-    private errorService: ErrorHandlingService
+    private errorService: ErrorHandlingService,
+    public dialogRef: MatDialogRef<ChowkiOrderDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
   ngOnInit() {
 
@@ -33,7 +35,7 @@ export class ChowkiOrderDetailsComponent {
   }
 
   getChowkiOrderDetails() {
-    this.apiService.setHttp('GET', `sericulture/api/Beneficiery/GetBeneficieryChawkiOrderById?Id=2&lan=en `, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetBeneficieryChawkiOrderById?Id=2&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.chowkiOrderData = res.responseData;   
@@ -45,6 +47,10 @@ export class ChowkiOrderDetailsComponent {
         this.errorService.handelError(err.status);
       },
     });
+  }
+
+  viewReceipt(){
+    window.open(  this.chowkiOrderData?.receiptOfPaymentPath)
   }
 
 
