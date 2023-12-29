@@ -45,7 +45,7 @@ export class BeneficieryDetailsComponent {
   }
 
   getProfileData() {
-    this.apiService.setHttp('GET', `sericulture/api/Beneficiery/GetBeneficieryDataById?Id=3&lan=${this.lang}`, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', `sericulture/api/Beneficiery/GetBeneficieryDataById?Id=${this.beneficieryId}&lan=${this.lang}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {

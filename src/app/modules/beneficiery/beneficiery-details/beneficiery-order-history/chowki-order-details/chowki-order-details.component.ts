@@ -35,7 +35,7 @@ export class ChowkiOrderDetailsComponent {
   }
 
   getChowkiOrderDetails() {
-    this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetBeneficieryChawkiOrderById?Id=2&lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetBeneficieryChawkiOrderById?Id='+this.data?.id+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.chowkiOrderData = res.responseData;   

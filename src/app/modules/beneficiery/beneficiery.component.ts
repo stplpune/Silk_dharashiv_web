@@ -225,7 +225,7 @@ export class BeneficieryComponent {
   }
 
   viewBenificiaryList(obj: any) {  
-    let strData=obj?.id+'.'+obj?.fullName+'.'+obj?.m_FullName;
+    let strData=obj?.id+'.'+obj?.fullName+'.'+obj?.m_FullName+'.'+obj?.farmerId;
     let Id: any = this.encryptdecrypt.encrypt(`${strData}`);
     this.router.navigate(['beneficiery-details'], {
       queryParams: {

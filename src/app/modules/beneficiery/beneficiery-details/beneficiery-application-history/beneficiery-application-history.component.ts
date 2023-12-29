@@ -32,6 +32,7 @@ export class BeneficieryApplicationHistoryComponent {
   farmerNameEn:any;
   farmerNameMr:any;
   beneficieryId :any;
+  farmerId:any;
 
   constructor(
     public webStorage: WebStorageService,
@@ -61,13 +62,14 @@ export class BeneficieryApplicationHistoryComponent {
      this.beneficieryId = spliteUrl[0]; 
      this.farmerNameEn = spliteUrl[1];
      this.farmerNameMr =  spliteUrl[2];
+     this.farmerId =  spliteUrl[3];
     this.getTableData();
   }
 
 
   getTableData(_status?: any) {
     this.spinner.show();    
-    this.apiService.setHttp('GET', `sericulture/api/Beneficiery/GetBeneficieryApplicationsHistory?FarmerId=1&lan=en`, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetBeneficieryApplicationsHistory?FarmerId='+(this.farmerId)+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();

@@ -51,6 +51,7 @@ export class BeneficieryTimelineComponent {
   farmerNameEn:any;
   farmerNameMr:any;
   beneficieryId :any;
+  farmerId:any;
 
   constructor(
     public webStorage: WebStorageService,
@@ -77,6 +78,7 @@ export class BeneficieryTimelineComponent {
      this.beneficieryId = spliteUrl[0]; 
      this.farmerNameEn = spliteUrl[1];
      this.farmerNameMr =  spliteUrl[2];
+     this.farmerId =  spliteUrl[3];
     this.getTableData();
   }
 
@@ -96,7 +98,7 @@ export class BeneficieryTimelineComponent {
   getTableData() {
     this.spinner.show();  
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;  
-    this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetBeneficieryTimeline?FarmerId=1'+(str)+'&lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetBeneficieryTimeline?FarmerId='+this.farmerId+(str)+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
