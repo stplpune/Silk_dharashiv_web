@@ -1,6 +1,14 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
-    <div class="text-main">Beneficiary Details</div>
+    <div class="d-flex align-items-center justify-content-between w-100">
+      <div class="text-main">Beneficiary Details</div>
+      <button mat-flat-button class="btn-main-light" >
+        <mat-icon class="material-symbols-rounded">
+          chevron_left
+        </mat-icon>
+        {{lang == 'en' ? 'Back' : 'मागे जा'}}
+      </button>
+    </div>
   </mat-card-header>
   <mat-card-content class="card-body form-container">
     <div class="row gx-2">

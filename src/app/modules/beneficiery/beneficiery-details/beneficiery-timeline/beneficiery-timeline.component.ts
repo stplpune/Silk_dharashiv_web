@@ -16,6 +16,8 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { GlobalTableComponent } from 'src/app/shared/components/global-table/global-table.component';
+import { ActivatedRoute } from '@angular/router';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 
 @Component({
   selector: 'app-beneficiery-timeline',
@@ -44,6 +46,10 @@ export class BeneficieryTimelineComponent {
   highLightRowFlag: boolean = false;
   subscription!: Subscription;
   lang: string = 'English';
+  routingData:any;
+  farmerNameEn:any;
+  farmerNameMr:any;
+  beneficieryId :any;
 
   constructor(
     public webStorage: WebStorageService,
@@ -51,6 +57,8 @@ export class BeneficieryTimelineComponent {
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
     private errorService: ErrorHandlingService,
+    private activatedRoute: ActivatedRoute,
+    public encryptdecrypt: AesencryptDecryptService
   ) { }
   ngOnInit() {
 
@@ -59,6 +67,13 @@ export class BeneficieryTimelineComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     })   
+    this.activatedRoute.queryParams.subscribe((params:any)=>{
+      this.routingData = params['id'];
+     })
+     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+     this.beneficieryId = spliteUrl[0]; 
+     this.farmerNameEn = spliteUrl[1];
+     this.farmerNameMr =  spliteUrl[2];
     this.getTableData();
   }
 
@@ -113,9 +128,11 @@ export class BeneficieryTimelineComponent {
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
       tableHeaders: displayedheaders,
-      view: true,
+      delete: true,
       track: false,
       edit: false,
+      img: 'postImages',
+
     };
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);

@@ -1,5 +1,10 @@
-
-
-<div class="table-responsive scrollbar">
-    <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
-  </div>
+<mat-card class="plain-card">
+  <mat-card-header class="card-header">
+    <div class="text-main">{{lang == 'en' ? farmerNameEn : farmerNameMr || '-'}}</div>
+  </mat-card-header>
+  <mat-card-content class="card-body">
+    <div class="table-responsive scrollbar">
+      <app-global-table (recObjToChild)="childCompInfo($event)"></app-global-table>
+    </div>
+  </mat-card-content>
+  </mat-card>

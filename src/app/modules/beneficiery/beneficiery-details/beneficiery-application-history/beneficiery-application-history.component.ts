@@ -10,11 +10,12 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { GlobalTableComponent } from 'src/app/shared/components/global-table/global-table.component';
 import { ActivatedRoute } from '@angular/router';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-beneficiery-application-history',
   standalone: true,
-  imports: [CommonModule,GlobalTableComponent],
+  imports: [CommonModule,GlobalTableComponent,MatCardModule],
   templateUrl: './beneficiery-application-history.component.html',
   styleUrls: ['./beneficiery-application-history.component.scss']
 })
@@ -27,6 +28,9 @@ export class BeneficieryApplicationHistoryComponent {
   highLightRowFlag: boolean = false;
   subscription!: Subscription;
   lang: string = 'English';
+  routingData:any;
+  farmerNameEn:any;
+  farmerNameMr:any;
   beneficieryId :any;
 
   constructor(
@@ -37,11 +41,12 @@ export class BeneficieryApplicationHistoryComponent {
     private errorService: ErrorHandlingService,
     private activatedRoute: ActivatedRoute,
     public encryptdecrypt: AesencryptDecryptService
-  ) {	let Id: any;
-    this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
-    if(Id){
-      this.beneficieryId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)      
-  } 
+  ) {	
+  //   let Id: any;
+  //   this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
+  //   if(Id){
+  //     this.beneficieryId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)      
+  // } 
 }
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
@@ -49,6 +54,13 @@ export class BeneficieryApplicationHistoryComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     })   
+    this.activatedRoute.queryParams.subscribe((params:any)=>{
+      this.routingData = params['id'];
+     })
+     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+     this.beneficieryId = spliteUrl[0]; 
+     this.farmerNameEn = spliteUrl[1];
+     this.farmerNameMr =  spliteUrl[2];
     this.getTableData();
   }
 

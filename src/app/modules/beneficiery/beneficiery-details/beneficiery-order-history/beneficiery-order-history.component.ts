@@ -47,6 +47,9 @@ export class BeneficieryOrderHistoryComponent {
   highLightRowFlag: boolean = false;
   subscription!: Subscription;
   lang: string = 'English';
+  routingData:any;
+  farmerNameEn:any;
+  farmerNameMr:any;
   beneficieryId :any;
 
  
@@ -60,11 +63,11 @@ export class BeneficieryOrderHistoryComponent {
     private activatedRoute: ActivatedRoute,
     public encryptdecrypt: AesencryptDecryptService
   ) { 
-    let Id: any;
-    this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
-    if(Id){
-      this.beneficieryId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)  
-  }
+  //   let Id: any;
+  //   this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
+  //   if(Id){
+  //     this.beneficieryId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)  
+  // }
   }
   ngOnInit() {
 
@@ -73,6 +76,13 @@ export class BeneficieryOrderHistoryComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
     })   
+    this.activatedRoute.queryParams.subscribe((params:any)=>{
+      this.routingData = params['id'];
+     })
+     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+     this.beneficieryId = spliteUrl[0]; 
+     this.farmerNameEn = spliteUrl[1];
+     this.farmerNameMr =  spliteUrl[2];
     this.getTableData();
   }
 
