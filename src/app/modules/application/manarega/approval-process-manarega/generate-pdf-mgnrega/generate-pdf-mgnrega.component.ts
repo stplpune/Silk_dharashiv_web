@@ -97,10 +97,10 @@ export class GeneratePdfMgnregaComponent {
     
     this.loginData = this.web.getLoggedInLocalstorageData();
     this.routeData = this.route.snapshot.queryParamMap.get('id');
-    // this.actionID = this.routeData.split('.')[1];
-    // this.applicationId = this.routeData.split('.')[0];
-    this.actionID = 4
-    this.applicationId = 3;
+    this.actionID = this.routeData.split('.')[1];
+    this.applicationId = this.routeData.split('.')[0];
+    //this.actionID = 4
+   // this.applicationId = 3;
     this.getEstimateData();
     this.getAnotherEstimateData();
     this.getEstimateSanctionData();
@@ -141,7 +141,7 @@ export class GeneratePdfMgnregaComponent {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.sanctionArray = res.responseData.responseData1;
-          console.log("this.sanctionArray ",this.sanctionArray )
+         // console.log("this.sanctionArray ",this.sanctionArray )
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
