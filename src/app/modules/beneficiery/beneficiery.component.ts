@@ -34,7 +34,7 @@ export class BeneficieryComponent {
   tableDatasize!: number;
   totalPages!: number;
   highLightRowFlag: boolean = false;
-
+  filterFlag: boolean = false;
   constructor(
     private fb: FormBuilder,
     private master: MasterService,
@@ -157,7 +157,8 @@ export class BeneficieryComponent {
     switch (obj.label) {
       case 'Pagination':
         this.pageNumber = obj.pageNumber;
-        this.getTableData();
+        !this.filterFlag? this.defaultFillterForm() : '';
+        this.getTableData()
         break;
       case 'View':
         this.viewBenificiaryList(obj);
@@ -170,9 +171,7 @@ export class BeneficieryComponent {
     let formData = this.filterFrm.getRawValue();
     //  status == 'filter' ? ((this.pageNumber = 1), this.searchDataFlag = true) : '';
     let str = `pageno=${this.pageNumber || 1}&pagesize=10&SchemeTypeId=${formData.schemeTypeId}&DistrictId=${formData.districtId}&TalukaId=${formData.talukaId}&GrampanchayatId=${formData.grampanchayatId}&DepartmentId=${formData.deptId}&TextSearch=${formData.textSearch.trim()}&lan=${this.lang}&UserId=${this.webStorage?.getUserId()}`
-
     this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetAllBeneficieryList?' + str, false, false, false, 'masterUrl');
-
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -226,8 +225,8 @@ export class BeneficieryComponent {
   }
 
   viewBenificiaryList(obj: any) {  
-    let str=obj?.id;
-    let Id: any = this.encryptdecrypt.encrypt(`${str}`);
+    let strData=obj?.id+'.'+obj?.fullName+'.'+obj?.m_FullName;
+    let Id: any = this.encryptdecrypt.encrypt(`${strData}`);
     this.router.navigate(['beneficiery-details'], {
       queryParams: {
         id: Id

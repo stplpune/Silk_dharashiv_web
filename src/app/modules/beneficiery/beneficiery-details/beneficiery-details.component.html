@@ -9,8 +9,8 @@
           <div class="d-flex gap-2">
             <img _ngcontent-grp-c68=""  src="assets/images/dashboard-icons/manarega.svg"  alt="Total DBT(INR)" class="green-blue">
             <div class="d-flex flex-column">
-              <h4 class="fw-bold">0.40H</h4>
-              <div class="form-label">Plantation Area</div>
+              <h4 class="fw-bold">{{profileData?.cultivatedFarmInHector || 0}} {{lang == 'en' ? 'sq. ft.': 'चौ. फूट'}}</h4>
+              <div class="form-label">  {{lang == 'en' ? 'Plantation Area' : 'वृक्षारोपण क्षेत्र' || 0}}</div>
             </div>
           </div>
         </div>
@@ -20,8 +20,8 @@
           <div class="d-flex gap-2">
             <img _ngcontent-grp-c68="" src="assets/images/dashboard-icons/total.svg" alt="Total DBT(INR)" class="green-blue">
             <div class="d-flex flex-column">
-              <h4 class="fw-bold">3.97,335</h4>
-              <div class="form-label">Amount Sanction</div>
+              <h4 class="fw-bold">{{profileData?.amountSantion || 0}}</h4>
+              <div class="form-label">  {{lang == 'en' ? 'Amount Sanction' : 'रक्कम मंजूर' || 0}}</div>
             </div>
           </div>
         </div>
@@ -31,8 +31,8 @@
           <div class="d-flex gap-2">
             <img _ngcontent-grp-c68="" src="assets/images/dashboard-icons/total.svg" alt="Total DBT(INR)" class="green-blue">
             <div class="d-flex flex-column">
-              <h4 class="fw-bold">1.97,335</h4>
-              <div class="form-label">Amount Disbused</div>
+              <h4 class="fw-bold">{{profileData?.amountDisbused || 0}}</h4>
+              <div class="form-label">  {{lang == 'en' ? 'Amount Disbused' : 'वितरित रक्कम' || 0}}</div>
             </div>
           </div>
         </div>
@@ -42,8 +42,8 @@
           <div class="d-flex gap-2">
             <img _ngcontent-grp-c68="" src="assets/images/dashboard-icons/total.svg" alt="Total DBT(INR)" class="green-blue">
             <div class="d-flex flex-column">
-              <h4 class="fw-bold">600 Q</h4>
-              <div class="form-label">Chowki Orders</div>
+              <h4 class="fw-bold">{{profileData?.chawkiOrder || 0}}</h4>
+              <div class="form-label">  {{lang == 'en' ? 'Chowki Orders' : 'चौकीचे आदेश' || 0}}</div>
             </div>
           </div>
         </div>
@@ -53,28 +53,20 @@
           <div class="d-flex gap-2">
             <img _ngcontent-grp-c68="" src="assets/images/dashboard-icons/total.svg" alt="Total DBT(INR)" class="green-blue">
             <div class="d-flex flex-column">
-              <h4 class="fw-bold">0 KG</h4>
-              <div class="form-label">Silk Sold</div>
+              <h4 class="fw-bold">{{profileData?.silkSold || 0}} {{lang == 'en' ? 'KG' :'किलो'}}</h4>
+              <div class="form-label">  {{lang == 'en' ? 'Silk Sold' : 'रेशीम विकले' || 0}}</div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <mat-tab-group>
-      <mat-tab label="Beneficiery Profile "><app-beneficiery-profile></app-beneficiery-profile> </mat-tab>
-      <mat-tab label="Beneficiary Timeline"><ng-template matTabContent><app-beneficiery-timeline></app-beneficiery-timeline></ng-template></mat-tab>
-      <mat-tab label="Application History"><ng-template matTabContent><app-beneficiery-application-history></app-beneficiery-application-history></ng-template></mat-tab>
-      <mat-tab label="Chowki Order History"><ng-template matTabContent><app-beneficiery-order-history></app-beneficiery-order-history></ng-template></mat-tab>
-      <mat-tab label="Subsidy History"><ng-template matTabContent><app-beneficiery-subsidy-history></app-beneficiery-subsidy-history></ng-template></mat-tab>
-      <mat-tab label="Silk Sell"><ng-template matTabContent><app-beneficiery-silk-sell-history></app-beneficiery-silk-sell-history></ng-template></mat-tab>
-
-
-      <!-- <mat-tab label="{{lang == 'en' ? 'Delivery Slabs' : 'वितरण स्लॅब'}}">  <ng-template matTabContent><app-crc-delivery-slabs></app-crc-delivery-slabs></ng-template> </mat-tab>
-      <mat-tab label=" {{lang == 'en' ? 'Chawki Order' : 'चौकी ऑर्डर'}}"> <ng-template matTabContent><app-crc-chawki-order></app-crc-chawki-order></ng-template></mat-tab>
-      <mat-tab label=" {{lang == 'en' ? 'Grainage Order' : 'ग्रेनेज ऑर्डर'}}"> <ng-template matTabContent><app-crc-grainage-order></app-crc-grainage-order></ng-template></mat-tab>
-      <mat-tab label=" {{lang == 'en' ? 'Inventory' : 'इन्व्हेंटरी'}}"> <ng-template matTabContent><app-inventory></app-inventory></ng-template></mat-tab> -->
-
-
+      <mat-tab label="{{lang == 'en' ? 'Beneficiery Profile' : 'लाभार्थी प्रोफाइल'}}"><app-beneficiery-profile></app-beneficiery-profile> </mat-tab>
+      <mat-tab label=" {{lang == 'en' ? 'Beneficiary Timeline' : 'लाभार्थी टाइमलाइन'}}"><ng-template matTabContent><app-beneficiery-timeline></app-beneficiery-timeline></ng-template></mat-tab>
+      <mat-tab label=" {{lang == 'en' ? 'Application History' : 'अनुप्रयोग इतिहास'}}"><ng-template matTabContent><app-beneficiery-application-history></app-beneficiery-application-history></ng-template></mat-tab>
+      <mat-tab label=" {{lang == 'en' ? 'Chowki Order History' : 'चौकी ऑर्डर इतिहास'}}"><ng-template matTabContent><app-beneficiery-order-history></app-beneficiery-order-history></ng-template></mat-tab>
+      <mat-tab label=" {{lang == 'en' ? 'Subsidy History' : 'सबसिडीचा इतिहास'}}"><ng-template matTabContent><app-beneficiery-subsidy-history></app-beneficiery-subsidy-history></ng-template></mat-tab>
+      <mat-tab label=" {{lang == 'en' ? 'Silk Sell' : 'रेशीम विक्री'}}"><ng-template matTabContent><app-beneficiery-silk-sell-history></app-beneficiery-silk-sell-history></ng-template></mat-tab>
   </mat-tab-group>
   </mat-card-content>
 </mat-card>

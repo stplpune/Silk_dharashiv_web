@@ -37,6 +37,9 @@ export class BeneficieryProfileComponent {
   lang: string = 'English';
   profileData: any;
   beneficieryId :any;
+  routingData:any;
+  farmerNameEn:any;
+  farmerNameMr:any;
 
   constructor(
     private apiService: ApiService,
@@ -46,12 +49,12 @@ export class BeneficieryProfileComponent {
     public common: CommonMethodsService,
     private activatedRoute: ActivatedRoute,
     public encryptdecrypt: AesencryptDecryptService) { 
-      let Id: any;
-      this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
-      if(Id){
-        this.beneficieryId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
+    //   let Id: any;
+    //   this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
+    //   if(Id){
+    //     this.beneficieryId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
         
-    }
+    // }
   }
 
   ngOnInit() {
@@ -59,7 +62,15 @@ export class BeneficieryProfileComponent {
       this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
+    this.activatedRoute.queryParams.subscribe((params:any)=>{
+     this.routingData = params['id'];
+    })
+    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+    this.beneficieryId = spliteUrl[0]; 
+    this.farmerNameEn = spliteUrl[1];
+    this.farmerNameMr =  spliteUrl[2];
     this.getProfileData();
+    
   }
   
   getProfileData() {

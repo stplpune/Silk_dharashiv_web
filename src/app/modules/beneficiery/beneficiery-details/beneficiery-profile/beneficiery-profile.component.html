@@ -1,13 +1,13 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
-    <div class="text-main">Beneficiary Details</div>
+    <div class="text-main">{{lang == 'en' ? farmerNameEn : farmerNameMr || '-'}}</div>
   </mat-card-header>
   <mat-card-content class="card-body form-container">
     <div class="row">
       <div class="col-sm-2 text-center">
         <img [src]="profileData?.profilePhotoPath" alt="" class="img-fluid">
         <div class="d-flex align-items--center justify-content-center gap-2 my-3">
-          <h4 class="form-label">Mulberry Id</h4>
+          <h4 class="form-label"> {{lang == 'en' ? 'Mulberry Id' : 'तुती आयडी' || '-'}}</h4>
           <h4 class="form-data">: {{profileData?.mulberryId}}</h4>
         </div>
       </div>
@@ -15,55 +15,55 @@
         <div class="row gy-3">
           <div class="col-sm-6">
             <div class="row gx-2">
-              <div class="col-sm-3 form-label">Name</div>             
+              <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Name' : 'नाव' || '-'}}</div>             
               <div class="col-sm-9 form-data">:  {{lang == 'en' ? profileData?.fullName  :profileData?.m_FullName }}</div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="row gx-2">
-              <div class="col-sm-3 form-label">Mobile Number</div>
+              <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Mobile Number' : 'मोबाईल नंबर' || '-'}}</div>
               <div class="col-sm-9 form-data">: {{profileData?.mobileNo1}}</div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="row gx-2">
-              <div class="col-sm-3 form-label">Gender</div>
+              <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Gender' : 'लिंग' || '-'}}</div>
               <div class="col-sm-9 form-data">:  {{lang == 'en' ? profileData?.gender  :profileData?.m_Gender }}</div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="row gx-2">
-              <div class="col-sm-3 form-label">State</div>              
+              <div class="col-sm-3 form-label"> {{lang == 'en' ? 'State' : 'राज्य' || '-'}}</div>              
               <div class="col-sm-9 form-data">: {{lang == 'en' ? profileData?.state  :profileData?.m_State }}</div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="row gx-3">
-              <div class="col-sm-3 form-label">District</div>              
+              <div class="col-sm-3 form-label"> {{lang == 'en' ? 'District' : 'जिल्हा' || '-'}}</div>              
               <div class="col-sm-9 form-data">: {{lang == 'en' ? profileData?.district  :profileData?.m_District }}</div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="row gx-2">
-              <div class="col-sm-3 form-label">Taluka</div>
+              <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Taluka' : 'तालुका' || '-'}}</div>
               <div class="col-sm-9 form-data">: {{lang == 'en' ? profileData?.taluka  :profileData?.m_Taluka }}</div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="row gx-2">
-              <div class="col-sm-3 form-label">Grampanchayat</div>
+              <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Grampanchayat' : 'ग्रामपंचायत' || '-'}}</div>
               <div class="col-sm-9 form-data">: {{lang == 'en' ? profileData?.grampanchayatName  :profileData?.m_GrampanchayatName }}</div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="row gx-2">
-              <div class="col-sm-3 form-label">Address</div>
+              <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Address' : 'पत्ता' || '-'}}</div>
               <div class="col-sm-9 form-data">:{{lang == 'en' ? profileData?.address  :profileData?.m_Address}}</div>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="row gx-2">
-              <div class="col-sm-3 form-label">Pincode</div>
+              <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Pincode' : 'पिन कोड' || '-'}}</div>
               <div class="col-sm-9 form-data">: {{profileData?.pinCode}}</div>
             </div>
           </div>
