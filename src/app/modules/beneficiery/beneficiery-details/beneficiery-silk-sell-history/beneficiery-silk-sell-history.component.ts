@@ -18,6 +18,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { GlobalTableComponent } from 'src/app/shared/components/global-table/global-table.component';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ActivatedRoute } from '@angular/router';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 
 @Component({
   selector: 'app-beneficiery-silk-sell-history',
@@ -46,6 +47,11 @@ export class BeneficierySilkSellHistoryComponent {
   highLightRowFlag: boolean = false;
   subscription!: Subscription;
   lang: string = 'English';
+  routingData:any;
+  // farmerNameEn:any;
+  // farmerNameMr:any;
+  // beneficieryId :any;
+  farmerId:any;
 
   constructor(public dialog: MatDialog,
     private spinner: NgxSpinnerService,
@@ -53,7 +59,8 @@ export class BeneficierySilkSellHistoryComponent {
     public common: CommonMethodsService,
     private errorService: ErrorHandlingService,
     public webStorage: WebStorageService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    public encryptdecrypt: AesencryptDecryptService) { }
 
   ngOnInit() {
 
@@ -65,20 +72,21 @@ export class BeneficierySilkSellHistoryComponent {
     this.activatedRoute.queryParams.subscribe((params: any) => {
       console.log("parms", params);
 
-      // this.routingData = params['id'];
+      this.routingData = params['id'];
     })
-    //  let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+     console.log("spliteUrl",spliteUrl);
     //  this.beneficieryId = spliteUrl[0]; 
     //  this.farmerNameEn = spliteUrl[1];
     //  this.farmerNameMr =  spliteUrl[2];
-    //  this.farmerId =  spliteUrl[3];
+     this.farmerId =  spliteUrl[3];
     this.getTableData();
   }
 
 
   getTableData() {
     this.spinner.show();
-    this.apiService.setHttp('GET', `sericulture/api/SilkSell/GetSilkSellDetails?FarmerId=2&Id=0&lan=en`, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', `sericulture/api/SilkSell/GetSilkSellDetails?FarmerId=${this.farmerId}&Id=0&lan=${this.lang}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -111,11 +119,8 @@ export class BeneficierySilkSellHistoryComponent {
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
-      tableHeaders: displayedheaders,
-      delete: true,
-      view: true,
-      track: false,
-      edit: false,
+      tableHeaders: displayedheaders,    
+      view: true,    
       img: 'billPhoto',
       date: 'silkSellDate'
     };

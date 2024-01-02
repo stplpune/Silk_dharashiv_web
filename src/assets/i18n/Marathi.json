@@ -1023,5 +1023,21 @@
     "silk_samagra2_req_docs_pt6": "रास्ट्रीयकृत बँक पासबूक छायांकित प्रत",
     "silk_samagra2_req_docs_pt7": "जातीचे प्रमाणपत्र ( अनु.जाती/अनु. जमाती शेतकऱ्यांसाठी)",
     "silk_samagra2_req_docs_pt8": "पाणी उपलब्धता प्रमाणपत्र"
+  },
+  "silkSell":{
+    "Beneficiar_Silk_Sell":"लाभार्थी रेशीम विक्री",
+    "Silk_Sell_Details":"रेशीम विक्री तपशील",
+    "Invoice_No":"चलन क्र.",
+    "Sell_Date":"विक्रीची तारीख",
+    "Lot_No":"लॉट क्र",
+    "Race":"वंश",
+    "Market_Name":"बाजाराचे नाव",
+    "Remark":"शेरा",
+    "payment_receipt":"पैसे भरल्याची पावती",
+    "Quantity":"प्रमाण (किलो)",
+    "Rate_Kg":"दर/किलो",
+    "Amount":"रक्कम",
+    "Market_Fees":"बाजार शुल्क",
+    "Total_Amount":"एकूण रक्कम"
   }
 }

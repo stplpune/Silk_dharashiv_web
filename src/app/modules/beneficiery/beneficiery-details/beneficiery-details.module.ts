@@ -20,6 +20,7 @@ import { ChowkiOrderDetailsComponent } from './beneficiery-order-history/chowki-
 import { SilkSellDetailsComponent } from './beneficiery-silk-sell-history/silk-sell-details/silk-sell-details.component';
 import { BeneficieryTimelineComponent } from './beneficiery-timeline/beneficiery-timeline.component';
 import { BeneficierySubsidyHistoryComponent } from './beneficiery-subsidy-history/beneficiery-subsidy-history.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { BeneficierySubsidyHistoryComponent } from './beneficiery-subsidy-histor
     MatSelectModule,
     MatIconModule,
     MatTableModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslateModule
   ]
 })
 export class BeneficieryDetailsModule { }

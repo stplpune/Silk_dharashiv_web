@@ -982,5 +982,21 @@
     "all_grainage": "All Grainage",
     "status": "Status",
     "all_status": "All Status"
+  },
+   "silkSell":{
+    "Beneficiar_Silk_Sell":"Beneficiar Silk Sell",
+    "Silk_Sell_Details":"Silk Sell Details",
+    "Invoice_No":"Invoice No.",
+    "Sell_Date":"Sell Date",
+    "Lot_No":"Lot No",
+    "Race":"Race",
+    "Market_Name":"Market Name",
+    "Remark":"Remark",
+    "payment_receipt":"Payment Receipt",
+    "Quantity":"Quantity(Kg)",
+    "Rate_Kg":"Rate/Kg",
+    "Amount":"Amount",
+    "Market_Fees":"Market Fees",
+    "Total_Amount":"Total Amount"
   }
 }
