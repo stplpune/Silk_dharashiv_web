@@ -139,11 +139,11 @@
           <section>
             <h6 class="text-main border-bottom border-success border-opacity-50"
             > {{lang == 'en' ? 'Rearing Area Details': 'संगोपन क्षेत्र तपशील'}}</h6>
-            <div class="row gy-2">
+            <div class="row g-3 align-items-center">
               <div class="col-sm-6">
                 <div class="row gx-2">
-                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Total area available for CRC': 'CRC साठी उपलब्ध एकूण क्षेत्र'}}</div>
-                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.totalAreaForCRC || '-'}} {{lang == 'en' ? 'sq.ft.': 'चौ.फूट'}}</div>
+                  <div class="col-sm-5 form-label"> {{lang == 'en' ? 'Total area available for CRC': 'CRC साठी उपलब्ध एकूण क्षेत्र'}}</div>
+                  <div class="col-sm-7 form-data">:  &nbsp; {{tableDataArray?.totalAreaForCRC || '-'}} {{lang == 'en' ? 'sq.ft.': 'चौ.फूट'}}</div>
                 </div>
               </div>
               <div class="col-sm-6">
@@ -154,18 +154,24 @@
               </div>
               <div class="col-sm-6">
                 <div class="row gx-2">
-                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Status': 'स्थिती'}}</div>
-                  <div class="col-sm-8 form-data"  [class]="tableDataArray?.statusId == 5 ?  ' text-danger p-2 rounded-2' : tableDataArray?.statusId == 1 ? ' text-warning p-2 rounded-2' :' text-success p-2 rounded-2'">:  &nbsp; {{tableDataArray?.status || '-'}}</div>
+                  <div class="col-sm-5 form-label"> {{lang == 'en' ? 'Status': 'स्थिती'}}</div>
+                  <div class="col-sm-7 form-data"  [class]="tableDataArray?.statusId == 5 ?  ' text-danger rounded-2' : tableDataArray?.statusId == 1 ? ' text-warning rounded-2' :' text-success rounded-2'">: {{tableDataArray?.status || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-6">
-                <div class="row gx-2 mb-4">
+                <div class="row gx-2">
                   <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Approve Capacity': 'क्षमता मंजूर करा'}}</div>
                   <div class="col-sm-4 form-data">:  &nbsp; {{tableDataArray?.chalkyApprovedQty || '-'}} DFLs</div>
                 </div>
               </div>
-              <div class="col-sm-6"  *ngIf="statusForm.value.status == 5">
-                <div class="row gx-2 mb-4">
+              <div class="col-sm-6">
+                <div class="row gx-2">
+                  <div class="col-sm-5 form-label"> {{lang == 'en' ? 'Rearing Capacity': 'Rearing Capacity'}}</div>
+                  <div class="col-sm-7 form-data">:   DFLs</div>
+                </div>
+              </div>
+              <div class="col-sm-12"  *ngIf="statusForm.value.status == 5">
+                <div class="row gx-2">
                   <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Remark': 'शेरा'}}</div>
                   <div class="col-sm-4 form-data">:  &nbsp; {{tableDataArray?.statusReason || '-'}}</div>
                 </div>
