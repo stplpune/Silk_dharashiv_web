@@ -70,12 +70,14 @@ export class GeneratePdfMgnregaComponent {
   bindTableDiv: any;
   id: any;
   sanctionArray: any;
-  sanctionArray2:any
+  sanctionArray2: any
   showDate = new Date();
   routeData: any;
   applicationId: any;
   loginData: any;
   technicalEstId: any;
+  adminApproveLetter:any
+
   constructor
     (
       private WebStorageService: WebStorageService,
@@ -85,7 +87,6 @@ export class GeneratePdfMgnregaComponent {
       private errorHandler: ErrorHandlingService,
       public encryptdecrypt: AesencryptDecryptService,
       private route: ActivatedRoute,
-      private web: WebStorageService,
       private router: Router,
     ) { }
 
@@ -94,16 +95,17 @@ export class GeneratePdfMgnregaComponent {
       this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     });
-    
-    this.loginData = this.web.getLoggedInLocalstorageData();
+
+    this.loginData = this.WebStorageService.getLoggedInLocalstorageData();
     this.routeData = this.route.snapshot.queryParamMap.get('id');
-    this.actionID = this.routeData.split('.')[1];
-    this.applicationId = this.routeData.split('.')[0];
-    //this.actionID = 4
-   // this.applicationId = 3;
+    // this.actionID = this.routeData.split('.')[1];
+    // this.applicationId = this.routeData.split('.')[0];
+    this.actionID = 5;
+    this.applicationId = 3;
     this.getEstimateData();
     this.getAnotherEstimateData();
-    this.getEstimateSanctionData();
+    this.getSanctionLetterData();
+    this.getAdministrativeApprove();
   }
 
   getEstimateData() {
@@ -118,7 +120,7 @@ export class GeneratePdfMgnregaComponent {
           this.estimateSkillArray = res.responseData3;
           this.finaltotalArray = res.responseData10;
           this.totalMappingArray = res.responseData11;
-          this.technicalEstId = res.responseData12;
+          this.technicalEstId = res.responseData12[0];
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
@@ -131,17 +133,15 @@ export class GeneratePdfMgnregaComponent {
     });
   }
 
- // https://demosilkapi.mahamining.com/sericulture/api/TechnicalSanctionLetter/GetTechnicalSanctionLetter?ApplicationId=2&UserId=1
 
-  getEstimateSanctionData() { // sanction later
+  getSanctionLetterData() { // sanction later
     this.spinner.show();
-    this.apiService.setHttp('GET', 'sericulture/api/TechnicalSanctionLetter/GetTechnicalSanctionLetter?ApplicationId=' + this.applicationId, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/TechnicalSanctionLetter/GetTechnicalSanctionLetter?ApplicationId=' + this.applicationId + '&UserId=' + this.WebStorageService.getUserId(), false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.sanctionArray = res.responseData.responseData1;
-         // console.log("this.sanctionArray ",this.sanctionArray )
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
@@ -241,6 +241,26 @@ export class GeneratePdfMgnregaComponent {
     this.skillDataArray.skillArray[5].aroundDay = this.table2Obj.act2;
     this.skillDataArray.skillArray[6].aroundDay = this.table2Obj.act1;
     this.skillDataArray.skillArray[6].totalWages = this.table2Obj.act3;
+  }
+
+  getAdministrativeApprove(){
+    this.spinner.show();
+    this.apiService.setHttp('GET', 'sericulture/api/AdministrativeApproval/GetAdministrativeApproval?ApplicationId='+(this.applicationId)+'&UserId='+this.WebStorageService.getUserId(), false, false, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        if (res.statusCode == '200') {
+          this.adminApproveLetter=res.responseData1;          
+        } else {
+          this.spinner.hide();
+          this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
+        }
+      },
+      error: (err: any) => {
+        this.spinner.hide();
+        this.errorHandler.handelError(err.status);
+      },
+    });
   }
 
 
