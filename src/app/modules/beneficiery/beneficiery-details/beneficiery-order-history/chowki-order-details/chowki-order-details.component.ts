@@ -39,7 +39,6 @@ export class ChowkiOrderDetailsComponent {
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.chowkiOrderData = res.responseData;   
-        // let tableArray = new Array();
         this.dataSource = res.responseData.deliveryDetails
      
       },

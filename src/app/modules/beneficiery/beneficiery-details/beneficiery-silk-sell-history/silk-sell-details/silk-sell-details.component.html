@@ -13,43 +13,44 @@
     <div class="col-sm-3">
       <div class="row gx-2">
         <div class="col-sm-5 form-label">Invoice No.</div>
-        <div class="col-sm-7 form-data">: </div>
+        <div class="col-sm-7 form-data">:{{data.billNo}} </div>
       </div>
     </div>
     <div class="col-sm-3">
       <div class="row gx-2">
         <div class="col-sm-3 form-label">Sell Date</div>
-        <div class="col-sm-9 form-data">: 14-12-2023</div>
+        <div class="col-sm-9 form-data">: {{data.silkSellDate | date :'dd-MM-YYYY' }} </div>
       </div>
     </div>
     <div class="col-sm-3">
       <div class="row gx-2">
         <div class="col-sm-3 form-label">Lot No</div>
-        <div class="col-sm-9 form-data">: </div>
+        <div class="col-sm-9 form-data">:{{data.lotNo}}</div>
+      </div>
+    </div>
+        <div class="col-sm-3">
+      <div class="row gx-2">
+        <div class="col-sm-5 form-label">Race</div>
+        <div class="col-sm-7 form-data">:{{lang == 'en' ?  data.silkCaste : data.m_SilkCaste}} </div>
       </div>
     </div>
     <div class="col-sm-3">
       <div class="row gx-2">
-        <div class="col-sm-3 form-label">Race</div>
-        <div class="col-sm-9 form-data">: </div>
+        <div class="col-sm-3 form-label">Market Name:</div>
+        <div class="col-sm-9 form-data">:{{lang == 'en' ? data.marketName : data.m_MarketName}} </div>
       </div>
     </div>
-    <div class="col-sm-3">
-      <div class="row gx-2">
-        <div class="col-sm-5 form-label">Market Name</div>
-        <div class="col-sm-7 form-data">: </div>
-      </div>
-    </div>
+
     <div class="col-sm-9">
       <div class="row gx-2">
         <div class="col-sm-1 form-label">Remark</div>
-        <div class="col-sm form-data">: </div>
+        <div class="col-sm form-data">:{{data.remark}} </div>
       </div>
     </div>
     <div class="col-sm-3">
       <div class="row gx-2">
         <div class="col-sm-auto form-label">Payment Reciepe</div>
-        <div class="col-sm form-data">  <span class="material-symbols-rounded">visibility</span></div>
+        <div class="col-sm form-data">  <span class="material-symbols-rounded" (click)="viewReceipt()">visibility</span></div>
       </div>
     </div>
   </div>
