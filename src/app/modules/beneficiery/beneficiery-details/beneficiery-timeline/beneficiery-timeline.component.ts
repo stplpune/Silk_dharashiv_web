@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
@@ -19,6 +19,7 @@ import { GlobalTableComponent } from 'src/app/shared/components/global-table/glo
 import { ActivatedRoute } from '@angular/router';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-beneficiery-timeline',
@@ -33,7 +34,8 @@ import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/g
     MatTableModule,
     MatButtonModule,
     ReactiveFormsModule,
-    GlobalTableComponent
+    GlobalTableComponent,
+    TranslateModule
   ],
   templateUrl: './beneficiery-timeline.component.html',
   styleUrls: ['./beneficiery-timeline.component.scss']
@@ -52,7 +54,8 @@ export class BeneficieryTimelineComponent {
   farmerNameMr:any;
   beneficieryId :any;
   farmerId:any;
-
+  dataSource :any
+  displayedColumns: string[] = ['srNo','postImages','postData','likes','action'];
   constructor(
     public webStorage: WebStorageService,
     public common: CommonMethodsService,
@@ -98,12 +101,17 @@ export class BeneficieryTimelineComponent {
   getTableData() {
     this.spinner.show();  
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;  
-    this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetBeneficieryTimeline?FarmerId='+this.farmerId+(str)+'&lan='+this.lang, false, false, false, 'masterUrl');
+    // this.farmerId
+    this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetBeneficieryTimeline?FarmerId='+1+(str)+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;         
+          this.tableDataArray = res.responseData.responseData1;  
+          this.dataSource = new MatTableDataSource( this.tableDataArray);
+          console.log(" this.tableDataArray", this.tableDataArray);
+            
+          // this.dataSource =   this.tableDataArray ;    
           this.totalPages = res.responseData.responseData2.totalPages;
           this.tableDatasize = res.responseData.responseData2.totalCount;
         } else {
@@ -144,6 +152,7 @@ export class BeneficieryTimelineComponent {
     this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
     this.apiService.tableData.next(tableData);
   }
+
   deleteDialogOpen(delObj?: any) {
     let dialogObj = {
       title: this.lang == 'en' ? 'Do You Want To Delete Selected Beneficiary Timeline ?' : 'तुम्हाला निवडलेल्या लाभार्थीची टाइमलाइन हटवायची आहे का ?',
