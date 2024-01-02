@@ -173,7 +173,7 @@ export class RejectReasonComponent implements OnDestroy{
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('delete', 'sericulture/api/ Reject Reasons/DeleteRejectReason?Id='+delObj.id+'&lan=' + this.lang, false, false, false, 'masterUrl');
+        this.apiService.setHttp('delete', 'sericulture/api/Reasons/DeleteRejectReason?Id='+delObj.id+'&lan=' + this.lang, false, false, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
