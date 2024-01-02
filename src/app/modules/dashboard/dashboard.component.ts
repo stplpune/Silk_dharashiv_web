@@ -75,6 +75,10 @@ export class DashboardComponent {
       this.f['grampanchayatId'].setValue(0);
       this.grampanchayatArray = [];
     }
+    else  if (dropdown == 'Scheme') {
+      this.f['actionId'].setValue(0);
+      this.actionArr = [];
+    }
   }
 
   getAllScheme() {
