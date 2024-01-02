@@ -14,6 +14,8 @@ export class CrcCenterDetailsComponent {
   routingData: any;
   subscription!: Subscription;
   lang: string = 'English';
+  selIndex:any = 0;
+
   constructor
     (
       private route: ActivatedRoute,
@@ -34,5 +36,9 @@ export class CrcCenterDetailsComponent {
 
   backToPage() {
     this.router.navigate(['crc-list'])
+  }
+
+  onTabClick(event:any){
+    this.selIndex = event.index;
   }
 }
