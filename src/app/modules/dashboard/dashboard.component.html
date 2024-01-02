@@ -50,7 +50,9 @@
                 <div class="col-sm-2">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'manrega.scheme'| translate}}</mat-label>
-                        <mat-select formControlName="schemeTypeId" placeholder="All Scheme"  (selectionChange)="clearDropdown('Scheme');getAction()">
+                        <mat-select formControlName="schemeTypeId"
+                            placeholder="{{lang == 'en' ? 'All Scheme' :'सर्व योजना'}}"
+                            (selectionChange)="clearDropdown('Scheme');getAction()">
                             <mat-option *ngFor=" let scheme of schemeFilterArr" [value]="scheme.id">{{lang == 'en' ?
                                 scheme.textEnglish : scheme.textMarathi}}</mat-option>
                         </mat-select>
@@ -59,7 +61,9 @@
                 <div class="col-sm">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{'common.action'| translate}}</mat-label>
-                        <mat-select formControlName="actionId" placeholder="All Actions"  [class]="!filterFrm.getRawValue().schemeTypeId ? f['actionId'].disable({ onlySelf: true }) : f['actionId'].enable({ onlySelf: true })">
+                        <mat-select formControlName="actionId"
+                            placeholder="{{lang == 'en' ? 'All Action' :'सर्व कृती'}}"
+                            [class]="!filterFrm.getRawValue().schemeTypeId ? f['actionId'].disable({ onlySelf: true }) : f['actionId'].enable({ onlySelf: true })">
                             <mat-option *ngFor=" let action of actionArr" [value]="action.id">{{lang == 'en' ?
                                 action.textEnglish : action.textMarathi}}</mat-option>
                         </mat-select>
@@ -73,7 +77,8 @@
                                 search
                             </mat-icon>
                         </button>
-                        <button mat-flat-button class="btn-main-light btn-icon" (click)="clearFilter()" matTooltip="edit" type="button">
+                        <button mat-flat-button class="btn-main-light btn-icon" (click)="clearFilter()"
+                            matTooltip="edit" type="button">
                             <mat-icon class="material-symbols-rounded">
                                 close
                             </mat-icon>
@@ -122,7 +127,8 @@
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <h2>{{dashboardData?.responseData?.totalLandCultivatedHectors}}</h2>
-                            <p>{{'dashboard.land_cultivated'| translate}}<small class="text-muted px-1">{{'dashboard.hector'| translate}}</small></p>
+                            <p>{{'dashboard.land_cultivated'| translate}}<small
+                                    class="text-muted px-1">{{'dashboard.hector'| translate}}</small></p>
                         </div>
                     </div>
                 </div>
