@@ -14,34 +14,35 @@
     <img src="assets/images/logo.png">
   </div>
   <div class="letter-bg">
-    <div>जा.क्र. रेशीम/धा.शि./मनरेगा/तां. मं./ 2023/24/1017</div>
-    <div>दिनांक:28-12-2023</div>
+    <!-- <div>जा.क्र. रेशीम/धा.शि./मनरेगा/तां. मं./ 2023/24/1017</div> -->
+    <div>जा.क्र/रेशीम/जज.रे.का./तु.ला. पुर्व संमती/({{priorArray?.year}}/{{priorArray?.priorApprovalNo}})</div>
+    <div>दिनांक: {{priorArray?.priorApprovalGenDate | date :'dd-mm-yyyy'}}</div>
   </div>
   <mat-card class="plain-card form-container">
     <mat-card-content class="card-body">
 
       <div class="d-flex flex-column align-items-end gap-0">
-        <p class="form-data mb-0">जा.क्र/रेशीम/जज.रे.का./तु.ला. पुर्व संमती/ / (2-23/SS0220231218)</p>
-        <p class="form-data mb-0">जिल्हा रेशीम करायलय, धाराशीव</p>
-        <p class="form-data mb-0">दिनांक :- (28-12-2023)</p>
+        <p class="form-data mb-0">जा.क्र/रेशीम/जज.रे.का./तु.ला. पुर्व संमती/({{priorArray?.year}}/{{priorArray?.priorApprovalNo}})</p>
+        <p class="form-data mb-0">जिल्हा रेशीम कार्यालय, धाराशीव</p>
+        <p class="form-data mb-0">दिनांक :- {{priorArray?.applicationDate | date :'dd-mm-yyyy'}}</p>
       </div>
       <div class="d-flex flex-column gap-0">
         <h4 class="form-label mb-0">प्रति,</h4>
-        <h4 class="form-data mb-0">श्री./श्रीमती <span class="form-data">(शेतकर्‍याचे नाव)</span></h4>
-        <span class="form-label mb-0">रा. <span class="form-data">(ग्रामपंचायत)</span> ता. <span
-            class="form-data mb-0">(तालुका)</span></span>
-        <span class="form-label mb-0">जिल्हा <span class="form-data">(जिल्हा)</span> </span>
+        <h4 class="form-data mb-0">श्री./श्रीमती <span class="form-data">{{priorArray?.m_FullName}}</span></h4>
+        <span class="form-label mb-0">रा. <span class="form-data">{{priorArray?.m_GrampanchayatName}}</span> ता. <span
+            class="form-data mb-0">{{priorArray?.m_Taluka}}</span></span>
+        <span class="form-label mb-0">जिल्हा <span class="form-data">{{priorArray?.m_District}}</span> </span>
       </div>
 
       <p class="form-label text-center my-0">
         विषय :- केंद्र पुरस्कृत सिल्क समग्र-2 योजने अंतर्गत तुती लागवड योजनेकरीता पुर्व संमती दिले बाबत. <br>
         संदर्भ :-1.
         आपला केंद्र पुरस्कृत 'सिल्क समग्र-2' योजने अंतर्गत तुती लागवड योजनेसाठी पुर्व संमती
-        (अर्ज दिनांक)
+        {{priorArray?.applicationDate | date :'dd-mm-yyyy'}}
       </p>
       <div class="d-flex gap-2 my-1">
         <div class="form-data">लागवड क्षेत्र : </div>
-        <div class="form-data"> (1/2 एकर )</div>
+        <div class="form-data"> {{priorArray?.m_MulberryCultivationArea}}</div>
       </div>
       <p class="fw-bold mb-0 text-center">
         वरील संदर्भ-1 नुसार आपण केंद्र पुरस्कृत 'सिल्क समग्र-2' योजने अंतर्गत नवीन तुती लागवड योजनेसाठी पुर्व संमती
@@ -90,100 +91,28 @@
                 <th>वर्गवारी</th>
                 <th>लागवड क्षेत्र (एकर)</th>
                 <th>यूनिट कॉष्ट</th>
-                <th>केंद्र हिस्सा (50%) </th>
+                <th>{{priorArray?.categoryOfBeneficiaryMasterId == 1 ? 'केंद्र हिस्सा  (50%)' : priorArray?.categoryOfBeneficiaryMasterId == 2 || priorArray?.categoryOfBeneficiaryMasterId == 3 ?   'केंद्र हिस्सा  (65%)' : '' }} </th>
                 <th>राज्य हिस्सा (25%) </th>
-                <th>लाभार्थी हिस्सा (25%) </th>
-                <th>देय अनुदान (75%) </th>
+                <th>{{priorArray?.categoryOfBeneficiaryMasterId == 1 ? 'लाभार्थी हिस्सा (25%)' : priorArray?.categoryOfBeneficiaryMasterId == 2 || priorArray?.categoryOfBeneficiaryMasterId == 3 ?   'केंद्र हिस्सा  (10%)' : '' }}</th>
+                <th>{{priorArray?.categoryOfBeneficiaryMasterId == 1 ? 'देय अनुदान (75%)' : priorArray?.categoryOfBeneficiaryMasterId == 2 || priorArray?.categoryOfBeneficiaryMasterId == 3 ?   'देय अनुदान (90%)' : '' }}</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>सर्वसाधारण</td>
-                <td>02 एकर</td>
-                <td>120000</td>
-                <td>60000</td>
-                <td>30000</td>
-                <td>30000</td>
-                <td>90000</td>
-              </tr>
-            </tbody>
-          </table>
-          <table class="table3 table-bordered w-100">
-            <thead>
-              <tr>
-                <th>वर्गवारी</th>
-                <th>लागवड क्षेत्र (एकर)</th>
-                <th>यूनिट कॉष्ट</th>
-                <th>केंद्र हिस्सा (65%) </th>
-                <th>राज्य हिस्सा (25%) </th>
-                <th>लाभार्थी हिस्सा (10%) </th>
-                <th>देय अनुदान (90%) </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>SC/ST</td>
-                <td>02 एकर</td>
-                <td>120000</td>
-                <td>60000</td>
-                <td>30000</td>
-                <td>30000</td>
-                <td>90000</td>
-              </tr>
-            </tbody>
-          </table>
-          <table class="table3 table-bordered w-100">
-            <thead>
-              <tr>
-                <th>वर्गवारी</th>
-                <th>लागवड क्षेत्र (एकर)</th>
-                <th>यूनिट कॉष्ट</th>
-                <th>केंद्र हिस्सा (50%) </th>
-                <th>राज्य हिस्सा (25%) </th>
-                <th>लाभार्थी हिस्सा (25%) </th>
-                <th>देय अनुदान (75%) </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>सर्वसाधारण</td>
-                <td>02 एकर</td>
-                <td>120000</td>
-                <td>60000</td>
-                <td>30000</td>
-                <td>30000</td>
-                <td>90000</td>
-              </tr>
-            </tbody>
-          </table>
-          <table class="table3 table-bordered w-100">
-            <thead>
-              <tr>
-                <th>वर्गवारी</th>
-                <th>लागवड क्षेत्र (एकर)</th>
-                <th>यूनिट कॉष्ट</th>
-                <th>केंद्र हिस्सा (65%) </th>
-                <th>राज्य हिस्सा (25%) </th>
-                <th>लाभार्थी हिस्सा (10%) </th>
-                <th>देय अनुदान (90%) </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>SC/ST</td>
-                <td>02 एकर</td>
-                <td>120000</td>
-                <td>60000</td>
-                <td>30000</td>
-                <td>30000</td>
-                <td>90000</td>
+                <th>{{priorArray?.m_CategoryOfBeneficiary || '-'}}</th>
+                <th>{{priorArray?.m_MulberryCultivationArea || 0}}</th>
+                <th>{{priorArray?.unitCost || 0}}</th>
+                <th>{{priorArray?.centerContribution || 0}}</th>
+                <th>{{priorArray?.stateContribution || 0}}</th>
+                <th>{{priorArray?.beneficiaryContribution || 0}}</th>
+                <th>{{priorArray?.giverAmount || 0}}</th>
               </tr>
             </tbody>
           </table>
         </li>
       </ol>
       <div class="d-flex flex-column align-items-end gap-0 my-4">
-        <p class="form-data mb-0">रेशीम विकास आधिकारी श्रेणी - 1/2</p>
+        <p class="form-data mb-0">{{loginData?.m_DesignationName}}</p>
         <p class="form-data mb-0">जिल्हा रेशीम कार्यालय, धाराशीव</p>
       </div>
     </mat-card-content>
