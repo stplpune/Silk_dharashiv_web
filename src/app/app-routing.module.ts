@@ -13,6 +13,7 @@ const routes: Routes = [
   // { path: 'ref', component: ReferanceComponent },// For Testing purpose
   { path: '', canActivate: [CheckLoggedInGuard], component: PublicComponent, loadChildren: () => import('./layouts/public/public.module').then(m => m.PublicModule) },
   { path: '', canActivate: [AuthGuard], component: SecureComponent, loadChildren: () => import('./layouts/secure/secure.module').then(m => m.SecureModule) },
+  { path: 'silk-cocoon-sell-list', loadChildren: () => import('./modules/silk-cocoon-sell-list/silk-cocoon-sell-list.module').then(m => m.SilkCocoonSellListModule) },
  
   { path: '**', component: ErrorComponent }
 ];

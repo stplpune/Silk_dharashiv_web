@@ -82,8 +82,8 @@
   "geoTagging": {
     "Mulberry_Plantation_Date": "तुती लागवड तारीख",
     "Mulberry_Plantation_Area(Hectares)": " तुती लागवड क्षेत्र (हेक्टर)",
-    "Mulberry_Plantation_Type_Through_Plant": "तुती लागवड प्रकार, वनस्पतीद्वारे",
-    "Planted_Mulberry_Cast": "लागवड केलेले तुती कास्ट, V1",
+    "Mulberry_Plantation_Type_Through_Plant": "तुती लागवड प्रकार",
+    "Planted_Mulberry_Cast": "लागवड केलेले तुती कास्ट",
     "Mulberry_Plantation_Area_Length": "तुती लागवड क्षेत्र लांबी X रुंदी(फूट)",
     "Mulberry_Plantation_Distance(Feet)": "तुती लागवड अंतर (फूट)",
     "Total_Number_of_Mulberry_Rows/Lines": "तुतीच्या पंक्ती/रेषांची एकूण संख्या",
