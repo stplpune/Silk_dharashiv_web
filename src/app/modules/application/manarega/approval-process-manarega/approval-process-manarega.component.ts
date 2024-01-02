@@ -556,7 +556,7 @@ export class ApprovalProcessManaregaComponent {
   viewPdf() {
     let str =this.applicationData?.applicationId+'.'+this.applicationData?.actionId;
     const url = this.router.serializeUrl(
-      this.router.createUrlTree(['/generate-pdf'],{
+      this.router.createUrlTree(['/generate-pdf-manrega'],{
         queryParams: {
           id: str
         },
