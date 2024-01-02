@@ -76,10 +76,9 @@ export class BeneficierySilkSellHistoryComponent {
   }
 
 
-  // https://demosilkapi.mahamining.com/sericulture/api/SilkSell/GetSilkSellDetails?FarmerId=2&Id=3&lan=en 
   getTableData() {
     this.spinner.show();
-    this.apiService.setHttp('GET', `sericulture/api/SilkSell/GetSilkSellDetails?FarmerId=2`, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', `sericulture/api/SilkSell/GetSilkSellDetails?FarmerId=2&Id=0&lan=en`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -138,7 +137,7 @@ export class BeneficierySilkSellHistoryComponent {
   silkselldetails(obj: any) {
     this.dialog.open(SilkSellDetailsComponent, {
       width: "90%",
-      data: obj
+      data: obj.id
     })
   }
 }
