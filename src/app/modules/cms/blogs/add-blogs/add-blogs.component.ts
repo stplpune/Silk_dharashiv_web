@@ -73,7 +73,7 @@ export class AddBlogsComponent {
       else {  
        formvalue.thumbnailImage = this.imageResponse; 
 
-       let mainData ={...formvalue, "createdBy": this.webStorage.getUserId() }  ;
+       let mainData ={...formvalue, "createdBy": this.webStorage.getUserId(),"m_Title": "", "m_Description":"" }  ;
        
        this.apiService.setHttp('POST', 'sericulture/api/Blogs/save-update-blogs?lan='+this.lang, false, mainData, false, 'masterUrl');
        this.apiService.getHttp().subscribe({
