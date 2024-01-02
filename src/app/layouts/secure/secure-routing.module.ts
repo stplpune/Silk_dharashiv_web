@@ -54,6 +54,8 @@ const routes: Routes = [
   { path: 'beneficiery', loadChildren: () => import('../../modules/beneficiery/beneficiery.module').then(m => m.BeneficieryModule), data: { breadcrumb: [{ title: 'Beneficiery List', active: true }] } },
   { path: 'farmer-dashboard', loadChildren: () => import('../../modules/farmer/farmer-dashboard/farmer-dashboard.module').then(m => m.FarmerDashboardModule), data: { breadcrumb: [{ title: 'Farmer Dashboard', active: true }] } },
 
+  { path: 'silk-cocoon-sell-list', loadChildren: () => import('../../modules/silk-cocoon-sell-list/silk-cocoon-sell-list.module').then(m => m.SilkCocoonSellListModule) },
+ 
 
   { path: 'access-denied', loadChildren: () => import('../../modules/error/error.module').then(m => m.ErrorModule), data: { breadcrumb: [{ title: 'Access Denied', active: true }] } },
 ];
