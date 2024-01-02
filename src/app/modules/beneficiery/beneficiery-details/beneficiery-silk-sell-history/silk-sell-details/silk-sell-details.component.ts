@@ -18,7 +18,6 @@ export class SilkSellDetailsComponent {
   lang: string = 'English';
   silkSellData = new Array();
 
-  // displayedColumns: string[] = ['srNo','lotNumber', 'raceType', 'distributionChawki', 'ledDate','hatchingDate','deliveryDate']; 
   constructor(
     public webStorage: WebStorageService,
     private spinner: NgxSpinnerService,
@@ -39,19 +38,17 @@ export class SilkSellDetailsComponent {
 
   getSilkSellData() {
     this.spinner.show();
-    this.apiService.setHttp('GET', `sericulture/api/SilkSell/GetSilkSellDetails?FarmerId=0&Id=${this.data}&lan=en`, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', `sericulture/api/SilkSell/GetSilkSellDetails?FarmerId=0&Id=${this.data}&lan=${this.lang}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.silkSellData = res.responseData1;
-          console.log('this.silkSellData',this.silkSellData);
-                 
         } else {
           this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
           this.spinner.hide();
           this.silkSellData = [];
-        }     
+        }
       },
       error: (err: any) => {
         this.spinner.hide();
@@ -63,5 +60,4 @@ export class SilkSellDetailsComponent {
   viewReceipt() {
     window.open(this.data?.billPhoto)
   }
-
 }

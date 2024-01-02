@@ -1,55 +1,55 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main fw-bold">Silk Sell Details</div>
-    <!-- <button mat-icon-button class="btn-modal-close"  [mat-dialog-close]="true"> -->
-      <button mat-icon-button class="btn-modal-close">
+    <div class="text-main fw-bold">{{'silkSell.Beneficiar_Silk_Sell'|translate}}</div>
+    <!-- <button mat-icon-button class="btn-modal-close"  > -->
+      <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
       <span class="material-symbols-rounded">close</span>
     </button>
   </div>
 </div>
 <div mat-dialog-content class="modal-body form-container">
-  <h6 class="text-main border-bottom border-success border-opacity-50">Silk Sell Details</h6>
+  <h6 class="text-main border-bottom border-success border-opacity-50">{{'silkSell.Silk_Sell_Details'|translate}}</h6>
   <div class="row">
     <div class="col-sm-3">
       <div class="row gx-2">
-        <div class="col-sm-5 form-label">Invoice No.</div>
+        <div class="col-sm-5 form-label">{{'silkSell.Invoice_No'|translate}}</div>
         <div class="col-sm-7 form-data">:{{silkSellData[0]?.billNo}} </div>
       </div>
     </div>
     <div class="col-sm-3">
       <div class="row gx-2">
-        <div class="col-sm-3 form-label">Sell Date</div>
+        <div class="col-sm-3 form-label">{{'silkSell.Sell_Date'|translate}}</div>
         <div class="col-sm-9 form-data">: {{silkSellData[0]?.silkSellDate | date :'dd-MM-YYYY' }} </div>
       </div>
     </div>
     <div class="col-sm-3">
       <div class="row gx-2">
-        <div class="col-sm-3 form-label">Lot No</div>
+        <div class="col-sm-3 form-label">{{'silkSell.Lot_No'|translate}}</div>
         <div class="col-sm-9 form-data">:{{silkSellData[0]?.lotNo}}</div>
       </div>
     </div>
         <div class="col-sm-3">
       <div class="row gx-2">
-        <div class="col-sm-5 form-label">Race</div>
+        <div class="col-sm-5 form-label">{{'silkSell.Race'|translate}}</div>
         <div class="col-sm-7 form-data">:{{lang == 'en' ?  silkSellData[0]?.silkCaste : silkSellData[0]?.m_SilkCaste}} </div>
       </div>
     </div>
     <div class="col-sm-3">
       <div class="row gx-2">
-        <div class="col-sm-3 form-label">Market Name:</div>
+        <div class="col-sm-3 form-label">{{'silkSell.Market_Name'|translate}}</div>
         <div class="col-sm-9 form-data">:{{lang == 'en' ? silkSellData[0]?.marketName : silkSellData[0]?.m_MarketName}} </div>
       </div>
     </div>
 
     <div class="col-sm-9">
       <div class="row gx-2">
-        <div class="col-sm-1 form-label">Remark</div>
+        <div class="col-sm-1 form-label">{{'silkSell.Remark'|translate}}</div>
         <div class="col-sm form-data">:{{silkSellData[0]?.remark}} </div>
       </div>
     </div>
     <div class="col-sm-3">
       <div class="row gx-2">
-        <div class="col-sm-auto form-label">Payment Reciepe</div>
+        <div class="col-sm-auto form-label">{{'silkSell.payment_receipt'|translate}}</div>
         <div class="col-sm form-data">  <span class="material-symbols-rounded" (click)="viewReceipt()">visibility</span></div>
       </div>
     </div>
@@ -59,35 +59,35 @@
 
     <div class="col-sm-9">
       <div class="row gx-2">
-        <div class="col-sm-1 form-label">Quantity(Kg)</div>
+        <div class="col-sm-1 form-label">{{'silkSell.Quantity'|translate}}</div>
         <div class="col-sm form-data">:{{silkSellData[0]?.totalSilk}} </div>
       </div>
     </div>
 
     <div class="col-sm-9">
       <div class="row gx-2">
-        <div class="col-sm-1 form-label">Rate/Kg </div>
+        <div class="col-sm-1 form-label">{{'silkSell.Rate_Kg'|translate}} </div>
         <div class="col-sm form-data">:{{silkSellData[0]?.silkRatePerKg}} </div>
       </div>
     </div>
 
     <div class="col-sm-9">
       <div class="row gx-2">
-        <div class="col-sm-1 form-label">Amount</div>
+        <div class="col-sm-1 form-label">{{'silkSell.Amount'|translate}} </div>
         <div class="col-sm form-data">:{{silkSellData[0]?.totalAmtWithMarktFees}} </div>
       </div>
     </div>
 
     <div class="col-sm-9">
       <div class="row gx-2">
-        <div class="col-sm-1 form-label">Market Fees</div>
+        <div class="col-sm-1 form-label">{{'silkSell.Market_Fees'|translate}}</div>
         <div class="col-sm form-data">:{{silkSellData[0]?.marketFees}} </div>
       </div>
     </div>
 
     <div class="col-sm-9">
       <div class="row gx-2">
-        <div class="col-sm-1 form-label">Total Amount</div>
+        <div class="col-sm-1 form-label">{{'silkSell.Total_Amount'|translate}}</div>
         <div class="col-sm form-data">:{{silkSellData[0]?.totalAmount}} </div>
       </div>
     </div>
