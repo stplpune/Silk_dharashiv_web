@@ -1,1 +1,129 @@
-<p>add-silk-cocoon-sell works!</p>
+<div mat-dialog-title class="modal-header">
+  <div class="d-flex align-items-center justify-content-between w-100">
+    <div class="text-main">Add Silk Cacoon Sell </div>
+    <button mat-icon-button class="btn-icon " mat-dialog-close="true">
+      <mat-icon class="material-symbols-outlined">
+        close
+      </mat-icon>
+    </button>
+  </div>
+</div>
+<div mat-dialog-content class="modal-body">
+  <div class="row g-3">
+    <div class="col-sm-12">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Lot No.</mat-label>
+        <mat-select>
+          <mat-option>No 1</mat-option>
+          <mat-option>No 2</mat-option>
+          <mat-option>No 3</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <p class="small mb-0">Silkworm purchased from CRC center and produce silk against it.</p>
+    </div>
+    <div class="col-sm-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>कोष जात</mat-label>
+        <input matInput placeholder="">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>अंडीपुंज संख्या</mat-label>
+        <input matInput placeholder="">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>विक्री केंद्र निवडा.</mat-label>
+        <mat-select>
+          <mat-option>केंद्र 1</mat-option>
+          <mat-option>केंद्र 2</mat-option>
+          <mat-option>केंद्र 3</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>कोष विक्री दिनांक</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>बिल क्रं</mat-label>
+        <input matInput placeholder="">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>विक्री दर प्रती किलो. रु</mat-label>
+        <input matInput placeholder="">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>एकूण कोष </mat-label>
+        <input matInput placeholder="">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>रक्कम </mat-label>
+        <input matInput placeholder="">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>मार्केट फीज </mat-label>
+        <input matInput placeholder="">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>एकूण रक्कम</mat-label>
+        <input matInput placeholder="">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4">
+      <div class="file-upload border rounded-2 p-1">
+        <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+          data-placement="right" (click)="uplodLogo.click()">
+         File Upload
+        </button>
+        <input type="file" #uplodLogo accept=".jpg,.jpeg,.png" id="real-file" />
+        <div class="d-flex gap-2">
+          <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+            matTooltip="view">
+            <mat-icon class="material-symbols-rounded">
+              preview
+            </mat-icon>
+          </button>
+          <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+            matTooltip="delete">
+            <mat-icon class="material-symbols-rounded">
+              delete
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Remark</mat-label>
+        <textarea matInput placeholder=""></textarea>
+      </mat-form-field>
+    </div>
+
+
+  </div>
+</div>
+<div mat-dialog-actions class="modal-footer">
+  <div class="d-flex align-items-center justify-content-end gap-2 w-100">
+    <button mat-flat-button class="btn-main-light">Cancel</button>
+    <button mat-flat-button class="btn-main">Submit</button>
+  </div>
+</div>
+
