@@ -8,15 +8,17 @@
     </button>
   </div>
 </div>
+<!-- #formDirective="ngForm" -->
+<form [formGroup]="cocoonSellFrm"  (ngSubmit)="onSubmitData()">
 <div mat-dialog-content class="modal-body">
   <div class="row g-3">
     <div class="col-sm-12">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>Lot No.</mat-label>
-        <mat-select>
-          <mat-option>No 1</mat-option>
-          <mat-option>No 2</mat-option>
-          <mat-option>No 3</mat-option>
+        <mat-select formControlName="lotNo" (selectionChange)="getLotNoDetails(cocoonSellFrm.value.lotNo)">
+          <mat-option *ngFor="let lot of lotNoArr" [value]="lot.lotNumber">{{lot.lotNumber}}</mat-option>
+          <!-- <mat-option>No 2</mat-option>
+          <mat-option>No 3</mat-option> -->
         </mat-select>
       </mat-form-field>
       <p class="small mb-0">Silkworm purchased from CRC center and produce silk against it.</p>
@@ -24,85 +26,97 @@
     <div class="col-sm-4">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>कोष जात</mat-label>
-        <input matInput placeholder="">
+        <input matInput placeholder="" formControlName="silkCasteId">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>अंडीपुंज संख्या</mat-label>
-        <input matInput placeholder="">
+        <input matInput placeholder="" formControlName="distributedChawki">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>विक्री केंद्र निवडा.</mat-label>
-        <mat-select>
-          <mat-option>केंद्र 1</mat-option>
-          <mat-option>केंद्र 2</mat-option>
-          <mat-option>केंद्र 3</mat-option>
+        <mat-select formControlName="marketCommiteeId"> 
+          <mat-option *ngFor="let marketCommittee of marketCommitteeArr" [value]="marketCommittee.id">{{lang == 'en' ? marketCommittee.textEnglish : marketCommittee.textMarathi}}</mat-option>
+          <!-- <mat-option>केंद्र 2</mat-option>
+          <mat-option>केंद्र 3</mat-option> -->
         </mat-select>
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>कोष विक्री दिनांक</mat-label>
-        <input matInput [matDatepicker]="picker">
+        <input matInput [matDatepicker]="picker" (click)="picker.open()" formControlName="silkSellDate">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
+
+    <div class="col-sm-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker1">
+        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+
+
     <div class="col-sm-4">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>बिल क्रं</mat-label>
-        <input matInput placeholder="">
+        <input matInput placeholder="" formControlName="billNo">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>विक्री दर प्रती किलो. रु</mat-label>
-        <input matInput placeholder="">
+        <input matInput placeholder="" formControlName="silkRatePerKg" >
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>एकूण कोष </mat-label>
-        <input matInput placeholder="">
+        <input matInput placeholder="" formControlName="totalSilk" (input)="calculateAmount('total')">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>रक्कम </mat-label>
-        <input matInput placeholder="">
+        <input matInput placeholder="" formControlName="totalAmount" readonly>
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>मार्केट फीज </mat-label>
-        <input matInput placeholder="">
+        <input matInput placeholder="" formControlName="marketFees" (input)="calculateAmount('marketFees')">
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>एकूण रक्कम</mat-label>
-        <input matInput placeholder="">
+        <input matInput placeholder="" formControlName="totalAmtWithMarketFees" readonly>
       </mat-form-field>
     </div>
     <div class="col-sm-4">
       <div class="file-upload border rounded-2 p-1">
         <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
-          data-placement="right" (click)="uplodLogo.click()">
+          data-placement="right" (click)="uplodLogo.value = '';uplodLogo.click()">
          File Upload
         </button>
-        <input type="file" #uplodLogo accept=".jpg,.jpeg,.png" id="real-file" />
-        <div class="d-flex gap-2">
+        <input type="file" #uplodLogo accept=".jpg,.jpeg,.png" id="real-file" (change)="imageUplod($event)"  />
+        <div class="d-flex gap-2" *ngIf="imageResponse">
           <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
-            matTooltip="view">
+            matTooltip="view" (click)="viewimage(imageResponse)">
             <mat-icon class="material-symbols-rounded">
               preview
             </mat-icon>
           </button>
           <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
-            matTooltip="delete">
+            matTooltip="delete" (click)="imageResponse = '' ">
             <mat-icon class="material-symbols-rounded">
               delete
             </mat-icon>
@@ -113,7 +127,7 @@
     <div class="col-sm-12">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>Remark</mat-label>
-        <textarea matInput placeholder=""></textarea>
+        <textarea matInput placeholder="" formControlName="remark"></textarea>
       </mat-form-field>
     </div>
 
@@ -126,4 +140,5 @@
     <button mat-flat-button class="btn-main">Submit</button>
   </div>
 </div>
+</form>
 

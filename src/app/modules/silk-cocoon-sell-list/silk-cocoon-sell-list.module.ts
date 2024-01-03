@@ -5,12 +5,13 @@ import { SilkCocoonSellListRoutingModule } from './silk-cocoon-sell-list-routing
 import { SilkCocoonSellListComponent } from './silk-cocoon-sell-list.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
+import {MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { GlobalTableComponent } from 'src/app/shared/components/global-table/global-table.component';
 
 
 @NgModule({
@@ -28,7 +29,10 @@ import { MatTableModule } from '@angular/material/table';
     MatInputModule,
     MatIconModule,
     MatTableModule,
-    MatButtonModule
+    MatButtonModule,
+    GlobalTableComponent
   ]
 })
-export class SilkCocoonSellListModule { }
+export class SilkCocoonSellListModule {
+
+ }
