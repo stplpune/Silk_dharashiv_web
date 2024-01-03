@@ -118,18 +118,10 @@ export class SilkCocoonSellListComponent {
         // this.deleteDialogOpen(obj);
         break;
       case 'View':
-        // this.silkselldetails(obj);
+        this.addsilkcacoon(obj);
         break;
     }
   }
-
-  
-  // addsilkcacoon(){
-  //   this.dialog.open(AddSilkCocoonSellComponent,{
-  //     width:'50%'
-  //   })
-  // }
-
 
   addsilkcacoon(obj?: any) {
     let dialogRef = this.dialog.open(AddSilkCocoonSellComponent, {
@@ -144,5 +136,5 @@ export class SilkCocoonSellListComponent {
     });
   }
 
-
+ 
 }
