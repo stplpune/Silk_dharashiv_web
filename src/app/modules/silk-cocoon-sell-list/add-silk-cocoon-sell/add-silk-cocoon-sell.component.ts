@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
@@ -58,15 +58,20 @@ export class AddSilkCocoonSellComponent {
     private fileUpl: FileUploadService,
     public webStorage: WebStorageService,
     public dialogRef: MatDialogRef<AddSilkCocoonSellComponent>,
-    // @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
   ngOnInit() {
+    console.log("data",this.data);
+    
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-    // this.isViewFlag = this.data?.label == 'View' ? true : false;
+
+    this.isViewFlag = this.data?.label == 'View' ? true : false;
+    this.data.billPhoto ?  this.imageResponse = this.data.billPhoto : this.imageResponse = ''
+
     this.defaultFrm();
     this.getLotNumber();
     this.getMarketCommittee();
@@ -74,20 +79,20 @@ export class AddSilkCocoonSellComponent {
 
   defaultFrm() {
     this.cocoonSellFrm = this.fb.group({
-      "id": 0,
-      "lotNo": ['',[Validators.required]],
-      "silkCasteId": 0,
-      "distributedChawki": [''],
-      "marketCommiteeId": ['',[Validators.required]],
-      "silkSellDate": ['',[Validators.required]],
-      "billNo": ['',[Validators.required]],
-      "silkRatePerKg":['',[Validators.required]],
-      "totalSilk": ['',[Validators.required]],
-      "totalAmount": [''],
-      "marketFees": ['',[Validators.required]],
-      "totalAmtWithMarketFees": 0,
-      "remark": [''],
-      "billPhoto": [''],
+      "id": [this.data?.id || 0],
+      "lotNo": [this.data?.lotNo || '',[Validators.required]],
+      "silkCasteId": [this.data?.silkCasteId || ''],
+      "distributedChawki": [this.data?.distributedChawki ||''],
+      "marketCommiteeId": [this.data?.marketCommiteeId ||'',[Validators.required]],
+      "silkSellDate": [this.data?.silkSellDate || '',[Validators.required]],
+      "billNo": [this.data?.billNo || '',[Validators.required]],
+      "silkRatePerKg":[this.data?.silkRatePerKg || '',[Validators.required]],
+      "totalSilk": [this.data?.totalSilk ||'',[Validators.required]],
+      "totalAmount": [this.data?.totalAmount ||''],
+      "marketFees": [this.data?.marketFees ||'',[Validators.required]],
+      "totalAmtWithMarketFees": [this.data?.totalAmtWithMarktFees ||''],
+      "remark": [this.data?.remark ||''],
+      "billPhoto": [this.data?.billPhoto ||''],
       // "createdBy": 0      
     })
   }
@@ -99,7 +104,7 @@ export class AddSilkCocoonSellComponent {
         if (res.statusCode == '200') {
           this.lotNoArr = res.responseData;
 
-          console.log("this.lotNoArr",this.lotNoArr);
+          // console.log("this.lotNoArr",this.lotNoArr);
           
         }
       },
@@ -115,10 +120,10 @@ export class AddSilkCocoonSellComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           let lotDetails = res.responseData;
-          console.log("lotDetails",lotDetails);
+          // console.log("lotDetails",lotDetails);
           
           this.f['silkCasteId'].setValue(lotDetails.raceTypeId);   
-          this.f['distributedChawki'].setValue(lotDetails.distributionChawki);    
+          this.f['distributedChawki'].setValue(lotDetails.distributionChawki.toString());    
         }
       },
       error: (err: any) => {
@@ -199,10 +204,12 @@ export class AddSilkCocoonSellComponent {
       this.f['totalAmount'].setValue(totalAmount)
     }else if(flag == 'marketFees'){
      let maketFeeTotal = Number(formValue.totalAmount) - Number(formValue.marketFees)
-     console.log('maketFeeTotal',maketFeeTotal);     
+    //  console.log('maketFeeTotal',maketFeeTotal);     
      this.f['totalAmtWithMarketFees'].setValue(maketFeeTotal)
-    }  
-    
+    }      
   }
+
+
+
 
 }

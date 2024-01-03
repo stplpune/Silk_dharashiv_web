@@ -12,6 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { GlobalTableComponent } from 'src/app/shared/components/global-table/global-table.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { GlobalTableComponent } from 'src/app/shared/components/global-table/glo
     MatIconModule,
     MatTableModule,
     MatButtonModule,
-    GlobalTableComponent
+    GlobalTableComponent,
+    MatNativeDateModule, MatDatepickerModule,
   ]
 })
 export class SilkCocoonSellListModule {
