@@ -98,10 +98,10 @@ export class GeneratePdfMgnregaComponent {
 
     this.loginData = this.WebStorageService.getLoggedInLocalstorageData();
     this.routeData = this.route.snapshot.queryParamMap.get('id');
-    // this.actionID = this.routeData.split('.')[1];
-    // this.applicationId = this.routeData.split('.')[0];
-    this.actionID = 5;
-    this.applicationId = 3;
+    this.actionID = this.routeData.split('.')[1];
+    this.applicationId = this.routeData.split('.')[0];
+    // this.actionID = 5;
+    // this.applicationId = 3;
     this.getEstimateData();
     this.getAnotherEstimateData();
     this.getSanctionLetterData();
