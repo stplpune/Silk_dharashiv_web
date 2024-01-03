@@ -11,6 +11,8 @@ import { GlobalTableComponent } from 'src/app/shared/components/global-table/glo
 import { ActivatedRoute } from '@angular/router';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { BeneficiaryAppViewDetailsComponent } from './beneficiary-app-view-details/beneficiary-app-view-details.component';
 
 @Component({
   selector: 'app-beneficiery-application-history',
@@ -41,25 +43,27 @@ export class BeneficieryApplicationHistoryComponent {
     private spinner: NgxSpinnerService,
     private errorService: ErrorHandlingService,
     private activatedRoute: ActivatedRoute,
-    public encryptdecrypt: AesencryptDecryptService
-  ) {	
+    public encryptdecrypt: AesencryptDecryptService,
+    public dialog: MatDialog,
+
+  ) {
   //   let Id: any;
   //   this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
   //   if(Id){
-  //     this.beneficieryId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)      
-  // } 
+  //     this.beneficieryId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
+  // }
 }
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
       this.setTableData();
-    })   
+    })
     this.activatedRoute.queryParams.subscribe((params:any)=>{
       this.routingData = params['id'];
      })
      let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
-     this.beneficieryId = spliteUrl[0]; 
+     this.beneficieryId = spliteUrl[0];
      this.farmerNameEn = spliteUrl[1];
      this.farmerNameMr =  spliteUrl[2];
      this.farmerId =  spliteUrl[3];
@@ -68,7 +72,7 @@ export class BeneficieryApplicationHistoryComponent {
 
 
   getTableData(_status?: any) {
-    this.spinner.show();    
+    this.spinner.show();
     this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetBeneficieryApplicationsHistory?FarmerId='+(this.farmerId)+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
@@ -111,13 +115,25 @@ export class BeneficieryApplicationHistoryComponent {
     this.apiService.tableData.next(tableData);
   }
 
-  
+
   childCompInfo(obj?: any) {
-    switch (obj.label) {     
+    switch (obj.label) {
       case 'View':
-        // this.viewBenificiaryList(obj);
+        this.viewBenificiaryList(obj);
         break;
     }
+  }
+
+  viewBenificiaryList(obj?:any){
+    let dialogRef = this.dialog.open(BeneficiaryAppViewDetailsComponent, {
+      width: '100%',
+      data: obj,
+      disableClose: true,
+      autoFocus: true,
+    });
+    dialogRef.afterClosed().subscribe(() => {
+
+    });
   }
 
 
