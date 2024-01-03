@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 
 
 @Component({
@@ -47,6 +48,7 @@ export class ForgetPasswordComponent {
     private router: Router,
     private WebStorageService: WebStorageService,
     private translate: TranslateService,
+    private AESEncryptDecryptService: AesencryptDecryptService,
   ) {
     localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
     this.translate.use(this.getLangForLocalStor)
@@ -186,7 +188,7 @@ export class ForgetPasswordComponent {
     }
 
     let obj = {
-      "NewPassword": formData.newpassword,
+      "NewPassword": this.AESEncryptDecryptService.encrypt(formData.newpassword),
       "MobileNo": mobiledata.mobileno,
 
     }
