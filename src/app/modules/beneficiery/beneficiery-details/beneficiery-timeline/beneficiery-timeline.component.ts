@@ -20,6 +20,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-beneficiery-timeline',
@@ -35,7 +36,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatButtonModule,
     ReactiveFormsModule,
     GlobalTableComponent,
-    TranslateModule
+    TranslateModule,
+    MatPaginatorModule
   ],
   templateUrl: './beneficiery-timeline.component.html',
   styleUrls: ['./beneficiery-timeline.component.scss']
@@ -56,6 +58,8 @@ export class BeneficieryTimelineComponent {
   farmerId:any;
   dataSource :any
   displayedColumns: string[] = ['srNo','postImages','postData','likes','action'];
+  currentPage: number = 0;
+  totalCount: any;
   constructor(
     public webStorage: WebStorageService,
     public common: CommonMethodsService,
@@ -72,7 +76,7 @@ export class BeneficieryTimelineComponent {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-      this.setTableData();
+      // this.setTableData();
     })   
     this.activatedRoute.queryParams.subscribe((params:any)=>{
       this.routingData = params['id'];
@@ -86,32 +90,31 @@ export class BeneficieryTimelineComponent {
   }
 
 
-  childCompInfo(obj?: any) {
-    switch (obj.label) {
-      case 'Pagination':
-        this.pageNumber = obj.pageNumber;
-        this.getTableData();
-        break;
-        case 'Delete':
-          this.deleteDialogOpen(obj);
-          break;
-    }
-  }
+  // childCompInfo(obj?: any) {
+  //   switch (obj.label) {
+  //     case 'Pagination':
+  //       this.pageNumber = obj.pageNumber;
+  // this.getTableData();
+  //       break;
+  //     case 'Delete':
+  //       this.deleteDialogOpen(obj);
+  //       break;
+  //   }
+  // }
 
   getTableData() {
     this.spinner.show();  
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;  
-    // this.farmerId
     this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetBeneficieryTimeline?FarmerId='+1+(str)+'&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData.responseData1;  
-          this.dataSource = new MatTableDataSource( this.tableDataArray);
-          console.log(" this.tableDataArray", this.tableDataArray);
-            
-          // this.dataSource =   this.tableDataArray ;    
+          this.dataSource = new MatTableDataSource( this.tableDataArray);  
+          console.log("tableDataArray",this.tableDataArray);
+          console.log("dataSource",this.dataSource);
+           
           this.totalPages = res.responseData.responseData2.totalPages;
           this.tableDatasize = res.responseData.responseData2.totalCount;
         } else {
@@ -120,7 +123,7 @@ export class BeneficieryTimelineComponent {
           this.tableDataArray = [];
           this.tableDatasize = 0;
         }
-        this.setTableData();
+        // this.setTableData();
       },
       error: (err: any) => {
         this.spinner.hide();
@@ -129,29 +132,29 @@ export class BeneficieryTimelineComponent {
     });
   }
 
-  setTableData() {
-    this.highLightRowFlag = true;
-    let displayedColumns = ['srNo', 'postImages', (this.lang == 'en' ? 'postData' : 'm_PostData'),'likes','shares','action']; //'action'
-    let displayedheaders = this.lang == 'en' ? ['Sr. No.','Image', 'Description', 'Likes', ' Views','Share','Action'] : ['अनुक्रमांक', 'प्रतिमा','वर्णन','पसंती', 'शेअर करा','कृती'];// 'पहा' 'view'
+  // setTableData() {
+  //   this.highLightRowFlag = true;
+  //   let displayedColumns = ['srNo', 'postImages', (this.lang == 'en' ? 'postData' : 'm_PostData'),'likes','shares','action']; //'action'
+  //   let displayedheaders = this.lang == 'en' ? ['Sr. No.','Image', 'Description', 'Likes', ' Views','Share','Action'] : ['अनुक्रमांक', 'प्रतिमा','वर्णन','पसंती', 'शेअर करा','कृती'];// 'पहा' 'view'
 
-    let tableData = {
-      pageNumber: this.pageNumber,
-      highlightedrow: true,
-      pagination: this.tableDatasize > 10 ? true : false,
-      displayedColumns: displayedColumns,
-      tableData: this.tableDataArray,
-      tableSize: this.tableDatasize,
-      tableHeaders: displayedheaders,
-      delete: true,
-      view: true,
-      track: false,
-      edit: false,
-      img: 'postImages',
+  //   let tableData = {
+  //     pageNumber: this.pageNumber,
+  //     highlightedrow: true,
+  //     pagination: this.tableDatasize > 10 ? true : false,
+  //     displayedColumns: displayedColumns,
+  //     tableData: this.tableDataArray,
+  //     tableSize: this.tableDatasize,
+  //     tableHeaders: displayedheaders,
+  //     delete: true,
+  //     view: true,
+  //     track: false,
+  //     edit: false,
+  //     img: 'postImages',
 
-    };
-    this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
-    this.apiService.tableData.next(tableData);
-  }
+  //   };
+  //   this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
+  //   this.apiService.tableData.next(tableData);
+  // }
 
   deleteDialogOpen(delObj?: any) {
     let dialogObj = {
@@ -187,4 +190,10 @@ export class BeneficieryTimelineComponent {
       this.highLightRowFlag = false;
     });
   }
+
+  pageChanged(event: any) {
+    this.currentPage = event.pageIndex;
+    this.getTableData();
+  }
+
 }

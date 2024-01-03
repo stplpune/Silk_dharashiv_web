@@ -19,6 +19,7 @@ export class BeneficieryDetailsComponent {
   profileData: any;
   beneficieryId: any;
   routingData: any;
+  selIndex:any = 0;
   constructor
     (
       private apiService: ApiService,
@@ -63,5 +64,9 @@ export class BeneficieryDetailsComponent {
 
   backToList(){
     this.route.navigate(['beneficiery-list'])
+  }
+
+  onTabClick(event:any){
+    this.selIndex = event.index;
   }
 }

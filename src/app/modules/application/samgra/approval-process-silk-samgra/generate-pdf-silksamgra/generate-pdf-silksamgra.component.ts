@@ -19,6 +19,7 @@ export class GeneratePdfSilksamgraComponent {
 
   priorArray:any;
   loginData:any;
+  applicationId:any;
   constructor
   (
     private spinner: NgxSpinnerService,
@@ -35,7 +36,7 @@ export class GeneratePdfSilksamgraComponent {
 
   getSanctionLetterData() { // prior letter
     this.spinner.show();
-    this.apiService.setHttp('GET', 'sericulture/api/PriorApprovalLetter/GetPriorApprovalData?Id=1&CreatedBy='+this.web.getStateId(), false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/PriorApprovalLetter/GetPriorApprovalData?Id=1&CreatedBy='+this.web.getUserId(), false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
