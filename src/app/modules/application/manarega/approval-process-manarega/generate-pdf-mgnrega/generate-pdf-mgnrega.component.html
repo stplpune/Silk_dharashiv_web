@@ -13,16 +13,10 @@
         </div>
         <img src="assets/images/logo.png">
     </div>
-    <div class="letter-bg" *ngIf="actionID !=3 && actionID ==4">
-        <div>जा.क्र. रेशीम/धा.शि./मनरेगा/तां. मं./{{sanctionArray[0]?.technicalSanctionId}}</div>
-        <div>दिनांक: {{showDate | date:'dd-MM-yyyy'}}</div>
+    <div class="letter-bg">
+        <div>जा.क्र. रेशीम/धा.शि./मनरेगा/तां. मं./{{actionID == 4 ? sanctionArray?.technicalSanctionId : actionID == 3 ? technicalEstId?.technicalEstimateId :  actionID == 5 ? adminApproveLetter?.administrativeApprovalId :  ''}}</div>
+        <div>दिनांक: {{actionID == 4 ? (sanctionArray?.sanctiondate | date:'dd-MM-yyyy') : actionID == 5  ? (adminApproveLetter?.generateDate | date:'dd-MM-yyyy') : ''}}</div>
     </div>
-    <div class="letter-bg" *ngIf="actionID ==5">
-        <div>{{sanctionArray[0]?.m_SchemeType}}/प्र.मं./{{sanctionArray[0]?.technicalSanctionId}}</div>
-        <div>दिनांक: {{showDate | date:'dd-MM-yyyy'}}</div>
-    </div>
-    <!-- जा.क्र.-2023 मग्रारोहयो//प्र.मं./2023-24/1506                              -->
-    <!-- (Technical Estimate) -->
     <mat-card class="plain-card form-container" *ngIf="actionID == 3">
         <mat-card-content class="card-body" id="report3">
             <div class="row">
@@ -35,7 +29,7 @@
                         <!-- <p class="text-end fw-bold">Application Id:{{sanctionArray[0]?.applicationNo}}</p> -->
                         <div class="d-flex align-items-center justify-content-end gap-2 w-100">
                             <div class="form-data">Technical Estimate No</div>
-                            <div class="form-data">: {{technicalEstId[0]?.technicalEstimateId}}</div>
+                            <div class="form-data">: {{technicalEstId?.technicalEstimateId}}</div>
                         </div>
                 </div>
             </div>
@@ -44,17 +38,17 @@
                   <tr>
                     <th></th>
                     <th>शेतकर्‍याचे नाव</th>
-                    <th colspan="5">{{technicalEstId[0]?.fullName || '-'}}</th>
+                    <th colspan="5">{{technicalEstId?.fullName || '-'}}</th>
                     <!-- <th></th>
                     <th></th>
                     <th></th>
                     <th></th> -->
                     <th> गाव</th>
-                    <th colspan="3">{{technicalEstId[0]?.m_GrampanchayatName || '-'}}</th>
+                    <th colspan="3">{{technicalEstId?.m_GrampanchayatName || '-'}}</th>
                     <!-- <th></th>
                     <th></th> -->
                     <th> तालुका</th>
-                    <th colspan="3">{{technicalEstId[0]?.m_Taluka || '-'}}</th>
+                    <th colspan="3">{{technicalEstId?.m_Taluka || '-'}}</th>
                     <!-- <th></th>
                     <th></th>
                     <th></th> -->
@@ -555,10 +549,7 @@
         <div class="letter-content">
             <h4>तांत्रिक मंजुरी आदेश</h4>
             <p>
-                विषय : महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजना (MGNREGS) अंतर्गत रेशीम उद्योग
-                विकास
-                योजनेस तांत्रिक
-                मंजूरी दिले बाबत.
+                विषय : महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजना (MGNREGS) अंतर्गत रेशीम उद्योग विकास योजनेस तांत्रिक मंजूरी दिले बाबत.
             </p>
             संदर्भ:
             <ol>
@@ -567,11 +558,11 @@
                 <li>ग्रामीण विकास मंत्रालय, अधिसूचना संकीर्ण-1372. दिनांक – 24/03/2023</li>
             </ol>
             <p>
-                उपरोक्त शासन निर्णयानुसार प्रधान केलेल्या शक्तीचा वापर करून रेशीम विकास अधिकारी श्रेणी - 2, धाराशिव,
-                यांच्या द्वारे प्राप्त झालेल्या प्रथावा मधील अ. क्रं. {{sanctionArray[0]?.applicationNo}} नुसार मौजे {{sanctionArray[0]?.m_GrampanchayatName}}, ता. {{sanctionArray[0]?.m_Taluka}}, जिल्हा.
-                {{sanctionArray[0]?.m_District}}. येथील रहिवाशी असणार्‍या व शासन निर्णयातील निकषानुसार पात्र ठरलेल्या लाभार्थ्यास पूढील तापसीला
-                प्रमाणे सन {{sanctionArray[0]?.firstYear}} व सन {{sanctionArray[0]?.secondYear}} व सन {{sanctionArray[0]?.thirdYear}} या तीन वर्षा करिता प्रती एकर रक्कम रुपये
-                {{sanctionArray[0]?.total}} प्रमाणे खर्चास, महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजने (MGNREGS) अंतर्गत रेशीम उद्योग
+                उपरोक्त शासन निर्णयानुसार प्रधान केलेल्या शक्तीचा वापर करून {{loginData?.m_DesignationName}} श्रेणी - 2, धाराशिव,
+                यांच्या द्वारे प्राप्त झालेल्या प्रथावा मधील अ. क्रं. {{sanctionArray?.applicationNo}} नुसार मौजे {{sanctionArray?.m_GrampanchayatName}}, ता. {{sanctionArray?.m_Taluka}}, जिल्हा.
+                {{sanctionArray?.m_District}}. येथील रहिवाशी असणार्‍या व शासन निर्णयातील निकषानुसार पात्र ठरलेल्या लाभार्थ्यास पूढील तापसीला
+                प्रमाणे सन {{sanctionArray?.firstYear}} व सन {{sanctionArray?.secondYear}} व सन {{sanctionArray?.thirdYear}} या तीन वर्षा करिता प्रती एकर रक्कम रुपये
+                {{sanctionArray?.skillUnSkillTotal}} प्रमाणे खर्चास, महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजने (MGNREGS) अंतर्गत रेशीम उद्योग
                 विकास योजनेचे नवीन कामाचे अंदाज पत्रकास शासन निर्णयात नमूद अटी व शर्तीस अधीन राहून तांत्रिक मंजूरी देण्यात
                 येत आहे.
             </p>
@@ -597,15 +588,15 @@
                 <tbody>
                     <tr> 
                         <td>{{1}}</td>
-                        <td>{{(lang == 'en' ? sanctionArray?.grampanchayatName : sanctionArray?.m_GrampanchayatName) | dash}}</td>
+                        <td>{{(sanctionArray?.m_GrampanchayatName) | dash}}</td>
                         <td>{{sanctionArray?.fullName | dash }}</td>
-                        <td>{{sanctionArray?.cultivatedFarmInHector || '0'}}</td>
-                        <td>{{sanctionArray?.mulberryCultivatedSurveyNo || '0' }}</td>
+                        <td>{{sanctionArray?.cultivatedFarmInHector || 0}}</td>
+                        <td>{{sanctionArray?.mulberryCultivatedSurveyNo || 0 }}</td>
                         <td>{{sanctionArray?.categoryOfBeneficiary | dash }}</td>
-                        <td>{{sanctionArray?.benificiaryTotalFarm || '0' }}</td>
-                        <td>{{sanctionArray?.unSkillTotal || '0'}}</td>
-                        <td>{{sanctionArray?.skillTotal || '0'}}</td>
-                        <td>{{sanctionArray?.skillUnSkillTotal || '0'}}</td>
+                        <td>{{sanctionArray?.benificiaryTotalFarm || 0 }}</td>
+                        <td>{{sanctionArray?.unSkillTotal || 0}}</td>
+                        <td>{{sanctionArray?.skillTotal || 0}}</td>
+                        <td>{{sanctionArray?.skillUnSkillTotal || 0}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -634,15 +625,15 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{sanctionArray?.firstYearUnskillTotal || '0'}}</td>
-                        <td>{{sanctionArray?.firstYearSkillTotal || '0'}}</td>
-                        <td>{{sanctionArray?.firstYearTotalSkillUnSkill || '0'}}</td>
-                        <td>{{sanctionArray?.secondYearUnskillTotal || '0'}}</td>
-                        <td>{{sanctionArray?.secondYearSkillTotal || '0'}}</td>
-                        <td>{{sanctionArray?.secondYearTotalSkillUnSkill || '0'}}</td>
-                        <td>{{sanctionArray?.thirdYearUnskillTotal || '0'}}</td>
-                        <td>{{sanctionArray?.thirdYearSkillTotal || '0'}}</td>
-                        <td>{{sanctionArray?.thirdYearTotalSkillUnSkill || '0'}}</td>
+                        <td>{{sanctionArray?.firstYearUnskillTotal || 0}}</td>
+                        <td>{{sanctionArray?.firstYearSkillTotal || 0}}</td>
+                        <td>{{sanctionArray?.firstYearTotalSkillUnSkill || 0}}</td>
+                        <td>{{sanctionArray?.secondYearUnskillTotal || 0}}</td>
+                        <td>{{sanctionArray?.secondYearSkillTotal || 0}}</td>
+                        <td>{{sanctionArray?.secondYearTotalSkillUnSkill || 0}}</td>
+                        <td>{{sanctionArray?.thirdYearUnskillTotal || 0}}</td>
+                        <td>{{sanctionArray?.thirdYearSkillTotal || 0}}</td>
+                        <td>{{sanctionArray?.thirdYearTotalSkillUnSkill || 0}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -691,7 +682,7 @@
                         २०२३.<br>
                         १७) रेशीम विकास अधिकारी श्रेणी-१, उस्मानाबाद यांचे प.क्र.जा.क्र.
                         रेशीम/उस्मानाबाद/प्र.मा./२०२३-२४/११६१,११६२ दि. ११/०७/२०२३<br>
-                        १८) या कार्यालयाचे मान्य पृष्ठांक दिनांक: {{showDate | date:'dd-MM-yyyy'}}<br>
+                        १८) या कार्यालयाचे मान्य पृष्ठांक दिनांक: {{adminApproveLetter?.approvedDate | date:'dd-MM-yyyy'}}<br>
     
                     </td>
                 </tr>
@@ -699,10 +690,6 @@
         </div>
         <div class="main-content">
             <div class="head-date">
-                <!-- <div>जा.क्र.-2023 मग्रारोहयो//प्र.मं./{{sanctionArray[0]?.technicalSanctionId}}</div> -->
-                <!-- <div>
-                    दिनांक: {{showDate | date:'dd-MM-yyyy'}}
-                </div> -->
             </div>
             <h6>प्रशासकीय मान्यता आदेश</h6>
             <p>
@@ -716,75 +703,30 @@
             <table>
                 <tbody>
                     <tr>
-                        <th>
-                            अ. क्र.
-                        </th>
-                        <th>
-                            तालुका
-                        </th>
-                        <th>
-                            ग्रामपंचायत
-                        </th>
-                        <th>
-                            लाभार्थ्याचे नाव
-                        </th>
-                        <th>
-                            गट क्र.
-                        </th>
-                        <th>
-                            लागवड क्षेत्र
-                        </th>
-                        <th>
-                            ता. मा. क्र.
-                        </th>
-                        <th>
-                            दिनांक
-                        </th>
-                        <th>
-                            अकुशल
-                        </th>
-                        <th>
-                            कुशल
-                        </th>
-                        <th>
-                            एकूण
-                        </th>
+                        <th> अ. क्र. </th>
+                        <th> तालुका </th>
+                        <th> ग्रामपंचायत </th>
+                        <th> लाभार्थ्याचे नाव </th>
+                        <th> गट क्र. </th>
+                        <th>  लागवड क्षेत्र </th>
+                        <th> ता. मा. क्र.  </th>
+                        <th>  दिनांक </th>
+                        <th> अकुशल </th>
+                        <th> कुशल </th>
+                        <th> एकूण </th>
                     </tr>
-                    <tr *ngFor="let arr of sanctionArray; let i =index">
-                        <td>
-                          {{i + 1}}
-                        </td>
-                        <td>
-                           {{ arr?.m_Taluka}}
-                        </td>
-                        <td>
-                            {{ arr?.m_GrampanchayatName}}
-                        </td>
-                        <td>
-                             {{ arr?.fullName}}
-                        </td>
-                        <td>
-                            {{ arr?.mulberryCultivatedSurveyNo}}
-                        </td>
-                        <td>
-                            {{ arr?.cultivatedFarmInHector}}
-                        </td>
-                        <td>
-                               {{ arr?.cultivatedFarmInHector}}
-                        </td>
-                        <td>
-                            {{showDate | date:'dd-MM-yyyy'}}
-    
-                        </td>
-                        <td>
-                            {{ arr?.unskill}}
-                        </td>
-                        <td>
-                            {{ arr?.skill}}
-                        </td>
-                        <td>
-                            {{ arr?.total}}
-                        </td>
+                    <tr>
+                        <td> 1  </td>
+                        <td> {{ adminApproveLetter?.m_Taluka || '-'}} </td>
+                        <td> {{ adminApproveLetter?.m_GrampanchayatName || '-'}} </td>
+                        <td> {{ adminApproveLetter?.fullName || '-'}} </td>
+                        <td> {{ adminApproveLetter?.mulberryCultivatedSurveyNo || '-'}} </td>
+                        <td> {{ adminApproveLetter?.cultivatedFarmInHector || '-'}}  </td>
+                        <td> {{ adminApproveLetter?.administrativeApprovalId || '-'}} </td>
+                        <td>  {{adminApproveLetter?.generateDate | date:'dd-MM-yyyy'}}  </td>
+                        <td> {{ adminApproveLetter?.unskill || 0}} </td>
+                        <td> {{ adminApproveLetter?.skill  || 0}}  </td>
+                        <td>  {{ adminApproveLetter?.total  || 0}}  </td>
                     </tr>
                 </tbody>
             </table>
@@ -794,15 +736,15 @@
                 महात्मा गांधी राष्ट्रीय रोजगार हमी अधिनियमांतर्गत महाराष्ट्र ग्रामीण रोजगार हमी योजनेच्या कामांना
                 रेशीम विकास {{loginData?.m_DesignationName || '-'}} धाराशीव यांनी तांत्रिक मान्यता
                 दिल्याच्या आधारे मी कार्यक्रम {{loginData?.m_DepartmentName || '-'}} मग्रारोहयो तथा तहसिलदार,
-                {{loginData?.m_Taluka || '-'}} प्राप्त अधिकाराचा वापर करुन वरील कामास <strong>मौजे {{sanctionArray[0]?.m_GrampanchayatName}}</strong> येथील वरील
-                कामाची अकुशल रक्कम <strong>{{sanctionArray[0]?.unskill}}/-</strong> व कुशल रक्कम
-                <strong>{{sanctionArray[0]?.skill}}/-</strong> एकूण रक्कम <strong>{{sanctionArray[0]?.total}}/-</strong>
+                {{loginData?.m_Taluka || '-'}} प्राप्त अधिकाराचा वापर करुन वरील कामास <strong>मौजे {{adminApproveLetter?.m_GrampanchayatName}}</strong> येथील वरील
+                कामाची अकुशल रक्कम <strong>{{adminApproveLetter?.unskill}}/-</strong> व कुशल रक्कम
+                <strong>{{adminApproveLetter?.skill}}/-</strong> एकूण रक्कम <strong>{{adminApproveLetter?.total}}/-</strong>
                 <strong>(अक्षरी तीन लक्ष सत्यानऊ हजार तीनशे पस्तीस रुपये फक्त)</strong> प्रस्तावास खालील
                 प्रमुख अटी व शर्तीस अधीन राहून व मा. जिल्हाधिकारी यांच्या बैठफीतींल सुचनेच्या अधीन राहुन प्रशासक्रीय मान्यता
                 आदेश निर्गमित करण्यात येते आहे. तसेच ग्रा.प. ठराव/कृती आराखडा वं इत्यादी अवश्यक बरुटीची पुर्तता
                 झाल्यानंतरच कार्यरंभ आदेशाची कार्यवाही करण्यात येईल तसेच महाराष्ट्र ग्रागीण रोजगार हमी योजना वर्ष
-                {{sanctionArray[0]?.firstYear}} या शोर्षाखाली प्रशासकीय मान्यता प्रदान करीत आहे. महाराष्ट्र ग्रामीण रोजगार हमी
-                योजना वर्ष {{sanctionArray[0]?.secondYear}} या शौर्षाखाली प्रशासकोव मान्यता प्रदान करीत आहे.
+                {{adminApproveLetter?.firstYear}} या शोर्षाखाली प्रशासकीय मान्यता प्रदान करीत आहे. महाराष्ट्र ग्रामीण रोजगार हमी
+                योजना वर्ष {{adminApproveLetter?.secondYear}} या शौर्षाखाली प्रशासकोव मान्यता प्रदान करीत आहे.
             </p>
             <h6>बाबीचा तपशील -</h6>
             <ol>

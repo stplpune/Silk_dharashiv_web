@@ -68,13 +68,13 @@
         </div>
       </div>
     </div>
-    <mat-tab-group>
+    <mat-tab-group  (selectedTabChange)="onTabClick($event)">
       <mat-tab label="{{lang == 'en' ? 'Beneficiery Profile' : 'लाभार्थी प्रोफाइल'}}"><app-beneficiery-profile></app-beneficiery-profile> </mat-tab>
-      <mat-tab label=" {{lang == 'en' ? 'Beneficiary Timeline' : 'लाभार्थी टाइमलाइन'}}"><ng-template matTabContent><app-beneficiery-timeline></app-beneficiery-timeline></ng-template></mat-tab>
-      <mat-tab label=" {{lang == 'en' ? 'Application History' : 'अनुप्रयोग इतिहास'}}"><ng-template matTabContent><app-beneficiery-application-history></app-beneficiery-application-history></ng-template></mat-tab>
-      <mat-tab label=" {{lang == 'en' ? 'Chowki Order History' : 'चौकी ऑर्डर इतिहास'}}"><ng-template matTabContent><app-beneficiery-order-history></app-beneficiery-order-history></ng-template></mat-tab>
-      <mat-tab label=" {{lang == 'en' ? 'Subsidy History' : 'सबसिडीचा इतिहास'}}"><ng-template matTabContent><app-beneficiery-subsidy-history></app-beneficiery-subsidy-history></ng-template></mat-tab>
-      <mat-tab label=" {{lang == 'en' ? 'Silk Sell' : 'रेशीम विक्री'}}"><ng-template matTabContent><app-beneficiery-silk-sell-history></app-beneficiery-silk-sell-history></ng-template></mat-tab>
+      <mat-tab label=" {{lang == 'en' ? 'Beneficiary Timeline' : 'लाभार्थी टाइमलाइन'}}" ><ng-template matTabContent><app-beneficiery-timeline *ngIf="selIndex == 1"></app-beneficiery-timeline></ng-template></mat-tab>
+      <mat-tab label=" {{lang == 'en' ? 'Application History' : 'अनुप्रयोग इतिहास'}}"><ng-template matTabContent><app-beneficiery-application-history  *ngIf="selIndex == 2"></app-beneficiery-application-history></ng-template></mat-tab>
+      <mat-tab label=" {{lang == 'en' ? 'Chowki Order History' : 'चौकी ऑर्डर इतिहास'}}" ><ng-template matTabContent><app-beneficiery-order-history *ngIf="selIndex == 3"></app-beneficiery-order-history></ng-template></mat-tab>
+      <mat-tab label=" {{lang == 'en' ? 'Subsidy History' : 'सबसिडीचा इतिहास'}}" ><ng-template matTabContent><app-beneficiery-subsidy-history *ngIf="selIndex == 4"></app-beneficiery-subsidy-history></ng-template></mat-tab>
+      <mat-tab label=" {{lang == 'en' ? 'Silk Sell' : 'रेशीम विक्री'}}" ><ng-template matTabContent><app-beneficiery-silk-sell-history *ngIf="selIndex == 5"></app-beneficiery-silk-sell-history></ng-template></mat-tab>
   </mat-tab-group>
   </mat-card-content>
 </mat-card>
