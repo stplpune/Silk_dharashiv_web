@@ -108,7 +108,8 @@ export class ForgetPasswordComponent {
         "otp": "",
         "pageName": "forgotpassword",
         "createdBy": 0,
-        "loginFlag": "web"
+        "loginFlag": "web",
+        "userType":2 //1 is Farmer, 2 is Officer
       }
       this.apiService.setHttp('post', 'sericulture/api/OtpTran/GenerateOTP', false, obj, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {

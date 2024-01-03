@@ -96,7 +96,7 @@ export class LoginComponent {
       let formData = this.loginForm.value;
       let obj = {
         "userName": formData.userName,
-        "password": this.AESEncryptDecryptService.encrypt(formData?.password)
+        "password":formData?.password // this.AESEncryptDecryptService.encrypt(formData?.password)
       }
       this.apiService?.setHttp('post', 'sericulture/api/Login/CheckLogin?LoginFlag=web&lan=' + this.lang, false, obj, false, 'baseUrl');
       this.apiService?.getHttp().subscribe((res: any) => {
