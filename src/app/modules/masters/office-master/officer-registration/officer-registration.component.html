@@ -115,7 +115,8 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{'common.grampanchayat_filter' | translate}}</mat-label>
             <mat-select formControlName="grampanchayatId"
-              placeholder="{{lang == 'en' ?'All Grampanchayat' : 'सर्व ग्रामपंचायत'}}">
+              placeholder="{{lang == 'en' ?'All Grampanchayat' : 'सर्व ग्रामपंचायत'}}"
+              [class]="WebStorageService.getGrampanchayatId() || !filterForm.getRawValue().talukaId ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
               <!-- <mat-option [value]="0">{{'officerreg.all_grampanchayat' | translate}}</mat-option> -->
               <mat-option>
                 <ngx-mat-select-search [formControl]="gramPCtrl"

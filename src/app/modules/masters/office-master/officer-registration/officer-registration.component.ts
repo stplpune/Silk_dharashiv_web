@@ -67,7 +67,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
     private fb: FormBuilder,
     private errorHandler: ErrorHandlingService,
     private commonMethod: CommonMethodsService,
-    private WebStorageService: WebStorageService,
+    public WebStorageService: WebStorageService,
     private masterService: MasterService,
 
   ) { }
