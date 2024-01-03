@@ -166,8 +166,8 @@
               </div>
               <div class="col-sm-6">
                 <div class="row gx-2">
-                  <div class="col-sm-5 form-label"> {{lang == 'en' ? 'Rearing Capacity': 'Rearing Capacity'}}</div>
-                  <div class="col-sm-7 form-data">:   DFLs</div>
+                  <div class="col-sm-5 form-label"> {{lang == 'en' ? 'Rearing Capacity': 'संगोपन क्षमता'}}</div>
+                  <div class="col-sm-7 form-data">:   {{tableDataArray?.chalkyCapacity || 0}} DFLs</div>
                 </div>
               </div>
               <div class="col-sm-12"  *ngIf="statusForm.value.status == 5">
