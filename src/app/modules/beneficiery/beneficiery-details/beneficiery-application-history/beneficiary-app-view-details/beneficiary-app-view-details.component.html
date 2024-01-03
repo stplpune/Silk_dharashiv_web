@@ -1,0 +1,810 @@
+<!-- <p>beneficiary-app-view-details works!</p> -->
+<div mat-dialog-title class="modal-header ">
+  <div class="d-flex align-items-center justify-content-between w-100">
+    <div class="text-main fw-bold">Mgnrega / Details</div>
+    <!-- <button mat-flat-button class="btn-main-light">
+      <mat-icon class="material-symbols-rounded">
+        chevron_left
+      </mat-icon>Back
+    </button> -->
+  </div>
+</div>
+<div mat-dialog-content class="modal-body form-container">
+
+
+  <div class="card card-body mb-3">
+    <div class="row g-2">
+      <div class="col-sm-4">
+        <div class="row gx-2">
+          <div class="col-sm-6">
+            <div class="form-label mb-0">Application ID (Date):</div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-data">: M1000075 (29-12-2023)</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="row gx-2">
+          <div class="col-sm-4">
+            <div class="form-label mb-0">Mulberry ID</div>
+          </div>
+          <div class="col-sm-8">
+            <div class="form-data">: </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="row gx-2">
+          <div class="col-sm-6">
+            <div class="form-label mb-0">Applicant Name</div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-data">: Deepali </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="row gx-2">
+          <div class="col-sm-6">
+            <div class="form-label mb-0">Mobile No</div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-data">: 9878908789 </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="row gx-2">
+          <div class="col-sm-4">
+            <div class="form-label mb-0">Scheme</div>
+          </div>
+          <div class="col-sm-8">
+            <div class="form-data">: MGNREGA </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="row gx-2">
+          <div class="col-sm-6">
+            <div class="form-label mb-0">Process Department:</div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-data">: Agricultured </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm">
+        <div class="row gx-2">
+          <div class="col-sm-2">
+            <div class="form-label mb-0">Plantation Area (Hector):
+            </div>
+          </div>
+          <div class="col-sm-10">
+            <div class="form-data">: 12. </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row gx-2">
+          <div class="col-sm-2">
+            <div class="form-label mb-0">Address
+            </div>
+          </div>
+          <div class="col-sm-10">
+            <div class="form-data">: Ambejawalga, Dharashiv, Dharashiv, Maharashtra </div>
+          </div>
+        </div>
+      </div>
+      <!-- {{lang == 'en' ? (applicantDetails?.grampanchayatName | dash ) :
+          (applicantDetails?.m_GrampanchayatName | dash)}} -->
+    </div>
+  </div>
+
+  <div class="table-content table-responsive mb-3">
+    Table
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header">
+      <div class="form-data text-main">Applicant Details</div>
+    </div>
+    <div class="card-body">
+      <div class="row application-details">
+        <div class="col-sm-3">
+          <img src="" alt="view Applicant Image" class="w-100">
+        </div>
+        <div class="col-sm-9">
+          <div class="row g-2 mb-2 pb-2 border-bottom">
+            <div class="col-sm-2 col-4">
+              <div class="form-label">Applicant Name</div>
+            </div>
+            <div class="col-sm-4 col-8">
+              <div class="form-data">:
+                Deepali
+              </div>
+            </div>
+            <div class="col-sm-2 col-4">
+              <div class="form-label">Mobile No.:</div>
+            </div>
+            <div class="col-sm-4 col-8">
+              <div class="form-data">: 8669267467</div>
+            </div>
+            <div class="col-sm-2 col-4">
+              <div class="form-label">Alternate Mobile No</div>
+            </div>
+            <div class="col-sm-4 col-8">
+              <div class="form-data"> : 8766566539</div>
+            </div>
+            <div class="col-sm-2 col-4">
+              <div class="form-label">Mgnrega Job Card No.
+                :</div>
+            </div>
+            <div class="col-sm-4 col-8">
+              <div class="form-data">: 6799</div>
+            </div>
+            <div class="col-sm-2 col-4">
+              <div class="form-label">Aadhaar Card No.</div>
+            </div>
+            <div class="col-sm-4 col-8">
+              <div class="form-data"> : 567890876543</div>
+            </div>
+            <div class="col-sm-2 col-4">
+              <div class="form-label">Gender</div>
+            </div>
+            <div class="col-sm-4 col-8">
+              <div class="form-data">: Male</div>
+            </div>
+            <div class="col-sm-2 col-4">
+              <div class="form-label">Date of Birth</div>
+            </div>
+            <div class="col-sm-4 col-8">
+              <div class="form-data">:15-06-2004</div>
+            </div>
+            <div class="col-sm-2 col-4">
+              <div class="form-label">Education</div>
+            </div>
+            <div class="col-sm-4 col-8">
+              <div class="form-data">:Diploma</div>
+            </div>
+            <div class="col-sm-2 col-4">
+              <div class="form-label">State</div>
+            </div>
+            <div class="col-sm-4 col-8">
+              <div class="form-data">: Maharashtra</div>
+            </div>
+            <div class="col-sm-2 col-4">
+              <div class="form-label">District</div>
+            </div>
+            <div class="col-sm-4 col-8">
+              <div class="form-data">: Dharashiv</div>
+            </div>
+            <div class="col-sm-2 col-4">
+              <div class="form-label">Taluka</div>
+            </div>
+            <div class="col-sm-4 col-8">
+              <div class="form-data">: Dharashiv</div>
+            </div>
+            <div class="col-sm-2 col-4">
+              <div class="form-label">Village Committee (Grampanchyat)</div>
+            </div>
+            <div class="col-sm-4 col-8">
+              <div class="form-data"> :Ambejawalga</div>
+            </div>
+            <div class="col-sm-2 col-4">
+              <div class="form-label">Village</div>
+            </div>
+            <div class="col-sm-4 col-8">
+              <div class="form-data">: -</div>
+            </div>
+            <div class="col-sm-2 col-4">
+              <div class="form-label">Pin Code </div>
+            </div>
+            <div class="col-sm-4 col-8">
+              <div class="form-data">: 411011</div>
+            </div>
+            <div class="col-sm-2 col-4">
+              <div class="form-label">Address</div>
+            </div>
+            <div class="col-sm-4 col-8">
+              <div class="form-data">: -</div>
+            </div>
+          </div>
+          <div class="form-label">Beneficiary Category</div>
+          <div class="form-data mb-0">
+            1. Scheduled Caste
+          </div>
+          <!-- <ol class="form-data mb-0">
+                <li>Scheduled Caste</li>
+                <li>Beneficiaries of Land Reform</li>
+              </ol> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header">
+      <div class="text-main fw-bold">Land Details</div>
+    </div>
+    <div class="card-body">
+      <div class="row gx-2">
+        <div class="col-sm-6">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td>
+                  <div class="form-label">Total Land in Hectares (up to 2.0 hectares) in favor of beneficiaries(as per
+                    8-A)
+                  </div>
+                </td>
+                <td>13.4</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="form-label">Cultivation Area in Hectares</div>
+                </td>
+                <td>12.5</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="form-label">Irrigation Facility</div>
+                </td>
+                <td>
+                  <div class="form-data">River
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+          <!-- <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex align-items-center justify-content-between">
+                  <div class="form-label">Total Land in Hectares(up to 2.0 hectares) in favor of beneciaries(as per 8-A):
+                  </div>
+                  <div class="form-data"> {{applicantDetails?.benificiaryTotalFarm | dash}}</div>
+                </li>
+                <li class="list-group-item d-flex align-items-center justify-content-between">
+                  <div class="form-label">Cultivated Area in Hectares:</div>
+                  <div class="form-data">{{applicantDetails?.cultivatedFarmInHector | dash}}</div>
+                </li>
+                <li class="list-group-item d-flex align-items-center justify-content-between">
+                  <div class="form-label"> Irrigation Facility :</div>
+                  <div class="form-data">{{lang == 'en' ? (applicantDetails?.irrigationFacility | dash ) :
+                    (applicantDetails?.m_IrrigationFacility | dash)}}</div>
+                </li>
+              </ul> -->
+        </div>
+        <div class="col-sm-6">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td>
+                  <div class="form-label">Plantation Land Survey Number</div>
+                </td>
+                <td>
+                  <div class="form-data">45</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="form-label">Land Type</div>
+                </td>
+                <td>
+                  <div class="form-data">Light
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+
+
+          <!-- <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex align-items-center justify-content-between">
+                  <div class="form-label">Cultivation Land Survey Number:</div>
+                  <div class="form-data">{{applicantDetails?.mulberryCultivatedSurveyNo | dash}}</div>
+                </li>
+                <li class="list-group-item d-flex align-items-center justify-content-between">
+                  <div class="form-label"> Land Type:</div>
+                  <div class="form-data">{{lang == 'en' ? (applicantDetails?.farmType | dash ) :
+                    (applicantDetails?.m_FarmType
+                    | dash)}}</div>
+                </li>
+              </ul> -->
+        </div>
+      </div>
+
+      <ul class="list-group list-group-flush mb-3">
+        <li class=" list-group-item d-flex justify-content-between align-items-center">
+          <div class="form-label">Are you a joined account Holder?</div>
+          <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+            <mat-radio-button value="yes" class="form-data">Yes</mat-radio-button>
+            <mat-radio-button value="no" class="form-data">No</mat-radio-button>
+          </mat-radio-group>
+        </li>
+        <ng-container>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="d-flex gap-2">
+              <div class="form-label">Land Survey No. of land to be cultivated as per applicant's share:
+              </div>
+              <div class="form-data">54</div>
+            </div>
+            <div class="d-flex gap-2">
+              <div class="form-label">Its area (Hector):
+              </div>
+              <div class="form-data">12.9</div>
+            </div>
+          </li>
+        </ng-container>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="form-label">Will take the silk industry training himself or send the candidate</div>
+          <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+            <mat-radio-button value="2">
+              <div class="fw-bold">myself</div>
+            </mat-radio-button>
+            <mat-radio-button value="1">
+              <div class="fw-bold">Send Candidate</div>
+            </mat-radio-button>
+          </mat-radio-group>
+        </li>
+        <ng-container>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="d-flex gap-3">
+              <div class="form-label">Candidate Name: </div>
+              <div class="form-data">priya</div>
+            </div>
+            <div class="d-flex gap-2">
+              <div class="form-label">Relation </div>
+              <div class="form-data">: Sister</div>
+            </div>
+          </li>
+        </ng-container>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="form-label">Have you done orchards/flowers/trees before under the government schemes other than
+            employement guarantee?</div>
+          <div class="form-data">
+            <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+              <mat-radio-button value="11" class="form-data">Yes</mat-radio-button>
+              <mat-radio-button value="12" class="form-data">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </li>
+      </ul>
+
+      <!-- <div class="table-responsive scrollbar" *ngIf="applicantDetails?.isAnyPlantedBeforeGovScheme == true">
+            <table class="dashboard-table table table-bordered w-100 mb-0">
+              <thead>
+                <tr>
+                  <th>{{'approvalProcess.orchard_flower_tree'| translate}}</th>
+                  <th>{{'approvalProcess.group_no.'| translate}}</th>
+                  <th>{{'approvalProcess.group_area'| translate}}</th>
+                  <th>{{'approvalProcess.cultivated_area'| translate}}</th>
+                  <th>{{'approvalProcess.number_of_trees_planted'| translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{lang == 'en' ? (applicantDetails?.plantName | dash ) : ('')}}</td>
+                  <td>{{applicantDetails?.gutNo | dash}}</td>
+                  <td>{{applicantDetails?.gutArea | dash}}</td>
+                  <td>{{applicantDetails?.plantCultivatedArea | dash}}</td>
+                  <td>{{applicantDetails?.noOfPlant | dash}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div> -->
+      <div class="table-responsive scrollbar">
+        Table
+      </div>
+
+
+
+    </div>
+  </div>
+
+  <div class="card mb-2">
+    <div class="card-header">
+      <div class="text-main fw-bold">Bank Details</div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Bank Name:</div>
+            <div class="form-data"> State Bank of India</div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Bank Branch:</div>
+            <div class="form-data">Dharashiv</div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">IFSC Code:</div>
+            <div class="form-data">SBIN0000678 </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Bank Account No</div>
+            <div class="form-data">657576 </div>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <div class="d-flex gap-2">
+            <div class="form-label mb-0">Is loan required</div>
+            <div class="form-data">
+              <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+                <mat-radio-button value="11" class="form-data">Yes</mat-radio-button>
+                <mat-radio-button value="12" class="form-data">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="d-flex align-items-center mb-2">
+        <mat-checkbox checked disabled></mat-checkbox>
+        <div class="form-label text-justify">
+          will plant the above mentioned trees as per the rules and conditions prescribed by the Government and also
+          declare myself / efficient person of my family as a certified laborer under the Mahatma Gandhi National
+          Rural Employment Guarantee Scheme. Proper care and protection of seedlings after planting. So let me
+          participate in this plan. 7/12 excerpt ond 8-A are attached
+        </div>
+      </div> -->
+
+
+
+  <!-- <div class="card mb-3">
+        <div class="card-header">
+          <div class="d-flex align-items-center justify-content-between w-100">
+            <div class="form-data text-main">Declaration</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="form-label">
+            <p>वरील प्रमाणे महात्मा गांधी रोजगार हमी योजनेशी निगडित रेशीम उद्योग विकास /तुती लागवड योजनेअंतर्गत मी अर्ज
+              केला आहे. त्यास मंजुरी मिळाल्यास त्याकरिता माझ्या / आमच्या मालकीच्या /जमिनीवर हि योजना राबविण्यास संमती देत
+              आहे / आहोत.</p>
+            <ol class="mb-0">
+              <li>सदर ची योजना राबविण्याकरिता मी स्वतः /माझे कुटुंबातील कार्यक्षम व्यक्ती महात्मा गांधी राष्ट्रीय ग्रामीण
+                रोजगार हमी योजनेतील प्रामाणिक मजूर म्हणून घोषित करीत आहे / आहोत. या योजनेकरिता होणारी सर्व कामे
+                प्रामुख्याने पूर्ण करण्याची जबाबदारी माझी किंव्हा जॉबकार्ड धारक मजुरांकडून करून घेण्याची जबाबदारी माझी /
+                आमची राहील.</li>
+              <li>योजनेअंतर्गत आवश्यक कलमे /रोपांची वाहतूक मला स्वतः करावी लागेल याची मला कल्पना देण्यात आलेली असून मला ते
+                मान्य आहे.</li>
+              <li>झाडांची लागवड केल्यानंतर हप्ता रक्कम मिळण्यासाठीचे पात्रता निकष मला अवगत</li>
+              <li>या योजनेचे नियम व अटी मला बंधनकारक आहे व त्यानुसार मी कलाम / रोपांची लागवड / संगोपन / संरक्षण करीन.</li>
+              <li>सदर योजनेअंतर्गत एकूण क्षेत्राप्रमाणे व नमुन्याप्रमाणे शासनाने प्रतिवर्षी मंजूर केलेल्या मर्यादेच्या
+                प्रमाणकापेक्षा जास्त खर्च झाल्यास तो खर्च मी / स्वतः करील</li>
+              <li>महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजनेशी निगडित रेशीम उद्योग विकास / तुती लागवड योजनेची माहिती
+                मला / आम्हाला मान्य असल्याचे काबुल करून त्याप्रमाणे करार पत्रावर सह्या केल्या आहेत.</li>
+              <li>या योजनेअंतर्गत शासन वेळोवेळी जे बदल करेल अथवा अटी घालेल त्या अटी / बदल मला / आम्हाला मान्य राहतील.</li>
+              <li>महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजनेअंतर्गत रेशीम उद्योग विकास / तुती लागवड योजनेमध्ये
+                समाविष्ठ करून / घ्या करीता मी / आम्ही दिलेला तपशील ७/१२ चे उताऱ्याप्रमाणे बरोबर आहे.</li>
+              <li>मी / आम्ही संयुक्त खातेदार असून माझ्या / आमच्या हिश्याच्या भूमापन क्र. १२६० मध्ये १ हेक्टर क्षेत्रावर
+                लागवड करण्यास परवानगी दिल्यास वरील अटी मला / आम्हाला मान्य राहतील.</li>
+            </ol>
+          </div>
+        </div>
+      </div> -->
+
+
+  <!--  <section>
+        <div class="form-data text-main">Application</div>
+        <div class="row gx-2 gy-2">
+          <div class="col-sm-4">
+            <div class="card card-body">
+              <div class="d-flex gap-5 align-items-center">
+                <div class="text-center">
+                  <mat-icon class="material-symbols-outlined text-success ">
+                    check_circle
+                  </mat-icon>
+                  <div class="form-label text-success">Approved</div>
+                </div>
+                <div class="d-flex flex-column justify-content-between w-100">
+                  <div class="d-flex flex-column">
+                    <div class="form-data">Application Review</div>
+                    <div class="form-label">Shamrao Kalamkar, GramSevak</div>
+                    <div class="form-label">Remark :</div>
+                    <div class="form-label">26-10-2023 10:00 AM</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer pb-0">
+                <div class="d-flex justify-content-end">
+                  <button mat-flat-button class="btn-main">Village Committee Approval Letter</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card card-body">
+              <div class="d-flex gap-5 align-items-center">
+                <div class="text-center">
+                  <mat-icon class="material-symbols-outlined text-success ">
+                    check_circle
+                  </mat-icon>
+                  <div class="form-label text-success">Approved</div>
+                </div>
+                <div class="d-flex flex-column justify-content-between w-100">
+                  <div class="d-flex flex-column">
+                    <div class="form-data">Village Committee Approval</div>
+                    <div class="form-label">Shamrao Kalamkar, GramSevak</div>
+                    <div class="form-label">Remark :</div>
+                    <div class="form-label">26-10-2023 10:00 AM</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer pb-0">
+                <div class="d-flex justify-content-end">
+                  <button mat-flat-button class="btn-main">Village Committee Approval Letter</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card card-body">
+              <div class="d-flex gap-5 align-items-center">
+                <div class="text-center">
+                  <mat-icon class="material-symbols-outlined text-success ">
+                    check_circle
+                  </mat-icon>
+                  <div class="form-label text-success">Approved</div>
+                </div>
+                <div class="d-flex flex-column justify-content-between w-100">
+                  <div class="d-flex flex-column">
+                    <div class="form-data">Technical Estimate</div>
+                    <div class="form-label">Shamrao Kalamkar, GramSevak</div>
+                    <div class="form-label">Remark :</div>
+                    <div class="form-label">26-10-2023 10:00 AM</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer pb-0">
+                <div class="d-flex justify-content-end">
+                  <button mat-flat-button class="btn-main">Technical Estimate</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card card-body">
+              <div class="d-flex gap-5 align-items-center">
+                <div class="text-center">
+                  <mat-icon class="material-symbols-outlined text-success ">
+                    check_circle
+                  </mat-icon>
+                  <div class="form-label text-success">Approved</div>
+                </div>
+                <div class="d-flex flex-column justify-content-between w-100">
+                  <div class="d-flex flex-column">
+                    <div class="form-data">Technical Sanction</div>
+                    <div class="form-label">Shamrao Kalamkar, GramSevak</div>
+                    <div class="form-label">Remark :</div>
+                    <div class="form-label">26-10-2023 10:00 AM</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer pb-0">
+                <div class="d-flex justify-content-end">
+                  <button mat-flat-button class="btn-main">Technical Sanction</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card card-body">
+              <div class="d-flex gap-5 align-items-center">
+                <div class="text-center">
+                  <mat-icon class="material-symbols-outlined text-success ">
+                    check_circle
+                  </mat-icon>
+                  <div class="form-label text-success">Approved</div>
+                </div>
+                <div class="d-flex flex-column justify-content-between w-100">
+                  <div class="d-flex flex-column">
+                    <div class="form-data">Administrative Approval</div>
+                    <div class="form-label">Shamrao Kalamkar, GramSevak</div>
+                    <div class="form-label">Remark :</div>
+                    <div class="form-label">26-10-2023 10:00 AM</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer pb-0">
+                <div class="d-flex flex-column">
+                  <button mat-flat-button class="btn-main">Administrative Approval</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </section>
+      <section class="">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="form-data text-main">Land Survey (After Plantation)</div>
+
+        </div>
+        <div class="d-flex align-items-center justify-content-between gap-3 w-100">
+          <div class="d-flex gap-2">
+            <div class="form-label">Land Survey Date :</div>
+            <div class="form-data">26-10-2023</div>
+          </div>
+          <div class="d-flex gap-2 text-danger">
+            <div class="form-label">Reminder :</div>
+            <div class="form-data">01</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="row gy-5">
+          <div class="col-sm-6">
+            <div class="form-data my-3 ">Land Demarcation (After Plantation)</div>
+            land graph
+          </div>
+          <div class="col-sm-6">
+            <div class="form-data my-3">Mulberry Garden Photos with farmers</div>
+            <div class="row gy-3">
+              <div class="col-sm-6">
+                <img src="" alt="mulberry photo 1">
+              </div>
+              <div class="col-sm-6">
+                <img src="" alt="mulberry photo 2">
+              </div>
+              <div class="col-sm-6">
+                <img src="" alt="mulberry photo 3">
+              </div>
+              <div class="col-sm-6">
+                <img src="" alt="mulberry photo 4">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="d-flex align-items-center justify-content-between gap-3">
+          <div class="form-data text-main">Mulberry Plantation Details</div>
+        </div>
+        <div class="row gy-3 gx-2">
+          <div class="col-sm-6">
+            <table class="dashboard-table border  table  w-100 table-bordered ">
+              <tbody>
+                <tr>
+                  <td>Mulberrry Plantation Date</td>
+                  <td class="form-data">12-07-2023</td>
+                </tr>
+                <tr>
+                  <td>Mulberrry Plantation Area (Hectares) </td>
+                  <td class="form-data">1</td>
+                </tr>
+                <tr>
+                  <td>Mulberrry Plantation Type </td>
+                  <td class="form-data">Plant</td>
+                </tr>
+                <tr>
+                  <td>Mulberrry Plantation Cultivars </td>
+                  <td class="form-data">Plant</td>
+                </tr>
+                <tr>
+                  <td>Mulberrry Plantation Distance </td>
+                  <td class="form-data">1 Feet</td>
+                </tr>
+                <tr>
+                  <td>Mulberrry Plantation Area Length & Feet (Width) </td>
+                  <td class="form-data">60 * 40</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+          <div class="col-sm-6">
+            <table class="dashboard-table table-bordered table w-100 table-bordered ">
+              <tbody>
+                <tr>
+                  <td>Total Number of Mulberry Rows/Lines</td>
+                  <td class="form-data">226</td>
+                </tr>
+                <tr>
+                  <td>Number of trees in Mulberrry Row </td>
+                  <td class="form-data">1</td>
+                </tr>
+                <tr>
+                  <td>Number of surviving trees in mulberry rows/lines </td>
+                  <td class="form-data">221</td>
+                </tr>
+                <tr>
+                  <td>Total Numbers of Mulberry trees </td>
+                  <td class="form-data">5876</td>
+                </tr>
+                <tr>
+                  <td>Total Number of Surviving Mulberry Trees</td>
+                  <td class="form-data">5746</td>
+                </tr>
+                <tr>
+                  <td>Percentage of surviving mulberry trees</td>
+                  <td class="form-data">98%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-6">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select Status</mat-label>
+                  <mat-select>
+                    <mat-option>Approved</mat-option>
+                    <mat-option>Rejected</mat-option>
+                    <mat-option>Resend Document</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-6">
+                <div class="mb-0">
+                  <div class="file-upload border rounded-2 p-1">
+                    <button type="button" mat-flat-button class="btn" id="fileupload-button" data-toggle="tooltip"
+                      (click)="uplodLogo.click()" data-placement="right">
+                      Upload Gramsabha Approval Document
+                    </button>
+                    <input type="file" #uplodLogo accept=".jpg,.jpeg,.jfif,.png,.hvec" id="real-file" hidden="hidden" />
+                    <div class="d-flex gap-2">
+                      <button type="button" mat-flat-button class="bg-primary-subtle text-primary btn-icon btn-action"
+                        matTooltip="view">
+                        <mat-icon class="material-symbols-rounded">
+                          preview
+                        </mat-icon>
+                      </button>
+                      <button type="button" mat-flat-button class="bg-danger-subtle text-danger btn-icon btn-action"
+                        matTooltip="delete">
+                        <mat-icon class="material-symbols-rounded">
+                          delete
+                        </mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select Reason</mat-label>
+                  <mat-select>
+                    <mat-option>Reason 1</mat-option>
+                    <mat-option>Reason 2</mat-option>
+                    <mat-option>Reason 3</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-12">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Remark</mat-label>
+                  <textarea matInput placeholder=""></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+        </div>
+
+      </div>
+      </section>
+      <div class="d-flex align-items-center justify-content-end gap-2 my-2">
+        <button mat-flat-button class="btn-main-light">Cancel</button>
+        <button mat-flat-button class="btn-main">Submit</button>
+      </div>
+    </mat-card-content>-->
+
+
+</div>
