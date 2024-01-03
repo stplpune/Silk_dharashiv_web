@@ -64,8 +64,9 @@ export class SilkCocoonSellListComponent {
 
 
   getTableData() {
+  let id = this.webStorage.getUserId()
     this.spinner.show();
-    this.apiService.setHttp('GET', `sericulture/api/SilkSell/GetSilkSellDetails?FarmerId=2&Id=0&lan=${this.lang}`, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', `sericulture/api/SilkSell/GetSilkSellDetails?FarmerId=${id}&Id=0&lan=${this.lang}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -98,7 +99,8 @@ export class SilkCocoonSellListComponent {
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
-      tableHeaders: displayedheaders,    
+      tableHeaders: displayedheaders,   
+      edit : true, 
       view: true,    
       img: 'billPhoto',
       date: 'silkSellDate'
@@ -109,6 +111,9 @@ export class SilkCocoonSellListComponent {
 
   childCompInfo(obj?: any) {
     switch (obj.label) {
+      case 'Edit' :
+        this.addsilkcacoon(obj)
+        break;
       case 'Delete':
         // this.deleteDialogOpen(obj);
         break;
@@ -119,10 +124,24 @@ export class SilkCocoonSellListComponent {
   }
 
   
-  addsilkcacoon(){
-    this.dialog.open(AddSilkCocoonSellComponent,{
-      width:'50%'
-    })
+  // addsilkcacoon(){
+  //   this.dialog.open(AddSilkCocoonSellComponent,{
+  //     width:'50%'
+  //   })
+  // }
+
+
+  addsilkcacoon(obj?: any) {
+    let dialogRef = this.dialog.open(AddSilkCocoonSellComponent, {
+      width: '50%',
+      data: obj,
+      disableClose: true,
+      autoFocus: true,
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      result == 'Yes' ? this.getTableData() : '';
+      this.highLightRowFlag = false;
+    });
   }
 
 

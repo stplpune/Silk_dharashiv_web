@@ -48,20 +48,13 @@
     <div class="col-sm-4">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>कोष विक्री दिनांक</mat-label>
-        <input matInput [matDatepicker]="picker" (click)="picker.open()" formControlName="silkSellDate">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+  <input matInput [matDatepicker]="picker" formControlName="silkSellDate">
+  <mat-hint>MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
 
-    <div class="col-sm-4">
-      <mat-form-field class="w-100" appearance="outline">
-        <mat-label>Choose a date</mat-label>
-        <input matInput [matDatepicker]="picker1">
-        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-      </mat-form-field>
-    </div>
 
 
 
@@ -136,8 +129,8 @@
 </div>
 <div mat-dialog-actions class="modal-footer">
   <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-    <button mat-flat-button class="btn-main-light">Cancel</button>
-    <button mat-flat-button class="btn-main">Submit</button>
+    <button mat-flat-button class="btn-main-light" type="button">Cancel</button>
+    <button mat-flat-button class="btn-main" type="submit">Submit</button>
   </div>
 </div>
 </form>
