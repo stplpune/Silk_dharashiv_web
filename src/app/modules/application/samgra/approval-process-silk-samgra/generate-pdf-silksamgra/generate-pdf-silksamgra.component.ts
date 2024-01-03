@@ -19,6 +19,7 @@ export class GeneratePdfSilksamgraComponent {
 
   priorArray:any;
   loginData:any;
+  applicationId:any;
   constructor
   (
     private spinner: NgxSpinnerService,
