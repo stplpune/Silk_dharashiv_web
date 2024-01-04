@@ -48,7 +48,8 @@ export class AddSilkCocoonSellComponent {
   lang: any;
   lotNoArr = new Array();
   marketCommitteeArr = new Array();
-  imageResponse: any
+  imageResponse: any;
+  checkImg : boolean = true;
   get f() { return this.cocoonSellFrm.controls };
 
   constructor(private fb: FormBuilder,
@@ -116,7 +117,6 @@ export class AddSilkCocoonSellComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           let lotDetails = res.responseData;
-
           this.f['silkCasteId'].setValue(lotDetails.raceTypeId);
           this.f['silkCast'].setValue(lotDetails.raceType);
           this.f['m_SilkCast'].setValue(lotDetails.m_RaceType);
@@ -150,6 +150,7 @@ export class AddSilkCocoonSellComponent {
         if (res.statusCode == '200') {
           this.spinner.hide();
           this.imageResponse = res.responseData;
+          this.checkImg = true
         }
         else {
           this.imageResponse = "";
@@ -168,7 +169,8 @@ export class AddSilkCocoonSellComponent {
 
   onSubmitData() {
     let formvalue = this.cocoonSellFrm.value;
-    if (this.cocoonSellFrm.invalid) {
+    !this.imageResponse ?  this.checkImg = false : this.checkImg = true;
+    if (this.cocoonSellFrm.invalid &&  !this.imageResponse) {
       return
     } else {
       this.spinner.show();
@@ -209,10 +211,11 @@ export class AddSilkCocoonSellComponent {
     window.open(this.data?.billPhoto)
   }
 
-  clearFormData() { 
+  clearFormData() {
     this.formDirective?.resetForm();
     this.data = null;
-    this.imageResponse = ''
+    this.imageResponse = '';
+    this.checkImg = true;
     this.defaultFrm();
   }
 }
