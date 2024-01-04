@@ -1006,21 +1006,19 @@
     "view_Silk_Cacoon_Sell" :"View Silk Cacoon Sell",
     "Lot_No" : "Lot No.",
     "Silkworm" : "Silkworm purchased from CRC center and produce silk against it.",
-    "fund_caste" : "Fund Caste",
+    "fund_caste" : "Silk Cocoon Caste",
     "number_of_clutches" :"Number Of Clutches",
     "Select_a_sales_center" : "Select A Sales Center",
-    "Fund_Sale_Date" : "Fund Sale Date",
+    "Fund_Sale_Date" : "Silk Cocoon Sale Date",
     "Bill_no" : "Bill No",
     "Selling_rate_per_kg_Rs" : "Selling Rate Per Kg. Rs",
-    "Total_fund" : "Total Fund",
+    "Total_fund" : "Total Silk Cocoon",
     "amount":"Amount",
     "Market_Fees":"Market Fees",
     "total_amount" : "Total Amount",
     "Remark":"Remark",
     "sales_center":"Sales Center",
     "Invoice" : "Invoice",
-
-
     "Please_select_Lot_No" : "Please select lot No.",
     "Please_select_Sales_Center" : "Please select sales center",
     "Please_select_Sales_Date" : "Please select sale date",
@@ -1030,11 +1028,9 @@
     "please_enter_sale_rate_kg": "Please enter selling rate per",
     "sale_rate_maximum_10_digit_allowed": "Maximun 10 digit allowed",
     "please_enter_valid_sell_rate": "Please enter valid selling rate",
-
-    "please_enter_total_fund": "Please enter total fund",
+    "please_enter_total_fund": "Please enter total silk cocoon",
     "total_fund_maximum_10_digit_allowed": "Maximun 5 digit allowed",
-    "please_enter_valid_total_fund": "Please enter valid total fund",
-
+    "please_enter_valid_total_fund": "Please enter valid silk cocoon",
     "please_enter_market_fees": "Please enter market fees",
     "market_fees_maximum_10_digit_allowed": "Maximun 5 digit allowed",
     "please_enter_valid_market_fees": "Please enter valid selling rate"
