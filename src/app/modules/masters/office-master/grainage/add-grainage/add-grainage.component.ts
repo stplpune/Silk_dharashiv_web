@@ -207,6 +207,8 @@ export class AddGrainageComponent {
       return;
     } else {
       this.spinner.show();
+      formvalue.talukaId = formvalue.talukaId || 0;
+      formvalue.grampanchyatId = formvalue.grampanchyatId || 0;
       formvalue.id = Number(formvalue.id)
       let mainData = { ...formvalue, "createdBy": this.webStorage.getUserId() };
       this.apiService.setHttp('POST', 'sericulture/api/GrainageModel/Insert-Update-Grainage?lan=' + this.lang, false, mainData, false, 'masterUrl');
