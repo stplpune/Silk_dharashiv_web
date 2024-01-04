@@ -48,7 +48,8 @@
   <mat-card-content class=" card-body form-container">
     <!--linear  -->
     <!-- [stepControl]="manaregaFrm" -->
-    <mat-stepper #stepper>
+    
+    <mat-stepper #stepper >
       <mat-step [stepControl]="manaregaFrm">
         <ng-template matStepLabel>{{'approvalProcess.original_details'| translate}}</ng-template>
          <form [formGroup]="manaregaFrm" >
@@ -145,7 +146,7 @@
                       </mat-form-field>
                     </div>
                   </div>
-                
+
                   <div class="col-sm-6">
                     <div class="form-label">2.{{'approvalProcess.marathi_applicant_name_mob'| translate}} <span
                         class="text-danger">*</span></div>
@@ -1036,7 +1037,7 @@
               <!-- <div class="col-sm-4">
                 <button mat-flat-button class="btn-main-light mt-3" type="button" (click)="visible = ! visible">
                  {{lang == 'en' ? "Attach Other Documents": "इतर कागदपत्रे जोडा"}}
-                  </button> 
+                  </button>
               </div> -->
               <div class="col-sm">
                 <div class="form-label">
@@ -1535,7 +1536,7 @@
                       <div class="form-label">{{'approvalProcess.nationalise_bank_accountno'|translate}}</div>
                       <span class="form-data  rounded-pill">{{previewData?.bankAccountNo | dash}}</span>
                     </li>
-                  
+
                       <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div class="form-label">{{'addManrega.is_loan_required'| translate}}</div>
                         <span class="form-data  rounded-pill">
@@ -1545,7 +1546,7 @@
                           *ngIf="previewData?.isLoanApplicable == false">{{'approvalProcess.no'| translate}}</span>
                         </span>
                       </li>
-                      
+
                  </ul>
                 </div>
                 <div class="col-sm-6">
@@ -1756,7 +1757,7 @@
 
 
 
-             
+
             </div>
           </div>
           <div class="d-flex align-items-center justify-content-end gap-2 w-100">
@@ -1766,7 +1767,7 @@
           </div>
         </form>
 
-        <!-- 
+        <!--
         <div class="container-fluid">
           <div class="d-flex flex-column align-items-center gap-3">
             <img src="assets/images/check.png" alt="" class="img-fluid" width="200px">

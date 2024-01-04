@@ -9,6 +9,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
+import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 
 @Component({
   selector: 'app-silk-cocoon-sell-list',
@@ -16,10 +17,6 @@ import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decry
   styleUrls: ['./silk-cocoon-sell-list.component.scss']
 })
 export class SilkCocoonSellListComponent {
-
-
-
-
   pageNumber: number = 1;
   tableDataArray = new Array();
   tableDatasize!: number;
@@ -27,11 +24,8 @@ export class SilkCocoonSellListComponent {
   highLightRowFlag: boolean = false;
   subscription!: Subscription;
   lang: string = 'English';
-  routingData:any;
-  // farmerNameEn:any;
-  // farmerNameMr:any;
-  // beneficieryId :any;
-  farmerId:any;
+  routingData: any;
+  farmerId: any;
 
   constructor(public dialog: MatDialog,
     private spinner: NgxSpinnerService,
@@ -49,22 +43,15 @@ export class SilkCocoonSellListComponent {
       this.setTableData();
     })
     this.activatedRoute.queryParams.subscribe((params: any) => {
-      console.log("parms", params);
-
       this.routingData = params['id'];
     })
-     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
-     console.log("spliteUrl",spliteUrl);
-    //  this.beneficieryId = spliteUrl[0]; 
-    //  this.farmerNameEn = spliteUrl[1];
-    //  this.farmerNameMr =  spliteUrl[2];
-     this.farmerId =  spliteUrl[3];
+    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');;
+    this.farmerId = spliteUrl[3];
     this.getTableData();
   }
 
-
   getTableData() {
-  let id = this.webStorage.getUserId()
+    let id = this.webStorage.getUserId()
     this.spinner.show();
     this.apiService.setHttp('GET', `sericulture/api/SilkSell/GetSilkSellDetails?FarmerId=${id}&Id=0&lan=${this.lang}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
@@ -89,9 +76,8 @@ export class SilkCocoonSellListComponent {
 
   setTableData() {
     this.highLightRowFlag = true;
-    let displayedColumns = ['srNo', 'billNo', (this.lang == 'en' ? 'marketName' : 'm_MarketName'), 'totalSilk', 'silkRatePerKg', 'totalAmtWithMarktFees', 'silkSellDate', 'billPhoto', 'action']; //'action'
-    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Invoice No', 'Market Name', 'Quantity', 'Rate/Kg', 'Total Amount', 'Date', 'Invoice', 'Action'] : ['अनुक्रमांक', 'चलन क्र', 'बाजाराचे नाव', 'प्रमाण', 'दर/किलो', 'एकूण रक्कम', 'तारीख', 'चलन', 'कृती'];// 'पहा' 'view'
-
+    let displayedColumns = ['srNo', 'billNo', (this.lang == 'en' ? 'marketName' : 'm_MarketName'), 'totalSilk', 'silkRatePerKg', 'totalAmtWithMarktFees', 'silkSellDate', 'billPhoto', 'action'];
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Invoice No', 'Market Name', 'Quantity', 'Rate/Kg', 'Total Amount', 'Date', 'Invoice', 'Action'] : ['अनुक्रमांक', 'चलन क्र', 'बाजाराचे नाव', 'प्रमाण', 'दर/किलो', 'एकूण रक्कम', 'तारीख', 'चलन', 'कृती'];
     let tableData = {
       pageNumber: this.pageNumber,
       highlightedrow: true,
@@ -99,9 +85,10 @@ export class SilkCocoonSellListComponent {
       displayedColumns: displayedColumns,
       tableData: this.tableDataArray,
       tableSize: this.tableDatasize,
-      tableHeaders: displayedheaders,   
-      edit : true, 
-      view: true,    
+      tableHeaders: displayedheaders,
+      edit: true,
+      view: true,
+      delete: true,
       img: 'billPhoto',
       date: 'silkSellDate'
     };
@@ -111,11 +98,11 @@ export class SilkCocoonSellListComponent {
 
   childCompInfo(obj?: any) {
     switch (obj.label) {
-      case 'Edit' :
+      case 'Edit':
         this.addsilkcacoon(obj)
         break;
       case 'Delete':
-        // this.deleteDialogOpen(obj);
+        this.deleteDialogOpen(obj);
         break;
       case 'View':
         this.addsilkcacoon(obj);
@@ -136,5 +123,38 @@ export class SilkCocoonSellListComponent {
     });
   }
 
- 
+  deleteDialogOpen(delObj?: any) {
+    let dialogObj = {
+      title: this.lang == 'en' ? 'Do You Want To Delete Selected Silk Cocoon?' : 'तुम्हाला निवडलेले सिल्क कोकून हटवायचे आहे का?',
+      header: this.lang == 'en' ? 'Delete Silk Cocoon' : 'सिल्क कोकून हटवा',
+      okButton: this.lang == 'en' ? 'Delete' : 'हटवा',
+      cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
+      headerImage: 'assets/images/delete.svg'
+    };
+    const dialogRef = this.dialog.open(GlobalDialogComponent, {
+      width: '30%',
+      data: dialogObj,
+      disableClose: true,
+      autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == 'Yes') {
+        this.apiService.setHttp('delete', `sericulture/api/SilkSell/DeleteSilkSellRecord?Id=${delObj?.id}&lan=${this.lang}`, false, false, false, 'masterUrl');
+        this.apiService.getHttp().subscribe({
+          next: (res: any) => {
+            if (res.statusCode == '200') {
+              this.common.snackBar(res.statusMessage, 0);
+              this.getTableData();
+            } else {
+              this.common.snackBar(res.statusMessage, 1);
+            }
+          },
+          error: (error: any) => {
+            this.errorService.handelError(error.statusCode);
+          },
+        });
+      }
+      this.highLightRowFlag = false;
+    });
+  }
 }

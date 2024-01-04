@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,7 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -19,6 +19,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-silk-cocoon-sell',
@@ -33,7 +34,8 @@ import { ValidationService } from 'src/app/core/services/validation.service';
     MatIconModule,
     MatTableModule,
     MatButtonModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+    TranslateModule],
   templateUrl: './add-silk-cocoon-sell.component.html',
   styleUrls: ['./add-silk-cocoon-sell.component.scss']
 })
@@ -41,7 +43,7 @@ export class AddSilkCocoonSellComponent {
 
   cocoonSellFrm!: FormGroup;
   isViewFlag: boolean = false;
-  // @ViewChild('formDirective') private formDirective!: NgForm;
+  @ViewChild('formDirective') private formDirective!: NgForm;
   subscription!: Subscription;
   lang: any;
   lotNoArr = new Array();
@@ -55,7 +57,6 @@ export class AddSilkCocoonSellComponent {
     private apiService: ApiService,
     private errorService: ErrorHandlingService,
     private common: CommonMethodsService,
-    // public dialog: MatDialog,
     private fileUpl: FileUploadService,
     public webStorage: WebStorageService,
     public dialogRef: MatDialogRef<AddSilkCocoonSellComponent>,
@@ -68,13 +69,10 @@ export class AddSilkCocoonSellComponent {
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
     this.isViewFlag = this.data?.label == 'View' ? true : false;
-    this.data?.billPhoto ? this.imageResponse = this.data?.billPhoto : this.imageResponse = '' ;
+    this.data?.billPhoto ? this.imageResponse = this.data?.billPhoto : this.imageResponse = '';
     this.defaultFrm();
     this.getLotNumber();
     this.getMarketCommittee();
-
-    // console.log("data",this.data);
-    
   }
 
   defaultFrm() {
@@ -82,16 +80,16 @@ export class AddSilkCocoonSellComponent {
       "id": [this.data?.id || 0],
       "lotNo": [this.data?.lotNo || '', [Validators.required]],
       "silkCasteId": [this.data?.silkCasteId || ''],
-      "silkCast":[''],   
-      "m_SilkCast":[''],  
+      "silkCast": [''],
+      "m_SilkCast": [''],
       "distributedChawki": [this.data?.distributedChawki || ''],
       "marketCommiteeId": [this.data?.marketCommiteeId || '', [Validators.required]],
       "silkSellDate": [this.data?.silkSellDate || '', [Validators.required]],
-      "billNo": [this.data?.billNo || '', [Validators.required,this.validator.maxLengthValidator(20),Validators.pattern(this.validator.alphaNumericWithoutSpace)]],
-      "silkRatePerKg": [this.data?.silkRatePerKg || '', [Validators.required,this.validator.maxLengthValidator(10),Validators.pattern(this.validator.numericWithdecimaluptotwoDigits)]],
-      "totalSilk": [this.data?.totalSilk || '', [Validators.required,this.validator.maxLengthValidator(5),Validators.pattern(this.validator.numericWithdecimaluptotwoDigits)]],
+      "billNo": [this.data?.billNo || '', [Validators.required, this.validator.maxLengthValidator(20), Validators.pattern(this.validator.alphaNumericWithoutSpace)]],
+      "silkRatePerKg": [this.data?.silkRatePerKg || '', [Validators.required, this.validator.maxLengthValidator(10), Validators.pattern(this.validator.numericWithdecimaluptotwoDigits)]],
+      "totalSilk": [this.data?.totalSilk || '', [Validators.required, this.validator.maxLengthValidator(5), Validators.pattern(this.validator.numericWithdecimaluptotwoDigits)]],
       "totalAmount": [this.data?.totalAmount || ''],
-      "marketFees": [this.data?.marketFees || '', [Validators.required,this.validator.maxLengthValidator(5),Validators.pattern(this.validator.numericWithdecimaluptotwoDigits)]],
+      "marketFees": [this.data?.marketFees || '', [Validators.required, this.validator.maxLengthValidator(5), Validators.pattern(this.validator.numericWithdecimaluptotwoDigits)]],
       "totalAmtWithMarketFees": [this.data?.totalAmtWithMarktFees || ''],
       "remark": [this.data?.remark || ''],
       "billPhoto": [this.data?.billPhoto || ''],
@@ -207,9 +205,14 @@ export class AddSilkCocoonSellComponent {
     }
   }
 
-  viewreceipt(){
+  viewreceipt() {
     window.open(this.data?.billPhoto)
   }
 
-
+  clearFormData() { 
+    this.formDirective?.resetForm();
+    this.data = null;
+    this.imageResponse = ''
+    this.defaultFrm();
+  }
 }
