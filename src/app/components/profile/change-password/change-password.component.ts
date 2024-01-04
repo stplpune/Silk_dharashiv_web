@@ -77,8 +77,8 @@ export class ChangePasswordComponent {
     } else {
       let obj = {
         "userId": this.webStorage.getUserId(),
-        "newPassword": this.AESEncryptDecryptService.encrypt(formData.newPass),
-        "currentPassword": this.AESEncryptDecryptService.encrypt(formData.currentPass)
+        "newPassword": formData.newPass, //this.AESEncryptDecryptService.encrypt(formData.newPass),
+        "currentPassword":formData.currentPass //this.AESEncryptDecryptService.encrypt(formData.currentPass)
       }
 
       this.apiService.setHttp('post', 'sericulture/api/Login/change-password', false, obj, false, 'baseUrl');

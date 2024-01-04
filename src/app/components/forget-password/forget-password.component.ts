@@ -189,7 +189,7 @@ export class ForgetPasswordComponent {
     }
 
     let obj = {
-      "NewPassword": this.AESEncryptDecryptService.encrypt(formData.newpassword),
+      "NewPassword":formData.newpassword, // this.AESEncryptDecryptService.encrypt(formData.newpassword),
       "MobileNo": mobiledata.mobileno,
 
     }
