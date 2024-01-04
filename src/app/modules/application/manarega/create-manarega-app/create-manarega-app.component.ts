@@ -39,7 +39,7 @@ export class CreateManaregaAppComponent {
   subscription!: Subscription;//used  for lang conv
   lang: any;
   // isLinear = false;
-  schemeData:any;
+  schemeData: any;
   viewMsgFlag: boolean = false;//used for error msg show
   genderArray: any = [{ id: 1, name: 'Male', m_name: 'पुरुष' }, { id: 2, name: 'Female', m_name: 'स्त्री  ' }];
   checkedArray: any = [{ id: true, name: 'Yes', m_name: 'होय' }, { id: false, name: 'No', m_name: 'नाही' }];
@@ -93,8 +93,8 @@ export class CreateManaregaAppComponent {
   @ViewChild('stepper') private myStepper!: MatStepper;
   // isFormDisabled: boolean = true; //disable enable form
   // @ViewChild('myForm')form:any;
-  manaregaAadhar : any;
-  checkManaregaId:any
+  manaregaAadhar: any;
+  checkManaregaId: any
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -108,15 +108,15 @@ export class CreateManaregaAppComponent {
     private masterService: MasterService,
     private route: ActivatedRoute,
     private router: Router,
-    private datePipe:DatePipe,
+    private datePipe: DatePipe,
     private dateAdapter: DateAdapter<Date>,
     public encryptdecrypt: AesencryptDecryptService,
-  ) { 
+  ) {
     this.dateAdapter.setLocale('en-GB');
     let Id: any;
     this.route.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
-    if(Id){
-      this.manaregaAadhar =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
+    if (Id) {
+      this.manaregaAadhar = this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
     }
   }
 
@@ -176,7 +176,7 @@ export class CreateManaregaAppComponent {
         if (res.statusCode == "200") {
           this.checkManaregaId = res.responseData;
         }
-        else{
+        else {
           this.checkManaregaId = [];
         }
 
@@ -196,15 +196,15 @@ export class CreateManaregaAppComponent {
       // "profilePhotoPath": ['',[Validators.required]],
       "mn_DepartmentId": [data?.mn_DepartmentId || '', [Validators.required]],
       "fullName": [data?.fullName || '', [Validators.required, this.validation.minLengthValidator(5), this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
-      "m_FullName":[data?.m_FullName|| '',[Validators.required, Validators.pattern(this.validation.marathi), this.validation.maxLengthValidator(100)]], 
+      "m_FullName": [data?.m_FullName || '', [Validators.required, Validators.pattern(this.validation.marathi), this.validation.maxLengthValidator(100)]],
       "mobileNo2": [data?.mobileNo2 || '', [this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
       "birthDate": [data?.birthDate || '', [Validators.required]],
       "gender": [data?.genderId || 1],//no
       "qualificationId": [data?.qualificationId || '', [Validators.required]],//no
       "stateId": [data?.stateId || (this.WebStorageService.getStateId() == '' ? '' : this.WebStorageService.getStateId())],//no
       "districtId": [data?.districtId || (this.WebStorageService.getDistrictId() == '' ? '' : this.WebStorageService.getDistrictId())],//no
-      "talukaId": [data?.talukaId  ? data?.talukaId : (this.WebStorageService.getTalukaId() ? this.WebStorageService.getTalukaId()  :   '') , [Validators.required]],//no
-      "grampanchayatId": [data?.grampanchayatId  ? data?.grampanchayatId : (this.WebStorageService.getGrampanchayatId() ? this.WebStorageService.getGrampanchayatId()  :   ''), [Validators.required]],//no
+      "talukaId": [data?.talukaId ? data?.talukaId : (this.WebStorageService.getTalukaId() ? this.WebStorageService.getTalukaId() : ''), [Validators.required]],//no
+      "grampanchayatId": [data?.grampanchayatId ? data?.grampanchayatId : (this.WebStorageService.getGrampanchayatId() ? this.WebStorageService.getGrampanchayatId() : ''), [Validators.required]],//no
       "village": [data?.village || '', [this.validation.maxLengthValidator(30), Validators.pattern(this.validation.fullName)]],
       "address": [data?.address || '', [this.validation.maxLengthValidator(200), Validators.required]],//Mandetory Max:200, alphanumeric with special char
       "pinCode": [data?.pinCode || '', [Validators.required, this.validation.maxLengthValidator(6), Validators.pattern(this.validation.valPinCode)]],//Mandetory  Max: 6 digit, numeric
@@ -250,7 +250,7 @@ export class CreateManaregaAppComponent {
       "bankBranchId": [data?.bankBranchId || '', [Validators.required]],//num
       "bankIFSCCode": [data?.bankIFSCCode || '', [Validators.required, this.validation.maxLengthValidator(11), Validators.pattern(this.validation.bankIFSCCodeVal)]],
       "bankAccountNo": [data?.bankAccountNo || '', [Validators.required, this.validation.maxLengthValidator(30), Validators.pattern(this.validation.onlyNumbers)]],
-    "isLoanApplicable" : [data?.isLoanApplicable || false]
+      "isLoanApplicable": [data?.isLoanApplicable || false]
     })
   }
 
@@ -312,8 +312,11 @@ export class CreateManaregaAppComponent {
   }
 
   deleteDocument(docId: any) {
+    // let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray, 'docTypeId', docId);
+    // this.docArray[indexByDocId]['docPath'] = '';
     let indexByDocId = this.commonMethod.findIndexOfArrayObject(this.docArray, 'docTypeId', docId);
     this.docArray[indexByDocId]['docPath'] = '';
+    this.docArray[indexByDocId]['isDeleted'] = true;
   }
   //#endregion  --------------------------------------------------------doc upload section fn end here-----------------------------------//
   viewPreviewDocument(docId: any) {//preview document
@@ -367,9 +370,11 @@ export class CreateManaregaAppComponent {
       this.resetOtherDocForm();
     }
   }
+
   deleteOtherDocument() {
     this.OtherDocImg.nativeElement.value = '';
     this.otherDocumentFrm.controls['docPath'].setValue('');
+    this.otherDocumentFrm.controls['isDeleted'].setValue(true);
   }
   resetOtherDocForm() {
     this.otherformDirective.resetForm();
@@ -416,7 +421,7 @@ export class CreateManaregaAppComponent {
       this.farmDeatailsFrm.controls['cultivatedArea'].clearValidators();
       this.farmDeatailsFrm.controls['cultivatedPlantsCount'].clearValidators();
       // this.farmDetails = [];
-      this.farmDetails.forEach((x:any) => {x.isDeleted = true});
+      this.farmDetails.forEach((x: any) => { x.isDeleted = true });
       this.dataSource = new MatTableDataSource(this.farmDetails);
     }
     this.farmDeatailsFrm.controls['plantName'].updateValueAndValidity();
@@ -442,7 +447,7 @@ export class CreateManaregaAppComponent {
   FarmValidations(key: any) {
     if (key == 'cultivatedFarmInHector') {
       if (this.farmInfoFrm.getRawValue()?.cultivatedFarmInHector > this.farmInfoFrm.getRawValue()?.benificiaryTotalFarm) {
-           this.farmInfoFrm.controls['cultivatedFarmInHector'].setValue('');
+        this.farmInfoFrm.controls['cultivatedFarmInHector'].setValue('');
       }
     }
     else if (key == 'applicantFarmArea') {
@@ -476,7 +481,7 @@ export class CreateManaregaAppComponent {
     })
   }
   onAddFarmInfo() {
-   let data = this.farmDeatailsFrm.getRawValue();
+    let data = this.farmDeatailsFrm.getRawValue();
     if (!data?.plantName) {
       this.commonMethod.snackBar((this.lang == 'en' ? 'Please enter orchard/flower/tree Name' : 'कृपया फळबाग/फुलपिके/वृक्ष नाव प्रविष्ट करा'), 1);
       return
@@ -530,7 +535,7 @@ export class CreateManaregaAppComponent {
     }
   }
 
-  deleteFarmInfo(ele:any){
+  deleteFarmInfo(ele: any) {
     this.deleteFlagFramInfo(ele)
   }
 
@@ -543,31 +548,31 @@ export class CreateManaregaAppComponent {
   //   this.dataSource = new MatTableDataSource(arrayFarmDetails);
   // }
 
-  deleteFlagFramInfo(ele:any){
+  deleteFlagFramInfo(ele: any) {
     let indexVal = this.farmDetails.findIndex((val: any) => val.id == ele.id);
-    ele.id == 0  ?   this.farmDetails.splice(indexVal, 1)  :   this.farmDetails[indexVal].isDeleted = true;
+    ele.id == 0 ? this.farmDetails.splice(indexVal, 1) : this.farmDetails[indexVal].isDeleted = true;
     this.bindPlantTable();
   }
 
   bindPlantTable() {
     let arrayFarmDetails: any = [];
-    this.farmDetails.find((ele: any) => {  ele.isDeleted ?  '' :   arrayFarmDetails.push(ele);})
+    this.farmDetails.find((ele: any) => { ele.isDeleted ? '' : arrayFarmDetails.push(ele); })
     this.dataSource = new MatTableDataSource(arrayFarmDetails);
   }
 
-  
+
 
   getPreviewData() {
-   let manaregaFormValue = this.manaregaFrm.getRawValue();
-   let addharNo = manaregaFormValue.aadharNo
-   let mobileNo = this.WebStorageService.getMobileNo();
+    let manaregaFormValue = this.manaregaFrm.getRawValue();
+    let addharNo = manaregaFormValue.aadharNo
+    let mobileNo = this.WebStorageService.getMobileNo();
 
     if (this.filterFrm.invalid) {
       this.commonMethod.snackBar(this.lang == "en" ? "Please Enter Correct Details" : "कृपया योग्य तपशील प्रविष्ट करा", 1)
       return
     } else {
-        this.apiService.setHttp('get', `sericulture/api/Application/application-preview?AadharNo=${addharNo || ''}&MobileNo=${mobileNo || ''}&lan=${this.lang}`, false, false, false, 'masterUrl');
-       this.apiService.getHttp().subscribe({
+      this.apiService.setHttp('get', `sericulture/api/Application/application-preview?AadharNo=${addharNo || ''}&MobileNo=${mobileNo || ''}&lan=${this.lang}`, false, false, false, 'masterUrl');
+      this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == "200") {
             this.previewData = res.responseData;
@@ -642,9 +647,9 @@ export class CreateManaregaAppComponent {
     // this.OtherDocUploadImg.length ? this.visible = true : this.visible = false;
     this.otherDocArray = new MatTableDataSource(this.OtherDocUploadImg);
     this.addSelfDeclaration(data);
-      if (this.docArray[0].docPath && this.docArray[1]&& this.docArray[3].docPath) {
-        this.documentFrm.controls['allRequiredDocument'].setValue(1);
-      }
+    if (this.docArray[0].docPath && this.docArray[1] && this.docArray[3].docPath) {
+      this.documentFrm.controls['allRequiredDocument'].setValue(1);
+    }
   }
 
   manaregaFrmVal(flag: string) {
@@ -661,7 +666,7 @@ export class CreateManaregaAppComponent {
   }
 
   checkStepCon(stepper: MatStepper, lable: string) {
-   
+
     if (lable == 'farmerInfo' && this.manaregaFrm.invalid) {
       !this.manaregaFrm.getRawValue().profilePhotoPath ? this.manFrmSubmitFlag = true : this.manFrmSubmitFlag = false;
       return
@@ -670,7 +675,7 @@ export class CreateManaregaAppComponent {
     else if (lable == 'farmerInfo' && this.manaregaFrm.valid) {
       this.onSubmit(stepper, lable);
     }
-     else if (lable == 'farmInfo' && this.farmInfoFrm.valid) {
+    else if (lable == 'farmInfo' && this.farmInfoFrm.valid) {
       if (this.farmInfoFrm.getRawValue().isAnyPlantedBeforeGovScheme && !this.farmDetails.length) {
         this.commonMethod.snackBar((this.lang == 'en' ? "Please enter orchard/flower/tree Name details " : "कृपया बाग/फुल/झाडाचे नाव तपशील प्रविष्ट करा"), 1)
         return
@@ -739,7 +744,7 @@ export class CreateManaregaAppComponent {
     let bankInfo = this.bankInfoFrm.getRawValue();
     let declarationInfo = this.selfDeclarationFrm.getRawValue();
     let mergeDocumentArray = [...this.docArray, ...this.OtherDocUploadImg];
-    let filterByDoc = mergeDocumentArray.filter((ele: any) => ele.docPath);
+    //let filterByDoc = mergeDocumentArray.filter((ele: any) => ele.docPath);
 
     !bankInfo.bankId ? bankInfo.bankId = 0 : '';
     !bankInfo.bankBranchId ? bankInfo.bankBranchId = 0 : '';
@@ -747,10 +752,12 @@ export class CreateManaregaAppComponent {
       ele.createdBy = this.WebStorageService.getUserId();
       ele.applicationId = formData.id;
     })
-     let obj = {
+
+    console.log("this.docArray",this.docArray)
+    let obj = {
       ...formData, ...declarationInfo, ...bankInfo,
       "m_Address": "",
-      "ApplicationFrom" : "web",
+      "ApplicationFrom": "web",
       "sm_VoterRegistrationNo": "",
       "sm_IsBelowPovertyLine": true,
       "benificiaryTotalFarm": Number(farmInfo.benificiaryTotalFarm) || 0,
@@ -766,12 +773,12 @@ export class CreateManaregaAppComponent {
       "isAnyPlantedBeforeGovScheme": farmInfo.isAnyPlantedBeforeGovScheme || false,
       "plantName": "",
       "gutNo": "",
-      "gutArea":"",
+      "gutArea": "",
       "plantCultivatedArea": 0,
       "noOfPlant": 0,
       "sm_YearOfPlanting": "2023-11-24T09:55:29.130Z",
       "sm_CultivatedArea": 0,
-      "sm_LandSurveyNo":"",
+      "sm_LandSurveyNo": "",
       "sm_ImprovedMulberryCast": 0,
       "sm_MulberryPlantingDistance": 0,
       "sm_PlantationSurveyNo": "",
@@ -797,8 +804,8 @@ export class CreateManaregaAppComponent {
       "createdBy": this.WebStorageService.getUserId(),
       "flag": (flag == 'farmerInfo' && !this.EditFlag) ? 0 : (flag == 'farmerInfo' && this.EditFlag) ? 1 : flag == 'farmInfo' ? 2 : flag == 'bankInfo' ? 3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'challan' ? 7 : '',
       "isUpdate": true,
-      "appDoc": filterByDoc,
-      // "appDoc": [],
+     // "appDoc": filterByDoc,
+       "appDoc": mergeDocumentArray,
       "categoryId": this.checkedItems.map((x: any) => { return x.id }),
       //"categoryId":
       "plantingDetails": this.farmDetails,
@@ -958,8 +965,8 @@ export class CreateManaregaAppComponent {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.talukaArray = res.responseData;
             this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
-          //  this.WebStorageService.getTalukaId() ? (this.f['talukaId'].setValue(this.WebStorageService.getTalukaId()),this.getGrampanchayat()) :  this.getGrampanchayat();
-            this.EditFlag ? this.f['talukaId'].setValue(this.previewData.talukaId) :'';
+            //  this.WebStorageService.getTalukaId() ? (this.f['talukaId'].setValue(this.WebStorageService.getTalukaId()),this.getGrampanchayat()) :  this.getGrampanchayat();
+            this.EditFlag ? this.f['talukaId'].setValue(this.previewData.talukaId) : '';
             this.getGrampanchayat()
           }
           else {
@@ -982,8 +989,8 @@ export class CreateManaregaAppComponent {
           if (res.statusCode == "200" && res.responseData?.length) {
             this.grampanchayatArray = res.responseData;
             this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
-            this.WebStorageService.getGrampanchayatId() ? this.f['grampanchayatId'].setValue(this.WebStorageService.getGrampanchayatId()):  '';
-     
+            this.WebStorageService.getGrampanchayatId() ? this.f['grampanchayatId'].setValue(this.WebStorageService.getGrampanchayatId()) : '';
+
             this.EditFlag ? (this.f['grampanchayatId'].setValue(this.previewData?.grampanchayatId)) : '';
           }
           else {
@@ -1075,7 +1082,7 @@ export class CreateManaregaAppComponent {
     let dialoObj = {
       header: this.lang == 'mr-IN' ? 'अभिनंदन ' : 'Congratulations',
       title: this.lang == 'mr-IN' ? 'आपला अर्ज यशस्वीरीत्या सादर झाला आहे .' : 'Your application has been successfully submitted.',
-      title2: this.lang == 'mr-IN' ? 'अर्ज क्रमांक  : ' + res.responseData1+' '+this.datePipe.transform(res.responseData2,'dd/MM/yyyy hh:mm') : 'Application no: ' + res.responseData1+' '+this.datePipe.transform(res.responseData2,'dd/MM/yyyy hh:mm'),
+      title2: this.lang == 'mr-IN' ? 'अर्ज क्रमांक  : ' + res.responseData1 + ' ' + this.datePipe.transform(res.responseData2, 'dd/MM/yyyy hh:mm') : 'Application no: ' + res.responseData1 + ' ' + this.datePipe.transform(res.responseData2, 'dd/MM/yyyy hh:mm'),
       cancelButton: '',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
       headerImage: 'assets/images/check.svg'
@@ -1108,8 +1115,8 @@ export class CreateManaregaAppComponent {
     let formValue = this.manaregaFrm.getRawValue();
     if (formValue.mobileNo1 == formValue.mobileNo2) {
       this.f['mobileNo2'].setValue('');
-      this.lang == 'en' ?this.commonMethod.snackBar("This mobile no. already exisit", 1) :this.commonMethod.snackBar("हा मोबाईल क्र. आधिपासूनच अस्तित्वात आहे", 1)
-      }
-   }
+      this.lang == 'en' ? this.commonMethod.snackBar("This mobile no. already exisit", 1) : this.commonMethod.snackBar("हा मोबाईल क्र. आधिपासूनच अस्तित्वात आहे", 1)
+    }
+  }
 
 }

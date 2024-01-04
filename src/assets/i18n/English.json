@@ -777,7 +777,7 @@
     "Already_have_an_account": "Already have an account?"
   },
   "addManrega": {
-    "is_loan_required": "Is loan required",
+    "is_loan_required": "Is loan required ?",
     "original_details": "Original Details",
     "applicant_name": "Applicant's Name",
     "mulberry_plantation_under_Silk": "Mulberry plantation under Silk Development Scheme on my farm should be done through Department",
@@ -1038,7 +1038,7 @@
     "please_enter_market_fees": "Please enter market fees",
     "market_fees_maximum_10_digit_allowed": "Maximun 5 digit allowed",
     "please_enter_valid_market_fees": "Please enter valid selling rate"
-    
+
 
 
   }

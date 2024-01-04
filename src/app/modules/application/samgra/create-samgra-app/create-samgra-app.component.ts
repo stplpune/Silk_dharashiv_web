@@ -124,11 +124,11 @@ export class CreateSamgraAppComponent {
   ) {
     this.dateAdapter.setLocale('en-GB');
     let Id: any;
-  
+
     this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
     if(Id){
       this.samgraId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
-    
+
       // this.samgraId = value.split('.');
     }
   }
@@ -163,7 +163,7 @@ export class CreateSamgraAppComponent {
     this.getImprovedMulberryCast();
     this.getPlantationMethod();
     this.getMulberryCultivationArea();
-    this.getPreviewData(); 
+    this.getPreviewData();
     let photoValidation = ['profilePhotoPath']
     !this.profileImageUrl ? (this.setValidation(photoValidation, this.f)) : this.clearValidation(photoValidation, this.f)
   }
@@ -177,7 +177,7 @@ export class CreateSamgraAppComponent {
   samgraformData(data?: any) {
     this.samgraForm = this.fb.group({
       "fullName": [data?.fullName || '', [Validators.required, this.validation.maxLengthValidator(100)]],
-      "m_FullName":[data?.m_FullName|| '',[Validators.required, Validators.pattern(this.validation.marathi), this.validation.maxLengthValidator(100)]], 
+      "m_FullName":[data?.m_FullName|| '',[Validators.required, Validators.pattern(this.validation.marathi), this.validation.maxLengthValidator(100)]],
       "mobileNo1": [this.WebStorageService.getMobileNo() || '', [Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
       "mobileNo2": [data?.mobileNo2 || '', [this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
       "aadharNo": [this.samgraId ?this.samgraId :data?.aadharNo ? data?.aadharNo :'', [Validators.required, this.validation.maxLengthValidator(12), Validators.pattern(this.validation.aadhar_card)]],
@@ -271,7 +271,7 @@ export class CreateSamgraAppComponent {
     this.masterService.GetSelectSchemeData(this.WebStorageService.getMobileNo(),2).subscribe({
       next:((res:any)=>{
         res.statusCode == "200" ? this.checkApplicationId = res.responseData : this.checkApplicationId = 0;
-        
+
       })
     })
   }
@@ -603,14 +603,14 @@ export class CreateSamgraAppComponent {
 
   adddetails(obj?: any, index?: any) {
     const dialogRef = this.dialog.open(AddDetailsComponent, {
-      width: '50%',
+      width: '60%',
       data: obj,
       disableClose: true
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 'close') {
         return;
-      } else {    
+      } else {
         let existedRecord = this.currentCropDetailsArray.find((res: any) => (res.cropId == result.cropId));
         if (existedRecord && !obj) {
           existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false,this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या समावेष  केले", 0)) : this.lang == 'en' ? this.commonMethod.snackBar("This crop already exist", 1) : this.commonMethod.snackBar("हे पीक आधीच अस्तित्वात आहे", 1)
@@ -673,8 +673,8 @@ export class CreateSamgraAppComponent {
       if (value == true) {
         this.fL['sm_ExperienceYears'].setValidators([Validators.required, this.validation.maxLengthValidator(2), Validators.pattern(this.validation.onlyNumbers)])
       } else if (value == false) {
-        this.fL['sm_ExperienceYears'].clearValidators(); 
-        this.clearValueRadioButton('ExperienceYears') ; 
+        this.fL['sm_ExperienceYears'].clearValidators();
+        this.clearValueRadioButton('ExperienceYears') ;
       }
       this.fL['sm_ExperienceYears'].updateValueAndValidity();
     } else if (flag == 'isTraining') {
@@ -723,12 +723,12 @@ export class CreateSamgraAppComponent {
       this.lang == 'en' ? this.commonMethod.snackBar("Scheme taken date is required", 1) : this.commonMethod.snackBar("योजना घेतलेली तारीख आवश्यक आहे", 1)
       return
     } else if (!fromvalue?.totalBenefitTaken && this.landDetailsForm.getRawValue().sm_IsTakenBenefitOfInternalScheme) {
-      this.lang == 'en' ? this.commonMethod.snackBar("Scheme taken date is required", 1) : this.commonMethod.snackBar("एकूण घेतलेला लाभ आवश्यक आहे", 1)    
+      this.lang == 'en' ? this.commonMethod.snackBar("Scheme taken date is required", 1) : this.commonMethod.snackBar("एकूण घेतलेला लाभ आवश्यक आहे", 1)
       return
     }
     if (this.internalSchemes.invalid) {
       return;
-    } else {         
+    } else {
       let existedRecord = this.internalSchemesArray.find((res: any) => (res.internalSchemeName == fromvalue.internalSchemeName));
       if (existedRecord) {
         existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false, this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या समावेष  केले", 0)) :this.lang == 'en' ? this.commonMethod.snackBar("This scheem already exist", 1) : this.commonMethod.snackBar("ही योजना आधीच अस्तित्वात आहे", 1)
@@ -859,7 +859,7 @@ export class CreateSamgraAppComponent {
       this.lang == 'en' ? this.commonMethod.snackBar("Document name is required", 1) : this.commonMethod.snackBar("दस्तऐवजाचे नाव आवश्यक आहे", 1)
       return
     } else if (!this.uploadedDocUrl) {
-      this.lang == 'en' ? this.commonMethod.snackBar("Document is required", 1) : this.commonMethod.snackBar("कागदपत्र आवश्यक आहे", 1)    
+      this.lang == 'en' ? this.commonMethod.snackBar("Document is required", 1) : this.commonMethod.snackBar("कागदपत्र आवश्यक आहे", 1)
       return
     }
     let obj = {
@@ -927,7 +927,7 @@ export class CreateSamgraAppComponent {
       this.commonMethod.snackBar("Please Enter Correct Details", 1)
       return
     } else {
-      // ${+this.samgraId[0] || 0} // id 
+      // ${+this.samgraId[0] || 0} // id
       this.apiService.setHttp('get', `sericulture/api/Application/application-preview?AadharNo=${addharNo || ''}&MobileNo=${mobileNo || ''}&lan=en`, false, false, false, 'masterUrl');
       // this.apiService.setHttp('get', `sericulture/api/Application/application-preview?MobileNo=9175515598&lan=en`, false, false, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
@@ -942,7 +942,7 @@ export class CreateSamgraAppComponent {
             this.selfDeclarationFormData(this.previewData);
             this.onEdit(this.previewData);
             this.getDocumentsWithDocId();
-          } 
+          }
           else {
             this.currentRecordId = 0;
             this.previewData = [];
@@ -1078,8 +1078,8 @@ export class CreateSamgraAppComponent {
 
       // this.lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'
       this.lang == 'en' ?this.commonMethod.snackBar("This mobile no. already exisit", 1) :this.commonMethod.snackBar("हा मोबाईल क्र. आधिपासूनच अस्तित्वात आहे", 1)
-      
-      
+
+
     }
 
   }
