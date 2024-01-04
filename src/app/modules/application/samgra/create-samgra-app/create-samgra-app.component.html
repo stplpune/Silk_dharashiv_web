@@ -43,7 +43,7 @@
   </mat-card-content> -->
   <mat-card-content class=" card-body form-container">
     <!-- [linear]="!isLinear" -->
-    <mat-stepper #stepper>
+    <mat-stepper #stepper [linear]="!isLinear">
       <mat-step [stepControl]="samgraForm" >
         <ng-template matStepLabel>{{'addSamgra.Original_details' | translate}}</ng-template>
         <form [formGroup]="samgraForm"  #samgraDirective="ngForm"  >
@@ -303,7 +303,7 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-3">
                 <div class="form-label">15. {{'approvalProcess.please_select_category'| translate}}</div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select (click)="categoryDialogBox()">
@@ -312,7 +312,9 @@
                     *ngIf="!checkedItems.length">{{'approvalProcess.please_select_category'|translate}}
                   </mat-error>
                 </mat-form-field>
-                <div *ngIf="checkedItems.length">
+              </div>
+              <div class="col-sm-3"  *ngIf="checkedItems.length">
+                <div class="d-flex flex-column gap-2">
                   <div class="form-label">{{'approvalProcess.beneficiary_category_options'| translate}}</div>
                   <div class="form-data mb-0">
                     {{lang != 'en' ? checkedItems[0]?.textMarathi : checkedItems[0]?.textEnglish}}
