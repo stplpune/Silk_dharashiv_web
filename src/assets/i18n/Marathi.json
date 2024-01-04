@@ -773,7 +773,7 @@
     "Already_have_an_account": "आधीपासूनच खाते आहे?"
   },
   "addManrega": {
-    "is_loan_required": "कर्ज आवश्यक आहे",
+    "is_loan_required": "कर्ज आवश्यक आहे ?",
     "original_details": "मूळ तपशील",
     "applicant_name": "अर्जदाराचे नाव ",
     "applicant_name_m": "अर्जदाराचे नाव (मराठी)",
@@ -1060,7 +1060,7 @@
     "Remark":"टिप्पणी",
     "sales_center":"विक्री केंद्र",
     "Invoice" : "चलन",
-        
+
     "Please_select_Lot_No" : "कृपया लॉट नंबर निवडा.",
     "Please_select_Sales_Center" : "कृपया विक्री केंद्र निवडा",
     "Please_select_Sales_Date" : "कृपया विक्रीची तारीख निवडा",
