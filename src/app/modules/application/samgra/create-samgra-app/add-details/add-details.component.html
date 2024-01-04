@@ -8,8 +8,8 @@
   </div>
 </div>
 <form [formGroup]="cropDetailsForm" (ngSubmit)="onSubmit()">
-<div mat-dialog-content class="modal-body form-container"> 
-  <div class="row g-3">
+<div mat-dialog-content class="modal-body form-container">
+  <div class="row g-2">
     <div class="col-sm-4">
       <div class="form-label">{{'addSamgra.select_Crop_Name' | translate}}</div>
       <mat-form-field appearance="outline" class="w-100">
@@ -27,7 +27,7 @@
     <div class="col-sm-4">
       <div class="form-label">{{'addSamgra.Area' | translate}}</div>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder=""  formControlName="area" maxlength="10"  
+        <input matInput placeholder=""  formControlName="area" maxlength="10"
         (keypress)="validation.noFirstSpaceAllow($event);validation.digitsWithDot($event)">
         <mat-error
         *ngIf="fL['area'].hasError('required') ">{{'addSamgra.Area_crop'|translate}}</mat-error>
@@ -126,7 +126,7 @@
         <input matInput placeholder="" formControlName="netIncome"  oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
         maxlength="10"  (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
 
-        
+
         <mat-error
         *ngIf="fL['netIncome'].hasError('required') ">{{'addSamgra.net_income_enter'|translate}}</mat-error>
       <mat-error *ngIf="fL['netIncome']?.errors">
@@ -147,7 +147,7 @@
         maxlength="10"  (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
 
 
-           
+
         <mat-error
         *ngIf="fL['acreNetIncome'].hasError('required') ">{{'addSamgra.income_per_acre_enter'|translate}}</mat-error>
       <mat-error *ngIf="fL['acreNetIncome']?.errors">
