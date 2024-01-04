@@ -13,7 +13,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import {MatIconModule} from '@angular/material/icon';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
+//import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 @Component({
   selector: 'app-change-password',
   standalone: true,
@@ -39,7 +39,7 @@ export class ChangePasswordComponent {
     private error: ErrorHandlingService,
     private webStorage: WebStorageService,
     private translate: TranslateService,
-    private AESEncryptDecryptService: AesencryptDecryptService,
+    //private AESEncryptDecryptService: AesencryptDecryptService,
   ) { 
     localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
     this.translate.use(this.getLangForLocalStor)
@@ -77,8 +77,8 @@ export class ChangePasswordComponent {
     } else {
       let obj = {
         "userId": this.webStorage.getUserId(),
-        "newPassword": this.AESEncryptDecryptService.encrypt(formData.newPass),
-        "currentPassword": this.AESEncryptDecryptService.encrypt(formData.currentPass)
+        "newPassword": formData.newPass, //this.AESEncryptDecryptService.encrypt(formData.newPass),
+        "currentPassword":formData.currentPass //this.AESEncryptDecryptService.encrypt(formData.currentPass)
       }
 
       this.apiService.setHttp('post', 'sericulture/api/Login/change-password', false, obj, false, 'baseUrl');

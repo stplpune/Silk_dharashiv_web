@@ -49,7 +49,7 @@
     <!--linear  -->
     <!-- [stepControl]="manaregaFrm" -->
     
-    <mat-stepper #stepper >
+    <mat-stepper #stepper linear>
       <mat-step [stepControl]="manaregaFrm">
         <ng-template matStepLabel>{{'approvalProcess.original_details'| translate}}</ng-template>
          <form [formGroup]="manaregaFrm" >
@@ -174,7 +174,7 @@
               </div>
             </div>
             <div class="row gx-2 align-items-center">
-              <div class="col-sm-6">
+              <div class="col-sm-8">
                 <div class="form-label">3.{{'addManrega.mulberry_plantation_under_Silk'| translate}}<span
                     class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
@@ -189,7 +189,7 @@
                   </mat-error>
                 </mat-form-field>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-2">
                 <div class="form-label">4.{{'approvalProcess.alternate_mobile_number.'| translate}}</div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
@@ -206,7 +206,7 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-2">
                 <mat-label class="form-label">5.{{'approvalProcess.date_of_birth'| translate}}<span
                     class="text-danger">*</span></mat-label>
                 <mat-form-field appearance="outline" class="w-100">
@@ -230,7 +230,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">7.{{'approvalProcess.applicant_qualification_Required'|translate}}<span
+                <div class="form-label">7.{{'approvalProcess.select_education'|translate}}<span
                     class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="qualificationId">
@@ -265,7 +265,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">10.{{'common.Please_select_taluka'|translate}}<span class="text-danger">*</span>
+                <div class="form-label">10.{{'common.taluka'|translate}}<span class="text-danger">*</span>
                 </div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'common.taluka' | translate}}</mat-label> -->
@@ -291,7 +291,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-3">
-                <div class="form-label"> 11.{{'officerreg.please_select_grampanchayat'|translate}}<span
+                <div class="form-label"> 11.{{'officerreg.select_grampanchayat'|translate}}<span
                     class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <!-- <mat-label>{{'officerreg.select_grampanchayat' | translate}}</mat-label> -->
@@ -365,7 +365,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="form-label">15.{{'approvalProcess.please_select_category'|translate}}<span
+                <div class="form-label">15.{{'approvalProcess.select_category'|translate}}<span
                     class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select (click)="categoryDialogBox()" formControlName="categoryId">
@@ -536,7 +536,7 @@
 
               </ng-container>
               <div class="col-sm-4">
-                <div class="form-label">21.{{'approvalProcess.please_select_type_of_land'|translate}}<span
+                <div class="form-label">21.{{'approvalProcess.select_type_of_land'|translate}}<span
                     class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="farmTypeId">
@@ -549,7 +549,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">22.{{'approvalProcess.please_select_irrigation_facility'|translate}}<span
+                <div class="form-label">22.{{'approvalProcess.select_irrigation_facility'|translate}}<span
                     class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="irrigationFacilityId">
@@ -782,7 +782,7 @@
                   </div>
                 </div>
                 <div class="col-sm-4">
-                  <div class="form-label">24.B.{{'approvalProcess.please_select_relation'|translate}}<span
+                  <div class="form-label">24.B.{{'approvalProcess.select_relation'|translate}}<span
                       class="text-danger">*</span></div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="candidateRelationId">
@@ -817,7 +817,7 @@
           <div class="container-fluid" [class.disable]="checkManaregaId == 3">
             <div class="row">
               <div class="col-sm-4">
-                <div class="form-label">24.{{'approvalProcess.please_select_bank_name'|translate}}<span
+                <div class="form-label">25.{{'approvalProcess.select_bank_name'|translate}}<span
                     class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="bankId" (selectionChange)="getBankBranch()">
@@ -829,7 +829,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">25.{{'approvalProcess.please_select_branch'|translate}}<span
+                <div class="form-label">26.{{'approvalProcess.select_branch'|translate}}<span
                     class="text-danger">*</span></div>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-select formControlName="bankBranchId">
@@ -842,7 +842,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">26.{{'approvalProcess.IFSC_Code'|translate}}<span class="text-danger">*</span>
+                <div class="form-label">27.{{'approvalProcess.IFSC_Code'|translate}}<span class="text-danger">*</span>
                 </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
@@ -862,7 +862,7 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-label">27.{{'approvalProcess.nationalise_bank_accountno'|translate}}<span
+                <div class="form-label">28.{{'approvalProcess.nationalise_bank_accountno'|translate}}<span
                     class="text-danger">*</span> </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
@@ -1039,14 +1039,13 @@
                  {{lang == 'en' ? "Attach Other Documents": "इतर कागदपत्रे जोडा"}}
                   </button>
               </div> -->
-              <div class="col-sm">
+              <!-- <div class="col-sm">
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100" [hidden]="true">
-                    <!-- <mat-label>Favorite food</mat-label> -->
                     <input matInput placeholder="" formControlName="allRequiredDocument">
                   </mat-form-field>
                 </div>
-              </div>
+              </div> -->
               <!-- <ng-container *ngIf="visible"> -->
               <div class="card card-body mb-4">
                 <div class="container-fluid">
@@ -1166,7 +1165,14 @@
               </div>
 
               <!-- </ng-container> -->
-
+              <div class="col-sm-12">
+                <div class="d-flex align-items-center  gap-2">
+                  <mat-checkbox formControlName="isHonestlyProtectPlant"></mat-checkbox>
+                  <p class="form-label mb-0">
+                    {{'approvalProcess.checkbox0'| translate}}
+                  </p>
+                </div>
+                </div>
 
             </div>
           </div>
