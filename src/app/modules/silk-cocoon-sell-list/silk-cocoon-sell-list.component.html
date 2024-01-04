@@ -1,13 +1,38 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
-    <div class="d-flex alig-items-center justify-content-end w-100">
-      <!-- <div class="text-main mb-0">Silk Cacoon Sell List</div> -->
-      <button mat-flat-button class="btn-main" (click)="addsilkcacoon()">
-        <mat-icon class="material-symbols-rounded">
-          add
+    <div class="row gx-2 w-100">
+      <div class="col-sm">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Bill No.</mat-label>
+          <input matInput placeholder="enter bill no">
+        </mat-form-field>
+      </div>
+      <div class="col-sm">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Market Committed ID</mat-label>
+          <input matInput placeholder="Market Committed ID">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>From Date</mat-label>
+          <input matInput placeholder="from date">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>To Date</mat-label>
+          <input matInput placeholder="from date">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-auto">
+        <button mat-flat-button class="btn-main" (click)="addsilkcacoon()">
+          <mat-icon class="material-symbols-rounded">
+            add
         </mat-icon>
         {{'cocoonSilkSell.Add_Cacoon' | translate}}
       </button>
+    </div>
     </div>
   </mat-card-header>
   <mat-card-content class="card-body">
