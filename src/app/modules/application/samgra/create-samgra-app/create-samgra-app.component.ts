@@ -176,7 +176,7 @@ export class CreateSamgraAppComponent {
 
   samgraformData(data?: any) {
     this.samgraForm = this.fb.group({
-      "fullName": [data?.fullName || '', [Validators.required, this.validation.maxLengthValidator(100)]],
+      "fullName": [data?.fullName || '', [Validators.required, this.validation.minLengthValidator(5), this.validation.maxLengthValidator(100), Validators.pattern(this.validation.fullName)]],
       "m_FullName":[data?.m_FullName|| '',[Validators.required, Validators.pattern(this.validation.marathi), this.validation.maxLengthValidator(100)]],
       "mobileNo1": [this.WebStorageService.getMobileNo() || '', [Validators.required, this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
       "mobileNo2": [data?.mobileNo2 || '', [this.validation.maxLengthValidator(10), Validators.pattern(this.validation.mobile_No)]],
@@ -731,7 +731,7 @@ export class CreateSamgraAppComponent {
     } else {
       let existedRecord = this.internalSchemesArray.find((res: any) => (res.internalSchemeName == fromvalue.internalSchemeName));
       if (existedRecord) {
-        existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false, this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या समावेष  केले", 0)) :this.lang == 'en' ? this.commonMethod.snackBar("This scheem already exist", 1) : this.commonMethod.snackBar("ही योजना आधीच अस्तित्वात आहे", 1)
+        existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false, this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या समावेष  केले", 0)) :this.lang == 'en' ? this.commonMethod.snackBar("This Scheme already exist", 1) : this.commonMethod.snackBar("ही योजना आधीच अस्तित्वात आहे", 1)
       } else {
         this.InternalSchemesEditFlag ? (this.internalSchemesArray[this.InternalSchemesIndex] = fromvalue,this.lang == 'en' ? this.commonMethod.snackBar("Update successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या अपडेट केले", 0)) : (this.internalSchemesArray.push(fromvalue), this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या समावेष केले", 0));
       }

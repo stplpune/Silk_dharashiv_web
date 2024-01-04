@@ -50,6 +50,10 @@ export class AddSilkCocoonSellComponent {
   marketCommitteeArr = new Array();
   imageResponse: any;
   checkImg : boolean = true;
+
+  minDate = new Date();
+  maxDate = new Date();
+
   get f() { return this.cocoonSellFrm.controls };
 
   constructor(private fb: FormBuilder,
@@ -74,6 +78,9 @@ export class AddSilkCocoonSellComponent {
     this.defaultFrm();
     this.getLotNumber();
     this.getMarketCommittee();
+
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date(currentYear - 5, 0, 1);
   }
 
   defaultFrm() {
@@ -201,6 +208,10 @@ export class AddSilkCocoonSellComponent {
     if (flag == 'total') {
       let totalAmount = Number(formValue.silkRatePerKg) * Number(formValue.totalSilk);
       this.f['totalAmount'].setValue(totalAmount);
+
+      let maketFeeTotal = totalAmount - Number(formValue.marketFees);
+      this.f['totalAmtWithMarketFees'].setValue(maketFeeTotal);
+
     } else if (flag == 'marketFees') {
       let maketFeeTotal = Number(formValue.totalAmount) - Number(formValue.marketFees);
       this.f['totalAmtWithMarketFees'].setValue(maketFeeTotal);

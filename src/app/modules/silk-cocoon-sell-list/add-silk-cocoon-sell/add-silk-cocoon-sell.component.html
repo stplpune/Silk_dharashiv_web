@@ -59,7 +59,7 @@
         <div class="col-sm-4">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'cocoonSilkSell.Fund_Sale_Date' | translate}}</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="silkSellDate">
+            <input matInput [matDatepicker]="picker" formControlName="silkSellDate" [min]="minDate" [max]="maxDate">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error
@@ -85,7 +85,7 @@
         <div class="col-sm-4">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'cocoonSilkSell.Selling_rate_per_kg_Rs' | translate}}</mat-label>
-            <input matInput placeholder="" formControlName="silkRatePerKg">
+            <input matInput placeholder="" formControlName="silkRatePerKg" (input)="calculateAmount('total')">
             <mat-error
               *ngIf="f['silkRatePerKg'].hasError('required')">{{'cocoonSilkSell.please_enter_sale_rate_kg'|translate}}</mat-error>
             <mat-error *ngIf="f['silkRatePerKg']?.errors">
@@ -117,7 +117,7 @@
         <div class="col-sm-4">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'cocoonSilkSell.amount' | translate}} </mat-label>
-            <input matInput placeholder="" formControlName="totalAmount" readonly>
+            <input matInput placeholder="" formControlName="totalAmount" readonly  >
           </mat-form-field>
         </div>
         <div class="col-sm-4">
@@ -163,7 +163,7 @@
                   delete
                 </mat-icon>
               </button>
-            </div>            
+            </div>
           </div>
           <mat-error
               *ngIf="!checkImg">{{lang == 'en' ? 'Please upload document' : 'कृपया दस्तऐवज अपलोड करा'}}</mat-error>
@@ -185,7 +185,85 @@
   </form>
 </ng-container>
 <ng-container *ngIf="isViewFlag">
-  <div class="row gx-2">
+  <div class="container form-container">
+    <div class="row gx-2 gy-2 mt-1 mb-4">
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-6 form-label mb-0">{{'cocoonSilkSell.Lot_No' | translate}}</div>
+          <div class="col-sm-6 form-data">: {{data?.lotNo || '-'}}</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-5 form-label mb-0">{{'cocoonSilkSell.fund_caste' | translate}}</div>
+          <div class="col-sm-7 form-data">: {{lang == 'en' ? (data?.silkCaste || '-') : (data?.m_SilkCaste || '-')}}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-6 form-label mb-0">{{'cocoonSilkSell.number_of_clutches' | translate}}</div>
+          <div class="col-sm-6 form-data">: {{data?.distributedChawki || '-'}}</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-5 form-label mb-0">{{'cocoonSilkSell.sales_center' | translate}}</div>
+          <div class="col-sm-7 form-data">: {{lang == 'en' ? ( data?.marketName || '-'): (data?.m_MarketName ||'-' )}}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-6 form-label mb-0">{{'cocoonSilkSell.Fund_Sale_Date' | translate}}</div>
+          <div class="col-sm-6 form-data">: {{data?.silkSellDate | date :'dd-MM-YYYY' || '-'}}</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-5 form-label mb-0">{{'cocoonSilkSell.Bill_no' | translate}}</div>
+          <div class="col-sm-7 form-data">: {{ data?.billNo || '-'}}</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-6 form-label mb-0">{{'cocoonSilkSell.Selling_rate_per_kg_Rs' | translate}}</div>
+          <div class="col-sm-6 form-data">: {{data?.silkRatePerKg || '-'}}</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-5 form-label mb-0">{{'cocoonSilkSell.Total_fund' | translate}} </div>
+          <div class="col-sm-7 form-data">: {{data?.totalSilk || '-'}}</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-6 form-label mb-0">{{'cocoonSilkSell.amount' | translate}}</div>
+          <div class="col-sm-6 form-data">: {{data?.totalAmount || '-'}}</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-5 form-label mb-0">{{'cocoonSilkSell.Market_Fees' | translate}} </div>
+          <div class="col-sm-7 form-data">: {{data?.marketFees || '-'}}</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-6 form-label mb-0">{{'cocoonSilkSell.total_amount' | translate}}</div>
+          <div class="col-sm-6 form-data">: {{data?.totalAmtWithMarktFees || '-'}}</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-5 form-label mb-0">{{'cocoonSilkSell.Invoice' | translate}}</div>
+          <div class="col-sm-7 form-data">:<a href="" (click)="viewreceipt()" *ngIf="data?.billPhoto">View</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- <div class="row gx-2">
     <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Lot_No' | translate}}</div>
     <div class="col-sm-8 form-data">: {{data?.lotNo || '-'}}</div>
     <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.fund_caste' | translate}}</div>
@@ -210,5 +288,5 @@
     <div class="col-sm-8 form-data">: {{data?.totalAmtWithMarktFees || '-'}}</div>
     <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Invoice' | translate}}</div>
     <div class="col-sm-8 form-data">:<a href="" (click)="viewreceipt()" *ngIf="data?.billPhoto">View</a></div>
-  </div>
+  </div> -->
 </ng-container>
