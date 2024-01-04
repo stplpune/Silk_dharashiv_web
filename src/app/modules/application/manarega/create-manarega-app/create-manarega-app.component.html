@@ -726,7 +726,7 @@
                       <td mat-cell *matCellDef="let element;let i = index">
                         <div class="d-flex align-items-center gap-2">
                           <button matTooltip="{{'common.delete' | translate}}" matTooltipPosition="below"
-                            mat-icon-button class=" btn-icon bg-danger bg-opacity-10" (click)="deleteFarmInfo(i)">
+                            mat-icon-button class=" btn-icon bg-danger bg-opacity-10" (click)="deleteFarmInfo(element)">
                             <span class="material-symbols-rounded text-danger">
                               delete
                             </span>
@@ -749,7 +749,7 @@
             </ng-container>
             <div class="row">
               <div class="col-sm-4">
-                <mat-label class="form-label">23.{{'addManrega.will_he_take_the_training'| translate}}</mat-label>
+                <mat-label class="form-label">24.{{'addManrega.will_he_take_the_training'| translate}}</mat-label>
                 <div class="">
                   <mat-radio-group aria-label="Select an option" class="pb-0" formControlName="isSelfTraining"
                     (change)="onClickSelfTraining(farmInfoFrm.controls['isSelfTraining'].value)">
@@ -761,7 +761,7 @@
               </div>
               <ng-container *ngIf="farmInfoFrm.getRawValue()?.isSelfTraining == false">
                 <div class="col-sm-4">
-                  <div class="form-label">23.A.{{'approvalProcess.candidate_name'| translate}}<span
+                  <div class="form-label">24.A.{{'approvalProcess.candidate_name'| translate}}<span
                       class="text-danger">*</span></div>
                   <div class="form-label">
                     <mat-form-field appearance="outline" class="w-100">
@@ -781,7 +781,7 @@
                   </div>
                 </div>
                 <div class="col-sm-4">
-                  <div class="form-label">23.B.{{'approvalProcess.please_select_relation'|translate}}<span
+                  <div class="form-label">24.B.{{'approvalProcess.please_select_relation'|translate}}<span
                       class="text-danger">*</span></div>
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-select formControlName="candidateRelationId">

@@ -415,7 +415,8 @@ export class CreateManaregaAppComponent {
       this.farmDeatailsFrm.controls['gutArea'].clearValidators();
       this.farmDeatailsFrm.controls['cultivatedArea'].clearValidators();
       this.farmDeatailsFrm.controls['cultivatedPlantsCount'].clearValidators();
-      this.farmDetails = [];
+      // this.farmDetails = [];
+      this.farmDetails.forEach((x:any) => {x.isDeleted = true});
       this.dataSource = new MatTableDataSource(this.farmDetails);
     }
     this.farmDeatailsFrm.controls['plantName'].updateValueAndValidity();
@@ -475,8 +476,7 @@ export class CreateManaregaAppComponent {
     })
   }
   onAddFarmInfo() {
-    //this.onClickPlantedBeforeGovScheme(true);
-    let data = this.farmDeatailsFrm.getRawValue();
+   let data = this.farmDeatailsFrm.getRawValue();
     if (!data?.plantName) {
       this.commonMethod.snackBar((this.lang == 'en' ? 'Please enter orchard/flower/tree Name' : 'कृपया फळबाग/फुलपिके/वृक्ष नाव प्रविष्ट करा'), 1);
       return
@@ -494,7 +494,6 @@ export class CreateManaregaAppComponent {
       this.commonMethod.snackBar((this.lang == 'en' ? 'Please enter number of trees planted' : 'कृपया लागवड केलेल्या झाडांची संख्या प्रविष्ट करा'), 1);
       return
     }
-
     else if (this.farmDeatailsFrm.invalid) {
       return;
     }
@@ -531,14 +530,32 @@ export class CreateManaregaAppComponent {
     }
   }
 
-  deleteFarmInfo(i: number) {
-    this.farmDetails[i].id != 0 ? this.farmDetails[i].isDeleted = true : this.farmDetails.splice(i, 1);
+  deleteFarmInfo(ele:any){
+    this.deleteFlagFramInfo(ele)
+  }
+
+  // deleteFarmInfo(i: number) {
+  //   this.farmDetails[i].id != 0 ? this.farmDetails[i].isDeleted = true : this.farmDetails.splice(i, 1);
+  //   let arrayFarmDetails: any = [];
+  //   this.farmDetails.find((ele: any) => {
+  //     ele.isDeleted ? '' : arrayFarmDetails.push(ele)
+  //   })
+  //   this.dataSource = new MatTableDataSource(arrayFarmDetails);
+  // }
+
+  deleteFlagFramInfo(ele:any){
+    let indexVal = this.farmDetails.findIndex((val: any) => val.id == ele.id);
+    ele.id == 0  ?   this.farmDetails.splice(indexVal, 1)  :   this.farmDetails[indexVal].isDeleted = true;
+    this.bindPlantTable();
+  }
+
+  bindPlantTable() {
     let arrayFarmDetails: any = [];
-    this.farmDetails.find((ele: any) => {
-      ele.isDeleted ? '' : arrayFarmDetails.push(ele)
-    })
+    this.farmDetails.find((ele: any) => {  ele.isDeleted ?  '' :   arrayFarmDetails.push(ele);})
     this.dataSource = new MatTableDataSource(arrayFarmDetails);
   }
+
+  
 
   getPreviewData() {
    let manaregaFormValue = this.manaregaFrm.getRawValue();
@@ -730,7 +747,7 @@ export class CreateManaregaAppComponent {
       ele.createdBy = this.WebStorageService.getUserId();
       ele.applicationId = formData.id;
     })
-    let obj = {
+     let obj = {
       ...formData, ...declarationInfo, ...bankInfo,
       "m_Address": "",
       "ApplicationFrom" : "web",
