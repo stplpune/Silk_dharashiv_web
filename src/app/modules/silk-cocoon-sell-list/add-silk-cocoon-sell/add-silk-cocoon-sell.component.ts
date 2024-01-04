@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -18,6 +18,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
+import { ValidationService } from 'src/app/core/services/validation.service';
 
 @Component({
   selector: 'app-add-silk-cocoon-sell',
@@ -45,12 +46,12 @@ export class AddSilkCocoonSellComponent {
   lang: any;
   lotNoArr = new Array();
   marketCommitteeArr = new Array();
-  imageResponse : any
+  imageResponse: any
   get f() { return this.cocoonSellFrm.controls };
 
   constructor(private fb: FormBuilder,
     private spinner: NgxSpinnerService,
-    // public validator: ValidationService,
+    public validator: ValidationService,
     private apiService: ApiService,
     private errorService: ErrorHandlingService,
     private common: CommonMethodsService,
@@ -58,7 +59,7 @@ export class AddSilkCocoonSellComponent {
     private fileUpl: FileUploadService,
     public webStorage: WebStorageService,
     public dialogRef: MatDialogRef<AddSilkCocoonSellComponent>,
-    // @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
   ngOnInit() {
@@ -66,29 +67,34 @@ export class AddSilkCocoonSellComponent {
       this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-    // this.isViewFlag = this.data?.label == 'View' ? true : false;
+    this.isViewFlag = this.data?.label == 'View' ? true : false;
+    this.data?.billPhoto ? this.imageResponse = this.data?.billPhoto : this.imageResponse = '' ;
     this.defaultFrm();
     this.getLotNumber();
     this.getMarketCommittee();
+
+    // console.log("data",this.data);
+    
   }
 
   defaultFrm() {
     this.cocoonSellFrm = this.fb.group({
-      "id": 0,
-      "lotNo": ['',[Validators.required]],
-      "silkCasteId": 0,
-      "distributedChawki": [''],
-      "marketCommiteeId": ['',[Validators.required]],
-      "silkSellDate": ['',[Validators.required]],
-      "billNo": ['',[Validators.required]],
-      "silkRatePerKg":['',[Validators.required]],
-      "totalSilk": ['',[Validators.required]],
-      "totalAmount": [''],
-      "marketFees": ['',[Validators.required]],
-      "totalAmtWithMarketFees": 0,
-      "remark": [''],
-      "billPhoto": [''],
-      // "createdBy": 0      
+      "id": [this.data?.id || 0],
+      "lotNo": [this.data?.lotNo || '', [Validators.required]],
+      "silkCasteId": [this.data?.silkCasteId || ''],
+      "silkCast":[''],   
+      "m_SilkCast":[''],  
+      "distributedChawki": [this.data?.distributedChawki || ''],
+      "marketCommiteeId": [this.data?.marketCommiteeId || '', [Validators.required]],
+      "silkSellDate": [this.data?.silkSellDate || '', [Validators.required]],
+      "billNo": [this.data?.billNo || '', [Validators.required,this.validator.maxLengthValidator(20),Validators.pattern(this.validator.alphaNumericWithoutSpace)]],
+      "silkRatePerKg": [this.data?.silkRatePerKg || '', [Validators.required,this.validator.maxLengthValidator(10),Validators.pattern(this.validator.numericWithdecimaluptotwoDigits)]],
+      "totalSilk": [this.data?.totalSilk || '', [Validators.required,this.validator.maxLengthValidator(5),Validators.pattern(this.validator.numericWithdecimaluptotwoDigits)]],
+      "totalAmount": [this.data?.totalAmount || ''],
+      "marketFees": [this.data?.marketFees || '', [Validators.required,this.validator.maxLengthValidator(5),Validators.pattern(this.validator.numericWithdecimaluptotwoDigits)]],
+      "totalAmtWithMarketFees": [this.data?.totalAmtWithMarktFees || ''],
+      "remark": [this.data?.remark || ''],
+      "billPhoto": [this.data?.billPhoto || ''],
     })
   }
 
@@ -98,9 +104,6 @@ export class AddSilkCocoonSellComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.lotNoArr = res.responseData;
-
-          console.log("this.lotNoArr",this.lotNoArr);
-          
         }
       },
       error: (err: any) => {
@@ -109,16 +112,17 @@ export class AddSilkCocoonSellComponent {
     });
   }
 
-  getLotNoDetails(lotNo:any){
+  getLotNoDetails(lotNo: any) {
     this.apiService.setHttp('GET', `sericulture/api/Beneficiery/GetRaceTypeAndChawki?FarmerId=27&LotNumber=${lotNo}&lan=${this.lang}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         if (res.statusCode == '200') {
           let lotDetails = res.responseData;
-          console.log("lotDetails",lotDetails);
-          
-          this.f['silkCasteId'].setValue(lotDetails.raceTypeId);   
-          this.f['distributedChawki'].setValue(lotDetails.distributionChawki);    
+
+          this.f['silkCasteId'].setValue(lotDetails.raceTypeId);
+          this.f['silkCast'].setValue(lotDetails.raceType);
+          this.f['m_SilkCast'].setValue(lotDetails.m_RaceType);
+          this.f['distributedChawki'].setValue(lotDetails.distributionChawki.toString());
         }
       },
       error: (err: any) => {
@@ -147,7 +151,7 @@ export class AddSilkCocoonSellComponent {
       next: ((res: any) => {
         if (res.statusCode == '200') {
           this.spinner.hide();
-          this.imageResponse = res.responseData;    
+          this.imageResponse = res.responseData;
         }
         else {
           this.imageResponse = "";
@@ -171,7 +175,7 @@ export class AddSilkCocoonSellComponent {
     } else {
       this.spinner.show();
       formvalue.id = Number(formvalue.id)
-      let mainData = { ...formvalue, "createdBy": this.webStorage.getUserId() , "billPhoto" : this.imageResponse};
+      let mainData = { ...formvalue, "createdBy": this.webStorage.getUserId(), "billPhoto": this.imageResponse };
       this.apiService.setHttp('POST', 'sericulture/api/SilkSell/InsertUpdateSilkSellDetails?lan' + this.lang, false, mainData, false, 'masterUrl');
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
@@ -192,17 +196,20 @@ export class AddSilkCocoonSellComponent {
     }
   }
 
-  calculateAmount(flag:any){
-    let formValue = this.cocoonSellFrm.value
-    if(flag == 'total'){
-      let totalAmount = Number(formValue.silkRatePerKg) * Number(formValue.totalSilk)
-      this.f['totalAmount'].setValue(totalAmount)
-    }else if(flag == 'marketFees'){
-     let maketFeeTotal = Number(formValue.totalAmount) - Number(formValue.marketFees)
-     console.log('maketFeeTotal',maketFeeTotal);     
-     this.f['totalAmtWithMarketFees'].setValue(maketFeeTotal)
-    }  
-    
+  calculateAmount(flag: any) {
+    let formValue = this.cocoonSellFrm.value;
+    if (flag == 'total') {
+      let totalAmount = Number(formValue.silkRatePerKg) * Number(formValue.totalSilk);
+      this.f['totalAmount'].setValue(totalAmount);
+    } else if (flag == 'marketFees') {
+      let maketFeeTotal = Number(formValue.totalAmount) - Number(formValue.marketFees);
+      this.f['totalAmtWithMarketFees'].setValue(maketFeeTotal);
+    }
   }
+
+  viewreceipt(){
+    window.open(this.data?.billPhoto)
+  }
+
 
 }

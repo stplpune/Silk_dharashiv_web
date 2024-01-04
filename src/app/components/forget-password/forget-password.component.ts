@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 
 
 @Component({
@@ -47,6 +48,7 @@ export class ForgetPasswordComponent {
     private router: Router,
     private WebStorageService: WebStorageService,
     private translate: TranslateService,
+    private AESEncryptDecryptService: AesencryptDecryptService,
   ) {
     localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
     this.translate.use(this.getLangForLocalStor)
@@ -106,7 +108,8 @@ export class ForgetPasswordComponent {
         "otp": "",
         "pageName": "forgotpassword",
         "createdBy": 0,
-        "loginFlag": "web"
+        "loginFlag": "web",
+        "userType":2 //1 is Farmer, 2 is Officer
       }
       this.apiService.setHttp('post', 'sericulture/api/OtpTran/GenerateOTP', false, obj, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
@@ -186,7 +189,7 @@ export class ForgetPasswordComponent {
     }
 
     let obj = {
-      "NewPassword": formData.newpassword,
+      "NewPassword": this.AESEncryptDecryptService.encrypt(formData.newpassword),
       "MobileNo": mobiledata.mobileno,
 
     }

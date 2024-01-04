@@ -24,7 +24,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   moduleId: module.id,
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, ReactiveFormsModule,TranslateModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -42,8 +42,8 @@ export class LoginComponent {
     private commonMethods: CommonMethodsService,
     private error: ErrorHandlingService,
     private spinner: NgxSpinnerService,
-    private apiService: ApiService,    private translate: TranslateService,
-    private router: Router,private WebStorageService:WebStorageService,
+    private apiService: ApiService, private translate: TranslateService,
+    private router: Router, private WebStorageService: WebStorageService,
     private AESEncryptDecryptService: AesencryptDecryptService,
   ) {
     localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
@@ -54,9 +54,7 @@ export class LoginComponent {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-   })
-   
-
+    })
     // let ele = document.getElementById('usernameId');
     // ele?.focus();
     this.defaultForm();
@@ -98,14 +96,14 @@ export class LoginComponent {
       let formData = this.loginForm.value;
       let obj = {
         "userName": formData.userName,
-        "password": formData.password
+        "password":formData?.password // this.AESEncryptDecryptService.encrypt(formData?.password)
       }
-      this.apiService?.setHttp('post', 'sericulture/api/Login/CheckLogin?LoginFlag=web&lan='+ this.lang, false, obj, false, 'baseUrl');
+      this.apiService?.setHttp('post', 'sericulture/api/Login/CheckLogin?LoginFlag=web&lan=' + this.lang, false, obj, false, 'baseUrl');
       this.apiService?.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.spinner.hide();
           if (!res?.responseData?.pageList.length) {
-            this.commonMethods.snackBar((this.lang == 'en' ? 'Please Contact To Admin': 'कृपया प्रशासनाशी संपर्क साधा'), 1)
+            this.commonMethods.snackBar((this.lang == 'en' ? 'Please Contact To Admin' : 'कृपया प्रशासनाशी संपर्क साधा'), 1)
           } else {
             // this.commonMethods.snackBar(res.statusMessage, 0);
             this.loginData = this.AESEncryptDecryptService.encrypt(JSON.stringify(res));
@@ -123,6 +121,5 @@ export class LoginComponent {
         this.error.handelError(error.status);
       })
     }
-
   }
 }
