@@ -998,5 +998,36 @@
     "Amount":"Amount",
     "Market_Fees":"Market Fees",
     "Total_Amount":"Total Amount"
+  },
+  "cocoonSilkSell":{
+    "Add_Cacoon" : "Add Cacoon",
+    "Add_Silk_Cacoon_Sell" :"Add Silk Cacoon Sell",
+    "update_Silk_Cacoon_Sell" :"Update Silk Cacoon Sell",
+    "view_Silk_Cacoon_Sell" :"View Silk Cacoon Sell",
+    "Lot_No" : "Lot No.",
+    "Silkworm" : "Silkworm purchased from CRC center and produce silk against it.",
+    "fund_caste" : "Fund Caste",
+    "number_of_clutches" :"Number Of Clutches",
+    "Select_a_sales_center" : "Select A Sales Center",
+    "Fund_Sale_Date" : "Fund Sale Date",
+    "Bill_no" : "Bill No",
+    "Selling_rate_per_kg_Rs" : "Selling Rate Per Kg. Rs",
+    "Total_fund" : "Total Fund",
+    "amount":"Amount",
+    "Market_Fees":"Market Fees",
+    "total_amount" : "Total Amount",
+    "Remark":"Remark",
+    "sales_center":"Sales Center",
+    "Invoice" : "Invoice",
+
+
+    "Please_select_Lot_No" : "Please select lot No.",
+    "Please_select_Sales_Center" : "Please select sales center",
+    "Please_select_Sales_Date" : "Please select sale date",
+    "please_enter_bill_No": "Please enter bill No.",
+    "training_maximum_10_digit_allowed": "Maximun 20 digit allowed",
+    "please_enter_valid_bill_no": "Please enter valid bill No."
+
+
   }
 }

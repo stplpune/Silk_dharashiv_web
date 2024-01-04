@@ -1,6 +1,9 @@
 <div mat-dialog-title class="modal-header">
   <div class="d-flex align-items-center justify-content-between w-100">
-    <div class="text-main">Add Silk Cacoon Sell </div>
+    <div class="text-main">
+      {{!data ? ('cocoonSilkSell.Add_Silk_Cacoon_Sell'|translate) :isViewFlag ? ("cocoonSilkSell.view_Silk_Cacoon_Sell" | translate):
+      ('cocoonSilkSell.update_Silk_Cacoon_Sell'|translate)}}
+    </div>
     <button mat-icon-button class="btn-icon " mat-dialog-close="true">
       <mat-icon class="material-symbols-outlined">
         close
@@ -15,26 +18,26 @@
     <div class="row g-3">
       <div class="col-sm-12">
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Lot No.</mat-label>
+          <mat-label>{{'cocoonSilkSell.Lot_No' | translate}}</mat-label>
           <mat-select formControlName="lotNo" (selectionChange)="getLotNoDetails(cocoonSellFrm.value.lotNo)">
             <mat-option *ngFor="let lot of lotNoArr" [value]="lot.lotNumber">{{lot.lotNumber}}</mat-option>
             <!-- <mat-option>No 2</mat-option>
           <mat-option>No 3</mat-option> -->
           </mat-select>
         </mat-form-field>
-        <p class="small mb-0">Silkworm purchased from CRC center and produce silk against it.</p>
+        <p class="small mb-0">{{'cocoonSilkSell.Silkworm' | translate}}</p>
       </div>
 
       <div class="col-sm-4" *ngIf="lang == 'en' ">
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>कोष जात</mat-label>
+          <mat-label>{{'cocoonSilkSell.fund_caste' | translate}}</mat-label>
           <input matInput placeholder="" formControlName="silkCast" readonly>
         </mat-form-field>
       </div>
 
       <div class="col-sm-4" *ngIf="lang != 'en' ">
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>कोष जात</mat-label>
+          <mat-label>{{'cocoonSilkSell.fund_caste' | translate}}</mat-label>
           <input matInput placeholder="" formControlName="m_SilkCast" readonly> 
         </mat-form-field>
       </div>
@@ -42,13 +45,13 @@
 
       <div class="col-sm-4">
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>अंडीपुंज संख्या</mat-label>
+          <mat-label>{{'cocoonSilkSell.number_of_clutches' | translate}}</mat-label>
           <input matInput placeholder="" formControlName="distributedChawki" readonly>
         </mat-form-field>
       </div>
       <div class="col-sm-4">
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>विक्री केंद्र निवडा.</mat-label>
+          <mat-label>{{'cocoonSilkSell.Select_a_sales_center' | translate}}</mat-label>
           <mat-select formControlName="marketCommiteeId">
             <mat-option *ngFor="let marketCommittee of marketCommitteeArr" [value]="marketCommittee.id">{{lang == 'en' ?
               marketCommittee.textEnglish : marketCommittee.textMarathi}}</mat-option>
@@ -59,7 +62,7 @@
       </div>
       <div class="col-sm-4">
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>कोष विक्री दिनांक</mat-label>
+          <mat-label>{{'cocoonSilkSell.Fund_Sale_Date' | translate}}</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="silkSellDate">
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -67,37 +70,37 @@
       </div>
       <div class="col-sm-4">
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>बिल क्रं</mat-label>
+          <mat-label>{{'cocoonSilkSell.Bill_no' | translate}}</mat-label>
           <input matInput placeholder="" formControlName="billNo">
         </mat-form-field>
       </div>
       <div class="col-sm-4">
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>विक्री दर प्रती किलो. रु</mat-label>
+          <mat-label>{{'cocoonSilkSell.Selling_rate_per_kg_Rs' | translate}}</mat-label>
           <input matInput placeholder="" formControlName="silkRatePerKg">
         </mat-form-field>
       </div>
       <div class="col-sm-4">
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>एकूण कोष </mat-label>
+          <mat-label>{{'cocoonSilkSell.Total_fund' | translate}} </mat-label>
           <input matInput placeholder="" formControlName="totalSilk" (input)="calculateAmount('total')">
         </mat-form-field>
       </div>
       <div class="col-sm-4">
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>रक्कम </mat-label>
+          <mat-label>{{'cocoonSilkSell.amount' | translate}} </mat-label>
           <input matInput placeholder="" formControlName="totalAmount" readonly>
         </mat-form-field>
       </div>
       <div class="col-sm-4">
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>मार्केट फीज </mat-label>
+          <mat-label>{{'cocoonSilkSell.Market_Fees' | translate}} </mat-label>
           <input matInput placeholder="" formControlName="marketFees" (input)="calculateAmount('marketFees')">
         </mat-form-field>
       </div>
       <div class="col-sm-4">
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>एकूण रक्कम</mat-label>
+          <mat-label>{{'cocoonSilkSell.total_amount' | translate}}</mat-label>
           <input matInput placeholder="" formControlName="totalAmtWithMarketFees" readonly>
         </mat-form-field>
       </div>
@@ -126,7 +129,7 @@
       </div>
       <div class="col-sm-12">
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Remark</mat-label>
+          <mat-label>{{'cocoonSilkSell.Remark' | translate}}</mat-label>
           <textarea matInput placeholder="" formControlName="remark"></textarea>
         </mat-form-field>
       </div>
@@ -143,41 +146,41 @@
 </ng-container>
 <ng-container *ngIf="isViewFlag">
   <div class="row gx-2">
-    <div class="col-sm-4 form-label mb-0">Lot No. </div>
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Lot_No' | translate}}</div>
     <div class="col-sm-8 form-data">: {{data?.lotNo || '-'}}</div>
 
-    <div class="col-sm-4 form-label mb-0">कोष जात </div>
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.fund_caste' | translate}}</div>
     <div class="col-sm-8 form-data">: {{lang == 'en' ? (data?.silkCaste || '-') : (data?.m_SilkCaste || '-')}}</div>
 
-    <div class="col-sm-4 form-label mb-0">अंडीपुंज संख्या</div>
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.number_of_clutches' | translate}}</div>
     <div class="col-sm-8 form-data">: {{data?.distributedChawki || '-'}}</div>
     
     
-    <div class="col-sm-4 form-label mb-0">विक्री केंद्र</div>
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.sales_center' | translate}}</div>
     <div class="col-sm-8 form-data">: {{lang == 'en' ? ( data?.marketName || '-'): (data?.m_MarketName ||'-' )}}</div>
 
-    <div class="col-sm-4 form-label mb-0">कोष विक्री दिनांक</div>
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Fund_Sale_Date' | translate}}</div>
     <div class="col-sm-8 form-data">: {{data?.silkSellDate | date :'dd-MM-YYYY' || '-'}}</div>
 
-    <div class="col-sm-4 form-label mb-0">बिल क्रं</div>
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Bill_no' | translate}}</div>
     <div class="col-sm-8 form-data">: {{ data?.billNo || '-'}}</div>
 
-    <div class="col-sm-4 form-label mb-0">विक्री दर प्रती किलो. रु</div>
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Selling_rate_per_kg_Rs' | translate}}</div>
     <div class="col-sm-8 form-data">: {{data?.silkRatePerKg || '-'}}</div>
 
-    <div class="col-sm-4 form-label mb-0">एकूण कोष </div>
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Total_fund' | translate}} </div>
     <div class="col-sm-8 form-data">: {{data?.totalSilk || '-'}}</div>
 
-    <div class="col-sm-4 form-label mb-0">रक्कम </div>
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.amount' | translate}}</div>
     <div class="col-sm-8 form-data">: {{data?.totalAmount || '-'}}</div>
 
-    <div class="col-sm-4 form-label mb-0">मार्केट फीज  </div>
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Market_Fees' | translate}} </div>
     <div class="col-sm-8 form-data">: {{data?.marketFees || '-'}}</div>
 
-    <div class="col-sm-4 form-label mb-0">एकूण रक्कम</div>
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.total_amount' | translate}}</div>
     <div class="col-sm-8 form-data">: {{data?.totalAmtWithMarktFees || '-'}}</div>
 
-    <div class="col-sm-4 form-label mb-0">Invoice</div>
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Invoice' | translate}}</div>
     <div class="col-sm-8 form-data">:<a href="" (click)="viewreceipt()" *ngIf="data?.billPhoto">View</a></div>   
   </div>
 </ng-container>

@@ -19,6 +19,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { FileUploadService } from 'src/app/core/services/file-upload.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-silk-cocoon-sell',
@@ -33,7 +34,8 @@ import { ValidationService } from 'src/app/core/services/validation.service';
     MatIconModule,
     MatTableModule,
     MatButtonModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+    TranslateModule],
   templateUrl: './add-silk-cocoon-sell.component.html',
   styleUrls: ['./add-silk-cocoon-sell.component.scss']
 })
