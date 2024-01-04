@@ -140,6 +140,14 @@
                           ('approvalProcess.applicant_Required'|translate) :
                           ('approvalProcess.please_enter_valid_application_name'|translate)}}
                         </mat-error>
+                        <mat-error *ngIf="f['fullName']?.errors">
+                          <span class="text-danger"
+                            *ngIf="f['fullName']?.hasError('maxLengthExceeded') || f['fullName']?.hasError('minLengthNotMet')">
+                            {{f['fullName'].hasError('maxLengthExceeded') ?
+                            ('common.address_maximum_100_character_allowed'|translate) :
+                            ('common.fullName_minLength'|translate)}}
+                          </span>
+                        </mat-error>
                       </mat-form-field>
                     </div>
                   </div>
@@ -760,7 +768,7 @@
                       </mat-label>
                     <mat-form-field appearance="outline" class="w-100">
                       <textarea matInput placeholder="" rows="3" formControlName="internalSchemeName"
-                        (keypress)="validation.noFirstSpaceAllow($event)" maxlength="10"></textarea>
+                        (keypress)="validation.noFirstSpaceAllow($event)" maxlength="100"></textarea>
 
 
                         <!-- <mat-error
@@ -790,7 +798,7 @@
                   <div class="col-sm">
                     <mat-label class="form-label">30.3. {{'addSamgra.Total_Benefit_Amount' | translate}}</mat-label>
                     <mat-form-field appearance="outline" class="w-100">
-                      <input matInput placeholder="" rows="3" formControlName="totalBenefitTaken"
+                      <input matInput placeholder="" rows="3" formControlName="totalBenefitTaken"  maxlength="10"
                         (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
 
                        <!--   <mat-error
@@ -947,7 +955,7 @@
                 <div class="form-label">34. {{'approvalProcess.nationalise_bank_accountno'|translate}} </div>
                 <div class="form-label">
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput placeholder="" formControlName="bankAccountNo" maxlength="30" oninput="if(!value.match('^[1-9][0-9]*$'))value='';"
+                    <input matInput placeholder="" formControlName="bankAccountNo" maxlength="30" 
                       (keypress)="validation.noFirstSpaceAllow($event);validation.onlyDigits($event)">
                     <mat-error
                       *ngIf="bL['bankAccountNo'].hasError('required') ">{{'approvalProcess.please_nationalise_bank_accountno'|translate}}</mat-error>
