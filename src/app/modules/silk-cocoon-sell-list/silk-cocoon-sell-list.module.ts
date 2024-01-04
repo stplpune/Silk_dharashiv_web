@@ -15,6 +15,7 @@ import { GlobalTableComponent } from 'src/app/shared/components/global-table/glo
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatButtonModule,
     GlobalTableComponent,
     MatNativeDateModule, MatDatepickerModule,
-    TranslateModule
+    TranslateModule,
+    ReactiveFormsModule
   ]
 })
 export class SilkCocoonSellListModule {

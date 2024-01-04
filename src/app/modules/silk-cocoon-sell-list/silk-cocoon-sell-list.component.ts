@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddSilkCocoonSellComponent } from './add-silk-cocoon-sell/add-silk-cocoon-sell.component';
 import { Subscription } from 'rxjs';
@@ -10,6 +10,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-silk-cocoon-sell-list',
@@ -17,6 +18,7 @@ import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/g
   styleUrls: ['./silk-cocoon-sell-list.component.scss']
 })
 export class SilkCocoonSellListComponent {
+  filterForm !: FormGroup;
   pageNumber: number = 1;
   tableDataArray = new Array();
   tableDatasize!: number;
@@ -26,6 +28,9 @@ export class SilkCocoonSellListComponent {
   lang: string = 'English';
   routingData: any;
   farmerId: any;
+  filterFlag: boolean = false;
+  marketCommitteeArr = new Array();
+  @ViewChild('formDirective') private formDirective!: NgForm;
 
   constructor(public dialog: MatDialog,
     private spinner: NgxSpinnerService,
@@ -34,7 +39,10 @@ export class SilkCocoonSellListComponent {
     private errorService: ErrorHandlingService,
     public webStorage: WebStorageService,
     private activatedRoute: ActivatedRoute,
-    public encryptdecrypt: AesencryptDecryptService) { }
+    public encryptdecrypt: AesencryptDecryptService,
+    private fb : FormBuilder,
+    private commonMethod: CommonMethodsService,
+   ) { }
 
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
@@ -47,13 +55,29 @@ export class SilkCocoonSellListComponent {
     })
     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');;
     this.farmerId = spliteUrl[3];
+    this.filterFormData();
+    this.getMarketCommittee();
     this.getTableData();
   }
 
-  getTableData() {
+filterFormData(){
+  this.filterForm = this.fb.group({
+  BillNo:[''],
+  MarketCommiteeId:[''],
+  FromDate :[''],
+  ToDate :['']
+
+  })
+}
+
+  getTableData(flag?:any) {
+    let formValue = this.filterForm.value;
     let id = this.webStorage.getUserId()
     this.spinner.show();
-    this.apiService.setHttp('GET', `sericulture/api/SilkSell/GetSilkSellDetails?FarmerId=${id}&Id=0&lan=${this.lang}`, false, false, false, 'masterUrl');
+    let fromDate = this.commonMethod.setDate(this.filterForm?.getRawValue()?.fromDate)
+    let toDate = this.commonMethod.setDate(this.filterForm?.getRawValue()?.toDate)
+    flag == 'filter' ? this.pageNumber = 1 : ''
+    this.apiService.setHttp('GET', `sericulture/api/SilkSell/GetSilkSellDetails?FarmerId=${id}&Id=0&BillNo=${formValue.BillNo || ''}&MarketCommiteeId=${formValue.MarketCommiteeId || 0}&FromDate=${fromDate || ''}&ToDate=${toDate || ''}&pageno=${this.pageNumber}&pagesize=10&lan=${this.lang}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -98,6 +122,12 @@ export class SilkCocoonSellListComponent {
 
   childCompInfo(obj?: any) {
     switch (obj.label) {
+      case 'Pagination':
+        this.pageNumber = obj.pageNumber;
+        !this.filterFlag ? this.formDirective.resetForm() : ''
+        this.getTableData();
+        this.filterFormData();
+        break;
       case 'Edit':
         this.addsilkcacoon(obj)
         break;
@@ -156,5 +186,26 @@ export class SilkCocoonSellListComponent {
       }
       this.highLightRowFlag = false;
     });
+  }
+
+  getMarketCommittee() {
+    this.apiService.setHttp('GET', `sericulture/api/DropdownService/get-MarketCommittee?lan=${this.lang}`, false, false, false, 'masterUrl');
+    this.apiService.getHttp().subscribe({
+      next: (res: any) => {
+        if (res.statusCode == '200') {
+          this.marketCommitteeArr = res.responseData;
+        }
+      },
+      error: (err: any) => {
+        this.errorService.handelError(err.status);
+      },
+    });
+  }
+
+  clearFilter() {
+    this.formDirective.resetForm();
+    this.pageNumber = 1;
+    this.filterFormData();
+    this.getTableData();
   }
 }

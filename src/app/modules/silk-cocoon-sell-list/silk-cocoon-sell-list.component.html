@@ -1,22 +1,26 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
+    <form [formGroup]="filterForm"  #formDirective="ngForm">
     <div class="row gx-2 w-100">
       <div class="col-sm">
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Bill No.</mat-label>
-          <input matInput placeholder="enter bill no">
+          <mat-label>{{'cocoonSilkSell.Bill_no' | translate}}</mat-label>
+          <input matInput placeholder="enter bill no" formControlName="BillNo">
         </mat-form-field>
       </div>
-      <div class="col-sm">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Market Committed ID</mat-label>
-          <input matInput placeholder="Market Committed ID">
-        </mat-form-field>
+      <div class="col-sm">    
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>{{'cocoonSilkSell.Select_a_sales_center' | translate}}</mat-label>
+            <mat-select formControlName="MarketCommiteeId">
+              <mat-option *ngFor="let marketCommittee of marketCommitteeArr" [value]="marketCommittee.id">{{lang == 'en' ?
+                marketCommittee.textEnglish : marketCommittee.textMarathi}}</mat-option>
+            </mat-select>            
+          </mat-form-field>    
       </div>
       <div class="col-sm-2">
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>From date</mat-label>
-          <input matInput [matDatepicker]="picker">
+          <input matInput [matDatepicker]="picker" formControlName="FromDate">
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -25,11 +29,29 @@
       <div class="col-sm-2">
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>To date</mat-label>
-          <input matInput [matDatepicker]="picker">
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+          <input matInput [matDatepicker]="picker1" formControlName="ToDate">
+          <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
       </div>
+
+      <div class="col-sm-auto">
+        <div class="d-flex align-items-center gap-2">
+          <button mat-flat-button class="btn-main btn-icon" matTooltip="edit" type="button"  (click)="filterFlag=true;getTableData('filter')">
+            <mat-icon class="material-symbols-rounded">
+              search
+            </mat-icon>
+          </button>
+          <button mat-flat-button class="btn-main-light btn-icon" matTooltip="edit" type="button"
+            (click)="filterFlag=false;clearFilter()">
+            <mat-icon class="material-symbols-rounded">
+              close
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+
+
       <div class="col-sm-auto">
         <button mat-flat-button class="btn-main" (click)="addsilkcacoon()">
           <mat-icon class="material-symbols-rounded">
@@ -39,6 +61,7 @@
       </button>
     </div>
     </div>
+  </form>
   </mat-card-header>
   <mat-card-content class="card-body">
     <div class="table-responsive scrollbar silk_cacoon_table">
