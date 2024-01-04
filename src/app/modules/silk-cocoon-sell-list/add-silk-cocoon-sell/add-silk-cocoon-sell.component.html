@@ -24,6 +24,10 @@
             <!-- <mat-option>No 2</mat-option>
           <mat-option>No 3</mat-option> -->
           </mat-select>
+
+          <mat-error *ngIf="f['lotNo'].hasError('required')">{{'cocoonSilkSell.Please_select_Lot_No'|translate}}</mat-error>
+         
+
         </mat-form-field>
         <p class="small mb-0">{{'cocoonSilkSell.Silkworm' | translate}}</p>
       </div>
@@ -38,7 +42,7 @@
       <div class="col-sm-4" *ngIf="lang != 'en' ">
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>{{'cocoonSilkSell.fund_caste' | translate}}</mat-label>
-          <input matInput placeholder="" formControlName="m_SilkCast" readonly>
+          <input matInput placeholder="" formControlName="m_SilkCast" readonly> 
         </mat-form-field>
       </div>
 
@@ -58,6 +62,9 @@
             <!-- <mat-option>केंद्र 2</mat-option>
           <mat-option>केंद्र 3</mat-option> -->
           </mat-select>
+
+          <mat-error *ngIf="f['marketCommiteeId'].hasError('required')">{{'cocoonSilkSell.Please_select_Sales_Center'|translate}}</mat-error>
+         
         </mat-form-field>
       </div>
       <div class="col-sm-4">
@@ -66,24 +73,64 @@
           <input matInput [matDatepicker]="picker" formControlName="silkSellDate">
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+
+          <mat-error *ngIf="f['silkSellDate'].hasError('required')">{{'cocoonSilkSell.Please_select_Sales_Date'|translate}}</mat-error>         
+
         </mat-form-field>
       </div>
       <div class="col-sm-4">
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>{{'cocoonSilkSell.Bill_no' | translate}}</mat-label>
           <input matInput placeholder="" formControlName="billNo">
+
+          <mat-error *ngIf="f['billNo'].hasError('required')">{{'cocoonSilkSell.please_enter_bill_No'|translate}}</mat-error>
+          <mat-error *ngIf="f['billNo']?.errors">
+            <span class="text-danger"
+              *ngIf="f['billNo']?.hasError('maxLengthExceeded') || f['billNo']?.hasError('pattern')">
+              {{f['billNo'].hasError('maxLengthExceeded') ?
+              ('cocoonSilkSell.training_maximum_10_digit_allowed'|translate) :
+              ('cocoonSilkSell.please_enter_valid_bill_no'|translate)}}
+            </span>
+          </mat-error>
+
         </mat-form-field>
       </div>
       <div class="col-sm-4">
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>{{'cocoonSilkSell.Selling_rate_per_kg_Rs' | translate}}</mat-label>
           <input matInput placeholder="" formControlName="silkRatePerKg">
+
+
+          <mat-error *ngIf="f['silkRatePerKg'].hasError('required')">{{'cocoonSilkSell.please_enter_sale_rate_kg'|translate}}</mat-error>
+          <mat-error *ngIf="f['silkRatePerKg']?.errors">
+            <span class="text-danger"
+              *ngIf="f['silkRatePerKg']?.hasError('maxLengthExceeded') || f['silkRatePerKg']?.hasError('pattern')">
+              {{f['silkRatePerKg'].hasError('maxLengthExceeded') ?
+              ('cocoonSilkSell.sale_rate_maximum_10_digit_allowed'|translate) :
+              ('cocoonSilkSell.please_enter_valid_sell_rate'|translate)}}
+            </span>
+          </mat-error>
+
+
         </mat-form-field>
       </div>
       <div class="col-sm-4">
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>{{'cocoonSilkSell.Total_fund' | translate}} </mat-label>
           <input matInput placeholder="" formControlName="totalSilk" (input)="calculateAmount('total')">
+
+
+          <mat-error *ngIf="f['totalSilk'].hasError('required')">{{'cocoonSilkSell.please_enter_total_fund'|translate}}</mat-error>
+          <mat-error *ngIf="f['totalSilk']?.errors">
+            <span class="text-danger"
+              *ngIf="f['totalSilk']?.hasError('maxLengthExceeded') || f['totalSilk']?.hasError('pattern')">
+              {{f['totalSilk'].hasError('maxLengthExceeded') ?
+              ('cocoonSilkSell.total_fund_maximum_10_digit_allowed'|translate) :
+              ('cocoonSilkSell.please_enter_valid_total_fund'|translate)}}
+            </span>
+          </mat-error>
+
+
         </mat-form-field>
       </div>
       <div class="col-sm-4">
@@ -96,6 +143,19 @@
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>{{'cocoonSilkSell.Market_Fees' | translate}} </mat-label>
           <input matInput placeholder="" formControlName="marketFees" (input)="calculateAmount('marketFees')">
+
+          
+          <mat-error *ngIf="f['marketFees'].hasError('required')">{{'cocoonSilkSell.please_enter_market_fees'|translate}}</mat-error>
+          <mat-error *ngIf="f['marketFees']?.errors">
+            <span class="text-danger"
+              *ngIf="f['marketFees']?.hasError('maxLengthExceeded') || f['marketFees']?.hasError('pattern')">
+              {{f['marketFees'].hasError('maxLengthExceeded') ?
+              ('cocoonSilkSell.market_fees_maximum_10_digit_allowed'|translate) :
+              ('cocoonSilkSell.please_enter_valid_market_fees'|translate)}}
+            </span>
+          </mat-error>
+
+
         </mat-form-field>
       </div>
       <div class="col-sm-4">
@@ -145,83 +205,42 @@
 </form>
 </ng-container>
 <ng-container *ngIf="isViewFlag">
-  <div class="container form-container">
+  <div class="row gx-2">
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Lot_No' | translate}}</div>
+    <div class="col-sm-8 form-data">: {{data?.lotNo || '-'}}</div>
 
-  <div class="row gx-2 gy-2 mb-2">
-    <div class="col-sm-6">
-      <div class="row">
-        <div class="col-sm-6 form-label mb-0">{{'cocoonSilkSell.Lot_No' | translate}}</div>
-        <div class="col-sm-6 form-data">: {{data?.lotNo || '-'}}</div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="row">
-        <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.fund_caste' | translate}}</div>
-        <div class="col-sm-8 form-data">: {{lang == 'en' ? (data?.silkCaste || '-') : (data?.m_SilkCaste || '-')}}</div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="row">
-        <div class="col-sm-6 form-label mb-0">{{'cocoonSilkSell.number_of_clutches' | translate}}</div>
-        <div class="col-sm-6 form-data">: {{data?.distributedChawki || '-'}}</div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="row">
-        <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.sales_center' | translate}}</div>
-        <div class="col-sm-8 form-data">: {{lang == 'en' ? ( data?.marketName || '-'): (data?.m_MarketName ||'-' )}}</div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="row">
-        <div class="col-sm-6 form-label mb-0">{{'cocoonSilkSell.Fund_Sale_Date' | translate}}</div>
-        <div class="col-sm-6 form-data">: {{data?.silkSellDate | date :'dd-MM-YYYY' || '-'}}</div>
-      </div>
-    </div>
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.fund_caste' | translate}}</div>
+    <div class="col-sm-8 form-data">: {{lang == 'en' ? (data?.silkCaste || '-') : (data?.m_SilkCaste || '-')}}</div>
 
-    <div class="col-sm-6">
-      <div class="row">
-        <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Bill_no' | translate}}</div>
-        <div class="col-sm-8 form-data">: {{ data?.billNo || '-'}}</div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="row">
-        <div class="col-sm-6 form-label mb-0">{{'cocoonSilkSell.Selling_rate_per_kg_Rs' | translate}}</div>
-        <div class="col-sm-6 form-data">: {{data?.silkRatePerKg || '-'}}</div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="row">
-        <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Total_fund' | translate}} </div>
-        <div class="col-sm-8 form-data">: {{data?.totalSilk || '-'}}</div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="row">
-        <div class="col-sm-6 form-label mb-0">{{'cocoonSilkSell.amount' | translate}}</div>
-        <div class="col-sm-6 form-data">: {{data?.totalAmount || '-'}}</div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="row">
-        <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Market_Fees' | translate}} </div>
-        <div class="col-sm-8 form-data">: {{data?.marketFees || '-'}}</div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="row">
-        <div class="col-sm-6 form-label mb-0">{{'cocoonSilkSell.total_amount' | translate}}</div>
-        <div class="col-sm-6 form-data">: {{data?.totalAmtWithMarktFees || '-'}}</div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="row">
-        <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Invoice' | translate}}</div>
-        <div class="col-sm-8 form-data">:<a href="" (click)="viewreceipt()" *ngIf="data?.billPhoto">View</a></div>
-      </div>
-    </div>
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.number_of_clutches' | translate}}</div>
+    <div class="col-sm-8 form-data">: {{data?.distributedChawki || '-'}}</div>
+    
+    
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.sales_center' | translate}}</div>
+    <div class="col-sm-8 form-data">: {{lang == 'en' ? ( data?.marketName || '-'): (data?.m_MarketName ||'-' )}}</div>
+
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Fund_Sale_Date' | translate}}</div>
+    <div class="col-sm-8 form-data">: {{data?.silkSellDate | date :'dd-MM-YYYY' || '-'}}</div>
+
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Bill_no' | translate}}</div>
+    <div class="col-sm-8 form-data">: {{ data?.billNo || '-'}}</div>
+
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Selling_rate_per_kg_Rs' | translate}}</div>
+    <div class="col-sm-8 form-data">: {{data?.silkRatePerKg || '-'}}</div>
+
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Total_fund' | translate}} </div>
+    <div class="col-sm-8 form-data">: {{data?.totalSilk || '-'}}</div>
+
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.amount' | translate}}</div>
+    <div class="col-sm-8 form-data">: {{data?.totalAmount || '-'}}</div>
+
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Market_Fees' | translate}} </div>
+    <div class="col-sm-8 form-data">: {{data?.marketFees || '-'}}</div>
+
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.total_amount' | translate}}</div>
+    <div class="col-sm-8 form-data">: {{data?.totalAmtWithMarktFees || '-'}}</div>
+
+    <div class="col-sm-4 form-label mb-0">{{'cocoonSilkSell.Invoice' | translate}}</div>
+    <div class="col-sm-8 form-data">:<a href="" (click)="viewreceipt()" *ngIf="data?.billPhoto">View</a></div>   
   </div>
-</div>
-
 </ng-container>

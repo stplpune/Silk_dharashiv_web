@@ -907,7 +907,7 @@
     "add": "Add",
     "self_declaration": "Self Declaration",
     "Preview": "Preview",
-    "Individual_Information": "Individual Information",
+    "Individual_Information": "Personal Information",
     "Agriculture_and_Fruit_Production": "Agriculture and Fruit Production",
     "Add_currency": "Payment Receipt",
     "select_Crop_Name_valid": "Please select crop name",
@@ -1026,7 +1026,19 @@
     "Please_select_Sales_Date" : "Please select sale date",
     "please_enter_bill_No": "Please enter bill No.",
     "training_maximum_10_digit_allowed": "Maximun 20 digit allowed",
-    "please_enter_valid_bill_no": "Please enter valid bill No."
+    "please_enter_valid_bill_no": "Please enter valid bill No.",
+    "please_enter_sale_rate_kg": "Please enter selling rate per",
+    "sale_rate_maximum_10_digit_allowed": "Maximun 10 digit allowed",
+    "please_enter_valid_sell_rate": "Please enter valid selling rate",
+
+    "please_enter_total_fund": "Please enter total fund",
+    "total_fund_maximum_10_digit_allowed": "Maximun 5 digit allowed",
+    "please_enter_valid_total_fund": "Please enter valid total fund",
+
+    "please_enter_market_fees": "Please enter market fees",
+    "market_fees_maximum_10_digit_allowed": "Maximun 5 digit allowed",
+    "please_enter_valid_market_fees": "Please enter valid selling rate"
+    
 
 
   }

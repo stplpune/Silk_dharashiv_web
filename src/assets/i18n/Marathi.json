@@ -1059,6 +1059,22 @@
     "total_amount" : "एकूण रक्कम",
     "Remark":"टिप्पणी",
     "sales_center":"विक्री केंद्र",
-    "Invoice" : "चलन"
+    "Invoice" : "चलन",
+        
+    "Please_select_Lot_No" : "कृपया लॉट नंबर निवडा.",
+    "Please_select_Sales_Center" : "कृपया विक्री केंद्र निवडा",
+    "Please_select_Sales_Date" : "कृपया विक्रीची तारीख निवडा",
+    "please_enter_bill_No": "कृपया बिल क्रमांक प्रविष्ट करा.",
+    "training_maximum_10_digit_allowed": "कमाल 20 अंकांना अनुमती आहे",
+    "please_enter_valid_bill_no": "कृपया वैध बिल क्रमांक प्रविष्ट करा.",
+    "please_enter_sale_rate_kg": "कृपया प्रति विक्री दर प्रविष्ट करा",
+    "sale_rate_maximum_10_digit_allowed": "कमाल 10 अंकांना अनुमती आहे",
+    "please_enter_valid_sell_rate": "कृपया वैध विक्री दर प्रविष्ट करा",
+    "please_enter_total_fund": "कृपया एकूण कोष प्रविष्ट करा",
+    "total_fund_maximum_10_digit_allowed": "कमाल 5 अंकांना परवानगी आहे",
+    "please_enter_valid_total_fund": "कृपया वैध एकूण कोष प्रविष्ट करा",
+    "please_enter_market_fees": "कृपया बाजार शुल्क प्रविष्ट करा",
+    "market_fees_maximum_10_digit_allowed": "कमाल 5 अंकांना परवानगी आहे",
+    "please_enter_valid_market_fees": "कृपया वैध विक्री दर प्रविष्ट करा"
   }
 }
