@@ -214,11 +214,12 @@ export class CreateManaregaAppComponent {
     })
   }
 
-  addDocumentFrm() {
+  addDocumentFrm(data?:any) {
     this.documentFrm = this.fb.group({
-      'allRequiredDocument': ['', [Validators.required]]
+      // 'allRequiredDocument': ['', [Validators.required]],
+      "isHonestlyProtectPlant": [data?.isHonestlyProtectPlant || '', [Validators.required]],
     })
-  }
+ }
 
   addRegistrationFrm() {
     this.addRegistrationRecFrm = this.fb.group({
@@ -421,7 +422,6 @@ export class CreateManaregaAppComponent {
       this.farmDeatailsFrm.controls['cultivatedArea'].clearValidators();
       this.farmDeatailsFrm.controls['cultivatedPlantsCount'].clearValidators();
       // this.farmDetails = [];
-      this.farmDetails.forEach((x: any) => { x.isDeleted = true });
       this.dataSource = new MatTableDataSource(this.farmDetails);
     }
     this.farmDeatailsFrm.controls['plantName'].updateValueAndValidity();
@@ -429,6 +429,7 @@ export class CreateManaregaAppComponent {
     this.farmDeatailsFrm.controls['gutArea'].updateValueAndValidity();
     this.farmDeatailsFrm.controls['cultivatedArea'].updateValueAndValidity();
     this.farmDeatailsFrm.controls['cultivatedPlantsCount'].updateValueAndValidity();
+    this.farmDetails.forEach((x: any) => { val ? x.isDeleted = false : x.isDeleted = true });
   }
 
   onClickSelfTraining(val: any) {
@@ -618,6 +619,7 @@ export class CreateManaregaAppComponent {
       ele['textMarathi'] = ele.m_CategoryOfBeneficiary;
     })
     this.addBankInfo(data);
+    this.addDocumentFrm(data);
     this.getBank();
     // this.getBankBranch();
     this.farmDetails = data.plantingDetails;
@@ -647,9 +649,9 @@ export class CreateManaregaAppComponent {
     // this.OtherDocUploadImg.length ? this.visible = true : this.visible = false;
     this.otherDocArray = new MatTableDataSource(this.OtherDocUploadImg);
     this.addSelfDeclaration(data);
-    if (this.docArray[0].docPath && this.docArray[1] && this.docArray[3].docPath) {
-      this.documentFrm.controls['allRequiredDocument'].setValue(1);
-    }
+    // if (this.docArray[0].docPath && this.docArray[1] && this.docArray[3].docPath) {
+    //   this.documentFrm.controls['allRequiredDocument'].setValue(1);
+    // }
   }
 
   manaregaFrmVal(flag: string) {
@@ -666,7 +668,6 @@ export class CreateManaregaAppComponent {
   }
 
   checkStepCon(stepper: MatStepper, lable: string) {
-
     if (lable == 'farmerInfo' && this.manaregaFrm.invalid) {
       !this.manaregaFrm.getRawValue().profilePhotoPath ? this.manFrmSubmitFlag = true : this.manFrmSubmitFlag = false;
       return
@@ -685,19 +686,33 @@ export class CreateManaregaAppComponent {
 
     } else if (lable == 'bankInfo' && this.bankInfoFrm.valid) {
       this.onSubmit(stepper, lable);
-    } else if (lable == 'document' && this.documentFrm.invalid) {
+    } else if (lable == 'document') {
       for (let i = 0; i < this.docArray.length; i++) { //check all doc path
         if (this.docArray[i].docTypeId != 18 && this.docArray[i].docTypeId != 8 && this.docArray[i].docPath == '') {
           this.docArray[i].docTypeId == 12 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Manrega Job Card Required' : 'मनरेगा जॉब कार्ड आवश्यक'), 1) : this.docArray[i].docTypeId == 19 ? this.commonMethod.snackBar((this.lang == 'en' ? '8 A track of Land Required' : 'जमिनीचा 8-अ आवश्यक'), 1) : this.docArray[i].docTypeId == 11 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque Required' : 'पासबुक / रद्द केलेला चेक आवश्यक'), 1) : '';
           return
         }
       }
-      this.documentFrm.controls['allRequiredDocument'].setValue(1)
-      this.documentFrm.getRawValue().allRequiredDocument ? this.onSubmit(stepper, lable) : '';
-
-    } else if (lable == 'document' && this.documentFrm.valid) {
+    if( this.documentFrm.getRawValue().isHonestlyProtectPlant == false){
+      this.commonMethod.snackBar((this.lang == 'en' ? "Please select checkbox" : "कृपया चेकबॉक्स निवडा"),1);
+      return
+    }
+    else{
       this.onSubmit(stepper, lable);
-    } else if (lable == 'selfDeclaration' && this.selfDeclarationFrm.valid) {
+    }
+     // this.documentFrm.getRawValue().isHonestlyProtectPlant == true ? this.onSubmit(stepper, lable) : '';
+
+    } 
+    // else if (lable == 'document' && this.documentFrm.valid) {
+    //   for (let i = 0; i < this.docArray.length; i++) { //check all doc path
+    //     if (this.docArray[i].docTypeId != 18 && this.docArray[i].docTypeId != 8 && this.docArray[i].docPath == '') {
+    //       this.docArray[i].docTypeId == 12 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Manrega Job Card Required' : 'मनरेगा जॉब कार्ड आवश्यक'), 1) : this.docArray[i].docTypeId == 19 ? this.commonMethod.snackBar((this.lang == 'en' ? '8 A track of Land Required' : 'जमिनीचा 8-अ आवश्यक'), 1) : this.docArray[i].docTypeId == 11 ? this.commonMethod.snackBar((this.lang == 'en' ? 'Bank Passbook / Cancelled Cheque Required' : 'पासबुक / रद्द केलेला चेक आवश्यक'), 1) : '';
+    //       return
+    //     }
+    //   }
+    //   this.onSubmit(stepper, lable);
+    // } 
+    else if (lable == 'selfDeclaration' && this.selfDeclarationFrm.valid) {
       this.onSubmit(stepper, lable);
     } else if (lable == 'selfDeclaration' && this.selfDeclarationFrm.invalid) {
       let elfDeclarationFrmVal: any = this.selfDeclarationFrm.getRawValue();
@@ -796,7 +811,7 @@ export class CreateManaregaAppComponent {
       "sm_NameOfPlan": "",
       "sm_PlanTakenDate": "2023-11-24T09:55:29.130Z",
       "sm_TakenPlanBenefit": "",
-      "isHonestlyProtectPlant": true,
+      "isHonestlyProtectPlant": this.documentFrm.getRawValue()?.isHonestlyProtectPlant || false,
       "sm_IsReadyToPlantNewMulberries": true,
       "sm_IsHonestlyProtectPlant": true,
       "sm_IsRequestForYourPriorConsent": true,
