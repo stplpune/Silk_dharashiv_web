@@ -128,7 +128,7 @@ export class AddSchemeComponent implements OnDestroy{
   onSubmitData() {
     let formData = this.schemeForm.getRawValue();
     this.spinner.show();
-    if (this.schemeForm.invalid) {
+    if (this.schemeForm.invalid && formData?.logoPath == '') {
       this.editorFlag=true;
       this.spinner.hide();
       return

@@ -297,7 +297,7 @@ export class OfficerRegistrationComponent implements OnDestroy {
     let userMara = obj.activeStatus == false ? 'सक्रिय' : 'निष्क्रिय';
     let dialoObj = {
       header: this.lang == 'mr-IN' ? 'खाते स्थिती ' + userMara + ' करा' : userEng + ' Acount Status',
-      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेली खाते स्थिती' + userMara + ' करू इच्छिता ?' : 'Do You Want To ' + userEng + ' The Selected Acount Status?',
+      title: this.lang == 'mr-IN' ? 'तुम्ही निवडलेली खाते स्थिती' + userMara + ' करू इच्छिता ?' : 'Do You Want To ' + userEng + ' .The Selected Account Status?',
       cancelButton: this.lang == 'mr-IN' ? 'रद्द करा' : 'Cancel',
       okButton: this.lang == 'mr-IN' ? 'ओके' : 'Ok',
       discription: 'show',
