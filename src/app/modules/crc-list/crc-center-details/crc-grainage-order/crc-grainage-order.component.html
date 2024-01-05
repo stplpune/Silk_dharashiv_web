@@ -5,44 +5,40 @@
   <mat-card-content class="card-body" id="dash-stats">
     <form [formGroup]="filterForm">
     <div class="row">
+      
+      <div class="col-sm-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{lang == 'en' ? 'State' : 'राज्य'}}</mat-label>
+          <mat-select formControlName="stateId" (selectionChange)="clearDropDown('dist');getDisrict()">
+            <mat-option>
+              <ngx-mat-select-search [formControl]="stateCtrl"
+                placeholderLabel="{{lang == 'en' ? 'Search State Name' : 'राज्याचे नाव शोधा'}}"
+                noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let state of stateSubject | async" [value]="state.id">{{lang != 'en' ?
+              state.textMarathi
+              :state.textEnglish}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label> {{lang == 'en' ? 'District' : 'जिल्हा'}}</mat-label>
-          <mat-select formControlName="districtId"
-          [class]="webService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
-          <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
+          <mat-select formControlName="districtId">
+          <!-- <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
             district.textMarathi : district.textEnglish}}
+          </mat-option> -->
+          <mat-option>
+            <ngx-mat-select-search [formControl]="districtCtrl"
+              placeholderLabel="{{lang == 'en' ? 'Search District Name' : 'जिल्ह्याचे नाव शोधा'}}"
+              noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
           </mat-option>
+          <mat-option *ngFor="let district of districtPSubject | async" [value]="district.id">{{lang != 'en' ?
+            district.textMarathi
+            :district.textEnglish}}</mat-option>
+          
         </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-3">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>{{lang == 'en' ? 'Taluka' : 'तालुका'}}</mat-label>
-          <mat-select formControlName="talukaId" (selectionChange)="clearDropDown('gram');getGrampanchayat()">
-            <mat-option>
-              <ngx-mat-select-search [formControl]="talukaCtrl"
-                placeholderLabel="{{lang == 'en' ? 'Search Taluka Name' : 'तालुक्याचे नाव शोधा'}}"
-                noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
-            </mat-option>
-            <mat-option *ngFor="let taluka of talukaSubject | async" [value]="taluka.id">{{lang != 'en' ?
-              taluka.textMarathi
-              :taluka.textEnglish}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-3">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label> {{lang == 'en' ? 'Village' : 'गाव'}}</mat-label>
-          <mat-select formControlName="grampanchayatId">
-            <mat-option>
-              <ngx-mat-select-search [formControl]="gramPCtrl"
-                placeholderLabel="{{lang == 'en' ? 'Search Village Name' : 'गावाचे नाव शोधा'}}"
-                noEntriesFoundLabel="{{lang == 'en' ? 'No Data Found' : 'माहिती उपलब्ध नाही'}}"></ngx-mat-select-search>
-            </mat-option>
-            <mat-option *ngFor="let village of gramPSubject | async" [value]="village.id">{{lang != 'en' ?
-              village.textMarathi : village.textEnglish}}</mat-option>
-          </mat-select>
         </mat-form-field>
       </div>
       <div class="col-sm-3">

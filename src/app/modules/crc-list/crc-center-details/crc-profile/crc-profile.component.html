@@ -143,13 +143,13 @@
               <div class="col-sm-6">
                 <div class="row gx-2">
                   <div class="col-sm-5 form-label"> {{lang == 'en' ? 'Total available space for CRC': 'CRC साठी एकूण उपलब्ध क्षेत्र'}}</div>
-                  <div class="col-sm-7 form-data">:  &nbsp; {{tableDataArray?.totalAreaForCRC || '-'}} {{lang == 'en' ? 'sq.ft.': 'चौ.फूट'}}</div>
+                  <div class="col-sm-7 form-data">:  &nbsp; {{tableDataArray?.totalAreaForCRC || 0}} {{lang == 'en' ? 'sq.ft.': 'चौ.फूट'}}</div>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="row gx-2">
                   <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Area Under CRC': 'CRC अंतर्गत क्षेत्र'}}</div>
-                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.areaUnderCRC || '-'}} {{lang == 'en' ? 'sq.ft.': 'चौ.फूट'}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.areaUnderCRC || 0}} {{lang == 'en' ? 'sq.ft.': 'चौ.फूट'}}</div>
                 </div>
               </div>
               <div class="col-sm-6">
@@ -161,7 +161,7 @@
               <div class="col-sm-6">
                 <div class="row gx-2">
                   <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Approved Capacity': 'क्षमता मंजूर करा'}}</div>
-                  <div class="col-sm-4 form-data">:  &nbsp; {{tableDataArray?.chalkyApprovedQty || '-'}} DFLs</div>
+                  <div class="col-sm-4 form-data">:  &nbsp; {{tableDataArray?.chalkyApprovedQty || 0}} DFLs</div>
                 </div>
               </div>
               <div class="col-sm-6">

@@ -60,12 +60,14 @@ export class FarmerLoginComponent {
   }
 
   ngOnInit() {
+    
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
     this.mobNo ?  this.farmerMobileNo.setValue(this.mobNo) : '';
     this.getOtpFormData();
+
   }
 
   getOtpFormData() {
@@ -164,7 +166,7 @@ export class FarmerLoginComponent {
       this.spinner.hide();
       return;
     } else {
-      this.apiService.setHttp('get', 'sericulture/api/OtpTran/VerifyOTP?MobileNo=' + this.farmerMobileNo.value + '&OTP=' + sendOtp + '&PageName=Login&CreatedBy=0&lan=' + this.lang + '&LoginFlag=web&UserType='+(this.WebStorageService.getUserId()), false, false, false, 'baseUrl');
+      this.apiService.setHttp('get', 'sericulture/api/OtpTran/VerifyOTP?MobileNo=' + this.farmerMobileNo.value + '&OTP=' + sendOtp + '&PageName=Login&CreatedBy=0&lan=' + this.lang + '&LoginFlag=web&UserType=1', false, false, false, 'baseUrl');
       this.apiService.getHttp().subscribe((res: any) => {
         if (res.statusCode == "200") {
           this.spinner.hide();

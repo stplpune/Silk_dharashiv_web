@@ -5,7 +5,8 @@
       <div class="col-sm">
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>{{'cocoonSilkSell.Bill_no' | translate}}</mat-label>
-          <input matInput placeholder="enter bill no" formControlName="BillNo">
+          <input matInput formControlName="BillNo" 
+          (keypress)="validator.noFirstSpaceAllow($event)">
         </mat-form-field>
       </div>
       <div class="col-sm">    
@@ -19,17 +20,19 @@
       </div>
       <div class="col-sm-2">
         <mat-form-field class="w-100" appearance="outline">
-          <mat-label>From date</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="FromDate">
+          <mat-label>{{'marketPrice.from_date'|translate}}</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="FromDate" (click)="picker.open()" readonly>
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
       </div>
       <div class="col-sm-2">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>To date</mat-label>
-          <input matInput [matDatepicker]="picker1" formControlName="ToDate">
+        <mat-form-field class="w-100" appearance="outline"
+        [class]="filterForm.value.FromDate ? this.f['ToDate'].enable({ onlySelf: true }): this.f['ToDate'].disable({ onlySelf: true })">
+          <mat-label>{{'marketPrice.to_date'|translate}}</mat-label>
+          <input matInput [matDatepicker]="picker1" formControlName="ToDate"
+          [min]="f['FromDate'].value" max="maxDate" (click)="picker1.open()" readonly>
           <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
