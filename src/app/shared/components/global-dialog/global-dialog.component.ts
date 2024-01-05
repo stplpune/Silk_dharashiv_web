@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import {MatDialogModule} from '@angular/material/dialog';
+import { Gallery ,GalleryModule,ImageItem} from '@ngx-gallery/core';
+import { LightboxModule } from '@ngx-gallery/lightbox';
 
 
 @Component({
@@ -16,13 +18,21 @@ import {MatDialogModule} from '@angular/material/dialog';
   templateUrl: './global-dialog.component.html',
   styleUrls: ['./global-dialog.component.scss'],
   standalone: true,
-  imports: [ CommonModule,MatButtonModule, MatCardModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule,MatDialogModule]
+  imports: [ CommonModule, LightboxModule, GalleryModule,MatButtonModule, MatCardModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule,MatDialogModule]
 })
 export class GlobalDialogComponent {
   remark:any = new FormControl('');
-  constructor(public dialogRef: MatDialogRef<GlobalDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,    public commonService: CommonMethodsService, public valiService: ValidationService) { }
+  items: any = [];
+  dataArray = new Array();
+
+  constructor(public dialogRef: MatDialogRef<GlobalDialogComponent>, public gallery: Gallery, @Inject(MAT_DIALOG_DATA) public data: any,    public commonService: CommonMethodsService, public valiService: ValidationService) { }
 
   ngOnInit() {
+    this.dataArray = this.data.Obj.postImages;
+    this.items = this.dataArray?.map(item =>
+      new ImageItem({ src: item.imagePath  , thumb: item.imagePath
+      })
+    );
   }
 
   closeDialog(flag: string) {

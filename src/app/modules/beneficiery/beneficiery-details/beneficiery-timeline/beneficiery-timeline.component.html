@@ -13,9 +13,10 @@
         <ng-container matColumnDef="postImages">
           <th mat-header-cell *matHeaderCellDef> Image </th>
           <td mat-cell *matCellDef="let element" class="d-flex gap-2">
-            <div *ngFor="let img of element.postImages">
-              <img src="{{img.imagePath ? img.imagePath : 'assets/images/user.png'}}">
-            </div> </td>
+            <!-- <div *ngFor="let img of element?.postImages">{{img?.imageName}} -->
+              <img src="{{element?.postImages ? element?.postImages[0]?.imagePath : 'assets/images/user.png'}}" (click)="openDetailsDialog(element)">
+            <!-- </div> -->
+           </td>
         </ng-container>
         <ng-container matColumnDef="postData">
           <th mat-header-cell *matHeaderCellDef> Description </th>
