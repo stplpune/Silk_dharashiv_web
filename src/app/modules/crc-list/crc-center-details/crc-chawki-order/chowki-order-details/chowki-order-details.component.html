@@ -24,12 +24,12 @@
             <div class="col-sm-8 form-data">: {{tableDataArray?.mobNo1 || '-'}}</div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
           <div class="row gx-2">
             <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Delivery Slab' : 'डिलिव्हरी स्लॅब' || '-'}}</div>
             <div class="col-sm-8 form-data">: {{tableDataArray?.deliverySlab || '-'}}</div>
           </div>
-        </div>
+        </div> -->
         <div class="col-sm-6">
           <div class="row gx-2">
             <div class="col-sm-4 form-label"> {{lang == 'en' ? 'District' : 'जिल्हा' || '-'}}</div>
@@ -64,7 +64,7 @@
           <div class="row gx-2">
             <div class="col-sm-2 form-label"> {{lang == 'en' ? 'Payment Reciept' : 'पैसे भरल्याची पावती' || '-'}}</div>
             <div class="col-sm-10 form-data" >:
-              <a href="" (click)="viewreceipt()" *ngIf="tableDataArray?.receiptOfPaymentPath">View</a>
+              <a (click)="viewreceipt()" *ngIf="tableDataArray?.receiptOfPaymentPath">View</a>
             </div>
           </div>
         </div>
@@ -83,18 +83,18 @@
           </tr>
           <tr>
             <th>
-              <div class="form-label">  {{lang == 'en' ? 'Order Date' : 'मागणीची तारीख' || '-'}}</div>
+              <div class="form-label">  {{lang == 'en' ? 'Delivery Slab' : 'डिलिव्हरी स्लॅब' || '-'}}</div>
             </th>
             <th>
-              <div class="form-data">{{orderDataArray?.orderDate | date:'dd-MM-yyyy' || '-'}}</div>
+              <div class="form-data">{{tableDataArray?.deliverySlab || '-'}}</div>
             </th>
           </tr>
           <tr>
             <th>
-              <div class="form-label">  {{lang == 'en' ? 'Product Name' : 'उत्पादनाचे नांव' || '-'}}</div>
+              <div class="form-label">  {{lang == 'en' ? 'Order Date' : 'मागणीची तारीख' || '-'}}</div>
             </th>
             <th>
-              <div class="form-data">{{orderDataArray?.productName || '-'}}</div>
+              <div class="form-data">{{orderDataArray?.orderDate | date:'dd-MM-yyyy' || '-'}}</div>
             </th>
           </tr>
           <tr>
@@ -107,7 +107,7 @@
           </tr>
           <tr>
             <th>
-              <div class="form-label"> {{lang == 'en' ? 'Rate (INR)' : 'दर (INR)' || '-'}}</div>
+              <div class="form-label"> {{lang == 'en' ? 'Rate ' : 'दर (INR)' || '-'}}</div>
             </th>
             <th>
               <div class="form-data">{{orderDataArray?.rate | currency :'INR' || '-'}}</div>
@@ -115,7 +115,7 @@
           </tr>
           <tr>
             <th>
-              <div class="form-label"> {{lang == 'en' ? 'Total Amount (INR)' : 'एकूण रक्कम (INR)' || '-'}}</div>
+              <div class="form-label"> {{lang == 'en' ? 'Total Amount' : 'एकूण रक्कम (INR)' || '-'}}</div>
             </th>
             <th>
               <div class="form-data">{{orderDataArray?.totalAmount | currency :'INR' || '-'}}</div>

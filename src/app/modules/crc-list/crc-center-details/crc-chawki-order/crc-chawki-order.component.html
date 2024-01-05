@@ -49,7 +49,8 @@
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label> {{lang == 'en' ? 'Village' : 'गाव' || '-'}}</mat-label>
-          <mat-select formControlName="grampanchayatId">
+          <mat-select formControlName="grampanchayatId"
+          [class]="webService.getGrampanchayatId() || !filterForm.getRawValue().talukaId ? f['grampanchayatId'].disable({ onlySelf: true }) : f['grampanchayatId'].enable({ onlySelf: true })">
             <mat-option>
               <ngx-mat-select-search [formControl]="gramPCtrl"
                 placeholderLabel="{{lang == 'en' ? 'Search Village Name' : 'गावाचे नाव शोधा'}}"
