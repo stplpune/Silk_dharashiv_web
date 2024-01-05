@@ -166,7 +166,7 @@ export class CRCListComponent {
       view: true,
       edit: false,
       delete: false,
-      selfStatus:'status'
+      status1:'status'
     };
     this.highLightedFlag ? tableData.highlightedrow = true : tableData.highlightedrow = false;
     this.apiService.tableData.next(tableData);
