@@ -94,7 +94,7 @@ export class AddSilkCocoonSellComponent {
       "marketCommiteeId": [this.data?.marketCommiteeId || '', [Validators.required]],
       "silkSellDate": [this.data?.silkSellDate || '', [Validators.required]],
       "billNo": [this.data?.billNo || '', [Validators.required, this.validator.maxLengthValidator(20), Validators.pattern(this.validator.alphaNumericWithoutSpace)]],
-      "silkRatePerKg": [this.data?.silkRatePerKg || '', [Validators.required, this.validator.maxLengthValidator(10), Validators.pattern(this.validator.numericWithdecimaluptotwoDigits)]],
+      "silkRatePerKg": [this.data?.silkRatePerKg || '', [Validators.required, this.validator.maxLengthValidator(10), Validators.pattern(this.validator.onlyNumbers)]],
       "totalSilk": [this.data?.totalSilk || '', [Validators.required, this.validator.maxLengthValidator(5), Validators.pattern(this.validator.numericWithdecimaluptotwoDigits)]],
       "totalAmount": [this.data?.totalAmount || ''],
       "marketFees": [this.data?.marketFees || '', [Validators.required, this.validator.maxLengthValidator(5), Validators.pattern(this.validator.numericWithdecimaluptotwoDigits)]],

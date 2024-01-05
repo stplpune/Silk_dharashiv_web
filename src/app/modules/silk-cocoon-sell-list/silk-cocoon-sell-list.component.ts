@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
+import { ValidationService } from 'src/app/core/services/validation.service';
 
 @Component({
   selector: 'app-silk-cocoon-sell-list',
@@ -30,7 +32,10 @@ export class SilkCocoonSellListComponent {
   farmerId: any;
   filterFlag: boolean = false;
   marketCommitteeArr = new Array();
+  maxDate = new Date();
   @ViewChild('formDirective') private formDirective!: NgForm;
+
+  get f() { return this.filterForm.controls }
 
   constructor(public dialog: MatDialog,
     private spinner: NgxSpinnerService,
@@ -40,9 +45,11 @@ export class SilkCocoonSellListComponent {
     public webStorage: WebStorageService,
     private activatedRoute: ActivatedRoute,
     public encryptdecrypt: AesencryptDecryptService,
-    private fb : FormBuilder,
+    private fb: FormBuilder,
     private commonMethod: CommonMethodsService,
-   ) { }
+    public validator: ValidationService,
+    private dateAdapter: DateAdapter<Date>
+  ) { this.dateAdapter.setLocale('en-GB') }
 
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
@@ -60,17 +67,16 @@ export class SilkCocoonSellListComponent {
     this.getTableData();
   }
 
-filterFormData(){
-  this.filterForm = this.fb.group({
-  BillNo:[''],
-  MarketCommiteeId:[''],
-  FromDate :[''],
-  ToDate :['']
+  filterFormData() {
+    this.filterForm = this.fb.group({
+      BillNo: [''],
+      MarketCommiteeId: [''],
+      FromDate: [''],
+      ToDate: ['']
+    })
+  }
 
-  })
-}
-
-  getTableData(flag?:any) {
+  getTableData(flag?: any) {
     let formValue = this.filterForm.value;
     let id = this.webStorage.getUserId()
     this.spinner.show();
