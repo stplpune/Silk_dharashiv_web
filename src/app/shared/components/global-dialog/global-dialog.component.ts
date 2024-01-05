@@ -33,6 +33,7 @@ export class GlobalDialogComponent {
       new ImageItem({ src: item.imagePath  , thumb: item.imagePath
       })
     );
+    console.log(" this.items", this.items)
   }
 
   closeDialog(flag: string) {

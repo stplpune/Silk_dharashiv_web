@@ -14,7 +14,7 @@
           <th mat-header-cell *matHeaderCellDef> Image </th>
           <td mat-cell *matCellDef="let element" class="d-flex gap-2">
             <!-- <div *ngFor="let img of element?.postImages">{{img?.imageName}} -->
-              <img src="{{element?.postImages ? element?.postImages[0]?.imagePath : 'assets/images/user.png'}}" (click)="openDetailsDialog(element)">
+              <img src="{{element?.postImages.length ? element?.postImages[0]?.imagePath : 'assets/images/user.png'}}" (click)="element?.postImages.length ? openDetailsDialog(element) : ''">
             <!-- </div> -->
            </td>
         </ng-container>

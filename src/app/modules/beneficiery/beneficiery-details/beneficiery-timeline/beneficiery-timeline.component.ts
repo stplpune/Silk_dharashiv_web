@@ -213,10 +213,7 @@ export class BeneficieryTimelineComponent {
       }
       this.highLightRowFlag = false;
     });
-
-
-    
-  }
+ }
 
 
 
