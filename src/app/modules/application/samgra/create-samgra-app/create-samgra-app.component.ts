@@ -766,9 +766,8 @@ export class CreateSamgraAppComponent {
   }
 
   isDelFlagInternalSchemes(index: any, flag?: any) {
-    if (flag == 'currentCropDetails') {        // delete current crop product table
+    if (flag == 'currentCropDetails') {     // delete current crop product table
       let indexVal = this.currentCropDetailsArray.findIndex((ele: any) => ele.id == index.id);
-
       if (index.id == 0) {
         this.currentCropDetailsArray.splice(indexVal, 1)
       } else {
