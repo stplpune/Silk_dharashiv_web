@@ -42,8 +42,7 @@ import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decry
 export class CrcGrainageOrderComponent {
 
   districtArray = new Array();
-  talukaArray = new Array();
-  grampanchayatArray = new Array();
+  stateArray = new Array();
   subscription!: Subscription;
   lang: string = 'English';
   filterForm!: FormGroup;
@@ -55,10 +54,10 @@ export class CrcGrainageOrderComponent {
   filterFlag: boolean = false;
   pageNumber: number = 1;
   counterObject: any;
-  gramPCtrl: FormControl = new FormControl();
-  gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
-  talukaCtrl: FormControl = new FormControl();
-  talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  districtCtrl: FormControl = new FormControl();
+  districtPSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  stateCtrl: FormControl = new FormControl();
+  stateSubject: ReplaySubject<any> = new ReplaySubject<any>();
   routingData: any;
   id: any;
   crcNameMR: any;
@@ -92,7 +91,7 @@ export class CrcGrainageOrderComponent {
     this.crcNameEn = spliteUrl[1];
     this.crcNameMR = spliteUrl[2];
     this.getFormData();
-    this.getDisrict();
+    this.getState();
     this.getStatus();
     this.searchDataZone();
     this.getTableData();
@@ -100,9 +99,8 @@ export class CrcGrainageOrderComponent {
 
   getFormData() {
     this.filterForm = this.fb.group({
-      districtId: [this.webService.getDistrictId() == '' ? 0 : this.webService.getDistrictId()],
-      talukaId: [this.webService.getTalukaId() ? this.webService.getTalukaId() : 0],
-      grampanchayatId: [0],
+      stateId: [0],
+      districtId: [0],
       statusId: [0],
       searchValue: [''],
     })
@@ -110,46 +108,33 @@ export class CrcGrainageOrderComponent {
   get f() { return this.filterForm.controls; }
 
   searchDataZone() {
-    this.talukaCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject) });
-    this.gramPCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject) });
+    this.stateCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.stateArray, this.stateCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.stateSubject) });
+    this.districtCtrl.valueChanges.pipe().subscribe(() => { this.commonMethod.filterArrayDataZone(this.districtArray, this.districtCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.districtPSubject) });
+  }
+
+  getState() {
+    this.masterService.getGrainageState().subscribe({
+      next: ((res: any) => {
+        this.stateArray = res.responseData;
+        this.stateArray.unshift({ id: 0, textEnglish: 'All State', textMarathi: 'सर्व राज्य' }),
+          this.commonMethod.filterArrayDataZone(this.stateArray, this.stateCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.stateSubject);
+      }), error: (() => {
+        this.stateArray = [];
+        this.stateSubject.next(null);
+      })
+    })
   }
 
   getDisrict() {
+    let formData = this.filterForm.getRawValue() || 0;
     this.districtArray = [];
-    this.masterService.GetAllDistrict(1).subscribe({
-      next: ((res: any) => {
-        this.districtArray = res.responseData;
-        this.getTaluka();
-      }), error: (() => {
-        this.districtArray = [];
-      })
-    })
-  }
-
-  getTaluka() {
-    this.masterService.GetAllTaluka(1, 1, 0).subscribe({
-      next: ((res: any) => {
-        this.talukaArray = res.responseData;
-        this.talukaArray.unshift({ id: 0, textEnglish: 'All Taluka', textMarathi: 'सर्व तालुका' }),
-          this.commonMethod.filterArrayDataZone(this.talukaArray, this.talukaCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.talukaSubject);
-      }), error: (() => {
-        this.talukaArray = [];
-        this.talukaSubject.next(null);
-      })
-    })
-  }
-
-  getGrampanchayat() {
-    let talukaId = this.filterForm.getRawValue().talukaId || 0;
-    if (talukaId != 0) {
-      this.masterService.GetGrampanchayat(talukaId).subscribe({
+    if (formData.stateId != 0) {
+      this.masterService.geGrainageDistrict(formData.stateId).subscribe({
         next: ((res: any) => {
-          this.grampanchayatArray = res.responseData;
-          this.grampanchayatArray.unshift({ id: 0, textEnglish: 'All Grampanchayat', textMarathi: 'सर्व ग्रामपंचायत' });
-          this.commonMethod.filterArrayDataZone(this.grampanchayatArray, this.gramPCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.gramPSubject);
+          this.districtArray = res.responseData;
+          this.commonMethod.filterArrayDataZone(this.districtArray, this.districtCtrl, this.lang == 'en' ? 'textEnglish' : 'textMarathi', this.districtPSubject);
         }), error: (() => {
-          this.grampanchayatArray = [];
-          this.gramPSubject.next(null);
+          this.districtArray = [];
         })
       })
     }
@@ -176,14 +161,15 @@ export class CrcGrainageOrderComponent {
       this.getTableData();
     });
   }
-  // sericulture/api/CRCCenter/Get-CRC-Centers_Chawki-Orders?DistrictId='+(formData.districtId || 0)+'&TalukaId='+(formData.talukaId ||0)+'&GrampanchayatId='+(formData.grampanchayatId || 0)+'&DistributionSlab='+(formData.deliveryslabId || 0)+'&Status='+(formData.statusId || 0)+str
+
+  //sericulture/api/CRCCenter/Get-Ordered-Grainage-List?crcCenterId=1&StateId=1&DistrictId=1&SearchText=q&PageNo=1&PageSize=10&lan=en
 
   getTableData(flag?: any) {
     this.spinner.show();
     let formData = this.filterForm.getRawValue();
     flag == 'filter' ? this.pageNumber = 1 : ''
     let str = `&PageNo=${this.pageNumber}&PageSize=10`;
-    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Ordered-Grainage-List?crcCenterId=' + (this.id) + '&Status=' + (formData.statusId || 0) + '&StateId=1&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchyatId=' + (formData.grampanchayatId || 0) + '&SearchText=' + (formData.searchValue || '') + str, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/CRCCenter/Get-Ordered-Grainage-List?crcCenterId=' + (this.id) + '&Status=' + (formData.statusId || 0) + '&StateId='+(formData.stateId || 0)+'&DistrictId=' + (formData.districtId || 0) + '&TalukaId=' + (formData.talukaId || 0) + '&GrampanchyatId=' + (formData.grampanchayatId || 0) + '&SearchText=' + (formData.searchValue || '') + str, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -254,10 +240,10 @@ export class CrcGrainageOrderComponent {
   }
 
   clearDropDown(flag: any) {
-    if (flag == 'gram') {
-      this.gramPSubject = new ReplaySubject<any>();
-      this.grampanchayatArray = [];
-      this.f['grampanchayatId'].setValue('');
+    if (flag == 'dist') {
+      this.districtPSubject = new ReplaySubject<any>();
+      this.districtArray = [];
+      this.f['districtId'].setValue('');
     }
   }
 

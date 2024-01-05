@@ -491,6 +491,27 @@ export class MasterService {
       })
     })
   }
+
+  getGrainageState(){
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-All-GrainageState', false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
+  geGrainageDistrict(stateId:number){
+    return new Observable((obj) => {
+      this.apiService.setHttp('GET', 'sericulture/api/DropdownService/get-All-GrainageDistrict?StateId='+stateId, false, false, false, 'masterUrl')
+      this.apiService.getHttp().subscribe({
+        next: (res: any) => { if (res.statusCode == "200") { obj.next(res) } else { obj.error(res); } },
+        error: (e: any) => { obj.error(e) }
+      })
+    })
+  }
+
   refreshTokenJWT(obj: any) {
     this.apiService.setHttp('POST', 'sericulture/api/Login/refresh-token?LoginFlag=web', false, obj, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
