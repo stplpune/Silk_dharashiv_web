@@ -197,12 +197,7 @@ export class BeneficieryTimelineComponent {
 
   openDetailsDialog(obj: any) {
     let dialogObj = {
-    //  title: 'Image',
-      //header: this.lang == 'en' ? 'Delete Beneficiary Timeline' : 'लाभार्थी टाइमलाइन हटवा',
-      //okButton: this.lang == 'en' ? 'Delete' : 'हटवा',
-      //cancelButton: this.lang == 'en' ? 'Cancel' : 'रद्द करा',
-     // headerImage: 'assets/images/delete.svg',
-      multipleImage: true,
+     multipleImage: true,
       Obj: obj,
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
@@ -220,30 +215,7 @@ export class BeneficieryTimelineComponent {
     });
 
 
-    // var data = {
-    //   // headerImage: obj.uploadImage || "assets/images/user.png",
-    //   headerImage: obj.uploadImage || "assets/images/School_svg.svg",
-    //   header: this.webStorageS.languageFlag == 'EN' ? obj.schoolName : obj.m_SchoolName,
-    //   subheader: this.webStorageS.languageFlag == 'EN' ? obj.schoolType : obj.m_SchoolType,
-    //   labelHeader: this.webStorageS.languageFlag == 'EN' ? ['District', 'Taluka', 'Kendra Name', 'Village', 'Lowest Class', 'Highest Class', 'Total Students'] : ['जिल्हा', 'तालुका', 'केंद्राचे नाव', 'गाव', 'सुरुवातीचा वर्ग ', 'शेवटचा वर्ग', 'एकूण विद्यार्थी'],
-    //   labelKey: this.webStorageS.languageFlag == 'EN' ? ['district', 'taluka', 'center', 'village', 'lowestClass', 'highestClass', 'studentCount'] : ['m_District', 'm_Taluka', 'm_Center', 'm_Village', 'lowestClass', 'highestClass', 'studentCount'],
-    //   Obj: obj,
-    //   chart: false,
-    //   multipleImage: true
-    // }
-    // const viewDialogRef = this.dialog.open(GlobalDetailComponent, {
-    //   width: '900px',
-    //   data: data,
-    //   disableClose: true,
-    //   autoFocus: false
-    // });
-    // viewDialogRef.afterClosed().subscribe((result: any) => {
-    //   if (result == 'yes') {
-    //     this.getTableData();
-    //   }
-    //   this.highLightFlag=false;
-    //   this.languageChange();
-    // });
+    
   }
 
 
