@@ -199,7 +199,7 @@ export class CrcGrainageOrderComponent {
     this.highLightedFlag = true;
     let displayedColumns = this.lang == 'en' ? ['srNo', 'orderId', 'grainage', 'state', 'grampanchayatName', 'type', 'orderedQty', 'orderDate', 'status1', 'action']
       : ['srNo', 'orderId', 'm_Grainage', 'm_state', 'm_GrampanchayatName', 'm_type', 'orderedQty', 'orderDate', 'status1', 'action'];
-    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Order Id', 'Grainage', 'State', 'Location', 'Type', 'Order Qty(DFLs)', 'Order Date', 'Status', 'Action'] :
+    let displayedheaders = this.lang == 'en' ? ['Sr. No.', 'Order Id', 'Grainage', 'State', 'Location', 'Type', 'Order Qty (DFLs)', 'Order Date', 'Status', 'Action'] :
       ['अनुक्रमांक', 'ऑर्डर आयडी', 'धान्य', 'राज्य', 'स्थान', 'प्रकार', 'ऑर्डर प्रमाण (DFLs)', 'मागणीची तारीख', 'स्थिती', 'कृती'];
     let tableData = {
       pageNumber: this.pageNumber,
