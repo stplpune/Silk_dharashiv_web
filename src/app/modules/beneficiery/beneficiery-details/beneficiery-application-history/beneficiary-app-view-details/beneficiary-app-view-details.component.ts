@@ -83,7 +83,7 @@ export class BeneficiaryAppViewDetailsComponent {
 
   getTableData() {
     this.spinner.show();
-    this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetApplicationForBeneficiery?Id=1&UserId=1&LoginFlag=web&lan='+this.lang, false, false, false, 'masterUrl');
+    this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetApplicationForBeneficiery?Id='+(this.data.id)+'&UserId='+(this.webStorage.getUserId())+'&LoginFlag=web&lan='+this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();

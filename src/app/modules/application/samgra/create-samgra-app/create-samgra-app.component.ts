@@ -98,6 +98,7 @@ export class CreateSamgraAppComponent {
   applicationId: any;
   submitDate: any;
   checkApplicationId : number = 0
+  cropDetailsValue : any;
   @ViewChild('stepper') private myStepper!: MatStepper;
   @ViewChild('samgraDirective') private samgraDirective: NgForm | any;
   @ViewChild('landDetailsDirective') private landDetailsDirective: NgForm | any;
@@ -615,6 +616,7 @@ export class CreateSamgraAppComponent {
         if (existedRecord && !obj) {
           existedRecord.id != 0 && existedRecord.isDeleted ? (existedRecord.isDeleted = false,this.lang == 'en' ? this.commonMethod.snackBar("Add successfully", 0) : this.commonMethod.snackBar("यशस्वीरित्या समावेष  केले", 0)) : this.lang == 'en' ? this.commonMethod.snackBar("This crop already exist", 1) : this.commonMethod.snackBar("हे पीक आधीच अस्तित्वात आहे", 1)
         } else {
+          this.cropDetailsValue = result;
           let formvalue = result
           formvalue.applicationId = this.previewData?.id || this.currentRecordId || 0;
 
@@ -767,7 +769,7 @@ export class CreateSamgraAppComponent {
 
   isDelFlagInternalSchemes(index: any, flag?: any) {
     if (flag == 'currentCropDetails') {     // delete current crop product table
-      let indexVal = this.currentCropDetailsArray.findIndex((ele: any) => ele.id == index.id);
+      let indexVal = this.currentCropDetailsArray.findIndex((ele: any) => index.id > 0 ? (ele.id == index.id) : (ele.id == index.id) && (ele.cropId == this.cropDetailsValue.cropId) );
       if (index.id == 0) {
         this.currentCropDetailsArray.splice(indexVal, 1)
       } else {
@@ -775,7 +777,8 @@ export class CreateSamgraAppComponent {
       };
       this.bindcurrentCropTable();
     } else {
-      let indexVal = this.internalSchemesArray.findIndex((ele: any) => ele.id == index.id)
+      let fromvalue = this.internalSchemes.getRawValue(); 
+      let indexVal = this.internalSchemesArray.findIndex((ele: any) => index.id > 0 ?  (ele.id == index.id) : (ele.id == index.id) && (ele.internalSchemeName == fromvalue?.internalSchemeName))
       if (index.id == 0) {
         this.internalSchemesArray.splice(indexVal, 1)
       } else {

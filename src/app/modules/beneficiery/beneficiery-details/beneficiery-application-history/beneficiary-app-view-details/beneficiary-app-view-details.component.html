@@ -8,596 +8,1304 @@
     </button>
   </div>
 </div>
-<div mat-dialog-content class="modal-body form-container plain-card">
-  <div class="card card-body mb-3">
-    <div class="row g-2">
-      <div class="col-sm-4">
-        <div class="row gx-2">
-          <div class="col-sm-6">
-            <div class="form-label mb-0">{{lang == 'en' ? 'Application ID (Date)' : 'अर्ज क्रमांक (तारीख'}}:</div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-data">: {{tableData?.applicationNo || 0}} ({{tableData?.applicationDate | date:'dd-mm-yyyy'
-              || '-'}})</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="row gx-2">
-          <div class="col-sm-4">
-            <div class="form-label mb-0">{{lang == 'en' ? 'Mulberry ID (Date)' : 'तुती आयडी(तारीख)'}}</div>
-          </div>
-          <div class="col-sm-8">
-            <div class="form-data">:{{tableData?.mulberryId}} ({{tableData?.mulberryIdGeneratedDate| date:'dd-MM-yyyy'
-              || '-'}})</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="row gx-2">
-          <div class="col-sm-6">
-            <div class="form-label mb-0"> {{lang == 'en' ? 'Applicant Name' : 'अर्जदाराचे नाव'}}</div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-data">:{{lang == 'en' ? tableData?.fullName : tableData?.m_FullName || '-'}}</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="row gx-2">
-          <div class="col-sm-6">
-            <div class="form-label mb-0"> {{lang == 'en' ? 'Mobile No' : 'मोबाईल नंबर'}}</div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-data">: {{tableData?.mobileNo1 || '-'}} </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="row gx-2">
-          <div class="col-sm-4">
-            <div class="form-label mb-0"> {{lang == 'en' ? 'Scheme' : 'योजना'}}</div>
-          </div>
-          <div class="col-sm-8">
-            <div class="form-data">: {{lang == 'en' ? tableData?.schemeType : tableData?.m_SchemeType || '-'}} </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-4">
-        <div class="row gx-2">
-          <div class="col-sm-6">
-            <div class="form-label mb-0"> {{lang == 'en' ? 'Process Department' : 'प्रक्रिया विभाग'}}:</div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-data">: {{lang == 'en' ? tableData?.departmentName : tableData?.m_DepartmentName || '-'}}
+<ng-container *ngIf="tableData?.schemeTypeId == 1">
+  <div mat-dialog-content class="modal-body form-container plain-card ">
+    <div class="card card-body mb-3">
+      <div class="row g-2">
+        <div class="col-sm-4">
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <div class="form-label mb-0">{{lang == 'en' ? 'Application ID (Date)' : 'अर्ज क्रमांक (तारीख'}}</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-data">: {{tableData?.applicationNo || 0}} ({{tableData?.applicationDate | date:'dd-mm-yyyy'
+                || '-'}})</div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="col-sm">
-        <div class="row gx-2">
-          <div class="col-sm-2">
-            <div class="form-label mb-0"> {{lang == 'en' ? 'Plantation Area (Hector)' : 'वृक्षारोपण क्षेत्र (हेक्टर)'}}:
+        <div class="col-sm-4" *ngIf="tableData?.getSiteInspectionDataModel?.isSiteInspectionDone == true">
+          <div class="row gx-2">
+            <div class="col-sm-4">
+              <div class="form-label mb-0">{{lang == 'en' ? 'Mulberry ID (Date)' : 'तुती आयडी(तारीख)'}}</div>
+            </div>
+            <div class="col-sm-8">
+              <div class="form-data">:{{getProfileData?.mulberryId}} ({{getProfileData?.mulberryIdGeneratedDate| date:'dd-MM-yyyy'
+                || '-'}})</div>
             </div>
           </div>
-          <div class="col-sm-10">
-            <div class="form-data">: {{tableData?.mulberryCultivationArea || 0}}. </div>
-          </div>
         </div>
-      </div>
-      <div class="col-sm-12">
-        <div class="row gx-2">
-          <div class="col-sm-2">
-            <div class="form-label mb-0">{{lang == 'en' ? 'Address' : 'पत्ता'}}
+        <div class="col-sm-4">
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Applicant Name' : 'अर्जदाराचे नाव'}}</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-data">:{{lang == 'en' ? tableData?.fullName : tableData?.m_FullName || '-'}}</div>
             </div>
           </div>
-          <div class="col-sm-10">
-            <div class="form-data">: {{lang == 'en' ? tableData?.address : tableData?.m_address || '-'}} </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Mobile No' : 'मोबाईल नंबर'}}</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-data">: {{tableData?.mobileNo1 || '-'}} </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="table-content table-responsive mb-3">
-    <ng-container *ngIf="applicationApproveData?.length else block">
-      <table mat-table [dataSource]="applicationApproveData" class="dashboard-table mb-0">
-
-        <ng-container matColumnDef="sr_no">
-          <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
-          <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="actionName">
-          <th mat-header-cell *matHeaderCellDef> Action </th>
-          <td mat-cell *matCellDef="let element"> {{element.actionName}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="designationName">
-          <th mat-header-cell *matHeaderCellDef> Designation </th>
-          <td mat-cell *matCellDef="let element"> {{element.designationName}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef> Approval Status </th>
-          <td mat-cell *matCellDef="let element" [class]="(element.status == 'Pending' || element.m_Status == 'प्रलंबित') ? 'badge bg-warning-subtle text-dark' :(element.status=='Approved' || element.m_Status=='मान्यता प्राप्त') ? 'badge bg-success-subtle text-success' : '' "> {{element.status}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="modifiedDate">
-          <th mat-header-cell *matHeaderCellDef> Approval Date </th>
-          <td mat-cell *matCellDef="let element"> {{element.modifiedDate | date:'dd-mm-yyyy'}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="remark">
-          <th mat-header-cell *matHeaderCellDef> Approval Remark </th>
-          <td mat-cell *matCellDef="let element"> {{element.remark}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef> View </th>
-          <td mat-cell *matCellDef="let element">
-            <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
-              (click)="viewDocs(element?.documnetApprovalPath)">
-              <span class="material-symbols-rounded text-dark">
-                visibility
-              </span>
-            </button>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-    </ng-container>
-    <ng-template #block>
-      <div class="alert alert-danger text-center m-2 p-2">
-        <span>No Data Found</span>
-      </div>
-    </ng-template>
-
-  </div>
-  <div class="card mb-3">
-    <div class="card-header">
-      <div class="form-data text-main"> {{lang == 'en' ? 'Applicant Details': 'अर्जदाराचे तपशील' || '-'}}</div>
-    </div>
-    <div class="card-body">
-      <div class="row application-details">
-        <div class="col-sm-3">
-          <img src="{{getProfileData?.profilePhotoPath}}" alt="view Applicant Image" class="w-100">
-        </div>
-        <div class="col-sm-9">
-          <div class="row g-2 mb-2 pb-2 border-bottom">
-            <div class="col-sm-2 col-4">
-              <div class="form-label"> {{lang == 'en' ? 'Applicant Name': 'अर्जदाराचे नाव' || '-'}}</div>
+        <div class="col-sm-4">
+          <div class="row gx-2">
+            <div class="col-sm-4">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Scheme' : 'योजना'}}</div>
             </div>
-            <div class="col-sm-4 col-8">
-              <div class="form-data">:
-                {{lang == 'en' ? tableData?.fullName : tableData?.m_FullName}}
+            <div class="col-sm-8">
+              <div class="form-data">: {{lang == 'en' ? tableData?.schemeType : tableData?.m_SchemeType || '-'}} </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-sm-4">
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Process Department' : 'प्रक्रिया विभाग'}}:</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-data">: {{lang == 'en' ? tableData?.departmentName : tableData?.m_DepartmentName || '-'}}
               </div>
             </div>
-            <div class="col-sm-2 col-4">
-              <div class="form-label"> {{lang == 'en' ? 'Mobile No.': 'मोबाईल नंबर' || '-'}}:</div>
+          </div>
+        </div>
+  
+        <div class="col-sm">
+          <div class="row gx-2">
+            <div class="col-sm-2">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Plantation Area (Hector)' : 'वृक्षारोपण क्षेत्र (हेक्टर)'}}
+              </div>
             </div>
-            <div class="col-sm-4 col-8">
-              <div class="form-data">: {{tableData?.mobileNo1 || '-'}}</div>
-            </div>
-            <div class="col-sm-2 col-4">
-              <div class="form-label"> {{lang == 'en' ? 'Alternate Mobile No': 'पर्यायी मोबाईल क्रमांक' || '-'}}</div>
-            </div>
-            <div class="col-sm-4 col-8">
-              <div class="form-data"> : {{tableData?.mobileNo2 || '-'}}</div>
-            </div>
-            <div class="col-sm-2 col-4">
-              <div class="form-label"> {{lang == 'en' ? 'Mgnrega Job Card No.': 'मनरेगा जॉब कार्ड क्रमांक.' || '-'}}
-                :</div>
-            </div>
-            <div class="col-sm-4 col-8">
-              <div class="form-data">: {{tableData?.mn_JobCardNo || '-'}}</div>
-            </div>
-            <div class="col-sm-2 col-4">
-              <div class="form-label"> {{lang == 'en' ? 'Aadhaar Card No.': 'आधार क्रमांक' || '-'}}</div>
-            </div>
-            <div class="col-sm-4 col-8">
-              <div class="form-data"> : {{tableData?.aadharNo || '-'}}</div>
-            </div>
-            <div class="col-sm-2 col-4">
-              <div class="form-label"> {{lang == 'en' ? 'Gender': '
-                लिंग' || '-'}}</div>
-            </div>
-            <div class="col-sm-4 col-8">
-              <div class="form-data">: {{tableData?.gender || '-'}}</div>
-            </div>
-            <div class="col-sm-2 col-4">
-              <div class="form-label"> {{lang == 'en' ? 'Date of Birth': 'जन्मतारीख' || '-'}}</div>
-            </div>
-            <div class="col-sm-4 col-8">
-              <div class="form-data">:{{tableData?.birthDate | date: 'dd-MM-yyyy' || '-'}}</div>
-            </div>
-            <div class="col-sm-2 col-4">
-              <div class="form-label"> {{lang == 'en' ? 'Education': 'शिक्षण' || '-'}}</div>
-            </div>
-            <div class="col-sm-4 col-8">
-              <div class="form-data">:{{lang == 'en' ? (tableData?.qualification || '-' ) : (tableData?.m_Qualification
-                || "-")}}</div>
-            </div>
-            <div class="col-sm-2 col-4">
-              <div class="form-label"> {{lang == 'en' ? 'State': 'राज्य' || '-'}}</div>
-            </div>
-            <div class="col-sm-4 col-8">
-              <div class="form-data">:{{lang == 'en' ? tableData?.state : tableData?.m_State || '-'}}</div>
-            </div>
-            <div class="col-sm-2 col-4">
-              <div class="form-label"> {{lang == 'en' ? 'District': 'जिल्हा' || '-'}}</div>
-            </div>
-            <div class="col-sm-4 col-8">
-              <div class="form-data">: {{lang == 'en' ? tableData?.district : tableData?.m_District || '-'}}</div>
-            </div>
-            <div class="col-sm-2 col-4">
-              <div class="form-label"> {{lang == 'en' ? 'Taluka': 'तालुका' || '-'}}</div>
-            </div>
-            <div class="col-sm-4 col-8">
-              <div class="form-data">: {{lang == 'en' ? tableData?.taluka : tableData?.m_Taluka || '-'}}</div>
-            </div>
-            <div class="col-sm-2 col-4">
-              <div class="form-label"> {{lang == 'en' ? 'Village Committee (Grampanchyat)': 'ग्रामपंचायत' || '-'}}</div>
-            </div>
-            <div class="col-sm-4 col-8">
-              <div class="form-data"> :{{lang == 'en' ? tableData?.grampanchayatName : tableData?.m_GrampanchayatName ||
-                '-'}}</div>
-            </div>
-            <div class="col-sm-2 col-4">
-              <div class="form-label"> {{lang == 'en' ? 'Village': 'गाव' || '-'}}</div>
-            </div>
-            <div class="col-sm-4 col-8">
-              <div class="form-data">: {{lang == 'en' ? tableData?.village : tableData?.m_village || '-'}}</div>
-            </div>
-            <div class="col-sm-2 col-4">
-              <div class="form-label"> {{lang == 'en' ? 'Pin Code ': 'पिन कोड' || '-'}}</div>
-            </div>
-            <div class="col-sm-4 col-8">
-              <div class="form-data">: {{tableData?.pinCode || '-'}}</div>
-            </div>
-            <div class="col-sm-2 col-4">
-              <div class="form-label"> {{lang == 'en' ? 'Address': 'पत्ता' || '-'}}</div>
-            </div>
-            <div class="col-sm-4 col-8">
-              <div class="form-data">: {{lang == 'en' ? tableData?.address : tableData?.m_Address || '-'}}</div>
+            <div class="col-sm-10">
+              <div class="form-data">: {{tableData?.mulberryCultivationArea || 0}}. </div>
             </div>
           </div>
-          <div class="form-label"> {{lang == 'en' ? 'Beneficiary Category': 'लाभार्थ्यांची वर्गवारी' || '-'}}</div>
-          <div class="form-data mb-0">
-            1. {{lang == 'en' ? categoryCastDetails?.categoryOfBeneficiary :
-            categoryCastDetails?.m_CategoryOfBeneficiary}}
+        </div>
+        <div class="col-sm-12">
+          <div class="row gx-2">
+            <div class="col-sm-2">
+              <div class="form-label mb-0">{{lang == 'en' ? 'Address' : 'पत्ता'}}
+              </div>
+            </div>
+            <div class="col-sm-10">
+              <div class="form-data">: {{lang == 'en' ? ((tableData?.grampanchayatName | dash) +', '+ (tableData?.taluka |
+                dash) +', '+(tableData?.district | dash)+', '+(tableData?.state | dash)): (tableData?.m_GrampanchayatName
+                | dash)+ ' ,'+(tableData?.m_Taluka | dash)+', '+(tableData?.m_District | dash)+', '+(tableData?.m_State |
+                dash) }}</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="card mb-3">
-    <div class="card-header">
-      <div class="text-main fw-bold"> {{lang == 'en' ? 'Land Details': 'जमिनीचा तपशील' || '-'}}</div>
-    </div>
-    <div class="card-body">
-      <div class="row gx-2">
-        <div class="col-sm-6">
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <td>
-                  <div class="form-label">{{lang == 'en' ? 'Total Land in Hectares (up to 2.0 hectares) in favor of beneficiaries(as per 8-A)' : 'एकूण जमीन हेक्टरमध्ये (२.० हेक्टर पर्यंत) लाभार्थ्यांच्या नावे (८-अ नुसार)' || '-'}}
-                  </div>
-                </td>
-                <td>{{getProfileData?.benificiaryTotalFarm || 0 }}</td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="form-label">{{lang == 'en' ? 'Cultivation Area in Hectares' : 'लागवडीचे क्षेत्र हेक्टर' ||
-                    '-'}}</div>
-                </td>
-                <td>{{getProfileData?.cultivatedFarmInHector || 0 }}</td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="form-label">{{lang == 'en' ?'Irrigation Facility' :'सिंचन सुविधा' || '-'}}</div>
-                </td>
-                <td>
-                  <div class="form-data">{{lang == 'en' ? getProfileData?.irrigationFacility :
-                    getProfileData?.m_IrrigationFacility || '-'}}
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="col-sm-6">
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <td>
-                  <div class="form-label">{{lang == 'en' ? 'Plantation Land Survey Number' : 'वृक्षारोपण जमीन सर्वेक्षण क्रमांक' || '-'}}</div>
-                </td>
-                <td>
-                  <div class="form-data">{{getProfileData?.mulberryCultivatedSurveyNo || '-'}}</div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="form-label">{{lang == 'en' ? 'Land Type' : 'जमिनीचा प्रकार'}}</div>
-                </td>
-                <td>
-                  <div class="form-data">{{lang == 'en' ? getProfileData?.farmType : getProfileData?.m_FarmType || '-'}}
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <ul class="list-group list-group-flush mb-3">
-        <li class=" list-group-item d-flex justify-content-between align-items-center">
-          <div class="form-label"> {{lang == 'en' ? 'Are you a joined account Holder?' : 'तुम्ही जॉईन केलेले खातेधारक आहात का?' || '-'}}</div>
-          <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
-            <mat-radio-button value="yes" class="form-data" [checked]="getProfileData?.isJointAccHolder == true">{{lang  == 'en' ? 'Yes' : 'होय'}}</mat-radio-button>
-            <mat-radio-button value="no" class="form-data" [checked]="getProfileData?.isJointAccHolder == false">{{lang  == 'en' ? 'No' : 'नाही'}}</mat-radio-button>
-          </mat-radio-group>
-        </li>
-        <ng-container>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div class="d-flex gap-2">
-              <div class="form-label">{{lang == 'en' ? 'Land Survey No. of land to be cultivated as per applicants share' : 'अर्जदाराच्या हिश्श्यानुसार लागवड करावयाच्या जमिनीचा भूमापन क्रमांक'}}:
-              </div>
-              <div class="form-data">{{getProfileData?.applicantFarmSurveyNo || '-'}}</div>
-            </div>
-            <div class="d-flex gap-2">
-              <div class="form-label">{{lang == 'en' ? 'Its area (Hector)' : 'त्याचे क्षेत्र(हेक्टर)'}}:
-              </div>
-              <div class="form-data">{{getProfileData?.applicantFarmArea || '-'}}</div>
-            </div>
-          </li>
-        </ng-container>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <div class="form-label">{{lang == 'en' ? 'Will take the silk industry training himself or send the candidate'  : 'रेशीम उद्योगाचे प्रशिक्षण स्वत: घेणार कि उमेदवार पाठवणार'}}</div>
-          <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
-            <mat-radio-button value="2" [checked]="getProfileData?.isSelfTraining == true">
-              <div class="fw-bold">{{lang == 'en' ? 'Myself' : 'स्वत:'}}</div>
-            </mat-radio-button>
-            <mat-radio-button value="1" [checked]="getProfileData?.isSelfTraining == false">
-              <div class="fw-bold">{{lang == 'en' ? 'Send Candidate' : 'उमेदवार पाठवणार'}}</div>
-            </mat-radio-button>
-          </mat-radio-group>
-        </li>
-        <ng-container>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div class="d-flex gap-3">
-              <div class="form-label">{{lang == 'en' ? 'Candidate Name' : 'उमेदवाराचे नाव'}}: </div>
-              <div class="form-data">{{getProfileData?.candidateName || '-'}}</div>
-            </div>
-            <div class="d-flex gap-2">
-              <div class="form-label"> {{lang == 'en' ? 'Relation' : 'उमेदवाराशी नाते'}}</div>
-              <div class="form-data">: {{getProfileData?.relationName || '-'}}</div>
-            </div>
-          </li>
-        </ng-container>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <div class="form-label">{{lang == 'en' ? 'Have you done orchards/flowers/trees before under the government schemes other than employement guarantee?' : 'रोजगार हमी व्यतिरिक्त इतर शासकीय योजने अंतर्गत पूर्व फळबाग/फुलपिके/वृक्ष केली आहेत का ?'}}</div>
-          <div class="form-data">
-            <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
-              <mat-radio-button value="11" class="form-data"
-                [checked]="getProfileData?.isAnyPlantedBeforeGovScheme == true">{{lang == 'en' ? 'Yes' : 'होय'}}
-              </mat-radio-button>
-              <mat-radio-button value="12" class="form-data"
-                [checked]="getProfileData?.isAnyPlantedBeforeGovScheme == true">{{lang == 'en' ? 'No' : 'नाही'}}
-              </mat-radio-button>
-            </mat-radio-group>
-          </div>
-        </li>
-      </ul>
-      <!-- <div class="d-flex align-items-center gap-2 d-none">
-        <div class="form-label mb-0">{{'approvalProcess.have_you_planted_mulberry_earlier_under_the_government_scheme'|
-          translate}}</div>
-        <div class="form-data">
-          <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
-            <mat-radio-button value="1"
-              class="form-data">Yes</mat-radio-button>
-            <mat-radio-button value="2"
-              class="form-data">No</mat-radio-button>
-          </mat-radio-group>
-        </div>
-      </div> -->
-      <div class="table-responsive scrollbar">
-          <table mat-table [dataSource]="plantationDetails" class="dashboard-table mb-0">
-          <ng-container matColumnDef="srNo">
-            <th mat-header-cell *matHeaderCellDef> Sr. No.</th>
+    <div class="table-content table-responsive mb-3">
+      <ng-container *ngIf="applicationApproveData?.length else block">
+        <table mat-table [dataSource]="applicationApproveData" class="dashboard-table mb-0">
+  
+          <ng-container matColumnDef="sr_no">
+            <th mat-header-cell *matHeaderCellDef> {{lang == 'en' ? 'Sr. No.' : 'अनुक्रमांक'}} </th>
             <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
           </ng-container>
-
-          <ng-container matColumnDef="plantName">
-            <th mat-header-cell *matHeaderCellDef> Orchard/Flower/Tree Name </th>
-            <td mat-cell *matCellDef="let element"> {{element?.plantName}} </td>
+  
+          <ng-container matColumnDef="actionName">
+            <th mat-header-cell *matHeaderCellDef>  {{lang == 'en' ? 'Action' : 'कृती'}}</th>
+            <td mat-cell *matCellDef="let element"> {{element.actionName}} </td>
           </ng-container>
-
-          <ng-container matColumnDef="gutNo">
-            <th mat-header-cell *matHeaderCellDef>Group No. </th>
-            <td mat-cell *matCellDef="let element"> {{element?.gutNo}} </td>
+  
+          <ng-container matColumnDef="designationName">
+            <th mat-header-cell *matHeaderCellDef>  {{lang == 'en' ? 'Designation' : 'पदनाम'}}</th>
+            <td mat-cell *matCellDef="let element"> {{element.designationName}} </td>
           </ng-container>
-
-          <ng-container matColumnDef="gutArea">
-            <th mat-header-cell *matHeaderCellDef>Group Area (Hectares) </th>
-            <td mat-cell *matCellDef="let element"> {{element?.gutArea}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="cultivatedArea">
-            <th mat-header-cell *matHeaderCellDef>Cultivated Area (Hectares) </th>
-            <td mat-cell *matCellDef="let element"> {{element?.cultivatedArea}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="cultivatedPlantsCount">
-            <th mat-header-cell *matHeaderCellDef>Number of trees planted </th>
-            <td mat-cell *matCellDef="let element"> {{element?.cultivatedPlantsCount}} </td>
-          </ng-container>
-
-          <tr class="mat-row p-2 w-100" *matNoDataRow col>
-            <td colspan="12">
-              <div class="alert alert-danger text-center m-2 p-2" colspan="12">
-                {{'approvalProcess.no_data_found'| translate}}
-              </div>
+  
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>  {{lang == 'en' ? 'Approval Status' : 'मंजुरीची स्थिती'}}</th>
+            <td mat-cell *matCellDef="let element">
+              <h6 class="mb-0">
+                <span
+                  [class]="(element.status == 'Pending' || element.m_Status == 'प्रलंबित') ? 'p-2 badge bg-warning-subtle text-dark' :(element.status=='Approved' || element.m_Status=='मान्यता प्राप्त') ? 'p-2 badge bg-success-subtle text-success' : '' ">{{element.status}}
+                </span>
+              </h6>
             </td>
-          </tr>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+          </ng-container>
+  
+          <ng-container matColumnDef="modifiedDate">
+            <th mat-header-cell *matHeaderCellDef>  {{lang == 'en' ? 'Approval Date' : 'मंजुरीची तारीख'}}</th>
+            <td mat-cell *matCellDef="let element"> {{element.modifiedDate | date:'dd-mm-yyyy'}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="remark">
+            <th mat-header-cell *matHeaderCellDef>  {{lang == 'en' ? 'Approval Remark' : 'मंजूरी टिप्पणी'}}</th>
+            <td mat-cell *matCellDef="let element"> {{element.remark}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>  {{lang == 'en' ? 'View' : 'पहा'}}</th>
+            <td mat-cell *matCellDef="let element">
+              <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
+                (click)="viewDocs(element?.documnetApprovalPath)">
+                <span class="material-symbols-rounded text-dark">
+                  visibility
+                </span>
+              </button>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-     
+      </ng-container>
+      <ng-template #block>
+        <div class="alert alert-danger text-center m-2 p-2">
+          <span> {{lang == 'en' ? 'No Data Found' : 'माहिती आढळली नाही'}}</span>
+        </div>
+      </ng-template>
+  
+    </div>
+    <div class="card mb-3">
+      <div class="card-header">
+        <div class="form-data text-main"> {{lang == 'en' ? 'Applicant Details': 'अर्जदाराचे तपशील' || '-'}}</div>
       </div>
-    </div>
-  </div>
-  <div class="card mb-2">
-    <div class="card-header">
-      <div class="text-main fw-bold">{{lang == 'en' ? 'Bank Details' : 'बँक तपशील'}}</div>
-    </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0"> {{lang == 'en' ? 'Bank Name' : 'बँकेचे नाव'}}:</div>
-            <div class="form-data"> {{lang == 'en' ? getProfileData?.bankName : getProfileData?.m_BankName || '-'}}
+      <div class="card-body">
+        <div class="row application-details">
+          <div class="col-sm-3">
+            <img src="{{getProfileData?.profilePhotoPath}}" alt="view Applicant Image" class="w-100">
+          </div>
+          <div class="col-sm-9">
+            <div class="row g-2 mb-2 pb-2 border-bottom">
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Applicant Name': 'अर्जदाराचे नाव' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">:
+                  {{lang == 'en' ? tableData?.fullName : tableData?.m_FullName}}
+                </div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Mobile No.': 'मोबाईल नंबर' || '-'}}:</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{getProfileData?.mobileNo1 || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Alternate Mobile No': 'पर्यायी मोबाईल क्रमांक' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data"> : {{getProfileData?.mobileNo2 || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Mgnrega Job Card No.': 'मनरेगा जॉब कार्ड क्रमांक.' || '-'}}
+                  :</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{getProfileData?.mn_JobCardNo || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Aadhaar Card No.': 'आधार क्रमांक' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data"> : {{getProfileData?.aadharNo || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Gender': '
+                  लिंग' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{getProfileData?.gender || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Date of Birth': 'जन्मतारीख' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">:{{getProfileData?.birthDate | date: 'dd-MM-yyyy' || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Education': 'शिक्षण' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">:{{lang == 'en' ? (getProfileData?.qualification || '-' ) : (getProfileData?.m_Qualification
+                  || "-")}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'State': 'राज्य' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">:{{lang == 'en' ? getProfileData?.state : getProfileData?.m_State || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'District': 'जिल्हा' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? getProfileData?.district : getProfileData?.m_District || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Taluka': 'तालुका' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? getProfileData?.taluka : getProfileData?.m_Taluka || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Village Committee (Grampanchyat)': 'ग्रामपंचायत' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data"> :{{lang == 'en' ? getProfileData?.grampanchayatName : getProfileData?.m_GrampanchayatName ||
+                  '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Village': 'गाव' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? getProfileData?.village : getProfileData?.m_village || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Pin Code ': 'पिन कोड' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{getProfileData?.pinCode || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Address': 'पत्ता' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? getProfileData?.address : getProfileData?.m_Address || '-'}}</div>
+              </div>
+            </div>
+            <div class="form-label"> {{lang == 'en' ? 'Beneficiary Category': 'लाभार्थ्यांची वर्गवारी' || '-'}}</div>
+            <div class="form-data mb-0">
+              1. {{lang == 'en' ? categoryCastDetails?.categoryOfBeneficiary :
+              categoryCastDetails?.m_CategoryOfBeneficiary}}
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0"> {{lang == 'en' ? 'Bank Branch' : 'बँक शाखा'}}:</div>
-            <div class="form-data">{{lang == 'en' ? getProfileData?.branchName : getProfileData?.branchName || '-'}}
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0"> {{lang == 'en' ? 'IFSC Code' : 'आय एफ एस सी कोड'}}:</div>
-            <div class="form-data">{{getProfileData?.bankIFSCCode || '-'}} </div>
-          </div>
-        </div>
       </div>
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0"> {{lang == 'en' ? 'Bank Account No' : 'बँक खाते क्रमांक'}}</div>
-            <div class="form-data">{{getProfileData?.bankAccountNo || '-'}} </div>
+    </div>
+  
+    <div class="card mb-3">
+      <div class="card-header">
+        <div class="text-main fw-bold"> {{lang == 'en' ? 'Land Details': 'जमिनीचा तपशील' || '-'}}</div>
+      </div>
+      <div class="card-body">
+        <div class="row gx-2">
+          <div class="col-sm-6">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="form-label">{{lang == 'en' ? 'Total Land in Hectares (up to 2.0 hectares) in favor of beneficiaries(as per 8-A)' : 'एकूण जमीन हेक्टरमध्ये (२.० हेक्टर पर्यंत) लाभार्थ्यांच्या नावे (८-अ नुसार)' || '-'}}
+                    </div>
+                  </td>
+                  <td>{{getProfileData?.benificiaryTotalFarm || 0 }}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">{{lang == 'en' ? 'Cultivation Area in Hectares' : 'लागवडीचे क्षेत्र हेक्टर' ||
+                      '-'}}</div>
+                  </td>
+                  <td>{{getProfileData?.cultivatedFarmInHector || 0 }}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">{{lang == 'en' ?'Irrigation Facility' :'सिंचन सुविधा' || '-'}}</div>
+                  </td>
+                  <td>
+                    <div class="form-data">{{lang == 'en' ? getProfileData?.irrigationFacility :
+                      getProfileData?.m_IrrigationFacility || '-'}}
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-sm-6">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="form-label">{{lang == 'en' ? 'Plantation Land Survey Number' : 'वृक्षारोपण जमीन सर्वेक्षण क्रमांक' || '-'}}</div>
+                  </td>
+                  <td>
+                    <div class="form-data">{{getProfileData?.mulberryCultivatedSurveyNo || '-'}}</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">{{lang == 'en' ? 'Land Type' : 'जमिनीचा प्रकार'}}</div>
+                  </td>
+                  <td>
+                    <div class="form-data">{{lang == 'en' ? getProfileData?.farmType : getProfileData?.m_FarmType || '-'}}
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <div class="col-sm-8">
-          <div class="d-flex gap-2">
-            <div class="form-label mb-0"> {{lang == 'en' ? 'Is loan required' : 'कर्ज आवश्यक आहे'}}</div>
+        <ul class="list-group list-group-flush mb-3">
+          <li class=" list-group-item d-flex justify-content-between align-items-center">
+            <div class="form-label"> {{lang == 'en' ? 'Are you a joined account Holder?' : 'तुम्ही जॉईन केलेले खातेधारक आहात का?' || '-'}}</div>
+            <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+              <mat-radio-button value="yes" class="form-data" [checked]="getProfileData?.isJointAccHolder == true">{{lang  == 'en' ? 'Yes' : 'होय'}}</mat-radio-button>
+              <mat-radio-button value="no" class="form-data" [checked]="getProfileData?.isJointAccHolder == false">{{lang  == 'en' ? 'No' : 'नाही'}}</mat-radio-button>
+            </mat-radio-group>
+          </li>
+          <ng-container *ngIf="getProfileData?.isJointAccHolder">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div class="d-flex gap-2">
+                <div class="form-label">{{lang == 'en' ? 'Land Survey No. of land to be cultivated as per applicants share' : 'अर्जदाराच्या हिश्श्यानुसार लागवड करावयाच्या जमिनीचा भूमापन क्रमांक'}}:
+                </div>
+                <div class="form-data">{{getProfileData?.applicantFarmSurveyNo || '-'}}</div>
+              </div>
+              <div class="d-flex gap-2">
+                <div class="form-label">{{lang == 'en' ? 'Its area (Hector)' : 'त्याचे क्षेत्र(हेक्टर)'}}:
+                </div>
+                <div class="form-data">{{getProfileData?.applicantFarmArea || '-'}}</div>
+              </div>
+            </li>
+          </ng-container>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="form-label">{{lang == 'en' ? 'Will take the silk industry training himself or send the candidate'
+              : 'रेशीम उद्योगाचे प्रशिक्षण स्वत: घेणार कि उमेदवार पाठवणार'}}</div>
+            <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+              <mat-radio-button value="2" [checked]="getProfileData?.isSelfTraining == true">
+                <div class="fw-bold">{{lang == 'en' ? 'Myself' : 'स्वत:'}}</div>
+              </mat-radio-button>
+              <mat-radio-button value="1" [checked]="getProfileData?.isSelfTraining == false">
+                <div class="fw-bold">{{lang == 'en' ? 'Send Candidate' : 'उमेदवार पाठवणार'}}</div>
+              </mat-radio-button>
+            </mat-radio-group>
+          </li>
+          <ng-container *ngIf="getProfileData?.isSelfTraining == false">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div class="d-flex gap-3">
+                <div class="form-label">{{lang == 'en' ? 'Candidate Name' : 'उमेदवाराचे नाव'}}: </div>
+                <div class="form-data">{{getProfileData?.candidateName || '-'}}</div>
+              </div>
+              <div class="d-flex gap-2">
+                <div class="form-label"> {{lang == 'en' ? 'Relation' : 'उमेदवाराशी नाते'}}</div>
+                <div class="form-data">: {{getProfileData?.relationName || '-'}}</div>
+              </div>
+            </li>
+          </ng-container>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="form-label">{{lang == 'en' ? 'Have you done orchards/flowers/trees before under the government schemes other than employement guarantee?' : 'रोजगार हमी व्यतिरिक्त इतर शासकीय योजने अंतर्गत पूर्व फळबाग/फुलपिके/वृक्ष केली आहेत का ?'}}</div>
             <div class="form-data">
               <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
-                <mat-radio-button value="11" class="form-data" [checked]="getProfileData?.isLoanApplicable == true">
-                  {{lang == 'en' ? 'Yes' : 'होय'}}</mat-radio-button>
-                <mat-radio-button value="12" class="form-data" [checked]="getProfileData?.isLoanApplicable == true">
-                  {{lang == 'en' ? 'No' : 'नाही'}}</mat-radio-button>
+                <mat-radio-button value="11" class="form-data"
+                  [checked]="getProfileData?.isAnyPlantedBeforeGovScheme == true">{{lang == 'en' ? 'Yes' : 'होय'}}
+                </mat-radio-button>
+                <mat-radio-button value="12" class="form-data"
+                  [checked]="getProfileData?.isAnyPlantedBeforeGovScheme == false">{{lang == 'en' ? 'No' : 'नाही'}}
+                </mat-radio-button>
               </mat-radio-group>
+            </div>
+          </li>
+        </ul>
+        <div class="table-responsive scrollbar">
+          <table mat-table [dataSource]="plantationDetails" class="dashboard-table mb-0">
+            <ng-container matColumnDef="srNo">
+              <th mat-header-cell *matHeaderCellDef>  {{lang == 'en' ? 'Sr. No.' : 'अनुक्रमांक'}}</th>
+              <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="plantName">
+              <th mat-header-cell *matHeaderCellDef>  {{lang == 'en' ? 'Orchard/Flower/Tree Name' : 'बाग/फ्लॉवर/झाडाचे नाव'}}</th>
+              <td mat-cell *matCellDef="let element"> {{element?.plantName}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="gutNo">
+              <th mat-header-cell *matHeaderCellDef> {{lang == 'en' ? 'Group No' : 'गट क्र'}}</th>
+              <td mat-cell *matCellDef="let element"> {{element?.gutNo}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="gutArea">
+              <th mat-header-cell *matHeaderCellDef> (Hectares) {{lang == 'en' ? 'Group Area' : 'गट क्षेत्र'}}</th>
+              <td mat-cell *matCellDef="let element"> {{element?.gutArea}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="cultivatedArea">
+              <th mat-header-cell *matHeaderCellDef> {{lang == 'en' ? 'Cultivated Area (Hectares)' : 'लागवडीचे क्षेत्र (हेक्टर)'}}</th>
+              <td mat-cell *matCellDef="let element"> {{element?.cultivatedArea}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="cultivatedPlantsCount">
+              <th mat-header-cell *matHeaderCellDef> {{lang == 'en' ? 'Number of trees planted' : 'लावलेल्या झाडांची संख्या'}}</th>
+              <td mat-cell *matCellDef="let element"> {{element?.cultivatedPlantsCount}} </td>
+            </ng-container>
+  
+            <tr class="mat-row p-2 w-100" *matNoDataRow col>
+              <td colspan="12">
+                <div class="alert alert-danger text-center m-2 p-2" colspan="12">
+                  {{'approvalProcess.no_data_found'| translate}}
+                </div>
+              </td>
+            </tr>
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+          </table>
+  
+        </div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-header">
+        <div class="text-main fw-bold">{{lang == 'en' ? 'Bank Details' : 'बँक तपशील'}}</div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="d-flex gap-2">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Bank Name' : 'बँकेचे नाव'}}:</div>
+              <div class="form-data"> {{lang == 'en' ? getProfileData?.bankName : getProfileData?.m_BankName || '-'}}
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="d-flex gap-2">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Bank Branch' : 'बँक शाखा'}}:</div>
+              <div class="form-data">{{lang == 'en' ? getProfileData?.branchName : getProfileData?.branchName || '-'}}
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="d-flex gap-2">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'IFSC Code' : 'आय एफ एस सी कोड'}}:</div>
+              <div class="form-data">{{getProfileData?.bankIFSCCode || '-'}} </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="d-flex gap-2">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Bank Account No' : 'बँक खाते क्रमांक'}}</div>
+              <div class="form-data">{{getProfileData?.bankAccountNo || '-'}} </div>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="d-flex gap-2">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Is loan required' : 'कर्ज आवश्यक आहे'}}</div>
+              <div class="form-data">
+                <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+                  <mat-radio-button value="11" class="form-data" [checked]="getProfileData?.isLoanApplicable == true">
+                    {{lang == 'en' ? 'Yes' : 'होय'}}</mat-radio-button>
+                  <mat-radio-button value="12" class="form-data" [checked]="getProfileData?.isLoanApplicable == false">
+                    {{lang == 'en' ? 'No' : 'नाही'}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="card mb-3">
-    <div class="card-body">
-      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-        <mat-tab label="{{'approvalProcess.applicant_document'| translate}}">
-          <div class="table-responsive mt-2">
-            <table mat-table [dataSource]="pushAppDocArray" class="dashboard-table mb-0">
-              <ng-container matColumnDef="srNo">
-                <th mat-header-cell *matHeaderCellDef>Sr. No.</th>
-                <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="documentType">
-                <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_name'| translate}}</th>
-                <td mat-cell *matCellDef="let element"> {{element?.documentType}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="docNo">
-                <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_number'| translate}}
-                </th>
-                <td mat-cell *matCellDef="let element"> {{element?.docNo ? element?.docNo :'-'}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
-                <td mat-cell *matCellDef="let element; ; let i = index;">
-                  <div class="d-flex gap-2">
-                    <button matTooltipPosition="above" mat-icon-button [disabled]="!element?.docPath"
-                      class="btn-icon bg-dark bg-opacity-10" (click)="viewDocument(element.docPath)">
-                      <span class="material-symbols-rounded text-dark">
-                        visibility
-                      </span>
-                    </button>
-                  </div>
-                </td>
-              </ng-container>
-              <tr class="mat-row p-2 w-100" *matNoDataRow col>
-                <td colspan="12">
-                  <div class="alert alert-danger text-center m-2 p-2" colspan="12">
-                    {{'approvalProcess.no_data_found'| translate}}
-                  </div>
-                </td>
-              </tr>
-              <tr mat-header-row *matHeaderRowDef="displayedColumnss"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumnss;"></tr>
-            </table>
-          </div>
-        </mat-tab>
-        <mat-tab label="{{'approvalProcess.other_document'| translate}}">
-          <div class="container-fluid">
-          </div>
-          <div class="table-responsive">
-            <table mat-table [dataSource]="pushOtherDocArray" class="dashboard-table mb-0">
-              <ng-container matColumnDef="srNo">
-                <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
-                <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="documentType">
-                <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.document_name'| translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{element?.documentType}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="docNo">
-                <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_number'| translate}}
-                </th>
-                <td mat-cell *matCellDef="let element"> {{element?.docNo}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
-                <td mat-cell *matCellDef="let element; let i = index">
-                  <div class="d-flex gap-02">
-                    <button matTooltipPosition="above" mat-icon-button [disabled]="!element?.docPath"
-                      class="btn-icon bg-dark bg-opacity-10" (click)="viewDocument(element.docPath)">
-                      <span class="material-symbols-rounded text-dark">
-                        visibility
-                      </span>
-                    </button>
-                  </div>
-                </td>
-              </ng-container>
-              <tr class="mat-row p-2 w-100" *matNoDataRow col>
-                <td colspan="12">
-                  <div class="alert alert-danger text-center m-2 p-2" colspan="12">
-                    {{'approvalProcess.no_data_found'| translate}}
-                  </div>
-                </td>
-              </tr>
-              <tr mat-header-row *matHeaderRowDef="displayedColumnses"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumnses;"></tr>
-            </table>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
+  
+    <div class="card mb-3">
+      <div class="card-body">
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+          <mat-tab label="{{'approvalProcess.applicant_document'| translate}}">
+            <div class="table-responsive mt-2">
+              <table mat-table [dataSource]="pushAppDocArray" class="dashboard-table mb-0">
+                <ng-container matColumnDef="srNo">
+                  <th mat-header-cell *matHeaderCellDef>{{lang == 'en' ? 'Sr. No.' : 'अनुक्रमांक'}}</th>
+                  <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="documentType">
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_name'| translate}}</th>
+                  <td mat-cell *matCellDef="let element"> {{element?.documentType}} </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="docNo">
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_number'| translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.docNo ? element?.docNo :'-'}} </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
+                  <td mat-cell *matCellDef="let element; ; let i = index;">
+                    <div class="d-flex gap-2">
+                      <button matTooltipPosition="above" mat-icon-button [disabled]="!element?.docPath"
+                        class="btn-icon bg-dark bg-opacity-10" (click)="viewDocument(element.docPath)">
+                        <span class="material-symbols-rounded text-dark">
+                          visibility
+                        </span>
+                      </button>
+                    </div>
+                  </td>
+                </ng-container>
+                <tr class="mat-row p-2 w-100" *matNoDataRow col>
+                  <td colspan="12">
+                    <div class="alert alert-danger text-center m-2 p-2" colspan="12">
+                      {{'approvalProcess.no_data_found'| translate}}
+                    </div>
+                  </td>
+                </tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnss"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnss;"></tr>
+              </table>
+            </div>
+          </mat-tab>
+          <mat-tab label="{{'approvalProcess.other_document'| translate}}">
+            <div class="container-fluid">
+            </div>
+            <div class="table-responsive">
+              <table mat-table [dataSource]="pushOtherDocArray" class="dashboard-table mb-0">
+                <ng-container matColumnDef="srNo">
+                  <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
+                  <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="documentType">
+                  <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.document_name'| translate}} </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.documentType}} </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="docNo">
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_number'| translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.docNo}} </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
+                  <td mat-cell *matCellDef="let element; let i = index">
+                    <div class="d-flex gap-02">
+                      <button matTooltipPosition="above" mat-icon-button [disabled]="!element?.docPath"
+                        class="btn-icon bg-dark bg-opacity-10" (click)="viewDocument(element.docPath)">
+                        <span class="material-symbols-rounded text-dark">
+                          visibility
+                        </span>
+                      </button>
+                    </div>
+                  </td>
+                </ng-container>
+                <tr class="mat-row p-2 w-100" *matNoDataRow col>
+                  <td colspan="12">
+                    <div class="alert alert-danger text-center m-2 p-2" colspan="12">
+                      {{'approvalProcess.no_data_found'| translate}}
+                    </div>
+                  </td>
+                </tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnses"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnses;"></tr>
+              </table>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>
+<!-----------------------------------------------------------Table For Silk Samgra------------------------------------------------------------------------------------------->
+<ng-container *ngIf="tableData?.schemeTypeId != 1">
+  <div mat-dialog-content class="modal-body form-container plain-card">
+    <div class="card card-body mb-3">
+      <div class="row g-2">
+        <div class="col-sm-4">
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <div class="form-label mb-0">{{lang == 'en' ? 'Application ID (Date)' : 'अर्ज क्रमांक (तारीख'}}</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-data">:{{tableData?.applicationNo || 0}} ({{tableData?.applicationDate | date:'dd-mm-yyyy'
+                || '-'}})</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4" *ngIf="tableData?.getSiteInspectionDataModel?.isSiteInspectionDone">
+          <div class="row gx-2">
+            <div class="col-sm-4">
+              <div class="form-label mb-0">{{lang == 'en' ? 'Mulberry ID (Date)' : 'तुती आयडी(तारीख)'}}</div>
+            </div>
+            <div class="col-sm-8">
+              <div class="form-data">:{{tableData?.mulberryId}} ({{tableData?.mulberryIdGeneratedDate| date:'dd-MM-yyyy'
+                || '-'}})</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Applicant Name' : 'अर्जदाराचे नाव'}}</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-data">:{{lang == 'en' ? tableData?.fullName : tableData?.m_FullName || '-'}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Mobile No' : 'मोबाईल नंबर'}}</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-data">: {{tableData?.mobileNo1 || '-'}} </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="row gx-2">
+            <div class="col-sm-4">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Scheme' : 'योजना'}}</div>
+            </div>
+            <div class="col-sm-8">
+              <div class="form-data">: {{lang == 'en' ? tableData?.schemeType : tableData?.m_SchemeType || '-'}} </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-sm-4">
+          <div class="row gx-2">
+            <div class="col-sm-6">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Process Department' : 'प्रक्रिया विभाग'}}:</div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-data">: {{lang == 'en' ? tableData?.departmentName : tableData?.m_DepartmentName || '-'}}
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-sm">
+          <div class="row gx-2">
+            <div class="col-sm-2">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Plantation Area (Hector)' : 'वृक्षारोपण क्षेत्र (हेक्टर)'}}
+              </div>
+            </div>
+            <div class="col-sm-10">
+              <div class="form-data">: {{tableData?.mulberryCultivationArea || 0}}. </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="row gx-2">
+            <div class="col-sm-2">
+              <div class="form-label mb-0">{{lang == 'en' ? 'Address' : 'पत्ता'}}
+              </div>
+            </div>
+            <div class="col-sm-10">
+              <div class="form-data">: {{lang == 'en' ? ((tableData?.grampanchayatName | dash) +', '+ (tableData?.taluka |
+                dash) +', '+(tableData?.district | dash)+', '+(tableData?.state | dash)): (tableData?.m_GrampanchayatName
+                | dash)+ ' ,'+(tableData?.m_Taluka | dash)+', '+(tableData?.m_District | dash)+', '+(tableData?.m_State |
+                dash) }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-content table-responsive mb-3">
+      <ng-container *ngIf="applicationApproveData?.length else block">
+        <table mat-table [dataSource]="applicationApproveData" class="dashboard-table mb-0">
+  
+          <ng-container matColumnDef="sr_no">
+            <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
+            <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="actionName">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element"> {{element.actionName}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="designationName">
+            <th mat-header-cell *matHeaderCellDef> Designation </th>
+            <td mat-cell *matCellDef="let element"> {{element.designationName}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Approval Status </th>
+            <td mat-cell *matCellDef="let element">
+              <h6 class="mb-0">
+                <span
+                  [class]="(element.status == 'Pending' || element.m_Status == 'प्रलंबित') ? '  p-2 badge bg-warning-subtle text-dark' :(element.status=='Approved' || element.m_Status=='मान्यता प्राप्त') ? ' p-2 badge bg-warning-subtle text-dark' : '' ">{{element.status}}
+                </span>
+              </h6>
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="modifiedDate">
+            <th mat-header-cell *matHeaderCellDef> Approval Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.modifiedDate | date:'dd-mm-yyyy'}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="remark">
+            <th mat-header-cell *matHeaderCellDef> Approval Remark </th>
+            <td mat-cell *matCellDef="let element"> {{element.remark}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> View </th>
+            <td mat-cell *matCellDef="let element">
+              <button matTooltipPosition="above" mat-icon-button class="btn-icon bg-dark bg-opacity-10"
+                (click)="viewDocs(element?.documnetApprovalPath)">
+                <span class="material-symbols-rounded text-dark">
+                  visibility
+                </span>
+              </button>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </ng-container>
+      <ng-template #block>
+        <div class="alert alert-danger text-center m-2 p-2">
+          <span>No Data Found</span>
+        </div>
+      </ng-template>
+  
+    </div>
+    <div class="card mb-3">
+      <div class="card-header">
+        <div class="form-data text-main"> {{lang == 'en' ? 'Applicant Details': 'अर्जदाराचे तपशील' || '-'}}</div>
+      </div>
+      <div class="card-body">
+        <div class="row application-details">
+          <div class="col-sm-3">
+            <img src="{{getProfileData?.profilePhotoPath}}" alt="view Applicant Image" class="w-100">
+          </div>
+          <div class="col-sm-9">
+            <div class="row g-2 mb-2 pb-2 border-bottom">
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Applicant Name': 'अर्जदाराचे नाव' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">:
+                  {{lang == 'en' ? tableData?.fullName : tableData?.m_FullName}}
+                </div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Mobile No.': 'मोबाईल नंबर' || '-'}}:</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{tableData?.mobileNo1 || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Alternate Mobile No': 'पर्यायी मोबाईल क्रमांक' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data"> : {{tableData?.mobileNo2 || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Mgnrega Job Card No.': 'मनरेगा जॉब कार्ड क्रमांक.' || '-'}}
+                  :</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{tableData?.mn_JobCardNo || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Aadhaar Card No.': 'आधार क्रमांक' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data"> : {{tableData?.aadharNo || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Gender': '
+                  लिंग' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{tableData?.gender || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Date of Birth': 'जन्मतारीख' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">:{{tableData?.birthDate | date: 'dd-MM-yyyy' || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Education': 'शिक्षण' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">:{{lang == 'en' ? (tableData?.qualification || '-' ) : (tableData?.m_Qualification
+                  || "-")}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'State': 'राज्य' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">:{{lang == 'en' ? tableData?.state : tableData?.m_State || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'District': 'जिल्हा' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? tableData?.district : tableData?.m_District || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Taluka': 'तालुका' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? tableData?.taluka : tableData?.m_Taluka || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Village Committee (Grampanchyat)': 'ग्रामपंचायत' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data"> :{{lang == 'en' ? tableData?.grampanchayatName : tableData?.m_GrampanchayatName ||
+                  '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Village': 'गाव' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? tableData?.village : tableData?.m_village || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Pin Code ': 'पिन कोड' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{tableData?.pinCode || '-'}}</div>
+              </div>
+              <div class="col-sm-2 col-4">
+                <div class="form-label"> {{lang == 'en' ? 'Address': 'पत्ता' || '-'}}</div>
+              </div>
+              <div class="col-sm-4 col-8">
+                <div class="form-data">: {{lang == 'en' ? tableData?.address : tableData?.m_Address || '-'}}</div>
+              </div>
+            </div>
+            <div class="form-label"> {{lang == 'en' ? 'Beneficiary Category': 'लाभार्थ्यांची वर्गवारी' || '-'}}</div>
+            <div class="form-data mb-0">
+              1. {{lang == 'en' ? categoryCastDetails?.categoryOfBeneficiary :
+              categoryCastDetails?.m_CategoryOfBeneficiary}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header">
+        <div class="text-main fw-bold">{{'approvalProcess.land_details'| translate}}</div>
+      </div>
+      <div class="card-body">
+        <div class="row gx-2">
+          <div class="col-sm-6">
+            <div class="fw-bold text-main">{{'approvalProcess.land_details'| translate}}</div>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="form-label">{{'approvalProcess.total_land_in_hectares_in_favor_of_beneficiaries'|
+                      translate}} </div>
+                  </td>
+                  <td>
+                    <div class="form-data"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">{{'approvalProcess.landholding_Category'| translate}}</div>
+                  </td>
+                  <td>
+                    <div class="form-data"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">{{'approvalProcess.land_type'| translate}}</div>
+                  </td>
+                  <td>
+                    <div class="form-data">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">{{'approvalProcess.irrigation_facility'| translate}}</div>
+                  </td>
+                  <td>
+                    <!-- <div class="form-data">Borewell</div> -->
+                    <div class="form-data">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">{{'approvalProcess.irrigation_Period'| translate}}</div>
+                  </td>
+                  <td>
+                    <div class="form-data"></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <div class="col-sm-6">
+            <div class="fw-bold text-main">{{'approvalProcess.mulberry_planting_details'| translate}} </div>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="form-label">{{'approvalProcess.an_improved_breed_of_Mulberry'| translate}}</div>
+                  </td>
+                  <td>
+                    <div class="form-data"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">{{'approvalProcess.mulberry_Planting_Distance_(feet)'| translate}} </div>
+                  </td>
+                  <td>
+                    <div class="form-data"> </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">{{'approvalProcess.mulberry_Planting_Land_Group_No_Survey_No'| translate}}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-data"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">{{'approvalProcess.mulberry_Plantation_Area_(Acres)'| translate}} </div>
+                  </td>
+                  <td>
+                    <div class="form-data"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-label">{{'approvalProcess.mulberry_Plantation_Method'| translate}} </div>
+                  </td>
+                  <td>
+                    <div class="form-data"></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <div class="form-label">{{'approvalProcess.have_you_planted_mulberry_earlier_under_the_government_scheme'|
+            translate}}</div>
+          <div class="form-data">
+            <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+              <mat-radio-button value="1"
+                class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+              <mat-radio-button value="2" 
+                class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <table class="table table-bordered" >
+          <thead>
+            <tr>
+              <th scope="col">{{'approvalProcess.year_of_planting'| translate}}</th>
+              <th scope="col"> {{'approvalProcess.cultivated_Area_(Acres)'| translate}}</th>
+              <th scope="col">{{'approvalProcess.land_Survey_No'| translate}}</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+
+
+
+
+
+        <div class="d-flex gap-2 my-1">
+          <div class="form-data">{{'approvalProcess.details_of_current_crop_and_production'| translate}} :</div>
+          <!-- <div class="form-data">: Yes</div> -->
+        </div>
+        table
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="row">
+              <div class="col-sm-8 form-label">{{'approvalProcess.do_you_have_experience_in_the_silk_industry'|
+                translate}}</div>
+              <div class="col-sm-4 form-data">
+                <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+                  <mat-radio-button value="1"
+                    class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+                  <mat-radio-button value="2"
+                    class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="d-flex justify-content-end gap-3">
+              <div class="form-label">{{'approvalProcess.how_many_years'| translate}}</div>
+              <div class="form-data">:</div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row">
+              <div class="col-sm-8 form-label">{{'approvalProcess.have_you_done_training_in_silk_industry'| translate}}
+              </div>
+              <div class="col-sm-4 form-data">
+                <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+                  <mat-radio-button value="1" 
+                    class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+                  <mat-radio-button value="2"
+                    class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="row" >
+              <div class="col-sm-8 form-label">{{'approvalProcess.details'| translate}}</div>
+              <div class="col-sm-4 form-data">:</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="text-main fw-bold mt-4">Details </div> -->
+        <div class="d-flex gap-2">
+          <div class="form-label">
+            {{'approvalProcess.have_you_gone_directly_to_the_silk_industry_farmer_and_taken_the_information'|
+            translate}}</div>
+          <div class="form-data">
+            <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+              <mat-radio-button value="1" 
+                class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+              <mat-radio-button value="2" 
+                class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+
+
+        </div>
+        <!-- <div class="col-sm-2 col-4">
+            <div class="form-label">Deatils </div>
+          </div>
+          <div class="col-sm-4 col-8">
+            <div class="form-data">: {{applicantDetails?.sm_SilkIndustrtyTrainingDetails | dash}}</div>
+          </div> -->
+        <div class="card mb-2">
+          <div class="card-header">
+            <div class="d-flex gap-2">
+              <div class="form-label">
+                {{'approvalProcess.have_you_benefited_from_any_scheme_under_Silk_Directorate_before_this'| translate}}
+              </div>
+              <div class="form-data">
+                <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+                  <mat-radio-button value="1" 
+                    class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+                  <mat-radio-button value="2" 
+                    class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+          <div class="card-body px-0">
+        
+          </div>
+        </div>
+
+
+        <div class="card mb-2">
+          <div class="card-header">
+            <div class="text-main fw-bold">{{'approvalProcess.bank_details'| translate}}</div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="d-flex gap-2">
+                  <div class="form-label mb-0">{{'approvalProcess.bank_name'| translate}}:</div>
+                  <div class="form-data"> </div>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="d-flex gap-2">
+                  <div class="form-label mb-0">{{'approvalProcess.branch'| translate}}:</div>
+                  <div class="form-data"></div>
+                </div>
+              </div>
+              <div class="col-sm-auto">
+                <div class="d-flex gap-2">
+                  <div class="form-label mb-0">{{'approvalProcess.IFSC_Code'| translate}}:</div>
+                  <div class="form-data"> </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="d-flex gap-2">
+                  <div class="form-label mb-0">{{'approvalProcess.bank_account_no'| translate}}:</div>
+                  <div class="form-data"> </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="d-flex gap-2">
+                  <div class="form-label mb-0">{{'addManrega.is_loan_required'| translate}}:</div>
+                  <div class="form-data">
+                    <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+                      <mat-radio-button value="11"
+                        class="form-data">{{'approvalProcess.yes'| translate}}</mat-radio-button>
+                      <mat-radio-button value="12"
+                        class="form-data">{{'approvalProcess.no'| translate}}</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card mb-2">
+      <div class="card-header">
+        <div class="text-main fw-bold">{{lang == 'en' ? 'Bank Details' : 'बँक तपशील'}}</div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="d-flex gap-2">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Bank Name' : 'बँकेचे नाव'}}:</div>
+              <div class="form-data"> {{lang == 'en' ? getProfileData?.bankName : getProfileData?.m_BankName || '-'}}
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="d-flex gap-2">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Bank Branch' : 'बँक शाखा'}}:</div>
+              <div class="form-data">{{lang == 'en' ? getProfileData?.branchName : getProfileData?.branchName || '-'}}
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="d-flex gap-2">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'IFSC Code' : 'आय एफ एस सी कोड'}}:</div>
+              <div class="form-data">{{getProfileData?.bankIFSCCode || '-'}} </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="d-flex gap-2">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Bank Account No' : 'बँक खाते क्रमांक'}}</div>
+              <div class="form-data">{{getProfileData?.bankAccountNo || '-'}} </div>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="d-flex gap-2">
+              <div class="form-label mb-0"> {{lang == 'en' ? 'Is loan required' : 'कर्ज आवश्यक आहे'}}</div>
+              <div class="form-data">
+                <mat-radio-group aria-label="Select an option" class="d-flex gap-2" [class.disable]="true">
+                  <mat-radio-button value="11" class="form-data" [checked]="getProfileData?.isLoanApplicable == true">
+                    {{lang == 'en' ? 'Yes' : 'होय'}}</mat-radio-button>
+                  <mat-radio-button value="12" class="form-data" [checked]="getProfileData?.isLoanApplicable == false">
+                    {{lang == 'en' ? 'No' : 'नाही'}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="card mb-3">
+      <div class="card-body">
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+          <mat-tab label="{{'approvalProcess.applicant_document'| translate}}">
+            <div class="table-responsive mt-2">
+              <table mat-table [dataSource]="pushAppDocArray" class="dashboard-table mb-0">
+                <ng-container matColumnDef="srNo">
+                  <th mat-header-cell *matHeaderCellDef>Sr. No.</th>
+                  <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="documentType">
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_name'| translate}}</th>
+                  <td mat-cell *matCellDef="let element"> {{element?.documentType}} </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="docNo">
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_number'| translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.docNo ? element?.docNo :'-'}} </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
+                  <td mat-cell *matCellDef="let element; ; let i = index;">
+                    <div class="d-flex gap-2">
+                      <button matTooltipPosition="above" mat-icon-button [disabled]="!element?.docPath"
+                        class="btn-icon bg-dark bg-opacity-10" (click)="viewDocument(element.docPath)">
+                        <span class="material-symbols-rounded text-dark">
+                          visibility
+                        </span>
+                      </button>
+                    </div>
+                  </td>
+                </ng-container>
+                <tr class="mat-row p-2 w-100" *matNoDataRow col>
+                  <td colspan="12">
+                    <div class="alert alert-danger text-center m-2 p-2" colspan="12">
+                      {{'approvalProcess.no_data_found'| translate}}
+                    </div>
+                  </td>
+                </tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnss"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnss;"></tr>
+              </table>
+            </div>
+          </mat-tab>
+          <mat-tab label="{{'approvalProcess.other_document'| translate}}">
+            <div class="container-fluid">
+            </div>
+            <div class="table-responsive">
+              <table mat-table [dataSource]="pushOtherDocArray" class="dashboard-table mb-0">
+                <ng-container matColumnDef="srNo">
+                  <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.sr_no'| translate}}</th>
+                  <td mat-cell *matCellDef="let element;let i=index"> {{i + 1}} </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="documentType">
+                  <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.document_name'| translate}} </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.documentType}} </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="docNo">
+                  <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.document_number'| translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.docNo}} </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef>{{'common.action'| translate}}</th>
+                  <td mat-cell *matCellDef="let element; let i = index">
+                    <div class="d-flex gap-02">
+                      <button matTooltipPosition="above" mat-icon-button [disabled]="!element?.docPath"
+                        class="btn-icon bg-dark bg-opacity-10" (click)="viewDocument(element.docPath)">
+                        <span class="material-symbols-rounded text-dark">
+                          visibility
+                        </span>
+                      </button>
+                    </div>
+                  </td>
+                </ng-container>
+                <tr class="mat-row p-2 w-100" *matNoDataRow col>
+                  <td colspan="12">
+                    <div class="alert alert-danger text-center m-2 p-2" colspan="12">
+                      {{'approvalProcess.no_data_found'| translate}}
+                    </div>
+                  </td>
+                </tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnses"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnses;"></tr>
+              </table>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+</ng-container>
