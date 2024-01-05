@@ -69,7 +69,7 @@ export class ChowkiOrderDetailsComponent {
   }
 
   viewreceipt(){
-    window.open(this.tableDataArray.receiptOfPaymentPath)
+    window.open(this.tableDataArray.receiptOfPaymentPath, '_blank')
   }
 
  

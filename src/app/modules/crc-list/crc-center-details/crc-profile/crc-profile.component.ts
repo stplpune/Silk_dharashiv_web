@@ -132,8 +132,12 @@ export class CrcProfileComponent {
     formData.id = this.tableDataArray.id;
     formData.createdBy = this.WebStorageService.getUserId();
     formData.status == 5 ? formData.chalkyApprovedQty = 0 : formData.reason ="";
+
     if (this.statusForm.invalid) {
       this.spinner.hide();
+      return
+    }else if(formData.chalkyApprovedQty > this.tableDataArray?.chalkyApprovedQty){
+      this.commonMethod.snackBar(this.lang == 'en' ? 'Approve Capacity Should Be Less Than Rearing Capacity' : 'मंजूर क्षमता संगोपन क्षमतेपेक्षा कमी असावी', 1)
       return
     } else {
       this.apiService.setHttp('post', 'sericulture/api/UserRegistration/CRC-Approval-Status?lan=' + this.lang, false, formData, false, 'masterUrl');
