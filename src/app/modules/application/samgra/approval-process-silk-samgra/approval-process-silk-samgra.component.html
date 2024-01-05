@@ -408,8 +408,8 @@
                     <div class="form-label">{{'approvalProcess.an_improved_breed_of_Mulberry'| translate}}</div>
                   </td>
                   <td>
-                    <div class="form-data">{{lang == 'en' ? (applicantDetails?.irrigationPeriod | dash ) :
-                      (applicantDetails?.m_IrrigationPeriod | dash)}}{{applicantDetails?.improvedMulberryCast}}</div>
+                    <div class="form-data">{{lang == 'en' ? (applicantDetails?.improvedMulberryCast | dash) : 
+                      (applicantDetails?.m_ImprovedMulberryCast | dash) }}</div>
                   </td>
                 </tr>
                 <tr>
@@ -500,8 +500,8 @@
 
           <ng-container matColumnDef="cropname">
             <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.crop_Name'| translate}} </th>
-            <td mat-cell *matCellDef="let element">{{lang == 'en' ? (element?.ShetmalCast | dash ) :
-              (element?.M_ShetmalCast | dash)}} </td>
+            <td mat-cell *matCellDef="let element">{{lang == 'en' ? (element?.shetmalCast | dash ) :
+              (element?.m_ShetmalCast | dash)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="areaacres">
