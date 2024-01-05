@@ -914,6 +914,7 @@
     "Individual_Information": "वैयक्तिक माहिती",
     "Agriculture_and_Fruit_Production": "शेती आणि फळ उत्पादन",
     "Add_currency": "चलन जोडा",
+    "Details_of_current_crop":"सध्या घेत असलेल्या पीक व उत्पादनाचा तपशील",
     "select_Crop_Name": "पीक नाव निवडा",
     "select_Crop_Name_valid": "कृपया पिकाचे नाव निवडा",
     "Area_crop": "कृपया क्षेत्र (हेक्टर) प्रविष्ट करा",

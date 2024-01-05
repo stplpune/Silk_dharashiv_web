@@ -132,7 +132,7 @@ export class BeneficieryApplicationHistoryComponent {
       autoFocus: true,
     });
     dialogRef.afterClosed().subscribe(() => {
-
+      this.getTableData();
     });
   }
 

@@ -7,17 +7,6 @@
     <div class="row gx-2">
       <div class="col-sm-3">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label> {{lang == 'en' ? 'District' : 'जिल्हा' || '-'}}</mat-label>
-          <mat-select formControlName="districtId"
-          [class]="webService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
-          <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
-            district.textMarathi : district.textEnglish}}
-          </mat-option>
-        </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-3">
-        <mat-form-field appearance="outline" class="w-100">
           <mat-label> {{lang == 'en' ? 'Delivery Slab' : 'डिलिव्हरी स्लॅब' || '-'}}</mat-label>
           <mat-select formControlName="deliveryslabId">
           <!-- <mat-option *ngFor="let arr of slabArray" [value]="arr.id">{{lang == 'en' ? arr.textEnglish : arr.textMarathi}}</mat-option> -->
@@ -28,6 +17,17 @@
           </mat-option>
           <mat-option *ngFor="let village of slabSubject | async" [value]="village.id">{{lang != 'en' ?
             village.textMarathi : village.textEnglish}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label> {{lang == 'en' ? 'District' : 'जिल्हा' || '-'}}</mat-label>
+          <mat-select formControlName="districtId"
+          [class]="webService.getDistrictId() ? f['districtId'].disable({ onlySelf: true }) : f['districtId'].enable({ onlySelf: true })">
+          <mat-option *ngFor="let district of districtArray" [value]="district.id">{{lang != 'en' ?
+            district.textMarathi : district.textEnglish}}
+          </mat-option>
         </mat-select>
         </mat-form-field>
       </div>

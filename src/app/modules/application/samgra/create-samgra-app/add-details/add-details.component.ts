@@ -77,8 +77,8 @@ export class AddDetailsComponent {
   onSubmit(){    
     let formValue = this.cropDetailsForm.getRawValue();
    let obj:any =  this.farmsGoodArray.filter((ele:any)=>{return ele.id == formValue.cropId})
-   formValue.cropName = obj[0].textEnglish; 
-   formValue.m_CropName = obj[0].textMarathi; 
+   formValue.cropName = obj[0]?.textEnglish; 
+   formValue.m_CropName = obj[0]?.textMarathi; 
     if(this.cropDetailsForm.invalid){
       return;
     }else{
