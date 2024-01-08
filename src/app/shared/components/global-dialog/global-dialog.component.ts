@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import {MatDialogModule} from '@angular/material/dialog';
-import { Gallery ,GalleryModule,ImageItem} from '@ngx-gallery/core';
+import { Gallery ,GalleryModule} from '@ngx-gallery/core';
 import { LightboxModule } from '@ngx-gallery/lightbox';
 
 
@@ -28,13 +28,11 @@ export class GlobalDialogComponent {
   constructor(public dialogRef: MatDialogRef<GlobalDialogComponent>, public gallery: Gallery, @Inject(MAT_DIALOG_DATA) public data: any,    public commonService: CommonMethodsService, public valiService: ValidationService) { }
 
   ngOnInit() {
-    this.dataArray = this.data.Obj.postImages;
-    this.items = this.dataArray?.map(item =>
-      new ImageItem({ src: item.imagePath  , thumb: item.imagePath
+    this.dataArray = this.data.Obj?.postImages;
+    this.items = this.dataArray?.map(item =>{
+     return item?.imagePath;
       })
-    );
-    console.log(" this.items", this.items)
-  }
+    }
 
   closeDialog(flag: string) {
     if (this.data.discription && flag == "Yes") {
