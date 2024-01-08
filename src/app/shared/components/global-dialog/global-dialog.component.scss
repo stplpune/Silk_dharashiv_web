@@ -1,13 +1,31 @@
-.gallery-img{
-    width: 200px;
-    max-width: 100%;
-    height: 160px;
-    object-fit: fill;
-    border-radius: 0.375rem;
-    border:solid 1px #ddd;
+// .gallery-img{
+//     width: 200px;
+//     max-width: 100%;
+//     height: 160px;
+//     object-fit: fill;
+//     border-radius: 0.375rem;
+//     border:solid 1px #ddd;
+// }
+
+.table_mutiple_imgs .carousel-inner .carousel-item{
+    height: 400px;
+    width: 100%;
+}
+.table_mutiple_imgs .carousel-inner .carousel-item img{
+    height: 400px;
+    width: 100%;
 }
 
-
+.carousel-control-prev,
+.carousel-control-next{
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: #000 !important;
+    position: absolute;
+    top: 50% !important;
+}
 
 // .card.card-body img{
 //     height: 180px;
