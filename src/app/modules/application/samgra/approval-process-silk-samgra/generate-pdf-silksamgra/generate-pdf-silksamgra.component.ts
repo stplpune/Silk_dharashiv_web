@@ -42,7 +42,6 @@ export class GeneratePdfSilksamgraComponent {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.priorArray=res.responseData;
-          console.log(' this.priorArray', this.priorArray);
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';

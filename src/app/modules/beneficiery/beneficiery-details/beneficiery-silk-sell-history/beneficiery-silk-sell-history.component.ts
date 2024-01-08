@@ -70,12 +70,9 @@ export class BeneficierySilkSellHistoryComponent {
       this.setTableData();
     })
     this.activatedRoute.queryParams.subscribe((params: any) => {
-      console.log("parms", params);
-
-      this.routingData = params['id'];
+    this.routingData = params['id'];
     })
      let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
-     console.log("spliteUrl",spliteUrl);
     //  this.beneficieryId = spliteUrl[0]; 
     //  this.farmerNameEn = spliteUrl[1];
     //  this.farmerNameMr =  spliteUrl[2];

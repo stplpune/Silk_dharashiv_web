@@ -767,8 +767,6 @@ export class CreateManaregaAppComponent {
       ele.createdBy = this.WebStorageService.getUserId();
       ele.applicationId = formData.id;
     })
-
-    console.log("this.docArray",this.docArray)
     let obj = {
       ...formData, ...declarationInfo, ...bankInfo,
       "m_Address": "",

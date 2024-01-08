@@ -63,7 +63,7 @@ export class BeneficiaryAppViewDetailsComponent {
   displayedColumns1 = ['srNo', 'plantName', 'gutNo','gutArea','cultivatedArea','cultivatedPlantsCount'];
   displayedColumnscropProduction: string[] = ['srno', 'cropname', 'areaacres', 'producedquintal', 'avgrateperquintal', 'finishedproduct', 'expenditureincurred', 'netincome', 'netincomeperacre'];
   displayedScheme: string[] = ['srNo', 'sm_NameOfPlan', 'sm_PlanTakenDate', 'sm_TakenPlanBenefit']
-  
+
   plantationDetails= new Array();
   constructor
     (
@@ -108,9 +108,7 @@ export class BeneficiaryAppViewDetailsComponent {
             }
           });
           this.applicationApproveData=res.responseData.allApplicationApproval; 
-          console.log('this.tableData',this.tableData);
-                   
-        } else {
+          } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
         }
