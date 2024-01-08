@@ -4,33 +4,32 @@
   </mat-card-header> -->
   <div class="d-flex align-items-center justify-content-between w-100">
     <div class="text-main" *ngIf="data?.header">{{data?.header}}</div>
-    <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
-      <span class="material-symbols-rounded">close</span>
-    </button>
+    <div class="text-end w-100">
+      <button mat-icon-button class="btn-modal-close" [mat-dialog-close]="true">
+        <span class="material-symbols-rounded">close</span>
+      </button>
+    </div>
   </div>
 </div>
 <mat-dialog-content class="modal-body">
-  <div id="delete"  >
-    <div class="table_mutiple_imgs">
-      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel"
-        *ngIf="data?.multipleImage == true && items.length > 0">
-        <div class="carousel-inner">
-          <div class="carousel-item active" *ngFor="let item of items; index as i">
-            <img [src]="item" class="d-block w-100" alt="...">
-          </div>
+  <div class="table_mutiple_imgs"  >
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" *ngIf="data?.multipleImage == true && items.length > 0">
+      <div class="carousel-inner">
+        <div class="carousel-item active" *ngFor="let item of items; index as i">
+          <img [src]="item" class="d-block w-100" alt="...">
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
       </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
-
-
+  </div>
+   <div id="delete"  >
     <div class="row">
       <div class="col-12">
         <!-- <div class="card card-body border-0 bg-danger-subtle text-center mb-3" *ngIf="!data.statusFlag">
@@ -74,15 +73,13 @@
         </div>
       </div>
     </div>
-    <!-- <div class="row g-3" *ngIf="data?.multipleImage == true && items.length > 0">
-      <mat-label>Images : </mat-label>
-      <div class="col-3 col-sm-3" *ngFor="let item of items; index as i">
-          <img [lightbox]="i" [src]="item.data.src" class="gallery-img">
-      </div>
-  </div> -->
-
- 
   </div>
 
- 
+
+  <!-- <div class="row g-3" *ngIf="data?.multipleImage == true && items.length > 0">
+    <mat-label>Images : </mat-label>
+    <div class="col-3 col-sm-3" *ngFor="let item of items; index as i">
+        <img [lightbox]="i" [src]="item.data.src" class="gallery-img">
+    </div>
+</div> -->
 </mat-dialog-content>
