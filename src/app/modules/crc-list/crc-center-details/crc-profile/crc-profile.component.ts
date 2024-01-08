@@ -136,7 +136,7 @@ export class CrcProfileComponent {
     if (this.statusForm.invalid) {
       this.spinner.hide();
       return
-    }else if(formData.chalkyApprovedQty >= this.tableDataArray?.chalkyApprovedQty){
+    }else if(formData?.chalkyApprovedQty >= this.tableDataArray?.chalkyCapacity){
       this.commonMethod.snackBar(this.lang == 'en' ? 'Approve Capacity Should Be Less Than Rearing Capacity' : 'मंजूर क्षमता संगोपन क्षमतेपेक्षा कमी असावी', 1)
       return
     } else {
