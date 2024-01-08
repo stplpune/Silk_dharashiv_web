@@ -94,14 +94,14 @@
             <div class="row gy-2 mb-3 gx-2">
               <div class="col-sm-12">
                 <div class="row gx-2 gy-2">
-                  <div class="col-sm-1 form-label">{{lang == 'en' ? 'Owner Name': 'मालकाचे नाव'}}</div>
-                  <div class="col-sm-11 form-data"> :  &nbsp; {{lang == 'en' ?  tableDataArray?.ownerName :  tableDataArray?.m_OwnerName|| '-'}}</div>
+                  <div class="col-sm-2 form-label">{{lang == 'en' ? 'Owner Name': 'मालकाचे नाव'}}</div>
+                  <div class="col-sm-10 form-data"> :  &nbsp; {{lang == 'en' ?  tableDataArray?.ownerName :  tableDataArray?.m_OwnerName|| '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="row gx-2">
-                  <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Mobile No': 'मोबाईल नंबर'}}</div>
-                  <div class="col-sm-9 form-data">:  &nbsp; {{tableDataArray?.mobileNo || '-'}}</div>
+                  <div class="col-sm-6 form-label"> {{lang == 'en' ? 'Mobile No': 'मोबाईल नंबर'}}</div>
+                  <div class="col-sm-6 form-data">:  &nbsp; {{tableDataArray?.mobileNo || '-'}}</div>
                 </div>
               </div>
               <!-- <div class="col-sm-4">
@@ -124,8 +124,8 @@
               </div>
               <div class="col-sm-4">
                 <div class="row gx-2">
-                  <div class="col-sm-3 form-label"> {{lang == 'en' ? 'Gender': 'लिंग'}}</div>
-                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.gender || '-'}}</div>
+                  <div class="col-sm-6 form-label"> {{lang == 'en' ? 'Gender': 'लिंग'}}</div>
+                  <div class="col-sm-6 form-data">:  &nbsp; {{tableDataArray?.gender || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-4">
@@ -142,8 +142,8 @@
             <div class="row g-3 align-items-center">
               <div class="col-sm-6">
                 <div class="row gx-2">
-                  <div class="col-sm-5 form-label"> {{lang == 'en' ? 'Total available space for CRC': 'CRC साठी एकूण उपलब्ध क्षेत्र'}}</div>
-                  <div class="col-sm-7 form-data">:  &nbsp; {{tableDataArray?.totalAreaForCRC || 0}} {{lang == 'en' ? 'sq.ft.': 'चौ.फूट'}}</div>
+                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Total available space for CRC': 'CRC साठी एकूण उपलब्ध क्षेत्र'}}</div>
+                  <div class="col-sm-8 form-data">:  &nbsp; {{tableDataArray?.totalAreaForCRC || 0}} {{lang == 'en' ? 'sq.ft.': 'चौ.फूट'}}</div>
                 </div>
               </div>
               <div class="col-sm-6">
@@ -154,8 +154,8 @@
               </div>
               <div class="col-sm-6">
                 <div class="row gx-2">
-                  <div class="col-sm-5 form-label"> {{lang == 'en' ? 'Rearing Capacity': 'संगोपन क्षमता'}}</div>
-                  <div class="col-sm-7 form-data">:   {{tableDataArray?.chalkyCapacity || 0}} DFLs</div>
+                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'Rearing Capacity': 'संगोपन क्षमता'}}</div>
+                  <div class="col-sm-8 form-data">:   {{tableDataArray?.chalkyCapacity || 0}} DFLs</div>
                 </div>
               </div>
               <div class="col-sm-6">
@@ -166,8 +166,8 @@
               </div>
               <div class="col-sm-6">
                 <div class="row gx-2">
-                  <div class="col-sm-5 form-label"> {{lang == 'en' ? 'CRC Status': 'CRC स्थिती'}}</div>
-                  <div class="col-sm-7 form-data"  [class]="tableDataArray?.statusId == 5 ?  ' text-danger rounded-2' : tableDataArray?.statusId == 1 ? ' text-warning rounded-2' :' text-success rounded-2'">: {{tableDataArray?.status || '-'}}</div>
+                  <div class="col-sm-4 form-label"> {{lang == 'en' ? 'CRC Status': 'CRC स्थिती'}}</div>
+                  <div class="col-sm-8 form-data"  [class]="tableDataArray?.statusId == 5 ?  ' text-danger rounded-2' : tableDataArray?.statusId == 1 ? ' text-warning rounded-2' :' text-success rounded-2'">: {{tableDataArray?.status || '-'}}</div>
                 </div>
               </div>
               <div class="col-sm-12"  *ngIf="statusForm.value.status == 5">
