@@ -76,7 +76,8 @@ export class GeneratePdfMgnregaComponent {
   applicationId: any;
   loginData: any;
   technicalEstId: any;
-  adminApproveLetter:any
+  adminApproveLetter:any;
+  letterInWords:any
 
   constructor
     (
@@ -250,7 +251,8 @@ export class GeneratePdfMgnregaComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.adminApproveLetter=res.responseData1;          
+          this.adminApproveLetter=res.responseData1; 
+          this.letterInWords = res.responseData2;         
         } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';
