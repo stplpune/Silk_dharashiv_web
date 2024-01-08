@@ -1,22 +1,22 @@
 <mat-card class="plain-card">
   <mat-card-header class="card-header">
-    <form [formGroup]="filterForm"  #formDirective="ngForm">
+    <form [formGroup]="filterForm"  #formDirective="ngForm" class="w-100">
     <div class="row gx-2 w-100">
       <div class="col-sm">
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>{{'cocoonSilkSell.Bill_no' | translate}}</mat-label>
-          <input matInput formControlName="BillNo" 
+          <input matInput formControlName="BillNo"
           (keypress)="validator.noFirstSpaceAllow($event)">
         </mat-form-field>
       </div>
-      <div class="col-sm">    
+      <div class="col-sm">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'cocoonSilkSell.Select_a_sales_center' | translate}}</mat-label>
             <mat-select formControlName="MarketCommiteeId">
               <mat-option *ngFor="let marketCommittee of marketCommitteeArr" [value]="marketCommittee.id">{{lang == 'en' ?
                 marketCommittee.textEnglish : marketCommittee.textMarathi}}</mat-option>
-            </mat-select>            
-          </mat-form-field>    
+            </mat-select>
+          </mat-form-field>
       </div>
       <div class="col-sm-2">
         <mat-form-field class="w-100" appearance="outline">
