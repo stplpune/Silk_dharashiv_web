@@ -61,6 +61,9 @@ export class BeneficiaryAppViewDetailsComponent {
   displayedColumnss = ['srNo', 'documentType', 'docNo', 'action'];
   displayedColumnses=['srNo', 'documentType', 'docNo', 'action'];
   displayedColumns1 = ['srNo', 'plantName', 'gutNo','gutArea','cultivatedArea','cultivatedPlantsCount'];
+  displayedColumnscropProduction: string[] = ['srno', 'cropname', 'areaacres', 'producedquintal', 'avgrateperquintal', 'finishedproduct', 'expenditureincurred', 'netincome', 'netincomeperacre'];
+  displayedScheme: string[] = ['srNo', 'sm_NameOfPlan', 'sm_PlanTakenDate', 'sm_TakenPlanBenefit']
+  
   plantationDetails= new Array();
   constructor
     (
