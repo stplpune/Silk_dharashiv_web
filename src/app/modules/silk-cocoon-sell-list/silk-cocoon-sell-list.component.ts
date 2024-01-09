@@ -80,8 +80,8 @@ export class SilkCocoonSellListComponent {
     let formValue = this.filterForm.value;
     let id = this.webStorage.getUserId()
     this.spinner.show();
-    let fromDate = this.commonMethod.setDate(this.filterForm?.getRawValue()?.fromDate)
-    let toDate = this.commonMethod.setDate(this.filterForm?.getRawValue()?.toDate)
+    let fromDate = this.commonMethod.setDate(this.filterForm?.getRawValue()?.FromDate)
+    let toDate = this.commonMethod.setDate(this.filterForm?.getRawValue()?.ToDate)
     flag == 'filter' ? this.pageNumber = 1 : ''
     this.apiService.setHttp('GET', `sericulture/api/SilkSell/GetSilkSellDetails?FarmerId=${id}&Id=0&BillNo=${formValue.BillNo || ''}&MarketCommiteeId=${formValue.MarketCommiteeId || 0}&FromDate=${fromDate || ''}&ToDate=${toDate || ''}&pageno=${this.pageNumber}&pagesize=10&lan=${this.lang}`, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
