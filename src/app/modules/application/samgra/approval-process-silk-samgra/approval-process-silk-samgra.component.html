@@ -515,23 +515,23 @@
           <ng-container matColumnDef="avgrateperquintal">
             <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.the_average_rate_obtained_per_quintal'|
               translate}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.averageRate}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.averageRate | currency:'INR'}} </td>
           </ng-container>
           <ng-container matColumnDef="finishedproduct">
             <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.finished_Prod'| translate}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.totalProductionAmt}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.totalProductionAmt | currency:'INR'}} </td>
           </ng-container>
           <ng-container matColumnDef="expenditureincurred">
             <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.the_expenditure_incurred'| translate}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.totalExpenses}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.totalExpenses | currency:'INR'}} </td>
           </ng-container>
           <ng-container matColumnDef="netincome">
             <th mat-header-cell *matHeaderCellDef> {{'approvalProcess.net_income'| translate}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.netIncome}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.netIncome | currency:'INR'}} </td>
           </ng-container>
           <ng-container matColumnDef="netincomeperacre">
             <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.net_income_per_acre'| translate}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.acreNetIncome}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.acreNetIncome | currency:'INR'}} </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumnscropProduction"></tr>
@@ -630,7 +630,7 @@
 
               <ng-container matColumnDef="sm_TakenPlanBenefit">
                 <th mat-header-cell *matHeaderCellDef>{{'approvalProcess.benefit_Amount'| translate}}</th>
-                <td mat-cell *matCellDef="let element"> {{element.totalBenefitTaken | dash}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.totalBenefitTaken | currency:'INR' || '-'}} </td>
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="displayedScheme"></tr>
