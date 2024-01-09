@@ -145,8 +145,8 @@ export class CreateSamgraAppComponent {
     let Id: any;
     this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
     if(Id){
-      this.samgraId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
-
+      let spliteUrl  =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`).split('.');
+      this.samgraId = spliteUrl[0];
       // this.samgraId = value.split('.');
     }
   }
