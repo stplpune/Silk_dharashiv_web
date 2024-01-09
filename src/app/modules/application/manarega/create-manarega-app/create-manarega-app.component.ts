@@ -576,7 +576,9 @@ export class CreateManaregaAppComponent {
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == "200") {
+          //  debugger
             this.previewData = res.responseData;
+            //console.log("jjjjjjjjjj",this.previewData?.editablePageNo)
             this.onEdit(this.previewData);
             let documentArray = new Array()
             documentArray = res.responseData?.documents;
