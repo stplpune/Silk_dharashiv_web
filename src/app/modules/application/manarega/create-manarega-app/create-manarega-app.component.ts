@@ -95,6 +95,7 @@ export class CreateManaregaAppComponent {
   manaregaAadhar: any;
   checkManaregaId: any;
   getLangForLocalStor!: string | null | any;
+  selectedIndex:any;
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -119,7 +120,10 @@ export class CreateManaregaAppComponent {
     let Id: any;
     this.route.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
     if (Id) {
-      this.manaregaAadhar = this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
+      let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`).split('.');
+      console.log("spliteUrl",spliteUrl)
+      this.manaregaAadhar = spliteUrl[0];
+      this.selectedIndex = spliteUrl[1];
     }
   }
 
