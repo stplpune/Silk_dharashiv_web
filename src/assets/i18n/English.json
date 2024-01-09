@@ -1012,10 +1012,10 @@
     "Total_Amount":"Total Amount"
   },
   "cocoonSilkSell":{
-    "Add_Cacoon" : "Add Cacoon",
-    "Add_Silk_Cacoon_Sell" :"Add Silk Cacoon Sell",
-    "update_Silk_Cacoon_Sell" :"Update Silk Cacoon Sell",
-    "view_Silk_Cacoon_Sell" :"View Silk Cacoon Sell",
+    "Add_Cacoon" : "Add Cocoon",
+    "Add_Silk_Cacoon_Sell" :"Add Silk Cocoon Sell",
+    "update_Silk_Cacoon_Sell" :"Update Silk Cocoon Sell",
+    "view_Silk_Cacoon_Sell" :"View Silk Cocoon Sell",
     "Lot_No" : "Lot No.",
     "Silkworm" : "Silkworm purchased from CRC center and produce silk against it.",
     "fund_caste" : "Silk Cocoon Caste",

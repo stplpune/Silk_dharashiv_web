@@ -59,7 +59,7 @@
         <div class="col-sm-4">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'cocoonSilkSell.Fund_Sale_Date' | translate}}</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="silkSellDate" [min]="minDate" [max]="maxDate">
+            <input matInput [matDatepicker]="picker" (click)="picker.open()" formControlName="silkSellDate" [min]="minDate" [max]="maxDate">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error
@@ -182,8 +182,9 @@
     </div>
     <div mat-dialog-actions class="modal-footer">
       <div class="d-flex align-items-center justify-content-end gap-2 w-100">
-        <button mat-flat-button class="btn-main-light" type="button" (click)="clearFormData()">Cancel</button>
-        <button mat-flat-button class="btn-main" type="submit">Submit</button>
+        <button mat-flat-button class="btn-main-light" type="button" (click)="clearFormData()">{{'common.clear'| translate}}</button>
+        <button mat-flat-button class="btn-main" type="submit">{{!data ? ('common.add'| translate) : ('common.update'|
+          translate)}}</button>
       </div>
     </div>
   </form>
