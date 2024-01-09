@@ -989,13 +989,15 @@ export class CreateSamgraAppComponent {
       res['isDeleted'] = false
     })
     this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
+    console.log("data.documents",data.documents);
+    
     this.docArray.find((ele: any, i: any) => {
       data.documents.find((item: any) => {
         if (ele.docTypeId == item.docId) {
           this.docArray[i].id = item.id
           this.docArray[i].docPath = item.documentPath
         } else {
-          if (item.docId == 7) { // 7 is other doc
+          if (item.docId == 7 && item.documentPath) { // 7 is other doc
             let existingValue = this.otherDocArray.find((ele: any) => ele.id == item.id)
             let obj = { id: item.id, docTypeId: 7, docPath: item.documentPath, docNo: item?.docNo || '', docname: item.documentName, isDeleted: false }
             !existingValue ? this.otherDocArray.push(obj) : '';
