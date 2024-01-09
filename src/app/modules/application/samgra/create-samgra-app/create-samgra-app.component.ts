@@ -19,6 +19,7 @@ import { DateAdapter } from '@angular/material/core';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { MatStepper } from '@angular/material/stepper';
 import { DatePipe } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-samgra-app',
@@ -106,6 +107,7 @@ export class CreateSamgraAppComponent {
   @ViewChild('selfDeclarationDirective') private selfDeclarationDirective: NgForm | any;
   @ViewChild('ScheemDirective') private ScheemDirective: NgForm | any;
   @ViewChild('DocumentDirective') private DocumentDirective: NgForm | any;
+  getLangForLocalStor!: string | null | any;//used for label translation 
 
   constructor(public dialog: MatDialog,
     private masterService: MasterService,
@@ -121,11 +123,13 @@ export class CreateSamgraAppComponent {
     private activatedRoute: ActivatedRoute,
     private dateAdapter: DateAdapter<Date>,
     private router: Router,
-    private datePipe:DatePipe
+    private datePipe:DatePipe,
+    private translate: TranslateService
   ) {
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor)
     this.dateAdapter.setLocale('en-GB');
     let Id: any;
-
     this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
     if(Id){
       this.samgraId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)

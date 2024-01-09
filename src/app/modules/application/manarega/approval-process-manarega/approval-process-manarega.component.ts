@@ -16,6 +16,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { ConfigService } from 'src/app/core/services/config.service';
 import { GeoTaggingComponent } from './geo-tagging/geo-tagging.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-approval-process-manarega',
@@ -49,6 +50,7 @@ export class ApprovalProcessManaregaComponent {
   selOtherDocIndex!: number;
   actionNameLabel!: string;
   uploadedDepDoc: any;
+  getLangForLocalStor!: string | null | any;
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -59,8 +61,11 @@ export class ApprovalProcessManaregaComponent {
     private fb: FormBuilder, private spinner: NgxSpinnerService,
     private errorHandler: ErrorHandlingService,
     private fileUplService: FileUploadService,
-    public commonMethod: CommonMethodsService,
-  ) { }
+    public commonMethod: CommonMethodsService, private translate: TranslateService
+  ) {
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor)
+  }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
@@ -269,7 +274,7 @@ export class ApprovalProcessManaregaComponent {
 
 
   imageUplod(event: any, label: string, i?: any) {
-    this.fileUplService.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc,pdf','','',this.lang ).subscribe({
+    this.fileUplService.uploadDocuments(event, 'Upload', 'png,jpg,jfif,jpeg,hevc,pdf', '', '', this.lang).subscribe({
       next: ((res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
@@ -451,7 +456,7 @@ export class ApprovalProcessManaregaComponent {
       return
     } else if (this.actionNameLabel && !this.uploadedDepDoc && this.applicationData?.isEdit && approvalFrmVal.applicationStatus == 12) {
       // actionId == 2 is Gramcommittee Approval	Gram Sevak
-      this.commonMethod.snackBar(this.applicationData?.actionId == 2 ? this.actionNameLabel + ' document is required' : 'Generate '+this.actionNameLabel +' Letter' , 1);
+      this.commonMethod.snackBar(this.applicationData?.actionId == 2 ? this.actionNameLabel + ' document is required' : 'Generate ' + this.actionNameLabel + ' Letter', 1);
       // this.commonMethod.snackBar(this.actionNameLabel + ' document is required', 1);
       return;
     } else if ((approvalFrmVal.applicationStatus == 11 || approvalFrmVal.applicationStatus == 5) && !approvalFrmVal?.reason) {
@@ -547,26 +552,26 @@ export class ApprovalProcessManaregaComponent {
   }
 
   clearForm() {
-    this.router.navigate(['../application'], {relativeTo:this.route})
+    this.router.navigate(['../application'], { relativeTo: this.route })
     // this.getByApplicationId();
     // this.formDirective.resetForm();
     // this.formDirectives.resetForm();
   }
 
   viewPdf() {
-    let str =this.applicationData?.applicationId+'.'+this.applicationData?.actionId;
+    let str = this.applicationData?.applicationId + '.' + this.applicationData?.actionId;
     const url = this.router.serializeUrl(
-      this.router.createUrlTree(['/generate-pdf-manrega'],{
+      this.router.createUrlTree(['/generate-pdf-manrega'], {
         queryParams: {
           id: str
         },
       })
     );
-  
+
     window.open(url, '_blank');
   }
 
-  clearReasonAndDoc(){
+  clearReasonAndDoc() {
     this.uploadedDepDoc = '';
     this.approvalFrm.controls['reason'].setValue(0);
   }

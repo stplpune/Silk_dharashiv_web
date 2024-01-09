@@ -15,6 +15,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { GeoTaggingComponent } from '../../manarega/approval-process-manarega/geo-tagging/geo-tagging.component';
+import { TranslateService } from '@ngx-translate/core';
 // import { GeoTaggingComponent } from '../../manarega/approval-process-manarega/geo-tagging/geo-tagging.component';
 
 @Component({
@@ -57,6 +58,7 @@ export class ApprovalProcessSilkSamgraComponent {
 
   displayedColumnscropProduction: string[] = ['srno', 'cropname', 'areaacres', 'producedquintal', 'avgrateperquintal', 'finishedproduct', 'expenditureincurred', 'netincome', 'netincomeperacre'];
   dataSourcecropProduction:any;
+  getLangForLocalStor!: string | null | any;
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -68,7 +70,11 @@ export class ApprovalProcessSilkSamgraComponent {
     private errorHandler: ErrorHandlingService,
     private fileUplService: FileUploadService,
     public commonMethod: CommonMethodsService,
-  ) { }
+    private translate: TranslateService
+  ) { 
+      localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor)
+  }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {

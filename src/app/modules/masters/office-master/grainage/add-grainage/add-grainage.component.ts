@@ -1,6 +1,7 @@
 import { Component, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -35,6 +36,7 @@ export class AddGrainageComponent {
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   gramPCtrl: FormControl = new FormControl();
   gramPSubject: ReplaySubject<any> = new ReplaySubject<any>();
+  getLangForLocalStor!: string | null | any;
 
   constructor(private fb: FormBuilder,
     private master: MasterService,
@@ -45,9 +47,13 @@ export class AddGrainageComponent {
     private common: CommonMethodsService,
     public dialog: MatDialog,
     public webStorage: WebStorageService,
+    private translate: TranslateService,
     public dialogRef: MatDialogRef<AddGrainageComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-  ) { }
+  ) { 
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor);
+  }
 
 
   ngOnInit() {

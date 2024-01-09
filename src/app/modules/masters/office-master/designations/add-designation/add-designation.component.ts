@@ -1,6 +1,7 @@
 import { Component, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -23,7 +24,8 @@ export class AddDesignationComponent {
   editFlag: boolean = false;
   @ViewChild('formDirective') private formDirective!: NgForm;
   isViewFlag: boolean = false;
-
+  getLangForLocalStor!: string | null | any;
+  
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -34,9 +36,13 @@ export class AddDesignationComponent {
     private WebStorageService: WebStorageService,
     private commonMethod: CommonMethodsService,
     public dialog: MatDialog,
+    private translate: TranslateService,
     public dialogRef: MatDialogRef<AddDesignationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
+  ) { 
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor);
+  }
 
   ngOnInit() {
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {

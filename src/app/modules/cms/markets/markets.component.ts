@@ -11,6 +11,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-markets',
@@ -34,6 +35,7 @@ export class MarketsComponent implements OnDestroy {
   talukaCtrl: FormControl = new FormControl();
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   @ViewChild('formDirective') private formDirective!: NgForm;
+  getLangForLocalStor!: string | null | any;
 
   constructor(public dialog: MatDialog,
     private fb: FormBuilder,
@@ -43,11 +45,14 @@ export class MarketsComponent implements OnDestroy {
     private errorHandler: ErrorHandlingService,
     private commonMethod: CommonMethodsService,
     public WebStorageService: WebStorageService,
-    public validation: ValidationService,) { }
+    public validation: ValidationService,
+    private translate: TranslateService) {
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor)
+  }
 
   ngOnInit() {
     this.WebStorageService.getAllPageName().filter((ele: any) => { return ele.pageName == "Markets" ? this.pageAccessObject = ele : '' })
-
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
@@ -298,8 +303,4 @@ export class MarketsComponent implements OnDestroy {
     this.subscription?.unsubscribe();
     this.talukaSubject.unsubscribe();
   }
-
-
-
-
 }

@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 declare var google: any;
 
@@ -27,9 +27,13 @@ export class GeoTaggingComponent {
   lng = 76.0420;
   map!: any;
   polygon: any;
+  getLangForLocalStor!: string | null | any;
 
   constructor(public dialogRef: MatDialogRef<GeoTaggingComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private apiService: ApiService, private commonMethod: CommonMethodsService,
-    private errorHandler: ErrorHandlingService, private WebStorageService: WebStorageService) {
+    private errorHandler: ErrorHandlingService, private WebStorageService: WebStorageService, private translate: TranslateService) {
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor)
+
     this.subscription = this.WebStorageService.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
