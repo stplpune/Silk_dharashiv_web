@@ -66,8 +66,9 @@ export class AadhaarNoValComponent {
         },
       });
     } else {
+      let redirectPage = (this.res?.responseData == 2 ?  this.res?.responseData2 : 1);
       let url = (this.selectedTab) == 1 ? 'create-manarega-app' : 'create-samgra-app';
-      let Id: any = this.encryptdecrypt.encrypt(`${this.aadhaarNo.getRawValue()}`);
+      let Id: any = this.encryptdecrypt.encrypt(`${this.aadhaarNo.getRawValue()}`+ '.' + `${redirectPage}`);
       this.router.navigate([url], {
         queryParams: {
           id: Id
