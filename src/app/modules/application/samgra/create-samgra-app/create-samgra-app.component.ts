@@ -57,6 +57,8 @@ export class CreateSamgraAppComponent {
   currentCropDetailsArray = new Array;
   lang: any;
   todayDate = new Date();
+  minDate = new Date();
+  maxDate = new Date();
   subscription!: Subscription;
   dataSource: any;
   dataSource1: any;
@@ -154,7 +156,10 @@ export class CreateSamgraAppComponent {
       this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date(currentYear - 100, 0, 1);
+    this.maxDate = new Date(currentYear - 18, 0, 1);
+    
     this.searchDataZone();
     this.samgraformData();
     this.landDetailsFormData();

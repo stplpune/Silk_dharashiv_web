@@ -78,7 +78,6 @@ export class AddSilkCocoonSellComponent {
     this.defaultFrm();
     this.getLotNumber();
     this.getMarketCommittee();
-
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 5, 0, 1);
   }
@@ -110,9 +109,12 @@ export class AddSilkCocoonSellComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.lotNoArr = res.responseData;
+        }else {
+          this.lotNoArr = [];
         }
       },
       error: (err: any) => {
+        this.lotNoArr = [];
         this.errorService.handelError(err.status);
       },
     });
@@ -142,9 +144,12 @@ export class AddSilkCocoonSellComponent {
       next: (res: any) => {
         if (res.statusCode == '200') {
           this.marketCommitteeArr = res.responseData;
+        }else{
+          this.marketCommitteeArr = [];
         }
       },
       error: (err: any) => {
+        this.marketCommitteeArr = [];
         this.errorService.handelError(err.status);
       },
     });
@@ -208,10 +213,8 @@ export class AddSilkCocoonSellComponent {
     if (flag == 'total') {
       let totalAmount = Number(formValue.silkRatePerKg) * Number(formValue.totalSilk);
       this.f['totalAmount'].setValue(totalAmount);
-
       let maketFeeTotal = totalAmount - Number(formValue.marketFees);
       this.f['totalAmtWithMarketFees'].setValue(maketFeeTotal);
-
     } else if (flag == 'marketFees') {
       let maketFeeTotal = Number(formValue.totalAmount) - Number(formValue.marketFees);
       this.f['totalAmtWithMarketFees'].setValue(maketFeeTotal);

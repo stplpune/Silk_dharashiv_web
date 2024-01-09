@@ -202,7 +202,7 @@
                   class="text-danger">*</span></mat-label>
                 <mat-form-field appearance="outline" class="w-100">
                   <input matInput [matDatepicker]="picker" formControlName="birthDate" (click)="picker.open()" readonly
-                    [max]="todayDate">
+                   [max]="maxDate" [min]="minDate">
                   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                   <mat-error
