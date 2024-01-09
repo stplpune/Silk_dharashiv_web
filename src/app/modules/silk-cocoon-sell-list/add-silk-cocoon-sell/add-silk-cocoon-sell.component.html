@@ -69,7 +69,7 @@
         <div class="col-sm-4">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'cocoonSilkSell.Bill_no' | translate}}</mat-label>
-            <input matInput placeholder="" formControlName="billNo"  (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecCharss($event)">
+            <input matInput placeholder="" formControlName="billNo" maxlength="20"  (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecCharss($event)">
             <mat-error
               *ngIf="f['billNo'].hasError('required')">{{'cocoonSilkSell.please_enter_bill_No'|translate}}</mat-error>
             <mat-error *ngIf="f['billNo']?.errors">
@@ -86,7 +86,7 @@
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'cocoonSilkSell.Selling_rate_per_kg_Rs' | translate}}</mat-label>
             <input matInput placeholder="" formControlName="silkRatePerKg" (input)="calculateAmount('total')"
-            (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
+            (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)" maxlength="10">
             <mat-error
               *ngIf="f['silkRatePerKg'].hasError('required')">{{'cocoonSilkSell.please_enter_sale_rate_kg'|translate}}</mat-error>
             <mat-error *ngIf="f['silkRatePerKg']?.errors">
@@ -102,7 +102,7 @@
         <div class="col-sm-4">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'cocoonSilkSell.Total_fund' | translate}} </mat-label>
-            <input matInput placeholder="" formControlName="totalSilk" (input)="calculateAmount('total')"
+            <input matInput placeholder="" formControlName="totalSilk" maxlength="5" (input)="calculateAmount('total')"
             (keypress)="validator.noFirstSpaceAllow($event);validator.onlyDigits($event)">
             <mat-error
               *ngIf="f['totalSilk'].hasError('required')">{{'cocoonSilkSell.please_enter_total_fund'|translate}}</mat-error>

@@ -5,8 +5,7 @@
       <div class="col-sm">
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>{{'cocoonSilkSell.Bill_no' | translate}}</mat-label>
-          <input matInput formControlName="BillNo"
-          (keypress)="validator.noFirstSpaceAllow($event)">
+          <input matInput formControlName="BillNo" maxlength="20" (keypress)="validator.noFirstSpaceAllow($event);validator.alphaNumericWithSpacesAndSpecCharss($event)" >
         </mat-form-field>
       </div>
       <div class="col-sm">

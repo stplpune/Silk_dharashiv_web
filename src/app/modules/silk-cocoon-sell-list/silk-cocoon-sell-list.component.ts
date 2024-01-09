@@ -89,6 +89,7 @@ export class SilkCocoonSellListComponent {
         this.spinner.hide();
         if (res.statusCode == '200') {
           this.tableDataArray = res.responseData1;
+          this.tableDatasize = res.responseData2.totalCount;
         } else {
           this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
           this.spinner.hide();
