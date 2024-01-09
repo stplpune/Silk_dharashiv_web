@@ -79,7 +79,18 @@ export class CreateSamgraAppComponent {
   displayedColumns5: string[] = ['srno', 'internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken'];
 
   docUploadedPath: string = '';
-  docArray = [{ id: 0, docTypeId: 16, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 18, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 19, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 21, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 11, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 25, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 14, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 8, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 17, docPath: '', docNo: '', docname: '', isDeleted: false }]
+  // docArray = [{ id: 0, docTypeId: 16, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 18, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 19, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 21, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 11, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 25, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 14, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 8, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 17, docPath: '', docNo: '', docname: '', isDeleted: false }]
+  docArray = [
+    { id: 0, docTypeId: 16, docPath: '', docNo: '', docname: '', isDeleted: false }, 
+    { id: 0, docTypeId: 17, docPath: '', docNo: '', docname: '', isDeleted: false },
+    { id: 0, docTypeId: 18, docPath: '', docNo: '', docname: '', isDeleted: false },
+    { id: 0, docTypeId: 20, docPath: '', docNo: '', docname: '', isDeleted: false },
+     { id: 0, docTypeId: 11, docPath: '', docNo: '', docname: '', isDeleted: false },
+    { id: 0, docTypeId: 24, docPath: '', docNo: '', docname: '', isDeleted: false }, 
+    { id: 0, docTypeId: 14, docPath: '', docNo: '', docname: '', isDeleted: false },
+     { id: 0, docTypeId: 7, docPath: '', docNo: '', docname: '', isDeleted: false },
+     { id: 0, docTypeId: 8, docPath: '', docNo: '', docname: '', isDeleted: false }
+    ]
   otherDocArray = new Array();
   uploadedDocUrl: any;
   profileImageUrl: any;
@@ -525,7 +536,7 @@ export class CreateSamgraAppComponent {
       res.applicationId = this.previewData?.id || this.currentRecordId || 0
       res.createdBy = 0
     })
-    let documets = formDocuments.filter((res: any) => { return res.docPath })
+    // let documets = formDocuments.filter((res: any) => { return res.docPath })
     let obj = {
       ...samgraFormValue,
       ...landDetailsFormValue,
@@ -575,7 +586,7 @@ export class CreateSamgraAppComponent {
       // "flag": (flag == 'samgraForm' && !this.EditFlag) ? 0 : (flag == 'samgraForm' && this.EditFlag) ? 1 : flag == 'landDetailsForm' ? 2 : flag == 'bankDetailsForm' ? 3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'addCurrency' ? 7 : '',
       "flag": (flag == 'samgraForm' &&  this.currentRecordId == 0) ? 0 : (flag == 'samgraForm' && this.currentRecordId !=0) ? 1 : flag == 'landDetailsForm' ? 2 : flag == 'bankDetailsForm' ? 3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'addCurrency' ? 7 : '',
       "isUpdate": true,
-      "appDoc": documets,
+      "appDoc": formDocuments,
       "categoryId": this.checkedItems.map((x: any) => { return x.id }),
       "plantingDetails": [],
       "currentProducts": this.currentCropDetailsArray,
@@ -892,10 +903,12 @@ export class CreateSamgraAppComponent {
   }
 
   deleteOtherDoc(index: any) {
+    let formValue = this.otherDocForm.value
+    let indexVal = this.otherDocArray.findIndex((ele: any) => index.id > 0 ?  (ele.id == index.id) : (ele.id == index.id) && (ele.docname == formValue?.docname))
     if (index.id == 0) {
-      this.otherDocArray.splice(index, 1)
+      this.otherDocArray.splice(indexVal, 1)
     } else {
-      let indexVal = this.otherDocArray.findIndex((ele: any) => ele.id == index.id)
+      // let indexVal = this.otherDocArray.findIndex((ele: any) => ele.id == index.id)
       this.otherDocArray[indexVal].isDeleted = true
     };
     this.bindOtherDocTable();
