@@ -10,6 +10,7 @@ import { MasterService } from 'src/app/core/services/master.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { DateAdapter } from '@angular/material/core';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-add-market-list',
   templateUrl: './add-market-list.component.html',
@@ -32,7 +33,8 @@ export class AddMarketListComponent {
   talukaCtrl: FormControl = new FormControl();
   talukaSubject: ReplaySubject<any> = new ReplaySubject<any>();
   get a() { return this.marketFrm.controls }
-
+  getLangForLocalStor!: string | null | any;
+  
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -43,10 +45,14 @@ export class AddMarketListComponent {
     public WebStorageService: WebStorageService,
     private commonMethod: CommonMethodsService,
     public dialog: MatDialog,
+    private translate: TranslateService,
     private dialogRef: MatDialogRef<AddMarketListComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dateAdapter: DateAdapter<Date>,
-  ) { this.dateAdapter.setLocale('en-GB') }
+  ) { this.dateAdapter.setLocale('en-GB');
+  localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor) 
+  }
 
   ngOnInit() {
 

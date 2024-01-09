@@ -43,7 +43,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   styleUrls: ['./beneficiery-timeline.component.scss']
 })
 export class BeneficieryTimelineComponent {
-  
+
   pageNumber: number = 1;
   tableDataArray = new Array();
   tableDatasize!: number;
@@ -51,13 +51,13 @@ export class BeneficieryTimelineComponent {
   highLightRowFlag: boolean = false;
   subscription!: Subscription;
   lang: string = 'English';
-  routingData:any;
-  farmerNameEn:any;
-  farmerNameMr:any;
-  beneficieryId :any;
-  farmerId:any;
-  dataSource :any
-  displayedColumns: string[] = ['srNo','postImages','postData','likes','action'];
+  routingData: any;
+  farmerNameEn: any;
+  farmerNameMr: any;
+  beneficieryId: any;
+  farmerId: any;
+  dataSource: any
+  displayedColumns: string[] = ['srNo', 'postImages', 'postData', 'likes', 'action'];
   currentPage: number = 0;
   totalCount: any;
   constructor(
@@ -68,51 +68,36 @@ export class BeneficieryTimelineComponent {
     private errorService: ErrorHandlingService,
     private activatedRoute: ActivatedRoute,
     public encryptdecrypt: AesencryptDecryptService,
-    public dialog: MatDialog,
-
+    public dialog: MatDialog
   ) { }
+  
   ngOnInit() {
-
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {
       this.lang = res ? res : (localStorage.getItem('language') ? localStorage.getItem('language') : 'English');
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
-      // this.setTableData();
-    })   
-    this.activatedRoute.queryParams.subscribe((params:any)=>{
+    })
+    this.activatedRoute.queryParams.subscribe((params: any) => {
       this.routingData = params['id'];
-     })
-     let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
-     this.beneficieryId = spliteUrl[0]; 
-     this.farmerNameEn = spliteUrl[1];
-     this.farmerNameMr =  spliteUrl[2];
-     this.farmerId =  spliteUrl[3];
+    })
+    let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(this.routingData)}`).split('.');
+    this.beneficieryId = spliteUrl[0];
+    this.farmerNameEn = spliteUrl[1];
+    this.farmerNameMr = spliteUrl[2];
+    this.farmerId = spliteUrl[3];
     this.getTableData();
   }
 
-
-  // childCompInfo(obj?: any) {
-  //   switch (obj.label) {
-  //     case 'Pagination':
-  //       this.pageNumber = obj.pageNumber;
-  // this.getTableData();
-  //       break;
-  //     case 'Delete':
-  //       this.deleteDialogOpen(obj);
-  //       break;
-  //   }
-  // }
-
   getTableData() {
-    this.spinner.show();  
-    let str = `&PageNo=${this.pageNumber}&PageSize=10`;  
-    this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetBeneficieryTimeline?FarmerId='+1+(str)+'&lan='+this.lang, false, false, false, 'masterUrl');
+    this.spinner.show();
+    let str = `&PageNo=${this.pageNumber}&PageSize=10`;
+    this.apiService.setHttp('GET', 'sericulture/api/Beneficiery/GetBeneficieryTimeline?FarmerId=' + 1 + (str) + '&lan=' + this.lang, false, false, false, 'masterUrl');
     this.apiService.getHttp().subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.statusCode == '200') {
-          this.tableDataArray = res.responseData.responseData1;  
-          this.dataSource = new MatTableDataSource( this.tableDataArray);  
-           this.totalPages = res.responseData.responseData2.totalPages;
+          this.tableDataArray = res.responseData.responseData1;
+          this.dataSource = new MatTableDataSource(this.tableDataArray);
+          this.totalPages = res.responseData.responseData2.totalPages;
           this.tableDatasize = res.responseData.responseData2.totalCount;
         } else {
           this.common.checkDataType(res.statusMessage) == false ? this.errorService.handelError(res.statusCode) : '';
@@ -120,7 +105,6 @@ export class BeneficieryTimelineComponent {
           this.tableDataArray = [];
           this.tableDatasize = 0;
         }
-        // this.setTableData();
       },
       error: (err: any) => {
         this.spinner.hide();
@@ -128,30 +112,6 @@ export class BeneficieryTimelineComponent {
       },
     });
   }
-
-  // setTableData() {
-  //   this.highLightRowFlag = true;
-  //   let displayedColumns = ['srNo', 'postImages', (this.lang == 'en' ? 'postData' : 'm_PostData'),'likes','shares','action']; //'action'
-  //   let displayedheaders = this.lang == 'en' ? ['Sr. No.','Image', 'Description', 'Likes', ' Views','Share','Action'] : ['अनुक्रमांक', 'प्रतिमा','वर्णन','पसंती', 'शेअर करा','कृती'];// 'पहा' 'view'
-
-  //   let tableData = {
-  //     pageNumber: this.pageNumber,
-  //     highlightedrow: true,
-  //     pagination: this.tableDatasize > 10 ? true : false,
-  //     displayedColumns: displayedColumns,
-  //     tableData: this.tableDataArray,
-  //     tableSize: this.tableDatasize,
-  //     tableHeaders: displayedheaders,
-  //     delete: true,
-  //     view: true,
-  //     track: false,
-  //     edit: false,
-  //     img: 'postImages',
-
-  //   };
-  //   this.highLightRowFlag ? (tableData.highlightedrow = true) : (tableData.highlightedrow = false);
-  //   this.apiService.tableData.next(tableData);
-  // }
 
   deleteDialogOpen(delObj?: any) {
     let dialogObj = {
@@ -169,7 +129,7 @@ export class BeneficieryTimelineComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result == 'Yes') {
-        this.apiService.setHttp('delete', 'sericulture/api/Beneficiery/DeleteTimeline?Id='+(delObj?.id)+'&lan='+this.lang, false, false, false, 'masterUrl');
+        this.apiService.setHttp('delete', 'sericulture/api/Beneficiery/DeleteTimeline?Id=' + (delObj?.id) + '&lan=' + this.lang, false, false, false, 'masterUrl');
         this.apiService.getHttp().subscribe({
           next: (res: any) => {
             if (res.statusCode == '200') {
@@ -193,16 +153,14 @@ export class BeneficieryTimelineComponent {
     this.getTableData();
   }
 
-
-
   openDetailsDialog(obj: any) {
     let dialogObj = {
-     multipleImage: true,
+      multipleImage: true,
       Obj: obj,
     };
     const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '80%',
-      height:'80%',
+      height: '80%',
       data: dialogObj,
       disableClose: true,
       autoFocus: false,
@@ -213,8 +171,5 @@ export class BeneficieryTimelineComponent {
       }
       this.highLightRowFlag = false;
     });
- }
-
-
-
+  }
 }

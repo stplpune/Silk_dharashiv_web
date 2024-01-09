@@ -19,6 +19,7 @@ import { DateAdapter } from '@angular/material/core';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { MatStepper } from '@angular/material/stepper';
 import { DatePipe } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-samgra-app',
@@ -56,6 +57,8 @@ export class CreateSamgraAppComponent {
   currentCropDetailsArray = new Array;
   lang: any;
   todayDate = new Date();
+  minDate = new Date();
+  maxDate = new Date();
   subscription!: Subscription;
   dataSource: any;
   dataSource1: any;
@@ -78,7 +81,18 @@ export class CreateSamgraAppComponent {
   displayedColumns5: string[] = ['srno', 'internalSchemeName', 'schemeTakenDate', 'totalBenefitTaken'];
 
   docUploadedPath: string = '';
-  docArray = [{ id: 0, docTypeId: 16, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 18, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 19, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 21, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 11, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 25, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 14, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 8, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 17, docPath: '', docNo: '', docname: '', isDeleted: false }]
+  // docArray = [{ id: 0, docTypeId: 16, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 18, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 19, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 21, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 11, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 25, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 14, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 8, docPath: '', docNo: '', docname: '', isDeleted: false }, { id: 0, docTypeId: 17, docPath: '', docNo: '', docname: '', isDeleted: false }]
+  docArray = [
+    { id: 0, docTypeId: 16, docPath: '', docNo: '', docname: '', isDeleted: false }, 
+    { id: 0, docTypeId: 17, docPath: '', docNo: '', docname: '', isDeleted: false },
+    { id: 0, docTypeId: 18, docPath: '', docNo: '', docname: '', isDeleted: false },
+    { id: 0, docTypeId: 20, docPath: '', docNo: '', docname: '', isDeleted: false },
+     { id: 0, docTypeId: 11, docPath: '', docNo: '', docname: '', isDeleted: false },
+    { id: 0, docTypeId: 24, docPath: '', docNo: '', docname: '', isDeleted: false }, 
+    { id: 0, docTypeId: 14, docPath: '', docNo: '', docname: '', isDeleted: false },
+     { id: 0, docTypeId: 7, docPath: '', docNo: '', docname: '', isDeleted: false },
+     { id: 0, docTypeId: 8, docPath: '', docNo: '', docname: '', isDeleted: false }
+    ]
   otherDocArray = new Array();
   uploadedDocUrl: any;
   profileImageUrl: any;
@@ -106,6 +120,7 @@ export class CreateSamgraAppComponent {
   @ViewChild('selfDeclarationDirective') private selfDeclarationDirective: NgForm | any;
   @ViewChild('ScheemDirective') private ScheemDirective: NgForm | any;
   @ViewChild('DocumentDirective') private DocumentDirective: NgForm | any;
+  getLangForLocalStor!: string | null | any;//used for label translation 
 
   constructor(public dialog: MatDialog,
     private masterService: MasterService,
@@ -121,15 +136,17 @@ export class CreateSamgraAppComponent {
     private activatedRoute: ActivatedRoute,
     private dateAdapter: DateAdapter<Date>,
     private router: Router,
-    private datePipe:DatePipe
+    private datePipe:DatePipe,
+    private translate: TranslateService
   ) {
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor)
     this.dateAdapter.setLocale('en-GB');
     let Id: any;
-
     this.activatedRoute.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
     if(Id){
-      this.samgraId =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
-
+      let spliteUrl  =  this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`).split('.');
+      this.samgraId = spliteUrl[0];
       // this.samgraId = value.split('.');
     }
   }
@@ -139,7 +156,10 @@ export class CreateSamgraAppComponent {
       this.lang = res ? res : localStorage.getItem('language') ? localStorage.getItem('language') : 'English';
       this.lang = this.lang == 'English' ? 'en' : 'mr-IN';
     })
-
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date(currentYear - 100, 0, 1);
+    this.maxDate = new Date(currentYear - 18, 0, 1);
+    
     this.searchDataZone();
     this.samgraformData();
     this.landDetailsFormData();
@@ -521,7 +541,7 @@ export class CreateSamgraAppComponent {
       res.applicationId = this.previewData?.id || this.currentRecordId || 0
       res.createdBy = 0
     })
-    let documets = formDocuments.filter((res: any) => { return res.docPath })
+    // let documets = formDocuments.filter((res: any) => { return res.docPath })
     let obj = {
       ...samgraFormValue,
       ...landDetailsFormValue,
@@ -571,7 +591,7 @@ export class CreateSamgraAppComponent {
       // "flag": (flag == 'samgraForm' && !this.EditFlag) ? 0 : (flag == 'samgraForm' && this.EditFlag) ? 1 : flag == 'landDetailsForm' ? 2 : flag == 'bankDetailsForm' ? 3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'addCurrency' ? 7 : '',
       "flag": (flag == 'samgraForm' &&  this.currentRecordId == 0) ? 0 : (flag == 'samgraForm' && this.currentRecordId !=0) ? 1 : flag == 'landDetailsForm' ? 2 : flag == 'bankDetailsForm' ? 3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'addCurrency' ? 7 : '',
       "isUpdate": true,
-      "appDoc": documets,
+      "appDoc": formDocuments,
       "categoryId": this.checkedItems.map((x: any) => { return x.id }),
       "plantingDetails": [],
       "currentProducts": this.currentCropDetailsArray,
@@ -888,10 +908,12 @@ export class CreateSamgraAppComponent {
   }
 
   deleteOtherDoc(index: any) {
+    let formValue = this.otherDocForm.value
+    let indexVal = this.otherDocArray.findIndex((ele: any) => index.id > 0 ?  (ele.id == index.id) : (ele.id == index.id) && (ele.docname == formValue?.docname))
     if (index.id == 0) {
-      this.otherDocArray.splice(index, 1)
+      this.otherDocArray.splice(indexVal, 1)
     } else {
-      let indexVal = this.otherDocArray.findIndex((ele: any) => ele.id == index.id)
+      // let indexVal = this.otherDocArray.findIndex((ele: any) => ele.id == index.id)
       this.otherDocArray[indexVal].isDeleted = true
     };
     this.bindOtherDocTable();
@@ -972,13 +994,15 @@ export class CreateSamgraAppComponent {
       res['isDeleted'] = false
     })
     this.dataSource1 = new MatTableDataSource(this.internalSchemesArray);
+    console.log("data.documents",data.documents);
+    
     this.docArray.find((ele: any, i: any) => {
       data.documents.find((item: any) => {
         if (ele.docTypeId == item.docId) {
           this.docArray[i].id = item.id
           this.docArray[i].docPath = item.documentPath
         } else {
-          if (item.docId == 7) { // 7 is other doc
+          if (item.docId == 7 && item.documentPath) { // 7 is other doc
             let existingValue = this.otherDocArray.find((ele: any) => ele.id == item.id)
             let obj = { id: item.id, docTypeId: 7, docPath: item.documentPath, docNo: item?.docNo || '', docname: item.documentName, isDeleted: false }
             !existingValue ? this.otherDocArray.push(obj) : '';

@@ -11,6 +11,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { Subscription } from 'rxjs';
 import { AddDesignationComponent } from './add-designation/add-designation.component';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-designations',
   templateUrl: './designations.component.html',
@@ -31,6 +32,7 @@ export class DesignationsComponent implements OnDestroy {
   pageAccessObject: object | any;
   searchDataFlag: boolean = false
   @ViewChild('formDirective') private formDirective!: NgForm;
+  getLangForLocalStor!: string | null | any;
 
   constructor(private fb: FormBuilder,
     private apiService: ApiService,
@@ -40,8 +42,12 @@ export class DesignationsComponent implements OnDestroy {
     private errorHandler: ErrorHandlingService,
     private commonMethod: CommonMethodsService,
     public dialog: MatDialog,
+    private translate: TranslateService,
     private WebStorageService: WebStorageService
-  ) { }
+  ) { 
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor);
+  }
 
   ngOnInit() {
     this.WebStorageService.getAllPageName().filter((ele: any) => { return ele.pageName == "Designation" ? this.pageAccessObject = ele : '' })

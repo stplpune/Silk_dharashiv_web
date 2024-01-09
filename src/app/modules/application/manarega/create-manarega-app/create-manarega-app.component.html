@@ -49,7 +49,7 @@
     <!--linear  -->
     <!-- [stepControl]="manaregaFrm" -->
     
-    <mat-stepper #stepper linear>
+    <mat-stepper #stepper linear [selectedIndex]="selectedIndex - 1">
       <mat-step [stepControl]="manaregaFrm">
         <ng-template matStepLabel>{{'approvalProcess.original_details'| translate}}</ng-template>
          <form [formGroup]="manaregaFrm" >

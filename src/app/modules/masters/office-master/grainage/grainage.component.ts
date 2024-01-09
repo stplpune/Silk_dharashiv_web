@@ -11,6 +11,7 @@ import { ErrorHandlingService } from 'src/app/core/services/error-handling.servi
 import { CommonMethodsService } from 'src/app/core/services/common-methods.service';
 import { GlobalDialogComponent } from 'src/app/shared/components/global-dialog/global-dialog.component';
 import { MasterService } from 'src/app/core/services/master.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-grainage',
@@ -29,6 +30,7 @@ export class GrainageComponent {
   searchDataFlag: boolean = false
   subscription!: Subscription;//used  for lang conv
   lang: string = 'English';
+  getLangForLocalStor!: string | null | any;
   get fl() { return this.filterFrm.controls };
 
   constructor(private fb: FormBuilder,
@@ -39,7 +41,11 @@ export class GrainageComponent {
     private errorService: ErrorHandlingService,
     private common: CommonMethodsService,
     public dialog: MatDialog,
-    public webStorage: WebStorageService) { }
+    private translate: TranslateService,
+    public webStorage: WebStorageService) { 
+      localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+      this.translate.use(this.getLangForLocalStor)
+    }
 
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {

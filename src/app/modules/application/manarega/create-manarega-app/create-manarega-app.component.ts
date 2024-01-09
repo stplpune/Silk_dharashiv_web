@@ -19,6 +19,7 @@ import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decry
 import { MatStepper } from '@angular/material/stepper';
 import { DatePipe } from '@angular/common';
 import { DateAdapter } from '@angular/material/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-manarega-app',
@@ -91,10 +92,10 @@ export class CreateManaregaAppComponent {
   previewDocName: any
   routingData: any;//used for get routing data
   @ViewChild('stepper') private myStepper!: MatStepper;
-  // isFormDisabled: boolean = true; //disable enable form
-  // @ViewChild('myForm')form:any;
   manaregaAadhar: any;
-  checkManaregaId: any
+  checkManaregaId: any;
+  getLangForLocalStor!: string | null | any;
+  selectedIndex:any;
 
   constructor(public dialog: MatDialog,
     private apiService: ApiService,
@@ -111,12 +112,18 @@ export class CreateManaregaAppComponent {
     private datePipe: DatePipe,
     private dateAdapter: DateAdapter<Date>,
     public encryptdecrypt: AesencryptDecryptService,
+    private translate: TranslateService
   ) {
     this.dateAdapter.setLocale('en-GB');
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor)
     let Id: any;
     this.route.queryParams.subscribe((queryParams: any) => { Id = queryParams['id'] });
     if (Id) {
-      this.manaregaAadhar = this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`)
+      let spliteUrl = this.encryptdecrypt.decrypt(`${decodeURIComponent(Id)}`).split('.');
+      console.log("spliteUrl",spliteUrl)
+      this.manaregaAadhar = spliteUrl[0];
+      this.selectedIndex = spliteUrl[1];
     }
   }
 
@@ -214,12 +221,12 @@ export class CreateManaregaAppComponent {
     })
   }
 
-  addDocumentFrm(data?:any) {
+  addDocumentFrm(data?: any) {
     this.documentFrm = this.fb.group({
       // 'allRequiredDocument': ['', [Validators.required]],
       "isHonestlyProtectPlant": [data?.isHonestlyProtectPlant || '', [Validators.required]],
     })
- }
+  }
 
   addRegistrationFrm() {
     this.addRegistrationRecFrm = this.fb.group({
@@ -576,7 +583,9 @@ export class CreateManaregaAppComponent {
       this.apiService.getHttp().subscribe({
         next: ((res: any) => {
           if (res.statusCode == "200") {
+            //  debugger
             this.previewData = res.responseData;
+            //console.log("jjjjjjjjjj",this.previewData?.editablePageNo)
             this.onEdit(this.previewData);
             let documentArray = new Array()
             documentArray = res.responseData?.documents;
@@ -693,16 +702,16 @@ export class CreateManaregaAppComponent {
           return
         }
       }
-    if( this.documentFrm.getRawValue().isHonestlyProtectPlant == false){
-      this.commonMethod.snackBar((this.lang == 'en' ? "Please select checkbox" : "कृपया चेकबॉक्स निवडा"),1);
-      return
-    }
-    else{
-      this.onSubmit(stepper, lable);
-    }
-     // this.documentFrm.getRawValue().isHonestlyProtectPlant == true ? this.onSubmit(stepper, lable) : '';
+      if (this.documentFrm.getRawValue().isHonestlyProtectPlant == false) {
+        this.commonMethod.snackBar((this.lang == 'en' ? "Please select checkbox" : "कृपया चेकबॉक्स निवडा"), 1);
+        return
+      }
+      else {
+        this.onSubmit(stepper, lable);
+      }
+      // this.documentFrm.getRawValue().isHonestlyProtectPlant == true ? this.onSubmit(stepper, lable) : '';
 
-    } 
+    }
     // else if (lable == 'document' && this.documentFrm.valid) {
     //   for (let i = 0; i < this.docArray.length; i++) { //check all doc path
     //     if (this.docArray[i].docTypeId != 18 && this.docArray[i].docTypeId != 8 && this.docArray[i].docPath == '') {
@@ -817,8 +826,8 @@ export class CreateManaregaAppComponent {
       "createdBy": this.WebStorageService.getUserId(),
       "flag": (flag == 'farmerInfo' && !this.EditFlag) ? 0 : (flag == 'farmerInfo' && this.EditFlag) ? 1 : flag == 'farmInfo' ? 2 : flag == 'bankInfo' ? 3 : flag == 'document' ? 4 : flag == 'selfDeclaration' ? 5 : flag == 'challan' ? 7 : '',
       "isUpdate": true,
-     // "appDoc": filterByDoc,
-       "appDoc": mergeDocumentArray,
+      // "appDoc": filterByDoc,
+      "appDoc": mergeDocumentArray,
       "categoryId": this.checkedItems.map((x: any) => { return x.id }),
       //"categoryId":
       "plantingDetails": this.farmDetails,

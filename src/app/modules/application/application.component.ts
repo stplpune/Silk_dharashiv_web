@@ -12,6 +12,7 @@ import { WebStorageService } from 'src/app/core/services/web-storage.service';
 import { AesencryptDecryptService } from 'src/app/core/services/aesencrypt-decrypt.service';
 import { TrackApplicationComponent } from 'src/app/components/track-application/track-application.component';
 import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-application',
@@ -42,7 +43,8 @@ export class ApplicationComponent {
   routingData: any;
   spliteUrlData!: any;
   isLoanApplicable = [{label:'Yes',m_label:'होय',val:true},{label:'No', m_label:'नाही',val:false}]
-
+  getLangForLocalStor!: string | null | any;
+  
   constructor(private fb: FormBuilder,
     private master: MasterService,
     private spinner: NgxSpinnerService,
@@ -55,7 +57,11 @@ export class ApplicationComponent {
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-  ) { this.webStorage.getMobileNo() }
+    private translate: TranslateService
+  ) { 
+    localStorage.getItem('language') ? this.getLangForLocalStor = localStorage.getItem('language') : localStorage.setItem('language', 'English'); this.getLangForLocalStor = localStorage.getItem('language');
+    this.translate.use(this.getLangForLocalStor);
+    this.webStorage.getMobileNo(); }
 
   ngOnInit() {
     this.subscription = this.webStorage.setLanguage.subscribe((res: any) => {

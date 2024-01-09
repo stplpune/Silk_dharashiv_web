@@ -202,7 +202,7 @@
                   class="text-danger">*</span></mat-label>
                 <mat-form-field appearance="outline" class="w-100">
                   <input matInput [matDatepicker]="picker" formControlName="birthDate" (click)="picker.open()" readonly
-                    [max]="todayDate">
+                   [max]="maxDate" [min]="minDate">
                   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                   <mat-error
@@ -526,9 +526,10 @@
                     {{'addSamgra.Add_details' | translate}}
                   </button>
                 </div>
+                
                 <div class="table-responsive scrollbar">
+                  <!-- <ng-container *ngIf="currentCropDetailsArray?.length; else elseBlock1">    -->
                   <table mat-table [dataSource]="dataSource" class="dashboard-table">
-
                     <ng-container matColumnDef="srno">
                       <th mat-header-cell *matHeaderCellDef>  {{'addSamgra.sr_No' | translate}} </th>
                       <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
@@ -599,10 +600,12 @@
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                  </table>
-                  <!-- <div *ngIf="!dataSource?.value.length && dataSource" class="alert alert-danger text-center mt-1 py-2 mb-0">
-                    <span> {{lang == 'en' ? 'Data not available' :'डेटा उपलब्ध नाही'}}</span>
-                  </div> -->
+                  </table>    
+                <!-- </ng-container> 
+               <ng-template #elseBlock1>
+                  <div class="alert alert-danger text-center m-2 p-2" colspan="12" > {{'approvalProcess.no_data_found'| translate}}
+                  </div>
+              </ng-template>               -->
                 </div>
               </div>
 

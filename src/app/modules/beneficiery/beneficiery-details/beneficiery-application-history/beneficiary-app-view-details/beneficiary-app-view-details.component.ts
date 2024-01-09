@@ -108,6 +108,8 @@ export class BeneficiaryAppViewDetailsComponent {
             }
           });
           this.applicationApproveData=res.responseData.allApplicationApproval; 
+          console.log("applicationApproveData",this.applicationApproveData);
+          
           } else {
           this.spinner.hide();
           this.commonMethod.checkDataType(res.statusMessage) == false ? this.errorHandler.handelError(res.statusCode) : '';

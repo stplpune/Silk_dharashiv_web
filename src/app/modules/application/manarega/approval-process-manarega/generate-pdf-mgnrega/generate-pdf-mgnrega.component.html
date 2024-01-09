@@ -15,7 +15,7 @@
     </div>
     <div class="letter-bg">
         <div>जा.क्र. रेशीम/धा.शि./मनरेगा/तां. मं./{{actionID == 4 ? sanctionArray?.technicalSanctionId : actionID == 3 ? technicalEstId?.technicalEstimateId :  actionID == 5 ? adminApproveLetter?.administrativeApprovalId :  ''}}</div>
-        <div>दिनांक: {{actionID == 4 ? (sanctionArray?.sanctiondate | date:'dd-MM-yyyy') : actionID == 5  ? (adminApproveLetter?.generateDate | date:'dd-MM-yyyy') : ''}}</div>
+        <div *ngIf="actionID == 4  || actionID == 5 ">दिनांक: {{actionID == 4 ? (sanctionArray?.sanctiondate | date:'dd-MM-yyyy') : actionID == 5  ? (adminApproveLetter?.generateDate | date:'dd-MM-yyyy') : ''}}</div>
     </div>
     <mat-card class="plain-card form-container" *ngIf="actionID == 3">
         <mat-card-content class="card-body" id="report3">
@@ -23,7 +23,7 @@
                 <div class="col-sm-12 text-center">
                     <h4>परिशिष्ट - ३</h4>
                     <h5>रेशीम संचालनालय, नागपूर</h5>
-                    <h6>मनरेगा अंतर्गत केंद्र शासनाची अधिसूचना दिनांक {{showDate | date:'dd-MM-yyyy'}}</h6>
+                    <h6>मनरेगा अंतर्गत केंद्र शासनाची अधिसूचना दिनांक {{ showDate | date:'dd-MM-yyyy'}}</h6>
                     <p>महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजने अंतर्गत एक एकर तुती लागवड संवर्धन व
                         कोष उत्पादनासाठी खर्चाचे अंदाजपत्रक (रुपये) तक्ता क्रमांक - १</p>
                         <!-- <p class="text-end fw-bold">Application Id:{{sanctionArray[0]?.applicationNo}}</p> -->
