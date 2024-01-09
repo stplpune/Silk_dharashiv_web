@@ -18,8 +18,7 @@
               <div class="form-label mb-0">{{lang == 'en' ? 'Application ID (Date)' : 'अर्ज क्रमांक (तारीख'}}</div>
             </div>
             <div class="col-sm-6">
-              <div class="form-data">: {{tableData?.applicationNo || 0}} ({{tableData?.applicationDate | date:'dd-mm-yyyy'
-                || '-'}})</div>
+              <div class="form-data">: {{tableData?.applicationNo || 0}} ({{tableData?.applicationDate | date:'dd/MM/yyyy' || '-'}})</div>
             </div>
           </div>
         </div>
@@ -136,7 +135,7 @@
   
           <ng-container matColumnDef="modifiedDate">
             <th mat-header-cell *matHeaderCellDef>  {{lang == 'en' ? 'Approval Date' : 'मंजुरीची तारीख'}}</th>
-            <td mat-cell *matCellDef="let element"> {{element.modifiedDate | date:'dd-mm-yyyy'}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.modifiedDate | date:'dd-MM-yyyy'}} </td>
           </ng-container>
   
           <ng-container matColumnDef="remark">
@@ -405,7 +404,7 @@
             </div>
           </li>
         </ul>
-        <div class="table-responsive scrollbar">
+        <div class="table-responsive scrollbar" *ngIf="getProfileData?.isAnyPlantedBeforeGovScheme == true">
           <table mat-table [dataSource]="plantationDetails" class="dashboard-table mb-0">
             <ng-container matColumnDef="srNo">
               <th mat-header-cell *matHeaderCellDef>  {{lang == 'en' ? 'Sr. No.' : 'अनुक्रमांक'}}</th>
